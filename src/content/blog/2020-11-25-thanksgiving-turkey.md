@@ -15,44 +15,41 @@ heroImage: "/images/blog/2020-11-25-thanksgiving-turkey/turkey-hero.jpg"
 
 I stole this recipe from the <a href="https://www.bonappetit.com/recipe/expertly-spiced-and-glazed-roast-turkey" target="_blank">November 2019 issue of Bon Appetit</a>. This expertly spiced & glazed turkey is cut into pieces, dry-rubbed overnight, and glazed continuously during its slow cook. It's still the best turkey I've ever had.
 
-![BA's best](/images/blog/2020-11-25-thanksgiving-turkey/ba.png)
+![BA's best](https://lh3.googleusercontent.com/pw/AP1GczOejXkISEGn-hp7bUCkC0mk2OtXtjy2Swps0lJjwb0wOiuhtD9HdOTqyBS7uHWWKVxlkBwX2Q9Yw7JrbP0mEixLWHKOBhMwGcYwYebT9vGl0LT26LU70bklNOgJkZWHcLlGc0tC8ka0M30O5Dyqzl0x=w2684-h1714-s-no-gm)
 
-<h4>Ingredients:</h4>
+#### Ingredients
 
-<p><em>The Bird</em></p>
-<ul>
-    <li itemProp="recipeIngredient">16-18 lb free range turkey</li>
-</ul>
+##### The Bird
 
-<p>If you get a smaller turkey, it will cook faster.</p>
+- 16-18 lb free range turkey
 
-<p><em>Dry Rub</em></p>
-<ul>
-    <li itemProp="recipeIngredient">¼ cup Diamond Crystal salt</li>
-    <li itemProp="recipeIngredient">1 tablespoon black pepper</li>
-    <li itemProp="recipeIngredient">1 tablespoon granulated garlic</li>
-    <li itemProp="recipeIngredient">1 tablespoon smoked paprika</li>
-    <li itemProp="recipeIngredient">1 tablespoon garlic powder</li>
-    <li itemProp="recipeIngredient">1 tablespoon onion powder</li>
-    <li itemProp="recipeIngredient">1 tablespoon brown sugar</li>
-</ul>
+If you get a smaller turkey, it will cook faster.
 
-<p><em>The Glaze</em></p>
-<ul>
-    <li itemProp="recipeIngredient">Small handful of hardy herbs (such as sage, rosemary, bay leaves, and/or thyme)</li>
-    <li itemProp="recipeIngredient">2 garlic cloves</li>
-    <li itemProp="recipeIngredient">2x 1 inch strips orange zest</li>
-    <li itemProp="recipeIngredient">⅓ cup soy sauce</li>
-    <li itemProp="recipeIngredient">⅓ cup brown sugar</li>
-    <li itemProp="recipeIngredient">⅓ cup sherry vinegar</li>
-    <li itemProp="recipeIngredient">4 tablespoons olive oil</li>
-</ul>
+##### Dry Rub
 
-<h4>Instructions:</h4>
+- ¼ cup Diamond Crystal salt
+- 1 tablespoon black pepper
+- 1 tablespoon granulated garlic
+- 1 tablespoon smoked paprika
+- 1 tablespoon garlic powder
+- 1 tablespoon onion powder
+- 1 tablespoon brown sugar
 
-<p itemProp="recipeInstruction">Cut the turkey into 5 pieces: two wing pieces, two full legs, and the double breast with the bone left in. It's much better if you ask your butcher to cut it for you (shoutout to <a href="http://www.publicanqualitymeats.com/" target="_blank">Publican Quality Meats</a> in Chicago), but if you have to cut it yourself, just look for a good video online.</p>
+##### The Glaze
 
-<p itemProp="recipeInstruction">Mix all the dry rub ingredients together and generously cover the turkey pieces in it. Do it two times over. Put the turkey pieces in the fridge overnight and keep it uncovered.</p>
+- Small handful of hardy herbs (such as sage, rosemary, bay leaves, and/or thyme)
+- 2 garlic cloves
+- 2x 1 inch strips orange zest
+- ⅓ cup soy sauce
+- ⅓ cup brown sugar
+- ⅓ cup sherry vinegar
+- 4 tablespoons olive oil
+
+#### Instructions:
+
+Cut the turkey into 5 pieces: two wing pieces, two full legs, and the double breast with the bone left in. It's much better if you ask your butcher to cut it for you (shoutout to [Publican Quality Meats](http://www.publicanqualitymeats.com/) in Chicago), but if you have to cut it yourself, just look for a good video online.
+
+Mix all the dry rub ingredients together and generously cover the turkey pieces in it. Do it two times over. Put the turkey pieces in the fridge overnight and keep it uncovered.
 
 ![Spice mix](/images/blog/2020-11-25-thanksgiving-turkey/spice-mix.jpg)
 
@@ -60,21 +57,21 @@ I end up not using all of the spice mix the day before, but when I pull the turk
 
 ![Dry rub](/images/blog/2020-11-25-thanksgiving-turkey/dry-rub.jpg)
 
-<p itemProp="recipeInstruction">By now, it's Turkey Day and you took the bird out of the fridge and you're ready to cook it. Let it rest at room temp for at least an hour before cooking.</p>
+By now, it's Turkey Day and you took the bird out of the fridge and you're ready to cook it. Let it rest at room temp for at least an hour before cooking.
 
-<p itemProp="recipeInstruction">Preheat the oven to 425° and start making the glaze. Put the herbs, garlic, orange zest, soy sauce, brown sugar, and vinegar in a small saucepan over medium heat, stirring occasionally, until sugar is dissolved and glaze thickens slightly (it should just barely coat a spoon), 10–12 minutes. Remove glaze from heat.</p>
+Preheat the oven to 425° and start making the glaze. Put the herbs, garlic, orange zest, soy sauce, brown sugar, and vinegar in a small saucepan over medium heat, stirring occasionally, until sugar is dissolved and glaze thickens slightly (it should just barely coat a spoon), 10–12 minutes. Remove glaze from heat.
 
 ![Glaze](/images/blog/2020-11-25-thanksgiving-turkey/glaze.jpg)
 
-<p itemProp="recipeInstruction">Rub the turkey pieces with olive oil and put it in the oven for 15 minutes, then rotate it and do another 15 minutes. Now turn the oven down to 250°, take the turkey out and put a layer of glaze on it. This may seem like a weird temperature but trust me.</p>
+Rub the turkey pieces with olive oil and put it in the oven for 15 minutes, then rotate it and do another 15 minutes. Now turn the oven down to 250°, take the turkey out and put a layer of glaze on it. This may seem like a weird temperature but trust me.
 
-<p itemProp="recipeInstruction">Set a timer for 25 minutes and repeat the glazing process 5-6 more times. At this point, the wings will probably be done. It's okay to pull them out early and continue baking/glazing the breast & legs 2-3 more times.</p>
+Set a timer for 25 minutes and repeat the glazing process 5-6 more times. At this point, the wings will probably be done. It's okay to pull them out early and continue baking/glazing the breast & legs 2-3 more times.
 
 ![Wings](/images/blog/2020-11-25-thanksgiving-turkey/wings.jpg)
 
-<p itemProp="recipeInstruction">You'll know the breast is done when it reaches 160° and the leg pieces will need to get to 170°.</p>
+You'll know the breast is done when it reaches 160° and the leg pieces will need to get to 170°.
 
-<p itemProp="recipeInstruction">When it's done, take it out and let it rest for at least 30 minutes. At this point, you can cut it however you want. Don't forget to set aside some dark meat for the dog, and also a small allotment for the turkey tetrazzini that you'll make tomorrow or the next day (recipe coming soon).</p>
+When it's done, take it out and let it rest for at least 30 minutes. At this point, you can cut it however you want. Don't forget to set aside some dark meat for the dog, and also a small allotment for the turkey tetrazzini that you'll make tomorrow or the next day (recipe coming soon).
 
 ![Final turkey](/images/blog/2020-11-25-thanksgiving-turkey/turkey-1.jpg)
 
