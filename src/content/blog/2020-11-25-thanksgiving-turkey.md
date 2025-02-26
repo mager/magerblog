@@ -67,14 +67,14 @@ Rub the turkey pieces with olive oil and put it in the oven for 15 minutes, then
 
 Set a timer for 25 minutes and repeat the glazing process 5-6 more times. At this point, the wings will probably be done. It's okay to pull them out early and continue baking/glazing the breast & legs 2-3 more times.
 
-![Wings](/images/blog/2020-11-25-thanksgiving-turkey/wings.jpg)
+![Wings](https://lh3.googleusercontent.com/pw/AP1GczNpiP8SyylLLvhwIrDCEmC9dW1nYwG2YoDLc43MpTKXvmomDQlLyUFBKPnyLexnwdtsjTGcTqnL6SZqmmL_UbGxy_rkTnQDjdae4vjvBfSS1CAf3BF5QelxkpQOJ2AStvg6BEgnoMxYKJZs0Tb3z1gI=w1286-h1714-s-no-gm)
 
 You'll know the breast is done when it reaches 160° and the leg pieces will need to get to 170°.
 
 When it's done, take it out and let it rest for at least 30 minutes. At this point, you can cut it however you want. Don't forget to set aside some dark meat for the dog, and also a small allotment for the turkey tetrazzini that you'll make tomorrow or the next day (recipe coming soon).
 
-![Final turkey](/images/blog/2020-11-25-thanksgiving-turkey/turkey-1.jpg)
+![Final turkey](https://lh3.googleusercontent.com/pw/AP1GczO0l02_bMsnafofz8mSK5mRmTmMC7dkYpjxXL2p01bvMjDKOBcpqQWgQ_rBoSjXbgOU9KxNdHhVUu_64Cqnby4X1QlDTqFkbwby87TgQSeprPa2CYvLW7zcPegW_OOuxhxnTXfYwWD_aNQlx9uk2BHc=w1200-h599-s-no-gm)
 
-Please let me know if you end up making your turkey this way. I need to also mention that <a href="https://www.bonappetit.com/recipe/why-is-it-so-good-gravy" target="_blank">this gravy recipe</a> goes perfectly with the turkey.
+Please let me know if you end up making your turkey this way. I need to also mention that [this gravy recipe](https://www.bonappetit.com/recipe/why-is-it-so-good-gravy) goes perfectly with the turkey.
 
 Enjoy and Happy Thanksgiving!
