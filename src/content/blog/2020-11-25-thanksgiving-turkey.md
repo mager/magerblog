@@ -5,7 +5,7 @@ pubDate: "2020-11-25"
 updatedDate: "2022-11-25"
 description: "I stole this recipe from the November 2019 Bon Appetit. This expertly spiced & glazed turkey is cut into pieces, dry-rubbed overnight, and glazed continuously during it's slow cook. It's still the best turkey I've ever had."
 tags: ["Recipe"]
-heroImage: "/images/blog/2020-11-25-thanksgiving-turkey/turkey-hero.jpg"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO0l02_bMsnafofz8mSK5mRmTmMC7dkYpjxXL2p01bvMjDKOBcpqQWgQ_rBoSjXbgOU9KxNdHhVUu_64Cqnby4X1QlDTqFkbwby87TgQSeprPa2CYvLW7zcPegW_OOuxhxnTXfYwWD_aNQlx9uk2BHc=w1200-h599-s-no-gm"
 ---
 
 <ul class="recipe-meta">
@@ -13,7 +13,7 @@ heroImage: "/images/blog/2020-11-25-thanksgiving-turkey/turkey-hero.jpg"
     <li>Cook time: 4 hours</li>
 </ul>
 
-I stole this recipe from the <a href="https://www.bonappetit.com/recipe/expertly-spiced-and-glazed-roast-turkey" target="_blank">November 2019 issue of Bon Appetit</a>. This expertly spiced & glazed turkey is cut into pieces, dry-rubbed overnight, and glazed continuously during its slow cook. It's still the best turkey I've ever had.
+I stole this recipe from the [November 2019 issue of Bon Appetit](https://www.bonappetit.com/recipe/expertly-spiced-and-glazed-roast-turkey). This expertly spiced & glazed turkey is cut into pieces, dry-rubbed overnight, and glazed continuously during its slow cook. It's still the best turkey I've ever had.
 
 ![BA's best](https://lh3.googleusercontent.com/pw/AP1GczOejXkISEGn-hp7bUCkC0mk2OtXtjy2Swps0lJjwb0wOiuhtD9HdOTqyBS7uHWWKVxlkBwX2Q9Yw7JrbP0mEixLWHKOBhMwGcYwYebT9vGl0LT26LU70bklNOgJkZWHcLlGc0tC8ka0M30O5Dyqzl0x=w2684-h1714-s-no-gm)
 
@@ -51,17 +51,17 @@ Cut the turkey into 5 pieces: two wing pieces, two full legs, and the double bre
 
 Mix all the dry rub ingredients together and generously cover the turkey pieces in it. Do it two times over. Put the turkey pieces in the fridge overnight and keep it uncovered.
 
-![Spice mix](/images/blog/2020-11-25-thanksgiving-turkey/spice-mix.jpg)
+![Spice mix](https://lh3.googleusercontent.com/pw/AP1GczPzwiFMdo3pcSPrnRhxF6_bI9VZPVyghD0pqcq2LzqjVseUQw4fNO8-v2UEnQU3u9fa77-NoEQ8BCLfp1HPA6waK5lVSeTjzaTRzVuXerPW_D4fvdZM5chPSuZiN2T_qNT6S3A_9TwvKW6p4TcGJfmH=w1656-h1714-s-no-gm)
 
 I end up not using all of the spice mix the day before, but when I pull the turkey out of the fridge, I add a little more spice. Here's the turkey before I put it in the fridge:
 
-![Dry rub](/images/blog/2020-11-25-thanksgiving-turkey/dry-rub.jpg)
+![Dry rub](https://lh3.googleusercontent.com/pw/AP1GczP3sb69kJgdnBH3-23mt7W2uNN6DFJPjdplHEH3dTTuTbboSsZhbNiCmxDuwYlNtdmbqD1_1n5lNqP14s61Z15rpaE3gRxl2BNGQUPUTCgdkU3flGFynfpwW7qR99K7bijiPAaV7DretOr4HHj33hO8=w2048-h1522-s-no-gm)
 
 By now, it's Turkey Day and you took the bird out of the fridge and you're ready to cook it. Let it rest at room temp for at least an hour before cooking.
 
 Preheat the oven to 425° and start making the glaze. Put the herbs, garlic, orange zest, soy sauce, brown sugar, and vinegar in a small saucepan over medium heat, stirring occasionally, until sugar is dissolved and glaze thickens slightly (it should just barely coat a spoon), 10–12 minutes. Remove glaze from heat.
 
-![Glaze](/images/blog/2020-11-25-thanksgiving-turkey/glaze.jpg)
+![Glaze](https://lh3.googleusercontent.com/pw/AP1GczMOdurNhhqkwn4oA5CEWUMJC8ONQbw9SWLaCzsn1SS_1xlQeLLzc5WKRLkr8oy7Hw_JdTsWUKu3mk-tIfAB5sTRJjdLiQ9VJPAfqDY0xnuTDmfgI1Yi1mxvWouQxOl-oPgEcIHeyz4wyrSHbn2_xm6s=w1702-h1714-s-no-gm)
 
 Rub the turkey pieces with olive oil and put it in the oven for 15 minutes, then rotate it and do another 15 minutes. Now turn the oven down to 250°, take the turkey out and put a layer of glaze on it. This may seem like a weird temperature but trust me.
 
