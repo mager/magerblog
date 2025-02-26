@@ -4,7 +4,7 @@ title: "Recipe: Quarantine Chocolate Chip Cookies"
 pubDate: "2020-11-01"
 description: Your new go-to cookie recipe, great for quarantining.
 category: "food"
-heroImage: /images/blog/2020-11-01-chocolate-chip-cookies/cookies.jpg
+heroImage: https://lh3.googleusercontent.com/pw/AP1GczN--0rwnuOIjJ7AZAZBNkiu-S_b_vgzZf8EoelJNB1DsKPurcf1SaED2Xu3kOo7WNy_YWr7tFg1M5qs1i-z1Iia2s9eaZzkXOg5D9nCtuj-XH0mA9mNLK5DSlfjKgZZluo_SIYqCoWfObvszQICTZyP=w2048-h1627-s-no-gm
 ---
 
 <ul class="recipe-meta">
@@ -14,9 +14,9 @@ heroImage: /images/blog/2020-11-01-chocolate-chip-cookies/cookies.jpg
 
 I haven't posted on here as much as I'd like (2020), but I'm excited to share my first recipe. If you have a sweet tooth like me, then you understand the value of a good chocolate chip cookie.
 
-Up until about 6 months ago, I didn't have a chocolate chip cookie recipe in my arsenal, until I discovered this gem from Milk Bar's Christina Tosi.
+Up until about 6 months ago, I didn't have a chocolate chip cookie recipe in my arsenal, until I discovered this gem from [Milk Bar's Christina Tosi](https://www.christinatosi.com/post/best-ever-chocolate-chip-cookies).
 
-<a href="https://www.christinatosi.com/post/best-ever-chocolate-chip-cookies" target="_blank">![Better image coming soon](/images/blog/2020-11-01-chocolate-chip-cookies/tosi.png)</a>
+![](https://lh3.googleusercontent.com/pw/AP1GczMeCM67pmaYC7oqnSJ5nk67kjAXyJiepmOK1THAWGQxWga-6OHwHPSrxPVK4cmgozN6a7uRtGQNYr8LiSMx7a4XN5OoQ9Z9kkFN9YkOFoxxaJ690F8uFjkGVtCHHe5uSRoUZ0mjS6DdQBXUpVvh97LA=w2684-h1714-s-no-gm)
 
 The key here is to get your butter to room temperature, then put it in the fridge for 15 minutes before you start. This makes creaming the butter with the sugars easy and it sets up a nice base for your dough.
 
@@ -64,7 +64,7 @@ And the milk powder is optional, but I highly recommend it.
     Bake for 16-18 minutes, then take the cookies out to cool and rest for at least 30 minutes (unless you want warm, gooey chocolate chips). These cookies go great with a bowl of Scooter's vanilla frozen custard (if you live in Chicago).
 </p>
 
-![His and hers](/images/blog/2020-11-01-chocolate-chip-cookies/cookies.jpg)
+![His and hers](https://lh3.googleusercontent.com/pw/AP1GczN--0rwnuOIjJ7AZAZBNkiu-S_b_vgzZf8EoelJNB1DsKPurcf1SaED2Xu3kOo7WNy_YWr7tFg1M5qs1i-z1Iia2s9eaZzkXOg5D9nCtuj-XH0mA9mNLK5DSlfjKgZZluo_SIYqCoWfObvszQICTZyP=w2048-h1627-s-no-gm)
 
 ---
 
