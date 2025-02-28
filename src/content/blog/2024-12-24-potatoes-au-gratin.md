@@ -19,7 +19,7 @@ Amazing cassarole that you save for special occasions. Special thanks to Claire 
 
 ![Bon Appetit](/images/blog/2024-12-24-potatoes-au-gratin/bon-appetit.png)
 
-<h4>Ingredients:</h4>
+#### Ingredients
 
 <ul>
     <li itemProp="recipeIngredient">6 garlic cloves, diced</li>
@@ -34,7 +34,7 @@ Amazing cassarole that you save for special occasions. Special thanks to Claire 
     <li itemProp="recipeIngredient">1 oz. Parmesan, finely grated</li>
 </ul>
 
-<h4>Instructions:</h4>
+#### Instructions
 
 <p itemProp="recipeInstruction">Preheat oven to 325°. Rub butter all over inside of a cassarole dish.</p>
 

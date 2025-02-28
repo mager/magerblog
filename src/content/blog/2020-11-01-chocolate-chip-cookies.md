@@ -22,50 +22,35 @@ The key here is to get your butter to room temperature, then put it in the fridg
 
 And the milk powder is optional, but I highly recommend it.
 
-<h4>Ingredients:</h4>
-<ul>
-    <li itemProp="recipeIngredient">1 ¾ cups AP flour</li>
-    <li itemProp="recipeIngredient">2 tablespoons milk powder (it's on Amazon)</li>
-    <li itemProp="recipeIngredient">1 ½ teaspoons salt (slightly more than Tosi's recipe)</li>
-    <li itemProp="recipeIngredient">½ teaspoon baking powder</li>
-    <li itemProp="recipeIngredient">¼ teaspoon baking soda</li>
-    <li itemProp="recipeIngredient">1 cup (2 sticks, trust me) unsalted butter, super soft but cold</li>
-    <li itemProp="recipeIngredient">¾ cup light brown sugar</li>
-    <li itemProp="recipeIngredient">½ cup regular sugar</li>
-    <li itemProp="recipeIngredient">1 egg</li>
-    <li itemProp="recipeIngredient">2 teaspoons vanilla extract </li>
-    <li itemProp="recipeIngredient">1 10-12 oz bag chocolate chips (<a href="https://www.guittard.com/our-chocolate/detail/super-cookie-chocolate-chips">Guittard Super Chips</a> are the best)</li>
-    <li itemProp="recipeIngredient">½ cup chopped walnuts (optional)</li>
-</ul>
+#### Ingredients
 
-<h4>Instructions:</h4>
+- 1 ¾ cups AP flour
+- 2 tablespoons milk powder (it's on Amazon)
+- 1 ½ teaspoons salt (slightly more than Tosi's recipe)
+- ½ teaspoon baking powder
+- ¼ teaspoon baking soda
+- 1 cup (2 sticks, trust me) unsalted butter, super soft but cold
+- ¾ cup light brown sugar
+- ½ cup regular sugar
+- 1 egg
+- 2 teaspoons vanilla extract 
+- 1 10-12 oz bag chocolate chips (<a href="https://www.guittard.com/our-chocolate/detail/super-cookie-chocolate-chips">Guittard Super Chips</a> are the best)
+- ½ cup chopped walnuts (optional)
 
-<p itemProp="recipeInstruction">
-    Preheat the oven at 350° and get a sheet pan ready. You're going to freeze these cookies for later, but you might as well make a couple now.
-</p>
+#### Instructions
 
-<p itemProp="recipeInstruction">
-    Mix together all the dry ingredients (flour, milk powder, salt, baking soda/powder) in a bowl and set aside.
-</p>
+Preheat the oven at 350° and get a sheet pan ready. You're going to freeze these cookies for later, but you might as well make a couple now.
 
-<p itemProp="recipeInstruction">
-    In another, larger bowl, take a spatula or egg-beater-like tool and whip the butter and sugars until they form a homogeneous mix. In a small cup, beat the egg with the vanilla, then add to the buttery sugar mix and stir.
-</p>
+Mix together all the dry ingredients (flour, milk powder, salt, baking soda/powder) in a bowl and set aside.
 
-<p itemProp="recipeInstruction">
-    Slowly mix the dry stuff into the wet stuff until you have a dough with no floury parts visible. Add the chips and nuts and mix together.
-</p>
+In another, larger bowl, take a spatula or egg-beater-like tool and whip the butter and sugars until they form a homogeneous mix. In a small cup, beat the egg with the vanilla, then add to the buttery sugar mix and stir.
 
-<p itemProp="recipeInstruction">
-    At this point you're ready to form the cookies. Using an ice cream scoop, or your hands, form golf ball-sized balls. Put the first two cookies on the sheet pan for immediate baking, the rest in a freezer bag and freeze.
-</p>
+Slowly mix the dry stuff into the wet stuff until you have a dough with no floury parts visible. Add the chips and nuts and mix together.
 
-<p itemProp="recipeInstruction">
-    Bake for 16-18 minutes, then take the cookies out to cool and rest for at least 30 minutes (unless you want warm, gooey chocolate chips). These cookies go great with a bowl of Scooter's vanilla frozen custard (if you live in Chicago).
-</p>
+At this point you're ready to form the cookies. Using an ice cream scoop, or your hands, form golf ball-sized balls. Put the first two cookies on the sheet pan for immediate baking, the rest in a freezer bag and freeze.
+
+Bake for 16-18 minutes, then take the cookies out to cool and rest for at least 30 minutes (unless you want warm, gooey chocolate chips). These cookies go great with a bowl of Scooter's vanilla frozen custard (if you live in Chicago).
 
 ![His and hers](https://lh3.googleusercontent.com/pw/AP1GczN--0rwnuOIjJ7AZAZBNkiu-S_b_vgzZf8EoelJNB1DsKPurcf1SaED2Xu3kOo7WNy_YWr7tFg1M5qs1i-z1Iia2s9eaZzkXOg5D9nCtuj-XH0mA9mNLK5DSlfjKgZZluo_SIYqCoWfObvszQICTZyP=w2048-h1627-s-no-gm)
-
----
 
 Hope you enjoy these cookies as much as I do. Stay tuned for more recipes coming soon!

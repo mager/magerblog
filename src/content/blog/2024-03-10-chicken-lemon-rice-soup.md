@@ -19,7 +19,7 @@ This recipe is partially inspired by the NY Times [Chicken and Rice Soup](https:
 
 ![](/images/blog/2024-03-10-chicken-lemon-rice-soup/website.png)
 
-<h4>Ingredients:</h4>
+#### Ingredients
 
 <ul>
     <li itemProp="recipeIngredient">1 medium sweet onion</li>
@@ -42,7 +42,7 @@ This recipe is partially inspired by the NY Times [Chicken and Rice Soup](https:
     <li itemProp="recipeIngredient">Add sweet corn and green chilies</li>
 </ul>
 
-<h4>Instructions:</h4>
+#### Instructions
 
 <p itemProp="recipeInstruction">Rinse and pick the parsley and let it dry for chopping later. Dice the onion and cut the carrots into bite-sized pieces. Grate the garlic and set aside. </p>
 
