@@ -1,9 +1,10 @@
 ---
 title: "Meatballs"
 pubDate: "2025-02-17"
-updatedDate: "2025-02-17"
+updatedDate: "2025-02-28"
 description: A taste of Italy anytime, these meatballs will steal the show at any special occasion or a Tuesday.
 category: "food"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPCYQ19vuUHqGhcODGZzH2S1lKjkjyHIlEx1Wrs5UluF4gbAtbfsP4j60ft_zudEPdfDF8vpQJTFSfSbjswQeMxpnAVFC3_Rh8FK58i8RTrhDFXSMb49fbxFzz34PCb1c_CPk1BRX7Fr0a5Hu0CCc_0=w2400-h1432-s-no-gm"
 ---
 
 <ul class="recipe-meta">
@@ -14,7 +15,6 @@ category: "food"
 ---
 
 This recipe is heavily inspired by "Italian American" by Angie Rito. 
-
 
 #### Ingredients:
 
@@ -30,9 +30,6 @@ This recipe is heavily inspired by "Italian American" by Angie Rito.
 - 2 eggs
 - Salt, pepper, garlic powder
 
-
-![](/images/blog/2024-12-29-mac-and-cheese/prep.jpg)
-
 #### Instructions:
 
 Chop the onions and garlic and set aside. Pick the parsley and set aside. Strip the white part of the bread off a baguette with a fork and add to a bowl with the half & half. Let sit for 15 minutes, then squeeze the bread to remove as much liquid as possible.
@@ -46,5 +43,7 @@ Preheat the oven at 425 degrees convection.
 Using a 1/4 cup measuring cup, make 24-30 balls. Put them on a large sheet pan with parchment paper. Be very liberal with the olive oil, you want a brown crust on them.
 
 Put the sheet pan in the middle of the oven for 15 minutes. Halfway through, take them out and flip them. Back in for 15 minutes.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczPJ6sP2KPiar7pnRzyKvj3e7tQ4ZnkvEXbHEy2FRrOHgLMS9kaInpoyjME_j0s5dWi525xJcN0gN03tDs9wh-5sS_UrDRmSpwO3GhW1sMxGGCALWprbItX4uHdLWDocKYds2jEZaVH0FR68yqX8u15Y=w2286-h1714-s-no-gm)
 
 Bring them out and let them cool for 10 minutes. Add to red sauce, a hoagie roll, or your favorite salad as a topper. Enjoy!

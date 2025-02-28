@@ -5,7 +5,7 @@ pubDate: "2024-12-29"
 updatedDate: "2024-12-30"
 description: My staple mac & cheese, just a few pantry incredients and a lot of comfort.
 tags: ["Recipe"]
-heroImage: /images/blog/2024-12-29-mac-and-cheese/hero.jpg
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO_BIexJMh7c0nQGZvfwN3wrPZTCUiW89zzzJ0CmwlQDjrH5ojx5M0W38JIhTyOGYMzPRVqC9uFYQS4iifK0-85dVEuxwn-xtFvw5DxYXspsYCfdw24ZHMmvbnGtgWguzQWjEhshY5LKw-sPDSayP9q=w3024-h1438-s-no-gm"
 ---
 
 <ul class="recipe-meta">
@@ -27,7 +27,7 @@ heroImage: /images/blog/2024-12-29-mac-and-cheese/hero.jpg
 - ¼ tsp mustard powder (optional)
 - 16 oz cooked pasta (pipe rigate, elbow macaroni, or shells)
 
-![](/images/blog/2024-12-29-mac-and-cheese/prep.jpg)
+![](https://lh3.googleusercontent.com/pw/AP1GczMoB5z0jUD-pQjMvfN2fgjOzENGGbk6ZQyrn279L23xyK79sHfeneuWo3GNRD5lgt1E5LQeCdnn5qNV1THY95eCIQO34L_XT4XYuUsKJFBkLiCFTVomT5eWOAnX9qK4U_VcnOoz7xA-Z4aBOo36oW7C=w2286-h1714-s-no-gm)
 
 #### Instructions:
 
@@ -43,4 +43,4 @@ Season the sauce with salt, pepper, garlic powder and mustard poweder, if using.
 
 Serve hot, optionally garnished with more grated parm.
 
-![](/images/blog/2024-12-29-mac-and-cheese/mac-final.jpg)
+![](https://lh3.googleusercontent.com/pw/AP1GczNvQKX7ABditX8Zh1_9P43RAk8slIYF7aURwjjvmfjs_SnqdcacJTMeRTIkgm8aISt9wJsE1GwctxpLyqXarGxq5BIa-xZEt_R3-yxCo72sjJ02L2e8e_YKsLw0CbWtvnLeTPFVv0E-mv14QeiOypNh=w1604-h1714-s-no-gm)
