@@ -5,7 +5,7 @@ pubDate: "2024-02-04"
 updatedDate: "2024-10-28"
 description: A delicious, healthy soup that will reset your system.
 tags: ["Recipe"]
-heroImage: "/images/blog/2024-02-04-detox-chicken-soup/soup.jpg"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPEcV_2SxzR9Slq4ZB243NCI7UMhyby3jvVdAkZj_TqX8OIDM3S6lr_7XJL7gJNR9UYt7H09mYNJqlmlf-qccDsoyU4AfbDn9oHhIg5Zc5hT4sKDsRwWsFerwXIlgKeu_IBUSXIEl9VGjp4R5hclOOu=w2048-h1536-s-no-gm"
 ---
 
 <ul class="recipe-meta">
@@ -17,46 +17,44 @@ heroImage: "/images/blog/2024-02-04-detox-chicken-soup/soup.jpg"
 
 This recipe is inspired by Brittany Mullins' [Detox Soup](https://www.eatingbirdfood.com/detox-soup).
 
-![](/images/blog/2024-02-04-detox-chicken-soup/detox-soup-website.png)
+![](https://lh3.googleusercontent.com/pw/AP1GczP5KyJ9wxXFlcQlRI0xZLJpoWnOlRMfCFkYcbiOq8bAxpnireTnbmBcH_0g4faNEbozt1TXMl_U_0ggkSuISc1N_jCQEIjJGSjw_D_IiYQvFDBn53TAYmCpa5ABxX3LGRAnsJ5GoiCfNo4uEwWgXtgc=w2696-h1714-s-no-gm)
 
 #### Ingredients
 
-<ul>
-    <li itemProp="recipeIngredient">2 tablespoons olive or avocado oil</li>
-    <li itemProp="recipeIngredient">1 tablespoon butter</li>
-    <li itemProp="recipeIngredient">1 large yellow onion, chopped</li>
-    <li itemProp="recipeIngredient">2 large carrots, chopped into ¼-inch rounds</li>
-    <li itemProp="recipeIngredient">8 cloves garlic, roughly chopped</li>
-    <li itemProp="recipeIngredient">Large handful of mini bell peppers, julienned</li>
-    <li itemProp="recipeIngredient">6 oz chopped shitake mushrooms</li>
-    <li itemProp="recipeIngredient">1 head of broccoli, chopped into bite-sized pieces</li>
-    <li itemProp="recipeIngredient">1 tablespoon freshly grated ginger</li>
-    <li itemProp="recipeIngredient">2 tablespoons freshly grated turmeric</li>
-    <li itemProp="recipeIngredient">¼ teaspoon cayenne</li>
-    <li itemProp="recipeIngredient">2 teaspoons sea salt</li>
-    <li itemProp="recipeIngredient">½ teaspoon ground pepper</li>
-    <li itemProp="recipeIngredient">1 lb chicken breast</li>
-    <li itemProp="recipeIngredient">6 cups chicken stock</li>
-    <li itemProp="recipeIngredient">1 13.5 oz can coconut cream</li>
-    <li itemProp="recipeIngredient">Juice from half of a lemon</li>
-    <li itemProp="recipeIngredient">1 tablespoon tamari, coconut aminos or soy sauce</li>
-    <li itemProp="recipeIngredient">¼ cup fresh cilantro, plus more for topping</li>
-</ul>
+- 2 tablespoons olive or avocado oil
+- 1 tablespoon butter
+- 1 large yellow onion, chopped
+- 2 large carrots, chopped into ¼-inch rounds
+- 8 cloves garlic, roughly chopped
+- Large handful of mini bell peppers, julienned
+- 6 oz chopped shitake mushrooms
+- 1 head of broccoli, chopped into bite-sized pieces
+- 1 tablespoon freshly grated ginger
+- 2 tablespoons freshly grated turmeric
+- ¼ teaspoon cayenne
+- 2 teaspoons sea salt
+- ½ teaspoon ground pepper
+- 1 lb chicken breast
+- 6 cups chicken stock
+- 1 13.5 oz can coconut cream
+- Juice from half of a lemon
+- 1 tablespoon tamari, coconut aminos or soy sauce
+- ¼ cup fresh cilantro, plus more for topping
 
 #### Instructions
 
-<p itemProp="recipeInstruction">In a large Dutch oven or soup pot, add oil and butter. Once hot, add onion and saute for 10 minutes. Next, add the carrots, broccoli and peppers and saute for 5-6 minutes, stirring occasionally. Add mushrooms, garlic, ginger, turmeric, cayenne, salt and pepper. Saute for a few minutes longer.</p>
+In a large Dutch oven or soup pot, add oil and butter. Once hot, add onion and saute for 10 minutes. Next, add the carrots, broccoli and peppers and saute for 5-6 minutes, stirring occasionally. Add mushrooms, garlic, ginger, turmeric, cayenne, salt and pepper. Saute for a few minutes longer.
 
-![](/images/blog/2024-02-04-detox-chicken-soup/soup-1.jpg)
+![](https://lh3.googleusercontent.com/pw/AP1GczNO1O3y5BPx31Odm9Y6O9rXTA_YyD38etlgi-vElHS-qfgeT__90uDfRiSTCNrv5kq7zXABILWFmFDm5rFgTQ1X5petgMct-j51O7UhGo-m0W-4spjikmHrto8SKZFl-Dik5f5NBHBIedShgM2I8vTt=w2048-h1536-s-no-gm)
 
-<p itemProp="recipeInstruction">Add chicken broth and chicken to the pot.</p>
+Add chicken broth and chicken to the pot.
 
-<p itemProp="recipeInstruction">Bring the mixture to a boil, reduce heat to a simmer and cover. Simmer for about 20 minutes or until chicken is fully cooked. </p>
+Bring the mixture to a boil, reduce heat to a simmer and cover. Simmer for about 20 minutes or until chicken is fully cooked. 
 
-![](/images/blog/2024-02-04-detox-chicken-soup/soup-2.jpg)
+![](https://lh3.googleusercontent.com/pw/AP1GczMZcs8XrSNABuDm4XFBSA1xRHvEfmfA7vwkrOFquFw0fOh0efX_UBe-TnJ62smn74zp_9oqLLeF6Ca_G_aONKKOzXPSaLgnp3H9n8wOIlf0a6uVnt087qcMxXorm6UUIX4wFBMU0hR6KMvyGV5w3CgC=w1286-h1714-s-no-gm)
 
-<p itemProp="recipeInstruction">When chicken is fully cooked, remove from pot and chop the chicken. Place chicken back into the soup and stir in fresh cilantro, tamari, coconut cream and lemon juice.</p>
+When chicken is fully cooked, remove from pot and chop the chicken. Place chicken back into the soup and stir in fresh cilantro, tamari, coconut cream and lemon juice.
 
-<p itemProp="recipeInstruction">Serve with extra chopped cilantro on top and side of choice. Tear a piece of french baguette off it's a cheat day.</p>
+Serve with extra chopped cilantro on top and side of choice. Tear a piece of french baguette off it's a cheat day.
 
-![](/images/blog/2024-02-04-detox-chicken-soup/soup.jpg)
+![](https://lh3.googleusercontent.com/pw/AP1GczPEcV_2SxzR9Slq4ZB243NCI7UMhyby3jvVdAkZj_TqX8OIDM3S6lr_7XJL7gJNR9UYt7H09mYNJqlmlf-qccDsoyU4AfbDn9oHhIg5Zc5hT4sKDsRwWsFerwXIlgKeu_IBUSXIEl9VGjp4R5hclOOu=w2048-h1536-s-no-gm)
