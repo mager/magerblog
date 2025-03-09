@@ -19,11 +19,12 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO_BIexJMh7c0nQGZvfwN3wrPZ
 
 - 3 Tbsp unsalted butter
 - 2 Tbsp all-purpose flour
-- 1¼ to 1½ cups half-and-half or milk
+- 1½ cups half-and-half or milk
 - 8 oz white cheddar cheese, shredded
 - ¼ cup Parmesan cheese, grated
-- 1 tsp of kosher salt and 12-16 cracks of pepper, to taste
-- ½ tsp garlic powder (optional)
+- 1½ tsp of kosher salt and 16-20 cracks of pepper, to taste
+- 1 tsp garlic powder (optional)
+- ½ tsp onion powder (optional)
 - ¼ tsp mustard powder (optional)
 - 16 oz cooked pasta (pipe rigate, elbow macaroni, or shells)
 

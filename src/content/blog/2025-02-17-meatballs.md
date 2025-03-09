@@ -27,6 +27,9 @@ This recipe is heavily inspired by "Italian American" by Angie Rito.
 - 3/4 cup of half & half or milk
 - 1 cup of parmesan reggiano
 - 1 cup of pecornio romano
+- 1 tsp onion powder
+- 1 tsp garlic powder
+- 1 1/2 tsp kosher salt
 - 2 eggs
 - Salt, pepper, garlic powder
 
