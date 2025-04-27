@@ -23,7 +23,7 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO_BIexJMh7c0nQGZvfwN3wrPZ
 - 8 oz white cheddar cheese, shredded
 - ¼ cup Parmesan cheese, grated
 - 1½ tsp of kosher salt and 16-20 cracks of pepper, to taste
-- 1 tsp garlic powder (optional)
+- ½ tsp garlic powder (optional)
 - ½ tsp onion powder (optional)
 - ¼ tsp mustard powder (optional)
 - 16 oz cooked pasta (pipe rigate, elbow macaroni, or shells)
