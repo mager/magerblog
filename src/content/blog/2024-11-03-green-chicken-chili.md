@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Recipe: Green Chicken Chile"
 pubDate: "2024-11-03"
-updatedDate: "2024-11-15"
+updatedDate: "2025-06-30"
 description: A slightly spicy white chile with green chiles, chicken, corn, and hominy.
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm"
@@ -26,9 +26,10 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY
 - 1 25oz can of white hominy
 - 2 tsp ground cumin
 - 1 tsp ground corriander
-- ½ tsp chili powder
+- 1 tsp chili powder
 - ½ tsp paprika
 - 1 tsp dried oregano
+- ½ tsp onion powder
 - 1 tsp garlic powder
 - 2 tsp kosher salt
 - A few shakes of ground black papper
@@ -44,7 +45,7 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY
 
 Chop the onions, pepper, and garlic and set aside. Drain the hominy and corn. Mix the spices into a small bowl. Pick the chicken and chop the cilantro. Squeeze the limes into a small bowl.
 
-Sauté the onions for 10 mintutes with butter and avocado oil. Add the garlic, green chiles, and pepper for another 5 minutes then add the spice mixm and stir. Add the hominy and corn for 2 minutes then add the chicken for another 2 minutes. Stir constantly to incoprorate the spices.
+Sauté the onions for 10 mintutes with butter and avocado oil. Add the garlic, green chiles, and pepper for another 5 minutes then add the spice mix and stir. Add the hominy and corn for 2 minutes then add the chicken for another 2 minutes. Stir constantly to incoprorate the spices.
 
 ![Soup](https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm)
 
