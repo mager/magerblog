@@ -1,22 +1,173 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// Get only the single most recent post
+const latestPost = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)[0];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			/* A subtle, stylish background pattern for the page */
+			body {
+				background-color: #fdfdfd;
+				background-image: linear-gradient(rgba(var(--gray), 0.07) 1px, transparent 1px),
+					linear-gradient(to right, rgba(var(--gray), 0.07) 1px, transparent 1px);
+				background-size: 2.5rem 2.5rem;
+			}
+
+			main {
+				/* Remove default constraints to allow for a full-width hero */
+				padding: 0;
+				width: 100%;
+				max-width: 100%;
+				/* Center the hero section in the available vertical space */
+				min-height: calc(100vh - 140px); /* Adjust value based on your header/footer height */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.hero-latest-post {
+				position: relative;
+				width: 100%;
+				max-width: 1200px; /* Control the max width of the hero card */
+				margin: 2rem;
+				border-radius: 24px; /* Softer, more modern corners */
+				background-size: cover;
+				background-position: center;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 6rem 2rem;
+				overflow: hidden;
+				box-shadow: 0 16px 32px rgba(var(--black), 0.2);
+			}
+
+			/* Dark overlay to ensure text is always readable over the hero image */
+			.hero-latest-post::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
+				z-index: 1;
+			}
+
+			.hero-content {
+				position: relative;
+				z-index: 2;
+				max-width: 800px;
+			}
+
+			.hero-content .date {
+				font-size: 0.9rem;
+				opacity: 0.9;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+
+			.hero-content h1 {
+				font-size: 3.5rem;
+				margin: 0.25rem 0 1rem;
+				line-height: 1.1;
+				color: white; /* Ensure heading is white */
+			}
+
+			.hero-content p {
+				font-size: 1.25rem;
+				margin: 0 0 2rem;
+				opacity: 0.9;
+			}
+
+			.hero-actions {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+
+			.hero-actions a {
+				color: white;
+				padding: 0.75rem 1.5rem;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 700;
+				transition: all 0.2s ease;
+			}
+
+			.btn-primary {
+				background-color: var(--accent);
+			}
+			.btn-primary:hover {
+				background-color: var(--accent-dark);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 8px rgba(var(--black), 0.2);
+			}
+			.btn-secondary {
+				border: 2px solid rgba(255, 255, 255, 0.8);
+			}
+			.btn-secondary:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-color: white;
+			}
+
+			@media (max-width: 720px) {
+				.hero-latest-post {
+					padding: 4rem 1.5rem;
+					margin: 1rem;
+				}
+				.hero-content h1 {
+					font-size: 2.5rem;
+				}
+				.hero-content p {
+					font-size: 1.1rem;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h2>🤗 Welcome to mager.co!</h2>
-			<p>
-				Check out my <a href="/blog">blog</a> while I clean things up here a bit.
-			</p>
+			{
+				latestPost && (
+					<section
+						class="hero-latest-post"
+						style={`background-image: url(${latestPost.data.heroImage})`}
+					>
+						<div class="hero-content">
+							<p class="date">
+								Latest Post &bull; <FormattedDate date={latestPost.data.pubDate} />
+							</p>
+							<h1>{latestPost.data.title}</h1>
+							<p>{latestPost.data.description}</p>
+							<div class="hero-actions">
+								<a href={`/blog/${latestPost.id}/`} class="btn-primary">
+									Read Post
+								</a>
+								<a href="/blog" class="btn-secondary">
+									View All Posts
+								</a>
+							</div>
+						</div>
+					</section>
+				)
+			}
 		</main>
 		<Footer />
 	</body>

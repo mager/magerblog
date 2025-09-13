@@ -1,0 +1,67 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<a href={`/blog/${post.id}/`} class="card">
+	<img src={post.data.heroImage} alt="" width={720} height={360} />
+	<div class="content">
+		<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+		<h4 class="title">{post.data.title}</h4>
+		<p class="description">{post.data.description}</p>
+	</div>
+</a>
+
+<style>
+	.card {
+		display: block;
+		background-color: white;
+		border-radius: 12px;
+		box-shadow: var(--box-shadow);
+		overflow: hidden;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 16px rgba(var(--gray), 25%);
+		text-decoration: none;
+	}
+
+	.card img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.content {
+		padding: 1.5rem;
+	}
+
+	.title {
+		margin: 0 0 0.5rem;
+		font-size: 1.25rem;
+		color: rgb(var(--black));
+	}
+
+	.date {
+		font-size: 0.875rem;
+		color: rgb(var(--gray));
+		margin: 0 0 0.5rem;
+	}
+
+    .description {
+        margin: 0;
+        font-size: 1rem;
+    }
+</style>
