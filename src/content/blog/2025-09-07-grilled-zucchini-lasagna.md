@@ -29,7 +29,11 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOcJtjC0WhvD6tf9l1ufxza0-v
 
 #### Instructions:
 
-To prepare the zucchini, use a mandoline to slice it into long planks for a more traditional lasagna, or into thick discs for a rustic, layered bake. If you’re working with a huge zucchini, remove any large seeds. Lay the slices on a towel, sprinkle them with salt, and let them sit for 10-15 minutes to draw out excess moisture. Pat the slices dry.
+To prepare the zucchini, use a mandoline to slice it into long planks for a more traditional lasagna, or into thick discs for a rustic, layered bake. If you’re working with a huge zucchini, remove any large seeds. 
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNuxBrRm4zykyXON19kIDYrdlPBvlMU_m01bumAOyIkGazssYY0D1sLk355uwCiouo9xXKXPtAB_BmYjnrqyhN86xoOis7hZpAmRZGGaGTf8_kLMr5EWCEPQTd-aokaoDoumFmTx15opdestUozs-5H7Q=w2418-h1714-s-no-gm)
+
+Lay the slices on a towel, sprinkle them with salt, and let them sit for 10-15 minutes to draw out excess moisture. Pat the slices dry.
 
 Next, preheat a grill or grill pan over medium-high heat. Brush the zucchini slices with olive oil, then grill them for 2-3 minutes per side until they are tender and lightly charred. Set the grilled zucchini aside.
 
