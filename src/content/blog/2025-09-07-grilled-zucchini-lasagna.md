@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Grilled Zucchini Lasagna"
+title: "Recipe: End Of Summer Grilled Zucchini Lasagna"
 pubDate: "2025-09-07"
 description: A lighter, summery lasagna using grilled zucchini instead of noodles, with mozzarella, ricotta, and a simple tomato sauce. Optionally spicy with Calabrian chilies.
 tags: ["Recipe"]
@@ -23,19 +23,22 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOcJtjC0WhvD6tf9l1ufxza0-v
 - 1 (28 oz) can crushed tomatoes or tomato puree
 - 1 medium onion, finely chopped
 - 2-3 cloves garlic, minced
+- 2 big handfuls of baby spinach
 - 1-2 tsp dried oregano
 - Salt and pepper, to taste
 - Optional: Calabrian chilies, chopped, to taste
 
 #### Instructions:
 
-To prepare the zucchini, use a mandoline to slice it into long planks for a more traditional lasagna, or into thick discs for a rustic, layered bake. If you’re working with a huge zucchini, remove any large seeds. 
+This dish was inspired by a generous gift from our best friends in Crowne Pointe, IN: a huge zucchini straight from their garden (shoutout, Don!).
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczNuxBrRm4zykyXON19kIDYrdlPBvlMU_m01bumAOyIkGazssYY0D1sLk355uwCiouo9xXKXPtAB_BmYjnrqyhN86xoOis7hZpAmRZGGaGTf8_kLMr5EWCEPQTd-aokaoDoumFmTx15opdestUozs-5H7Q=w2418-h1714-s-no-gm)
 
+To prepare the zucchini, use a mandoline to slice it into long planks for a more traditional lasagna, or into thick discs for a rustic, layered bake. If you’re working with a huge zucchini, remove any large seeds. 
+
 Lay the slices on a towel, sprinkle them with salt, and let them sit for 10-15 minutes to draw out excess moisture. Pat the slices dry.
 
-Next, preheat a grill or grill pan over medium-high heat. Brush the zucchini slices with olive oil, then grill them for 2-3 minutes per side until they are tender and lightly charred. Set the grilled zucchini aside.
+Next, preheat a grill or grill pan over medium-high heat. Brush the zucchini slices with olive oil, then grill them for 2-3 minutes per side until they are tender and lightly charred. Set the grilled zucchini aside. Saute the spinach with garlic and set aside.
 
 For the sauce, heat a splash of olive oil in a saucepan over medium heat. Add the chopped onion and sauté until soft, about 5 minutes. Stir in the garlic and cook for another minute. Pour in the crushed tomatoes or tomato puree, add the oregano, salt, and pepper, and let the sauce simmer for 10-15 minutes. If you like a bit of heat, stir in some chopped Calabrian chilies.
 
