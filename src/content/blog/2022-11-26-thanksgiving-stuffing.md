@@ -6,14 +6,11 @@ updatedDate: "2024-12-01"
 description: "It's not Thanksgiving without the stuffing..."
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPsYxonCa_FtPhQ0_Ibb74PoalcTHKPqmzQml_D1r_7sOyHanSqVUBTUzbz1iW7nbot9MMEmLBXOkRCMl88EkR3DCf5fUJWGyabeLizFlFLGaFBsCPC5ggukBaGlZ0MuZm6jLathfWysvjnncNdpVbX=w1800-h1228-s-no-gm"
+prepTime: 90
+cookTime: 90
 ---
 
 This is one of those stuffing recipies that you can take your time to prep. Chop veggies ahead of time so the actual act of making it is easier.
-
-<ul class="recipe-meta">
-    <li>Prep time: 1 ½ hours</li>
-    <li>Cook time: 1 ½ hours</li>
-</ul>
 
 Thanksgiving simply isn't complete without a good stuffing, and this recipe will raise the bar on how you think about stuffing going forward. We'll borrow most of it from [Bon Appetit's "If It Ain't Broke, Don't Fix It" recipe](https://www.bonappetit.com/recipe/if-it-aint-broke-dont-fix-it-stuffing) from Chris Morroco in 2017.
 

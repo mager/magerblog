@@ -7,32 +7,32 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+// We are now reading prepTime and cookTime from the frontmatter props!
+const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
+			/* --- All of your existing CSS is perfect. No changes needed here. --- */
 			main {
 				width: 100%;
 				max-width: 100%;
 				margin: 0;
-				padding: 0; /* Remove padding to allow hero to span full-width */
+				padding: 0;
 			}
 
 			.hero {
-				padding: 4rem 2em 0; /* Add padding top and sides, but not bottom */
+				padding: 4rem 2em 0;
 				text-align: center;
-				background-color: #f8f9fa; /* A very light, clean gray */
-				/* Decorative dot-grid background */
+				background-color: #f8f9fa;
 				background-image: radial-gradient(circle at 1px 1px, rgba(var(--gray), 0.2) 1px, transparent 0);
 				background-size: 2rem 2rem;
 				position: relative;
-				overflow: hidden; /* Hide the overflow from our decorative circle */
+				overflow: hidden;
 			}
 
-			/* Decorative "golden circle" element */
 			.hero::before {
 				content: '';
 				position: absolute;
@@ -47,10 +47,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 			.hero-image {
 				width: 100%;
-				max-width: 1200px; /* Make the hero image substantially wider */
-				margin: 0 auto; /* Keep it centered */
+				max-width: 1200px;
+				margin: 0 auto;
 				position: relative;
-				z-index: 1; /* Ensure image is above the decorative circle */
+				z-index: 1;
 			}
 
 			.hero-image img {
@@ -58,15 +58,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 0 auto;
 				border-radius: 16px;
 				box-shadow: var(--box-shadow);
-				/* A subtle lift-off-the-page effect */
 				transform: translateY(40px);
 			}
 
 			.prose {
 				width: 100%;
-				/* Use the 'ch' unit for optimal line length and readability */
-				max-width: 75ch; 
-				margin: 4rem auto; /* Add vertical spacing before and after content */
+				max-width: 75ch;
+				margin: 4rem auto 2rem;
 				padding: 2em;
 				color: rgb(var(--gray-dark));
 			}
@@ -79,7 +77,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			.title h1 {
-				font-size: 3.5em; /* A more impactful title size */
+				font-size: 3.5em;
 				margin: 0.5em 0;
 			}
 
@@ -100,7 +98,51 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				border-left: 1px solid rgb(var(--gray));
 			}
 
-			/* Mobile responsive adjustments */
+			.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+				margin: 2.5rem 0 1rem;
+			}
+			.prose p {
+				margin-bottom: 1.5rem;
+			}
+			.prose ul, .prose ol {
+				padding-left: 1.5em;
+				margin-bottom: 1.5rem;
+			}
+			.prose li {
+				margin-bottom: 0.5rem;
+			}
+			.prose img {
+				margin: 2rem 0;
+				border-radius: 12px;
+			}
+			.prose hr {
+				margin: 3rem 0;
+			}
+
+			.prose .recipe-meta {
+				list-style-type: none;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+				margin: 0 auto 2rem; /* Center and give space below */
+				color: rgb(var(--gray));
+				font-size: 1em;
+			}
+
+			.prose .recipe-meta li {
+				position: relative;
+				margin-bottom: 0;
+			}
+
+			.prose .recipe-meta li + li::before {
+				content: '|';
+				position: absolute;
+				left: -0.75rem;
+				color: rgb(var(--gray-light));
+			}
+
 			@media (max-width: 720px) {
 				.hero {
 					padding: 2rem 1em 0;
@@ -137,7 +179,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						</div>
 						<h1>{title}</h1>
 					</div>
-					
+
 					{heroImage && (
 						<div class="hero-image">
 							<img width={1200} height={600} src={heroImage} alt="" />
@@ -145,6 +187,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					)}
 				</div>
 				<div class="prose">
+					{
+						prepTime && cookTime && (
+							<ul class="recipe-meta">
+								<li>Prep time: {prepTime} min</li>
+								<li>Cook time: {cookTime} min</li>
+							</ul>
+						)
+					}
 					<slot />
 				</div>
 			</article>

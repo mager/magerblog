@@ -5,12 +5,9 @@ pubDate: "2020-11-01"
 description: Your new go-to cookie recipe, great for quarantining.
 category: "food"
 heroImage: https://lh3.googleusercontent.com/pw/AP1GczN--0rwnuOIjJ7AZAZBNkiu-S_b_vgzZf8EoelJNB1DsKPurcf1SaED2Xu3kOo7WNy_YWr7tFg1M5qs1i-z1Iia2s9eaZzkXOg5D9nCtuj-XH0mA9mNLK5DSlfjKgZZluo_SIYqCoWfObvszQICTZyP=w2048-h1627-s-no-gm
+prepTime: 10
+cookTime: 18
 ---
-
-<ul class="recipe-meta">
-    <li>Prep time: 10 min</li>
-    <li>Cook time: 16-18 min</li>
-</ul>
 
 I haven't posted on here as much as I'd like (2020), but I'm excited to share my first recipe. If you have a sweet tooth like me, then you understand the value of a good chocolate chip cookie.
 

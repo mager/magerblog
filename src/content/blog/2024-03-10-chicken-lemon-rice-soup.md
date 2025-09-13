@@ -6,13 +6,8 @@ updatedDate: "2024-12-02"
 description: A staple soup that warms the heart and calms the soul.
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczORH1ThPcX94bfV8HGEUfkWg2qUkquGXgSY7upuZ1b-uhzqCp_koE8TqbJzJJctl2L3sldB02asGfgfhPcEGxC7RU9aujzEF0my9bmgNhk7zuGTrEhP3f3btLUHf4qulgezN407uf7F6yrKP1pLUa38=w1024-h768-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 30 min</li>
-    <li>Cook time: 45 min</li>
-</ul>
-
+prepTime: 30
+cookTime: 45
 ---
 
 This recipe is partially inspired by the NY Times [Chicken and Rice Soup](https://cooking.nytimes.com/recipes/1020898-chicken-and-rice-soup) by Ali Slagle.

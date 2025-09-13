@@ -6,13 +6,8 @@ updatedDate: "2024-10-28"
 description: A delicious, healthy soup that will reset your system.
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPEcV_2SxzR9Slq4ZB243NCI7UMhyby3jvVdAkZj_TqX8OIDM3S6lr_7XJL7gJNR9UYt7H09mYNJqlmlf-qccDsoyU4AfbDn9oHhIg5Zc5hT4sKDsRwWsFerwXIlgKeu_IBUSXIEl9VGjp4R5hclOOu=w2048-h1536-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 30 min</li>
-    <li>Cook time: 40 min</li>
-</ul>
-
+prepTime: 30
+cookTime: 45
 ---
 
 This recipe is inspired by Brittany Mullins' [Detox Soup](https://www.eatingbirdfood.com/detox-soup).

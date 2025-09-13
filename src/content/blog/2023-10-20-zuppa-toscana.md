@@ -6,13 +6,8 @@ updatedDate: "2024-11-11"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
 tags: ["Recipe"]
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 30 min</li>
-    <li>Cook time: 1 hour</li>
-</ul>
-
+prepTime: 30
+cookTime: 60
 ---
 
 This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://40aprons.com/whole30-zuppa-toscana/). This soup is heart-warming, filling, and delicious.

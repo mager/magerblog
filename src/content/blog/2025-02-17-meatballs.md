@@ -5,13 +5,8 @@ updatedDate: "2025-02-28"
 description: A taste of Italy anytime, these meatballs will steal the show at any special occasion or a Tuesday.
 category: "food"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPCYQ19vuUHqGhcODGZzH2S1lKjkjyHIlEx1Wrs5UluF4gbAtbfsP4j60ft_zudEPdfDF8vpQJTFSfSbjswQeMxpnAVFC3_Rh8FK58i8RTrhDFXSMb49fbxFzz34PCb1c_CPk1BRX7Fr0a5Hu0CCc_0=w2400-h1432-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 1 hour</li>
-    <li>Cook time: 1 hour</li>
-</ul>
-
+prepTime: 60
+cookTime: 60
 ---
 
 This recipe is heavily inspired by "Italian American" by Angie Rito. 

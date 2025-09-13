@@ -5,13 +5,8 @@ pubDate: "2025-09-07"
 description: A lighter, summery lasagna using grilled zucchini instead of noodles, with mozzarella, ricotta, and a simple tomato sauce. Optionally spicy with Calabrian chilies.
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOcJtjC0WhvD6tf9l1ufxza0-vU1vL3D25oqvEJuhvX467f4BUj27c4R1DiRiY0rgX8qpz_T6uG1diFjll-wxK1aDMYNMiMYA8Ja-IxWlyrXANfTWqk5HoH_hM76wii7cvOVVWYNGHDwWghSWc2bnNx5A=w2286-h1714-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 30-40 min</li>
-    <li>Cook time: 45 min</li>
-</ul>
-
+prepTime: 40
+cookTime: 45
 ---
 
 #### Ingredients:

@@ -6,13 +6,8 @@ updatedDate: "2025-06-30"
 description: A slightly spicy white chile with green chiles, chicken, corn, and hominy.
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 30 min</li>
-    <li>Cook time: 45 min</li>
-</ul>
-
+prepTime: 30
+cookTime: 45
 ---
 
 #### Ingredients

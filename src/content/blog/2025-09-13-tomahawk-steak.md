@@ -5,13 +5,8 @@ pubDate: "2025-09-13"
 description: "A foolproof recipe for a perfect medium-rare Tomahawk steak. Seasoned overnight with Holy Cow BBQ Rub, seared hot, and finished with indirect heat on the grill."
 tags: ["Recipe", "Steak", "Grilling", "Tomahawk"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMDYas1_q7BbAnGKFAcKig5uD1Ud8rCYJL6EpEn1C3eNdfSHN5jVI-1FPrrEc9Q7rHveQRLBRJE-iGJ6c2BY2v2wKfsAzi46eCJ16hUhgLQtgdGj-PHWqoheuv-P8TIKDIMrJevcR-WE_T6OVtFCOVQyg=w3024-h1580-s-no-gm"
----
-
-<ul class="recipe-meta">
-    <li>Prep time: 10 min (plus overnight dry brine)</li>
-    <li>Cook time: 40-45 min</li>
-</ul>
-
+prepTime: 10
+cookTime: 45
 ---
 
 This is a very basic, but effective, recipe for cooking a thick Tomahawk steak using the reverse sear method on a grill. The key is the overnight dry brine and careful temperature management.
