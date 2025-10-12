@@ -5,8 +5,8 @@ updatedDate: "2025-10-12"
 description: A taste of Italy anytime, these meatballs will steal the show at any special occasion or a Tuesday.
 category: "food"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPCYQ19vuUHqGhcODGZzH2S1lKjkjyHIlEx1Wrs5UluF4gbAtbfsP4j60ft_zudEPdfDF8vpQJTFSfSbjswQeMxpnAVFC3_Rh8FK58i8RTrhDFXSMb49fbxFzz34PCb1c_CPk1BRX7Fr0a5Hu0CCc_0=w2400-h1432-s-no-gm"
-prepTime: 60
-cookTime: 60
+prepTime: 90
+cookTime: 35
 ---
 
 This recipe is heavily inspired by "Italian American" by Angie Rito. 
@@ -21,18 +21,13 @@ This recipe is heavily inspired by "Italian American" by Angie Rito.
 - 1 bunch parsley
 - 3/4 cup of half & half or milk
 - 1 cup of parmesan reggiano
-- 1 cup of pecornio romano
+- 1 cup of pecornio toscano (if not, you can sub pecorino romano)
 - 1 tsp onion powder
 - 1 tsp garlic powder
-- 1 1/2 tsp kosher salt
+- 2 tsp kosher salt
 - 2 eggs
 - Salt, pepper, garlic powder
 
-Optional Flavor Boosters (to "Jazz Up" the Recipe):
-
-- 1 to 2 Tbsp Worcestershire Sauce (or 1 tsp Anchovy Paste) - for deeper umami
-- 1/2 tsp Red Pepper Flakes - for a little warmth/kick
-- Zest of 1 small lemon - for brightness
 
 #### Instructions:
 
@@ -46,7 +41,7 @@ Preheat the oven at 425 degrees convection.
 
 Using a 1/4 cup measuring cup, make 24-30 balls. Put them on a large sheet pan with parchment paper. Be very liberal with the olive oil, you want a brown crust on them.
 
-Put the sheet pan in the middle of the oven for 15 minutes. Halfway through, take them out and flip them. Back in for 15 minutes.
+Put the sheet pan in the middle of the oven for 15-17 minutes. Halfway through, take them out and flip them. Back in for 15-17 minutes.
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPJ6sP2KPiar7pnRzyKvj3e7tQ4ZnkvEXbHEy2FRrOHgLMS9kaInpoyjME_j0s5dWi525xJcN0gN03tDs9wh-5sS_UrDRmSpwO3GhW1sMxGGCALWprbItX4uHdLWDocKYds2jEZaVH0FR68yqX8u15Y=w2286-h1714-s-no-gm)
 
