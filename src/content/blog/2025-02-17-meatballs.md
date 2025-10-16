@@ -46,3 +46,22 @@ Put the sheet pan in the middle of the oven for 15-17 minutes. Halfway through, 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPJ6sP2KPiar7pnRzyKvj3e7tQ4ZnkvEXbHEy2FRrOHgLMS9kaInpoyjME_j0s5dWi525xJcN0gN03tDs9wh-5sS_UrDRmSpwO3GhW1sMxGGCALWprbItX4uHdLWDocKYds2jEZaVH0FR68yqX8u15Y=w2286-h1714-s-no-gm)
 
 Bring them out and let them cool for 10 minutes. Add to red sauce, a hoagie roll, or your favorite salad as a topper. Enjoy!
+
+
+---
+
+### Variation: Chicken & Pistachio Meatballs
+
+For a lighter and equally delicious spin, try making these meatballs with ground chicken and pistachios:
+
+- Substitute the ground beef and pork/veal with 2 lbs of ground chicken (preferably thigh for juiciness).
+- Reduce the amount of cheese by about 1/4 cup, as chicken is milder.
+- Replace the parmesan and pecorino with just parmesan, or keep as is for more flavor.
+- Roughly chop 1/2 cup of shelled pistachios and mix them into the meatball mixture along with the other ingredients.
+- Optionally, add a bit of lemon zest and fresh mint for brightness.
+
+Continue with the recipe as instructed. Chicken may take slightly less time to cook, so check for doneness after 12-15 minutes per side. 
+
+Serve with a simple lemony yogurt sauce or in your favorite salad for a Mediterranean twist!
+
+
