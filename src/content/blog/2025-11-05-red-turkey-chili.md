@@ -1,0 +1,57 @@
+---
+layout: "../../layouts/BlogPost.astro"
+title: "Recipe: Red Turkey Chili"
+pubDate: "2025-10-28"
+description: A hearty and warming turkey chili with a deep, smoky flavor from chimayo pepper, perfect for a cozy dinner.
+tags: ["Recipe"]
+heroImage: ""
+prepTime: 15
+cookTime: 45
+---
+
+This hearty turkey chili is pure comfort in a bowl. Using ground turkey keeps it lean while still packing incredible flavor, and the chimayo pepper adds a unique smoky depth that sets this chili apart from the usual.
+
+The key is the layering—building flavor by sautéing the aromatics, browning the meat, and then letting everything meld together with the beans, corn, and tomatoes. Top it off with all the fixings for a meal that feels indulgent but doesn't weigh you down.
+
+#### Ingredients
+
+- 1 lb ground turkey
+- 1 medium yellow onion, diced
+- 4-5 cloves garlic, minced
+- 1 red bell pepper, diced
+- 1 green bell pepper, diced
+- 1 jalapeño, seeded and minced
+- 1 can corn (15 oz), drained
+- 1 can bean trio (or mixed beans like kidney, black, and pinto), drained and rinsed
+- 1 can crushed tomatoes (28 oz)
+- 1-2 tablespoons chimayo pepper powder (or chili powder)
+- 1 teaspoon ground cumin
+- 1 teaspoon smoked paprika
+- 1 teaspoon dried oregano
+- Salt and freshly ground black pepper
+- Olive oil
+
+#### For Serving
+
+- Sour cream
+- Shredded cheddar cheese
+- Green onions, sliced thin
+
+#### Instructions
+
+Heat a large dutch oven or heavy pot over medium-high heat and add a glug of olive oil. Add the diced onions and season with salt and pepper. Cook, stirring occasionally, for 5-7 minutes until they soften and start to turn golden.
+
+Add the ground turkey and break it up with a wooden spoon. Season with salt and pepper, and cook for 5-6 minutes until the turkey is browned and cooked through.
+
+Add the red and green bell peppers, jalapeño, and garlic. Sauté for another 3-4 minutes until the peppers start to soften and the garlic becomes fragrant.
+
+Add the crushed tomatoes, drained bean trio, and drained corn. Stir in the chimayo pepper, cumin, smoked paprika, and oregano. Season generously with salt (about 2-3 teaspoons, to taste) and freshly ground black pepper. 
+
+Bring everything to a boil, then reduce the heat to low and let it simmer, uncovered, for about 30 minutes to let the flavors meld together. Taste and adjust the seasoning as needed.
+
+Serve hot with generous dollops of sour cream, shredded cheddar cheese, and sliced green onions on top.
+
+#### Variations
+
+My wife loves to make this with chunks of chicken instead of ground turkey—it works beautifully and adds a different texture to the dish!
+

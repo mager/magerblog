@@ -47,7 +47,9 @@ Heat a large dutch oven over medium-high heat and add a generous pad of butter, 
 
 Once the onions have softened, add the garlic and carrots and sauté for 2-3 more minutes. Then add the rice and continue cooking for 2-3 more minutes. Don't worry if the rice gets a little toasted—this adds great depth of flavor!
 
-Add the chicken and broth, season again with salt and pepper (this is crucial for flavor!). For the 64 oz of broth, I typically add about 1-1.5 teaspoons of salt - start with 1 teaspoon and taste, then add more if needed. Bring to a boil, then reduce the heat to low, cover, and simmer for 20 minutes. During this time, the rice will absorb the broth and thicken beautifully while the chicken cooks through.
+Add the chicken and broth, season again with salt and pepper (this is crucial for flavor!). For the 64 oz of broth, I typically add about 1-1.5 teaspoons of salt - start with 1 teaspoon and taste, then add more if needed. Bring to a boil, then reduce the heat to low, cover, and simmer for 20 minutes. 
+
+While you're waiting for it to come to a boil, you can squeeze your lemons and chop the parsley to save time later. During the simmer time, the rice will absorb the broth and thicken beautifully while the chicken cooks through.
 
 Remove the chicken from the pot and shred it with two forks. Return the shredded chicken to the pot along with the coconut cream, stirring to combine.
 
