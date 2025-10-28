@@ -28,8 +28,6 @@ Preheat the oven to 500°F.
 
 **Spatchcock the chicken:** Breast-side down, use kitchen shears to cut along both sides of the backbone. Remove it (save for stock or toss). Flip over and press down on the breastbone to flatten. Tuck the wingtips under.
 
-![Spatchcocked Chicken](https://lh3.googleusercontent.com/pw/AP1GczORH1ThPcX94bfV8HGEUfkWg2qUkquGXgSY7upuZ1b-uhzqCp_koE8TqbJzJJctl2L3sldB02asGfgfhPcEGxC7RU9aujzEF0my9bmgNhk7zuGTrEhP3f3btLUHf4qulgezN407uf7F6yrKP1pLUa38=w1024-h768-s-no-gm)
-
 Rub the chicken with oil or butter, then season generously with salt, pepper, and whatever spices you like.
 
 **500°F for 10-12 minutes:** This blasts the skin with heat and gets it crispy. Watch for smoke and ventilate if needed.
