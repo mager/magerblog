@@ -22,7 +22,9 @@ The key is the layering—building flavor by sautéing the aromatics, browning t
 - 1 green bell pepper, diced
 - 1 jalapeño, seeded and minced
 - 1 can corn (15 oz), drained
-- 1 can bean trio (or mixed beans like kidney, black, and pinto), drained and rinsed
+- 1 can kidney beans (15 oz), drained and rinsed
+- 1 can black beans (15 oz), drained and rinsed
+- 1 can pinto beans (15 oz), drained and rinsed
 - 1 can crushed tomatoes (28 oz; for more texture, you can substitute with diced tomatoes or use a mix of both)
 - 1-2 tablespoons chimayo pepper powder (or chili powder)
 - 1 teaspoon ground cumin
