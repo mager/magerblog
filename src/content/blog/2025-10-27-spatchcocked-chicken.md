@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "Recipe: Roasted Spatchcocked Chicken"
-pubDate: "2025-10-28"
+pubDate: "2025-10-27"
 description: A reverse sear technique for perfectly crispy skin and juicy meat, every time.
 tags: ["Recipe"]
 heroImage: ""
