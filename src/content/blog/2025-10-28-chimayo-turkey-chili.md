@@ -50,7 +50,7 @@ Add the ground turkey and break it up with a wooden spoon. Season with salt and 
 
 Add the red and green bell peppers, 1 jalapeño (seeded and minced), and garlic. For extra heat, you can leave the seeds in half the pepper. Sauté for another 3-4 minutes until the peppers start to soften and the garlic becomes fragrant.
 
-Add the crushed tomatoes, drained bean trio, and drained corn. Stir in the chimayo pepper, cumin, smoked paprika, and oregano. Season generously with salt (about 2-3 teaspoons, to taste) and freshly ground black pepper. 
+Add the crushed tomatoes, drained kidney beans, black beans, and pinto beans, and drained corn. Stir in the chimayo pepper, cumin, smoked paprika, and oregano. Season generously with salt (about 2-3 teaspoons, to taste) and freshly ground black pepper. 
 
 Bring everything to a boil, then reduce the heat to low and let it simmer, partially uncovered, for about 30 minutes to let the flavors meld together. If the chili starts to get too thick during simmering, add up to ½ cup chicken or beef broth to maintain the right consistency. Taste and adjust the seasoning as needed.
 
