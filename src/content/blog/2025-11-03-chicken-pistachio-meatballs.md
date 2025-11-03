@@ -1,10 +1,10 @@
 ---
-title: "Chicken Pistachio Meatballs"
+title: "DRAFT: Chicken Pistachio Meatballs"
 pubDate: "2025-11-03"
 description: A lighter, bright and nutty take on classic meatballs with chicken and pistachios.
 category: "food"
-prepTime: 80
-cookTime: 30
+prepTime: 90
+cookTime: 40
 ---
 
 These are inspired by my classic meatballs, swapped to juicy ground chicken and studded with chopped pistachios. They’re lighter, super flavorful, and perfect with a lemony yogurt sauce, tossed in a light red sauce, or served over a crisp salad.
@@ -44,21 +44,20 @@ Preheat the oven to 425°F (convection if available). Line a large sheet pan wit
 
 Form meatballs: Using a 1/4 cup measure, form 24–30 meatballs. Arrange on the pan with space between and drizzle or brush the tops with more olive oil for good browning.
 
-Roast: Bake on the middle rack for 12–15 minutes. Flip each meatball and roast another 12–15 minutes, until nicely browned and cooked through (internal temp ~165°F).
+Roast: Bake on the middle rack for 15–17 minutes. Flip each meatball and roast another 15–17 minutes, until nicely browned and cooked through (internal temp ~165°F).
 
-Rest and serve: Let rest 5–10 minutes. Serve with a lemony yogurt sauce, with a light marinara, on a hoagie, or over salad.
+Rest and serve: Let rest 5–10 minutes. Serve with a simple buttered pasta, a light marinara, on a hoagie, or over salad.
 
-#### Lemony Yogurt Sauce (optional)
+#### Simple Butter-Garlic Pasta (optional)
 
-- 1 cup plain Greek yogurt
-- 1–2 tablespoons lemon juice, plus more to taste
-- 1 teaspoon lemon zest
-- 1 small garlic clove, grated
-- 1–2 tablespoons olive oil
-- Salt and pepper to taste
-- Optional: chopped parsley and/or mint
+- 12 oz pasta (spaghetti, bucatini, or your favorite)
+- 4 tablespoons unsalted butter
+- 1 teaspoon garlic powder (or 1 grated clove for fresher garlic)
+- Salt and freshly ground black pepper
+- Pasta cooking water, as needed
+- Optional: grated parmesan and chopped parsley
 
-Whisk together until smooth; adjust salt, pepper, and lemon to taste.
+Cook pasta in well-salted water until al dente. Reserve 1 cup of pasta water and drain. In the pot, melt butter over low heat; whisk in garlic powder. Add pasta back with a splash of pasta water and toss until glossy, adding more water as needed to create a silky coating. Season with salt and pepper. Finish with parmesan and parsley, if you like. Serve alongside the meatballs.
 
 #### Notes and Tips
 
