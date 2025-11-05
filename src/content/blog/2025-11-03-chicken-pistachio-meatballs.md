@@ -3,6 +3,7 @@ title: "DRAFT: Chicken Pistachio Meatballs"
 pubDate: "2025-11-03"
 description: A lighter, bright and nutty take on classic meatballs with chicken and pistachios.
 category: "food"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm"
 prepTime: 90
 cookTime: 40
 ---
@@ -17,13 +18,15 @@ These are inspired by my classic meatballs, swapped to juicy ground chicken and 
 - 5–6 cloves garlic, minced or grated
 - 1/2 bunch parsley, chopped
 - 2/3 cup half & half or milk (for soaking bread)
-- 1 cup finely grated parmesan reggiano (reduce from the beef/pork version)
+- 1 cup finely grated cheese (1/2 pecorino romano + 1/2 pecorino toscano; parmesan reggiano works as a substitute)
 - 1/2 cup shelled pistachios, roughly chopped (or lightly crushed with a mortar and pestle for varied texture)
 - Zest of 1 lemon
 - 2 large eggs, beaten
 - 2 teaspoons kosher salt
 - 1 teaspoon garlic powder
 - 1/2 teaspoon onion powder
+- 1/4 teaspoon sweet paprika
+- 1/4 teaspoon dry mustard powder
 - Freshly ground black pepper
 - Olive oil (for coating the sheet pan and drizzling)
 - Optional boosters: pinch of red pepper flakes, 1 teaspoon Worcestershire, a few torn mint leaves
@@ -38,7 +41,7 @@ Prep pistachios: Using a mortar and pestle, lightly crush the pistachios until s
 
 Cook onions and garlic: Sauté the onions over medium heat in a little olive oil until lightly caramelized, about 8–10 minutes. Add the garlic for the last 2 minutes. Season with a pinch of salt, pepper, and garlic powder. Let cool to lukewarm.
 
-Mix the meatball base: In a large bowl, add ground chicken, the cooled onion-garlic mixture, squeezed panade, parmesan, parsley, pistachios, lemon zest, eggs, salt, garlic powder, onion powder, black pepper, and any optional boosters. Mix thoroughly until homogenous but do not overwork.
+Mix the meatball base: In a large bowl, add ground chicken, the cooled onion-garlic mixture, squeezed panade, cheese, parsley, pistachios, lemon zest, eggs, salt, garlic powder, onion powder, black pepper, and any optional boosters. Mix thoroughly until homogenous but do not overwork.
 
 Preheat the oven to 425°F (convection if available). Line a large sheet pan with parchment and coat generously with olive oil.
 
@@ -47,6 +50,8 @@ Form meatballs: Using a 1/4 cup measure, form 24–30 meatballs. Arrange on the 
 Roast: Bake on the middle rack for 15–17 minutes. Flip each meatball and roast another 15–17 minutes, until nicely browned and cooked through (internal temp ~165°F).
 
 Rest and serve: Let rest 5–10 minutes. Serve with a simple buttered pasta, a light marinara, on a hoagie, or over salad.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm)
 
 #### Simple Butter-Garlic Pasta (optional)
 
@@ -62,7 +67,9 @@ Cook pasta in well-salted water until al dente. Reserve 1 cup of pasta water and
 #### Notes and Tips
 
 - Chicken cooks a bit faster than beef/pork. Start checking color and doneness at the earlier end of the range.
-- Parmesan alone keeps things lighter; you can mix in a little pecorino if you want more punch.
+- Cheese: use a 50/50 mix of pecorino romano and pecorino toscano; parmesan reggiano is a great lighter substitute.
 - Don’t skimp on olive oil on the pan and tops—this helps with browning since chicken is lean.
+- Make-ahead: you can do most prep in advance—soak the bread for the panade, crush the pistachios, pick and chop the parsley, and chop the onions and garlic. Cover components and refrigerate until ready to mix.
+- You can also form the meatballs ahead of time; arrange on a sheet pan, cover, and refrigerate. Roast straight from the fridge, adding a minute or two if needed.
 
 
