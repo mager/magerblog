@@ -1,5 +1,5 @@
 ---
-title: "DRAFT: Chicken Pistachio Meatballs"
+title: "Chicken Pistachio Meatballs"
 pubDate: "2025-11-03"
 description: A lighter, bright and nutty take on classic meatballs with chicken and pistachios.
 category: "food"
