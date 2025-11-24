@@ -20,24 +20,24 @@ The trick here is blending half the soup mixture with the coconut cream to creat
 
 - 1 tbsp oil (olive or vegetable)
 - 1 medium yellow onion, diced
-- 1 cup diced butternut squash (or sweet potato)
-- 3 cloves garlic, minced
+- 1 full butternut squash (16-18 oz), diced
+- 5 cloves garlic, minced
 - 1 tbsp fresh ginger, grated
 - 2 tsp ground cumin
 - 1 tsp ground coriander
 - ½ tsp ground turmeric
-- ½ tsp kosher salt
+- up to 1 tsp kosher salt
 - ½ cup dried red lentils, rinsed
-- 6 cups chicken stock (low sodium)
-- 2 boneless, skinless chicken thighs (or breasts)
+- 8 cups chicken stock (low sodium)
+- 6 boneless, skinless chicken thighs, deboned
 - 1 can coconut cream (or the thick part of canned coconut milk)
 - 1 tbsp fresh lemon juice (or lime)
-- 4 oz green beans (chopped), or a handful of frozen peas
+- 8 oz green beans (chopped), or a handful of frozen peas
 - ¼ cup fresh cilantro, chopped
 
 #### Instructions
 
-Heat oil in a large pot over medium-high heat. Add the onion and squash, and cook for 5-7 minutes until the onion is soft. Stir in the ginger and garlic and cook for 1 minute.
+Heat oil in a large pot over medium-high heat. Add the onion and sauté for 5-10 minutes until starting to caramelize. Add the squash and cook for 5-7 minutes until the onion is soft. Stir in the ginger and garlic and cook for 1 minute.
 
 Stir in the cumin, coriander, turmeric, and salt. Cook for 60 seconds. Add the lentils and toast for 1-2 minutes.
 
