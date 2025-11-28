@@ -4,7 +4,7 @@ pubDate: "2009-09-08"
 updatedDate: "2009-09-08"
 description: "Starting at Ning in Palo Alto, learning Git, and commuting via Caltrain."
 tags: ["Life"]
-heroImage: ""
+heroImage: "https://live.staticflickr.com/2582/3931078689_c87087bb09_b.jpg"
 ---
 
 The character 寧 stands for [Ning](http://ning.com), [which is Chinese for peace](http://blog.ning.com/2007/04/the_story_behind_the_ning_name.html).
