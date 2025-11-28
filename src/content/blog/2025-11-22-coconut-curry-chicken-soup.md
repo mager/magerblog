@@ -4,7 +4,7 @@ title: "Recipe: Coconut Curry Chicken Soup"
 pubDate: "2025-11-22"
 description: A light, comforting soup packed with vibrant flavor and healthy ingredients like butternut squash and lentils. It delivers all the richness of a curry without being heavy.
 tags: ["Recipe"]
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMWUxyDbP5SbjxDM-2dVy3PzSgV2gTubdcK-jPnNavKIWFjDuIol32LJeOaGRQcNlcKcB_7xMlQ3PGyl8Ylr4l3q4FRlWOX71FWNIqv1UnMernXv4lSHHibR-zcT3teRZCmJLYo3sB7PDW3vDULBXgPDw=w2124-h1520-s-no-gm"
 prepTime: 15
 cookTime: 35
 draft: true
@@ -41,6 +41,8 @@ Heat oil in a large pot over medium-high heat. Add the onion and sauté for 5-10
 
 Stir in the cumin, coriander, turmeric, and salt. Cook for 60 seconds. Add the lentils and toast for 1-2 minutes.
 
+![Mashy](https://lh3.googleusercontent.com/pw/AP1GczPQQRzfbo1dUBv3RyNTtsWoshUeP-t5xNOvZuekcazuWDKckxm-d_Dujb8mYQ3r9OLeBO3QQUfCmYCCH2rdD7F0IGRDyXDIKvjKAL3mXfu0xAfkL97S_7KLlNe8UyUcp4HvSqTMplC-5HpdI7rWyAoUVA=w2026-h1520-s-no-gm)
+
 Pour in the chicken stock and bring to a boil. Add the whole chicken thighs. Reduce heat and simmer, covered, for 20 minutes.
 
 Remove the cooked chicken and dice it into small pieces. Set aside.
@@ -51,3 +53,4 @@ Return the smooth mixture, the diced chicken, and the green beans to the pot. Si
 
 Stir in the fresh cilantro and serve immediately!
 
+![Finished](https://lh3.googleusercontent.com/pw/AP1GczMWUxyDbP5SbjxDM-2dVy3PzSgV2gTubdcK-jPnNavKIWFjDuIol32LJeOaGRQcNlcKcB_7xMlQ3PGyl8Ylr4l3q4FRlWOX71FWNIqv1UnMernXv4lSHHibR-zcT3teRZCmJLYo3sB7PDW3vDULBXgPDw=w2124-h1520-s-no-gm)

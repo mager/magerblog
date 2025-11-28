@@ -4,7 +4,7 @@ title: "Recipe: Roasted Spatchcocked Chicken"
 pubDate: "2025-10-27"
 description: A reverse sear technique for perfectly crispy skin and juicy meat, every time.
 tags: ["Recipe"]
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm"
 prepTime: 15
 cookTime: 75
 ---
@@ -42,3 +42,4 @@ Let rest 10-15 minutes before carving. The crispy skin and juicy meat will make 
 
 500°F gets the skin crispy fast, then 325°F gently cooks the meat without drying it out. Spatchcocking flattens the bird so everything cooks evenly. Simple as that.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm)
