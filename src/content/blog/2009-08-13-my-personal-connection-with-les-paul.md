@@ -10,7 +10,7 @@ tags: ["Life"]
 
 When the internet was just getting started in the mid-1990s, I was obsessed with learning HTML. Once I got tired of Geocities, I wanted to host my own website. At age 13, I gathered up all my allowances and sent Network Solutions $100 to register [lespaul.com](http://web.archive.org/web/19990125100817/http://www.lespaul.com/) (and yes, my CDNow ad still renders on archive.org).
 
-[![lespaul.com screenshot](http://img.skitch.com/20090813-k7sh22pkj5x2ane5hbj3gstmyy.jpg)](http://web.archive.org/web/19990208014450/www.lespaul.com/)
+![lespaul.com](https://lh3.googleusercontent.com/pw/AP1GczMn7au1mfKl_7uKocozvGHdbWk3t4QBPMXEyUHdXqSiL_B5e6kOuQdzW3A2AD_6KllR4oruBkAAIu2XQBoZVQrsZtTV8k2QGjrzpSginORLo1_qUVZe7-xNCUEnK-cAUM7LCxuBqMaDnnRe_tWeCJUSNg=w2320-h1520-s-no-gm)
 
 That site became my sandbox. I was a guitar enthusiast who wanted to catalog every instrument I could find. My favorite was the [Gibson Les Paul](https://en.wikipedia.org/wiki/Gibson_Les_Paul), so I figured buying lespaul.com was a smart move. I updated it almost every day, learning about guitars, web design, CSS, and publishing along the way.
 
