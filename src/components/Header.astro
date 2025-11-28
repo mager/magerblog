@@ -1,12 +1,38 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+
+interface Props {
+	breadcrumb?: {
+		show: boolean;
+		path?: string;
+	};
+}
+
+const { breadcrumb } = Astro.props;
+const showBreadcrumb = breadcrumb?.show ?? false;
 ---
 
 <header>
-	<div class="tagline">
-		<span class="comment">//</span> Chicago explorer | Coding recipes | Building with AI
-	</div>
+	{showBreadcrumb ? (
+		<div class="breadcrumb">
+			<a href="/" class="breadcrumb-link">
+				<span class="prompt">~$</span> cd /
+			</a>
+			<span class="breadcrumb-separator">/</span>
+			<a href="/blog" class="breadcrumb-link">blog</a>
+			{breadcrumb?.path && (
+				<>
+					<span class="breadcrumb-separator">/</span>
+					<span class="breadcrumb-current">{breadcrumb.path}</span>
+				</>
+			)}
+		</div>
+	) : (
+		<div class="tagline">
+			<span class="comment">//</span> Chicago explorer | Coding recipes | Building with AI
+		</div>
+	)}
 	<nav>
 		<h2>
 			<a href="/" class="logo">
@@ -64,6 +90,47 @@ import { SITE_TITLE } from '../consts';
 	.tagline .comment {
 		color: var(--accent-green);
 		margin-right: 0.75rem;
+	}
+
+	.breadcrumb {
+		background: var(--terminal-black);
+		padding: 0.6rem 2em;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.8rem;
+		border-bottom: 1px solid var(--text-muted);
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.breadcrumb-link {
+		color: var(--cyan);
+		text-decoration: none;
+		transition: color 0.2s ease;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.breadcrumb-link:hover {
+		color: var(--purple);
+	}
+
+	.breadcrumb-link .prompt {
+		color: var(--accent-green);
+		font-weight: 700;
+	}
+
+	.breadcrumb-separator {
+		color: var(--text-muted);
+		margin: 0 0.25rem;
+	}
+
+	.breadcrumb-current {
+		color: var(--text-primary);
+		font-weight: 600;
 	}
 	h2 {
 		margin: 0;
