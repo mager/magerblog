@@ -195,6 +195,21 @@ import { SITE_TITLE } from '../consts';
 	@media (max-width: 720px) {
 		nav {
 			padding: 0 1em;
+			flex-direction: column;
+			gap: 0;
+			align-items: center;
+		}
+		h2 {
+			width: 100%;
+			text-align: center;
+			padding: 0.75em 0;
+			border-bottom: 1px solid var(--text-muted);
+		}
+		.internal-links {
+			width: 100%;
+			justify-content: center;
+			margin-left: 0;
+			padding: 0.5em 0;
 		}
 		.tagline {
 			font-size: 0.65rem;
