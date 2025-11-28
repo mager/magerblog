@@ -99,10 +99,8 @@ const { post } = Astro.props;
 		font-size: 1rem;
 		color: var(--text-secondary);
 		z-index: 1;
-		padding: 1rem;
-		background: rgba(0, 0, 0, 0.3);
-		border-radius: 8px;
-		border: 1px solid var(--text-muted);
+		padding: 0.75rem 1.25rem;
+		border-bottom: 2px solid var(--text-muted);
 	}
 
 	.prompt-symbol {
@@ -120,8 +118,7 @@ const { post } = Astro.props;
 	}
 
 	.card:hover .terminal-prompt {
-		border-color: var(--purple);
-		background: rgba(0, 0, 0, 0.5);
+		border-bottom-color: var(--purple);
 	}
 
 	.content {
