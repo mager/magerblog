@@ -23,14 +23,33 @@ const posts = (await getCollection('blog')).sort(
 			.page-header {
 				text-align: center;
 				margin-bottom: 3rem;
+				position: relative;
+				padding: 2rem 0;
+			}
+			@keyframes blink {
+				0%, 100% { opacity: 1; }
+				50% { opacity: 0; }
 			}
 			.page-header h1 {
-				font-size: 3.5em;
+				font-size: 2.8em;
 				margin-bottom: 0.5rem;
+				color: var(--text-primary);
+				position: relative;
+				display: inline-block;
+				font-weight: 800;
+				letter-spacing: -0.03em;
+			}
+
+			.page-header h1::after {
+				content: '█';
+				color: var(--accent-green);
+				animation: blink 1s infinite;
+				margin-left: 0.25rem;
 			}
 			.page-header p {
-				font-size: 1.25rem;
-				color: rgb(var(--gray));
+				font-size: 1.15rem;
+				color: var(--text-secondary);
+				font-family: 'JetBrains Mono', monospace;
 			}
 			.blog-grid {
 				display: grid;
@@ -44,6 +63,15 @@ const posts = (await getCollection('blog')).sort(
 					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 				}
 			}
+
+			@media (max-width: 720px) {
+				.page-header h1 {
+					font-size: 1.5em;
+				}
+				.page-header p {
+					font-size: 1rem;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -51,8 +79,8 @@ const posts = (await getCollection('blog')).sort(
 		<main>
 			<section>
 				<div class="page-header">
-					<h1>Blog</h1>
-					<p>A collection of my thoughts, tutorials, and adventures in code.</p>
+					<h1>$ ls -la ~/adventures</h1>
+					<p>Exploring cities, coding recipes, and documenting the journey</p>
 				</div>
 				<div class="blog-grid">
 					{

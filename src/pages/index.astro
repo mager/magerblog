@@ -23,12 +23,9 @@ const latestPost = (await getCollection('blog'))
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			/* A subtle, stylish background pattern for the page */
+			/* Pure black background like Claude Code */
 			body {
-				background-color: #fdfdfd;
-				background-image: linear-gradient(rgba(var(--gray), 0.07) 1px, transparent 1px),
-					linear-gradient(to right, rgba(var(--gray), 0.07) 1px, transparent 1px);
-				background-size: 2.5rem 2.5rem;
+				background-color: var(--editor-bg);
 			}
 
 			main {
@@ -73,31 +70,66 @@ const latestPost = (await getCollection('blog'))
 				z-index: 1;
 			}
 
+			/* Gradient background when no image */
+			.hero-latest-post.no-image {
+				background-image: linear-gradient(135deg, var(--terminal-black) 0%, var(--editor-bg-dark) 50%, var(--editor-bg) 100%);
+				position: relative;
+			}
+
+			.hero-latest-post.no-image::before {
+				display: none;
+			}
+
 			.hero-content {
 				position: relative;
 				z-index: 2;
 				max-width: 800px;
 			}
 
+			.web-flyer-badge {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				margin-bottom: 1.5rem;
+				display: inline-block;
+				padding: 0.75rem 1.25rem;
+				background: var(--terminal-black);
+				border-radius: 8px;
+				border: 2px solid var(--accent-green);
+				box-shadow: 0 0 20px rgba(163, 190, 140, 0.3);
+			}
+
+			.web-flyer-badge .prompt {
+				color: var(--accent-green);
+				font-weight: 700;
+				margin-right: 0.5rem;
+			}
+
+			.web-flyer-badge .command {
+				color: var(--cyan);
+			}
+
 			.hero-content .date {
 				font-size: 0.9rem;
 				opacity: 0.9;
-				font-weight: 700;
-				text-transform: uppercase;
+				font-weight: 600;
 				letter-spacing: 0.5px;
+				font-family: 'JetBrains Mono', monospace;
+				color: var(--text-secondary);
 			}
 
 			.hero-content h1 {
 				font-size: 3.5rem;
 				margin: 0.25rem 0 1rem;
 				line-height: 1.1;
-				color: white; /* Ensure heading is white */
+				color: var(--text-primary);
+				font-weight: 800;
+				letter-spacing: -0.03em;
 			}
 
 			.hero-content p {
-				font-size: 1.25rem;
+				font-size: 1.2rem;
 				margin: 0 0 2rem;
-				opacity: 0.9;
+				color: var(--text-secondary);
 			}
 
 			.hero-actions {
@@ -109,28 +141,37 @@ const latestPost = (await getCollection('blog'))
 			}
 
 			.hero-actions a {
-				color: white;
+				color: var(--text-primary);
 				padding: 0.75rem 1.5rem;
-				border-radius: 8px;
+				border-radius: 6px;
 				text-decoration: none;
-				font-weight: 700;
+				font-weight: 600;
 				transition: all 0.2s ease;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
 			}
 
 			.btn-primary {
-				background-color: var(--accent);
+				background-color: var(--cyan);
+				border: 2px solid var(--cyan);
+				color: var(--terminal-black);
 			}
 			.btn-primary:hover {
-				background-color: var(--accent-dark);
+				background-color: var(--purple);
+				border-color: var(--purple);
 				transform: translateY(-2px);
-				box-shadow: 0 4px 8px rgba(var(--black), 0.2);
+				box-shadow: 0 4px 12px rgba(167, 139, 250, 0.5);
 			}
 			.btn-secondary {
-				border: 2px solid rgba(255, 255, 255, 0.8);
+				border: 2px solid var(--text-secondary);
+				background: transparent;
+				color: var(--text-primary);
 			}
 			.btn-secondary:hover {
-				background-color: rgba(255, 255, 255, 0.1);
-				border-color: white;
+				background-color: var(--editor-bg-light);
+				border-color: var(--purple);
+				color: var(--purple);
+				transform: translateY(-2px);
 			}
 
 			@media (max-width: 720px) {
@@ -153,12 +194,16 @@ const latestPost = (await getCollection('blog'))
 			{
 				latestPost && (
 					<section
-						class="hero-latest-post"
-						style={`background-image: url(${latestPost.data.heroImage})`}
+						class={`hero-latest-post ${!latestPost.data.heroImage ? 'no-image' : ''}`}
+						style={latestPost.data.heroImage ? `background-image: url(${latestPost.data.heroImage})` : ''}
 					>
 						<div class="hero-content">
+							<div class="web-flyer-badge">
+								<span class="prompt">mager@chicago:~$</span>
+								<span class="command">head latest.md</span>
+							</div>
 							<p class="date">
-								Latest Post &bull; <FormattedDate date={latestPost.data.pubDate} />
+								<FormattedDate date={latestPost.data.pubDate} />
 							</p>
 							<h1>{latestPost.data.title}</h1>
 							<p>{latestPost.data.description}</p>

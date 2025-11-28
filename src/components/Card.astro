@@ -10,9 +10,20 @@ const { post } = Astro.props;
 ---
 
 <a href={`/blog/${post.id}/`} class="card">
-	<img src={post.data.heroImage} alt="" width={720} height={360} />
+	{post.data.heroImage ? (
+		<img src={post.data.heroImage} alt="" width={720} height={360} />
+	) : (
+		<div class="placeholder-image">
+			<div class="terminal-prompt">
+				<span class="prompt-symbol">$</span>
+				<span class="command">head {post.id}.md</span>
+			</div>
+		</div>
+	)}
 	<div class="content">
-		<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+		<p class="date">
+			<span class="prompt">$</span> <FormattedDate date={post.data.pubDate} />
+		</p>
 		<h4 class="title">{post.data.title}</h4>
 		<p class="description">{post.data.description}</p>
 	</div>
@@ -21,19 +32,38 @@ const { post } = Astro.props;
 <style>
 	.card {
 		display: block;
-		background-color: white;
+		background: var(--editor-bg-light);
 		border-radius: 12px;
 		box-shadow: var(--box-shadow);
 		overflow: hidden;
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		transition: all 0.3s ease;
 		text-decoration: none;
 		color: inherit;
+		border: 1px solid var(--text-muted);
+		position: relative;
+	}
+
+	.card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--cyan) 0%, var(--purple) 50%, var(--accent-green) 100%);
+		opacity: 0;
+		transition: opacity 0.3s ease;
 	}
 
 	.card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 8px 16px rgba(var(--gray), 25%);
+		transform: translateY(-4px);
+		box-shadow: var(--box-shadow-lg);
 		text-decoration: none;
+		border-color: var(--cyan);
+	}
+
+	.card:hover::before {
+		opacity: 1;
 	}
 
 	.card img {
@@ -41,7 +71,57 @@ const { post } = Astro.props;
 		height: auto;
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		border: none;
+		border-bottom: 2px solid var(--text-muted);
+		transition: border-color 0.3s ease;
+	}
+
+	.card:hover img {
+		border-bottom-color: var(--purple);
+	}
+
+	.placeholder-image {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		background: linear-gradient(135deg, var(--terminal-black) 0%, var(--editor-bg-dark) 50%, var(--editor-bg-light) 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-bottom: 2px solid var(--text-muted);
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* No grid pattern - pure gradient */
+
+	.terminal-prompt {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 1rem;
+		color: var(--text-secondary);
+		z-index: 1;
+		padding: 1rem;
+		background: rgba(0, 0, 0, 0.3);
+		border-radius: 8px;
+		border: 1px solid var(--text-muted);
+	}
+
+	.prompt-symbol {
+		color: var(--accent-green);
+		margin-right: 0.5rem;
+		font-weight: 700;
+	}
+
+	.command {
+		color: var(--cyan);
+	}
+
+	.card:hover .placeholder-image {
+		border-bottom-color: var(--purple);
+	}
+
+	.card:hover .terminal-prompt {
+		border-color: var(--purple);
+		background: rgba(0, 0, 0, 0.5);
 	}
 
 	.content {
@@ -50,18 +130,36 @@ const { post } = Astro.props;
 
 	.title {
 		margin: 0 0 0.5rem;
-		font-size: 1.25rem;
-		color: rgb(var(--black));
+		font-size: 1.3rem;
+		color: var(--text-primary);
+		font-weight: 800;
+		letter-spacing: -0.02em;
+		transition: color 0.3s ease;
+	}
+
+	.card:hover .title {
+		color: var(--cyan);
 	}
 
 	.date {
 		font-size: 0.875rem;
-		color: rgb(var(--gray));
+		color: var(--text-secondary);
 		margin: 0 0 0.5rem;
+		font-family: 'JetBrains Mono', monospace;
+		letter-spacing: 0.5px;
+		font-weight: 500;
+	}
+
+	.date .prompt {
+		color: var(--accent-green);
+		font-weight: 700;
+		margin-right: 0.25rem;
 	}
 
     .description {
         margin: 0;
         font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
     }
 </style>
