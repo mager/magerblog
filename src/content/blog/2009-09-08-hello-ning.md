@@ -3,7 +3,7 @@ title: "Hello Ning!"
 pubDate: "2009-09-08"
 updatedDate: "2009-09-08"
 description: "Starting at Ning in Palo Alto, learning Git, and commuting via Caltrain."
-category: "personal"
+tags: ["Life"]
 heroImage: ""
 ---
 
@@ -14,6 +14,8 @@ Today was my first day working as a web developer for Ning. The office is in Pal
 ![First day at Ning](http://img.skitch.com/20090908-fnym7psjumi65j2d29u6y4w81w.jpg)
 
 I am very excited to be working with [Gina Bianchini](http://www.nytimes.com/2008/12/28/jobs/28boss.html) and team.
+
+![Me and Gina](https://live.staticflickr.com/2495/4186253022_6292ac57ad_k.jpg?s&#x3D;eyJpIjo0MTg2MjUzMDIyLCJlIjoxNzY0MzU4MzMzLCJzIjoiMTk5MjhmYzA4NGZjZmNjMzU5OTM3N2EzNGRlYzI4NjQ4MjBiM2FhNSIsInYiOjF9)
 
 Anyway, just wanted to put it out there what my next gig will be. You can reach me anytime.
 
