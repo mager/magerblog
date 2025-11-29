@@ -3,6 +3,7 @@ title: "Hello Ning!"
 pubDate: "2009-09-08"
 updatedDate: "2009-09-08"
 description: "Starting at Ning in Palo Alto, learning Git, and commuting via Caltrain."
+category: "life"
 tags: ["Life"]
 heroImage: "https://live.staticflickr.com/2582/3931078689_c87087bb09_b.jpg"
 ---

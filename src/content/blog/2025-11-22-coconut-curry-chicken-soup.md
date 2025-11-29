@@ -1,8 +1,9 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Coconut Curry Chicken Soup"
+title: "Coconut Curry Chicken Soup"
 pubDate: "2025-11-22"
 description: A light, comforting soup packed with vibrant flavor and healthy ingredients like butternut squash and lentils. It delivers all the richness of a curry without being heavy.
+category: "food"
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMWUxyDbP5SbjxDM-2dVy3PzSgV2gTubdcK-jPnNavKIWFjDuIol32LJeOaGRQcNlcKcB_7xMlQ3PGyl8Ylr4l3q4FRlWOX71FWNIqv1UnMernXv4lSHHibR-zcT3teRZCmJLYo3sB7PDW3vDULBXgPDw=w2124-h1520-s-no-gm"
 prepTime: 15

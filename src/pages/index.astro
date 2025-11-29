@@ -100,28 +100,6 @@ const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/
 				max-width: 800px;
 			}
 
-			.web-flyer-badge {
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.9rem;
-				margin-bottom: 1.5rem;
-				display: inline-block;
-				padding: 0.75rem 1.25rem;
-				background: var(--terminal-black);
-				border-radius: 8px;
-				border: 2px solid var(--accent-green);
-				box-shadow: 0 0 20px rgba(163, 190, 140, 0.3);
-			}
-
-			.web-flyer-badge .prompt {
-				color: var(--accent-green);
-				font-weight: 700;
-				margin-right: 0.5rem;
-			}
-
-			.web-flyer-badge .command {
-				color: var(--cyan);
-			}
-
 			.hero-content .date {
 				font-size: 0.9rem;
 				opacity: 0.9;
@@ -212,10 +190,6 @@ const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/
 						style={latestPost.data.heroImage ? `background-image: url(${latestPost.data.heroImage})` : ''}
 					>
 						<div class="hero-content">
-							<div class="web-flyer-badge">
-								<span class="prompt">mager@chicago:~$</span>
-								<span class="command">head latest.md</span>
-							</div>
 							<p class="date">
 								<FormattedDate date={latestPost.data.pubDate} />
 							</p>

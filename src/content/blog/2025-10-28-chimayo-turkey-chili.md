@@ -1,8 +1,9 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Chimayo Turkey Chili"
+title: "Chimayo Turkey Chili"
 pubDate: "2025-10-28"
 description: A hearty and warming turkey chili with a deep, smoky flavor from chimayo pepper, perfect for a cozy dinner.
+category: "food"
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMgGFlN7KjMoWtiiwwqbFtohlx6g3iFG7vuzUMZ0dP3Cw4U7qPSoHwrHfp1Wv1sby47RT8InsvjlBjFXjKx8PEUZF82fW5Dmjk1zT3J8qICZjY3vnajbQ6Ucua9bwW2GEaZHgHZCx9sPMuGBuwUi91ZlQ=w2286-h1714-s-no-gm"
 prepTime: 15

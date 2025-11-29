@@ -1,9 +1,10 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Green Chicken Chile"
+title: "Green Chicken Chile"
 pubDate: "2024-11-03"
 updatedDate: "2025-06-30"
 description: A slightly spicy white chile with green chiles, chicken, corn, and hominy.
+category: "food"
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm"
 prepTime: 30

@@ -26,13 +26,12 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 		<div class="nav-right">
 			{showBreadcrumb ? (
 				<div class="breadcrumb">
-					<a href="/" class="breadcrumb-link">
-						<span class="prompt">~$</span> cd ~
-					</a>
+					<span class="prompt">~$</span>
+					<a href="/" class="breadcrumb-link">cd ~</a>
 					{breadcrumb?.tag && (
 						<>
-							<span class="breadcrumb-separator">/</span>
-							<span class="breadcrumb-current">{breadcrumb.tag}</span>
+							<span class="breadcrumb-separator">&&</span>
+							<span class="breadcrumb-current">cd {breadcrumb.tag}</span>
 						</>
 					)}
 				</div>

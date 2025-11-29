@@ -3,6 +3,7 @@ title: "Farewell CNET"
 pubDate: "2009-09-04"
 updatedDate: "2009-09-04"
 description: "Looking back on my two years at CNET/BNET before moving on to the next chapter."
+category: "life"
 tags: ["Life"]
 heroImage: "https://live.staticflickr.com/2625/3888278924_e9ccbb85f2_b.jpg"
 ---

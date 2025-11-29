@@ -1,9 +1,10 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Potatoes au Gratin"
+title: "Potatoes au Gratin"
 pubDate: "2024-12-24"
 updatedDate: "2024-12-25"
 description: A creamy and indulgent potato casserole, perfect for holiday gatherings, that will leave you and your guests wanting more every year.
+category: "food"
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOS8t4cimkB3e6gCdrpgGXV5-bjoaj5EU89gFVmqx0xqMFRaNIOo9oqGhVpvFXez2IbOf23N_CDws-oGxSgTm5Q94GdEbh9ZASjANY1ZZXv8g04EikPRhP9h5XsPBYBw3ss8_F_UVBkh-nde3isb7q_=w2400-h1342-s-no-gm"
 prepTime: 60

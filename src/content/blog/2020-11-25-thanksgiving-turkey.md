@@ -1,9 +1,10 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Recipe: Thanksgiving Turkey"
+title: "Thanksgiving Turkey"
 pubDate: "2020-11-25"
 updatedDate: "2022-11-25"
 description: "I stole this recipe from the November 2019 Bon Appetit. This expertly spiced & glazed turkey is cut into pieces, dry-rubbed overnight, and glazed continuously during it's slow cook. It's still the best turkey I've ever had."
+category: "food"
 tags: ["Recipe"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO0l02_bMsnafofz8mSK5mRmTmMC7dkYpjxXL2p01bvMjDKOBcpqQWgQ_rBoSjXbgOU9KxNdHhVUu_64Cqnby4X1QlDTqFkbwby87TgQSeprPa2CYvLW7zcPegW_OOuxhxnTXfYwWD_aNQlx9uk2BHc=w1200-h599-s-no-gm"
 prepTime: 60

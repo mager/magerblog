@@ -10,8 +10,20 @@ type Props = CollectionEntry<'blog'>['data'];
 // We are now reading prepTime and cookTime from the frontmatter props!
 const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category } = Astro.props;
 
-// Map category to tag with emoji
-const getCategoryTag = (cat: string | undefined) => {
+// Map category to display name for breadcrumb
+const getCategoryName = (cat: string | undefined) => {
+	if (!cat) return null;
+	const categoryMap: Record<string, string> = {
+		code: 'code',
+		food: 'recipes',
+		life: 'life',
+		personal: 'life'
+	};
+	return categoryMap[cat.toLowerCase()] || null;
+};
+
+// Map category to emoji + label for badge
+const getCategoryBadge = (cat: string | undefined) => {
 	if (!cat) return null;
 	const categoryMap: Record<string, string> = {
 		code: '💻 Code',
@@ -22,7 +34,8 @@ const getCategoryTag = (cat: string | undefined) => {
 	return categoryMap[cat.toLowerCase()] || null;
 };
 
-const tagLabel = getCategoryTag(category);
+const categoryName = getCategoryName(category);
+const categoryBadge = getCategoryBadge(category);
 ---
 
 <html lang="en">
@@ -370,7 +383,7 @@ const tagLabel = getCategoryTag(category);
 	</head>
 
 	<body>
-		<Header breadcrumb={{ show: true, tag: tagLabel }} />
+		<Header breadcrumb={{ show: true, tag: categoryName }} />
 		<main>
 			<article>
 				<div class="hero">
@@ -387,8 +400,8 @@ const tagLabel = getCategoryTag(category);
 							}
 						</div>
 						<h1>{title}</h1>
-						{tagLabel && (
-							<div class="tag-badge">{tagLabel}</div>
+						{categoryBadge && (
+							<div class="tag-badge">{categoryBadge}</div>
 						)}
 					</div>
 
