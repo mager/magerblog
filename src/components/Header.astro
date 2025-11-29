@@ -113,7 +113,7 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 	}
 	h2 {
 		margin: 0;
-		padding: 0.4em 0 0.3em;
+		padding: 0.4em 0 0;
 		font-size: 1.5em;
 		font-family: 'JetBrains Mono', monospace;
 		font-weight: 900;
@@ -192,14 +192,14 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 
 	nav {
 		display: flex;
-		align-items: center;
+		align-items: flex-end;
 		gap: 1.25rem;
 		max-width: 1400px;
 		margin: 0 auto;
-		padding: 0.25em 2em;
+		padding: 0 2em;
 	}
 	nav a {
-		padding: 0.75em 0.8em 0.65em;
+		padding: 0.75em 0.8em 0;
 		color: var(--text-primary);
 		border-bottom: 3px solid transparent;
 		text-decoration: none;
@@ -238,7 +238,7 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 	.social-links a {
 		color: var(--text-secondary);
 		transition: color 0.2s ease;
-		padding: 0.75em 0.4em 0.65em;
+		padding: 0.75em 0.4em 0;
 	}
 	.social-links a:hover {
 		color: var(--purple);
