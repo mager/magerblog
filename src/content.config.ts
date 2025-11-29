@@ -14,6 +14,7 @@ const blog = defineCollection({
 		heroImage: z.string().optional(),
 		prepTime: z.number().optional(),
 		cookTime: z.number().optional(),
+		category: z.string().optional(),
 	}),
 });
 
