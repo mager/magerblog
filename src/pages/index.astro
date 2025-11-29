@@ -16,6 +16,20 @@ const latestPost = (await getCollection('blog'))
 			return bDate.valueOf() - aDate.valueOf();
 		}
 	)[0];
+
+// Get category page link
+const getCategoryLink = (category: string | undefined) => {
+	if (!category) return '/code';
+	const map: Record<string, string> = {
+		code: '/code',
+		food: '/recipes',
+		life: '/life',
+		personal: '/life'
+	};
+	return map[category.toLowerCase()] || '/code';
+};
+
+const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/code';
 ---
 
 <!doctype html>
@@ -211,8 +225,8 @@ const latestPost = (await getCollection('blog'))
 								<a href={`/blog/${latestPost.id}/`} class="btn-primary">
 									Read Post
 								</a>
-								<a href="/blog" class="btn-secondary">
-									View All Posts
+								<a href={categoryLink} class="btn-secondary">
+									View More
 								</a>
 							</div>
 						</div>

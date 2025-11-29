@@ -1,0 +1,94 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Card from '../components/Card.astro';
+import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+	.filter(post => post.data.category === 'food')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Recipes - ${SITE_TITLE}`} description="Cooking experiments and culinary adventures" />
+		<style>
+			main {
+				width: 1200px;
+			}
+			.page-header {
+				text-align: center;
+				margin-bottom: 3rem;
+				position: relative;
+				padding: 2rem 0;
+			}
+			@keyframes blink {
+				0%, 100% { opacity: 1; }
+				50% { opacity: 0; }
+			}
+			.page-header h1 {
+				font-size: 2.8em;
+				margin-bottom: 0.5rem;
+				color: var(--text-primary);
+				position: relative;
+				display: inline-block;
+				font-weight: 800;
+				letter-spacing: -0.03em;
+			}
+
+			.page-header h1::after {
+				content: '█';
+				color: var(--accent-green);
+				animation: blink 1s infinite;
+				margin-left: 0.25rem;
+			}
+			.page-header p {
+				font-size: 1.15rem;
+				color: var(--text-secondary);
+				font-family: 'JetBrains Mono', monospace;
+			}
+			.blog-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				gap: 2rem;
+			}
+
+			@media (max-width: 1200px) {
+				.blog-grid {
+					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				}
+			}
+
+			@media (max-width: 720px) {
+				.page-header h1 {
+					font-size: 1.5em;
+				}
+				.page-header p {
+					font-size: 1rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<div class="page-header">
+					<h1>🍳 $ ls -la ~/recipes</h1>
+					<p>Cooking experiments and culinary adventures</p>
+				</div>
+				<div class="blog-grid">
+					{
+						posts.map((post) => (
+							<Card {post} />
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

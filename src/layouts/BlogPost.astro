@@ -8,7 +8,21 @@ import FormattedDate from '../components/FormattedDate.astro';
 type Props = CollectionEntry<'blog'>['data'];
 
 // We are now reading prepTime and cookTime from the frontmatter props!
-const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category } = Astro.props;
+
+// Map category to tag with emoji
+const getCategoryTag = (cat: string | undefined) => {
+	if (!cat) return null;
+	const categoryMap: Record<string, string> = {
+		code: '💻 Code',
+		food: '🍳 Recipe',
+		life: '🌆 Life',
+		personal: '🌆 Life'
+	};
+	return categoryMap[cat.toLowerCase()] || null;
+};
+
+const tagLabel = getCategoryTag(category);
 ---
 
 <html lang="en">
@@ -181,6 +195,20 @@ const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime 
 				z-index: 1;
 			}
 
+			.tag-badge {
+				display: inline-block;
+				padding: 0.5rem 1rem;
+				margin-top: 1rem;
+				background: var(--terminal-black);
+				border: 2px solid var(--cyan);
+				border-radius: 6px;
+				color: var(--text-primary);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				font-weight: 600;
+				box-shadow: 0 0 20px rgba(136, 192, 208, 0.3);
+			}
+
 			.title h1 {
 				font-size: 3.5em;
 				margin: 0.5em 0;
@@ -342,7 +370,7 @@ const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime 
 	</head>
 
 	<body>
-		<Header breadcrumb={{ show: true, path: title }} />
+		<Header breadcrumb={{ show: true, tag: tagLabel }} />
 		<main>
 			<article>
 				<div class="hero">
@@ -359,6 +387,9 @@ const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime 
 							}
 						</div>
 						<h1>{title}</h1>
+						{tagLabel && (
+							<div class="tag-badge">{tagLabel}</div>
+						)}
 					</div>
 
 					{heroImage ? (

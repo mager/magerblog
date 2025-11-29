@@ -6,6 +6,7 @@ interface Props {
 	breadcrumb?: {
 		show: boolean;
 		path?: string;
+		tag?: string;
 	};
 }
 
@@ -14,25 +15,6 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 ---
 
 <header>
-	{showBreadcrumb ? (
-		<div class="breadcrumb">
-			<a href="/" class="breadcrumb-link">
-				<span class="prompt">~$</span> cd /
-			</a>
-			<span class="breadcrumb-separator">/</span>
-			<a href="/blog" class="breadcrumb-link">blog</a>
-			{breadcrumb?.path && (
-				<>
-					<span class="breadcrumb-separator">/</span>
-					<span class="breadcrumb-current">{breadcrumb.path}</span>
-				</>
-			)}
-		</div>
-	) : (
-		<div class="tagline">
-			<span class="comment">//</span> Chicago explorer | Coding recipes | Building with AI
-		</div>
-	)}
 	<nav>
 		<h2>
 			<a href="/" class="logo">
@@ -41,11 +23,28 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 				<span class="bracket">/&gt;</span>
 			</a>
 		</h2>
-		<div class="internal-links">
-			<HeaderLink href="/blog">Explore</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-		<div class="social-links">
+		<div class="nav-right">
+			{showBreadcrumb ? (
+				<div class="breadcrumb">
+					<a href="/" class="breadcrumb-link">
+						<span class="prompt">~$</span> cd ~
+					</a>
+					{breadcrumb?.tag && (
+						<>
+							<span class="breadcrumb-separator">/</span>
+							<span class="breadcrumb-current">{breadcrumb.tag}</span>
+						</>
+					)}
+				</div>
+			) : (
+				<div class="internal-links">
+					<HeaderLink href="/code">💻 Code</HeaderLink>
+					<HeaderLink href="/life">🌆 Life</HeaderLink>
+					<HeaderLink href="/recipes">🍳 Recipe</HeaderLink>
+					<HeaderLink href="/about">About</HeaderLink>
+				</div>
+			)}
+			<div class="social-links">
 			<a href="https://x.com/mager" target="_blank">
 				<span class="sr-only">Follow @mager on X</span>
 				<svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28"
@@ -65,6 +64,7 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 				>
 			</a>
 		</div>
+		</div>
 	</nav>
 </header>
 <style>
@@ -76,33 +76,13 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 		border-bottom: 2px solid var(--text-muted);
 	}
 
-	.tagline {
-		background: var(--terminal-black);
-		padding: 0.6rem 2em;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		color: var(--text-secondary);
-		text-align: center;
-		border-bottom: 1px solid var(--text-muted);
-		letter-spacing: 0.3px;
-	}
-
-	.tagline .comment {
-		color: var(--accent-green);
-		margin-right: 0.75rem;
-	}
-
 	.breadcrumb {
-		background: var(--terminal-black);
-		padding: 0.6rem 2em;
 		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		border-bottom: 1px solid var(--text-muted);
+		font-size: 0.85rem;
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 		flex-wrap: wrap;
-		justify-content: center;
 	}
 
 	.breadcrumb-link {
@@ -238,18 +218,23 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 		color: var(--purple);
 		border-bottom-color: var(--purple);
 	}
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		margin-left: auto;
+		flex-wrap: wrap;
+	}
+
 	.internal-links {
 		display: flex;
 		gap: 0.4rem;
-		margin-left: 0.75rem;
 	}
+
 	.social-links,
 	.social-links a {
 		display: flex;
 		gap: 0.6rem;
-	}
-	.social-links {
-		margin-left: auto;
 	}
 	.social-links a {
 		color: var(--text-secondary);
@@ -272,15 +257,19 @@ const showBreadcrumb = breadcrumb?.show ?? false;
 			padding: 0.75em 0;
 			border-bottom: 1px solid var(--text-muted);
 		}
-		.internal-links {
+		.nav-right {
 			width: 100%;
-			justify-content: center;
 			margin-left: 0;
+			justify-content: center;
 			padding: 0.5em 0;
 		}
-		.tagline {
-			font-size: 0.65rem;
-			padding: 0.4rem 1em;
+		.internal-links {
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+		.breadcrumb {
+			justify-content: center;
+			font-size: 0.75rem;
 		}
 		.social-links {
 			display: none;
