@@ -3,7 +3,7 @@ title: "SimpleGeo, here I come"
 pubDate: "2010-03-22"
 updatedDate: "2010-03-22"
 description: "Announcing my move from Ning to SimpleGeo to help build the new San Francisco office."
-category: "personal"
+category: "life"
 heroImage: ""
 ---
 

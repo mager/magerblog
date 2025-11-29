@@ -16,8 +16,7 @@ const getCategoryName = (cat: string | undefined) => {
 	const categoryMap: Record<string, string> = {
 		code: 'code',
 		food: 'recipes',
-		life: 'life',
-		personal: 'life'
+		life: 'life'
 	};
 	return categoryMap[cat.toLowerCase()] || null;
 };
@@ -28,8 +27,7 @@ const getCategoryBadge = (cat: string | undefined) => {
 	const categoryMap: Record<string, string> = {
 		code: '💻 Code',
 		food: '🍳 Recipes',
-		life: '🌆 Life',
-		personal: '🌆 Life'
+		life: '🌆 Life'
 	};
 	return categoryMap[cat.toLowerCase()] || null;
 };

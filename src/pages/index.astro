@@ -3,33 +3,25 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Card from '../components/Card.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import FormattedDate from '../components/FormattedDate.astro';
 
-// Get only the single most recent post with a heroImage (by updated date, fallback to pub date)
-const latestPost = (await getCollection('blog'))
-	.filter(post => post.data.heroImage)
-	.sort(
-		(a, b) => {
-			const aDate = a.data.updatedDate || a.data.pubDate;
-			const bDate = b.data.updatedDate || b.data.pubDate;
-			return bDate.valueOf() - aDate.valueOf();
-		}
-	)[0];
+// Get latest post from each category
+const allPosts = await getCollection('blog');
 
-// Get category page link
-const getCategoryLink = (category: string | undefined) => {
-	if (!category) return '/code';
-	const map: Record<string, string> = {
-		code: '/code',
-		food: '/recipes',
-		life: '/life',
-		personal: '/life'
-	};
-	return map[category.toLowerCase()] || '/code';
-};
+const latestCode = allPosts
+	.filter(post => post.data.category === 'code')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
 
-const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/code';
+const latestLife = allPosts
+	.filter(post => post.data.category === 'life')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
+
+const latestFood = allPosts
+	.filter(post => post.data.category === 'food')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
+
+const featuredPosts = [latestCode, latestLife, latestFood].filter(Boolean);
 ---
 
 <!doctype html>
@@ -37,145 +29,64 @@ const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			/* Pure black background like Claude Code */
 			body {
 				background-color: var(--editor-bg);
 			}
 
 			main {
-				/* Remove default constraints to allow for a full-width hero */
-				padding: 0;
-				width: 100%;
-				max-width: 100%;
-				/* Center the hero section in the available vertical space */
-				min-height: calc(100vh - 140px); /* Adjust value based on your header/footer height */
-				display: flex;
-				align-items: center;
-				justify-content: center;
+				width: 1200px;
+				padding: 3rem 2rem;
 			}
 
-			.hero-latest-post {
-				position: relative;
-				width: 100%;
-				max-width: 1200px; /* Control the max width of the hero card */
-				margin: 2rem;
-				border-radius: 24px; /* Softer, more modern corners */
-				background-size: cover;
-				background-position: center;
-				color: white;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+			.page-header {
 				text-align: center;
-				padding: 6rem 2rem;
-				overflow: hidden;
-				box-shadow: 0 16px 32px rgba(var(--black), 0.2);
+				margin-bottom: 3rem;
 			}
 
-			/* Dark overlay to ensure text is always readable over the hero image */
-			.hero-latest-post::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
-				z-index: 1;
+			@keyframes blink {
+				0%, 100% { opacity: 1; }
+				50% { opacity: 0; }
 			}
 
-			/* Gradient background when no image */
-			.hero-latest-post.no-image {
-				background-image: linear-gradient(135deg, var(--terminal-black) 0%, var(--editor-bg-dark) 50%, var(--editor-bg) 100%);
-				position: relative;
-			}
-
-			.hero-latest-post.no-image::before {
-				display: none;
-			}
-
-			.hero-content {
-				position: relative;
-				z-index: 2;
-				max-width: 800px;
-			}
-
-			.hero-content .date {
-				font-size: 0.9rem;
-				opacity: 0.9;
-				font-weight: 600;
-				letter-spacing: 0.5px;
-				font-family: 'JetBrains Mono', monospace;
-				color: var(--text-secondary);
-			}
-
-			.hero-content h1 {
-				font-size: 3.5rem;
-				margin: 0.25rem 0 1rem;
-				line-height: 1.1;
+			.page-header h1 {
+				font-size: 2.8em;
+				margin-bottom: 0.5rem;
 				color: var(--text-primary);
 				font-weight: 800;
 				letter-spacing: -0.03em;
 			}
 
-			.hero-content p {
-				font-size: 1.2rem;
-				margin: 0 0 2rem;
+			.page-header h1::after {
+				content: '█';
+				color: var(--accent-green);
+				animation: blink 1s infinite;
+				margin-left: 0.25rem;
+			}
+
+			.page-header p {
+				font-size: 1.15rem;
 				color: var(--text-secondary);
-			}
-
-			.hero-actions {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 1rem;
-				flex-wrap: wrap;
-			}
-
-			.hero-actions a {
-				color: var(--text-primary);
-				padding: 0.75rem 1.5rem;
-				border-radius: 6px;
-				text-decoration: none;
-				font-weight: 600;
-				transition: all 0.2s ease;
 				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.9rem;
 			}
 
-			.btn-primary {
-				background-color: var(--cyan);
-				border: 2px solid var(--cyan);
-				color: var(--terminal-black);
+			.featured-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				gap: 2rem;
 			}
-			.btn-primary:hover {
-				background-color: var(--purple);
-				border-color: var(--purple);
-				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(167, 139, 250, 0.5);
-			}
-			.btn-secondary {
-				border: 2px solid var(--text-secondary);
-				background: transparent;
-				color: var(--text-primary);
-			}
-			.btn-secondary:hover {
-				background-color: var(--editor-bg-light);
-				border-color: var(--purple);
-				color: var(--purple);
-				transform: translateY(-2px);
+
+			@media (max-width: 1200px) {
+				.featured-grid {
+					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				}
 			}
 
 			@media (max-width: 720px) {
-				.hero-latest-post {
-					padding: 4rem 1.5rem;
-					margin: 1rem;
+				.page-header h1 {
+					font-size: 1.5em;
 				}
-				.hero-content h1 {
-					font-size: 2.5rem;
-				}
-				.hero-content p {
-					font-size: 1.1rem;
+				.page-header p {
+					font-size: 1rem;
 				}
 			}
 		</style>
@@ -183,30 +94,19 @@ const categoryLink = latestPost ? getCategoryLink(latestPost.data.category) : '/
 	<body>
 		<Header />
 		<main>
-			{
-				latestPost && (
-					<section
-						class={`hero-latest-post ${!latestPost.data.heroImage ? 'no-image' : ''}`}
-						style={latestPost.data.heroImage ? `background-image: url(${latestPost.data.heroImage})` : ''}
-					>
-						<div class="hero-content">
-							<p class="date">
-								<FormattedDate date={latestPost.data.pubDate} />
-							</p>
-							<h1>{latestPost.data.title}</h1>
-							<p>{latestPost.data.description}</p>
-							<div class="hero-actions">
-								<a href={`/blog/${latestPost.id}/`} class="btn-primary">
-									Read Post
-								</a>
-								<a href={categoryLink} class="btn-secondary">
-									View More
-								</a>
-							</div>
-						</div>
-					</section>
-				)
-			}
+			<section>
+				<div class="page-header">
+					<h1>$ ls -la ~/latest</h1>
+					<p>Latest from Code, Life, and Recipes</p>
+				</div>
+				<div class="featured-grid">
+					{
+						featuredPosts.map((post) => (
+							<Card {post} />
+						))
+					}
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>

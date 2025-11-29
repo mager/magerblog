@@ -3,7 +3,7 @@ title: "My personal connection with Les Paul"
 pubDate: "2009-08-13"
 updatedDate: "2009-08-13"
 description: "How registering lespaul.com as a kid led to a cease and desist—and a Black Beauty guitar."
-category: "personal"
+category: "life"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMn7au1mfKl_7uKocozvGHdbWk3t4QBPMXEyUHdXqSiL_B5e6kOuQdzW3A2AD_6KllR4oruBkAAIu2XQBoZVQrsZtTV8k2QGjrzpSginORLo1_qUVZe7-xNCUEnK-cAUM7LCxuBqMaDnnRe_tWeCJUSNg=w2320-h1520-s-no-gm"
 tags: ["Life"]
 ---
