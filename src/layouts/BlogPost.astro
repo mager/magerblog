@@ -1,14 +1,25 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 // We are now reading prepTime and cookTime from the frontmatter props!
-const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category, postId } = Astro.props;
+
+// Get all posts in the same category for prev/next navigation
+const allPosts = await getCollection('blog');
+const categoryPosts = allPosts
+	.filter(post => post.data.category?.toLowerCase() === category?.toLowerCase())
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const currentIndex = categoryPosts.findIndex(post => post.id === postId);
+const prevPost = currentIndex < categoryPosts.length - 1 ? categoryPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? categoryPosts[currentIndex - 1] : null;
 
 // Map category to display name for breadcrumb
 const getCategoryName = (cat: string | undefined) => {
@@ -48,73 +59,39 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.hero {
-				padding: 3rem 2em 0;
+				padding: 0;
 				text-align: center;
-				background: linear-gradient(180deg, var(--terminal-black) 0%, var(--editor-bg-dark) 40%, var(--editor-bg) 100%);
+				background: var(--terminal-black);
 				position: relative;
 				overflow: hidden;
 			}
 
-			.hero::before {
-				content: '';
-				position: absolute;
-				top: -300px;
-				right: -300px;
-				width: 800px;
-				height: 800px;
-				border-radius: 50%;
-				background: radial-gradient(circle, rgba(136, 192, 208, 0.08), transparent 70%);
-				z-index: 0;
-			}
-
-			.hero::after {
-				content: '';
-				position: absolute;
-				bottom: -200px;
-				left: -200px;
-				width: 600px;
-				height: 600px;
-				border-radius: 50%;
-				background: radial-gradient(circle, rgba(167, 139, 250, 0.1), transparent 70%);
-				z-index: 0;
-			}
 
 			.hero-image {
 				width: 100%;
-				max-width: 1400px;
-				margin: 0 auto;
+				max-width: 100%;
+				margin: 0;
 				position: relative;
 				z-index: 1;
-				padding: 0 2rem 5rem;
-				overflow: visible;
+				padding: 0;
+				overflow: hidden;
 			}
 
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow:
-					0 0 0 2px var(--purple),
-					0 0 0 4px var(--terminal-black),
-					0 0 0 6px var(--cyan),
-					0 30px 60px -12px rgba(0, 0, 0, 0.8),
-					0 0 100px rgba(167, 139, 250, 0.3);
-				transform: translateY(40px);
-				border: 1px solid var(--terminal-black);
-				transition: all 0.3s ease;
+				margin: 0;
+				width: 100%;
+				height: auto;
 				max-height: 600px;
-				width: auto;
-				object-fit: contain;
+				object-fit: cover;
+				border-radius: 0;
+				border: none;
+				box-shadow: none;
+				transition: all 0.3s ease;
 			}
 
 			.hero-image img:hover {
-				box-shadow:
-					0 0 0 2px var(--cyan),
-					0 0 0 4px var(--terminal-black),
-					0 0 0 6px var(--purple),
-					0 35px 70px -12px rgba(0, 0, 0, 0.9),
-					0 0 120px rgba(167, 139, 250, 0.5);
-				transform: translateY(35px) scale(1.01);
+				transform: scale(1.02);
 			}
 
 			.hero-image-placeholder {
@@ -200,24 +177,12 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.title {
-				margin-bottom: 2rem;
+				margin: 0;
+				padding: 1rem 2em 2rem;
 				line-height: 1.2;
 				position: relative;
 				z-index: 1;
-			}
-
-			.tag-badge {
-				display: inline-block;
-				padding: 0.5rem 1rem;
-				margin-top: 1rem;
-				background: var(--terminal-black);
-				border: 2px solid var(--cyan);
-				border-radius: 6px;
-				color: var(--text-primary);
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.9rem;
-				font-weight: 600;
-				box-shadow: 0 0 20px rgba(136, 192, 208, 0.3);
+				background: linear-gradient(180deg, var(--terminal-black) 0%, var(--editor-bg-dark) 60%, var(--editor-bg) 100%);
 			}
 
 			.title h1 {
@@ -231,34 +196,12 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.date {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: center;
-				gap: 0.75rem;
 				margin-bottom: 1em;
 				color: var(--cyan);
 				font-size: 0.85em;
 				font-family: 'JetBrains Mono', monospace;
 				letter-spacing: 0.5px;
 				font-weight: 500;
-			}
-
-			.date .prompt {
-				color: var(--accent-green);
-				margin-right: 0.5rem;
-			}
-
-			.date > span {
-				display: flex;
-				align-items: center;
-				gap: 0.25rem;
-			}
-
-			.last-updated-on {
-				font-style: normal;
-				padding-left: 1rem;
-				margin-left: 1rem;
-				border-left: 2px solid var(--purple);
 			}
 
 			.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
@@ -381,28 +324,10 @@ const categoryBadge = getCategoryBadge(category);
 	</head>
 
 	<body>
-		<Header breadcrumb={{ show: true, tag: categoryName }} />
+		<Header activeCategory={categoryName} />
 		<main>
 			<article>
 				<div class="hero">
-					<div class="title">
-						<div class="date">
-							<span><span class="prompt">$</span> cat metadata.json</span>
-							<span class="published">Published: <FormattedDate date={pubDate} /></span>
-							{
-								updatedDate && (
-									<span class="last-updated-on">
-										Updated: <FormattedDate date={updatedDate} />
-									</span>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						{categoryBadge && (
-							<div class="tag-badge">{categoryBadge}</div>
-						)}
-					</div>
-
 					{heroImage ? (
 						<div class="hero-image">
 							<img width={1200} height={600} src={heroImage} alt="" />
@@ -423,6 +348,13 @@ const categoryBadge = getCategoryBadge(category);
 							</div>
 						</div>
 					)}
+
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={updatedDate || pubDate} />
+						</div>
+						<h1>{title}</h1>
+					</div>
 				</div>
 				<div class="prose">
 					{
@@ -445,6 +377,54 @@ const categoryBadge = getCategoryBadge(category);
 					<slot />
 				</div>
 			</article>
+
+			<section class="article-footer">
+				<div class="article-meta">
+					<div class="meta-section">
+						<h3>Article Info</h3>
+						<div class="meta-grid">
+							<div class="meta-item">
+								<span class="meta-label">Published:</span>
+								<span class="meta-value"><FormattedDate date={pubDate} /></span>
+							</div>
+							{updatedDate && (
+								<div class="meta-item">
+									<span class="meta-label">Updated:</span>
+									<span class="meta-value"><FormattedDate date={updatedDate} /></span>
+								</div>
+							)}
+							{categoryBadge && (
+								<div class="meta-item">
+									<span class="meta-label">Category:</span>
+									<span class="meta-value">{categoryBadge}</span>
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
+
+				{(prevPost || nextPost) && (
+					<nav class="post-navigation">
+						<h3>More in {categoryBadge}</h3>
+						<div class="nav-links">
+							{prevPost && (
+								<a href={`/blog/${prevPost.id}`} class="nav-link prev">
+									<span class="nav-direction">← Previous</span>
+									<span class="nav-title">{prevPost.data.title}</span>
+									<span class="nav-date"><FormattedDate date={prevPost.data.pubDate} /></span>
+								</a>
+							)}
+							{nextPost && (
+								<a href={`/blog/${nextPost.id}`} class="nav-link next">
+									<span class="nav-direction">Next →</span>
+									<span class="nav-title">{nextPost.data.title}</span>
+									<span class="nav-date"><FormattedDate date={nextPost.data.pubDate} /></span>
+								</a>
+							)}
+						</div>
+					</nav>
+				)}
+			</section>
 		</main>
 		<Footer />
 	</body>
