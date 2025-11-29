@@ -12,7 +12,7 @@ The home page shows popular songs scraped from a few different music sites. I bu
 
 ![Home](https://lh3.googleusercontent.com/pw/AP1GczMhwXmrQNmmwG95sOSC8arAaiOnt2Jpk5VH41jODORoq-5avO7I7J3RC67DIE9vYRCkToBHG4Q1bBw0vkq-c1tr3no29yo9iv0ARKHZEBjwHW8wgWPxFBlbOL2ORv3dwc81TjUbQXrtpt4ZsC_uk-0f4A=w2320-h1520-s-no-gm)
 
-For release information—things like production credits, recording details, and instrumentation—I pull data from MusicBrainz. It's fascinating to see who produced a track or what instruments were used, and I wanted to surface that information in a way that's easy to explore.
+For release information—things like production credits, recording details, and instrumentation—I pull data from MusicBrainz. To make this easier, I built a minimal Go library called [musicbrainz-go](https://github.com/mager/musicbrainz-go) to interact with the MusicBrainz API. It's fascinating to see who produced a track or what instruments were used, and I wanted to surface that information in a way that's easy to explore.
 
 ![Release](https://lh3.googleusercontent.com/pw/AP1GczOl55faybp1WBChNCd1GTN3oAfrUHVTjs7m4rAya0_dO4UFusRJa0ODlp1gOPMxWGX1Oh2ppItawRqcDFxBBr0wZdkxJIdUJM9leMKvSe5uMb5HrYnbCe0Q2_Dig2YeJobUh3waxXvkNEYvZv3NEBVIXQ=w2320-h1520-s-no-gm)
 
@@ -27,4 +27,11 @@ The frontend is hosted on Vercel, which makes deployment seamless. I've used AI 
 I'm building a new site now, so beatbrain might not get updated for a while, but it's still a project that's near and dear to my heart. There's something special about building a tool that helps people discover music and share what they love.
 
 You can check it out at [beatbrain.xyz](https://beatbrain.xyz), and I'm on X at [@beatbrainxyz](https://x.com/beatbrainxyz) if you want to follow along.
+
+All the code is open source:
+
+- **[beatbrain-web](https://github.com/mager/beatbrain-web)** - The frontend web app
+- **[melodex](https://github.com/mager/melodex)** - The Go Fx service that scrapes music sites and builds the index
+- **[occipital](https://github.com/mager/occipital)** - The Go Fx backend service that handles API requests
+- **[musicbrainz-go](https://github.com/mager/musicbrainz-go)** - A minimal Go library for the MusicBrainz API
 
