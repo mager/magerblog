@@ -22,12 +22,15 @@ const latestFood = allPosts
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
 
 const featuredPosts = [latestCode, latestLife, latestFood].filter(Boolean);
+
+// Use the first featured post's hero image for OG image, or fallback to a default
+const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage || '/blog-placeholder-1.jpg';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
 		<style>
 			body {
 				background-color: var(--editor-bg);
