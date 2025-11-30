@@ -342,19 +342,25 @@ const categoryBadge = getCategoryBadge(category);
 		}
 
 		.meta-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 1.5rem;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
 			background: var(--terminal-black);
 			border: 2px solid var(--text-muted);
 			border-radius: 8px;
-			padding: 1.5rem;
+			padding: 1rem 1.5rem;
 		}
 
 		.meta-grid .meta-item {
 			display: flex;
-			flex-direction: column;
+			align-items: center;
 			gap: 0.5rem;
+		}
+
+		.meta-grid .meta-divider {
+			color: var(--text-muted);
+			font-size: 1rem;
+			margin: 0 0.25rem;
 		}
 
 		.meta-grid .meta-label {
@@ -368,7 +374,7 @@ const categoryBadge = getCategoryBadge(category);
 		.meta-grid .meta-value {
 			color: var(--text-primary);
 			font-family: 'JetBrains Mono', monospace;
-			font-size: 1rem;
+			font-size: 0.95rem;
 			font-weight: 600;
 		}
 
@@ -461,9 +467,15 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.meta-grid {
-				grid-template-columns: 1fr;
-				gap: 1rem;
-				padding: 1rem;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				padding: 0.875rem 1rem;
+				font-size: 0.9rem;
+			}
+
+			.meta-grid .meta-label,
+			.meta-grid .meta-value {
+				font-size: 0.8rem;
 			}
 		}
 		</style>
@@ -529,21 +541,27 @@ const categoryBadge = getCategoryBadge(category);
 					<div class="meta-section">
 						<h3>Article Info</h3>
 						<div class="meta-grid">
+							{categoryBadge && (
+								<>
+									<div class="meta-item">
+										<span class="meta-label">Category:</span>
+										<span class="meta-value">{categoryBadge}</span>
+									</div>
+									<span class="meta-divider">|</span>
+								</>
+							)}
 							<div class="meta-item">
 								<span class="meta-label">Published:</span>
 								<span class="meta-value"><FormattedDate date={pubDate} /></span>
 							</div>
 							{updatedDate && (
-								<div class="meta-item">
-									<span class="meta-label">Updated:</span>
-									<span class="meta-value"><FormattedDate date={updatedDate} /></span>
-								</div>
-							)}
-							{categoryBadge && (
-								<div class="meta-item">
-									<span class="meta-label">Category:</span>
-									<span class="meta-value">{categoryBadge}</span>
-								</div>
+								<>
+									<span class="meta-divider">|</span>
+									<div class="meta-item">
+										<span class="meta-label">Updated:</span>
+										<span class="meta-value"><FormattedDate date={updatedDate} /></span>
+									</div>
+								</>
 							)}
 						</div>
 					</div>
