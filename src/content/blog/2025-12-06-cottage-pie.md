@@ -31,7 +31,7 @@ I'm using frozen corn, peas, and carrots for convenience, which works perfectly 
 - 1 teaspoon chopped fresh thyme
 - 2 tablespoons all-purpose flour
 - 1 tablespoon tomato paste
-- 1 cup unsalted chicken stock
+- 1 cup unsalted chicken stock or bone broth (bone broth recommended for richer flavor)
 - 1 teaspoon Worcestershire sauce
 
 **For the Potatoes:**
@@ -55,7 +55,7 @@ Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground bla
 
 Stir in the curry powder (if using), rosemary, thyme, and ¼ teaspoon kosher salt. Sprinkle the flour over the meat mixture and cook for another minute.
 
-Stir in the tomato paste, chicken stock, and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
+Stir in the tomato paste, stock (or bone broth), and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
 Transfer the meat mixture to a Le Creuset oval baker (or a 9x13 baking dish if scaling up). Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula. Sprinkle the remaining half of the cheese on top.
 
