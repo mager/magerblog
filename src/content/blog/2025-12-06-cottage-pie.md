@@ -6,7 +6,7 @@ description: A hearty cottage pie made with ground beef, following Alton Brown's
 category: "food"
 tags: ["Recipe"]
 draft: true
-prepTime: 30
+prepTime: 60
 cookTime: 60
 ---
 
@@ -49,13 +49,13 @@ Preheat oven to 400°F.
 
 Boil the diced potatoes in generously salted water (amount is arbitrary—just salt the water to taste) until tender, about 15-20 minutes. Drain and mash with warmed half-and-half and butter. Season the mashed potatoes with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in the egg yolk and half of the shredded cheese. Set aside.
 
-Heat oil in a large skillet. Add onion and frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
+Heat oil in a large skillet. Add onion and cook for 5-10 minutes to caramelize. Add the frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
 
-Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until the beef is browned and cooked through (about 5 minutes). Drain off any excess fat if needed.
+Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes). Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
 
-Stir in the curry powder (if using), rosemary, thyme, and ¼ teaspoon kosher salt. Sprinkle the flour over the meat mixture and cook for another minute.
+Turn the heat back on to medium. Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
 
-Stir in the tomato paste, stock (or bone broth), and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
+Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
 Transfer the meat mixture to a Le Creuset oval baker (or a 9x13 baking dish if scaling up). Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula. Sprinkle the remaining half of the cheese on top.
 
