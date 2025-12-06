@@ -10,7 +10,9 @@ prepTime: 30
 cookTime: 60
 ---
 
-This is Alton Brown's cottage pie recipe, adapted to use ground beef instead of ground lamb. The only major change is the meat—you'll follow the same steps and use the same quantity of meat and other filling ingredients.
+This is Alton Brown's shepherd's pie recipe, adapted to use ground beef instead of ground lamb. The only major change is the meat—you'll follow the same steps and use the same quantity of meat and other filling ingredients.
+
+![Alton Brown's Shepherd's Pie Recipe](https://lh3.googleusercontent.com/pw/AP1GczNefGYJhU1N6BgcfSLvnWHyai2S758UmMNX_HGZtZRarE1R3HlXm17OIDLmD9UHjks5kOaV10DF2b18DxUaNhY_PXo9jBOEYQjuo8H9arIWEhT7KqsY8ghLTYEPrwpBrDv52psKBQBqCCkOk4PkayzIow=w2320-h1520-s-no-gm)
 
 I'm using frozen corn, peas, and carrots for convenience, which works perfectly in this dish.
 
@@ -45,7 +47,7 @@ Preheat oven to 400°F.
 
 Peel and dice the potatoes. Boil them in salted water until tender. Drain and mash with warmed half-and-half, butter, salt, and pepper. Stir in the egg yolk (and optional cheese).
 
-Heat oil in a 12-inch cast iron skillet or oven-safe pan. Add onion and frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
+Heat oil in a large skillet. Add onion and frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
 
 Add the ground beef, salt, and pepper. Cook, breaking up clumps, until the beef is browned and cooked through (about 5 minutes). Drain off any excess fat if needed.
 
@@ -53,7 +55,7 @@ Stir in the curry powder (if using), rosemary, thyme, and the remaining salt. Sp
 
 Stir in the tomato paste, chicken stock, and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
-Stir the vegetables into the meat mixture. Remove from heat. Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula.
+Transfer the meat mixture to a 9x13 baking dish or Le Creuset oval baker. Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula.
 
 Bake for 25-30 minutes, or until the topping is lightly browned and the filling is bubbling around the edges. Let it cool for 10-15 minutes before serving.
 
