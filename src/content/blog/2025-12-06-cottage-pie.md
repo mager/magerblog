@@ -5,7 +5,7 @@ pubDate: "2025-12-06"
 description: A hearty cottage pie made with ground beef, following Alton Brown's method. Perfect comfort food for a cold day.
 category: "food"
 tags: ["Recipe"]
-draft: true
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPAog72I_vM3GNc49AJ0EADf_ycCZfUGLbze6dxoadtJESVvw3qrE0QgoZxmGjO2583jI2usj_h9aXpU42hzHyFtUTl9akN-xrQbL3PW9ZSgTNSsErVoDY7PU_RhOsIfAbsBFbt1U-faYjY-IPUt0FLQg=w2026-h1520-s-no-gm"
 prepTime: 60
 cookTime: 60
 ---
@@ -34,6 +34,8 @@ I'm using frozen corn, peas, and carrots for convenience, which works perfectly 
 - 1 cup unsalted chicken stock or bone broth (bone broth recommended for richer flavor)
 - 1 teaspoon Worcestershire sauce
 
+![Ingredients](https://lh3.googleusercontent.com/pw/AP1GczMC74Cum1j16Bsh9g5994Ci1jAb06_vml5-CFYkD0NiR1yX50YfXtZBQ4I-4A5z72IkApnee2cc11AAmFrBFHlpyFnHS5RO_4HJ69jOfdoED6H66ANG6t8vahtSA2AT7aMt7RGzEWak6T71jLnI4PLPAQ=w2026-h1520-s-no-gm)
+
 **For the Potatoes:**
 - 2 pounds russet potatoes
 - ½ cup half-and-half
@@ -51,13 +53,22 @@ Boil the diced potatoes in generously salted water (amount is arbitrary—just s
 
 Heat oil in a large skillet. Add onion and cook for 5-10 minutes to caramelize. Add the frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
 
-Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes). Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
+Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes). 
+
+Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
 
 Turn the heat back on to medium. Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
 
 Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
+![Filling](https://lh3.googleusercontent.com/pw/AP1GczPJN88jigLaN4t4M0buK_P-Gw1yhkm2L18b7E-qOYbuVTw9S6eR4ziJ05alpfAZqPXSQZTbkTgpRgx19AZhQx_ti9U3la9BEfdHah3ChcRcvwcMKG5A_lrtEiTry6LbNwZc6nftA3Jq3sk94EVISghvQw=w1350-h1350-s-no-gm)
+
 Transfer the meat mixture to a Le Creuset oval baker (or a 9x13 baking dish if scaling up). Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula. Sprinkle the remaining half of the cheese on top.
+
+![Topping](https://lh3.googleusercontent.com/pw/AP1GczNF6w69uYiCsH0u8YT1U1_9RKnkIL-wWFKtpIxRMjGdCgwz_0AQGSv-MGYQTkf5R5h20NzlfiMzEW6kakD6TAV9VdhK6utSRdQl47o2wtbbdr3vaxTj9B43SXDUy69bTmdnkzNDaVyo6qqfHgZ_1Sv2-g=w1350-h1350-s-no-gm)
 
 Bake for 25-30 minutes, or until the topping is lightly browned and the filling is bubbling around the edges. Let it cool for 10-15 minutes before serving.
 
+![Final](https://lh3.googleusercontent.com/pw/AP1GczNRdhtAR7h5NMEcA4pfErOj14HENon6_qES_dhW6LehRxKB3ItDxiTykjnmOKUowSN_IERTpCIdEPxwkWqMilDo0D71VF_NZKkX1UsxCwWuWm131AaboCoYujl_itr8tly8k7mTmDdXN8Cy0rqmca4odA=w2026-h1520-s-no-gm)
+
+![Dish](https://lh3.googleusercontent.com/pw/AP1GczM4hfAvZ7o8Vx6T1EtdX6K6aBpiGOACMgERypHjije5vPK0YrwCQelTs_lZsyV0E-6Vlef0ZnFigl7sMRyGq_Lkk29ccqEo8uYLWsp-_7kGUVyqxiIxm6TqYZRT5D_d6zX9039Xt_WBM_0vnYaWe8XPTQ=w2026-h1520-s-no-gm)
