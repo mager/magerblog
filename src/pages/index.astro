@@ -7,7 +7,7 @@ import Card from '../components/Card.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 // Get latest post from each category
-const allPosts = await getCollection('blog');
+const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 
 const latestCode = allPosts
 	.filter(post => post.data.category === 'code')

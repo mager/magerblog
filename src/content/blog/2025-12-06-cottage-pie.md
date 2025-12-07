@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Draft: Cottage Pie"
+title: "Cottage Pie"
 pubDate: "2025-12-06"
 description: A hearty cottage pie made with ground beef, following Alton Brown's method. Perfect comfort food for a cold day.
 category: "food"
