@@ -23,14 +23,14 @@ I'm using frozen corn, peas, and carrots for convenience, which works perfectly 
 - 2 tablespoons vegetable oil (or canola oil)
 - 1 cup chopped onion
 - 1½ cups frozen corn, peas, and carrots mix
-- 2 cloves garlic, minced
+- 4 cloves garlic, minced
 - Kosher salt (see instructions for amounts)
 - ½ teaspoon freshly ground black pepper
-- ¾ teaspoon curry powder (optional)
+- 2 teaspoons curry powder (optional)
 - 2 teaspoons chopped fresh rosemary
 - 1 teaspoon chopped fresh thyme
 - 2 tablespoons all-purpose flour
-- 1 tablespoon tomato paste
+- 2 tablespoons tomato paste
 - ½ cup red wine
 - 1 cup unsalted chicken stock or bone broth (bone broth recommended for richer flavor)
 - 1 teaspoon Worcestershire sauce
