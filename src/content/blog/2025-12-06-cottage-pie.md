@@ -31,6 +31,7 @@ I'm using frozen corn, peas, and carrots for convenience, which works perfectly 
 - 1 teaspoon chopped fresh thyme
 - 2 tablespoons all-purpose flour
 - 1 tablespoon tomato paste
+- ½ cup red wine
 - 1 cup unsalted chicken stock or bone broth (bone broth recommended for richer flavor)
 - 1 teaspoon Worcestershire sauce
 
@@ -57,7 +58,9 @@ Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground bla
 
 Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
 
-Turn the heat back on to medium. Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
+Turn the heat back on to medium. Add ½ cup red wine and cook, scraping up any brown bits, for 1-2 minutes until reduced by about half.
+
+Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
 
 Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
