@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "DRAFT: Broccoli Cheddar Soup"
+title: "Broccoli Cheddar Soup"
 pubDate: "2025-12-13"
 description: A rich and creamy broccoli cheddar soup with sharp cheddar cheese, perfect for a comforting meal on a cold day.
 category: "food"
