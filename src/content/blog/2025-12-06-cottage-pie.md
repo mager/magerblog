@@ -54,6 +54,8 @@ Boil the diced potatoes in generously salted water (amount is arbitrary—just s
 
 Heat oil in a large skillet. Add onion and cook for 5-10 minutes to caramelize. Add the frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
 
+![Filling](https://lh3.googleusercontent.com/pw/AP1GczPJN88jigLaN4t4M0buK_P-Gw1yhkm2L18b7E-qOYbuVTw9S6eR4ziJ05alpfAZqPXSQZTbkTgpRgx19AZhQx_ti9U3la9BEfdHah3ChcRcvwcMKG5A_lrtEiTry6LbNwZc6nftA3Jq3sk94EVISghvQw=w1350-h1350-s-no-gm)
+
 Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes). 
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczM1PMLVQpVtkF1Kest44y6M9XmGwfTc645T4vRXBkM0wnsiNpS3Ln6ztmUCq-dsuV-oalEPWqprLKWbRX94n8yCxZHpKUshE9N33vMRzmrgNkW2SNKbYLOMD3I9RsdCR6dFIr5CAXpliPS4SAjJZq-bOA=w2026-h1520-s-no-gm)
@@ -67,8 +69,6 @@ Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, t
 ![](https://lh3.googleusercontent.com/pw/AP1GczNNLIPmhLPOKEB8ekWbf4E8OM4aezNg9qLShy-xLcr47ERjJwAX3divTncMvlT9snXeOvIdqcRKfxqPrdBqSYeY28Ri-LXOqppNW4nqJK6LNpOuXmt4QuucUmUCAYoND-eHylVx4gwW7q5ptLqRLMpc-Q=w2026-h1520-s-no-gm)
 
 Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
-
-![Filling](https://lh3.googleusercontent.com/pw/AP1GczPJN88jigLaN4t4M0buK_P-Gw1yhkm2L18b7E-qOYbuVTw9S6eR4ziJ05alpfAZqPXSQZTbkTgpRgx19AZhQx_ti9U3la9BEfdHah3ChcRcvwcMKG5A_lrtEiTry6LbNwZc6nftA3Jq3sk94EVISghvQw=w1350-h1350-s-no-gm)
 
 Transfer the meat mixture to a Le Creuset oval baker (or a 9x13 baking dish if scaling up). Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula. Sprinkle the remaining half of the cheese on top.
 
