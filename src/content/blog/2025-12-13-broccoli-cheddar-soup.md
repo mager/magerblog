@@ -5,8 +5,7 @@ pubDate: "2025-12-13"
 description: A rich and creamy broccoli cheddar soup with sharp cheddar cheese, perfect for a comforting meal on a cold day.
 category: "food"
 tags: ["Recipe"]
-draft: true
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN-NXlxsfE6U79DxegRqnqEXExyjAWZjItiV0EaQNP3Rbbj-SO_tX_ZHF8FOaNqmBXbF9U_nvPcFbaz5ndxd_Pw3cJm4dkk5Y3SWMLOpZX5toUISBv_vTcwcKa5rge9O1hrkFv8Qcl1vLEi1tXN97Vv_A=w2026-h1520-s-no-gm"
 prepTime: 15
 cookTime: 30
 ---
@@ -42,5 +41,7 @@ Melt the butter in a large pot or Dutch oven over medium heat. Add the onion, sa
 Slowly pour in the milk, whisking continuously to prevent lumps. Add the stock, bay leaf, broccoli, carrot, and mustard and stir to combine. Bring to a simmer, then reduce heat and simmer for 15 to 20 minutes, or until the broccoli is tender.
 
 Remove the bay leaf. Using a hand blender (immersion blender), blend about half of the soup mixture directly in the pot until smooth, leaving some chunks for texture. Alternatively, you can transfer about half of the soup mixture to a regular blender, blend until completely smooth, then return the blended mixture to the pot.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNBKKAvaQkzfc-_sDt91MKGQ-E7-bQ2kLoNlO4njXYWNKt-8usvlZjkYvEAarLHS-Mg9M4PGTGAKa0Yds-MJPjtz5xrKZqEluqdnos7O5H_XyGr5w7c79VS5Hn23Fny9fa4ZJ62B1TtZitWy2dyAp1wQQ=w2026-h1520-s-no-gm)
 
 Remove the pot from the heat. Gradually add the cheese, stirring after each addition, until all the cheese is melted and the soup is creamy. Stir in the nutmeg. Season to taste with additional salt and pepper if needed, and serve hot.
