@@ -56,11 +56,15 @@ Heat oil in a large skillet. Add onion and cook for 5-10 minutes to caramelize. 
 
 Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes). 
 
+![](https://lh3.googleusercontent.com/pw/AP1GczM1PMLVQpVtkF1Kest44y6M9XmGwfTc645T4vRXBkM0wnsiNpS3Ln6ztmUCq-dsuV-oalEPWqprLKWbRX94n8yCxZHpKUshE9N33vMRzmrgNkW2SNKbYLOMD3I9RsdCR6dFIr5CAXpliPS4SAjJZq-bOA=w2026-h1520-s-no-gm)
+
 Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
 
 Turn the heat back on to medium. Add ½ cup red wine and cook, scraping up any brown bits, for 1-2 minutes until reduced by about half.
 
 Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNNLIPmhLPOKEB8ekWbf4E8OM4aezNg9qLShy-xLcr47ERjJwAX3divTncMvlT9snXeOvIdqcRKfxqPrdBqSYeY28Ri-LXOqppNW4nqJK6LNpOuXmt4QuucUmUCAYoND-eHylVx4gwW7q5ptLqRLMpc-Q=w2026-h1520-s-no-gm)
 
 Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
 
