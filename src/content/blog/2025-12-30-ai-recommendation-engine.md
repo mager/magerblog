@@ -9,17 +9,28 @@ tags: ["AI", "Machine Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
 ---
 
-I've been deep-diving into recommendation systems, especially after watching [Andrej Karpathy's intro to GPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) which got me curious about inference—the process of running a trained model to make predictions. One of my side projects, [prxps.xyz](https://prxps.xyz) (currently in private beta), became the perfect playground to test these concepts. It's a no-money social betting site where people can flex their best picks, track their stats, and compete on leaderboards.
+I finally sat down and watched Andrej Karpathy's deep dive into LLMs. If you haven't seen it, it's basically the "red pill" for understanding how these models actually tick. While most people are busy arguing about prompts, Karpathy got me obsessed with **inference**, the actual moment a model takes a bunch of weights and turns them into a prediction.
+
+I didn't want to just read about it; I wanted to play with it.
+
+Enter [prxps.xyz](https://prxps.xyz):
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPnBjneck6t_OVHK6UHZ94VS69Lwm3EQ077HJkOd_VnnJpcyTEjcW2b6jsIZ4asFHzcd-foQseDqSB4eqZFzW_LfyQF-4cJzv72EmNGHw9XRwe0Hmu9i1-Dyz43cilOjwUGNBIrTkKImlpYXWW3mVt2_Q=w1652-h1520-s-no-gm)
 
-The most interesting technical challenge? Building the engine that suggests upcoming games to users based on their betting history.
+It's a side project of mine, a no-money, "social betting" site where you can make picks, track your ROI, and talk trash on the leaderboards without losing your actual shirt. It was the perfect playground to test a theory: Can I use inference to build a recommendation engine that actually feels personal?
 
-## The "Vibe Coding" Philosophy
 
-This project represents a shift in my learning style. Before AI assistants, I would study the theory of a skill first, then attempt to code it. 
+## The "Vibe Coding" Workflow
 
-Now, I "vibe code" with Claude. I describe the outcome, we build the implementation together, and then I **reverse engineer** the code to understand the underlying principles. I often find myself asking Claude, *"Wait, why did we do it that way?"* or reading through the lines we wrote to grasp the logic. It's an exploratory, hands-on approach that has accelerated my learning curve massively.
+I'll be honest: I didn't sit down and write a math-heavy recommendation algorithm from scratch. I "vibe coded" it with Claude.
+
+**The Prompt:** I described the vibe I wanted: "I have a user who likes Lakers favorites and NFL underdogs. Show me a game starting in 2 hours that fits that energy."
+
+**The Code:** Claude spit out a sophisticated embedding-based pipeline.
+
+**The Reverse Engineer:** This is the important part. Once it worked, I spent hours pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
+
+By the time I was done, I hadn't just "shipped a feature", I had built a mental model for how modern AI applications actually work.
 
 ## The Problem: Beyond Simple Filters
 
@@ -41,11 +52,13 @@ This allows for "fuzzy" matching. If a user bets heavily on the Warriors and the
 
 ### Inference in Action
 
-After watching Karpathy's video, I realized that what I'm doing here is **inference**—running a pre-trained embedding model to transform text into numerical vectors. Unlike training (where you adjust model weights), inference is a forward pass: feed text in, get embeddings out.
+After watching Karpathy's video, I realized that what I'm doing here is **inference**, running a pre-trained embedding model to transform text into numerical vectors. Unlike training (where you adjust model weights), inference is a forward pass: feed text in, get embeddings out.
 
-The embedding models I'm using (like `bge-small-en-v1.5` or `text-embedding-004`) were already trained on massive text corpora. They learned to encode semantic meaning into dense vector representations. When I call `getEmbeddings("Lakers vs Warriors")`, I'm performing inference—the model processes the input through its neural network layers and outputs a 384-dimensional (or 768-dimensional) vector that captures the semantic essence of that text.
+The embedding models I'm using (like `bge-small-en-v1.5` or `text-embedding-004`) were already trained on massive text corpora. They learned to encode semantic meaning into dense vector representations. When I call `getEmbeddings("Lakers vs Warriors")`, I'm performing inference; the model processes the input through its neural network layers and outputs a 384-dimensional (or 768-dimensional) vector that captures the semantic essence of that text.
 
-This is the beauty of modern ML: I don't need to train a model from scratch. I can leverage pre-trained embeddings and focus on the application layer—the text generation, caching, and similarity calculations that make the recommendation system work.
+Each dimension in that vector represents a "direction" in semantic space. One dimension might lean toward "Basketball," another toward "High Risk," another toward "West Coast teams," and so on. The model learned these directions during training by analyzing patterns across billions of text examples. This is what enables the "fuzzy logic", when I calculate cosine similarity between two vectors, I'm measuring how aligned they are across all these semantic directions simultaneously, not just checking if they match on a single rigid rule.
+
+This is the beauty of modern ML: I don't need to train a model from scratch. I can leverage pre-trained embeddings and focus on the application layer, the text generation, caching, and similarity calculations that make the recommendation system work.
 
 ## The Architecture
 
@@ -97,7 +110,7 @@ class HuggingFaceProvider implements EmbeddingProvider { ... }
 class VertexAIProvider implements EmbeddingProvider { ... }
 ```
 
-With this provider abstraction, we can quickly swap between embedding models like [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (via HuggingFace) and [text-embedding-004](https://ai.google.dev/gemini-api/docs/embeddings) (via Google Vertex AI or Gemini API)—just by changing an environment variable. See [Gemini Embeddings documentation](https://ai.google.dev/gemini-api/docs/embeddings) for details on the Google model.
+With this provider abstraction, we can quickly swap between embedding models like [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (via HuggingFace) and [text-embedding-004](https://ai.google.dev/gemini-api/docs/embeddings) (via Google Vertex AI or Gemini API), just by changing an environment variable. See [Gemini Embeddings documentation](https://ai.google.dev/gemini-api/docs/embeddings) for details on the Google model.
 
 ### 3. Smart Caching Strategy
 
