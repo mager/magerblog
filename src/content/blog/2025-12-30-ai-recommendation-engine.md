@@ -9,7 +9,7 @@ tags: ["AI", "Machine Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
 ---
 
-I've been deep-diving into recommendation systems, so I built a platform called [prxps.xyz](https://prxps.xyz) (currently in private beta) to experiment with these concepts. It's a no-money social betting site where people can flex their best picks, track their stats, and compete on leaderboards.
+I've been deep-diving into recommendation systems, especially after watching [Andrej Karpathy's intro to GPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) which got me curious about inference—the process of running a trained model to make predictions. One of my side projects, [prxps.xyz](https://prxps.xyz) (currently in private beta), became the perfect playground to test these concepts. It's a no-money social betting site where people can flex their best picks, track their stats, and compete on leaderboards.
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPnBjneck6t_OVHK6UHZ94VS69Lwm3EQ077HJkOd_VnnJpcyTEjcW2b6jsIZ4asFHzcd-foQseDqSB4eqZFzW_LfyQF-4cJzv72EmNGHw9XRwe0Hmu9i1-Dyz43cilOjwUGNBIrTkKImlpYXWW3mVt2_Q=w1652-h1520-s-no-gm)
 
@@ -38,6 +38,14 @@ But this is brittle. What if the Lakers aren't playing today? What if the user l
 I decided to use **text embeddings**. By converting both user betting histories and upcoming game descriptions into vectors, we can use **Cosine Similarity** to find matches. 
 
 This allows for "fuzzy" matching. If a user bets heavily on the Warriors and the Lakers, the system understands they like "Western Conference NBA teams" or "Star-heavy lineups" and can recommend a Suns game, even if they've never bet on Phoenix before.
+
+### Inference in Action
+
+After watching Karpathy's video, I realized that what I'm doing here is **inference**—running a pre-trained embedding model to transform text into numerical vectors. Unlike training (where you adjust model weights), inference is a forward pass: feed text in, get embeddings out.
+
+The embedding models I'm using (like `bge-small-en-v1.5` or `text-embedding-004`) were already trained on massive text corpora. They learned to encode semantic meaning into dense vector representations. When I call `getEmbeddings("Lakers vs Warriors")`, I'm performing inference—the model processes the input through its neural network layers and outputs a 384-dimensional (or 768-dimensional) vector that captures the semantic essence of that text.
+
+This is the beauty of modern ML: I don't need to train a model from scratch. I can leverage pre-trained embeddings and focus on the application layer—the text generation, caching, and similarity calculations that make the recommendation system work.
 
 ## The Architecture
 
@@ -74,7 +82,7 @@ Note: We explicitly inject concepts like "close matchup" (calculated based on od
 
 ### 2. The Provider Abstraction
 
-This was a major "vibe coding" win. Initially, I hardcoded a fetch to HuggingFace. When I wanted to add Google Vertex AI (since I'm already in the GCP ecosystem), Claude suggested a clean Provider Pattern.
+This was a major "vibe coding" win. Initially, I hardcoded a call to HuggingFace. When I wanted to add Google Vertex AI (since I'm already in the GCP ecosystem), Claude suggested a clean Provider Pattern.
 
 Instead of if/else spaghetti, we built an interface:
 
@@ -89,7 +97,7 @@ class HuggingFaceProvider implements EmbeddingProvider { ... }
 class VertexAIProvider implements EmbeddingProvider { ... }
 ```
 
-Now, switching between BAAI/bge-small-en-v1.5 (HuggingFace) and text-embedding-004 (Vertex) is just an environment variable change.
+With this provider abstraction, we can quickly swap between embedding models like [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (via HuggingFace) and [text-embedding-004](https://ai.google.dev/gemini-api/docs/embeddings) (via Google Vertex AI or Gemini API)—just by changing an environment variable. See [Gemini Embeddings documentation](https://ai.google.dev/gemini-api/docs/embeddings) for details on the Google model.
 
 ### 3. Smart Caching Strategy
 
@@ -137,5 +145,14 @@ The results have been surprisingly nuanced.
 Building this with Claude highlighted the power of iterative AI development. We started with a simple HuggingFace API call. We broke it. We refactored it into a Provider pattern. We optimized it with caching.
 
 The recommendation system isn't perfect: I still need to A/B test it against a random baseline, but the architecture is solid.
+
+### The Inference Mindset
+
+Karpathy's video helped me understand that inference is everywhere in modern AI applications. Every time I call an embedding API, I'm performing inference. Every time I calculate cosine similarity between vectors, I'm using the semantic knowledge that was baked into those embeddings during training.
+
+The key insight: **You don't need to train models to use AI effectively**. Pre-trained embedding models are inference-ready. Your job is to:
+1. Convert your domain data into text
+2. Run inference to get embeddings
+3. Use vector math (like cosine similarity) to find patterns
 
 If you're building a feature that requires "fuzzy" logic, don't write 100 if statements. Try converting your data to text, embedding it, and letting math do the heavy lifting.
