@@ -10,7 +10,7 @@ tags: ["AI", "Machine Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
 ---
 
-I finally sat down and watched Andrej Karpathy's deep dive into LLMs. If you haven't seen it, it's basically the "red pill" for understanding how these models actually tick. While most people are busy arguing about prompts, Karpathy got me obsessed with **inference**, the actual moment a model takes a bunch of weights and turns them into a prediction.
+I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). If you haven't seen it, it's basically the "red pill" for understanding how these models actually tick. While most people are busy arguing about prompts, Karpathy got me obsessed with **inference**—the actual moment a model takes a bunch of weights and turns them into a prediction.
 
 I didn't want to just read about it; I wanted to play with it.
 
