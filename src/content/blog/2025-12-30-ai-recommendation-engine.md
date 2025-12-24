@@ -5,7 +5,8 @@ pubDate: "2025-12-24"
 description: "How I vibed with Claude to build a semantic recommendation system using text embeddings, cosine similarity, and an iterative 'code-first' learning approach."
 category: "code"
 draft: true
-tags: ["AI", "Machine Learning", "TypeScript", "Engineering"]
+tags: ["AI", "Machine Learning"]
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
 ---
 
 I've been deep-diving into recommendation systems, so I built a platform called [prxps.xyz](https://prxps.xyz) (currently in private beta) to experiment with these concepts. It's a no-money social betting site where people can flex their best picks, track their stats, and compete on leaderboards.
@@ -24,9 +25,11 @@ Now, I "vibe code" with Claude. I describe the outcome, we build the implementat
 
 When a user opens the app, I want to show them personalized game recommendations.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm)
+
 The naive approach is to filter by rigid rules:
-*   *User likes the Lakers?* $\to$ Show Lakers games.
-*   *User likes Underdogs?* $\to$ Show positive odds.
+*   *User likes the Lakers?* Show Lakers games.
+*   *User likes Underdogs?* Show positive odds.
 
 But this is brittle. What if the Lakers aren't playing today? What if the user loves *underdogs* specifically in *high-scoring NBA games*? I needed a system that understands the **semantic context** of a user's preferences, not just their raw stats.
 
@@ -49,7 +52,11 @@ We aggregate the user's Firestore history into a narrative string.
 
 ```typescript
 // Actual input text generated from user stats
-"Favorite teams: Lakers (15 picks, 60% win rate), Warriors (12 picks, 58% win rate). Sport preferences: NBA (30 picks, prefers favorites). Overall: 50 picks, 62% win rate. Current winning streak: 3 games"
+Favorite teams: Lakers (15 picks, 60% win rate)
+Warriors (12 picks, 58% win rate)
+Sport preferences: NBA (30 picks, prefers favorites)
+Overall: 50 picks, 62% win rate
+Current winning streak: 3 games
 ```
 
 **The Game Text:**
@@ -57,7 +64,8 @@ We convert upcoming event data into a similar format.
 
 ```typescript
 // Actual input text generated for a game
-"NBA game. Warriors (underdog) at Lakers (favorite). Close matchup. Game starts in 2h 30m"
+NBA game. Warriors (underdog) at Lakers (favorite)
+Close matchup. Game starts in 2h 30m
 ```
 
 Note: We explicitly inject concepts like "close matchup" (calculated based on odds spread) so the model can capture the "excitement" factor of a game.
