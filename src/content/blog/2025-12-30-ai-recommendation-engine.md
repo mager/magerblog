@@ -29,7 +29,7 @@ I'll be honest: I didn't sit down and write a math-heavy recommendation algorith
 
 **The Code:** Claude spit out a sophisticated embedding-based pipeline.
 
-**The Reverse Engineer:** This is the important part. Once it worked, I spent hours pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
+**The Reverse Engineer:** This is the important part. Once it worked, I spent a few minutes pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
 
 By the time I was done, I hadn't just "shipped a feature", I had built a mental model for how modern AI applications actually work.
 
@@ -69,6 +69,8 @@ The system pipeline consists of five distinct stages:
 
 Embeddings are only as good as the text you feed them. We needed to convert structured database rows into descriptive natural language.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczPzycQeIP1XSzic9TnQ_TtFlonjqsPxq36s4X19SoeoILR7mjp_0WfzP2BAkPFM4hdJM1GokhoN651C-JwE3ZUveAckR79_8pAZryVhcOP-ab3yXqr5GCxSNZZsYvgCfS0CHix7xos5RR0jY8uFKZrz7w=w2320-h1520-s-no-gm)
+
 **The User Profile Text:**
 We aggregate the user's pick history into a narrative string.
 
@@ -80,8 +82,6 @@ Sport preferences: NBA (30 picks, prefers favorites)
 Overall: 50 picks, 62% win rate
 Current winning streak: 3 games
 ```
-
-![](https://lh3.googleusercontent.com/pw/AP1GczPzycQeIP1XSzic9TnQ_TtFlonjqsPxq36s4X19SoeoILR7mjp_0WfzP2BAkPFM4hdJM1GokhoN651C-JwE3ZUveAckR79_8pAZryVhcOP-ab3yXqr5GCxSNZZsYvgCfS0CHix7xos5RR0jY8uFKZrz7w=w2320-h1520-s-no-gm)
 
 **The Game Text:**
 We convert upcoming event data into a similar format.
