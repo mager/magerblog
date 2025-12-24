@@ -18,7 +18,7 @@ Enter [prxps.xyz](https://prxps.xyz):
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPnBjneck6t_OVHK6UHZ94VS69Lwm3EQ077HJkOd_VnnJpcyTEjcW2b6jsIZ4asFHzcd-foQseDqSB4eqZFzW_LfyQF-4cJzv72EmNGHw9XRwe0Hmu9i1-Dyz43cilOjwUGNBIrTkKImlpYXWW3mVt2_Q=w1652-h1520-s-no-gm)
 
-It's a side project of mine, a no-money, "social betting" site where you can make picks, track your ROI, and talk trash on the leaderboards without losing your actual shirt. It was the perfect playground to test a theory: Can I use inference to build a recommendation engine that actually feels personal?
+It's a side project of mine, a no-money, "social betting" site where you can make picks, track your ROI, and just see the leaderboard to compare against other users. It was the perfect playground to test a theory: Can I use inference to build a recommendation engine that actually feels personal?
 
 
 ## The "Vibe Coding" Workflow
