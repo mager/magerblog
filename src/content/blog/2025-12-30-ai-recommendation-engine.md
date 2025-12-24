@@ -2,6 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Vibing with Claude: Building an AI Sports Betting Recommendation Engine"
 pubDate: "2025-12-24"
+updatedDate: "2025-12-24"
 description: "How I vibed with Claude to build a semantic recommendation system using text embeddings, cosine similarity, and an iterative 'code-first' learning approach."
 category: "code"
 draft: true
