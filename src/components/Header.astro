@@ -9,7 +9,7 @@ interface Props {
 const { activeCategory } = Astro.props;
 ---
 
-<header>
+<header class="site-header">
 	<nav>
 		<h2>
 			<a href="/" class="logo">
@@ -20,49 +20,85 @@ const { activeCategory } = Astro.props;
 		</h2>
 		<div class="nav-right">
 			<div class="internal-links">
-				<HeaderLink href="/code" class={activeCategory === 'code' ? 'active' : ''}>💻 Code</HeaderLink>
-				<HeaderLink href="/life" class={activeCategory === 'life' ? 'active' : ''}>🌆 Life</HeaderLink>
-				<HeaderLink href="/recipes" class={activeCategory === 'recipes' ? 'active' : ''}>🍳 Recipes</HeaderLink>
-				<HeaderLink href="/about">About</HeaderLink>
+				<HeaderLink href="/code" class={activeCategory === 'code' ? 'active' : ''}>
+					<span class="nav-icon">$</span> Code
+				</HeaderLink>
+				<HeaderLink href="/life" class={activeCategory === 'life' ? 'active' : ''}>
+					<span class="nav-icon">~</span> Life
+				</HeaderLink>
+				<HeaderLink href="/recipes" class={activeCategory === 'recipes' ? 'active' : ''}>
+					<span class="nav-icon">#</span> Recipes
+				</HeaderLink>
+				<HeaderLink href="/about">
+					<span class="nav-icon">?</span> About
+				</HeaderLink>
 			</div>
 			<div class="social-links">
-			<a href="https://x.com/mager" target="_blank">
-				<span class="sr-only">Follow @mager on X</span>
-				<svg viewBox="0 0 24 24" aria-hidden="true"
-					><path
-						fill="currentColor"
-						d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-					></path></svg
-				>
-			</a>
-			<a href="https://github.com/mager" target="_blank">
-				<span class="sr-only">Go to mager's GitHub page</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
-			</a>
-		</div>
+				<a href="https://x.com/mager" target="_blank" class="social-link">
+					<span class="sr-only">Follow @mager on X</span>
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path
+							fill="currentColor"
+							d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+						></path>
+					</svg>
+				</a>
+				<a href="https://github.com/mager" target="_blank" class="social-link">
+					<span class="sr-only">Go to mager's GitHub page</span>
+					<svg viewBox="0 0 16 16" aria-hidden="true">
+						<path
+							fill="currentColor"
+							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+						></path>
+					</svg>
+				</a>
+			</div>
 		</div>
 	</nav>
 </header>
+
 <style>
-	header {
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
 		margin: 0;
 		padding: 0;
-		background: var(--editor-bg-dark);
-		box-shadow: var(--box-shadow);
-		border-bottom: 2px solid var(--text-muted);
+		/* Glassmorphism effect */
+		background: rgba(13, 17, 23, 0.85);
+		backdrop-filter: blur(12px) saturate(180%);
+		-webkit-backdrop-filter: blur(12px) saturate(180%);
+		border-bottom: 1px solid rgba(48, 54, 61, 0.8);
+		box-shadow:
+			0 4px 30px rgba(0, 0, 0, 0.3),
+			inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+	}
+
+	/* Subtle gradient line at top */
+	.site-header::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			var(--status-purple) 20%,
+			var(--status-cyan) 50%,
+			var(--status-green) 80%,
+			transparent 100%
+		);
+		opacity: 0.5;
 	}
 
 	h2 {
 		margin: 0;
 		padding: 0;
-		font-size: 1.5em;
-		font-family: 'JetBrains Mono', monospace;
-		font-weight: 900;
+		font-size: 1.35em;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-weight: 800;
 		letter-spacing: -0.04em;
 	}
 
@@ -70,105 +106,120 @@ const { activeCategory } = Astro.props;
 		text-decoration: none;
 		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: 0.2rem;
 		position: relative;
 		transition: all 0.3s ease;
+		padding: 0.25rem 0;
 	}
 
 	.logo .bracket {
-		color: var(--purple);
-		font-size: 1.2em;
+		color: var(--status-purple);
+		font-size: 1.1em;
 		font-weight: 700;
 		transition: all 0.3s ease;
+		opacity: 0.8;
 	}
 
 	.logo .brand {
 		color: var(--text-primary);
-		text-shadow:
-			0 0 30px rgba(167, 139, 250, 0.5),
-			0 0 60px rgba(167, 139, 250, 0.2),
-			0 2px 10px rgba(0, 0, 0, 0.8);
-		transition: all 0.3s ease;
-		background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--text-primary) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
 		position: relative;
-	}
-
-	.logo .brand::after {
-		content: attr(data-text);
-		position: absolute;
-		left: 0;
-		top: 0;
-		z-index: -1;
-		background: linear-gradient(135deg, var(--cyan), var(--purple));
+		background: linear-gradient(
+			135deg,
+			var(--status-cyan) 0%,
+			var(--status-purple) 50%,
+			var(--text-primary) 100%
+		);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
-		filter: blur(10px);
-		opacity: 0.5;
+		transition: all 0.3s ease;
 	}
 
 	.logo:hover {
-		transform: translateY(-2px);
+		transform: translateY(-1px);
 	}
 
 	.logo:hover .brand {
-		text-shadow:
-			0 0 50px rgba(167, 139, 250, 1),
-			0 0 100px rgba(167, 139, 250, 0.6),
-			0 0 150px rgba(167, 139, 250, 0.3),
-			0 2px 15px rgba(0, 0, 0, 1);
-		background: linear-gradient(135deg, var(--purple) 0%, var(--cyan) 50%, var(--purple) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--status-purple) 0%,
+			var(--status-cyan) 50%,
+			var(--status-purple) 100%
+		);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
-		animation: glow-pulse 2s ease-in-out infinite;
-	}
-
-	@keyframes glow-pulse {
-		0%, 100% {
-			filter: brightness(1);
-		}
-		50% {
-			filter: brightness(1.3);
-		}
+		filter: brightness(1.2);
 	}
 
 	.logo:hover .bracket {
-		color: var(--cyan);
-		transform: scale(1.1);
+		color: var(--status-cyan);
+		opacity: 1;
 	}
 
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 1.25rem;
+		gap: 1.5rem;
 		max-width: 1400px;
 		margin: 0 auto;
-		padding: 1.5em 2em;
+		padding: 1rem 2rem;
 	}
+
 	nav a {
-		padding: 0 0.8em;
+		padding: 0 0.75em;
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.2s ease;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.9em;
+		position: relative;
+	}
+
+	/* Nav item underline effect */
+	nav a::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		background: var(--status-cyan);
+		transition: all 0.2s ease;
+		transform: translateX(-50%);
+	}
+
+	nav a:hover::after {
+		width: 80%;
+	}
+
+	nav a:hover {
 		color: var(--text-primary);
 		text-decoration: none;
-		font-weight: 700;
-		transition: all 0.3s ease;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 1em;
 	}
-	nav a:hover {
-		color: var(--accent-green);
-		text-shadow:
-			0 0 20px rgba(80, 250, 123, 0.8),
-			0 0 40px rgba(80, 250, 123, 0.4),
-			0 0 60px rgba(80, 250, 123, 0.2);
-	}
+
 	nav a.active {
-		text-decoration: none;
-		color: var(--purple);
+		color: var(--status-purple);
 	}
+
+	nav a.active::after {
+		width: 80%;
+		background: var(--status-purple);
+	}
+
+	.nav-icon {
+		color: var(--status-green);
+		margin-right: 0.25rem;
+		font-weight: 700;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+	}
+
+	nav a:hover .nav-icon {
+		opacity: 1;
+	}
+
 	.nav-right {
 		display: flex;
 		align-items: center;
@@ -179,52 +230,85 @@ const { activeCategory } = Astro.props;
 
 	.internal-links {
 		display: flex;
-		gap: 0.4rem;
+		gap: 0.25rem;
 	}
 
 	.social-links {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
+		gap: 0.5rem;
+		padding-left: 1rem;
+		border-left: 1px solid var(--terminal-border);
 	}
-	.social-links a {
+
+	.social-link {
 		display: flex;
 		align-items: center;
-		color: var(--text-secondary);
-		transition: color 0.2s ease;
-		padding: 0 0.4em;
+		justify-content: center;
+		color: var(--text-muted);
+		transition: all 0.2s ease;
+		padding: 0.4em;
+		border-radius: 6px;
+		background: transparent;
 	}
+
+	.social-link:hover {
+		color: var(--status-purple);
+		background: rgba(163, 113, 247, 0.1);
+	}
+
+	.social-link::after {
+		display: none;
+	}
+
 	.social-links svg {
-		width: 24px;
-		height: 24px;
+		width: 20px;
+		height: 20px;
 	}
-	.social-links a:hover {
-		color: var(--purple);
-	}
+
+	/* Mobile styles */
 	@media (max-width: 720px) {
+		.site-header {
+			background: rgba(13, 17, 23, 0.95);
+		}
+
 		nav {
-			padding: 0 1em;
+			padding: 0.75rem 1rem;
 			flex-direction: column;
 			gap: 0;
 			align-items: center;
 		}
+
 		h2 {
 			width: 100%;
 			text-align: center;
-			padding: 0.75em 0;
-			border-bottom: 1px solid var(--text-muted);
+			padding: 0.5em 0;
+			border-bottom: 1px solid var(--terminal-border);
+			font-size: 1.2em;
 		}
+
 		.nav-right {
 			width: 100%;
 			margin-left: 0;
 			justify-content: center;
 			padding: 0.5em 0;
 		}
+
 		.internal-links {
 			justify-content: center;
 			flex-wrap: wrap;
 		}
+
 		.social-links {
+			display: none;
+		}
+
+		nav a {
+			font-size: 0.8em;
+			padding: 0 0.5em;
+		}
+
+		.nav-icon {
 			display: none;
 		}
 	}

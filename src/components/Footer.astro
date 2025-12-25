@@ -4,106 +4,253 @@ const today = new Date();
 
 <footer>
 	<div class="footer-content">
+		<!-- Terminal-style divider -->
+		<div class="footer-divider">
+			<span class="divider-char">─</span>
+			<span class="divider-char">─</span>
+			<span class="divider-char">─</span>
+			<span class="divider-bracket">[</span>
+			<span class="divider-text">exit 0</span>
+			<span class="divider-bracket">]</span>
+			<span class="divider-char">─</span>
+			<span class="divider-char">─</span>
+			<span class="divider-char">─</span>
+		</div>
+
 		<div class="footer-brand">
 			<span class="bracket">&lt;</span>
 			<span class="brand-text">mager.co</span>
 			<span class="bracket"> /&gt;</span>
 		</div>
-		<p class="copyright">&copy; {today.getFullYear()} All rights reserved</p>
+
+		<p class="copyright">
+			<span class="comment">//</span> &copy; {today.getFullYear()} All rights reserved
+		</p>
+
+		<div class="footer-links">
+			<a href="/code" class="footer-link">$ Code</a>
+			<span class="separator">|</span>
+			<a href="/life" class="footer-link">~ Life</a>
+			<span class="separator">|</span>
+			<a href="/recipes" class="footer-link"># Recipes</a>
+		</div>
+
 		<div class="social-links">
-			<a href="https://x.com/mager" target="_blank">
+			<a href="https://x.com/mager" target="_blank" class="social-link">
 				<span class="sr-only">Follow @mager on X</span>
-				<svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28"
-					><path
+				<svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24">
+					<path
 						fill="currentColor"
 						d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-					></path></svg
-				>
+					></path>
+				</svg>
 			</a>
-			<a href="https://github.com/mager" target="_blank">
-				<span class="sr-only">Go to magers's GitHub page</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github"
-					><path
+			<a href="https://github.com/mager" target="_blank" class="social-link">
+				<span class="sr-only">Go to mager's GitHub page</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
+					<path
 						fill="currentColor"
 						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
+					></path>
+				</svg>
 			</a>
 		</div>
+
+		<p class="version-info">
+			<span class="prompt">❯</span> Built with Astro v5
+		</p>
 	</div>
 </footer>
+
 <style>
 	footer {
-		padding: 3em 2em;
-		background: var(--terminal-black);
+		padding: 3rem 2rem;
+		background: var(--terminal-bg-dark);
 		color: var(--text-primary);
 		text-align: center;
-		border-top: 2px solid var(--text-muted);
+		border-top: 1px solid var(--terminal-border);
 		position: relative;
 		overflow: hidden;
 	}
 
+	/* Subtle glow effect */
 	footer::before {
 		content: '';
 		position: absolute;
-		top: -100px;
+		top: -150px;
 		right: -100px;
+		width: 400px;
+		height: 400px;
+		border-radius: 50%;
+		background: radial-gradient(
+			circle,
+			rgba(163, 113, 247, 0.06) 0%,
+			transparent 60%
+		);
+		pointer-events: none;
+	}
+
+	footer::after {
+		content: '';
+		position: absolute;
+		bottom: -100px;
+		left: -100px;
 		width: 300px;
 		height: 300px;
 		border-radius: 50%;
-		background: radial-gradient(circle, rgba(167, 139, 250, 0.1), transparent 70%);
+		background: radial-gradient(
+			circle,
+			rgba(88, 166, 255, 0.04) 0%,
+			transparent 60%
+		);
 		pointer-events: none;
 	}
 
 	.footer-content {
 		position: relative;
 		z-index: 1;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.footer-divider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
+		margin-bottom: 2rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.75rem;
+	}
+
+	.divider-char {
+		color: var(--terminal-border);
+	}
+
+	.divider-bracket {
+		color: var(--text-muted);
+	}
+
+	.divider-text {
+		color: var(--status-green);
+		padding: 0 0.5rem;
 	}
 
 	.footer-brand {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 1.5rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 1.25rem;
 		font-weight: 700;
 		margin-bottom: 0.5rem;
 		color: var(--text-primary);
 	}
 
 	.footer-brand .bracket {
-		color: var(--purple);
+		color: var(--status-purple);
+		opacity: 0.8;
 	}
 
 	.footer-brand .brand-text {
-		color: var(--text-primary);
-		transition: color 0.3s ease;
+		background: linear-gradient(
+			135deg,
+			var(--status-cyan) 0%,
+			var(--status-purple) 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 
 	.copyright {
-		font-size: 0.9rem;
-		color: var(--text-secondary);
+		font-size: 0.8rem;
+		color: var(--text-muted);
 		margin: 0.5rem 0 1.5rem;
-		font-family: 'JetBrains Mono', monospace;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+	}
+
+	.copyright .comment {
+		color: var(--text-muted);
+		opacity: 0.6;
+	}
+
+	.footer-links {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.85rem;
+	}
+
+	.footer-link {
+		color: var(--text-secondary);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.footer-link:hover {
+		color: var(--status-cyan);
+	}
+
+	.separator {
+		color: var(--terminal-border);
 	}
 
 	.social-links {
 		display: flex;
 		justify-content: center;
-		gap: 1.5rem;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
 	}
 
-	.social-links a {
+	.social-link {
 		text-decoration: none;
-		color: var(--text-secondary);
-		transition: all 0.3s ease;
+		color: var(--text-muted);
+		transition: all 0.2s ease;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.5rem;
+		padding: 0.6rem;
 		border-radius: 8px;
+		background: rgba(48, 54, 61, 0.3);
+		border: 1px solid transparent;
 	}
 
-	.social-links a:hover {
-		color: var(--purple);
-		background: rgba(167, 139, 250, 0.15);
+	.social-link:hover {
+		color: var(--status-purple);
+		background: rgba(163, 113, 247, 0.1);
+		border-color: var(--status-purple);
 		transform: translateY(-2px);
+	}
+
+	.version-info {
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		margin: 0;
+		opacity: 0.6;
+	}
+
+	.version-info .prompt {
+		color: var(--status-green);
+	}
+
+	@media (max-width: 720px) {
+		footer {
+			padding: 2rem 1rem;
+		}
+
+		.footer-divider {
+			font-size: 0.6rem;
+		}
+
+		.footer-brand {
+			font-size: 1.1rem;
+		}
+
+		.footer-links {
+			flex-wrap: wrap;
+			gap: 0.5rem 1rem;
+		}
 	}
 </style>

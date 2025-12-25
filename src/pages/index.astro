@@ -35,19 +35,19 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 			/* Cursor glow effect */
 			.cursor-glow {
 				position: fixed;
-				width: 800px;
-				height: 800px;
+				width: 600px;
+				height: 600px;
 				border-radius: 50%;
 				background: radial-gradient(
 					circle,
-					rgba(163, 113, 247, 0.06) 0%,
-					rgba(88, 166, 255, 0.03) 25%,
+					rgba(163, 113, 247, 0.05) 0%,
+					rgba(88, 166, 255, 0.02) 30%,
 					transparent 60%
 				);
 				pointer-events: none;
 				z-index: 0;
 				transform: translate(-50%, -50%);
-				transition: left 0.15s ease-out, top 0.15s ease-out;
+				transition: left 0.2s ease-out, top 0.2s ease-out;
 				will-change: left, top;
 			}
 
@@ -58,97 +58,16 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 
 			main {
 				width: 1200px;
-				padding: 2rem 2rem 4rem;
+				padding: 3rem 2rem;
 				position: relative;
 				z-index: 1;
 			}
 
-			/* ASCII Art Header */
-			.ascii-header {
+			/* Hero Section */
+			.hero-section {
 				text-align: center;
-				margin-bottom: 1rem;
-				font-family: 'JetBrains Mono', 'Fira Code', monospace;
-				color: var(--terminal-border);
-				font-size: 0.65rem;
-				line-height: 1.2;
-				opacity: 0.4;
-				letter-spacing: 0;
-				user-select: none;
-			}
-
-			/* Agent Terminal Header */
-			.agent-header {
-				margin-bottom: 3rem;
-				padding: 2rem;
-				background: var(--terminal-bg-dark);
-				border: 1px solid var(--terminal-border);
-				border-radius: 12px;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.agent-header::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				height: 2px;
-				background: linear-gradient(
-					90deg,
-					var(--status-purple) 0%,
-					var(--status-cyan) 50%,
-					var(--status-green) 100%
-				);
-			}
-
-			/* Scanline texture on header */
-			.agent-header::after {
-				content: '';
-				position: absolute;
-				inset: 0;
-				background: repeating-linear-gradient(
-					0deg,
-					transparent,
-					transparent 3px,
-					rgba(0, 0, 0, 0.05) 3px,
-					rgba(0, 0, 0, 0.05) 6px
-				);
-				pointer-events: none;
-			}
-
-			.terminal-prompt {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				margin-bottom: 1.5rem;
-				font-family: 'JetBrains Mono', 'Fira Code', monospace;
-			}
-
-			.prompt-symbol {
-				color: var(--status-green);
-				font-weight: 700;
-				font-size: 1.25rem;
-			}
-
-			.prompt-path {
-				color: var(--status-cyan);
-				font-size: 0.875rem;
-			}
-
-			.prompt-git {
-				color: var(--status-purple);
-				font-size: 0.875rem;
-			}
-
-			.prompt-git::before {
-				content: 'git:(';
-				color: var(--text-muted);
-			}
-
-			.prompt-git::after {
-				content: ')';
-				color: var(--text-muted);
+				margin-bottom: 4rem;
+				padding: 2rem 0;
 			}
 
 			@keyframes blink {
@@ -156,49 +75,43 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 				50% { opacity: 0; }
 			}
 
-			.page-header h1 {
-				font-size: 2.25rem;
-				margin-bottom: 0.75rem;
+			.hero-title {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
 				color: var(--text-primary);
 				font-weight: 700;
 				letter-spacing: -0.03em;
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				flex-wrap: wrap;
+			}
+
+			.hero-title .command {
+				color: var(--text-muted);
+				font-weight: 400;
 			}
 
 			.cursor-block {
 				display: inline-block;
-				width: 0.6em;
-				height: 1.1em;
+				width: 0.55em;
+				height: 1em;
 				background: var(--status-green);
 				animation: blink 1s step-end infinite;
 				vertical-align: middle;
 				margin-left: 0.25rem;
+				border-radius: 2px;
 			}
 
-			.page-header p {
-				font-size: 1rem;
+			.hero-subtitle {
+				font-size: 1.1rem;
 				color: var(--text-secondary);
 				font-family: 'JetBrains Mono', 'Fira Code', monospace;
 				margin: 0;
 			}
 
-			.page-header .comment {
-				color: var(--text-muted);
-			}
-
-			/* Status Bar */
-			.status-bar {
+			/* Status indicators */
+			.status-row {
 				display: flex;
-				align-items: center;
-				gap: 1.5rem;
-				padding-top: 1.5rem;
-				border-top: 1px solid var(--terminal-border);
-				margin-top: 1.5rem;
-				font-family: 'JetBrains Mono', 'Fira Code', monospace;
-				font-size: 0.75rem;
+				justify-content: center;
+				gap: 2rem;
+				margin-top: 2rem;
 				flex-wrap: wrap;
 			}
 
@@ -206,6 +119,8 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 				display: flex;
 				align-items: center;
 				gap: 0.5rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+				font-size: 0.8rem;
 				color: var(--text-muted);
 			}
 
@@ -216,68 +131,20 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 				animation: pulse 2s ease-in-out infinite;
 			}
 
-			.status-dot.green { background: var(--status-green); }
+			@keyframes pulse {
+				0%, 100% { opacity: 1; }
+				50% { opacity: 0.4; }
+			}
+
 			.status-dot.purple { background: var(--status-purple); }
+			.status-dot.green { background: var(--status-green); }
 			.status-dot.orange { background: var(--status-orange); }
-
-			.status-label {
-				text-transform: uppercase;
-				letter-spacing: 0.5px;
-			}
-
-			.status-value {
-				color: var(--text-secondary);
-			}
-
-			/* Section Divider */
-			.section-divider {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				margin: 3rem 0 2rem;
-				font-family: 'JetBrains Mono', 'Fira Code', monospace;
-			}
-
-			.divider-line {
-				flex: 1;
-				height: 1px;
-				background: linear-gradient(
-					90deg,
-					transparent,
-					var(--terminal-border) 20%,
-					var(--terminal-border) 80%,
-					transparent
-				);
-			}
-
-			.divider-text {
-				color: var(--text-muted);
-				font-size: 0.75rem;
-				text-transform: uppercase;
-				letter-spacing: 2px;
-				padding: 0.5rem 1rem;
-				background: var(--terminal-bg-dark);
-				border: 1px solid var(--terminal-border);
-				border-radius: 4px;
-			}
 
 			/* Featured Grid */
 			.featured-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 				gap: 2rem;
-			}
-
-			/* ASCII Footer Art */
-			.ascii-footer {
-				text-align: center;
-				margin-top: 4rem;
-				font-family: 'JetBrains Mono', 'Fira Code', monospace;
-				color: var(--terminal-border);
-				font-size: 0.6rem;
-				line-height: 1.2;
-				opacity: 0.3;
-				user-select: none;
 			}
 
 			@media (max-width: 1200px) {
@@ -288,36 +155,31 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 
 			@media (max-width: 720px) {
 				main {
-					padding: 1rem;
+					padding: 2rem 1rem;
 				}
 
-				.agent-header {
-					padding: 1.25rem;
+				.hero-section {
+					margin-bottom: 3rem;
+					padding: 1rem 0;
 				}
 
-				.page-header h1 {
-					font-size: 1.5rem;
+				.hero-title {
+					font-size: 1.75rem;
 				}
 
-				.page-header p {
-					font-size: 0.875rem;
+				.hero-subtitle {
+					font-size: 0.95rem;
 				}
 
-				.terminal-prompt {
-					flex-wrap: wrap;
-					gap: 0.5rem;
-				}
-
-				.status-bar {
-					gap: 1rem;
+				.status-row {
+					gap: 1.5rem;
 				}
 
 				.featured-grid {
 					grid-template-columns: 1fr;
 				}
 
-				.ascii-header,
-				.ascii-footer {
+				.cursor-glow {
 					display: none;
 				}
 			}
@@ -329,63 +191,28 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 
 		<Header />
 		<main>
-			<!-- ASCII Art Header -->
-			<pre class="ascii-header">
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                                                                              ║
-║   ███╗   ███╗ █████╗  ██████╗ ███████╗██████╗    ██████╗ ██████╗            ║
-║   ████╗ ████║██╔══██╗██╔════╝ ██╔════╝██╔══██╗  ██╔════╝██╔═══██╗           ║
-║   ██╔████╔██║███████║██║  ███╗█████╗  ██████╔╝  ██║     ██║   ██║           ║
-║   ██║╚██╔╝██║██╔══██║██║   ██║██╔══╝  ██╔══██╗  ██║     ██║   ██║           ║
-║   ██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗██║  ██║ ╚██████╗╚██████╔╝           ║
-║   ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  ╚═════╝ ╚═════╝            ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-			</pre>
+			<!-- Hero Section -->
+			<section class="hero-section">
+				<h1 class="hero-title">
+					<span class="command">$ ls</span> ~/latest<span class="cursor-block"></span>
+				</h1>
+				<p class="hero-subtitle">Latest from Code, Life, and Recipes</p>
 
-			<!-- Agent Terminal Section -->
-			<section class="agent-header">
-				<!-- Terminal Prompt Line -->
-				<div class="terminal-prompt">
-					<span class="prompt-symbol">❯</span>
-					<span class="prompt-path">~/mager.co</span>
-					<span class="prompt-git">main</span>
-				</div>
-
-				<div class="page-header">
-					<h1>
-						<span>$ ls -la ~/latest</span>
-						<span class="cursor-block"></span>
-					</h1>
-					<p><span class="comment">//</span> Latest from Code, Life, and Recipes</p>
-				</div>
-
-				<!-- Status Bar -->
-				<div class="status-bar">
-					<div class="status-item">
-						<span class="status-dot green"></span>
-						<span class="status-label">Code</span>
-						<span class="status-value">online</span>
-					</div>
+				<div class="status-row">
 					<div class="status-item">
 						<span class="status-dot purple"></span>
-						<span class="status-label">Life</span>
-						<span class="status-value">streaming</span>
+						<span>Code</span>
+					</div>
+					<div class="status-item">
+						<span class="status-dot green"></span>
+						<span>Life</span>
 					</div>
 					<div class="status-item">
 						<span class="status-dot orange"></span>
-						<span class="status-label">Recipes</span>
-						<span class="status-value">cooking</span>
+						<span>Recipes</span>
 					</div>
 				</div>
 			</section>
-
-			<!-- Section Divider -->
-			<div class="section-divider">
-				<div class="divider-line"></div>
-				<span class="divider-text">/* output */</span>
-				<div class="divider-line"></div>
-			</div>
 
 			<!-- Featured Posts Grid -->
 			<section class="featured-grid">
@@ -395,12 +222,6 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 					))
 				}
 			</section>
-
-			<!-- ASCII Footer -->
-			<pre class="ascii-footer">
-└──────────────────────────────────────────────────────────────────────────────┘
-                              EOF - End of Feed
-			</pre>
 		</main>
 		<Footer />
 
@@ -418,9 +239,8 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 			});
 
 			function animate() {
-				// Smooth lerp for the glow position
-				currentX += (mouseX - currentX) * 0.08;
-				currentY += (mouseY - currentY) * 0.08;
+				currentX += (mouseX - currentX) * 0.1;
+				currentY += (mouseY - currentY) * 0.1;
 
 				if (glow) {
 					glow.style.left = currentX + 'px';
@@ -432,7 +252,6 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 
 			animate();
 
-			// Hide glow when mouse leaves window
 			document.addEventListener('mouseleave', () => {
 				if (glow) glow.style.opacity = '0';
 			});
