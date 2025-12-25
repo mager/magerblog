@@ -1,172 +1,240 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Vibing with Claude: Building an AI Sports Betting Recommendation Engine"
-pubDate: "2025-12-24"
-updatedDate: "2025-12-24"
-description: "How I vibed with Claude to build a semantic recommendation system using text embeddings, cosine similarity, and an iterative 'code-first' learning approach."
+title: "Building a Two-Stage AI Sports Betting Recommendation Pipeline"
+pubDate: "2025-12-25"
+updatedDate: "2025-12-25"
+description: "Learn how to use vector embeddings for retrieval and small LLMs like Gemma 3 for explanation to build features that actually understand your users."
 category: "code"
 draft: true
 tags: ["AI", "Machine Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
 ---
 
-I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). If you haven't seen it, it's basically the "red pill" for understanding how these models actually tick. While most people are busy arguing about prompts, Karpathy got me obsessed with **inference**—the actual moment a model takes a bunch of weights and turns them into a prediction.
+I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). 
 
-I didn't want to just read about it; I wanted to play with it.
+Karpathy highlights that while pre-training is where the model "learns" the internet [01:04], inference is the act of the model taking a test in real-time [26:13]. For my project, that meant moving the intelligence from my database queries into the model's forward pass.
 
 Enter [prxps.xyz](https://prxps.xyz):
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPnBjneck6t_OVHK6UHZ94VS69Lwm3EQ077HJkOd_VnnJpcyTEjcW2b6jsIZ4asFHzcd-foQseDqSB4eqZFzW_LfyQF-4cJzv72EmNGHw9XRwe0Hmu9i1-Dyz43cilOjwUGNBIrTkKImlpYXWW3mVt2_Q=w1652-h1520-s-no-gm)
 
-It's a side project of mine, a no-money, "social betting" site where you can make picks, track your ROI, and just see the leaderboard to compare against other users. It was the perfect playground to test a theory: Can I use inference to build a recommendation engine that actually feels personal?
+This is my side project for "social betting" where you can make picks and track ROI without real money. I wanted to test a theory: Can I use inference to build a recommendation engine that understands not just what you bet on, but how you bet?
 
+The Flow:
 
-## The "Vibe Coding" Workflow
+```
+User Profile → Embedding → User Vector
+All Games → Embeddings → Game Vectors
+User Vector • Game Vectors → Cosine Similarity → Top N
+Top 3 → Gemma 3 → Natural Language Reasons
+```
 
-I'll be honest: I didn't sit down and write a math-heavy recommendation algorithm from scratch. I "vibe coded" it with Claude.
+## Vibe Coding Workflow
 
-**The Prompt:** I described the vibe I wanted: "I have a user who likes Lakers favorites and NFL underdogs. Show me a game starting in 2 hours that fits that energy."
+I didn't sit down and write a math-heavy recommendation algorithm, instead I vibe engineered it with Claude Opus 4.5. I realized, the "magic" isn't in the model (which just does math); it's in the information density of the strings you feed it. 
 
-**The Code:** Claude spit out a sophisticated embedding-based pipeline.
+Initially, my code was doing keyword matching. It saw a user liked the "Lakers" and a game featured the "Lakers," so it matched them. That’s boring. I wanted the AI to understand behavioral similarity.
+
+![Boring recommendation](https://lh3.googleusercontent.com/pw/AP1GczN339JhdKcfLHQlZLKajJZ-ZY3rjUjmb8WScm0-ucRx8Ho372BfcYMgMFW_JQXRo8ZZfUiDTU7WnHfngRIM3FbCDTe6Fhn3XGUBvZqKUv-ihZTXfchovG-BbS0-DiBAa-p8WXzUL2QIfgv8ExogafIAaw=w2320-h1520-s-no-gm)
+
+**The Prompt:** I described the UX I wanted: "I have a user who likes Lakers favorites and NFL underdogs. Show me a game starting in 2 hours that fits that energy."
+
+**The Code:** Claude built out a sophisticated embedding-based pipeline.
 
 **The Reverse Engineer:** This is the important part. Once it worked, I spent a few minutes pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
 
 By the time I was done, I hadn't just "shipped a feature", I had built a mental model for how modern AI applications actually work.
 
-## The Problem: Beyond Simple Filters
+## Core Concepts: Embeddings & Inference
 
-When a user opens the app, I want to show them personalized game recommendations.
+Before looking at the code, you have to understand two things:
 
-![](https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm)
+### Embeddings: The "Language" of AI
 
-The naive approach is to filter by rigid rules:
-*   *User likes the Lakers?* Show Lakers games.
-*   *User likes Underdogs?* Show positive odds.
+Computers don't understand the concept of an underdog victory. They understand numbers. An embedding is a numerical representation of data in a high-dimensional space (ours uses 384 or 768 dimensions). In this space, similar concepts are geometrically close. "Lakers" and "LeBron" are close; "Lakers" and "Toaster" are far.
 
-But this is brittle. What if the Lakers aren't playing today? What if the user loves *underdogs* specifically in *high-scoring NBA games*? I needed a system that understands the **semantic context** of a user's preferences, not just their raw stats.
+### Inference: The "Action" Phase
 
-## The Solution: Text Embeddings
+If Training is the process of an AI "going to school" to learn patterns, Inference is the AI "taking the test." When I send a user's betting history to an embedding model, I'm running inference to get a vector that represents their "betting soul."
 
-I decided to use **text embeddings**. By converting both user betting histories and upcoming game descriptions into vectors, we can use **Cosine Similarity** to find matches. 
+## From String Matching to Semantic Density
 
-This allows for "fuzzy" matching. If a user bets heavily on the Warriors and the Lakers, the system understands they like "Western Conference NBA teams" or "Star-heavy lineups" and can recommend a Suns game, even if they've never bet on Phoenix before.
+This was the breakthrough. We moved from simple team names to Feature-Rich Latent Space. We stopped feeding the AI raw data and started feeding it contextual narratives.
 
-### Inference in Action
+### The User Profile (The "Input")
 
-After watching Karpathy's video, I realized that what I'm doing here is **inference**, running a pre-trained embedding model to transform text into numerical vectors. Unlike training (where you adjust model weights), inference is a forward pass: feed text in, get embeddings out.
+Instead of just saying "User likes NBA," we now generate a dense behavioral profile:
 
-The embedding models I'm using (like `bge-small-en-v1.5` or `text-embedding-004`) were already trained on massive text corpora. They learned to encode semantic meaning into dense vector representations. When I call `getEmbeddings("Lakers vs Warriors")`, I'm performing inference; the model processes the input through its neural network layers and outputs a 384-dimensional (or 768-dimensional) vector that captures the semantic essence of that text.
+```
+RISK PROFILE: Underdog hunter, seeks value in plus-money picks.
 
-Each dimension in that vector represents a "direction" in semantic space. One dimension might lean toward "Basketball," another toward "High Risk," another toward "West Coast teams," and so on. The model learned these directions during training by analyzing patterns across billions of text examples. This is what enables the "fuzzy logic", when I calculate cosine similarity between two vectors, I'm measuring how aligned they are across all these semantic directions simultaneously, not just checking if they match on a single rigid rule.
+MOMENTUM: Hot streak (4-1 last 5 picks).
 
-This is the beauty of modern ML: I don't need to train a model from scratch. I can leverage pre-trained embeddings and focus on the application layer, the text generation, caching, and similarity calculations that make the recommendation system work.
+STYLE: Value seeker, looks for efficient odds.
 
-## The Architecture
-
-The system pipeline consists of five distinct stages:
-
-### 1. Text Generation (The "Prompt Engineering")
-
-Embeddings are only as good as the text you feed them. We needed to convert structured database rows into descriptive natural language.
-
-![](https://lh3.googleusercontent.com/pw/AP1GczPzycQeIP1XSzic9TnQ_TtFlonjqsPxq36s4X19SoeoILR7mjp_0WfzP2BAkPFM4hdJM1GokhoN651C-JwE3ZUveAckR79_8pAZryVhcOP-ab3yXqr5GCxSNZZsYvgCfS0CHix7xos5RR0jY8uFKZrz7w=w2320-h1520-s-no-gm)
-
-**The User Profile Text:**
-We aggregate the user's pick history into a narrative string.
-
-```typescript
-// Actual input text generated from user stats
-Favorite teams: Lakers (15 picks, 60% win rate)
-Warriors (12 picks, 58% win rate)
-Sport preferences: NBA (30 picks, prefers favorites)
-Overall: 50 picks, 62% win rate
-Current winning streak: 3 games
+FAVORITES: Lakers (10x, profitable).
 ```
 
-**The Game Text:**
-We convert upcoming event data into a similar format.
+### The Game Context (The "Candidate")
 
-```typescript
-// Actual input text generated for a game
-NBA game. Warriors (underdog) at Lakers (favorite)
-Close matchup. Game starts in 2h 30m
+We do the same for upcoming games, injecting "labels" that the AI can hook into:
+
+```
+NBA: Cavaliers at Knicks.
+
+VALUE: Close matchup, slight edge to one side.
+
+CONSENSUS: Majority of bookmakers agree on favorite.
+
+CONTEXT: Division rivalry.
+
+PROFILE: Suits value seekers and balanced bettors.
 ```
 
-Note: We explicitly inject concepts like "close matchup" (calculated based on odds spread) so the model can capture the "excitement" factor of a game.
+By adding "Suits value seekers" to the game text and "Value seeker" to the user text, we are essentially building a bridge for the math to cross.
 
-### 2. The Provider Abstraction
+## The Architecture: The Four Stages of Inference
 
-This was a major "vibe coding" win. Initially, I hardcoded a call to HuggingFace. When I wanted to add Google Vertex AI (since I'm already in the GCP ecosystem), Claude suggested a clean Provider Pattern.
+### A. Feature Engineering
 
-Instead of if/else spaghetti, we built an interface:
+We aggregate structured Firebase data (win rates, average odds, team frequency) and "flatten" it into the descriptive narratives shown above.
+
+### B. The Provider Pattern
+
+We built a clean abstraction to swap between models. We use BAAI/bge-small-en-v1.5 on HuggingFace for speed (384 dimensions) and Google's text-embedding-004 on Vertex AI for high-accuracy "heavy lifting."
+
+### C. Smart Caching & Momentum
+
+Inference has latency. We cache game embeddings for 6 hours. However, we shortened the User Embedding cache significantly because of momentum. If you go on a 4-game winning streak, your profile changes, and the AI needs to suggest different games to keep that streak alive.
+
+### D. Cosine Similarity
+
+This is the "Search" part. We take the User Vector and compare it against 50 Game Vectors.
 
 ```typescript
-interface EmbeddingProvider {
-  getEmbeddings(texts: string[]): Promise<number[][]>;
-  cosineSimilarity(a: number[], b: number[]): number;
-  getModelName(): string;
+// The math that determines the "Semantic Alignment"
+const score = provider.cosineSimilarity(userVector, gameVector);
+```
+
+## Why This is Better Than Rules
+
+A rule-based system is a prison of if/else statements.
+
+**Rule:** "If user likes Lakers, show Lakers."
+
+**Problem:** Lakers aren't playing.
+
+A semantic system is "fuzzy." If a user likes Lakers favorites, the AI understands they like high-stakes, star-heavy, West Coast basketball. It can then recommend a Warriors or Suns game because those games live in the same "neighborhood" of the embedding space.
+
+## What I Learned: Context Design is Engineering
+
+Building this with Claude taught me that the future of development isn't about writing the algorithm—it's about curating the context.
+
+I didn't have to learn how to train a neural network. I had to learn how to describe my data so that a pre-trained model could understand it. If you're building a feature that requires "fuzzy" logic, don't write 100 if statements. Try converting your data to text, running inference to get an embedding, and letting the geometry do the work.
+
+The takeaway for devs: You don't need to be a data scientist to use AI. You just need to be a good storyteller for your data.
+
+## The Pivot: Adding the "Brain" with Gemma 3
+
+Even with great embeddings, the "Explainability" layer felt a bit mechanical. 
+
+### Stage E: The Old Way (Mechanical Explainability)
+
+Initially, we explained matches using hardcoded strings tied to similarity scores:
+
+* Score 0.85+: **Strong match:** This game is very similar to what you usually like.
+* Score 0.70–0.85: **Good fit:** The game shares several things with your usual picks.
+* Score 0.55–0.70: **Moderate match:** There are some similarities, but it's a bit different from your normal choices.
+* Score <0.55: **Discovery pick:** This is outside your usual picks—try it to discover something new.
+
+It worked, but it didn't have soul. I wanted the site to feel like a sharp sports analyst was sitting next to you. That inspired a pivot to a Two-Stage Architecture—one where the "brain" added real flavor.
+
+### Stage 1: The Ruler (Embeddings)
+
+I kept the BGE/Vertex embeddings for the heavy lifting. They scan 100+ games and instantly find the top 5 matches using cosine similarity. This is lightning-fast and almost free.
+
+### Stage 2: The Brain (Gemma 3)
+
+Here's where Gemma 3 comes in—and why it's uniquely powerful for this task. In a typical software stack, we choose between "fast and dumb" (Redis, simple scripts) or "slow and heavy" (deep SQL queries, heavy processing). In AI, we have a similar choice.
+
+Initially, I used a basic template to explain why a game was recommended. It was essentially a printf statement with some variables. It felt mechanical. To make the recommendations feel human, I needed a model that could reason across three distinct data points:
+
+1. **The User's specific betting history.** (Your track record, win streaks, favorite teams)
+2. **The statistical match.** (The embedding similarity score)
+3. **Real-world sports context.** (Rivalries, importance of the game, stadium atmosphere)
+
+I chose Gemma 3 (27B) as the "Brain" of the operation for three reasons:
+
+**World Knowledge:** Unlike a basic embedding model, Gemma "knows" what a divisional rivalry is. It understands that a game between the Knicks and the Celtics carries more weight than a random mid-season matchup. It fills in the gaps that my database doesn't have.
+
+**The "Goldilocks" Scale:** At 27 billion parameters, it hits a sweet spot. It's small enough to run with low latency (so the user isn't staring at a loading spinner), but large enough to avoid the "hallucinations" or repetitive language often found in tiny 1B-3B models.
+
+**Contextual Fluidity:** It takes the cold math of a "0.85 similarity score" and translates it into a narrative. It doesn't just say "You like this game." It says, "You usually hunt for value on underdogs, and this Knicks game is currently mispriced by the market."
+
+Once I have the top 5 "winning" games, I send them to [google/gemma-3-27b-it](https://huggingface.co/google/gemma-3-27b-it).
+
+Unlike embedding models, which only know about distances, Gemma understands context. I don't just send the odds; I send the "game energy." Because Gemma was trained on the open internet, it already knows that a Knicks game at Madison Square Garden has a different energy than a Tuesday afternoon game in an empty arena.
+
+#### The "Analyst" Prompt
+
+I told Gemma: "You are a sharp sports betting consultant. Look at this ‘Underdog Hunter’ user and this Knicks/Celtics rivalry game. Explain why they should care."
+
+Now, instead of a generic "Matches your style," the user experiences:
+
+> "The Garden will be rocking for this Knicks rivalry. Since you love hunting high-value underdogs, this is the perfect spot to fade the public and grab the points in a gritty divisional matchup."
+
+#### The Implementation: Prompting for Personality
+
+To turn the math into a narrative, I used Gemma 3’s specific chat template. By injecting the "Match Strength" directly into the prompt, I’m giving the LLM a hint of how confident it should be in its recommendation.
+
+```typescript
+const SYSTEM_PROMPT = "You are a sharp sports betting consultant... Keep responses to 2 sentences max.";
+
+// How we bridge the gap between Vector Math and Natural Language
+function buildPrompt(userProfile: string, gameText: string, score: number): string {
+  const matchStrength = score >= 0.85 ? 'excellent' : score >= 0.70 ? 'strong' : 'good';
+
+  return `<start_of_turn>user
+  ${SYSTEM_PROMPT}
+
+  USER BETTING PROFILE:
+  ${userProfile}
+
+  GAME DETAILS:
+  ${gameText}
+
+  MATCH STRENGTH: ${matchStrength} (${(score * 100).toFixed(0)}% similarity)
+
+  Write a punchy 2-sentence recommendation explaining why this game is perfect for this user's betting style.
+  <end_of_turn>
+  <start_of_turn>model
+  `;
 }
-
-class HuggingFaceProvider implements EmbeddingProvider { ... }
-class VertexAIProvider implements EmbeddingProvider { ... }
 ```
 
-With this provider abstraction, we can quickly swap between embedding models like [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (via HuggingFace) and [text-embedding-004](https://ai.google.dev/gemini-api/docs/embeddings) (via Google Vertex AI or Gemini API), just by changing an environment variable. See [Gemini Embeddings documentation](https://ai.google.dev/gemini-api/docs/embeddings) for details on the Google model.
+This structure is key. We aren't just asking the AI to "write something." We are providing:
 
-### 3. Smart Caching Strategy
+- Identity: A sharp sports consultant (System Prompt).
+- User Data: Their "Underdog Hunter" DNA.
+- The Objective: Why these two things belong together.
 
-Generating embeddings isn't free (in terms of latency or money). We implemented a 3-layer cache:
+By the time the model sees the <start_of_turn>model token, it has all the context it needs to generate a response like:
 
-*   **User Embeddings (30 Days)**: Invalidated only if prefsUpdatedAt timestamp changes.
-*   **Game Embeddings (6 Hours)**: Cached by Event ID.
-*   **Response Cache (6 Hours)**: The final ranked list of recommendations.
+> "As an underdog hunter, you'll love the +130 value on the Knicks in this primetime slot. The match strength is strong because your history shows you thrive on these tight, high-profile Eastern Conference matchups."
 
-We also use **Batch Processing**. If there are 50 games and 45 are cached, we bundle the 5 missing games + the user profile into a single API call to the embedding provider.
+### Why This Matters: Re-Ranking & Augmentation
 
-### 4. Similarity & Ranking
+This is essentially a RAG pipeline (Retrieval-Augmented Generation) where the retrieved documents are upcoming sports matches and the augmentation is the user's betting history. This is the professional way to build AI apps. Don’t use the expensive, slow reasoning model to look at every game. Use the Ruler (Embeddings) to narrow the field, then let the Brain (Gemma) perfect the presentation.
 
-We calculate the Cosine Similarity (0 to 1) between the User Vector and every Game Vector.
+**The New Pipeline:**
 
-```typescript
-// A simplified look at the math
-cosineSimilarity(a: number[], b: number[]): number {
-  const dotProduct = a.reduce((sum, val, i) => sum + val * b[i], 0);
-  // ... divide by magnitude of vectors
-  return dotProduct / (magnitudeA * magnitudeB);
-}
-```
+- **Retrieve:** Use math (vectors) to find the best 5 games.
+- **Augment:** Give those 5 games to the LLM.
+- **Generate:** Let the LLM write a personalized "Hype Note" using its internal sports knowledge.
 
-Any score above 0.7 is usually a strong match. We sort descending and pick the top 5.
+### Final Thought: The "Smart" Site Feel
 
-### 5. Explainability
+By adding Gemma, the site stopped feeling like a bland database and started to feel like a service with a voice and an opinion.
 
-An AI black box isn't user-friendly. We added a logic layer to generate human-readable reasons based on the match data:
+The magic is in what the AI brings from outside your database—like historical rivalries, stadium hype, and cultural context. That’s the power of using nimble, pre-trained "World Models" in production code.
 
-*   "You've picked Lakers 15 times"
-*   "Matches your preference for Underdogs (+180)"
-*   "Similar to other NBA games you've bet on"
-
-## Why It's Better Than Rules
-
-The results have been surprisingly nuanced.
-
-*   **Graceful Degradation**: If a user has zero history, the fallback text "Sports fan looking for exciting games" matches them with "Close matchups" automatically.
-*   **Cross-Pollination**: It successfully recommends NFL games to NBA fans if the betting style (e.g., hunting deep underdogs) matches, because the semantic vector captures the "risk profile" encoded in the text.
-*   **Context Awareness**: It balances timing (games starting soon), odds, and team loyalty all at once, rather than in a linear filter chain.
-
-## What I Learned
-
-Building this with Claude highlighted the power of iterative AI development. We started with a simple HuggingFace API call. We broke it. We refactored it into a Provider pattern. We optimized it with caching.
-
-The recommendation system isn't perfect: I still need to A/B test it against a random baseline, but the architecture is solid.
-
-### The Inference Mindset
-
-Karpathy's video helped me understand that inference is everywhere in modern AI applications. Every time I call an embedding API, I'm performing inference. Every time I calculate cosine similarity between vectors, I'm using the semantic knowledge that was baked into those embeddings during training.
-
-The key insight: **You don't need to train models to use AI effectively**. Pre-trained embedding models are inference-ready. Your job is to:
-1. Convert your domain data into text
-2. Run inference to get embeddings
-3. Use vector math (like cosine similarity) to find patterns
-
-If you're building a feature that requires "fuzzy" logic, don't write 100 if statements. Try converting your data to text, embedding it, and letting math do the heavy lifting.
