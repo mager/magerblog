@@ -7,116 +7,426 @@ interface Props {
 }
 
 const { post } = Astro.props;
+
+// Generate file path based on post data
+const categoryPath = post.data.category || 'blog';
+const fileName = post.id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+const filePath = `~/blog/${categoryPath}/${fileName}`;
+
+// Category icon and status color
+const categoryConfig: Record<string, { icon: string; statusColor: string; label: string }> = {
+	code: { icon: '󰅩', statusColor: 'var(--status-purple)', label: 'code' },
+	life: { icon: '󰋜', statusColor: 'var(--status-green)', label: 'life' },
+	food: { icon: '󰆘', statusColor: 'var(--status-orange)', label: 'recipes' },
+};
+
+const config = categoryConfig[post.data.category || 'code'] || categoryConfig.code;
 ---
 
-<a href={`/blog/${post.id}/`} class={`card ${!post.data.heroImage ? 'no-image' : ''}`}>
-	{post.data.heroImage && (
-		<img src={post.data.heroImage} alt="" width={720} height={360} />
-	)}
-	<div class="content">
-		<p class="date">
-			<span class="prompt">$</span> <FormattedDate date={post.data.pubDate} />
-		</p>
-		<h4 class="title">{post.data.title}</h4>
-		<p class="description">{post.data.description}</p>
+<a href={`/blog/${post.id}/`} class="terminal-card" data-category={post.data.category}>
+	<!-- Terminal Window Header -->
+	<div class="terminal-header">
+		<div class="traffic-lights">
+			<span class="light red"></span>
+			<span class="light yellow"></span>
+			<span class="light green"></span>
+		</div>
+		<div class="file-path">
+			<span class="path-icon">󰉋</span>
+			<span class="path-text">{filePath}</span>
+		</div>
+		<div class="terminal-actions">
+			<span class="action-btn">−</span>
+			<span class="action-btn">□</span>
+		</div>
+	</div>
+
+	<!-- Terminal Content -->
+	<div class="terminal-body">
+		<!-- Hero Image (if exists) -->
+		{post.data.heroImage && (
+			<div class="image-wrapper">
+				<img src={post.data.heroImage} alt="" width={720} height={360} />
+				<div class="scanlines"></div>
+			</div>
+		)}
+
+		<!-- Content Area -->
+		<div class="content">
+			<!-- Frontmatter Block (YAML-style) -->
+			<div class="frontmatter">
+				<span class="fm-delimiter">---</span>
+				<div class="fm-content">
+					<div class="fm-line">
+						<span class="fm-key">title:</span>
+						<span class="fm-value fm-string">"{post.data.title}"</span>
+					</div>
+					<div class="fm-line">
+						<span class="fm-key">date:</span>
+						<span class="fm-value fm-date"><FormattedDate date={post.data.pubDate} /></span>
+					</div>
+					<div class="fm-line">
+						<span class="fm-key">category:</span>
+						<span class="fm-value fm-tag">{config.label}</span>
+					</div>
+					{post.data.prepTime && (
+						<div class="fm-line">
+							<span class="fm-key">prepTime:</span>
+							<span class="fm-value fm-number">{post.data.prepTime}min</span>
+						</div>
+					)}
+					{post.data.cookTime && (
+						<div class="fm-line">
+							<span class="fm-key">cookTime:</span>
+							<span class="fm-value fm-number">{post.data.cookTime}min</span>
+						</div>
+					)}
+				</div>
+				<span class="fm-delimiter">---</span>
+			</div>
+
+			<!-- Description -->
+			<div class="description-block">
+				<span class="comment"># Description</span>
+				<p class="description">{post.data.description}</p>
+			</div>
+		</div>
+
+		<!-- Terminal Footer with Status -->
+		<div class="terminal-footer">
+			<div class="status-left">
+				<span class="status-indicator" style={`background: ${config.statusColor};`}></span>
+				<span class="status-text">ready</span>
+			</div>
+			<div class="status-right">
+				<span class="line-info">Ln 1, Col 1</span>
+				<span class="encoding">UTF-8</span>
+			</div>
+		</div>
 	</div>
 </a>
 
 <style>
-	.card {
+	.terminal-card {
 		display: block;
-		background: var(--editor-bg-light);
+		background: var(--terminal-bg);
 		border-radius: 12px;
-		box-shadow: var(--box-shadow);
 		overflow: hidden;
-		transition: all 0.3s ease;
 		text-decoration: none;
 		color: inherit;
-		border: 1px solid var(--text-muted);
+		border: 1px solid var(--terminal-border);
 		position: relative;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.3),
+			0 2px 4px -2px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.03);
 	}
 
-	.card::before {
+	.terminal-card::before {
 		content: '';
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 3px;
-		background: linear-gradient(90deg, var(--cyan) 0%, var(--purple) 50%, var(--accent-green) 100%);
+		inset: -1px;
+		border-radius: 13px;
+		padding: 1px;
+		background: linear-gradient(
+			135deg,
+			transparent 0%,
+			var(--glow-color, var(--status-purple)) 50%,
+			transparent 100%
+		);
+		-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
 		opacity: 0;
 		transition: opacity 0.3s ease;
 	}
 
-	.card:hover {
+	.terminal-card[data-category="code"] { --glow-color: var(--status-purple); }
+	.terminal-card[data-category="life"] { --glow-color: var(--status-green); }
+	.terminal-card[data-category="food"] { --glow-color: var(--status-orange); }
+
+	.terminal-card:hover {
 		transform: translateY(-4px);
-		box-shadow: var(--box-shadow-lg);
-		text-decoration: none;
-		border-color: var(--cyan);
+		border-color: var(--glow-color, var(--status-purple));
+		box-shadow:
+			0 20px 40px -12px rgba(0, 0, 0, 0.5),
+			0 0 30px -5px var(--glow-color, var(--status-purple));
 	}
 
-	.card:hover::before {
+	.terminal-card:hover::before {
+		opacity: 0.6;
+	}
+
+	/* Terminal Header */
+	.terminal-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.75rem 1rem;
+		background: var(--terminal-header);
+		border-bottom: 1px solid var(--terminal-border);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+
+	.traffic-lights {
+		display: flex;
+		gap: 6px;
+	}
+
+	.light {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		position: relative;
+		transition: all 0.2s ease;
+	}
+
+	.light::after {
+		content: '';
+		position: absolute;
+		inset: 2px;
+		border-radius: 50%;
+		background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
+	}
+
+	.light.red { background: #ff5f56; box-shadow: 0 0 8px rgba(255, 95, 86, 0.4); }
+	.light.yellow { background: #ffbd2e; box-shadow: 0 0 8px rgba(255, 189, 46, 0.4); }
+	.light.green { background: #27ca3f; box-shadow: 0 0 8px rgba(39, 202, 63, 0.4); }
+
+	.terminal-card:hover .light.red { box-shadow: 0 0 12px rgba(255, 95, 86, 0.8); }
+	.terminal-card:hover .light.yellow { box-shadow: 0 0 12px rgba(255, 189, 46, 0.8); }
+	.terminal-card:hover .light.green { box-shadow: 0 0 12px rgba(39, 202, 63, 0.8); }
+
+	.file-path {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.75rem;
+		color: var(--text-muted);
+		overflow: hidden;
+	}
+
+	.path-icon {
+		color: var(--status-cyan);
+		font-size: 0.9rem;
+	}
+
+	.path-text {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.terminal-actions {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.action-btn {
+		color: var(--text-muted);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: color 0.2s ease;
+		opacity: 0.6;
+	}
+
+	.terminal-card:hover .action-btn {
 		opacity: 1;
 	}
 
-	.card img {
+	/* Terminal Body */
+	.terminal-body {
+		position: relative;
+	}
+
+	.image-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.image-wrapper img {
 		width: 100%;
 		height: auto;
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		border: none;
-		border-bottom: 2px solid var(--text-muted);
-		transition: border-color 0.3s ease;
+		border-radius: 0;
+		transition: transform 0.5s ease, filter 0.3s ease;
 	}
 
-	.card:hover img {
-		border-bottom-color: var(--purple);
+	.terminal-card:hover .image-wrapper img {
+		transform: scale(1.03);
 	}
 
-	.card.no-image {
-		background: linear-gradient(135deg, var(--editor-bg-dark) 0%, var(--editor-bg-light) 100%);
+	/* Scanline Effect */
+	.scanlines {
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 2px,
+			rgba(0, 0, 0, 0.1) 2px,
+			rgba(0, 0, 0, 0.1) 4px
+		);
+		pointer-events: none;
+		opacity: 0.3;
 	}
 
-	.card.no-image .content {
-		padding-top: 2rem;
-	}
-
+	/* Content */
 	.content {
-		padding: 1.5rem;
+		padding: 1.25rem;
 	}
 
-	.title {
-		margin: 0 0 0.5rem;
-		font-size: 1.3rem;
-		color: var(--text-primary);
-		font-weight: 800;
-		letter-spacing: -0.02em;
-		transition: color 0.3s ease;
+	/* Frontmatter Block */
+	.frontmatter {
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.8rem;
+		line-height: 1.6;
+		margin-bottom: 1rem;
+		background: var(--terminal-bg-dark);
+		border-radius: 6px;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--terminal-border);
 	}
 
-	.card:hover .title {
-		color: var(--cyan);
+	.fm-delimiter {
+		color: var(--status-purple);
+		opacity: 0.6;
+		display: block;
+		font-weight: 600;
 	}
 
-	.date {
-		font-size: 0.875rem;
+	.fm-content {
+		padding: 0.25rem 0;
+	}
+
+	.fm-line {
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.1rem 0;
+	}
+
+	.fm-key {
+		color: var(--status-cyan);
+	}
+
+	.fm-value {
 		color: var(--text-secondary);
-		margin: 0 0 0.5rem;
-		font-family: 'JetBrains Mono', monospace;
+	}
+
+	.fm-string {
+		color: var(--status-green);
+	}
+
+	.fm-date {
+		color: var(--status-orange);
+	}
+
+	.fm-tag {
+		color: var(--status-purple);
+		padding: 0.1rem 0.4rem;
+		background: rgba(167, 139, 250, 0.15);
+		border-radius: 3px;
+	}
+
+	.fm-number {
+		color: var(--status-orange);
+	}
+
+	/* Description Block */
+	.description-block {
+		margin-top: 0.75rem;
+	}
+
+	.comment {
+		display: block;
+		color: var(--text-muted);
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.description {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+	}
+
+	/* Terminal Footer */
+	.terminal-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		background: var(--terminal-header);
+		border-top: 1px solid var(--terminal-border);
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+	}
+
+	.status-left,
+	.status-right {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.status-indicator {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
+	}
+
+	.status-text {
+		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		font-weight: 500;
 	}
 
-	.date .prompt {
-		color: var(--accent-green);
-		font-weight: 700;
-		margin-right: 0.25rem;
+	.line-info,
+	.encoding {
+		opacity: 0.7;
 	}
 
-    .description {
-        margin: 0;
-        font-size: 1rem;
-        color: var(--text-secondary);
-        line-height: 1.7;
-    }
+	/* Responsive */
+	@media (max-width: 720px) {
+		.terminal-header {
+			padding: 0.5rem 0.75rem;
+		}
+
+		.file-path {
+			font-size: 0.65rem;
+		}
+
+		.terminal-actions {
+			display: none;
+		}
+
+		.content {
+			padding: 1rem;
+		}
+
+		.frontmatter {
+			font-size: 0.7rem;
+			padding: 0.5rem 0.75rem;
+		}
+
+		.terminal-footer {
+			padding: 0.4rem 0.75rem;
+			font-size: 0.6rem;
+		}
+	}
 </style>
