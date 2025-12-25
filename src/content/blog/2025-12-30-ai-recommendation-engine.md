@@ -21,7 +21,11 @@ This is my side project for "social betting" where you can make picks and track 
 
 ## The Problem
 
-Initially, my recommendation system was doing keyword matching. It saw a user liked the "Lakers" and a game featured the "Lakers," so it matched them. That's boring. I wanted the AI to understand behavioral similarity—if someone likes Lakers favorites and NFL underdogs, show them games that match that energy, not just games with those teams.
+Initially, my recommendation system was doing keyword matching. It saw a user liked the "Lakers" and a game featured the "Lakers," so it matched them. That's boring. 
+
+![Boring](https://lh3.googleusercontent.com/pw/AP1GczPlM3hD4qDJcFSo3YOigIVOMS37gpI92e3dimHtlZ4YZy771gZl5pvIvk2iuwh-aDKRmSB26Q_3SfTTTfHrfdqZaC3mGBbMb0CFe_uJt9NDukWcCEKgqsfmdVCid_0GxF7CDkq2-wTcHg1Rda5XUJmN3w=w2320-h1520-s-no-gm)
+
+I wanted the AI to understand behavioral similarity—if someone likes Lakers favorites and NFL underdogs, show them games that match that energy, not just games with those teams.
 
 The challenge: How do you encode "betting style" into a system that can match it against 100+ upcoming games in real-time?
 
