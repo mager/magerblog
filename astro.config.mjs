@@ -7,4 +7,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
 	site: 'https://mager.co',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		smartypants: false,
+	},
 });

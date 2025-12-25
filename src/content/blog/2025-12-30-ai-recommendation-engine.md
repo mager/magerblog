@@ -7,7 +7,7 @@ description: "Learn how to use vector embeddings for retrieval and small LLMs li
 category: "code"
 draft: true
 tags: ["AI", "Machine Learning"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczONhe6BLpc1c_lnf_uvuRsf9M0SrOyLHLBoD_LOS_zz4nM9u6vB2tp38hk6-uw9zSwrmYbKtJlzS7pUlZvnfP-l2mOHop6rQBZcDDxhoN-Ztk-1iJqd2IkTGJcw_cHCEPAZZ-g7KWAiBLCoEEsQAyGc9A=w2320-h1520-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP4jDg3gBA2OKK6OM1Jr-2CbxoLbbdiREtinQAT9fKU7ImXaYG20yHkb5f2ChOtyicAgJ53BX6gm1RsJU9MrPFsWvc0w6FXqhnKz5uS0JCCOIro1biJQMo95HUNBkWaB4mZDQmAeQQSguETOVyqr3AnuA=w2320-h1520-s-no-gm"
 ---
 
 I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). 
@@ -55,7 +55,7 @@ Computers don't understand the concept of an underdog victory. They understand n
 
 ### Inference: The "Action" Phase
 
-If Training is the process of an AI "going to school" to learn patterns, Inference is the AI "taking the test." When I send a user's betting history to an embedding model, I'm running inference to get a vector that represents their "betting soul."
+If training is the process of an AI "going to school" to learn patterns, inference is the AI "taking the test." When I send a user's betting history to an embedding model, I'm running inference to get a vector that represents their "betting soul."
 
 ## From String Matching to Semantic Density
 
@@ -175,13 +175,33 @@ Once I have the top 5 "winning" games, I send them to [google/gemma-3-27b-it](ht
 
 Unlike embedding models, which only know about distances, Gemma understands context. I don't just send the odds; I send the "game energy." Because Gemma was trained on the open internet, it already knows that a Knicks game at Madison Square Garden has a different energy than a Tuesday afternoon game in an empty arena.
 
-#### The "Analyst" Prompt
+#### The System Prompt
 
-I told Gemma: "You are a sharp sports betting consultant. Look at this ‘Underdog Hunter’ user and this Knicks/Celtics rivalry game. Explain why they should care."
+I wanted recommendations to feel like a text from your sharpest sports buddy—one punchy sentence, no fluff. Here's the actual prompt:
 
-Now, instead of a generic "Matches your style," the user experiences:
+```typescript
+const SYSTEM_PROMPT = `You are a sharp sports betting consultant with deep knowledge of team rivalries, stadium atmospheres, player dynamics, and city culture. Give a single punchy sentence on why this game fits the user's betting style. Sound like a sharp friend texting a pick - casual, confident, fun. Mention relevant context like injuries, streaks, or matchup history if you know it.`;
 
-> "The Garden will be rocking for this Knicks rivalry. Since you love hunting high-value underdogs, this is the perfect spot to fade the public and grab the points in a gritty divisional matchup."
+const response = await hf.chatCompletion({
+  model: 'google/gemma-3-27b-it',
+  messages: [
+    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'user', content: `Bettor profile: ${userProfile}\n\nGame: ${gameText}\n\nOne sentence - why should they bet this game?` }
+  ],
+  max_tokens: 50,
+  temperature: 0.8
+});
+```
+
+Now instead of verbose analysis, users get something like:
+
+> "Knicks-Celtics in the Garden and you've been cashing underdog tickets all month—ride the hot hand."
+
+Or with real context Gemma knows:
+
+> "Mavs are banged up and you love fading injured squads—easy spot."
+
+The key insight: don't explain your app's mechanics to the LLM. Gemma doesn't need to know about "RXP" or "reputation points." Just tell it to be a sharp friend and let it do what it's good at—sports analysis with personality.
 
 #### The Implementation: Prompting for Personality
 
@@ -232,9 +252,14 @@ This is essentially a RAG pipeline (Retrieval-Augmented Generation) where the re
 - **Augment:** Give those 5 games to the LLM.
 - **Generate:** Let the LLM write a personalized "Hype Note" using its internal sports knowledge.
 
-### Final Thought: The "Smart" Site Feel
+### Conclusion
 
-By adding Gemma, the site stopped feeling like a bland database and started to feel like a service with a voice and an opinion.
+This two-stage, retrieval + generation pipeline transformed my project from a static database into a dynamic, opinionated assistant. Here’s a glimpse at the recommendations it produced:
 
-The magic is in what the AI brings from outside your database—like historical rivalries, stadium hype, and cultural context. That’s the power of using nimble, pre-trained "World Models" in production code.
+![](https://lh3.googleusercontent.com/pw/AP1GczP4jDg3gBA2OKK6OM1Jr-2CbxoLbbdiREtinQAT9fKU7ImXaYG20yHkb5f2ChOtyicAgJ53BX6gm1RsJU9MrPFsWvc0w6FXqhnKz5uS0JCCOIro1biJQMo95HUNBkWaB4mZDQmAeQQSguETOVyqr3AnuA=w2320-h1520-s-no-gm)
 
+![](https://lh3.googleusercontent.com/pw/AP1GczMaoUkYe1Uy6bWLyBlN-NOpT7_DlQdojCAQ7IMsIF4YCAZ9bTzobpMXzS56qku9N_fA9vU3Jq55itVdqQeDzO7sLJPImkOuIkFQ2NZBv8EYPlonJiAxKihQoyuA8XwU4di6dhQqT1v3NPD_ImmXAkBiyQ=w2320-h1520-s-no-gm)
+
+Gemma brought personality and context that a traditional app simply can’t match—tapping into knowledge of rivalries, storylines, and the pulse of the sports world. The result: recommendations that feel tailored, timely, and a little bit hype.
+
+This is just the starting point. I’ll keep iterating and sharing real examples and lessons learned as the system matures.
