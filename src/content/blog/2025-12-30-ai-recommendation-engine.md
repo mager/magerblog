@@ -6,7 +6,7 @@ updatedDate: "2025-12-25"
 description: "A practical guide to building two-stage AI recommendations: use embeddings for fast retrieval, then small LLMs like Gemma 3 for natural language explanations. The real skill? Curating context, not writing algorithms."
 category: "code"
 tags: ["AI", "Machine Learning"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP4jDg3gBA2OKK6OM1Jr-2CbxoLbbdiREtinQAT9fKU7ImXaYG20yHkb5f2ChOtyicAgJ53BX6gm1RsJU9MrPFsWvc0w6FXqhnKz5uS0JCCOIro1biJQMo95HUNBkWaB4mZDQmAeQQSguETOVyqr3AnuA=w2320-h1520-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOZDEeU4nTwJimQsKoZw_dkOKvvAm4D5zQekjyx4zu4g8tGnkCr1Z2RA7BxVHiv8cx0zPvdXsLQLG_scXjEPWdkxp5sU4Jq6NtLegPvUJYCQ4dBf63hj7iMawc3uQh3klw6v8UDDmJ3IMirwJMK6FOYSA=w2320-h1520-s-no-gm"
 ---
 
 I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). 
@@ -269,7 +269,7 @@ Cosine similarity measures the angle between two vectors. A score of 1.0 means i
 
 Even with great embeddings, the explanation layer felt mechanical. I wanted recommendations that felt like a sharp sports analyst was sitting next to you.
 
-That's where [Gemma 3 (12B)](https://huggingface.co/google/gemma-3-12b-it) comes in. Unlike embedding models, which only know about distances, Gemma understands context. It knows that a Knicks game at Madison Square Garden has different energy than a Tuesday afternoon game in an empty arena.
+That's where [Gemma 3 (27b)](https://huggingface.co/google/gemma-3-27b-it) comes in. Unlike embedding models, which only know about distances, Gemma understands context. It knows that a Knicks game at Madison Square Garden has different energy than a Tuesday afternoon game in an empty arena.
 
 We take the top 5 games from Stage 1 and send them to Gemma:
 
@@ -298,10 +298,15 @@ if (isGemmaAvailable() && recommendations.length > 0) {
 The Gemma prompt is intentionally minimal:
 
 ```typescript
-const SYSTEM_PROMPT_SUFFIX = `Write one understated, clinical sentence explaining the fit. 
-No greetings, no hype, and no exclamation points. 
-Connect the user's history to a specific game factor—like a streak or injury—to justify the match. 
-Think: "Seasoned scout in a dark room."`;
+const SYSTEM_PROMPT_SUFFIX = `Write one sharp, interesting sentence explaining the match. 
+
+Mix ESPN-style analysis with a Barstool-style edge. 
+
+Avoid "AI cheerleading" and repetitive slang like "cooking" or "fam." 
+
+Focus on the 'why'—mention a specific matchup, a historical trend, or a situational edge. 
+
+Keep it conversational but authoritative.`;
 
 const userMessage = `Bettor profile: ${userProfile}
 
@@ -310,13 +315,13 @@ Game: ${gameText}
 One sentence - why should they bet this game?`;
 
 const response = await hf.chatCompletion({
-  model: 'google/gemma-3-12b-it',
+  model: 'google/gemma-3-27b-it',
   messages: [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: userMessage }
   ],
   max_tokens: 80,
-  temperature: 0.6
+  temperature: 0.75
 });
 ```
 
@@ -340,9 +345,13 @@ The takeaway for devs: You don't need to be a data scientist to use AI. You just
 
 This two-stage, retrieval + generation pipeline transformed my project from a static database into a dynamic, opinionated assistant. Here's a glimpse at the recommendations it produces:
 
-![](https://lh3.googleusercontent.com/pw/AP1GczP4jDg3gBA2OKK6OM1Jr-2CbxoLbbdiREtinQAT9fKU7ImXaYG20yHkb5f2ChOtyicAgJ53BX6gm1RsJU9MrPFsWvc0w6FXqhnKz5uS0JCCOIro1biJQMo95HUNBkWaB4mZDQmAeQQSguETOVyqr3AnuA=w2320-h1520-s-no-gm)
+![](https://lh3.googleusercontent.com/pw/AP1GczOZDEeU4nTwJimQsKoZw_dkOKvvAm4D5zQekjyx4zu4g8tGnkCr1Z2RA7BxVHiv8cx0zPvdXsLQLG_scXjEPWdkxp5sU4Jq6NtLegPvUJYCQ4dBf63hj7iMawc3uQh3klw6v8UDDmJ3IMirwJMK6FOYSA=w2320-h1520-s-no-gm)
 
-![](https://lh3.googleusercontent.com/pw/AP1GczMaoUkYe1Uy6bWLyBlN-NOpT7_DlQdojCAQ7IMsIF4YCAZ9bTzobpMXzS56qku9N_fa9vU3Jq55itVdqQeDzO7sLJPImkOuIkFQ2NZBv8EYPlonJiAxKihQoyuA8XwU4di6dhQqT1v3NPD_ImmXAkBiyQ=w2320-h1520-s-no-gm)
+![](https://lh3.googleusercontent.com/pw/AP1GczPikHQ-F4tkHpCjKAwKscdi2xYO2JU1BaJ8arR-lWxQPrG9s6fu-qtwXL0uEQS_b899hseD_WgP36QHyZk2cy1ls3ZP--IFiayC1dnGVoN5fH3aFrfxiZabL1-piCyWyIGb9w3dLD5w9_Np97WP2acssA=w2320-h1520-s-no-gm)
+
+![](https://lh3.googleusercontent.com/pw/AP1GczN6m_hMsw1Ehj6lnOkRAsUpAzio-kkWuOn9iKGO0_NtlmHekXHuMYAIRHdbtTgDT7A6d5kWK8mqdYZdtaKtI15-EPLEfb2oDibxUemHPEWS8RZSiOKMTvBavM9dtCi-DdbBjDD8fkjNavgJd34QOd9BMw=w2320-h1520-s-no-gm)
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNatVL49pB7r5elMAjGcAD-HUxs_IG49VpDc8zqF_o4FtuvgJAarkRlAfp42EF-satEorc2Xs_Xm_VA8c0a6Cno72yFYO8u4dvHIjjx_FakI56GfqHc2FAMo0-FgXrXO1zaJg4EdfGbL8rC5eGNEUvGfw=w2320-h1520-s-no-gm)
 
 Gemma brought personality and context that a traditional app simply can't match—tapping into knowledge of rivalries, storylines, and the pulse of the sports world. The result: recommendations that feel tailored, timely, and a little bit hype.
 
