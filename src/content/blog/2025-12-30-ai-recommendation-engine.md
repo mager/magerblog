@@ -6,13 +6,10 @@ updatedDate: "2025-12-25"
 description: "A practical guide to building two-stage AI recommendations: use embeddings for fast retrieval, then small LLMs like Gemma 3 for natural language explanations. The real skill? Curating context, not writing algorithms."
 category: "code"
 tags: ["AI", "Machine Learning"]
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNRO_l1rRTXPq8oFH_QgGdPOqIDMJWyPDO2NWy8sJytTGpuQzhTcEqk5cv-1N-dFZxMCUTNFeqwXq0vzHm7PrE-EicraqoKOQ3wZMlSOWn_ScXXvDda9P6tKZGbtamsYT_JsIfSj_nmofuphTgt9AQPUA=w2320-h1520-s-no-gm"
 ---
 
-import { YouTube } from '@astro-community/astro-embed-youtube';
-
 I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI).
-
-<YouTube id="7xTGNNLPyMI" />
 
 Karpathy highlights that while pre-training is where the model "learns" the internet [01:04], inference is the act of the model taking a test in real-time [26:13]. For my project, that meant moving the intelligence from my database queries into the model's forward pass.
 

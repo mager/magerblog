@@ -39,8 +39,25 @@ Use a meat thermometer—insert into the thickest part of the thigh (avoiding bo
 
 Let rest 10-15 minutes before carving. The crispy skin and juicy meat will make you question why you ever cooked chicken any other way.
 
-#### Why It Works
-
-500°F gets the skin crispy fast, then 325°F gently cooks the meat without drying it out. Spatchcocking flattens the bird so everything cooks evenly. Simple as that.
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm)
+
+Since your recipe uses a high-heat "shock" followed by a slow roast, you’ll have some incredible browned bits (fond) in that pan. Adding a "Pan to Plate" gravy section is the perfect way to finish the post.
+
+Here is a formatted section you can paste right at the bottom:
+
+#### The Finishing Touch: Creamy Pan Gravy
+
+Don't let those golden drippings go to waste! While the chicken rests, turn those pan juices into a silky, restaurant-quality gravy.
+
+Capture the Liquid Gold: Pour all the drippings from your roasting pan into a measuring cup. Let it settle for a minute.
+
+Build the Base: Spoon 4 Tbsp of the fat (the yellow oil at the top) into a saucepan over medium heat. If you're short on fat, add butter to make up the difference.
+
+The Roux: Whisk in 1/4 cup of flour and cook for 2 minutes until it smells nutty and looks golden.
+
+The Blend: Combine the remaining juices with enough chicken broth to make 1.5 cups. Whisk this slowly into your roux until smooth and simmering.
+
+The Secret Ingredient: For a velvety finish, stir in 1/2 cup of half and half. Lower the heat and simmer for 3 minutes until it coats the back of a spoon.
+
+Season: Taste first (the drippings are salty!), then add plenty of cracked black pepper and a pinch of salt if needed.
