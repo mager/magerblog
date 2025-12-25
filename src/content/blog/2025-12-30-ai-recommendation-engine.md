@@ -13,7 +13,7 @@ I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://w
 
 Karpathy highlights that while pre-training is where the model "learns" the internet [01:04], inference is the act of the model taking a test in real-time [26:13]. For my project, that meant moving the intelligence from my database queries into the model's forward pass.
 
-Enter [prxps.xyz](https://prxps.xyz):
+Inspired by this, I realized my sports recommendation engine was stuck in the 'pre-training' mindset of static lookups, rather than the 'inference' mindset of real-time reasoning. Enter [prxps.xyz](https://prxps.xyz):
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczOJZn12YkGMgtivB2YsZMuciSJh8f8QU7rzCyEravWQdfmCGXGCqTFtmb8aArePtS78x_WF26lITEERaTqbFhZKLLR9xvUqtlkVrzYfNK6OLnwdgHmw7KZo1stMzEokuN3KLPc15tg56uARdl97zXjEIA=w2320-h1520-s-no-gm)
 
@@ -31,15 +31,13 @@ The challenge: How do you encode "betting style" into a system that can match it
 
 ## Vibe Coding the Solution
 
-I didn't sit down and write a math-heavy recommendation algorithm. Instead, I vibe engineered it with [Claude Opus 4.5](https://www.anthropic.com/news/claude-opus-4-5). I realized the "magic" isn't in the model (which just does math); it's in the information density of the strings you feed it.
+I didn't sit down and write a math-heavy recommendation algorithm. Instead, I vibe engineered it with [Claude Opus 4.5](https://www.anthropic.com/news/claude-opus-4-5). I described the UX I wanted: "I have a user who likes Lakers favorites and NFL underdogs. Show me a game starting in 2 hours that fits that energy." Claude built out a sophisticated embedding-based pipeline, and it worked.
 
-**The Prompt:** I described the UX I wanted: "I have a user who likes Lakers favorites and NFL underdogs. Show me a game starting in 2 hours that fits that energy."
-
-**The Code:** Claude built out a sophisticated embedding-based pipeline.
-
-**The Reverse Engineer:** This is the important part. Once it worked, I spent a few minutes pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
+Then came the important part—reverse engineering. I spent a few minutes pulling the code apart to understand why it worked. I asked Claude, *"Wait, why are we using cosine similarity here instead of just a keyword search?"* and *"How exactly are these vectors representing a 'close game'?"*
 
 By the time I was done, I hadn't just "shipped a feature", I had built a mental model for how modern AI applications actually work.
+
+I realized the "magic" isn't in the model (which just does math); it's in the *information density* of the strings you feed it.
 
 ## How It Works: A Two-Stage RAG Pipeline
 
@@ -128,7 +126,7 @@ function generateUserProfileText(prefs: UserPreferences, profile: UserProfile): 
 }
 ```
 
-This produces text like:
+Even though this part is "hard-coded," it’s done to standardize the vocabulary for the embedding model. This produces text like:
 
 ```
 RISK PROFILE: Underdog hunter, seeks value in plus-money picks. 
@@ -247,7 +245,10 @@ What does this actually look like in storage? It's just an array of floating-poi
  ... (380 more numbers)]
 ```
 
+Imagine a 3D map where 'Lakers' and 'LeBron' are an inch apart, but 'Lakers' and 'Knitting' are a mile apart. Our system does that, but in 384 dimensions.
+
 That's it—384 numbers that encode the semantic meaning of the text. The model learned during training that certain patterns of numbers represent certain concepts, so when we compare two arrays using cosine similarity, we're measuring how similar their numerical patterns are. The "magic" is in how the model learned to map text to these numbers, not in the numbers themselves.
+
 
 
 #### Finding Matches with Cosine Similarity
@@ -359,4 +360,4 @@ This two-stage, retrieval + generation pipeline transformed my project from a st
 
 Gemma brought personality and context that a traditional app simply can't match—tapping into knowledge of rivalries, storylines, and the pulse of the sports world. The result: recommendations that feel tailored, timely, and a little bit hype.
 
-_prxps is in private beta, sign up here: [https://prxps.xyz](https://prxps.xyz) and_
+_prxps is in private beta, sign up here: [https://prxps.xyz](https://prxps.xyz) and follow on X [@prxpsxyz](https://x.com/prxpsxyz)._
