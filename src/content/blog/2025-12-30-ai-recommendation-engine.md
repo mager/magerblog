@@ -6,7 +6,6 @@ updatedDate: "2025-12-25"
 description: "A practical guide to building two-stage AI recommendations: use embeddings for fast retrieval, then small LLMs like Gemma 3 for natural language explanations. The real skill? Curating context, not writing algorithms."
 category: "code"
 tags: ["AI", "Machine Learning"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOZDEeU4nTwJimQsKoZw_dkOKvvAm4D5zQekjyx4zu4g8tGnkCr1Z2RA7BxVHiv8cx0zPvdXsLQLG_scXjEPWdkxp5sU4Jq6NtLegPvUJYCQ4dBf63hj7iMawc3uQh3klw6v8UDDmJ3IMirwJMK6FOYSA=w2320-h1520-s-no-gm"
 ---
 
 I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI). 

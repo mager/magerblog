@@ -163,91 +163,19 @@ const categoryBadge = getCategoryBadge(category);
 				margin: 0;
 				width: 100%;
 				height: auto;
-				max-height: 600px;
+				max-height: 80vh;
 				object-fit: cover;
 				border-radius: 0;
 				border: none;
 				box-shadow: none;
 				transition: all 0.3s ease;
+				image-rendering: -webkit-optimize-contrast;
 			}
 
 			.hero-image img:hover {
 				transform: scale(1.02);
 			}
 
-			.hero-image-placeholder {
-				width: 100%;
-				max-width: 1400px;
-				margin: 0 auto;
-				position: relative;
-				z-index: 1;
-				padding: 0 2rem 3rem;
-			}
-
-			.terminal-window {
-				background: var(--terminal-black);
-				border-radius: 12px;
-				border: 2px solid var(--text-muted);
-				box-shadow:
-					0 0 0 1px rgba(136, 192, 208, 0.2),
-					0 25px 50px -12px rgba(0, 0, 0, 0.6);
-				overflow: hidden;
-				transform: translateY(50px);
-			}
-
-			.terminal-header {
-				background: var(--editor-bg-dark);
-				padding: 0.75rem 1rem;
-				border-bottom: 1px solid var(--text-muted);
-				display: flex;
-				gap: 0.5rem;
-			}
-
-			.dot {
-				width: 12px;
-				height: 12px;
-				border-radius: 50%;
-			}
-
-			.dot.red {
-				background: #ff5f56;
-			}
-
-			.dot.yellow {
-				background: #ffbd2e;
-			}
-
-			.dot.green {
-				background: #27c93f;
-			}
-
-			.terminal-body {
-				padding: 2rem;
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 1.2rem;
-				color: var(--text-primary);
-			}
-
-			.terminal-body .prompt {
-				color: var(--accent-green);
-				font-weight: 700;
-				margin-right: 0.75rem;
-			}
-
-			.terminal-body .command {
-				color: var(--cyan);
-			}
-
-			.terminal-body .cursor {
-				color: var(--purple);
-				animation: blink 1s infinite;
-				margin-left: 0.5rem;
-			}
-
-			@keyframes blink {
-				0%, 50% { opacity: 1; }
-				51%, 100% { opacity: 0; }
-			}
 
 			.prose {
 				width: 100%;
@@ -264,6 +192,11 @@ const categoryBadge = getCategoryBadge(category);
 				position: relative;
 				z-index: 1;
 				background: linear-gradient(180deg, var(--terminal-black) 0%, var(--editor-bg-dark) 60%, var(--editor-bg) 100%);
+			}
+
+			.hero[data-has-image="false"] .title {
+				padding-top: 4rem;
+				background: linear-gradient(180deg, var(--editor-bg) 0%, var(--editor-bg-dark) 40%, var(--editor-bg) 100%);
 			}
 
 			.title h1 {
@@ -433,17 +366,7 @@ const categoryBadge = getCategoryBadge(category);
 				}
 				.hero-image img {
 					transform: translateY(20px);
-					max-height: 400px;
-				}
-				.terminal-window {
-					transform: translateY(20px);
-				}
-				.terminal-body {
-					padding: 1.5rem;
-					font-size: 0.95rem;
-				}
-				.hero-image-placeholder {
-					padding: 0 1rem 2rem;
+					max-height: 60vh;
 				}
 				.recipe-meta {
 					flex-direction: column;
@@ -654,25 +577,10 @@ const categoryBadge = getCategoryBadge(category);
 		</div>
 		<main>
 			<article>
-				<div class="hero">
-					{heroImage ? (
+				<div class="hero" data-has-image={heroImage ? "true" : "false"}>
+					{heroImage && (
 						<div class="hero-image">
-							<img width={1200} height={600} src={heroImage} alt="" />
-						</div>
-					) : (
-						<div class="hero-image-placeholder">
-							<div class="terminal-window">
-								<div class="terminal-header">
-									<span class="dot red"></span>
-									<span class="dot yellow"></span>
-									<span class="dot green"></span>
-								</div>
-								<div class="terminal-body">
-									<span class="prompt">$</span>
-									<span class="command">head {title}.md</span>
-									<span class="cursor">█</span>
-								</div>
-							</div>
+							<img src={heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
 						</div>
 					)}
 
