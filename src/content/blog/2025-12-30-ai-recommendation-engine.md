@@ -180,7 +180,11 @@ Unlike embedding models, which only know about distances, Gemma understands cont
 I wanted recommendations to feel like a text from your sharpest sports buddy—one punchy sentence, no fluff. Here's the actual prompt:
 
 ```typescript
-const SYSTEM_PROMPT = `You are a sharp sports betting consultant with deep knowledge of team rivalries, stadium atmospheres, player dynamics, and city culture. Give a single punchy sentence on why this game fits the user's betting style. Sound like a sharp friend texting a pick - casual, confident, fun. Mention relevant context like injuries, streaks, or matchup history if you know it.`;
+const SYSTEM_PROMPT_SUFFIX = `Write one understated, clinical sentence explaining the fit. 
+
+Connect the user’s history to a specific game factor—like a streak or injury—to justify the match. 
+
+Think: "Seasoned scout in a dark room."`;
 
 const response = await hf.chatCompletion({
   model: 'google/gemma-3-27b-it',
