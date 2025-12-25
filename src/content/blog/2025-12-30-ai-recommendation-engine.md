@@ -21,7 +21,7 @@ This is my side project for "social betting" where you can make picks and track 
 
 ## The Problem
 
-Initially, my recommendation system was doing keyword matching. It saw a user liked the "Lakers" and a game featured the "Lakers," so it matched them. That's boring. 
+Initially, my recommendation system was doing keyword matching. It saw a user liked the "Warriors" and a game featured the "Warriors," so it matched them. That's boring. 
 
 ![Boring](https://lh3.googleusercontent.com/pw/AP1GczPlM3hD4qDJcFSo3YOigIVOMS37gpI92e3dimHtlZ4YZy771gZl5pvIvk2iuwh-aDKRmSB26Q_3SfTTTfHrfdqZaC3mGBbMb0CFe_uJt9NDukWcCEKgqsfmdVCid_0GxF7CDkq2-wTcHg1Rda5XUJmN3w=w2320-h1520-s-no-gm)
 
