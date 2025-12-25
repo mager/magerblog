@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Building a Scalable AI Sports Betting Recommendation Engine"
+title: "Building an AI Sports Betting Recommendation Engine with Gemma"
 pubDate: "2025-12-25"
 updatedDate: "2025-12-25"
 description: "A practical guide to building two-stage AI recommendations: use embeddings for fast retrieval, then small LLMs like Gemma 3 for natural language explanations. The real skill? Curating context, not writing algorithms."
