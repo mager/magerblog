@@ -9,16 +9,9 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<a href={`/blog/${post.id}/`} class="card">
-	{post.data.heroImage ? (
+<a href={`/blog/${post.id}/`} class={`card ${!post.data.heroImage ? 'no-image' : ''}`}>
+	{post.data.heroImage && (
 		<img src={post.data.heroImage} alt="" width={720} height={360} />
-	) : (
-		<div class="placeholder-image">
-			<div class="terminal-prompt">
-				<span class="prompt-symbol">$</span>
-				<span class="command">head {post.id}.md</span>
-			</div>
-		</div>
 	)}
 	<div class="content">
 		<p class="date">
@@ -80,45 +73,12 @@ const { post } = Astro.props;
 		border-bottom-color: var(--purple);
 	}
 
-	.placeholder-image {
-		width: 100%;
-		aspect-ratio: 16 / 9;
-		background: linear-gradient(135deg, var(--terminal-black) 0%, var(--editor-bg-dark) 50%, var(--editor-bg-light) 100%);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-bottom: 2px solid var(--text-muted);
-		position: relative;
-		overflow: hidden;
+	.card.no-image {
+		background: linear-gradient(135deg, var(--editor-bg-dark) 0%, var(--editor-bg-light) 100%);
 	}
 
-	/* No grid pattern - pure gradient */
-
-	.terminal-prompt {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 1rem;
-		color: var(--text-secondary);
-		z-index: 1;
-		padding: 0.75rem 1.25rem;
-		border-bottom: 2px solid var(--text-muted);
-	}
-
-	.prompt-symbol {
-		color: var(--accent-green);
-		margin-right: 0.5rem;
-		font-weight: 700;
-	}
-
-	.command {
-		color: var(--cyan);
-	}
-
-	.card:hover .placeholder-image {
-		border-bottom-color: var(--purple);
-	}
-
-	.card:hover .terminal-prompt {
-		border-bottom-color: var(--purple);
+	.card.no-image .content {
+		padding-top: 2rem;
 	}
 
 	.content {
