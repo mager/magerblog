@@ -5,7 +5,6 @@ pubDate: "2025-12-25"
 updatedDate: "2025-12-25"
 description: "Learn how to use vector embeddings for retrieval and small LLMs like Gemma 3 for explanation to build features that actually understand your users."
 category: "code"
-draft: true
 tags: ["AI", "Machine Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP4jDg3gBA2OKK6OM1Jr-2CbxoLbbdiREtinQAT9fKU7ImXaYG20yHkb5f2ChOtyicAgJ53BX6gm1RsJU9MrPFsWvc0w6FXqhnKz5uS0JCCOIro1biJQMo95HUNBkWaB4mZDQmAeQQSguETOVyqr3AnuA=w2320-h1520-s-no-gm"
 ---
