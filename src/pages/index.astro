@@ -32,18 +32,123 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
 		<style>
+			/* Cursor glow effect */
+			.cursor-glow {
+				position: fixed;
+				width: 800px;
+				height: 800px;
+				border-radius: 50%;
+				background: radial-gradient(
+					circle,
+					rgba(163, 113, 247, 0.06) 0%,
+					rgba(88, 166, 255, 0.03) 25%,
+					transparent 60%
+				);
+				pointer-events: none;
+				z-index: 0;
+				transform: translate(-50%, -50%);
+				transition: left 0.15s ease-out, top 0.15s ease-out;
+				will-change: left, top;
+			}
+
 			body {
 				background-color: var(--editor-bg);
+				overflow-x: hidden;
 			}
 
 			main {
 				width: 1200px;
-				padding: 3rem 2rem;
+				padding: 2rem 2rem 4rem;
+				position: relative;
+				z-index: 1;
 			}
 
-			.page-header {
+			/* ASCII Art Header */
+			.ascii-header {
 				text-align: center;
+				margin-bottom: 1rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+				color: var(--terminal-border);
+				font-size: 0.65rem;
+				line-height: 1.2;
+				opacity: 0.4;
+				letter-spacing: 0;
+				user-select: none;
+			}
+
+			/* Agent Terminal Header */
+			.agent-header {
 				margin-bottom: 3rem;
+				padding: 2rem;
+				background: var(--terminal-bg-dark);
+				border: 1px solid var(--terminal-border);
+				border-radius: 12px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.agent-header::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(
+					90deg,
+					var(--status-purple) 0%,
+					var(--status-cyan) 50%,
+					var(--status-green) 100%
+				);
+			}
+
+			/* Scanline texture on header */
+			.agent-header::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: repeating-linear-gradient(
+					0deg,
+					transparent,
+					transparent 3px,
+					rgba(0, 0, 0, 0.05) 3px,
+					rgba(0, 0, 0, 0.05) 6px
+				);
+				pointer-events: none;
+			}
+
+			.terminal-prompt {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				margin-bottom: 1.5rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+			}
+
+			.prompt-symbol {
+				color: var(--status-green);
+				font-weight: 700;
+				font-size: 1.25rem;
+			}
+
+			.prompt-path {
+				color: var(--status-cyan);
+				font-size: 0.875rem;
+			}
+
+			.prompt-git {
+				color: var(--status-purple);
+				font-size: 0.875rem;
+			}
+
+			.prompt-git::before {
+				content: 'git:(';
+				color: var(--text-muted);
+			}
+
+			.prompt-git::after {
+				content: ')';
+				color: var(--text-muted);
 			}
 
 			@keyframes blink {
@@ -52,65 +157,289 @@ const ogImage = featuredPosts.find(post => post.data.heroImage)?.data.heroImage 
 			}
 
 			.page-header h1 {
-				font-size: 2.8em;
-				margin-bottom: 0.5rem;
+				font-size: 2.25rem;
+				margin-bottom: 0.75rem;
 				color: var(--text-primary);
-				font-weight: 800;
+				font-weight: 700;
 				letter-spacing: -0.03em;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				flex-wrap: wrap;
 			}
 
-			.page-header h1::after {
-				content: '█';
-				color: var(--accent-green);
-				animation: blink 1s infinite;
+			.cursor-block {
+				display: inline-block;
+				width: 0.6em;
+				height: 1.1em;
+				background: var(--status-green);
+				animation: blink 1s step-end infinite;
+				vertical-align: middle;
 				margin-left: 0.25rem;
 			}
 
 			.page-header p {
-				font-size: 1.15rem;
+				font-size: 1rem;
 				color: var(--text-secondary);
-				font-family: 'JetBrains Mono', monospace;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+				margin: 0;
 			}
 
+			.page-header .comment {
+				color: var(--text-muted);
+			}
+
+			/* Status Bar */
+			.status-bar {
+				display: flex;
+				align-items: center;
+				gap: 1.5rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid var(--terminal-border);
+				margin-top: 1.5rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+				font-size: 0.75rem;
+				flex-wrap: wrap;
+			}
+
+			.status-item {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-muted);
+			}
+
+			.status-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				animation: pulse 2s ease-in-out infinite;
+			}
+
+			.status-dot.green { background: var(--status-green); }
+			.status-dot.purple { background: var(--status-purple); }
+			.status-dot.orange { background: var(--status-orange); }
+
+			.status-label {
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+
+			.status-value {
+				color: var(--text-secondary);
+			}
+
+			/* Section Divider */
+			.section-divider {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin: 3rem 0 2rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+			}
+
+			.divider-line {
+				flex: 1;
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					var(--terminal-border) 20%,
+					var(--terminal-border) 80%,
+					transparent
+				);
+			}
+
+			.divider-text {
+				color: var(--text-muted);
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				padding: 0.5rem 1rem;
+				background: var(--terminal-bg-dark);
+				border: 1px solid var(--terminal-border);
+				border-radius: 4px;
+			}
+
+			/* Featured Grid */
 			.featured-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 				gap: 2rem;
+			}
+
+			/* ASCII Footer Art */
+			.ascii-footer {
+				text-align: center;
+				margin-top: 4rem;
+				font-family: 'JetBrains Mono', 'Fira Code', monospace;
+				color: var(--terminal-border);
+				font-size: 0.6rem;
+				line-height: 1.2;
+				opacity: 0.3;
+				user-select: none;
 			}
 
 			@media (max-width: 1200px) {
 				.featured-grid {
-					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+					grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 				}
 			}
 
 			@media (max-width: 720px) {
-				.page-header h1 {
-					font-size: 1.5em;
+				main {
+					padding: 1rem;
 				}
+
+				.agent-header {
+					padding: 1.25rem;
+				}
+
+				.page-header h1 {
+					font-size: 1.5rem;
+				}
+
 				.page-header p {
-					font-size: 1rem;
+					font-size: 0.875rem;
+				}
+
+				.terminal-prompt {
+					flex-wrap: wrap;
+					gap: 0.5rem;
+				}
+
+				.status-bar {
+					gap: 1rem;
+				}
+
+				.featured-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.ascii-header,
+				.ascii-footer {
+					display: none;
 				}
 			}
 		</style>
 	</head>
 	<body>
+		<!-- Cursor Glow Effect -->
+		<div class="cursor-glow" id="cursor-glow"></div>
+
 		<Header />
 		<main>
-			<section>
-				<div class="page-header">
-					<h1>$ ls -la ~/latest</h1>
-					<p>Latest from Code, Life, and Recipes</p>
+			<!-- ASCII Art Header -->
+			<pre class="ascii-header">
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║   ███╗   ███╗ █████╗  ██████╗ ███████╗██████╗    ██████╗ ██████╗            ║
+║   ████╗ ████║██╔══██╗██╔════╝ ██╔════╝██╔══██╗  ██╔════╝██╔═══██╗           ║
+║   ██╔████╔██║███████║██║  ███╗█████╗  ██████╔╝  ██║     ██║   ██║           ║
+║   ██║╚██╔╝██║██╔══██║██║   ██║██╔══╝  ██╔══██╗  ██║     ██║   ██║           ║
+║   ██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗██║  ██║ ╚██████╗╚██████╔╝           ║
+║   ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  ╚═════╝ ╚═════╝            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+			</pre>
+
+			<!-- Agent Terminal Section -->
+			<section class="agent-header">
+				<!-- Terminal Prompt Line -->
+				<div class="terminal-prompt">
+					<span class="prompt-symbol">❯</span>
+					<span class="prompt-path">~/mager.co</span>
+					<span class="prompt-git">main</span>
 				</div>
-				<div class="featured-grid">
-					{
-						featuredPosts.map((post) => (
-							<Card {post} />
-						))
-					}
+
+				<div class="page-header">
+					<h1>
+						<span>$ ls -la ~/latest</span>
+						<span class="cursor-block"></span>
+					</h1>
+					<p><span class="comment">//</span> Latest from Code, Life, and Recipes</p>
+				</div>
+
+				<!-- Status Bar -->
+				<div class="status-bar">
+					<div class="status-item">
+						<span class="status-dot green"></span>
+						<span class="status-label">Code</span>
+						<span class="status-value">online</span>
+					</div>
+					<div class="status-item">
+						<span class="status-dot purple"></span>
+						<span class="status-label">Life</span>
+						<span class="status-value">streaming</span>
+					</div>
+					<div class="status-item">
+						<span class="status-dot orange"></span>
+						<span class="status-label">Recipes</span>
+						<span class="status-value">cooking</span>
+					</div>
 				</div>
 			</section>
+
+			<!-- Section Divider -->
+			<div class="section-divider">
+				<div class="divider-line"></div>
+				<span class="divider-text">/* output */</span>
+				<div class="divider-line"></div>
+			</div>
+
+			<!-- Featured Posts Grid -->
+			<section class="featured-grid">
+				{
+					featuredPosts.map((post) => (
+						<Card {post} />
+					))
+				}
+			</section>
+
+			<!-- ASCII Footer -->
+			<pre class="ascii-footer">
+└──────────────────────────────────────────────────────────────────────────────┘
+                              EOF - End of Feed
+			</pre>
 		</main>
 		<Footer />
+
+		<!-- Cursor Glow Script -->
+		<script>
+			const glow = document.getElementById('cursor-glow');
+			let mouseX = 0;
+			let mouseY = 0;
+			let currentX = 0;
+			let currentY = 0;
+
+			document.addEventListener('mousemove', (e) => {
+				mouseX = e.clientX;
+				mouseY = e.clientY;
+			});
+
+			function animate() {
+				// Smooth lerp for the glow position
+				currentX += (mouseX - currentX) * 0.08;
+				currentY += (mouseY - currentY) * 0.08;
+
+				if (glow) {
+					glow.style.left = currentX + 'px';
+					glow.style.top = currentY + 'px';
+				}
+
+				requestAnimationFrame(animate);
+			}
+
+			animate();
+
+			// Hide glow when mouse leaves window
+			document.addEventListener('mouseleave', () => {
+				if (glow) glow.style.opacity = '0';
+			});
+
+			document.addEventListener('mouseenter', () => {
+				if (glow) glow.style.opacity = '1';
+			});
+		</script>
 	</body>
 </html>
