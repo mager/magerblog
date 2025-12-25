@@ -13,7 +13,7 @@ I finally sat down and watched [Andrej Karpathy's deep dive into LLMs](https://w
 
 Karpathy highlights that while pre-training is where the model "learns" the internet [01:04], inference is the act of the model taking a test in real-time [26:13]. For my project, that meant moving the intelligence from my database queries into the model's forward pass.
 
-Inspired by this, I realized my sports recommendation engine was stuck in the 'pre-training' mindset of static lookups, rather than the 'inference' mindset of real-time reasoning. Enter [prxps.xyz](https://prxps.xyz):
+Inspired by this, I realized my sports recommendation engine was stuck in the pre-training mindset of static lookups, rather than the inference mindset of real-time reasoning. Enter [prxps.xyz](https://prxps.xyz):
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczOJZn12YkGMgtivB2YsZMuciSJh8f8QU7rzCyEravWQdfmCGXGCqTFtmb8aArePtS78x_WF26lITEERaTqbFhZKLLR9xvUqtlkVrzYfNK6OLnwdgHmw7KZo1stMzEokuN3KLPc15tg56uARdl97zXjEIA=w2320-h1520-s-no-gm)
 
@@ -232,9 +232,9 @@ for (const event of allEvents) {
 }
 ```
 
-An embedding is a numerical representation of text in a high-dimensional space (ours uses 384 dimensions). In this space, similar concepts are geometrically close. "Underdog hunter" and "Suits underdog hunters" are close; "Underdog hunter" and "Heavy favorite bettor" are far.
+An embedding is a numerical representation of text as an array of floating-point numbers in a high-dimensional space (ours uses 384 dimensions). Similar concepts end up close together in this space—for example, "Underdog hunter" and "Suits underdog hunters" are nearby, while "Underdog hunter" and "Heavy favorite bettor" are far apart.
 
-What does this actually look like in storage? It's just an array of floating-point numbers. When we store a user profile or game description, the embedding might look like:
+Stored embeddings just look like this:
 
 ```
 [0: -0.028000328689813614,
@@ -245,9 +245,9 @@ What does this actually look like in storage? It's just an array of floating-poi
  ... (380 more numbers)]
 ```
 
-Imagine a 3D map where 'Lakers' and 'LeBron' are an inch apart, but 'Lakers' and 'Knitting' are a mile apart. Our system does that, but in 384 dimensions.
+Imagine a map, but in 384 dimensions: related sports terms ("Lakers", "LeBron") cluster together, and unrelated ones ("Lakers", "Knitting") are distant. 
 
-That's it—384 numbers that encode the semantic meaning of the text. The model learned during training that certain patterns of numbers represent certain concepts, so when we compare two arrays using cosine similarity, we're measuring how similar their numerical patterns are. The "magic" is in how the model learned to map text to these numbers, not in the numbers themselves.
+When we compare two arrays with cosine similarity, we're measuring how close their underlying meanings are. The "magic" is how the model learned to turn concepts into these numbers—not in the numbers themselves.
 
 
 
