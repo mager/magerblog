@@ -181,12 +181,6 @@ pre {
 	overflow-x: auto;
 }
 
-pre::before {
-	content: '$ ';
-	color: var(--status-green);
-	opacity: 0.5;
-}
-
 pre > code {
 	all: unset;
 }

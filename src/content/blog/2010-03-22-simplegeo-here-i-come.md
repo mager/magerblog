@@ -4,6 +4,7 @@ pubDate: "2010-03-22"
 updatedDate: "2025-11-30"
 description: "Announcing my move from Ning to SimpleGeo to help build the new San Francisco office."
 category: "life"
+tags: ["Career", "Startups", "San Francisco"]
 heroImage: "https://live.staticflickr.com/65535/4630054230_cc5f134401_o.jpg?s&#x3D;eyJpIjo0NjMwMDU0MjMwLCJlIjoxNzY0NTIyNDA4LCJzIjoiNGU1OWUwNjY5MDA4ZTc4NzhjOWVmMWQwY2U0YTNhMTVmNDkwODg4ZSIsInYiOjF9"
 ---
 

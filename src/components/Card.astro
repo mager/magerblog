@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
+import Tags from './Tags.astro';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
@@ -45,6 +46,11 @@ const hasImage = !!post.data.heroImage;
 
 		<!-- Description -->
 		<p class="description">{post.data.description}</p>
+
+		<!-- Tags -->
+		{post.data.tags && post.data.tags.length > 0 && (
+			<Tags tags={post.data.tags} size="small" />
+		)}
 
 		<!-- Recipe Meta -->
 		{(post.data.prepTime || post.data.cookTime) && (

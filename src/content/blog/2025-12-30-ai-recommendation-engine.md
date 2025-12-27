@@ -17,7 +17,7 @@ Inspired by this, I realized my sports recommendation engine was stuck in the pr
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczOJZn12YkGMgtivB2YsZMuciSJh8f8QU7rzCyEravWQdfmCGXGCqTFtmb8aArePtS78x_WF26lITEERaTqbFhZKLLR9xvUqtlkVrzYfNK6OLnwdgHmw7KZo1stMzEokuN3KLPc15tg56uARdl97zXjEIA=w2320-h1520-s-no-gm)
 
-This is my side project for "social betting" where you can make picks and track ROI without real money. I wanted to test a theory: Can I use inference to build a recommendation engine that understands not just what you bet on, but how you bet?
+prxps is my side project for "social betting" where you can make picks and track ROI without real money. I wanted to explore a bigger question: could I use inference to recommend not just the kinds of games someone bets on, but the way they like to bet?
 
 ## The Problem
 

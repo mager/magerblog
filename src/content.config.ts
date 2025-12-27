@@ -15,6 +15,7 @@ const blog = defineCollection({
 		prepTime: z.number().optional(),
 		cookTime: z.number().optional(),
 		category: z.string().optional(),
+		tags: z.array(z.string()).optional(),
 		draft: z.boolean().optional(),
 	}),
 });

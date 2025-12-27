@@ -5,7 +5,7 @@ pubDate: "2024-12-29"
 updatedDate: "2024-12-30"
 description: My staple mac & cheese, just a few pantry incredients and a lot of comfort.
 category: "food"
-tags: ["Recipe"]
+tags: ["Pasta", "Cheese", "Comfort Food"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO_BIexJMh7c0nQGZvfwN3wrPZTCUiW89zzzJ0CmwlQDjrH5ojx5M0W38JIhTyOGYMzPRVqC9uFYQS4iifK0-85dVEuxwn-xtFvw5DxYXspsYCfdw24ZHMmvbnGtgWguzQWjEhshY5LKw-sPDSayP9q=w3024-h1438-s-no-gm"
 prepTime: 30
 cookTime: 30

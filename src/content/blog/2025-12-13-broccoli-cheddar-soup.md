@@ -4,7 +4,7 @@ title: "Broccoli Cheddar Soup"
 pubDate: "2025-12-13"
 description: A rich and creamy broccoli cheddar soup with sharp cheddar cheese, perfect for a comforting meal on a cold day.
 category: "food"
-tags: ["Recipe"]
+tags: ["Soup", "Cheese", "Comfort Food"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN-NXlxsfE6U79DxegRqnqEXExyjAWZjItiV0EaQNP3Rbbj-SO_tX_ZHF8FOaNqmBXbF9U_nvPcFbaz5ndxd_Pw3cJm4dkk5Y3SWMLOpZX5toUISBv_vTcwcKa5rge9O1hrkFv8Qcl1vLEi1tXN97Vv_A=w2026-h1520-s-no-gm"
 prepTime: 15
 cookTime: 30

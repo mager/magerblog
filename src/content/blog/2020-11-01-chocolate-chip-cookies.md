@@ -4,6 +4,7 @@ title: "Quarantine Chocolate Chip Cookies"
 pubDate: "2020-11-01"
 description: Your new go-to cookie recipe, great for quarantining.
 category: "food"
+tags: ["Dessert", "Baking", "Cookies"]
 heroImage: https://lh3.googleusercontent.com/pw/AP1GczN--0rwnuOIjJ7AZAZBNkiu-S_b_vgzZf8EoelJNB1DsKPurcf1SaED2Xu3kOo7WNy_YWr7tFg1M5qs1i-z1Iia2s9eaZzkXOg5D9nCtuj-XH0mA9mNLK5DSlfjKgZZluo_SIYqCoWfObvszQICTZyP=w2048-h1627-s-no-gm
 prepTime: 10
 cookTime: 18

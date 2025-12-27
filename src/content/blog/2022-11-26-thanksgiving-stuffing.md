@@ -5,7 +5,7 @@ pubDate: "2022-11-22"
 updatedDate: "2024-12-01"
 description: "It's not Thanksgiving without the stuffing..."
 category: "food"
-tags: ["Recipe"]
+tags: ["Thanksgiving", "Holidays", "Sides"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPsYxonCa_FtPhQ0_Ibb74PoalcTHKPqmzQml_D1r_7sOyHanSqVUBTUzbz1iW7nbot9MMEmLBXOkRCMl88EkR3DCf5fUJWGyabeLizFlFLGaFBsCPC5ggukBaGlZ0MuZm6jLathfWysvjnncNdpVbX=w1800-h1228-s-no-gm"
 prepTime: 90
 cookTime: 90

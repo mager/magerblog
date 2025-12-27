@@ -3,6 +3,7 @@ title: "beatbrain: A Social Music Discovery App"
 pubDate: "2025-11-29"
 description: "A weekend project for discovering new music, sharing favorites, and seeing what your friends are listening to."
 category: "code"
+tags: ["Go", "Music", "Side Projects"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMhwXmrQNmmwG95sOSC8arAaiOnt2Jpk5VH41jODORoq-5avO7I7J3RC67DIE9vYRCkToBHG4Q1bBw0vkq-c1tr3no29yo9iv0ARKHZEBjwHW8wgWPxFBlbOL2ORv3dwc81TjUbQXrtpt4ZsC_uk-0f4A=w2320-h1520-s-no-gm"
 ---
 

@@ -6,7 +6,7 @@ updatedDate: "2024-11-11"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 category: "food"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
-tags: ["Recipe"]
+tags: ["Soup", "Italian", "Comfort Food"]
 prepTime: 30
 cookTime: 60
 ---

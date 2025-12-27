@@ -4,7 +4,7 @@ title: "End Of Summer Grilled Zucchini Lasagna"
 pubDate: "2025-09-07"
 description: A lighter, summery lasagna using grilled zucchini instead of noodles, with mozzarella, ricotta, and a simple tomato sauce. Optionally spicy with Calabrian chilies.
 category: "food"
-tags: ["Recipe"]
+tags: ["Low Carb", "Italian", "Grilling"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOcJtjC0WhvD6tf9l1ufxza0-vU1vL3D25oqvEJuhvX467f4BUj27c4R1DiRiY0rgX8qpz_T6uG1diFjll-wxK1aDMYNMiMYA8Ja-IxWlyrXANfTWqk5HoH_hM76wii7cvOVVWYNGHDwWghSWc2bnNx5A=w2286-h1714-s-no-gm"
 prepTime: 40
 cookTime: 45

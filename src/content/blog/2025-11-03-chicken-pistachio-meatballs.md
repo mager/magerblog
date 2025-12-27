@@ -3,6 +3,7 @@ title: "Chicken Pistachio Meatballs"
 pubDate: "2025-11-03"
 description: A lighter, bright and nutty take on classic meatballs with chicken and pistachios.
 category: "food"
+tags: ["Chicken", "Healthy", "Meatballs"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm"
 prepTime: 90
 cookTime: 40

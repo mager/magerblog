@@ -4,6 +4,7 @@ pubDate: "2025-04-27"
 updatedDate: "2025-04-27"
 description: "Incredibly tender, flavorful pulled pork made easy in a Dutch oven using a sear-first, low-and-slow braising method."
 category: "food"
+tags: ["Pork", "BBQ", "Slow Cooker"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMK-k_6wrMWr_IfBiXwv_RFhFPPOt6v9itMebNa5BFOe2KjQ6wrJ9Gk1pTUBl86ydCjBPxUNMJIsagLbAIWhltW2lBOoBVHvvCPVnn0RNrW6JZltq-43ZF8jwVqjjmW510XWHwNKvoboSZP-ehvrKrN=w2286-h1714-s-no-gm"
 prepTime: 20
 cookTime: 300

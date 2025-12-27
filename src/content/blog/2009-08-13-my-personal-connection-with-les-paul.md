@@ -5,7 +5,7 @@ updatedDate: "2009-08-13"
 description: "How registering lespaul.com as a kid led to a cease and desist—and a Black Beauty guitar."
 category: "life"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMn7au1mfKl_7uKocozvGHdbWk3t4QBPMXEyUHdXqSiL_B5e6kOuQdzW3A2AD_6KllR4oruBkAAIu2XQBoZVQrsZtTV8k2QGjrzpSginORLo1_qUVZe7-xNCUEnK-cAUM7LCxuBqMaDnnRe_tWeCJUSNg=w2320-h1520-s-no-gm"
-tags: ["Life"]
+tags: ["Music", "Guitars", "Nostalgia"]
 ---
 
 When the internet was just getting started in the mid-1990s, I was obsessed with learning HTML. Once I got tired of Geocities, I wanted to host my own website. At age 13, I gathered up all my allowances and sent Network Solutions $100 to register [lespaul.com](http://web.archive.org/web/19990125100817/http://www.lespaul.com/) (and yes, my CDNow ad still renders on archive.org).

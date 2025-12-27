@@ -4,6 +4,7 @@ pubDate: "2025-11-27"
 updatedDate: "2025-11-27"
 description: "A beautifully tender bone-in pork chop roast, slow-cooked in a rich blend of red wine and savory aromatics with an incredible crust."
 category: "food"
+tags: ["Pork", "Roasting", "Wine"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOmjKACxJ9LoomNGVw4PCc32139qFV9Qca3hd7PjhRk-ocMErk_1INTEuG1KlFgV_K0DdxMemUtt9gIrKytruwoN4EjT9sLmqj8ruqXXogb2AAV0XNbF_Gn7zw2-MsgiyE-RmM5OVkRzUIHucT9XBinCg=w2026-h1520-s-no-gm"
 prepTime: 30
 cookTime: 240

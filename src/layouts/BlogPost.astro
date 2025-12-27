@@ -5,11 +5,12 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import Tags from '../components/Tags.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 // We are now reading prepTime and cookTime from the frontmatter props!
-const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category, postId } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category, tags, postId } = Astro.props;
 
 // Get all posts in the same category for prev/next navigation
 const allPosts = await getCollection('blog');
@@ -384,6 +385,22 @@ const categoryBadge = getCategoryBadge(category);
 			padding: 3rem 2em;
 		}
 
+		.tags-section {
+			margin-bottom: 2rem;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid var(--text-muted);
+		}
+
+		.tags-section h3 {
+			color: var(--text-muted);
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 0.75rem;
+			margin-bottom: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			font-weight: 500;
+		}
+
 		.article-meta {
 			margin-bottom: 3rem;
 			padding-top: 2rem;
@@ -614,6 +631,12 @@ const categoryBadge = getCategoryBadge(category);
 			</article>
 
 			<section class="article-footer">
+				{tags && tags.length > 0 && (
+					<div class="tags-section">
+						<h3>Tags</h3>
+						<Tags tags={tags} />
+					</div>
+				)}
 				<div class="article-meta">
 					<div class="meta-section">
 						<h3>Article Info</h3>
