@@ -300,45 +300,52 @@ if (isGemmaAvailable() && recommendations.length > 0) {
 }
 ```
 
-The Gemma prompt is intentionally minimal:
+#### Sport-Specific Personas
+
+The key insight: different sports need different analytical lenses. An NBA game in December (back-to-backs piling up, holiday road trips) requires different context than an NFL game in January (playoff football, one-and-done pressure).
+
+I built sport-specific personas that change based on the league:
 
 ```typescript
-const SYSTEM_PROMPT_SUFFIX = `Write one sharp, interesting sentence explaining the match. 
-
-Mix ESPN-style analysis with a Barstool-style edge. 
-
-Avoid "AI cheerleading" and repetitive slang like "cooking" or "fam." 
-
-Focus on the 'why'—mention a specific matchup, a historical trend, or a situational edge. 
-
-Keep it conversational but authoritative.`;
-
-const userMessage = `Bettor profile: ${userProfile}
-
-Game: ${gameText}
-
-One sentence - why should they bet this game?`;
-
-const response = await hf.chatCompletion({
-  model: 'google/gemma-3-27b-it',
-  messages: [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: userMessage }
-  ],
-  max_tokens: 80,
-  temperature: 0.75
-});
+const SPORT_PROMPTS: Record<string, string> = {
+  nba: "NBA Insider focused on rest spots, 'scheduled losses,' and rotation depth.",
+  nfl: "NFL Beat Reporter scouting divisional revenge and 'sandwich' spots.",
+  soccer: "Tactical Analyst tracking fixture congestion and form swings.",
+  ncaaf: "CFB Analyst spotting emotional letdowns and rivalry edges.",
+  ncaab: "Hoops Junkie tracking tempo mismatches and road-venue shock.",
+  default: 'Sharp Sports Analyst finding situational edges.'
+};
 ```
+
+#### Temporal Context
+
+The system also injects month-specific context. In December, NBA games get: *"December grind: Back-to-backs pile up, holiday road trips, fatigue factor."* In January, NFL games get: *"Playoff football, Wild Card chaos, one-and-done pressure."*
+
+This temporal awareness means Gemma understands that a Tuesday night game in December hits differently than a Saturday primetime game in January.
+
+#### The Two-Sentence Structure
+
+The prompt asks for exactly two sentences:
+
+```typescript
+const SYSTEM_PROMPT_SUFFIX = `
+Rule: Write exactly 2 short, punchy sentences. 
+Sentence 1: The Matchup context (rest, news, or travel). Use active analyst verbs like 'ambush,' 'clash,' or 'hit a wall.'
+Sentence 2: The 'Secret Sauce'—connect the user's focus on {USER_PROFILE} to why this pick builds their credibility. 
+Tone: Professional sports analyst who is also a bookie. Avoid gambling terms like 'fade,' 'payout,' or 'bet.'`;
+```
+
+This structure forces Gemma to lead with situational analysis, then connect it to the user's betting style. The result reads like insider analysis, not generic AI fluff.
 
 Now instead of verbose analysis, users get something like:
 
-> "Knicks-Celtics in the Garden and you've been cashing underdog tickets all month—ride the hot hand."
+> "Lakers hit a wall on this back-to-back after last night's OT thriller. You've been crushing underdog tickets all month—this spot has your name on it."
 
 Or with real context Gemma knows:
 
 > "Mavs are banged up and you love fading injured squads—easy spot."
 
-The key insight: don't explain your app's mechanics to the LLM. Gemma doesn't need to know about "RXP" or "reputation points." Just tell it to be a sharp friend and let it do what it's good at—sports analysis with personality.
+The key insight: don't explain your app's mechanics to the LLM. Gemma doesn't need to know about "RXP" or "reputation points." Just tell it to be a sharp friend with the right persona and temporal awareness, and let it do what it's good at—sports analysis with personality.
 
 ## What I Learned
 
