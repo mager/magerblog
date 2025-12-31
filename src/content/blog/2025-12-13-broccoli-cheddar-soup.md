@@ -32,7 +32,8 @@ This rich and creamy broccoli cheddar soup is the perfect comfort food for a chi
 - 1 large carrot, julienned or finely chopped
 - ½ teaspoon Dijon mustard
 - Pinch of freshly grated nutmeg
-- 12 ounces sharp yellow or white cheddar cheese, shredded (about 3 heaping cups)
+- 8-12 ounces sharp yellow or white cheddar cheese, shredded (about 3 heaping cups)
+- 4 ounces aged yellow cheddar (Hook's if you're in the Midwest)
 
 #### Instructions
 

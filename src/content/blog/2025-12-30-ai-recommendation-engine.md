@@ -126,7 +126,7 @@ function generateUserProfileText(prefs: UserPreferences, profile: UserProfile): 
 }
 ```
 
-Even though this part is "hard-coded," it’s done to standardize the vocabulary for the embedding model. This produces text like:
+Even though this part is hard-coded, it’s done to standardize the vocabulary for the embedding model. This produces text like:
 
 ```
 RISK PROFILE: Underdog hunter, seeks value in plus-money picks. 
