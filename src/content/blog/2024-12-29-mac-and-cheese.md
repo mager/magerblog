@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Mac & Cheese"
 pubDate: "2024-12-29"
-updatedDate: "2024-12-30"
+updatedDate: "2026-01-01"
 description: My staple mac & cheese, just a few pantry incredients and a lot of comfort.
 category: "food"
 tags: ["Pasta", "Cheese", "Comfort Food"]
@@ -17,12 +17,13 @@ cookTime: 30
 - 2 Tbsp all-purpose flour
 - 1½ cups half-and-half or milk
 - 8 oz white cheddar cheese, shredded
-- 4 slices of American cheese
+- 3 slices of American cheese
 - ¼ cup Parmesan cheese, grated
 - 1½ tsp of kosher salt and 16-20 cracks of pepper, to taste
 - ½ tsp garlic powder (optional)
 - ½ tsp onion powder (optional)
-- ¼ tsp mustard powder (optional)
+- ½ tsp mustard powder (optional)
+- 1-2 green onions for topping (optional)
 - 16 oz cooked pasta (pipe rigate, elbow macaroni, or shells)
 
 ![An overhead shot of ingredients for mac and cheese](https://lh3.googleusercontent.com/pw/AP1GczMoB5z0jUD-pQjMvfN2fgjOzENGGbk6ZQyrn279L23xyK79sHfeneuWo3GNRD5lgt1E5LQeCdnn5qNV1THY95eCIQO34L_XT4XYuUsKJFBkLiCFTVomT5eWOAnX9qK4U_VcnOoz7xA-Z4aBOo36oW7C=w2286-h1714-s-no-gm)
@@ -42,3 +43,5 @@ Season the sauce with salt, pepper, garlic powder and mustard poweder, if using.
 Serve hot, optionally garnished with more grated parm.
 
 ![A final shot of the finished mac and cheese in a bowl](https://lh3.googleusercontent.com/pw/AP1GczNvQKX7ABditX8Zh1_9P43RAk8slIYF7aURwjjvmfjs_SnqdcacJTMeRTIkgm8aISt9wJsE1GwctxpLyqXarGxq5BIa-xZEt_R3-yxCo72sjJ02L2e8e_YKsLw0CbWtvnLeTPFVv0E-mv14QeiOypNh=w1604-h1714-s-no-gm)
+
+Optionally top with chopped green onions.
