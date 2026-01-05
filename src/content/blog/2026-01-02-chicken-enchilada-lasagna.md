@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Chicken Enchilada Lasagna"
 pubDate: "2026-01-02"
-description: A delicious fusion of Mexican flavors layered like lasagna, featuring shredded rotisserie chicken, corn tortillas, green chile sauce, and plenty of cheese.
+description: A delicious fusion of Mexican flavors layered like lasagna, featuring shredded rotisserie chicken, corn tortillas, green & red chile sauce, and plenty of cheese.
 category: "food"
 draft: true
 tags: ["Mexican", "Chicken", "Casserole"]
@@ -14,7 +14,7 @@ cookTime: 35
 
 - 1 whole rotisserie chicken, shredded (mix dark and white meat)
 - 24 thin corn tortillas
-- Enchilada sauce: 1 can Hatch Green Chile sauce + 1 jar red Tomatillo sauce (mixed together), 28oz total
+- Enchilada sauce: 1 can green enchilada sauce + 1 jar red enchilada sauce (mixed together), 28oz total
 - 8oz Monterey Jack cheese, grated
 - 8oz Oaxaca cheese, pulled into strings
 - 1 red bell pepper, diced
@@ -33,9 +33,11 @@ cookTime: 35
 
 Preheat oven to 375°F. Lightly grease a 9x13 casserole dish. In a bowl, whisk both enchilada sauces together.
 
-In a large skillet, sauté the onion and peppers in a little oil until soft. Stir in the garlic, corn, and black beans. Cook for 2 minutes, then remove from heat.
+In a large skillet, sauté the onion and peppers in a little oil until soft (5 min). Stir in the garlic, corn, and black beans. Cook for a few more minutes, then remove from heat.
 
 In a separate bowl, toss your shredded chicken with the sour cream and ½ cup of the sauce mix.
+
+To get a perfect "snug fit," cut your tortillas into half-moons and place the straight edges flush against the sides of the pan, or cut them into quarters to "shingle" them into the corners.
 
 For the first layer: Spread a thin layer of sauce on the bottom of the pan. Lay down 8 tortillas (overlap them to cover the bottom). Top with half the chicken and half the veggie mix. Drizzle with sauce and sprinkle with 1/3 of the cheese.
 
@@ -43,7 +45,6 @@ For the second layer: Lay down another 8 tortillas. Add the rest of the chicken 
 
 For the top layer: Lay down the final 8 tortillas. Pour the remaining sauce over everything (make sure all tortilla edges are covered). Top with the final 1/3 of cheese.
 
-Cover the dish with foil. Bake for 20 minutes. Remove the foil and bake for 10–15 more minutes until the cheese is bubbly and golden-brown.
+Cover the dish with foil. Bake for 20 minutes. Remove the foil and bake for 15-20 more minutes until the cheese is bubbly and golden-brown.
 
 Let the lasagna sit for 10 minutes so the layers set. Top with sliced radishes and cilantro before serving with lime wedges.
-
