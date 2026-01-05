@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "DRAFT: One-Pan Orzo with Spinach and Feta"
+title: "One-Pan Orzo with Spinach and Feta"
 pubDate: "2025-12-20"
 description: A quick, one-pan meal featuring orzo, spinach, peas, and feta. Similar to spanakorizo, this is deeply satisfying but still on the lighter side thanks to all those vegetables.
 category: "food"

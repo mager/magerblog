@@ -8,7 +8,6 @@ tags: ["Soup", "Curry", "Chicken"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMWUxyDbP5SbjxDM-2dVy3PzSgV2gTubdcK-jPnNavKIWFjDuIol32LJeOaGRQcNlcKcB_7xMlQ3PGyl8Ylr4l3q4FRlWOX71FWNIqv1UnMernXv4lSHHibR-zcT3teRZCmJLYo3sB7PDW3vDULBXgPDw=w2124-h1520-s-no-gm"
 prepTime: 15
 cookTime: 35
-draft: true
 ---
 
 This recipe is inspired by [Eat Love Eats](https://www.eatloveeats.com/curry-chicken-soup/).

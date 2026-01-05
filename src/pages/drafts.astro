@@ -3,20 +3,21 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Card from '../components/Card.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
-	.filter(post => post.data.category === 'life' && !post.data.draft)
+	.filter(post => post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Life - ${SITE_TITLE}`} description="Chicago exploration and personal adventures" />
+		<BaseHead title={`Drafts - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			main {
+				/* Use a wider container for the blog grid */
 				width: 1200px;
 			}
 			.page-header {
@@ -41,7 +42,7 @@ const posts = (await getCollection('blog'))
 
 			.page-header h1::after {
 				content: '█';
-				color: var(--accent-green);
+				color: var(--status-amber);
 				animation: blink 1s infinite;
 				margin-left: 0.25rem;
 			}
@@ -52,6 +53,7 @@ const posts = (await getCollection('blog'))
 			}
 			.blog-grid {
 				display: grid;
+				/* Adjust the minmax value to control card size and how many fit per row */
 				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 				gap: 2rem;
 			}
@@ -77,8 +79,8 @@ const posts = (await getCollection('blog'))
 		<main>
 			<section>
 				<div class="page-header">
-					<h1>🌆 $ ls -la ~/life</h1>
-					<p>Chicago exploration and personal adventures</p>
+					<h1>$ ls -la ~/drafts</h1>
+					<p>Work in progress</p>
 				</div>
 				<div class="blog-grid">
 					{

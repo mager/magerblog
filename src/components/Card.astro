@@ -18,9 +18,11 @@ const categoryConfig: Record<string, { color: string; label: string }> = {
 
 const config = categoryConfig[post.data.category || 'code'] || categoryConfig.code;
 const hasImage = !!post.data.heroImage;
+const isDraft = !!post.data.draft;
+const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 ---
 
-<a href={`/blog/${post.id}/`} class={`card ${hasImage ? 'has-image' : 'no-image'}`} data-category={post.data.category}>
+<a href={`/blog/${post.id}/`} class={`card ${hasImage ? 'has-image' : 'no-image'} ${isDraft ? 'draft' : ''}`} data-category={post.data.category}>
 	<!-- Hero Image - Full Bleed -->
 	{post.data.heroImage && (
 		<div class="image-container">
@@ -42,7 +44,7 @@ const hasImage = !!post.data.heroImage;
 		</div>
 
 		<!-- Title -->
-		<h3 class="title">{post.data.title}</h3>
+		<h3 class="title">{displayTitle}</h3>
 
 		<!-- Description -->
 		<p class="description">{post.data.description}</p>
@@ -100,6 +102,30 @@ const hasImage = !!post.data.heroImage;
 		border-color: var(--glow-color, var(--status-purple));
 	}
 
+	/* Draft styling */
+	.card.draft {
+		border: 2px dashed var(--status-amber);
+		position: relative;
+	}
+
+	.card.draft::before {
+		content: 'DRAFT';
+		position: absolute;
+		top: 0.75rem;
+		right: 0.75rem;
+		padding: 0.3rem 0.6rem;
+		background: var(--status-amber);
+		color: var(--terminal-black);
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		border-radius: 4px;
+		z-index: 10;
+		box-shadow: 0 2px 8px rgba(210, 153, 34, 0.3);
+	}
+
 	/* Image Container - Full Showcase */
 	.image-container {
 		position: relative;
@@ -144,7 +170,7 @@ const hasImage = !!post.data.heroImage;
 		);
 	}
 
-	.card.no-image::before {
+	.card.no-image:not(.draft)::before {
 		content: '';
 		position: absolute;
 		top: 0;
