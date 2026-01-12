@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Zuppa Toscana"
 pubDate: "2023-10-20"
-updatedDate: "2024-11-11"
+updatedDate: "2026-01-12"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 category: "food"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
@@ -26,8 +26,8 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 - ½ teaspoon red pepper flakes
 - ½ teaspoon ground fennel seed
 - ¼ teaspoon ground mustard
-- ¼ teaspoon dried oregano
-- ¼ teaspoon dried thyme
+- ¼ teaspoon dried oregano (optional)
+- ¼ teaspoon dried thyme (optional)
 
 #### Soup Ingredients
 
@@ -37,7 +37,7 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 - 4 medium yellow potatoes diced into small pieces
 - 48-64 oz chicken stock
 - 1 bunch kale with stems removed and leaves chopped (4-6 cups)
-- 1 can coconut milk
+- 1 can coconut cream (no liquid)
 - Handful of grated pecorino romano or parm
 - Salt and pepper to taste
 
