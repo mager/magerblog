@@ -35,7 +35,7 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 - 1 medium white or yellow onion diced
 - 3 tablespoons garlic minced (6 cloves)
 - 4 medium yellow potatoes diced into small pieces
-- 4 cups chicken stock
+- 48-64 oz chicken stock
 - 1 bunch kale with stems removed and leaves chopped (4-6 cups)
 - 1 can coconut milk
 - Handful of grated pecorino romano or parm

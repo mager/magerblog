@@ -33,7 +33,7 @@ cookTime: 35
 
 Preheat oven to 375°F. Lightly grease a 9x13 casserole dish. In a bowl, whisk both enchilada sauces together.
 
-In a large skillet, sauté the onion and peppers in a little oil until soft (5 min). Stir in the garlic, corn, and black beans. Cook for a few more minutes, then remove from heat.
+In a large skillet, add some olive oil and sauté the onions for 5 minutes. Then add the peppers and continue until soft (2-3 min). Stir in the garlic, corn, and black beans. Add your spices (cumin, chili powder, salt, pepper) and cook for a few more minutes, then remove from heat.
 
 In a separate bowl, toss your shredded chicken with the sour cream and ½ cup of the sauce mix.
 
