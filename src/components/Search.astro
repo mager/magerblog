@@ -93,8 +93,7 @@ const searchData = posts.map(post => ({
 			${matches.map((post) => {
 				const config = categoryConfig[post.category] || categoryConfig.code;
 				return `
-					<a href="/blog/${post.slug}/" class="search-result-item" data-category="${post.category}">
-						<span class="result-category" style="--tag-color: ${config.color};">${config.label}/</span>
+					<a href="/blog/${post.slug}/" class="search-result-item" data-category="${post.category}" style="--tag-color: ${config.color};">
 						<span class="result-title">${highlightMatch(post.title, query)}</span>
 					</a>
 				`;
@@ -263,14 +262,14 @@ const searchData = posts.map(post => ({
 	}
 
 	.search-result-item {
-		display: flex;
-		align-items: baseline;
-		gap: 0;
+		display: block;
 		padding: 0.5rem 1rem;
+		padding-left: 1.5rem;
 		text-decoration: none;
 		color: inherit;
 		transition: background 0.15s ease;
 		border-bottom: 1px solid var(--terminal-border);
+		border-left: 2px solid var(--tag-color);
 	}
 
 	.search-result-item:last-child {
@@ -281,13 +280,6 @@ const searchData = posts.map(post => ({
 	.search-result-item:focus {
 		background: rgba(88, 166, 255, 0.08);
 		outline: none;
-	}
-
-	.result-category {
-		font-family: 'JetBrains Mono', 'Fira Code', monospace;
-		font-size: 0.75rem;
-		color: var(--tag-color);
-		flex-shrink: 0;
 	}
 
 	.result-title {
@@ -339,10 +331,6 @@ const searchData = posts.map(post => ({
 
 		.result-title {
 			font-size: 0.8rem;
-		}
-
-		.result-category {
-			font-size: 0.7rem;
 		}
 	}
 </style>

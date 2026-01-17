@@ -31,6 +31,7 @@ I'm jealous that you're getting ready to cook this tonight.
 - 2 oz. vodka
 - ¾ cup heavy cream or half & half
 - 1 lb. rigatoni
+- 8 oz. fresh mozzarella, sliced (for oven topping)
 - Basil leaves
 
 ![Ingredients](https://lh3.googleusercontent.com/pw/AP1GczMl1yA1i2-yUCREmImz68TSbHPaLnBvBIxDGjekPJMlB8T45Qi1Oj8WwEaXAcclraun_VB6I-c8Pln7smvjI3B5Hh2_1BryTfE20qzGnOTnONAo1fWrJ-N0I15dnO3NSefWcDaTXHYrdhzWgje-vv1v=w2048-h1301-s-no-gm)
@@ -65,7 +66,7 @@ Stir the pasta with the tomato mixture and add ¼ cup of water and a handful of 
 
 At this point you're drooling and ready to eat. Plate or bowl the pasta and top with more parm and freshly torn basil (shoutout to Gotham Greens).
 
-If you want to jazz it up even more, you can bake it in a casarole with fresh ricotta & mozzarella (20 min at 375°). If you do this, make the pasta even more al dente.
+If you want to jazz it up even more, transfer to a casserole dish and top with sliced mozzarella. Bake at 375° for 20 min until the cheese is melted and bubbly. If you do this, make the pasta even more al dente.
 
 ![Finished product](https://lh3.googleusercontent.com/pw/AP1GczOjN-FWIv6fYun00oV1JOOe5C8qRI54e3tcr8pKFLnCBjULT5UQT1c2gvyA7PKLq3j7wCiZw7HFn-xkRM_TzK9RogyRFFkIC-sZ9EK18zRvnINt9KSUOR-DnXdE0G41s1pOH0-SGtVR91QdIHXCARlU=w1286-h1714-s-no-gm)
 
