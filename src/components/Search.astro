@@ -8,13 +8,14 @@ interface Props {
 
 const { posts, placeholder = "Search posts..." } = Astro.props;
 
-// Prepare search data (title, description, category, slug, tags)
+// Prepare search data (title, description, category, slug, tags, heroImage)
 const searchData = posts.map(post => ({
 	title: post.data.title,
 	description: post.data.description,
 	category: post.data.category,
 	slug: post.id,
 	tags: post.data.tags || [],
+	heroImage: post.data.heroImage || null,
 }));
 ---
 
@@ -88,9 +89,13 @@ const searchData = posts.map(post => ({
 
 		results.innerHTML = matches.map((post) => {
 			const config = categoryConfig[post.category] || categoryConfig.code;
+			const thumbnail = post.heroImage
+				? `<img src="${post.heroImage}" alt="" class="search-result-thumb" loading="lazy" />`
+				: `<div class="search-result-thumb search-result-thumb-placeholder"></div>`;
 			return `
 				<a href="/blog/${post.slug}/" class="search-result-item" style="--tag-color: ${config.color};">
-					${highlightMatch(post.title, query)}
+					${thumbnail}
+					<span class="search-result-title">${highlightMatch(post.title, query)}</span>
 				</a>
 			`;
 		}).join('');
@@ -238,8 +243,10 @@ const searchData = posts.map(post => ({
 	}
 
 	.search-result-item {
-		display: block;
-		padding: 0.75rem 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.625rem 1rem;
 		text-decoration: none;
 		color: var(--text-primary);
 		font-family: 'JetBrains Mono', 'Fira Code', monospace;
@@ -259,6 +266,24 @@ const searchData = posts.map(post => ({
 	.search-result-item:focus {
 		background: rgba(88, 166, 255, 0.1);
 		outline: none;
+	}
+
+	.search-result-thumb {
+		width: 40px;
+		height: 40px;
+		border-radius: 4px;
+		object-fit: cover;
+		flex-shrink: 0;
+		background: var(--terminal-border);
+	}
+
+	.search-result-thumb-placeholder {
+		background: linear-gradient(135deg, var(--terminal-border) 0%, var(--editor-bg) 100%);
+	}
+
+	.search-result-title {
+		flex: 1;
+		min-width: 0;
 	}
 
 	.search-result-item mark {
@@ -292,8 +317,14 @@ const searchData = posts.map(post => ({
 		}
 
 		.search-result-item {
-			padding: 0.625rem 0.75rem;
+			padding: 0.5rem 0.75rem;
 			font-size: 0.85rem;
+			gap: 0.5rem;
+		}
+
+		.search-result-thumb {
+			width: 32px;
+			height: 32px;
 		}
 	}
 </style>
