@@ -8,13 +8,13 @@ interface Props {
 
 const { posts, placeholder = "Search posts..." } = Astro.props;
 
-// Prepare search data (title, description, category, slug)
+// Prepare search data (title, description, category, slug, tags)
 const searchData = posts.map(post => ({
 	title: post.data.title,
 	description: post.data.description,
 	category: post.data.category,
 	slug: post.id,
-	heroImage: post.data.heroImage || null,
+	tags: post.data.tags || [],
 }));
 ---
 
@@ -75,7 +75,8 @@ const searchData = posts.map(post => ({
 		const q = query.toLowerCase();
 		const matches = searchData.filter(post =>
 			post.title.toLowerCase().includes(q) ||
-			post.description.toLowerCase().includes(q)
+			post.description.toLowerCase().includes(q) ||
+			post.tags.some(tag => tag.toLowerCase().includes(q))
 		).slice(0, 6);
 
 		if (matches.length === 0) {
@@ -91,14 +92,10 @@ const searchData = posts.map(post => ({
 			</div>
 			${matches.map((post) => {
 				const config = categoryConfig[post.category] || categoryConfig.code;
-				const thumbnail = post.heroImage ? `<img src="${post.heroImage}" alt="" class="result-thumbnail" />` : '';
 				return `
 					<a href="/blog/${post.slug}/" class="search-result-item" data-category="${post.category}">
-						${thumbnail}
-						<div class="result-content">
-							<span class="result-category" style="--tag-color: ${config.color};">${config.label}/</span>
-							<span class="result-title">${highlightMatch(post.title, query)}</span>
-						</div>
+						<span class="result-category" style="--tag-color: ${config.color};">${config.label}/</span>
+						<span class="result-title">${highlightMatch(post.title, query)}</span>
 					</a>
 				`;
 			}).join('')}
@@ -267,9 +264,9 @@ const searchData = posts.map(post => ({
 
 	.search-result-item {
 		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.625rem 1rem;
+		align-items: baseline;
+		gap: 0;
+		padding: 0.5rem 1rem;
 		text-decoration: none;
 		color: inherit;
 		transition: background 0.15s ease;
@@ -286,22 +283,6 @@ const searchData = posts.map(post => ({
 		outline: none;
 	}
 
-	.result-thumbnail {
-		width: 40px;
-		height: 40px;
-		object-fit: cover;
-		border-radius: 4px;
-		flex-shrink: 0;
-		border: 1px solid var(--terminal-border);
-	}
-
-	.result-content {
-		display: flex;
-		align-items: baseline;
-		gap: 0;
-		min-width: 0;
-	}
-
 	.result-category {
 		font-family: 'JetBrains Mono', 'Fira Code', monospace;
 		font-size: 0.75rem;
@@ -315,9 +296,6 @@ const searchData = posts.map(post => ({
 		font-weight: 500;
 		color: var(--text-primary);
 		line-height: 1.3;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 
 	.result-title mark {
@@ -357,12 +335,6 @@ const searchData = posts.map(post => ({
 
 		.search-result-item {
 			padding: 0.5rem 0.75rem;
-			gap: 0.5rem;
-		}
-
-		.result-thumbnail {
-			width: 32px;
-			height: 32px;
 		}
 
 		.result-title {
