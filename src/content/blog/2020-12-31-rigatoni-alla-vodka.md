@@ -48,8 +48,6 @@ Once the water is started, put a dutch oven or large skillet over medium high he
 
 Sauté the onions for about 10 minutes until translucent. Add the garlic and sautee for a few more minutes. At this point you can season with salt & pepper. Once the onions and garlic start to brown a little bit, move on to the next step.
 
-<em>If you want it to be super tomato-y, you can add a small can of diced tomatoes now. I have made this with and without the extra tomatoes and I slighly prefer the extra tomato flavor. That being said, I don't include the extra tomatos in the ingredient list because this dish is still perfect without them.</em>
-
 Now squirt all the tomato paste into the pan and stir it around for 5-10 minutes until combined. The goal is to dry it out and super-camalized the onions and tomatoes until it's sweet.
 
 You wanna cook down & reduce the paste until it's almost brown. It will look ugly but that's okay.
@@ -57,6 +55,8 @@ You wanna cook down & reduce the paste until it's almost brown. It will look ugl
 Add the vodka to deglaze and keep stiring for a few minutes; it will evaporate pretty quickly. I prefer Tito's or Chopin potato vodka. Be sure to taste the vodka while you're cooking for a more immersive experience.
 
 Drop the pasta into the boiling water. Continue to slowly cook the sauce while the pasta boils. 
+
+After the vokda evaporates, add the crushed tomatoes and jam it even more for 5-10 minutes until it reduces.
 
 When the pasta is about **3 minutes** away from being done, grab a measuring cup and scoop out **¼ cup** of the hot, starchy pasta water. Pour the **¾ cup of cream** into that hot water to warm it up; this "tempering" prevents the cream from breaking when it hits the tomato jam.
 
