@@ -28,6 +28,7 @@ I'm jealous that you're getting ready to cook this tonight.
 - 8 oz. Parmesan cheese
 - 2 Tbsp. extra-virgin olive oil
 - 1 4.5-oz. tube double-concentrated tomato paste
+- 1 14.5oz can of crushed tomatoes
 - ½ tsp. crushed red pepper flakes
 - 2 oz. vodka
 - ¾ cup heavy cream or half & half
@@ -67,7 +68,7 @@ Stir the pasta with the tomato mixture and add ¼ cup of water and a handful of 
 
 At this point you're drooling and ready to eat. Plate or bowl the pasta and top with more parm and freshly torn basil (shoutout to Gotham Greens).
 
-If you want to jazz it up even more, transfer to a casserole dish and top with sliced mozzarella. Bake at 375° for 20 min until the cheese is melted and bubbly. If you do this, make the pasta even more al dente.
+If you want to jazz it up even more, transfer to a casserole dish and top with sliced mozzarella. Bake at 375° for 15 min covered, then uncovered for 15 min until the cheese is melted and bubbly. If you do this, make the pasta even more al dente.
 
 ![Finished product](https://lh3.googleusercontent.com/pw/AP1GczOjN-FWIv6fYun00oV1JOOe5C8qRI54e3tcr8pKFLnCBjULT5UQT1c2gvyA7PKLq3j7wCiZw7HFn-xkRM_TzK9RogyRFFkIC-sZ9EK18zRvnINt9KSUOR-DnXdE0G41s1pOH0-SGtVR91QdIHXCARlU=w1286-h1714-s-no-gm)
 
