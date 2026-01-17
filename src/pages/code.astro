@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Card from '../components/Card.astro';
+import Search from '../components/Search.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
@@ -80,6 +81,7 @@ const posts = (await getCollection('blog'))
 					<h1>💻 $ ls -la ~/code</h1>
 					<p>Programming, development, and tech adventures</p>
 				</div>
+				<Search posts={posts} placeholder="Search code posts..." />
 				<div class="blog-grid">
 					{
 						posts.map((post) => (
