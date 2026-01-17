@@ -5,7 +5,6 @@ pubDate: "2026-01-02"
 updatedDate: "2026-01-17"
 description: A delicious fusion of Mexican flavors layered like lasagna, featuring shredded rotisserie chicken, corn tortillas, green & red chile sauce, and plenty of cheese.
 category: "food"
-draft: true
 tags: ["Mexican", "Chicken", "Casserole", "Enchiladas"]
 prepTime: 30
 cookTime: 35
