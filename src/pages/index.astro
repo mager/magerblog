@@ -7,22 +7,25 @@ import Card from '../components/Card.astro';
 import Search from '../components/Search.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// Get latest 3 posts from each category
+// Get latest 3 posts from each category, sorted by most recent update
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
+
+// Helper to get the most recent date (updatedDate or pubDate)
+const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).valueOf();
 
 const latestCode = allPosts
 	.filter(post => post.data.category === 'code')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a))
 	.slice(0, 3);
 
 const latestLife = allPosts
 	.filter(post => post.data.category === 'life')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a))
 	.slice(0, 3);
 
 const latestFood = allPosts
 	.filter(post => post.data.category === 'food')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a))
 	.slice(0, 3);
 
 const categories = [

@@ -2,6 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Rigatoni alla Vodka"
 pubDate: "2020-12-31"
+updatedDate: "2026-01-17"
 description: One of my go-to "last meals" that you need to try before you die.
 category: "food"
 tags: ["Pasta", "Italian", "Comfort Food"]
