@@ -56,13 +56,13 @@ You wanna cook down & reduce the paste until it's almost brown. It will look ugl
 
 Add the vodka to deglaze and keep stiring for a few minutes; it will evaporate pretty quickly. I prefer Tito's or Chopin potato vodka. Be sure to taste the vodka while you're cooking for a more immersive experience.
 
-By now, the water should be close to boiling. Grab that measuring cup and scoop out ¼ of the hot water. Pour the ¾ cup cream over the hot water to warm it up a bit (this will prevent the cream from breaking apart when you mix it in with the tomato jam).
+Drop the pasta into the boiling water. Continue to slowly cook the sauce while the pasta boils. 
 
-At this point, you will want to turn down the heat to medium low or low and slowly add the diluted cream mixture. Add a little at a time, then stir. If you get the end of your cream and want it creamier, add more (we're not going for healthy here).
+When the pasta is about **3 minutes** away from being done, grab a measuring cup and scoop out **¼ cup** of the hot, starchy pasta water. Pour the **¾ cup of cream** into that hot water to warm it up; this "tempering" prevents the cream from breaking when it hits the tomato jam.
 
-Drop the pasta in the boiling water and continue to slowly cook the sauce for about 10 min. It will thicken and smell really good.
+At this point, turn the heat down to medium-low and slowly add the diluted cream mixture to your sauce. Add a little at a time, stirring as you go. If you want it even creamier, add an extra splash (we're not going for healthy here!). Let the sauce and pasta finish those last few minutes together so the flavors marry perfectly.
 
-Cook the pasta al dente (because it's gonna cook a little more in the sauce). Two minutes before it's supposed to be done, scoop out 1 cup of starchy pasta water and set aside. Drain the pasta or spider it straight into the sauce mixture.
+Cook the pasta al dente (because it's gonna cook a little more in the sauce). 2-3 minutes before it's supposed to be done, scoop out 1 cup of starchy pasta water and set aside. Drain the pasta or spider it straight into the sauce mixture.
 
 Stir the pasta with the tomato mixture and add ¼ cup of water and a handful of parm at a time and watch it thicken up even more. You can go overboard on the parm.
 
