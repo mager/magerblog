@@ -5,7 +5,7 @@ updatedDate: "2025-11-30"
 description: "Announcing my move from Ning to SimpleGeo to help build the new San Francisco office."
 category: "life"
 tags: ["Career", "Startups", "San Francisco"]
-heroImage: "https://live.staticflickr.com/65535/4630054230_cc5f134401_o.jpg?s&#x3D;eyJpIjo0NjMwMDU0MjMwLCJlIjoxNzY0NTIyNDA4LCJzIjoiNGU1OWUwNjY5MDA4ZTc4NzhjOWVmMWQwY2U0YTNhMTVmNDkwODg4ZSIsInYiOjF9"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMaxnrkNoLHqTuUtV1aVQRyaNuXLR6d3zacQ48Brhjeb-YDpYNCYI00PNPwPcDxiPMG_jNsKhjBbLla10uY4dEisf67ztoFzm_WfbzsmS9cm2dACUzdGxB6-_S-CJm37vD2W172_Lzy3gUWMe00L_gffQ=w1824-h1368-s-no-gm"
 ---
 
 I am very excited to help [build a new office](http://techcrunch.com/2010/03/22/simple-geo-staff-sf-office/) in San Francisco for [SimpleGeo](https://web.archive.org/web/20110202130320/http://simplegeo.com/), a new location-based infrastructure company built by [Joe Stump](https://github.com/joestump) and [Matt Galligan](http://mattgalligan.com/).
@@ -19,6 +19,8 @@ Right now, SimpleGeo is locked down in private beta, but it’s ready to launch 
 ![simplegeo.com](https://lh3.googleusercontent.com/pw/AP1GczOKczigdxVJzk_fW-5K-_V5x1FHnQZttDhLgYg5PSumKy7UGjdXd2V5BVj9u-GctywolXyc78YYlaLq3h7bdm-YKHP-08Z-pSGs99i341QhjCs9IK5TNmsSj-aWGQBv-0w3lzq0mLHmJbmkp32AGX7u0Q=w1100-h1520-s-no-gm?authuser=0)
 
 For SimpleGeo, I will be doing developer outreach and advocacy, evangelism, and a little bit of business development. I’ll be attending industry-related events too, which is one part of the job I’m really excited about. I will continue to post on my ZDNet blog as well.
+
+![Hack day](https://lh3.googleusercontent.com/pw/AP1GczPnEzrbHzNBDnlydvUpQ4beIDSgTEAmPKMkYBsvtZ9pmFerkGvrOY6rp-b-dvCxCdPcP5p9lsP6bpyMqeHDpRxohyGx2kv_UR9YAK2hMJnBTvazJyx2K8cvCO54elkbsIwqWdX8r58icDscB-CTaew62Q=w1024-h768-s-no-gm)
 
 I will have more information in the weeks to come, but I thought I would post something here to let you know what’s up with me.
 
