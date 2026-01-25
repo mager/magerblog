@@ -13,18 +13,23 @@ const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 // Helper to get the most recent date (updatedDate or pubDate)
 const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).valueOf();
 
-// Get featured (latest) post from each category
-const featuredCode = allPosts
+// Get posts from each category, sorted by date
+const codePosts = allPosts
 	.filter(post => post.data.category === 'code')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a))[0];
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
-const featuredLife = allPosts
+const lifePosts = allPosts
 	.filter(post => post.data.category === 'life')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a))[0];
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
-const featuredRecipe = allPosts
+const recipePosts = allPosts
 	.filter(post => post.data.category === 'food')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a))[0];
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
+
+// Featured posts are the first from each category
+const featuredCode = codePosts[0];
+const featuredLife = lifePosts[0];
+const featuredRecipe = recipePosts[0];
 
 // Use the first post's hero image for OG image
 const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || featuredRecipe?.data.heroImage || '/blog-placeholder-1.jpg';
@@ -84,6 +89,9 @@ const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || 
 				featuredCode={featuredCode}
 				featuredLife={featuredLife}
 				featuredRecipe={featuredRecipe}
+				codePosts={codePosts}
+				lifePosts={lifePosts}
+				recipePosts={recipePosts}
 			/>
 		</main>
 		<Footer />

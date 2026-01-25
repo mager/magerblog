@@ -6,17 +6,56 @@ interface Props {
 	featuredCode: CollectionEntry<'blog'>;
 	featuredLife: CollectionEntry<'blog'>;
 	featuredRecipe: CollectionEntry<'blog'>;
+	codePosts: CollectionEntry<'blog'>[];
+	lifePosts: CollectionEntry<'blog'>[];
+	recipePosts: CollectionEntry<'blog'>[];
 }
 
-const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
+const { featuredCode, featuredLife, featuredRecipe, codePosts, lifePosts, recipePosts } = Astro.props;
+
+// Extract keywords from posts - use first tag or create from title
+function getKeyword(post: CollectionEntry<'blog'>): string {
+	// Use first tag if available
+	if (post.data.tags && post.data.tags.length > 0) {
+		return post.data.tags[0].toLowerCase();
+	}
+	// Otherwise extract first 1-2 meaningful words from title
+	const title = post.data.title;
+	const words = title.split(' ').filter(w =>
+		!['a', 'an', 'the', 'my', 'with', 'and', 'or', 'to', 'in', 'on', 'for'].includes(w.toLowerCase())
+	);
+	return words.slice(0, 2).join(' ').toLowerCase();
+}
+
+// Build keyword data for cycling - pick a few from each category
+const codeKeywords = codePosts.slice(0, 3).map(post => ({
+	word: getKeyword(post),
+	slug: post.id,
+	color: 'purple'
+}));
+
+const lifeKeywords = lifePosts.slice(0, 3).map(post => ({
+	word: getKeyword(post),
+	slug: post.id,
+	color: 'green'
+}));
+
+const recipeKeywords = recipePosts.slice(0, 3).map(post => ({
+	word: getKeyword(post),
+	slug: post.id,
+	color: 'orange'
+}));
+
+// Create pairs: code+recipe, recipe+life, life+code (rotating through)
+const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeywords };
 ---
 
 <section class="bento-hero">
 	<!-- Hero Header -->
 	<div class="hero-header">
 		<h1 class="hero-headline headline-display">
-			Where <span class="word-cycle word-left" id="word-left">algorithms</span><br />
-			meet <span class="word-cycle word-right" id="word-right">arancini</span>.
+			Where <a href="#" class="word-cycle word-left" id="word-left">AI</a><br />
+			meets <a href="#" class="word-cycle word-right" id="word-right">green curry</a>.
 		</h1>
 		<p class="hero-sub">Code, life, and recipes from Chicago.</p>
 	</div>
@@ -101,12 +140,48 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 	</div>
 </section>
 
-<script>
-	const pairs = [
-		{ left: 'algorithms', right: 'arancini', leftColor: 'purple', rightColor: 'orange' },
-		{ left: 'arancini', right: 'adventures', leftColor: 'orange', rightColor: 'green' },
-		{ left: 'adventures', right: 'algorithms', leftColor: 'green', rightColor: 'purple' },
-	];
+<script define:vars={{ codeKeywords, lifeKeywords, recipeKeywords }}>
+	// Build pairs: always two different categories
+	const pairs = [];
+
+	// Code + Recipe pairs
+	codeKeywords.forEach((code, i) => {
+		const recipe = recipeKeywords[i % recipeKeywords.length];
+		pairs.push({
+			left: code.word,
+			leftSlug: code.slug,
+			leftColor: 'purple',
+			right: recipe.word,
+			rightSlug: recipe.slug,
+			rightColor: 'orange'
+		});
+	});
+
+	// Recipe + Life pairs
+	recipeKeywords.forEach((recipe, i) => {
+		const life = lifeKeywords[i % lifeKeywords.length];
+		pairs.push({
+			left: recipe.word,
+			leftSlug: recipe.slug,
+			leftColor: 'orange',
+			right: life.word,
+			rightSlug: life.slug,
+			rightColor: 'green'
+		});
+	});
+
+	// Life + Code pairs
+	lifeKeywords.forEach((life, i) => {
+		const code = codeKeywords[i % codeKeywords.length];
+		pairs.push({
+			left: life.word,
+			leftSlug: life.slug,
+			leftColor: 'green',
+			right: code.word,
+			rightSlug: code.slug,
+			rightColor: 'purple'
+		});
+	});
 
 	let currentIndex = 0;
 	const wordLeft = document.getElementById('word-left');
@@ -117,6 +192,14 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 		wordRight.className = `word-cycle word-right text-glow-${rightColor}`;
 	}
 
+	function updateWords(pair) {
+		wordLeft.textContent = pair.left;
+		wordLeft.href = `/blog/${pair.leftSlug}/`;
+		wordRight.textContent = pair.right;
+		wordRight.href = `/blog/${pair.rightSlug}/`;
+		setColors(pair.leftColor, pair.rightColor);
+	}
+
 	function cycleWords() {
 		// Fade out
 		wordLeft.classList.add('fade-out');
@@ -124,11 +207,7 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 
 		setTimeout(() => {
 			currentIndex = (currentIndex + 1) % pairs.length;
-			const pair = pairs[currentIndex];
-
-			wordLeft.textContent = pair.left;
-			wordRight.textContent = pair.right;
-			setColors(pair.leftColor, pair.rightColor);
+			updateWords(pairs[currentIndex]);
 
 			// Fade in
 			wordLeft.classList.remove('fade-out');
@@ -136,8 +215,10 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 		}, 400);
 	}
 
-	// Set initial colors
-	setColors('purple', 'orange');
+	// Set initial state
+	if (pairs.length > 0) {
+		updateWords(pairs[0]);
+	}
 
 	// Cycle every 3.5 seconds
 	setInterval(cycleWords, 3500);
@@ -165,7 +246,29 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 	/* Word Cycling Animation */
 	.word-cycle {
 		display: inline-block;
+		text-decoration: none;
 		transition: opacity 0.4s ease, transform 0.4s ease;
+		cursor: pointer;
+		position: relative;
+	}
+
+	.word-cycle::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		background: currentColor;
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.3s ease;
+		opacity: 0.5;
+	}
+
+	.word-cycle:hover::after {
+		transform: scaleX(1);
+		transform-origin: left;
 	}
 
 	.word-cycle.fade-out {
@@ -173,13 +276,18 @@ const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
 		transform: translateY(-8px);
 	}
 
-	.word-left.text-glow-purple { color: #a855f7; text-shadow: 0 0 40px rgba(168, 85, 247, 0.5); }
-	.word-left.text-glow-green { color: #22c55e; text-shadow: 0 0 40px rgba(34, 197, 94, 0.5); }
-	.word-left.text-glow-orange { color: #f97316; text-shadow: 0 0 40px rgba(249, 115, 22, 0.5); }
-
-	.word-right.text-glow-purple { color: #a855f7; text-shadow: 0 0 40px rgba(168, 85, 247, 0.5); }
-	.word-right.text-glow-green { color: #22c55e; text-shadow: 0 0 40px rgba(34, 197, 94, 0.5); }
-	.word-right.text-glow-orange { color: #f97316; text-shadow: 0 0 40px rgba(249, 115, 22, 0.5); }
+	.word-left.text-glow-purple, .word-right.text-glow-purple {
+		color: #a855f7;
+		text-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+	}
+	.word-left.text-glow-green, .word-right.text-glow-green {
+		color: #22c55e;
+		text-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
+	}
+	.word-left.text-glow-orange, .word-right.text-glow-orange {
+		color: #f97316;
+		text-shadow: 0 0 40px rgba(249, 115, 22, 0.5);
+	}
 
 	.hero-sub {
 		font-family: 'JetBrains Mono', monospace;
