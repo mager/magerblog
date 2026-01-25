@@ -1,0 +1,563 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	featuredCode: CollectionEntry<'blog'>;
+	featuredLife: CollectionEntry<'blog'>;
+	featuredRecipe: CollectionEntry<'blog'>;
+}
+
+const { featuredCode, featuredLife, featuredRecipe } = Astro.props;
+---
+
+<section class="bento-hero">
+	<!-- Hero Header -->
+	<div class="hero-header">
+		<h1 class="hero-headline headline-display">
+			Where <span class="word-cycle word-left" id="word-left">algorithms</span><br />
+			meet <span class="word-cycle word-right" id="word-right">arancini</span>.
+		</h1>
+		<p class="hero-sub">Code, life, and recipes from Chicago.</p>
+	</div>
+
+	<!-- Bento Grid -->
+	<div class="bento-grid">
+		<!-- Feature Tile (Code - 70%) -->
+		<a href={`/blog/${featuredCode.id}/`} class="bento-tile tile-feature">
+			<div class="tile-image">
+				{featuredCode.data.heroImage && (
+					<img src={featuredCode.data.heroImage} alt="" loading="eager" />
+				)}
+				<div class="tile-overlay"></div>
+			</div>
+			<div class="tile-content">
+				<div class="tile-meta">
+					<span class="tile-label tile-label-purple">Code</span>
+					<span class="tile-date">
+						<FormattedDate date={featuredCode.data.pubDate} />
+					</span>
+				</div>
+				<h2 class="tile-title">{featuredCode.data.title}</h2>
+				<p class="tile-desc">{featuredCode.data.description}</p>
+			</div>
+			<div class="tile-glow tile-glow-purple"></div>
+		</a>
+
+		<!-- Side Stack (30%) -->
+		<div class="bento-side">
+			<!-- Life Tile -->
+			<a href={`/blog/${featuredLife.id}/`} class="bento-tile tile-small tile-life">
+				{featuredLife.data.heroImage && (
+					<img src={featuredLife.data.heroImage} alt="" loading="lazy" class="tile-bg-image" />
+				)}
+				<div class="tile-small-overlay"></div>
+				<div class="tile-content">
+					<span class="tile-label tile-label-green">Life</span>
+					<h3 class="tile-title-sm">{featuredLife.data.title}</h3>
+				</div>
+				<div class="tile-glow tile-glow-green"></div>
+			</a>
+
+			<!-- Recipe Tile -->
+			<a href={`/blog/${featuredRecipe.id}/`} class="bento-tile tile-small tile-recipe">
+				{featuredRecipe.data.heroImage && (
+					<img src={featuredRecipe.data.heroImage} alt="" loading="lazy" class="tile-bg-image" />
+				)}
+				<div class="tile-small-overlay"></div>
+				<div class="tile-content">
+					<span class="tile-label tile-label-orange">Recipe</span>
+					<h3 class="tile-title-sm">{featuredRecipe.data.title}</h3>
+					{(featuredRecipe.data.prepTime || featuredRecipe.data.cookTime) && (
+						<div class="tile-recipe-meta">
+							{featuredRecipe.data.prepTime && <span>{featuredRecipe.data.prepTime}m prep</span>}
+							{featuredRecipe.data.prepTime && featuredRecipe.data.cookTime && <span class="meta-dot">·</span>}
+							{featuredRecipe.data.cookTime && <span>{featuredRecipe.data.cookTime}m cook</span>}
+						</div>
+					)}
+				</div>
+				<div class="tile-glow tile-glow-orange"></div>
+			</a>
+		</div>
+	</div>
+
+	<!-- Category Links -->
+	<div class="category-links">
+		<a href="/code/" class="cat-link cat-link-purple">
+			<span class="cat-dot"></span>
+			<span>All Code</span>
+			<span class="cat-arrow">→</span>
+		</a>
+		<a href="/life/" class="cat-link cat-link-green">
+			<span class="cat-dot"></span>
+			<span>All Life</span>
+			<span class="cat-arrow">→</span>
+		</a>
+		<a href="/recipes/" class="cat-link cat-link-orange">
+			<span class="cat-dot"></span>
+			<span>All Recipes</span>
+			<span class="cat-arrow">→</span>
+		</a>
+	</div>
+</section>
+
+<script>
+	const pairs = [
+		{ left: 'algorithms', right: 'arancini', leftColor: 'purple', rightColor: 'orange' },
+		{ left: 'arancini', right: 'adventures', leftColor: 'orange', rightColor: 'green' },
+		{ left: 'adventures', right: 'algorithms', leftColor: 'green', rightColor: 'purple' },
+	];
+
+	let currentIndex = 0;
+	const wordLeft = document.getElementById('word-left');
+	const wordRight = document.getElementById('word-right');
+
+	function setColors(leftColor, rightColor) {
+		wordLeft.className = `word-cycle word-left text-glow-${leftColor}`;
+		wordRight.className = `word-cycle word-right text-glow-${rightColor}`;
+	}
+
+	function cycleWords() {
+		// Fade out
+		wordLeft.classList.add('fade-out');
+		wordRight.classList.add('fade-out');
+
+		setTimeout(() => {
+			currentIndex = (currentIndex + 1) % pairs.length;
+			const pair = pairs[currentIndex];
+
+			wordLeft.textContent = pair.left;
+			wordRight.textContent = pair.right;
+			setColors(pair.leftColor, pair.rightColor);
+
+			// Fade in
+			wordLeft.classList.remove('fade-out');
+			wordRight.classList.remove('fade-out');
+		}, 400);
+	}
+
+	// Set initial colors
+	setColors('purple', 'orange');
+
+	// Cycle every 3.5 seconds
+	setInterval(cycleWords, 3500);
+</script>
+
+<style>
+	.bento-hero {
+		padding: 2rem 2rem 4rem;
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	/* Hero Header */
+	.hero-header {
+		text-align: center;
+		margin-bottom: 3rem;
+		padding: 1rem 0 2rem;
+	}
+
+	.hero-headline {
+		font-size: clamp(2.5rem, 7vw, 5rem);
+		margin-bottom: 1rem;
+	}
+
+	/* Word Cycling Animation */
+	.word-cycle {
+		display: inline-block;
+		transition: opacity 0.4s ease, transform 0.4s ease;
+	}
+
+	.word-cycle.fade-out {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+
+	.word-left.text-glow-purple { color: #a855f7; text-shadow: 0 0 40px rgba(168, 85, 247, 0.5); }
+	.word-left.text-glow-green { color: #22c55e; text-shadow: 0 0 40px rgba(34, 197, 94, 0.5); }
+	.word-left.text-glow-orange { color: #f97316; text-shadow: 0 0 40px rgba(249, 115, 22, 0.5); }
+
+	.word-right.text-glow-purple { color: #a855f7; text-shadow: 0 0 40px rgba(168, 85, 247, 0.5); }
+	.word-right.text-glow-green { color: #22c55e; text-shadow: 0 0 40px rgba(34, 197, 94, 0.5); }
+	.word-right.text-glow-orange { color: #f97316; text-shadow: 0 0 40px rgba(249, 115, 22, 0.5); }
+
+	.hero-sub {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 1rem;
+		color: var(--text-secondary);
+		margin: 0;
+	}
+
+	/* Bento Grid */
+	.bento-grid {
+		display: grid;
+		grid-template-columns: 7fr 3fr;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.bento-side {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	/* Tile Base */
+	.bento-tile {
+		position: relative;
+		border-radius: 20px;
+		overflow: hidden;
+		background: rgba(22, 27, 34, 0.6);
+		border: 1px solid var(--terminal-border);
+		backdrop-filter: blur(12px);
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.bento-tile:hover {
+		transform: translateY(-4px) scale(1.01);
+		border-color: transparent;
+	}
+
+	.bento-tile:hover .tile-glow {
+		opacity: 1;
+	}
+
+	/* Feature Tile */
+	.tile-feature {
+		aspect-ratio: 16 / 9;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	.tile-feature:hover {
+		box-shadow:
+			0 25px 50px -12px rgba(0, 0, 0, 0.5),
+			0 0 60px -15px rgba(168, 85, 247, 0.5);
+	}
+
+	.tile-image {
+		position: absolute;
+		inset: 0;
+	}
+
+	.tile-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.tile-feature:hover .tile-image img {
+		transform: scale(1.05);
+	}
+
+	.tile-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to top,
+			rgba(10, 10, 10, 0.95) 0%,
+			rgba(10, 10, 10, 0.7) 35%,
+			rgba(10, 10, 10, 0.2) 60%,
+			transparent 100%
+		);
+	}
+
+	.tile-content {
+		position: relative;
+		z-index: 2;
+		padding: 2rem;
+	}
+
+	.tile-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.tile-label {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		padding: 0.3rem 0.6rem;
+		border-radius: 4px;
+	}
+
+	.tile-label-purple {
+		color: #a855f7;
+		background: rgba(168, 85, 247, 0.15);
+		border: 1px solid rgba(168, 85, 247, 0.3);
+	}
+
+	.tile-label-green {
+		color: #22c55e;
+		background: rgba(34, 197, 94, 0.15);
+		border: 1px solid rgba(34, 197, 94, 0.3);
+	}
+
+	.tile-label-orange {
+		color: #f97316;
+		background: rgba(249, 115, 22, 0.15);
+		border: 1px solid rgba(249, 115, 22, 0.3);
+	}
+
+	.tile-date {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.75rem;
+		color: var(--text-muted);
+	}
+
+	.tile-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.2;
+		margin: 0 0 0.5rem 0;
+		color: var(--text-primary);
+		transition: color 0.3s ease;
+	}
+
+	.tile-feature:hover .tile-title {
+		color: #a855f7;
+	}
+
+	.tile-desc {
+		font-size: 0.95rem;
+		color: var(--text-secondary);
+		line-height: 1.5;
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* Small Tiles */
+	.tile-small {
+		flex: 1;
+		min-height: 180px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	.tile-life:hover {
+		box-shadow:
+			0 20px 40px -10px rgba(0, 0, 0, 0.4),
+			0 0 40px -10px rgba(34, 197, 94, 0.5);
+	}
+
+	.tile-recipe:hover {
+		box-shadow:
+			0 20px 40px -10px rgba(0, 0, 0, 0.4),
+			0 0 40px -10px rgba(249, 115, 22, 0.5);
+	}
+
+	.tile-bg-image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.4;
+		transition: opacity 0.4s ease, transform 0.6s ease;
+	}
+
+	.tile-small:hover .tile-bg-image {
+		opacity: 0.6;
+		transform: scale(1.05);
+	}
+
+	.tile-small-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to top,
+			rgba(10, 10, 10, 0.9) 0%,
+			rgba(10, 10, 10, 0.4) 50%,
+			transparent 100%
+		);
+	}
+
+	.tile-small .tile-content {
+		padding: 1.25rem;
+	}
+
+	.tile-small .tile-label {
+		margin-bottom: 0.5rem;
+	}
+
+	.tile-title-sm {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.1rem;
+		font-weight: 600;
+		line-height: 1.3;
+		margin: 0;
+		color: var(--text-primary);
+		transition: color 0.3s ease;
+	}
+
+	.tile-life:hover .tile-title-sm {
+		color: #22c55e;
+	}
+
+	.tile-recipe:hover .tile-title-sm {
+		color: #f97316;
+	}
+
+	.tile-recipe-meta {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		margin-top: 0.5rem;
+		display: flex;
+		gap: 0.4rem;
+	}
+
+	.meta-dot {
+		opacity: 0.5;
+	}
+
+	/* Category Links */
+	.category-links {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		padding-top: 1rem;
+	}
+
+	.cat-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.6rem 1rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.8rem;
+		font-weight: 500;
+		text-decoration: none;
+		color: var(--text-secondary);
+		background: rgba(22, 27, 34, 0.6);
+		border: 1px solid var(--terminal-border);
+		border-radius: 8px;
+		transition: all 0.2s ease;
+	}
+
+	.cat-link:hover {
+		background: rgba(22, 27, 34, 0.9);
+		transform: translateY(-2px);
+	}
+
+	.cat-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		transition: box-shadow 0.2s ease;
+	}
+
+	.cat-link-purple .cat-dot { background: #a855f7; }
+	.cat-link-green .cat-dot { background: #22c55e; }
+	.cat-link-orange .cat-dot { background: #f97316; }
+
+	.cat-link-purple:hover {
+		border-color: rgba(168, 85, 247, 0.5);
+		color: #a855f7;
+	}
+	.cat-link-purple:hover .cat-dot {
+		box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+	}
+
+	.cat-link-green:hover {
+		border-color: rgba(34, 197, 94, 0.5);
+		color: #22c55e;
+	}
+	.cat-link-green:hover .cat-dot {
+		box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+	}
+
+	.cat-link-orange:hover {
+		border-color: rgba(249, 115, 22, 0.5);
+		color: #f97316;
+	}
+	.cat-link-orange:hover .cat-dot {
+		box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+	}
+
+	.cat-arrow {
+		opacity: 0;
+		transform: translateX(-4px);
+		transition: all 0.2s ease;
+	}
+
+	.cat-link:hover .cat-arrow {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	/* Responsive */
+	@media (max-width: 900px) {
+		.bento-hero {
+			padding: 1.5rem 1rem 3rem;
+		}
+
+		.hero-header {
+			margin-bottom: 2rem;
+		}
+
+		.bento-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.bento-side {
+			flex-direction: row;
+		}
+
+		.tile-small {
+			min-height: 200px;
+		}
+
+		.tile-title {
+			font-size: 1.4rem;
+		}
+
+		.category-links {
+			flex-wrap: wrap;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.bento-side {
+			flex-direction: column;
+		}
+
+		.tile-feature {
+			aspect-ratio: 4 / 3;
+		}
+
+		.tile-content {
+			padding: 1.25rem;
+		}
+
+		.tile-title {
+			font-size: 1.25rem;
+		}
+
+		.hero-headline {
+			font-size: 2rem;
+		}
+
+		.category-links {
+			gap: 0.5rem;
+		}
+
+		.cat-link {
+			font-size: 0.75rem;
+			padding: 0.5rem 0.75rem;
+		}
+	}
+</style>
