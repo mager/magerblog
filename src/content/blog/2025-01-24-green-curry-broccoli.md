@@ -1,7 +1,7 @@
 ---
 title: "Green Curry Broccoli"
 description: "A quick and flavorful green curry with chicken and broccoli served over rice - simple weeknight comfort food."
-pubDate: 2025-01-24
+pubDate: 2026-01-24
 category: "food"
 prepTime: 15
 cookTime: 30
