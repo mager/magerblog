@@ -5,7 +5,7 @@ pubDate: 2026-01-24
 category: "food"
 prepTime: 15
 cookTime: 30
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOjAvwbl9uZxp1Y5EtA6_7qg8Xuz1QkpK3tOplCJ_49G4l8BVA0O4ks2veLKgTEjGJW3ey6XVZJ-udIfSGMI-0p5oigfpkT-NfoAVv-f6Ln2ImWHdYjw7PfIcIHORLPO6BDbkOeDKClnZL9SgFAiJBrEQ=w836-h627-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMTshbe9D9YvocviWm7ga0iq5NkbwKJVisn6eFTD5gDWwigRxbUHoI9BKlsAtVujpZRFuNpBCDqlEDAeqmc5Ztl3tq1h4Vhv51gUVks6rONZJJzKtUxj1U6Q9ZqsEI1WIfe95JUb-raJndFR69ueWVctg=w2026-h1520-s-no-gm"
 ---
 
 A simple, satisfying curry that comes together in under 30 minutes. The broccoli soaks up all that creamy, aromatic green curry sauce perfectly.
@@ -40,13 +40,11 @@ A simple, satisfying curry that comes together in under 30 minutes. The broccoli
 
 6. **Simmer the curry**: Return the chicken to the pan. Add the broccoli florets and stir to coat with the sauce. Cover and let simmer on medium-low for 12-15 minutes until the broccoli is tender and the chicken is cooked through.
 
-![Broccoli and chicken in the curry](https://lh3.googleusercontent.com/pw/AP1GczO-r4QpVwl113gGSZEy_KrJ5Fgvzvv5Qq-z607fkSVX8onGDisVyWVk9t7RCbCJpdu4YTDncDX2YUNVszCGSScBV3n9f_PpQx6E0RP-jsjy13kEMleiX4F_MKTUiZg9eI1MdcG9hqCq3Q7O7BJG_leU1w=w1520-h1520-s-no-gm)
+![Broccoli and chicken in the curry](https://lh3.googleusercontent.com/pw/AP1GczNH1HPuZFRF-QhFyzf5wtpxU8B1Dbut8C7r98sF7lUOzxcCZr7ZAPrLvZQ3brPMCWf1FiEwryhOHxJyr_WYqya72h8wl_IZJ1iroZMlI42YAppLTU6dnJA-l-wxgXCJ9k4mKuvMy6peAypjrspnkF33Ug=w2026-h1520-s-no-gm)
 
 7. **Season**: Squeeze in the lime juice and add salt to taste.
 
 8. **Serve**: Spoon the curry over rice or udon noodles and top with fresh cilantro.
-
-![Plated green curry broccoli](https://lh3.googleusercontent.com/pw/AP1GczPbqMPsA5_RiTnoviv-YRI04I8Q1flZtN3i9wdJKTKIsEy05cmDkmVFOAfiE5qAExhZ9xva6msYEq7sh1Oo3e8l7qBFoilIJIbmgaWPEUntxDBgP2_Z3R92RbB-8GYmbUFe7ffIsBcqaf543xE-mI1Cow=w836-h627-s-no-gm)
 
 ## Notes
 
@@ -54,4 +52,4 @@ A simple, satisfying curry that comes together in under 30 minutes. The broccoli
 - Coconut cream makes it richer than coconut milk, but either works.
 - For a vegetarian version, skip the chicken and add tofu or chickpeas.
 
-![Green curry broccoli](https://lh3.googleusercontent.com/pw/AP1GczOjAvwbl9uZxp1Y5EtA6_7qg8Xuz1QkpK3tOplCJ_49G4l8BVA0O4ks2veLKgTEjGJW3ey6XVZJ-udIfSGMI-0p5oigfpkT-NfoAVv-f6Ln2ImWHdYjw7PfIcIHORLPO6BDbkOeDKClnZL9SgFAiJBrEQ=w836-h627-s-no-gm)
+![Green curry broccoli](https://lh3.googleusercontent.com/pw/AP1GczMTshbe9D9YvocviWm7ga0iq5NkbwKJVisn6eFTD5gDWwigRxbUHoI9BKlsAtVujpZRFuNpBCDqlEDAeqmc5Ztl3tq1h4Vhv51gUVks6rONZJJzKtUxj1U6Q9ZqsEI1WIfe95JUb-raJndFR69ueWVctg=w2026-h1520-s-no-gm?authuser=0)
