@@ -36,6 +36,9 @@ This recipe works beautifully with either a boneless pork shoulder or a bone-in 
 - 1 to 1.5 cups low-sodium chicken broth
 - 1 tsp Worcestershire sauce (optional)
 
+**Optional - For Mashed Potatoes:**
+- 1 lb baby yellow potatoes, halved
+
 #### Instructions:
 
 **Season ahead:** Combine all the dry rub ingredients and pat it liberally onto all surfaces of the roast, pressing it into the meat. Place uncovered in the fridge for at least 4 hours, or overnight for best results.
@@ -44,7 +47,9 @@ This recipe works beautifully with either a boneless pork shoulder or a bone-in 
 
 **Build the braise:** Add the sliced onions, carrots, and fresh herbs to the Dutch oven and sauté them in the rendered pork fat and oil for 3-5 minutes until the veggies begin to soften and the herbs get fragrant. Add the chicken broth, scraping up all the flavorful browned bits (*fond*) from the bottom of the pan with a wooden spoon. Add the smashed garlic and Worcestershire sauce (if using).
 
-**Slow cook:** Preheat your oven to 275ºF (as low as your oven will reliably hold—250ºF works too). Place the seared roast on top of the vegetables in the braising liquid. Cover the Dutch oven tightly with a lid or heavy-duty aluminum foil. Transfer the pot to the oven and cook covered for 4-5 hours. The low and slow approach is key—covering traps steam and ensures the meat becomes incredibly tender.
+**Slow cook:** Preheat your oven to 250ºF. Place the seared roast on top of the vegetables in the braising liquid. Cover the Dutch oven tightly with a lid or heavy-duty aluminum foil. Transfer the pot to the oven and cook covered for 4-5 hours. The low and slow approach is key—covering traps steam and ensures the meat becomes incredibly tender.
+
+**Add potatoes (optional):** With about 1-1.5 hours left, nestle the halved baby potatoes around the roast in the braising liquid. Cover and continue cooking. They'll absorb all that porky, herby goodness.
 
 The roast is done when it's fork-tender and the internal temperature registers 195ºF to 205ºF. For pork shoulder, you want it to shred easily.
 
@@ -54,6 +59,6 @@ The roast is done when it's fork-tender and the internal temperature registers 1
 
 ![Ready to cut](https://lh3.googleusercontent.com/pw/AP1GczOmjKACxJ9LoomNGVw4PCc32139qFV9Qca3hd7PjhRk-ocMErk_1INTEuG1KlFgV_K0DdxMemUtt9gIrKytruwoN4EjT9sLmqj8ruqXXogb2AAV0XNbF_Gn7zw2-MsgiyE-RmM5OVkRzUIHucT9XBinCg=w2026-h1520-s-no-gm)
 
-Let it rest for at least 15-20 minutes. For shoulder, shred with two forks. For chops, slice between the bones. Serve with the pan sauce and braised vegetables.
+Let it rest for at least 15-20 minutes. For shoulder, shred with two forks. For chops, slice between the bones. Serve with the pan sauce and braised vegetables. If you added potatoes, fish them out, add a knob of butter, and mash for the most flavorful mashed potatoes ever.
 
 ![Enjoy](https://lh3.googleusercontent.com/pw/AP1GczNcyuuorhtQloQuC5lkROxOzOTVD3UvK4sVPi6XY8Jw71o8140uYfR9tp9Rxt7ZPejOdAn8uctzSmLusiBBdCKhp3fe37QOhZuOwpanePO_c8b6K1TQc4i2ijvbLjuYUP2_u7EvFtc-y1dL2-R4PRGBKg=w1440-h1520-s-no-gm)
