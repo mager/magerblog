@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Card from '../../components/Card.astro';
+import TerminalInput from '../../components/TerminalInput.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 
@@ -92,5 +93,6 @@ const posts = (await getCollection('blog'))
 			</section>
 		</main>
 		<Footer />
+		<TerminalInput posts={posts} />
 	</body>
 </html>

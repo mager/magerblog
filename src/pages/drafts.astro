@@ -3,9 +3,11 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Card from '../components/Card.astro';
+import TerminalInput from '../components/TerminalInput.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 
+const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const posts = (await getCollection('blog'))
 	.filter(post => post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -92,5 +94,6 @@ const posts = (await getCollection('blog'))
 			</section>
 		</main>
 		<Footer />
+		<TerminalInput posts={allPosts} />
 	</body>
 </html>

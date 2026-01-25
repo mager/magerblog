@@ -1,0 +1,495 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+
+// Prepare search data
+const searchData = posts.map(post => ({
+	title: post.data.title,
+	description: post.data.description,
+	category: post.data.category,
+	slug: post.id,
+	tags: post.data.tags || [],
+	heroImage: post.data.heroImage || null,
+}));
+
+// Stats for the info line
+const totalPosts = posts.length;
+const codeCount = posts.filter(p => p.data.category === 'code').length;
+const lifeCount = posts.filter(p => p.data.category === 'life').length;
+const foodCount = posts.filter(p => p.data.category === 'food').length;
+---
+
+<div class="terminal-bar" id="terminal-bar">
+	<div class="terminal-container">
+		<div class="terminal-input-wrapper">
+			<span class="terminal-prompt">❯</span>
+			<input
+				type="text"
+				class="terminal-input"
+				placeholder="Search posts... or type ? for help"
+				aria-label="Search posts"
+				autocomplete="off"
+				id="terminal-search"
+			/>
+			<div class="terminal-shortcuts">
+				<kbd>/</kbd>
+			</div>
+		</div>
+		<div class="terminal-results" id="terminal-results" hidden></div>
+		<div class="terminal-info">
+			<span class="info-item">
+				<span class="info-dot purple"></span>
+				<span class="info-count">{codeCount}</span> code
+			</span>
+			<span class="info-divider">·</span>
+			<span class="info-item">
+				<span class="info-dot green"></span>
+				<span class="info-count">{lifeCount}</span> life
+			</span>
+			<span class="info-divider">·</span>
+			<span class="info-item">
+				<span class="info-dot orange"></span>
+				<span class="info-count">{foodCount}</span> recipes
+			</span>
+			<span class="info-divider">·</span>
+			<span class="info-hint">↑↓ navigate · enter select · esc close</span>
+		</div>
+	</div>
+</div>
+
+<script define:vars={{ searchData }}>
+	const terminalBar = document.getElementById('terminal-bar');
+	const input = document.getElementById('terminal-search');
+	const results = document.getElementById('terminal-results');
+
+	const categoryConfig = {
+		code: { color: 'var(--status-purple)', label: '~/code' },
+		life: { color: 'var(--status-green)', label: '~/life' },
+		food: { color: 'var(--status-orange)', label: '~/recipes' },
+	};
+
+	const helpContent = `
+		<div class="help-content">
+			<div class="help-section">
+				<span class="help-title">Commands</span>
+				<div class="help-row"><kbd>?</kbd> <span>show this help</span></div>
+				<div class="help-row"><kbd>/</kbd> <span>focus search</span></div>
+				<div class="help-row"><kbd>esc</kbd> <span>close & clear</span></div>
+			</div>
+			<div class="help-section">
+				<span class="help-title">Navigation</span>
+				<div class="help-row"><kbd>↑</kbd><kbd>↓</kbd> <span>select result</span></div>
+				<div class="help-row"><kbd>enter</kbd> <span>go to post</span></div>
+			</div>
+			<div class="help-section">
+				<span class="help-title">Quick filters</span>
+				<div class="help-row"><code>code:</code> <span>code posts only</span></div>
+				<div class="help-row"><code>life:</code> <span>life posts only</span></div>
+				<div class="help-row"><code>food:</code> <span>recipes only</span></div>
+			</div>
+		</div>
+	`;
+
+	function escapeHtml(text) {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
+	}
+
+	function highlightMatch(text, query) {
+		if (!query) return escapeHtml(text);
+		const escaped = escapeHtml(text);
+		const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+		return escaped.replace(regex, '<mark>$1</mark>');
+	}
+
+	function search(query) {
+		// Show help
+		if (query === '?') {
+			results.innerHTML = helpContent;
+			results.hidden = false;
+			return;
+		}
+
+		if (!query || query.length < 2) {
+			results.hidden = true;
+			return;
+		}
+
+		// Check for category filter
+		let filteredData = searchData;
+		let searchQuery = query;
+
+		if (query.startsWith('code:')) {
+			filteredData = searchData.filter(p => p.category === 'code');
+			searchQuery = query.slice(5).trim();
+		} else if (query.startsWith('life:')) {
+			filteredData = searchData.filter(p => p.category === 'life');
+			searchQuery = query.slice(5).trim();
+		} else if (query.startsWith('food:')) {
+			filteredData = searchData.filter(p => p.category === 'food');
+			searchQuery = query.slice(5).trim();
+		}
+
+		if (searchQuery.length < 2 && query.includes(':')) {
+			// Show all posts in category
+			const matches = filteredData.slice(0, 10);
+			renderResults(matches, '');
+			return;
+		}
+
+		const q = searchQuery.toLowerCase();
+		const matches = filteredData.filter(post =>
+			post.title.toLowerCase().includes(q) ||
+			post.description.toLowerCase().includes(q) ||
+			post.tags.some(tag => tag.toLowerCase().includes(q))
+		).slice(0, 8);
+
+		renderResults(matches, searchQuery);
+	}
+
+	function renderResults(matches, query) {
+		if (matches.length === 0) {
+			results.innerHTML = '<div class="no-results">No matches found · try different keywords</div>';
+			results.hidden = false;
+			return;
+		}
+
+		results.innerHTML = matches.map((post, i) => {
+			const config = categoryConfig[post.category] || categoryConfig.code;
+			return `
+				<a href="/blog/${post.slug}/" class="terminal-result-item" data-index="${i}" style="--cat-color: ${config.color};">
+					<span class="result-path">${config.label}/</span>
+					<span class="result-title">${highlightMatch(post.title, query)}</span>
+				</a>
+			`;
+		}).join('');
+		results.hidden = false;
+	}
+
+	let selectedIndex = -1;
+
+	function updateSelection() {
+		const items = results.querySelectorAll('.terminal-result-item');
+		items.forEach((item, i) => {
+			item.classList.toggle('selected', i === selectedIndex);
+		});
+	}
+
+	input.addEventListener('input', (e) => {
+		selectedIndex = -1;
+		search(e.target.value.trim());
+	});
+
+	input.addEventListener('keydown', (e) => {
+		const items = results.querySelectorAll('.terminal-result-item');
+
+		if (e.key === 'ArrowDown') {
+			e.preventDefault();
+			if (items.length > 0) {
+				selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+				updateSelection();
+				items[selectedIndex]?.scrollIntoView({ block: 'nearest' });
+			}
+		} else if (e.key === 'ArrowUp') {
+			e.preventDefault();
+			if (selectedIndex > 0) {
+				selectedIndex--;
+				updateSelection();
+				items[selectedIndex]?.scrollIntoView({ block: 'nearest' });
+			} else if (selectedIndex === 0) {
+				selectedIndex = -1;
+				updateSelection();
+			}
+		} else if (e.key === 'Enter') {
+			e.preventDefault();
+			if (selectedIndex >= 0 && items[selectedIndex]) {
+				window.location.href = items[selectedIndex].href;
+			}
+		} else if (e.key === 'Escape') {
+			input.value = '';
+			results.hidden = true;
+			selectedIndex = -1;
+			input.blur();
+		}
+	});
+
+	// Global keyboard shortcut
+	document.addEventListener('keydown', (e) => {
+		if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+			e.preventDefault();
+			input.focus();
+		}
+	});
+
+	// Click outside to close
+	document.addEventListener('click', (e) => {
+		if (!terminalBar.contains(e.target)) {
+			results.hidden = true;
+			selectedIndex = -1;
+		}
+	});
+</script>
+
+<style is:global>
+	.terminal-bar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: linear-gradient(180deg, transparent 0%, var(--terminal-black) 20%);
+		padding: 1.5rem 1rem 1rem;
+	}
+
+	.terminal-container {
+		max-width: 700px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.terminal-input-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		background: var(--editor-bg);
+		border: 1px solid var(--terminal-border);
+		border-radius: 8px;
+		padding: 0.75rem 1rem;
+		transition: all 0.2s ease;
+	}
+
+	.terminal-input-wrapper:focus-within {
+		border-color: var(--status-cyan);
+		box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15), 0 4px 20px rgba(0, 0, 0, 0.4);
+	}
+
+	.terminal-prompt {
+		color: var(--status-green);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.terminal-input {
+		flex: 1;
+		background: transparent;
+		border: none;
+		outline: none;
+		color: var(--text-primary);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.9rem;
+	}
+
+	.terminal-input::placeholder {
+		color: var(--text-muted);
+	}
+
+	.terminal-shortcuts {
+		display: flex;
+		gap: 0.25rem;
+	}
+
+	.terminal-shortcuts kbd {
+		background: var(--terminal-bg-dark);
+		border: 1px solid var(--terminal-border);
+		border-radius: 4px;
+		padding: 0.2rem 0.5rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+	}
+
+	.terminal-results {
+		position: absolute;
+		bottom: calc(100% + 0.5rem);
+		left: 0;
+		right: 0;
+		background: var(--editor-bg);
+		border: 1px solid var(--terminal-border);
+		border-radius: 8px;
+		overflow: hidden;
+		max-height: 50vh;
+		overflow-y: auto;
+		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+	}
+
+	.terminal-result-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1rem;
+		text-decoration: none;
+		color: var(--text-primary);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.85rem;
+		border-bottom: 1px solid var(--terminal-border);
+		transition: background 0.1s ease;
+	}
+
+	.terminal-result-item:last-child {
+		border-bottom: none;
+	}
+
+	.terminal-result-item:hover,
+	.terminal-result-item.selected {
+		background: rgba(88, 166, 255, 0.1);
+	}
+
+	.terminal-result-item.selected {
+		border-left: 2px solid var(--status-cyan);
+		padding-left: calc(1rem - 2px);
+	}
+
+	.result-path {
+		color: var(--cat-color);
+		font-size: 0.75rem;
+		opacity: 0.8;
+	}
+
+	.result-title {
+		flex: 1;
+	}
+
+	.terminal-result-item mark {
+		background: rgba(88, 166, 255, 0.3);
+		color: var(--cyan);
+		border-radius: 2px;
+		padding: 0 2px;
+	}
+
+	.no-results {
+		padding: 1rem;
+		color: var(--text-muted);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+
+	.terminal-info {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 0.5rem 0 0;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+	}
+
+	.info-item {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+
+	.info-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+	}
+
+	.info-dot.purple { background: var(--status-purple); }
+	.info-dot.green { background: var(--status-green); }
+	.info-dot.orange { background: var(--status-orange); }
+
+	.info-count {
+		color: var(--text-secondary);
+		font-weight: 600;
+	}
+
+	.info-divider {
+		opacity: 0.4;
+	}
+
+	.info-hint {
+		opacity: 0.6;
+	}
+
+	/* Help content */
+	.help-content {
+		padding: 1rem;
+		display: flex;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.help-section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.help-title {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem;
+		font-weight: 600;
+		color: var(--status-cyan);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.25rem;
+	}
+
+	.help-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.8rem;
+		color: var(--text-secondary);
+	}
+
+	.help-row kbd {
+		background: var(--terminal-bg-dark);
+		border: 1px solid var(--terminal-border);
+		border-radius: 3px;
+		padding: 0.15rem 0.4rem;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+	}
+
+	.help-row code {
+		color: var(--status-purple);
+		font-size: 0.75rem;
+	}
+
+	/* Mobile adjustments */
+	@media (max-width: 720px) {
+		.terminal-bar {
+			padding: 1rem 0.75rem 0.75rem;
+		}
+
+		.terminal-input-wrapper {
+			padding: 0.6rem 0.75rem;
+		}
+
+		.terminal-input {
+			font-size: 16px; /* Prevent zoom on iOS */
+		}
+
+		.terminal-info {
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.info-hint {
+			width: 100%;
+			text-align: center;
+		}
+
+		.help-content {
+			flex-direction: column;
+			gap: 1rem;
+		}
+	}
+
+	/* Add bottom padding to body to account for fixed terminal */
+	body {
+		padding-bottom: 100px;
+	}
+</style>

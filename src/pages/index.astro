@@ -4,7 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Card from '../components/Card.astro';
-import Search from '../components/Search.astro';
+import TerminalInput from '../components/TerminalInput.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 // Get latest 3 posts from each category, sorted by most recent update
@@ -287,9 +287,6 @@ const ogImage = [...latestCode, ...latestLife, ...latestFood].find(post => post?
 					<span class="command">$ ls</span> ~/latest<span class="cursor-block"></span>
 				</h1>
 				<p class="hero-subtitle">Latest from Code, Life, and Recipes</p>
-
-				<!-- Search -->
-				<Search posts={allPosts} placeholder="Search all posts..." />
 			</section>
 
 			<!-- Category Columns -->
@@ -319,6 +316,7 @@ const ogImage = [...latestCode, ...latestLife, ...latestFood].find(post => post?
 			</section>
 		</main>
 		<Footer />
+		<TerminalInput posts={allPosts} />
 
 		<!-- Cursor Glow Script -->
 		<script>
