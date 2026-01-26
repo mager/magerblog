@@ -6,6 +6,7 @@ updatedDate: "2025-12-25"
 description: "A practical guide to building two-stage AI recommendations: use embeddings for fast retrieval, then small LLMs like Gemma 3 for natural language explanations. The real skill? Curating context, not writing algorithms."
 category: "code"
 tags: ["AI", "Machine Learning"]
+keyword: "AI agents"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNRO_l1rRTXPq8oFH_QgGdPOqIDMJWyPDO2NWy8sJytTGpuQzhTcEqk5cv-1N-dFZxMCUTNFeqwXq0vzHm7PrE-EicraqoKOQ3wZMlSOWn_ScXXvDda9P6tKZGbtamsYT_JsIfSj_nmofuphTgt9AQPUA=w2320-h1520-s-no-gm"
 ---
 

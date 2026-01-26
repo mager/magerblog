@@ -4,6 +4,7 @@ description: "A quick and flavorful green curry with chicken and broccoli served
 pubDate: "2026-01-24"
 updatedDate: "2026-01-25"
 category: "food"
+keyword: "green curry"
 prepTime: 20
 cookTime: 30
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMTshbe9D9YvocviWm7ga0iq5NkbwKJVisn6eFTD5gDWwigRxbUHoI9BKlsAtVujpZRFuNpBCDqlEDAeqmc5Ztl3tq1h4Vhv51gUVks6rONZJJzKtUxj1U6Q9ZqsEI1WIfe95JUb-raJndFR69ueWVctg=w2026-h1520-s-no-gm"

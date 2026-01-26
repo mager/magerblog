@@ -17,6 +17,7 @@ const blog = defineCollection({
 		category: z.string().optional(),
 		tags: z.array(z.string()).optional(),
 		draft: z.boolean().optional(),
+		keyword: z.string().optional(), // Short 1-2 word phrase for hero cycling (e.g., "green curry", "Sicily", "AI agents")
 	}),
 });
 

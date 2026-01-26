@@ -13,16 +13,22 @@ interface Props {
 
 const { featuredCode, featuredLife, featuredRecipe, codePosts, lifePosts, recipePosts } = Astro.props;
 
-// Extract a short descriptive phrase from posts
+// Get keyword - use frontmatter field if set, otherwise extract smartly from title
 function getKeyword(post: CollectionEntry<'blog'>): string {
-	const title = post.data.title;
-	// Remove common filler words and create a concise phrase
-	const cleaned = title
-		.replace(/^(Building an?|My|The|How to|A Guide to)\s+/i, '')
-		.replace(/\s+(with|using|in|on|for|from).*$/i, '');
+	// Use explicit keyword if provided
+	if (post.data.keyword) {
+		return post.data.keyword;
+	}
 
-	// Keep it reasonably short but descriptive (3-4 words max)
-	const words = cleaned.split(' ').slice(0, 4);
+	// Fallback: extract 1-2 punchy words from title
+	const title = post.data.title;
+	const cleaned = title
+		.replace(/^(Building an?|My|The|How to|A Guide to|Visit to)\s+/i, '')
+		.replace(/,.*$/, '') // Remove everything after comma
+		.replace(/\s+(with|using|in|on|for|from|and).*$/i, '');
+
+	// Take just first 1-2 words
+	const words = cleaned.split(' ').slice(0, 2);
 	return words.join(' ').toLowerCase();
 }
 
