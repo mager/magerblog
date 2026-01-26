@@ -13,18 +13,17 @@ interface Props {
 
 const { featuredCode, featuredLife, featuredRecipe, codePosts, lifePosts, recipePosts } = Astro.props;
 
-// Extract keywords from posts - use first tag or create from title
+// Extract a short descriptive phrase from posts
 function getKeyword(post: CollectionEntry<'blog'>): string {
-	// Use first tag if available
-	if (post.data.tags && post.data.tags.length > 0) {
-		return post.data.tags[0].toLowerCase();
-	}
-	// Otherwise extract first 1-2 meaningful words from title
 	const title = post.data.title;
-	const words = title.split(' ').filter(w =>
-		!['a', 'an', 'the', 'my', 'with', 'and', 'or', 'to', 'in', 'on', 'for'].includes(w.toLowerCase())
-	);
-	return words.slice(0, 2).join(' ').toLowerCase();
+	// Remove common filler words and create a concise phrase
+	const cleaned = title
+		.replace(/^(Building an?|My|The|How to|A Guide to)\s+/i, '')
+		.replace(/\s+(with|using|in|on|for|from).*$/i, '');
+
+	// Keep it reasonably short but descriptive (3-4 words max)
+	const words = cleaned.split(' ').slice(0, 4);
+	return words.join(' ').toLowerCase();
 }
 
 // Build keyword data for cycling - pick a few from each category
@@ -54,8 +53,9 @@ const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeyw
 	<!-- Hero Header -->
 	<div class="hero-header">
 		<h1 class="hero-headline headline-display">
-			Where <a href="#" class="word-cycle word-left" id="word-left">AI</a><br />
-			meets <a href="#" class="word-cycle word-right" id="word-right">green curry</a>.
+			From <a href="#" class="word-cycle word-one" id="word-one">AI recommendations</a><br />
+			to <a href="#" class="word-cycle word-two" id="word-two">Sicily</a><br />
+			to <a href="#" class="word-cycle word-three" id="word-three">green curry</a>.
 		</h1>
 		<p class="hero-sub">Code, life, and recipes from Chicago.</p>
 	</div>
@@ -141,87 +141,85 @@ const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeyw
 </section>
 
 <script define:vars={{ codeKeywords, lifeKeywords, recipeKeywords }}>
-	// Build pairs: always two different categories
-	const pairs = [];
+	// Build triplets with rotating category order
+	const triplets = [];
 
-	// Code + Recipe pairs
+	// Order 1: Code → Life → Recipe
 	codeKeywords.forEach((code, i) => {
-		const recipe = recipeKeywords[i % recipeKeywords.length];
-		pairs.push({
-			left: code.word,
-			leftSlug: code.slug,
-			leftColor: 'purple',
-			right: recipe.word,
-			rightSlug: recipe.slug,
-			rightColor: 'orange'
-		});
-	});
-
-	// Recipe + Life pairs
-	recipeKeywords.forEach((recipe, i) => {
 		const life = lifeKeywords[i % lifeKeywords.length];
-		pairs.push({
-			left: recipe.word,
-			leftSlug: recipe.slug,
-			leftColor: 'orange',
-			right: life.word,
-			rightSlug: life.slug,
-			rightColor: 'green'
+		const recipe = recipeKeywords[i % recipeKeywords.length];
+		triplets.push({
+			one: { word: code.word, slug: code.slug, color: 'purple' },
+			two: { word: life.word, slug: life.slug, color: 'green' },
+			three: { word: recipe.word, slug: recipe.slug, color: 'orange' }
 		});
 	});
 
-	// Life + Code pairs
-	lifeKeywords.forEach((life, i) => {
+	// Order 2: Recipe → Code → Life
+	recipeKeywords.forEach((recipe, i) => {
 		const code = codeKeywords[i % codeKeywords.length];
-		pairs.push({
-			left: life.word,
-			leftSlug: life.slug,
-			leftColor: 'green',
-			right: code.word,
-			rightSlug: code.slug,
-			rightColor: 'purple'
+		const life = lifeKeywords[i % lifeKeywords.length];
+		triplets.push({
+			one: { word: recipe.word, slug: recipe.slug, color: 'orange' },
+			two: { word: code.word, slug: code.slug, color: 'purple' },
+			three: { word: life.word, slug: life.slug, color: 'green' }
+		});
+	});
+
+	// Order 3: Life → Recipe → Code
+	lifeKeywords.forEach((life, i) => {
+		const recipe = recipeKeywords[i % recipeKeywords.length];
+		const code = codeKeywords[i % codeKeywords.length];
+		triplets.push({
+			one: { word: life.word, slug: life.slug, color: 'green' },
+			two: { word: recipe.word, slug: recipe.slug, color: 'orange' },
+			three: { word: code.word, slug: code.slug, color: 'purple' }
 		});
 	});
 
 	let currentIndex = 0;
-	const wordLeft = document.getElementById('word-left');
-	const wordRight = document.getElementById('word-right');
+	const wordOne = document.getElementById('word-one');
+	const wordTwo = document.getElementById('word-two');
+	const wordThree = document.getElementById('word-three');
 
-	function setColors(leftColor, rightColor) {
-		wordLeft.className = `word-cycle word-left text-glow-${leftColor}`;
-		wordRight.className = `word-cycle word-right text-glow-${rightColor}`;
-	}
+	function updateTriplet(triplet) {
+		wordOne.textContent = triplet.one.word;
+		wordOne.href = `/blog/${triplet.one.slug}/`;
+		wordOne.className = `word-cycle word-one text-glow-${triplet.one.color}`;
 
-	function updateWords(pair) {
-		wordLeft.textContent = pair.left;
-		wordLeft.href = `/blog/${pair.leftSlug}/`;
-		wordRight.textContent = pair.right;
-		wordRight.href = `/blog/${pair.rightSlug}/`;
-		setColors(pair.leftColor, pair.rightColor);
+		wordTwo.textContent = triplet.two.word;
+		wordTwo.href = `/blog/${triplet.two.slug}/`;
+		wordTwo.className = `word-cycle word-two text-glow-${triplet.two.color}`;
+
+		wordThree.textContent = triplet.three.word;
+		wordThree.href = `/blog/${triplet.three.slug}/`;
+		wordThree.className = `word-cycle word-three text-glow-${triplet.three.color}`;
 	}
 
 	function cycleWords() {
 		// Fade out
-		wordLeft.classList.add('fade-out');
-		wordRight.classList.add('fade-out');
+		wordOne.classList.add('fade-out');
+		wordTwo.classList.add('fade-out');
+		wordThree.classList.add('fade-out');
 
 		setTimeout(() => {
-			currentIndex = (currentIndex + 1) % pairs.length;
-			updateWords(pairs[currentIndex]);
+			currentIndex = (currentIndex + 1) % triplets.length;
+			updateTriplet(triplets[currentIndex]);
 
 			// Fade in
-			wordLeft.classList.remove('fade-out');
-			wordRight.classList.remove('fade-out');
+			wordOne.classList.remove('fade-out');
+			wordTwo.classList.remove('fade-out');
+			wordThree.classList.remove('fade-out');
 		}, 400);
 	}
 
 	// Set initial state
-	if (pairs.length > 0) {
-		updateWords(pairs[0]);
+	if (triplets.length > 0) {
+		updateTriplet(triplets[0]);
 	}
 
-	// Cycle every 3.5 seconds
-	setInterval(cycleWords, 3500);
+	// Cycle every 4 seconds (slightly longer for 3 items to read)
+	setInterval(cycleWords, 4000);
 </script>
 
 <style>
@@ -276,15 +274,15 @@ const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeyw
 		transform: translateY(-8px);
 	}
 
-	.word-left.text-glow-purple, .word-right.text-glow-purple {
+	.word-cycle.text-glow-purple {
 		color: #a855f7;
 		text-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
 	}
-	.word-left.text-glow-green, .word-right.text-glow-green {
+	.word-cycle.text-glow-green {
 		color: #22c55e;
 		text-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
 	}
-	.word-left.text-glow-orange, .word-right.text-glow-orange {
+	.word-cycle.text-glow-orange {
 		color: #f97316;
 		text-shadow: 0 0 40px rgba(249, 115, 22, 0.5);
 	}
