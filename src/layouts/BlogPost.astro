@@ -11,7 +11,7 @@ import TerminalInput from '../components/TerminalInput.astro';
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 // We are now reading prepTime and cookTime from the frontmatter props!
-const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category, tags, postId, draft } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, prepTime, cookTime, category, tags, postId, draft, recipeLayout } = Astro.props;
 
 // Prepend [DRAFT] to title if draft
 const displayTitle = draft ? `[DRAFT] ${title}` : title;
@@ -493,6 +493,53 @@ const categoryBadge = getCategoryBadge(category);
 				}
 			}
 
+			/* Compact Recipe Layout */
+			body[data-recipe-layout="compact"] .prose {
+				max-width: 1400px;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: start;
+			}
+
+			body[data-recipe-layout="compact"] .prose .recipe-meta {
+				grid-column: 1 / -1;
+			}
+
+			body[data-recipe-layout="compact"] .prose .recipe-text {
+				grid-column: 1;
+			}
+
+			body[data-recipe-layout="compact"] .prose .recipe-images {
+				grid-column: 2;
+				position: sticky;
+				top: 100px;
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			body[data-recipe-layout="compact"] .prose .recipe-images img {
+				margin: 0;
+				width: 100%;
+			}
+
+			@media (max-width: 900px) {
+				body[data-recipe-layout="compact"] .prose {
+					display: block;
+					max-width: 100ch;
+				}
+
+				body[data-recipe-layout="compact"] .prose .recipe-images {
+					position: static;
+					margin-top: 2rem;
+				}
+
+				body[data-recipe-layout="compact"] .prose .recipe-images img {
+					margin: 1rem auto;
+				}
+			}
+
 		/* Article Footer Section */
 		.article-footer {
 			max-width: 100ch;
@@ -519,7 +566,6 @@ const categoryBadge = getCategoryBadge(category);
 		.article-meta {
 			margin-bottom: 3rem;
 			padding-top: 2rem;
-			border-top: 1px solid var(--text-muted);
 		}
 
 		.meta-section h3 {
@@ -695,7 +741,7 @@ const categoryBadge = getCategoryBadge(category);
 		</style>
 	</head>
 
-	<body data-category={category?.toLowerCase() || undefined}>
+	<body data-category={category?.toLowerCase() || undefined} data-recipe-layout={recipeLayout || undefined}>
 		<Header activeCategory={categoryName || undefined} />
 		<div class="sticky-header">
 			<div class="sticky-content">

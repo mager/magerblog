@@ -18,6 +18,7 @@ const blog = defineCollection({
 		tags: z.array(z.string()).optional(),
 		draft: z.boolean().optional(),
 		keyword: z.string().optional(), // Short 1-2 word phrase for hero cycling (e.g., "green curry", "Sicily", "AI agents")
+		recipeLayout: z.enum(['default', 'compact']).optional(), // Compact layout shows images alongside text on desktop
 	}),
 });
 
