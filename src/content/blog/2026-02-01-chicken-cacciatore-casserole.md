@@ -23,22 +23,26 @@ This casserole takes all the classic flavors of chicken cacciatore and turns it 
 
 **Everything Else**
 
-- 1 rotisserie chicken, meat picked and shredded (about 4 cups)
+- 1 lb fusilli pasta
+- 1 rotisserie chicken, mostly dark meat, picked and shredded (about 4 cups)
+- Dash of Calabrian chiles
 - 1 can (28 oz) San Marzano crushed tomatoes
 - 1 medium yellow onion, diced
 - 1 green bell pepper, diced
 - 8 oz mushrooms, sliced
-- 2 cups shredded mozzarella cheese
-- 2 tablespoons olive oil
+- 8 oz shredded mozzarella cheese
+- 8 oz fresh mozzarella, sliced into discs
+- 2 tablespoons olive oil, plus more for drizzling
+- Fresh parsley and basil, chopped, for topping
 
 #### Instructions
 
-Preheat oven to 375°F (190°C). Mix the spice blend ingredients together and stir into the crushed tomatoes.
+Par-boil the fusilli until just shy of al dente, then drain and set aside. Mix the spice blend ingredients together and stir into the crushed tomatoes.
 
-Heat olive oil in a large skillet over medium-high heat. Add the onion, green pepper, and mushrooms and cook until softened and the mushrooms have released their liquid, about 8-10 minutes.
+Heat olive oil in a large skillet over medium-high heat. Add the onion, green pepper, and mushrooms and cook until softened and the mushrooms have released their liquid, about 8-10 minutes. Add the seasoned tomatoes and a dash of Calabrian chiles for a kick, then let the sauce reduce.
 
-Spread half of the seasoned tomatoes on the bottom of a 9x13 baking dish. Layer the shredded chicken evenly over the sauce. Top with the sautéed vegetables. Pour the remaining tomatoes over everything. Finish with an even layer of mozzarella cheese.
+Stir the par-boiled fusilli, shredded rotisserie chicken, and shredded mozzarella into the reduced sauce. Transfer everything to a 9x13 casserole dish. Lay the fresh mozzarella discs across the top.
 
-Bake for 35-40 minutes, until the cheese is golden and bubbly. Let rest for 5 minutes before serving.
+Bake at 350°F convection (or 375°F regular) covered for 15 minutes to trap the steam and finish the pasta while the shredded cheese melts into the sauce. Remove the cover, drizzle olive oil over the top, and bake uncovered for another 20 minutes until the mozzarella discs are melted, bubbling, and showing golden-brown toasted spots with a crispy edge.
 
-Serve over pasta, with crusty bread, or on its own for a lower-carb option.
+Let rest for 5 minutes, then top with chopped fresh parsley and basil before serving.
