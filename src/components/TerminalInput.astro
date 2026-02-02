@@ -7,678 +7,158 @@ interface Props {
 
 const { posts } = Astro.props;
 
-// Prepare search data
 const searchData = posts.map(post => ({
 	title: post.data.title,
-	description: post.data.description,
-	category: post.data.category,
 	slug: post.id,
-	tags: post.data.tags || [],
-	heroImage: post.data.heroImage || null,
+	category: post.data.category,
 }));
-
-// Stats for the info line
-const totalPosts = posts.length;
-const codeCount = posts.filter(p => p.data.category === 'code').length;
-const lifeCount = posts.filter(p => p.data.category === 'life').length;
-const foodCount = posts.filter(p => p.data.category === 'food').length;
 ---
 
-<!-- Backdrop for modal mode -->
-<div class="palette-backdrop" id="palette-backdrop" hidden></div>
-
-<div class="command-palette" id="command-palette">
-	<div class="palette-container">
-		<div class="palette-input-wrapper">
-			<span class="palette-icon">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<circle cx="11" cy="11" r="8"/>
-					<path d="m21 21-4.35-4.35"/>
-				</svg>
-			</span>
-			<input
-				type="text"
-				class="palette-input"
-				placeholder="Search posts, jump to pages..."
-				aria-label="Command palette"
-				autocomplete="off"
-				id="palette-search"
-			/>
-			<div class="palette-shortcuts">
-				<kbd class="shortcut-key">
-					<span class="kbd-cmd">⌘</span>K
-				</kbd>
-			</div>
-		</div>
-		<div class="palette-results" id="palette-results" hidden></div>
-		<div class="palette-footer">
-			<div class="footer-stats">
-				<span class="stat-item">
-					<span class="stat-dot purple"></span>
-					<span class="stat-count">{codeCount}</span>
-				</span>
-				<span class="stat-item">
-					<span class="stat-dot green"></span>
-					<span class="stat-count">{lifeCount}</span>
-				</span>
-				<span class="stat-item">
-					<span class="stat-dot orange"></span>
-					<span class="stat-count">{foodCount}</span>
-				</span>
-			</div>
-			<div class="footer-hints">
-				<span><kbd>↑↓</kbd> navigate</span>
-				<span><kbd>↵</kbd> select</span>
-				<span><kbd>esc</kbd> close</span>
-			</div>
-		</div>
+<div class="search-bar">
+	<div class="search-wrapper">
+		<svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+			<circle cx="11" cy="11" r="8"/>
+			<path d="m21 21-4.35-4.35"/>
+		</svg>
+		<input
+			type="text"
+			class="search-input"
+			placeholder="Search posts..."
+			id="search-input"
+		/>
 	</div>
+	<div class="search-results" id="search-results" hidden></div>
 </div>
 
 <script define:vars={{ searchData }}>
-	const palette = document.getElementById('command-palette');
-	const backdrop = document.getElementById('palette-backdrop');
-	const input = document.getElementById('palette-search');
-	const results = document.getElementById('palette-results');
+	const input = document.getElementById('search-input');
+	const results = document.getElementById('search-results');
 
-	let isModalMode = false;
-
-	const categoryConfig = {
-		code: { color: 'var(--status-purple)', label: '~/code', icon: '$' },
-		life: { color: 'var(--status-green)', label: '~/life', icon: '~' },
-		food: { color: 'var(--status-orange)', label: '~/recipes', icon: '#' },
+	const colors = {
+		code: 'var(--status-purple)',
+		life: 'var(--status-green)',
+		food: 'var(--status-orange)',
 	};
 
-	// Quick commands
-	const commands = [
-		{ type: 'command', label: 'Go to Code', action: () => window.location.href = '/code/', icon: '$', color: 'purple' },
-		{ type: 'command', label: 'Go to Life', action: () => window.location.href = '/life/', icon: '~', color: 'green' },
-		{ type: 'command', label: 'Go to Recipes', action: () => window.location.href = '/recipes/', icon: '#', color: 'orange' },
-		{ type: 'command', label: 'Go to About', action: () => window.location.href = '/about/', icon: '?', color: 'cyan' },
-		{ type: 'command', label: 'Random Post', action: () => {
-			const randomPost = searchData[Math.floor(Math.random() * searchData.length)];
-			window.location.href = `/blog/${randomPost.slug}/`;
-		}, icon: '⚄', color: 'purple' },
-	];
-
-	const helpContent = `
-		<div class="help-content">
-			<div class="help-section">
-				<span class="help-title">Search</span>
-				<div class="help-row"><code>code:</code> <span>code posts only</span></div>
-				<div class="help-row"><code>life:</code> <span>life posts only</span></div>
-				<div class="help-row"><code>food:</code> <span>recipes only</span></div>
-			</div>
-			<div class="help-section">
-				<span class="help-title">Quick Jump</span>
-				<div class="help-row"><code>></code> <span>show commands</span></div>
-				<div class="help-row"><code>?</code> <span>show this help</span></div>
-			</div>
-		</div>
-	`;
-
-	function escapeHtml(text) {
-		const div = document.createElement('div');
-		div.textContent = text;
-		return div.innerHTML;
-	}
-
-	function highlightMatch(text, query) {
-		if (!query) return escapeHtml(text);
-		const escaped = escapeHtml(text);
-		const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-		return escaped.replace(regex, '<mark>$1</mark>');
-	}
-
-	function openModal() {
-		isModalMode = true;
-		palette.classList.add('modal-mode');
-		backdrop.hidden = false;
-		input.focus();
-		document.body.style.overflow = 'hidden';
-	}
-
-	function closeModal() {
-		isModalMode = false;
-		palette.classList.remove('modal-mode');
-		backdrop.hidden = true;
-		input.value = '';
-		results.hidden = true;
-		input.blur();
-		document.body.style.overflow = '';
-	}
-
 	function search(query) {
-		// Show help
-		if (query === '?') {
-			results.innerHTML = helpContent;
-			results.hidden = false;
-			return;
-		}
-
-		// Show commands
-		if (query === '>' || query.startsWith('>')) {
-			const cmdQuery = query.slice(1).trim().toLowerCase();
-			const filteredCmds = commands.filter(cmd =>
-				cmd.label.toLowerCase().includes(cmdQuery)
-			);
-			renderCommands(filteredCmds);
-			return;
-		}
-
 		if (!query || query.length < 2) {
 			results.hidden = true;
 			return;
 		}
 
-		// Check for category filter
-		let filteredData = searchData;
-		let searchQuery = query;
+		const q = query.toLowerCase();
+		const matches = searchData
+			.filter(p => p.title.toLowerCase().includes(q))
+			.slice(0, 8);
 
-		if (query.startsWith('code:')) {
-			filteredData = searchData.filter(p => p.category === 'code');
-			searchQuery = query.slice(5).trim();
-		} else if (query.startsWith('life:')) {
-			filteredData = searchData.filter(p => p.category === 'life');
-			searchQuery = query.slice(5).trim();
-		} else if (query.startsWith('food:')) {
-			filteredData = searchData.filter(p => p.category === 'food');
-			searchQuery = query.slice(5).trim();
-		}
-
-		if (searchQuery.length < 2 && query.includes(':')) {
-			const matches = filteredData.slice(0, 10);
-			renderResults(matches, '');
-			return;
-		}
-
-		const q = searchQuery.toLowerCase();
-		const matches = filteredData.filter(post =>
-			post.title.toLowerCase().includes(q) ||
-			post.description.toLowerCase().includes(q) ||
-			post.tags.some(tag => tag.toLowerCase().includes(q))
-		).slice(0, 8);
-
-		renderResults(matches, searchQuery);
-	}
-
-	function renderCommands(cmds) {
-		if (cmds.length === 0) {
-			results.innerHTML = '<div class="no-results">No commands found</div>';
+		if (matches.length === 0) {
+			results.innerHTML = '<div class="no-results">No matches</div>';
 			results.hidden = false;
 			return;
 		}
 
-		results.innerHTML = cmds.map((cmd, i) => `
-			<div class="palette-result-item command-item" data-index="${i}" data-type="command" style="--item-color: var(--status-${cmd.color});">
-				<span class="result-icon">${cmd.icon}</span>
-				<span class="result-label">${cmd.label}</span>
-				<span class="result-type">Command</span>
-			</div>
+		results.innerHTML = matches.map(p => `
+			<a href="/blog/${p.slug}/" class="result-item" style="--c: ${colors[p.category]}">
+				${p.title}
+			</a>
 		`).join('');
 		results.hidden = false;
-
-		// Add click handlers
-		results.querySelectorAll('.command-item').forEach((item, i) => {
-			item.addEventListener('click', () => {
-				cmds[i].action();
-			});
-		});
 	}
 
-	function renderResults(matches, query) {
-		if (matches.length === 0) {
-			results.innerHTML = '<div class="no-results">No matches found</div>';
-			results.hidden = false;
-			return;
-		}
-
-		results.innerHTML = matches.map((post, i) => {
-			const config = categoryConfig[post.category] || categoryConfig.code;
-			return `
-				<a href="/blog/${post.slug}/" class="palette-result-item" data-index="${i}" style="--item-color: ${config.color};">
-					<span class="result-icon">${config.icon}</span>
-					<span class="result-title">${highlightMatch(post.title, query)}</span>
-					<span class="result-path">${config.label}</span>
-				</a>
-			`;
-		}).join('');
-		results.hidden = false;
-	}
-
-	let selectedIndex = -1;
-
-	function updateSelection() {
-		const items = results.querySelectorAll('.palette-result-item');
-		items.forEach((item, i) => {
-			item.classList.toggle('selected', i === selectedIndex);
-		});
-	}
-
-	input.addEventListener('input', (e) => {
-		selectedIndex = -1;
-		search(e.target.value.trim());
-	});
-
-	input.addEventListener('focus', () => {
-		if (!isModalMode) {
-			openModal();
-		}
-	});
-
-	input.addEventListener('keydown', (e) => {
-		const items = results.querySelectorAll('.palette-result-item');
-
-		if (e.key === 'ArrowDown') {
-			e.preventDefault();
-			if (items.length > 0) {
-				selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-				updateSelection();
-				items[selectedIndex]?.scrollIntoView({ block: 'nearest' });
-			}
-		} else if (e.key === 'ArrowUp') {
-			e.preventDefault();
-			if (selectedIndex > 0) {
-				selectedIndex--;
-				updateSelection();
-				items[selectedIndex]?.scrollIntoView({ block: 'nearest' });
-			} else if (selectedIndex === 0) {
-				selectedIndex = -1;
-				updateSelection();
-			}
-		} else if (e.key === 'Enter') {
-			e.preventDefault();
-			if (selectedIndex >= 0 && items[selectedIndex]) {
-				if (items[selectedIndex].dataset.type === 'command') {
-					items[selectedIndex].click();
-				} else {
-					window.location.href = items[selectedIndex].href;
-				}
-			}
-		} else if (e.key === 'Escape') {
-			closeModal();
-		}
-	});
-
-	// Global keyboard shortcut - ⌘K or Ctrl+K
-	document.addEventListener('keydown', (e) => {
-		if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-			e.preventDefault();
-			if (isModalMode) {
-				closeModal();
-			} else {
-				openModal();
-			}
-		}
-
-		// Also support / key when not in input
-		if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
-			e.preventDefault();
-			openModal();
-		}
-	});
-
-	// Click backdrop to close
-	backdrop.addEventListener('click', closeModal);
-
-	// Click outside palette to close (but not on palette itself)
+	input.addEventListener('input', (e) => search(e.target.value.trim()));
+	
 	document.addEventListener('click', (e) => {
-		if (isModalMode && !palette.contains(e.target) && e.target !== backdrop) {
-			closeModal();
-		}
+		if (!e.target.closest('.search-bar')) results.hidden = true;
 	});
 </script>
 
-<style is:global>
-	/* Backdrop */
-	.palette-backdrop {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.7);
-		backdrop-filter: blur(8px);
-		z-index: 998;
-		opacity: 0;
-		animation: backdropIn 0.2s ease forwards;
+<style>
+	.search-bar {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: var(--bg-primary);
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--terminal-border);
 	}
 
-	@keyframes backdropIn {
-		to { opacity: 1; }
+	.search-wrapper {
+		position: relative;
+		max-width: 600px;
+		margin: 0 auto;
 	}
 
-	/* Command Palette - Bottom Bar Mode */
-	.command-palette {
-		position: fixed;
-		bottom: 0;
+	.search-icon {
+		position: absolute;
+		left: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		color: var(--text-muted);
+		pointer-events: none;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: 0.875rem 1rem 0.875rem 3rem;
+		font-size: 1rem;
+		background: var(--terminal-bg-dark);
+		border: 2px solid var(--terminal-border);
+		border-radius: 8px;
+		color: var(--text-primary);
+		outline: none;
+		transition: all 0.2s;
+	}
+
+	.search-input:focus {
+		border-color: var(--status-cyan);
+		box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+	}
+
+	.search-results {
+		position: absolute;
+		top: calc(100% + 0.5rem);
 		left: 0;
 		right: 0;
-		z-index: 999;
-		background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 30%);
-		padding: 1.5rem 1rem 1rem;
-		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	/* Modal Mode */
-	.command-palette.modal-mode {
-		top: 0;
-		bottom: auto;
-		background: transparent;
-		padding: 15vh 1rem 0;
-		display: flex;
-		justify-content: center;
-	}
-
-	.command-palette.modal-mode .palette-container {
-		width: 600px;
-		max-width: 100%;
-		border-radius: 16px;
-		border: 1px solid rgba(88, 166, 255, 0.2);
-		background: rgba(13, 17, 23, 0.98);
-		backdrop-filter: blur(20px);
-		box-shadow:
-			0 25px 50px -12px rgba(0, 0, 0, 0.8),
-			0 0 0 1px rgba(255, 255, 255, 0.05),
-			0 0 80px -20px rgba(168, 85, 247, 0.3);
-		animation: paletteIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-		overflow: hidden;
-	}
-
-	@keyframes paletteIn {
-		from {
-			opacity: 0;
-			transform: scale(0.96) translateY(-10px);
-		}
-		to {
-			opacity: 1;
-			transform: scale(1) translateY(0);
-		}
-	}
-
-	.palette-container {
-		max-width: 700px;
-		margin: 0 auto;
-		position: relative;
-	}
-
-	/* Input Wrapper */
-	.palette-input-wrapper {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		background: var(--editor-bg);
-		border: 1px solid var(--terminal-border);
-		border-radius: 10px;
-		padding: 0.875rem 1rem;
-		transition: all 0.2s ease;
-	}
-
-	.modal-mode .palette-input-wrapper {
-		background: transparent;
-		border: none;
-		border-bottom: 1px solid var(--terminal-border);
-		border-radius: 0;
-		padding: 1rem 1.25rem;
-	}
-
-	.palette-input-wrapper:focus-within {
-		border-color: var(--status-purple);
-		box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
-	}
-
-	.modal-mode .palette-input-wrapper:focus-within {
-		border-color: var(--terminal-border);
-		box-shadow: none;
-	}
-
-	.palette-icon {
-		color: var(--text-muted);
-		display: flex;
-		align-items: center;
-	}
-
-	.palette-input {
-		flex: 1;
-		background: transparent;
-		border: none;
-		outline: none;
-		color: var(--text-primary);
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.95rem;
-	}
-
-	.palette-input::placeholder {
-		color: var(--text-muted);
-	}
-
-	.palette-shortcuts {
-		display: flex;
-		gap: 0.25rem;
-	}
-
-	.shortcut-key {
-		display: flex;
-		align-items: center;
-		gap: 0.15rem;
 		background: var(--terminal-bg-dark);
-		border: 1px solid var(--terminal-border);
-		border-radius: 6px;
-		padding: 0.25rem 0.5rem;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.7rem;
-		color: var(--text-muted);
-	}
-
-	.kbd-cmd {
-		font-size: 0.85rem;
-	}
-
-	/* Results */
-	.palette-results {
-		max-height: 50vh;
+		border: 2px solid var(--terminal-border);
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+		max-height: 60vh;
 		overflow-y: auto;
 	}
 
-	.modal-mode .palette-results {
-		border-bottom: 1px solid var(--terminal-border);
-	}
-
-	.palette-result-item {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.875rem 1.25rem;
-		text-decoration: none;
+	.result-item {
+		display: block;
+		padding: 0.875rem 1rem;
 		color: var(--text-primary);
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.9rem;
-		border-bottom: 1px solid var(--terminal-border);
-		transition: all 0.15s ease;
-		cursor: pointer;
+		text-decoration: none;
+		border-left: 3px solid var(--c);
+		border-bottom: 1px solid rgba(255,255,255,0.05);
+		transition: background 0.15s;
 	}
 
-	.palette-result-item:last-child {
+	.result-item:last-child {
 		border-bottom: none;
 	}
 
-	.palette-result-item:hover,
-	.palette-result-item.selected {
-		background: rgba(168, 85, 247, 0.08);
-	}
-
-	.palette-result-item.selected {
-		border-left: 2px solid var(--item-color, var(--status-purple));
-		padding-left: calc(1.25rem - 2px);
-	}
-
-	.result-icon {
-		color: var(--item-color, var(--status-purple));
-		font-weight: 700;
-		font-size: 0.9rem;
-		width: 1.25rem;
-		text-align: center;
-	}
-
-	.result-title {
-		flex: 1;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.result-path,
-	.result-type {
-		font-size: 0.75rem;
-		color: var(--text-muted);
-	}
-
-	.result-label {
-		flex: 1;
-	}
-
-	.palette-result-item mark {
-		background: rgba(168, 85, 247, 0.3);
-		color: var(--purple);
-		border-radius: 2px;
-		padding: 0 3px;
+	.result-item:hover {
+		background: rgba(88, 166, 255, 0.1);
 	}
 
 	.no-results {
-		padding: 1.5rem;
+		padding: 1rem;
 		color: var(--text-muted);
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.9rem;
 		text-align: center;
 	}
 
-	/* Footer */
-	.palette-footer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.75rem 1rem;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.7rem;
-		color: var(--text-muted);
-		background: rgba(0, 0, 0, 0.2);
-	}
-
-	.modal-mode .palette-footer {
-		background: rgba(0, 0, 0, 0.3);
-		border-radius: 0 0 16px 16px;
-	}
-
-	.footer-stats {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.stat-item {
-		display: flex;
-		align-items: center;
-		gap: 0.3rem;
-	}
-
-	.stat-dot {
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-	}
-
-	.stat-dot.purple { background: var(--status-purple); }
-	.stat-dot.green { background: var(--status-green); }
-	.stat-dot.orange { background: var(--status-orange); }
-
-	.stat-count {
-		color: var(--text-secondary);
-		font-weight: 600;
-	}
-
-	.footer-hints {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.footer-hints kbd {
-		background: var(--terminal-bg-dark);
-		border: 1px solid var(--terminal-border);
-		border-radius: 3px;
-		padding: 0.1rem 0.3rem;
-		font-size: 0.65rem;
-		margin-right: 0.25rem;
-	}
-
-	/* Help Content */
-	.help-content {
-		padding: 1.25rem;
-		display: flex;
-		gap: 3rem;
-		flex-wrap: wrap;
-	}
-
-	.help-section {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.help-title {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.65rem;
-		font-weight: 600;
-		color: var(--status-purple);
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 0.25rem;
-	}
-
-	.help-row {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.85rem;
-		color: var(--text-secondary);
-	}
-
-	.help-row code {
-		color: var(--cyan);
-		background: var(--terminal-bg-dark);
-		padding: 0.15rem 0.4rem;
-		border-radius: 4px;
-		font-size: 0.8rem;
-	}
-
-	/* Mobile */
-	@media (max-width: 720px) {
-		.command-palette {
-			padding: 1rem 0.75rem 0.75rem;
+	@media (max-width: 640px) {
+		.search-bar {
+			padding: 0.75rem 1rem;
 		}
 
-		.command-palette.modal-mode {
-			padding: 10vh 0.75rem 0;
-		}
-
-		.palette-input-wrapper {
-			padding: 0.75rem;
-		}
-
-		.palette-input {
+		.search-input {
 			font-size: 16px;
 		}
-
-		.footer-hints {
-			display: none;
-		}
-
-		.help-content {
-			flex-direction: column;
-			gap: 1.5rem;
-		}
-	}
-
-	/* Add bottom padding to body for fixed palette */
-	body {
-		padding-bottom: 80px;
 	}
 </style>
