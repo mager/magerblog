@@ -122,41 +122,43 @@ const searchData = posts.map(post => ({
 		}
 	});
 
-	// Keyboard navigation
-	input.addEventListener('keydown', (e) => {
-		const items = results.querySelectorAll('.search-result-item');
-		const focused = results.querySelector('.search-result-item:focus');
+	// Keyboard navigation (desktop only)
+	if (!/iPhone|iPad|Android/i.test(navigator.userAgent)) {
+		input.addEventListener('keydown', (e) => {
+			const items = results.querySelectorAll('.search-result-item');
+			const focused = results.querySelector('.search-result-item:focus');
 
-		if (e.key === 'ArrowDown') {
-			e.preventDefault();
-			if (!focused && items.length > 0) {
-				items[0].focus();
-			} else if (focused) {
-				const index = Array.from(items).indexOf(focused);
-				if (index < items.length - 1) items[index + 1].focus();
-			}
-		} else if (e.key === 'ArrowUp') {
-			e.preventDefault();
-			if (focused) {
-				const index = Array.from(items).indexOf(focused);
-				if (index > 0) {
-					items[index - 1].focus();
-				} else {
-					input.focus();
+			if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				if (!focused && items.length > 0) {
+					items[0].focus();
+				} else if (focused) {
+					const index = Array.from(items).indexOf(focused);
+					if (index < items.length - 1) items[index + 1].focus();
 				}
+			} else if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				if (focused) {
+					const index = Array.from(items).indexOf(focused);
+					if (index > 0) {
+						items[index - 1].focus();
+					} else {
+						input.focus();
+					}
+				}
+			} else if (e.key === 'Escape') {
+				results.hidden = true;
+				input.blur();
 			}
-		} else if (e.key === 'Escape') {
-			results.hidden = true;
-			input.blur();
-		}
-	});
+		});
 
-	// Re-focus input when typing while result is focused
-	results.addEventListener('keydown', (e) => {
-		if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
-			input.focus();
-		}
-	});
+		// Re-focus input when typing while result is focused
+		results.addEventListener('keydown', (e) => {
+			if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+				input.focus();
+			}
+		});
+	}
 </script>
 
 <style is:global>
@@ -310,29 +312,47 @@ const searchData = posts.map(post => ({
 		.search-container {
 			max-width: 100%;
 			margin: 1.5rem auto 2rem;
+			padding: 0 1rem;
 		}
 
 		.search-input {
 			font-size: 16px; /* Prevents zoom on iOS */
+			font-family: system-ui, -apple-system, sans-serif;
+			padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+		}
+
+		.search-icon {
+			width: 16px;
+			height: 16px;
 		}
 
 		.search-results {
-			max-height: 60vh;
+			max-height: 50vh;
+			position: fixed;
+			top: auto;
+			left: 1rem;
+			right: 1rem;
+			bottom: auto;
 		}
 
 		.search-result-item {
-			padding: 0.5rem 0.75rem;
-			font-size: 0.85rem;
-			gap: 0.5rem;
+			padding: 0.75rem 0.75rem;
+			font-size: 1rem;
+			font-family: system-ui, -apple-system, sans-serif;
+			gap: 0.75rem;
 		}
 
 		.search-result-thumb {
-			width: 32px;
-			height: 32px;
-			min-width: 32px;
-			max-width: 32px;
-			min-height: 32px;
-			max-height: 32px;
+			width: 40px;
+			height: 40px;
+			min-width: 40px;
+			max-width: 40px;
+			min-height: 40px;
+			max-height: 40px;
+		}
+
+		.search-result-title {
+			font-weight: 400;
 		}
 	}
 </style>
