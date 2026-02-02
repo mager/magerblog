@@ -3,6 +3,7 @@ title: "Chicken Cacciatore Casserole"
 description: "A cozy Italian-American casserole featuring shredded rotisserie chicken, San Marzano tomatoes, peppers, and mushrooms topped with melted mozzarella."
 pubDate: "Feb 1 2026"
 category: "food"
+image: "https://lh3.googleusercontent.com/pw/AP1GczP5PR1KwzOYzIy-xUyhN3j0GEZtcYhWEoqgHjicgoXZRmTWhgv_p8Ng8AOXEtRDQUGR0XQEzbxXS27F0FR2prafinvHyxIHg1Ae7jVBE6qL3olrU2XR40EOs-9aGH9xPBTQCHqz3-Vp7BfRDlITViFXcA=w2030-h1522-s-no-gm"
 prepTime: 20
 cookTime: 45
 ---
