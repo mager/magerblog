@@ -50,3 +50,5 @@ Stir the par-boiled fusilli, shredded rotisserie chicken, and shredded mozzarell
 Bake at 350°F convection (or 375°F regular) covered for 15 minutes to trap the steam and finish the pasta while the shredded cheese melts into the sauce. Remove the cover, drizzle olive oil over the top, and bake uncovered for another 20 minutes until the mozzarella discs are melted, bubbling, and showing golden-brown toasted spots with a crispy edge.
 
 Let rest for 5 minutes, then top with chopped fresh parsley and basil before serving.
+
+![Final dish](https://lh3.googleusercontent.com/pw/AP1GczP5PR1KwzOYzIy-xUyhN3j0GEZtcYhWEoqgHjicgoXZRmTWhgv_p8Ng8AOXEtRDQUGR0XQEzbxXS27F0FR2prafinvHyxIHg1Ae7jVBE6qL3olrU2XR40EOs-9aGH9xPBTQCHqz3-Vp7BfRDlITViFXcA=w2030-h1522-s-no-gm)
