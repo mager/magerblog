@@ -5,12 +5,15 @@ description: "How I set up a hierarchical AI agent system where specialized sub-
 category: "code"
 tags: ["AI", "Agents", "OpenClaw"]
 keyword: "AI agents"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOyclwdveApYvSzyRLGL_u97lqI2MdRVOIOR_qkdh6iOO8IPoNlwXvDuzxXa61jNOD2efcOJwR4hOdug70lh9Fh5jB-ha55vh9gEjceTBgwdHxkssNhhu31daM70jKwvdkLj7gKw6oVkZTlPTz_4g__wg=w2322-h1522-s-no-gm"
 draft: true
 ---
 
 I've been playing with [OpenClaw](https://github.com/openclaw/openclaw), an open-source framework for running AI agents locally. What started as "let me try this AI assistant thing" turned into building a full multi-agent system where specialized agents handle different projects, all reporting to a principal agent.
 
 Here's how I set it up — and a peek inside the workspaces that give these agents their personalities.
+
+![The final setup — magerbot reporting the multi-agent system is ready](https://lh3.googleusercontent.com/pw/AP1GczOyclwdveApYvSzyRLGL_u97lqI2MdRVOIOR_qkdh6iOO8IPoNlwXvDuzxXa61jNOD2efcOJwR4hOdug70lh9Fh5jB-ha55vh9gEjceTBgwdHxkssNhhu31daM70jKwvdkLj7gKw6oVkZTlPTz_4g__wg=w2322-h1522-s-no-gm)
 
 ## Safety First: Setting Up OpenClaw Securely
 
@@ -27,6 +30,8 @@ My setup:
 4. **Fine-grained GitHub tokens only.** Never give an agent your main GitHub credentials. Create tokens scoped to specific repos with minimal permissions.
 
 The principle: compartmentalize. The agent gets its own sandbox, its own credentials, its own space to work. If you wouldn't give a junior developer root access on day one, don't give it to your agent either.
+
+For more on sandboxing options, check out the [OpenClaw sandboxing docs](https://docs.openclaw.ai/gateway/sandboxing).
 
 ## The Architecture: One Principal, Two Specialists
 
@@ -46,9 +51,11 @@ magerbot ⚡ (Principal Agent)
 
 When I ask magerbot to "write a blog post about X," it can delegate to magerblog-agent. When I need a feature in prxps, it spawns prxps-agent. The specialists do the work and report back.
 
+This is OpenClaw's [multi-agent routing](https://docs.openclaw.ai/concepts/multi-agent) in action — multiple isolated agents with separate workspaces and sessions, all managed by one gateway.
+
 ## The Secret Sauce: Workspace Files
 
-OpenClaw agents wake up fresh each session — no persistent memory by default. The magic is in the workspace files that define who they are and what they know.
+OpenClaw agents wake up fresh each session — no persistent memory by default. The magic is in the [workspace files](https://docs.openclaw.ai/concepts/agent-workspace) that define who they are and what they know.
 
 Every agent has these core files:
 
@@ -166,6 +173,8 @@ When I'm in a session with magerbot and say "add a dark mode toggle to prxps," h
 
 The agents share the same underlying model (Claude), but their workspace files give them completely different personalities and capabilities.
 
+You can configure per-agent tool restrictions and sandbox settings — see the [multi-agent sandbox docs](https://docs.openclaw.ai/multi-agent-sandbox-tools) for examples.
+
 ## The Operational Playbook
 
 The `AGENTS.md` file contains the operational instructions — what to do on first run, every session, and how to handle different situations:
@@ -192,7 +201,7 @@ You wake up fresh each session. These files are your continuity:
 Capture what matters. Decisions, context, things to remember.
 ```
 
-This creates a system where the agent maintains continuity across sessions without relying on any magic — just markdown files it reads and writes.
+This creates a system where the agent maintains continuity across sessions without relying on any magic — just markdown files it reads and writes. For more on memory patterns, see the [memory concepts doc](https://docs.openclaw.ai/concepts/memory).
 
 ## What I Learned
 
@@ -205,6 +214,8 @@ The multi-agent hierarchy also forces clarity. When you have to write down "this
 ## Try It Yourself
 
 OpenClaw is open source: [github.com/openclaw/openclaw](https://github.com/openclaw/openclaw)
+
+Start with the [getting started guide](https://docs.openclaw.ai/start/getting-started), or run `openclaw onboard` to use the setup wizard.
 
 Start with one agent. Write its SOUL.md. Give it an emoji. See what happens when you tell it who it is, instead of just what to do.
 
