@@ -266,50 +266,108 @@ const { activeCategory } = Astro.props;
 		height: 20px;
 	}
 
-	/* Mobile styles */
+	/* Mobile styles - Bottom Navigation */
 	@media (max-width: 720px) {
 		.site-header {
-			background: rgba(13, 17, 23, 0.95);
+			position: fixed;
+			top: auto;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(13, 17, 23, 0.98);
+			border-bottom: none;
+			border-top: 1px solid rgba(48, 54, 61, 0.8);
+			box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.4);
+			padding-bottom: env(safe-area-inset-bottom, 0);
+		}
+
+		/* Gradient line on top for mobile */
+		.site-header::before {
+			top: 0;
+			bottom: auto;
 		}
 
 		nav {
-			padding: 0.75rem 1rem;
-			flex-direction: column;
+			padding: 0.5rem 0.75rem;
+			flex-direction: row;
 			gap: 0;
 			align-items: center;
+			justify-content: space-around;
 		}
 
+		/* Hide logo on mobile bottom nav */
 		h2 {
-			width: 100%;
-			text-align: center;
-			padding: 0.5em 0;
-			border-bottom: 1px solid var(--terminal-border);
-			font-size: 1.2em;
+			display: none;
 		}
 
 		.nav-right {
 			width: 100%;
 			margin-left: 0;
-			justify-content: center;
-			padding: 0.5em 0;
+			justify-content: space-around;
+			padding: 0;
 		}
 
 		.internal-links {
-			justify-content: center;
-			flex-wrap: wrap;
+			width: 100%;
+			justify-content: space-around;
+			gap: 0;
 		}
 
+		/* Hide desktop social links - can add to About page */
 		.social-links {
 			display: none;
 		}
 
+		/* Mobile nav items - big touch targets */
 		nav a {
-			font-size: 0.8em;
-			padding: 0 0.5em;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-width: 64px;
+			min-height: 52px;
+			padding: 8px 12px;
+			font-size: 0.7rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			border-radius: 8px;
+			transition: all 0.2s ease;
 		}
 
-		.nav-icon {
+		nav a:hover,
+		nav a:active {
+			background: rgba(163, 113, 247, 0.15);
+		}
+
+		nav a.active {
+			background: rgba(163, 113, 247, 0.2);
+			color: var(--status-purple);
+		}
+
+		/* Remove underline effects on mobile */
+		nav a::after {
 			display: none;
+		}
+
+		/* Show nav icons on mobile - stacked above text */
+		.nav-icon {
+			display: block;
+			font-size: 1.25rem;
+			margin-right: 0;
+			margin-bottom: 2px;
+			color: var(--status-cyan);
+		}
+
+		nav a.active .nav-icon {
+			color: var(--status-purple);
+		}
+	}
+
+	/* Add body padding for fixed bottom nav */
+	@media (max-width: 720px) {
+		:global(body) {
+			padding-bottom: calc(70px + env(safe-area-inset-bottom, 0));
 		}
 	}
 </style>

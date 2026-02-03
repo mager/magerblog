@@ -316,6 +316,8 @@ hr {
 @media (max-width: 720px) {
 	body {
 		font-size: 15px;
+		/* Space for fixed bottom navigation */
+		padding-bottom: calc(70px + env(safe-area-inset-bottom, 0));
 	}
 
 	main {
