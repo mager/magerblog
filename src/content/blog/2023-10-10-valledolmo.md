@@ -6,7 +6,7 @@ updatedDate: "2023-10-10"
 description: "I had the incredible opportunity to explore a town in Sicily where my ancestors once resided and engage with the local officials."
 category: "life"
 tags: ["Travel", "Sicily", "Family"]
-keyword: "Sicily"
+keyword: "meeting ancestors in Sicily"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMd527-bGZqFEsvFDKwyXVZes1Q2Ph-OWATUiYgAUcG1ZuTs7Ut_FLLdOaCewIzVzK6MwMienm9urQbt7imTsc5xA2V3Yf4CZl4P-4BCCT5qVCIFH_0rIQTnIxXUhcVmTGHKTC4gM4cyQ0q-Drynuhn=w1186-h853-s-no-gm"
 ---
 

@@ -5,7 +5,7 @@ pubDate: "2022-11-11"
 description: "Our first foray into outdoor plants, flowers, and herbs in Chicago."
 category: "life"
 tags: ["Gardening", "Chicago", "Home"]
-keyword: "gardening"
+keyword: "newbie gardening"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMdyEJ_DTLacZ01hBiqhtLKUg77ZfW0o5tIbJTSbOshVJoexTRcONoDN8DAylXGLxN8JuE4iymLMmSXExImmYhrd4pkN5z2DnAYlXixSu1eSckOr7zrwu4UukDfH62d2Q14YoTdoj3FzHWgMR_OlU_WHA=w2376-h1714-s-no-gm"
 ---
 

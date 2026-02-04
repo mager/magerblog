@@ -4,6 +4,7 @@ title: "Green Chile Chicken Soup"
 pubDate: "2026-01-28"
 description: A slightly spicy white chile with green chiles, chicken, corn, and hominy.
 category: "food"
+keyword: "green chicken chile"
 tags: ["Chicken", "Chili", "Comfort Food"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm"
 prepTime: 30

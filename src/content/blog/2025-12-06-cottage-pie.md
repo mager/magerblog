@@ -4,6 +4,7 @@ title: "Cottage Pie"
 pubDate: "2025-12-06"
 description: A hearty cottage pie made with ground beef, following Alton Brown's method. Perfect comfort food for a cold day.
 category: "food"
+keyword: "cottage pie"
 tags: ["Comfort Food", "British", "Beef"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPAog72I_vM3GNc49AJ0EADf_ycCZfUGLbze6dxoadtJESVvw3qrE0QgoZxmGjO2583jI2usj_h9aXpU42hzHyFtUTl9akN-xrQbL3PW9ZSgTNSsErVoDY7PU_RhOsIfAbsBFbt1U-faYjY-IPUt0FLQg=w2026-h1520-s-no-gm"
 prepTime: 60
