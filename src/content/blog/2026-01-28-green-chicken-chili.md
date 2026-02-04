@@ -2,21 +2,26 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Green Chile Chicken Soup"
 pubDate: "2026-01-28"
-description: A slightly spicy white chile with green chiles, chicken, corn, and hominy.
+description: "A slightly spicy white chile with green chiles, chicken, corn, and hominy."
 category: "food"
 keyword: "green chicken chile"
+subcategory: "soup"
 tags: ["Chicken", "Chili", "Comfort Food"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm"
 prepTime: 30
 cookTime: 45
-recipeLayout: "compact"
 ---
 
-<div class="recipe-text">
+<div class="recipe-intro">
 
-#### Ingredients
+A hearty white chile loaded with green chiles, corn, hominy, and shredded rotisserie chicken. The spice blend is layered with cumin, coriander, and a touch of red chimayo pepper from a roadside store in New Mexico. Finished with lime and a mountain of cilantro.
 
-**Spices**
+</div>
+
+<div class="recipe-body">
+<div class="recipe-ingredients">
+
+#### Spices
 
 - 2 tsp ground cumin
 - 1 tsp ground coriander
@@ -28,41 +33,43 @@ recipeLayout: "compact"
 - 2 tsp kosher salt
 - A few shakes of ground black pepper
 - ⅛ tsp cayenne (optional)
-- 1 tsp red chimayo pepper (from a roadside store in New Mexico)
-- ½ tsp green chile powder (from a roadside store in New Mexico)
+- 1 tsp red chimayo pepper
+- ½ tsp green chile powder
 
-**Everything Else**
+#### Everything Else
 
 - 2 tablespoons olive or avocado oil
 - 1 tablespoon butter
 - 1 large yellow onion, chopped
-- 1 poblano or jalapeno pepper
+- 1 poblano or jalapeño pepper
 - 8 cloves garlic, roughly chopped
-- 1 15oz. can of sweet corn
-- 1 25oz can of white hominy
+- 1 (15 oz) can sweet corn
+- 1 (25 oz) can white hominy
 - 1 can mild green chiles
 - 1 full rotisserie chicken, picked and chopped
-- 64 oz. (8 cups) chicken stock
+- 64 oz (8 cups) chicken stock
 - 2 limes
 - 1 bushel of fresh cilantro
 - Shredded cheese, avocado slices, and chopped green onions for topping
 
-#### Instructions
+</div>
+
+<div class="recipe-instructions">
 
 Chop the onions, pepper, and garlic and set aside. Drain the hominy and corn. Mix the spices into a small bowl. Pick the chicken and chop the cilantro. Squeeze the limes into a small bowl.
 
-Sauté the onions for 10 mintutes with butter and avocado oil. Add the garlic, green chiles, and pepper for another 5 minutes then add the spice mix and stir. Add the hominy and corn for 2 minutes then add the chicken for another 2 minutes. Stir constantly to incoprorate the spices.
+Sauté the onions for 10 minutes with butter and avocado oil. Add the garlic, green chiles, and pepper for another 5 minutes, then add the spice mix and stir. Add the hominy and corn for 2 minutes, then add the chicken for another 2 minutes. Stir constantly to incorporate the spices.
 
 Add the broth and bring to a boil before turning down to low for 30 minutes. Stir every 5 minutes and add salt to taste. Add the lime juice and 3/4 of the cilantro.
 
 Serve immediately with sour cream, green onions, tortilla chips and/or garlic bread.
 
 </div>
+</div>
 
-<div class="recipe-images">
+<div class="recipe-gallery">
 
-![Soup](https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm)
-
-![Soup](https://lh3.googleusercontent.com/pw/AP1GczOblSjMKeRijJW0FGFlXI1bxYMHn4nbn4Ur-FuTOHlELSDsqLb4zaVPHQKyMjb3WtsDovj8pOucG5IkCeYW7JrHnvonf4bwQxCd-_s5XklEBhidWb2r8euIYyrJHqW8W8coYEdUcgcZ-kWMuDKRUIf7=w1600-h1200-s-no-gm)
+![Green chile chicken soup](https://lh3.googleusercontent.com/pw/AP1GczPrt287MMclCTKseRgULLggtpY5iaSm9kB3bk2MlYtSg2QzEyM9xZxxtkTQFgy-iEaLpg0CZlqkB7SIYd_L_BL4nBMA-cOVbivC8MO1vaZqo-PqTx9G8l8vxUMxJvNOKYtiNfr4xpQIO5LD4tvFmv5O=w1714-h1714-s-no-gm)
+![Serving bowl](https://lh3.googleusercontent.com/pw/AP1GczOblSjMKeRijJW0FGFlXI1bxYMHn4nbn4Ur-FuTOHlELSDsqLb4zaVPHQKyMjb3WtsDovj8pOucG5IkCeYW7JrHnvonf4bwQxCd-_s5XklEBhidWb2r8euIYyrJHqW8W8coYEdUcgcZ-kWMuDKRUIf7=w1600-h1200-s-no-gm)
 
 </div>

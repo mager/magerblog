@@ -1,0 +1,296 @@
+/* ============================================
+   COOKING THEME
+   Luxury food magazine aesthetic
+   Golden • Editorial • Warm • Elegant
+   ============================================ */
+
+/* ── Light Mode (Default) ── */
+html[data-cooking] {
+  --ck-bg: #FFFAF0;
+  --ck-bg-alt: #FFF5E6;
+  --ck-bg-card: #FFFFFF;
+  --ck-bg-surface: #FDF6EC;
+  --ck-bg-ingredients: #FBF5EA;
+  --ck-text: #1C1410;
+  --ck-text-secondary: #5C4D3C;
+  --ck-text-muted: #9C8B78;
+  --ck-gold: #B8860B;
+  --ck-gold-light: #DAA520;
+  --ck-gold-bright: #E8B94A;
+  --ck-gold-subtle: rgba(184, 134, 11, 0.08);
+  --ck-gold-glow: rgba(184, 134, 11, 0.15);
+  --ck-accent: #C8553D;
+  --ck-accent-light: #E07A5F;
+  --ck-border: #E8DCC8;
+  --ck-border-gold: rgba(184, 134, 11, 0.25);
+  --ck-shadow: 0 4px 20px rgba(60, 45, 30, 0.06);
+  --ck-shadow-lg: 0 12px 40px rgba(60, 45, 30, 0.1);
+  --ck-shadow-card: 0 2px 16px rgba(60, 45, 30, 0.06), 0 0 0 1px rgba(184, 134, 11, 0.06);
+  --ck-overlay-start: rgba(28, 20, 16, 0.0);
+  --ck-overlay-end: rgba(28, 20, 16, 0.65);
+  --ck-hero-text: #FFFFFF;
+  --ck-nav-bg: rgba(255, 250, 240, 0.92);
+  --ck-nav-border: rgba(232, 220, 200, 0.8);
+  --ck-badge-bg: rgba(184, 134, 11, 0.1);
+  --ck-badge-border: rgba(184, 134, 11, 0.2);
+  --ck-divider: #E0D4C0;
+  --ck-step-num: rgba(184, 134, 11, 0.12);
+  --ck-coming-soon-bg: rgba(156, 139, 120, 0.08);
+  --ck-coming-soon-border: rgba(156, 139, 120, 0.2);
+  --ck-coming-soon-text: #9C8B78;
+  --ck-img-border: rgba(184, 134, 11, 0.15);
+}
+
+/* ── Dark Mode ── */
+html[data-cooking][data-theme="dark"] {
+  --ck-bg: #0F0D0A;
+  --ck-bg-alt: #1A1610;
+  --ck-bg-card: #1E1A14;
+  --ck-bg-surface: #171310;
+  --ck-bg-ingredients: #1A1610;
+  --ck-text: #F0E8D8;
+  --ck-text-secondary: #B8A890;
+  --ck-text-muted: #6B5E4E;
+  --ck-gold: #DAA520;
+  --ck-gold-light: #E8C84A;
+  --ck-gold-bright: #FFD700;
+  --ck-gold-subtle: rgba(218, 165, 32, 0.06);
+  --ck-gold-glow: rgba(218, 165, 32, 0.12);
+  --ck-accent: #E8734A;
+  --ck-accent-light: #F09070;
+  --ck-border: #2E2820;
+  --ck-border-gold: rgba(218, 165, 32, 0.2);
+  --ck-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --ck-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --ck-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(218, 165, 32, 0.08);
+  --ck-overlay-start: rgba(15, 13, 10, 0.0);
+  --ck-overlay-end: rgba(15, 13, 10, 0.75);
+  --ck-hero-text: #F0E8D8;
+  --ck-nav-bg: rgba(15, 13, 10, 0.92);
+  --ck-nav-border: rgba(46, 40, 32, 0.8);
+  --ck-badge-bg: rgba(218, 165, 32, 0.1);
+  --ck-badge-border: rgba(218, 165, 32, 0.2);
+  --ck-divider: #2E2820;
+  --ck-step-num: rgba(218, 165, 32, 0.08);
+  --ck-coming-soon-bg: rgba(107, 94, 78, 0.1);
+  --ck-coming-soon-border: rgba(107, 94, 78, 0.2);
+  --ck-coming-soon-text: #6B5E4E;
+  --ck-img-border: rgba(218, 165, 32, 0.12);
+}
+
+/* ── Base Reset for Cooking Pages ── */
+html[data-cooking] body {
+  font-family: 'Lora', 'Georgia', serif;
+  background: var(--ck-bg);
+  color: var(--ck-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+html[data-cooking] *,
+html[data-cooking] *::before,
+html[data-cooking] *::after {
+  box-sizing: border-box;
+}
+
+html[data-cooking] main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Typography ── */
+html[data-cooking] h1,
+html[data-cooking] h2,
+html[data-cooking] h3 {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  color: var(--ck-text);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+html[data-cooking] h4,
+html[data-cooking] h5,
+html[data-cooking] h6 {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  color: var(--ck-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ── Links ── */
+html[data-cooking] a {
+  color: var(--ck-gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+html[data-cooking] a:hover {
+  color: var(--ck-gold-light);
+}
+
+/* ── Selection ── */
+html[data-cooking] ::selection {
+  background: rgba(184, 134, 11, 0.2);
+  color: var(--ck-text);
+}
+
+html[data-cooking][data-theme="dark"] ::selection {
+  background: rgba(218, 165, 32, 0.25);
+}
+
+/* ── Scrollbar ── */
+html[data-cooking] ::-webkit-scrollbar {
+  width: 6px;
+}
+
+html[data-cooking] ::-webkit-scrollbar-track {
+  background: var(--ck-bg);
+}
+
+html[data-cooking] ::-webkit-scrollbar-thumb {
+  background: var(--ck-border);
+  border-radius: 3px;
+}
+
+html[data-cooking] ::-webkit-scrollbar-thumb:hover {
+  background: var(--ck-gold);
+}
+
+/* ── Smooth Scroll ── */
+html[data-cooking] {
+  scroll-behavior: smooth;
+}
+
+/* ── Utility: Gold Ornament Divider ── */
+.ck-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  color: var(--ck-gold);
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.ck-ornament::before,
+.ck-ornament::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ck-gold), transparent);
+}
+
+/* ── Utility: Fade-in Animation ── */
+@keyframes ck-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ck-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ck-scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ck-animate {
+  animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ck-animate-delay-1 { animation-delay: 0.1s; }
+.ck-animate-delay-2 { animation-delay: 0.2s; }
+.ck-animate-delay-3 { animation-delay: 0.3s; }
+.ck-animate-delay-4 { animation-delay: 0.4s; }
+
+/* ── Utility: Gold Text ── */
+.ck-gold-text {
+  background: linear-gradient(135deg, var(--ck-gold) 0%, var(--ck-gold-bright) 50%, var(--ck-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Focus Styles ── */
+html[data-cooking] :focus-visible {
+  outline: 2px solid var(--ck-gold);
+  outline-offset: 2px;
+}
+
+/* ── Image defaults ── */
+html[data-cooking] img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Override global mobile padding (global.css adds bottom padding for main site's mobile nav) */
+@media (max-width: 720px) {
+  html[data-cooking] body {
+    padding-bottom: 0 !important;
+    font-size: 16px;
+  }
+}
+
+/* Override global heading font */
+html[data-cooking] h1,
+html[data-cooking] h2,
+html[data-cooking] h3,
+html[data-cooking] h4,
+html[data-cooking] h5,
+html[data-cooking] h6 {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+
+html[data-cooking] h4,
+html[data-cooking] h5,
+html[data-cooking] h6 {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
+/* Override global code styling for cooking pages */
+html[data-cooking] code {
+  background: var(--ck-bg-surface);
+  border: 1px solid var(--ck-border);
+  color: var(--ck-gold);
+}
+
+/* Override global blockquote */
+html[data-cooking] blockquote {
+  border-left: 3px solid var(--ck-gold);
+  background: var(--ck-bg-surface);
+  color: var(--ck-text-secondary);
+  font-style: italic;
+}
+
+/* Override global hr */
+html[data-cooking] hr {
+  border: none;
+  border-top: 1px solid var(--ck-divider);
+}

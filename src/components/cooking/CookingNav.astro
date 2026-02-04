@@ -1,0 +1,191 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<nav class="cooking-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">mager.co</a>
+
+    <a href="/cooking" class="nav-title">
+      <span class="nav-title-text">COOKING</span>
+    </a>
+
+    <div class="nav-actions">
+      <a href="/cooking" class="nav-back-link">All Recipes</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="nav-gold-line"></div>
+</nav>
+
+<style>
+  .cooking-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ck-nav-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid var(--ck-nav-border);
+    transition: background-color 0.4s ease;
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ck-text-muted) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease !important;
+    white-space: nowrap;
+  }
+
+  .nav-logo:hover {
+    color: var(--ck-text) !important;
+  }
+
+  .nav-title {
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-title-text {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--ck-gold);
+    transition: color 0.2s ease;
+  }
+
+  .nav-title:hover .nav-title-text {
+    color: var(--ck-gold-light);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-back-link {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ck-text-muted) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s ease !important;
+    white-space: nowrap;
+  }
+
+  .nav-back-link:hover {
+    color: var(--ck-gold) !important;
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--ck-border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ck-text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--ck-gold);
+    color: var(--ck-gold);
+    background: var(--ck-gold-subtle);
+  }
+
+  /* Sun visible in light mode, moon in dark */
+  .icon-moon { display: none; }
+  .icon-sun { display: block; }
+
+  :global(html[data-theme="dark"]) .icon-sun { display: none; }
+  :global(html[data-theme="dark"]) .icon-moon { display: block; }
+
+  .nav-gold-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--ck-gold) 20%, var(--ck-gold-bright) 50%, var(--ck-gold) 80%, transparent 100%);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 720px) {
+    .nav-inner {
+      padding: 0.75rem 1.25rem;
+    }
+
+    .nav-title-text {
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+    }
+
+    .nav-back-link {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  // Restore saved theme
+  const saved = localStorage.getItem('cooking-theme');
+  if (saved === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+  } else {
+    html.removeAttribute('data-theme');
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      localStorage.setItem('cooking-theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      localStorage.setItem('cooking-theme', 'dark');
+    }
+  });
+</script>

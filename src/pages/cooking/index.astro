@@ -1,0 +1,428 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import CookingNav from '../../components/cooking/CookingNav.astro';
+import RecipeCard from '../../components/cooking/RecipeCard.astro';
+import SecretSearch from '../../components/SecretSearch.astro';
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
+import '../../styles/cooking.css';
+
+const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
+const recipes = allPosts
+  .filter(post => post.data.category === 'food')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = recipes[0];
+const rest = recipes.slice(1);
+
+// Extract unique subcategories
+const subcategories = [...new Set(recipes.map(r => r.data.subcategory).filter(Boolean))];
+---
+
+<html lang="en" data-cooking>
+  <head>
+    <BaseHead title={`Cooking — ${SITE_TITLE}`} description="Recipes and culinary experiments from the Mager kitchen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* ── Hero Section ── */
+      .cooking-hero {
+        position: relative;
+        padding: 8rem 2rem 6rem;
+        text-align: center;
+        overflow: hidden;
+        background: var(--ck-bg-alt);
+        border-bottom: 1px solid var(--ck-border);
+      }
+
+      /* Decorative orbs */
+      .cooking-hero::before,
+      .cooking-hero::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      .cooking-hero::before {
+        width: 500px;
+        height: 500px;
+        background: var(--ck-gold-glow);
+        top: -200px;
+        right: -100px;
+      }
+
+      .cooking-hero::after {
+        width: 400px;
+        height: 400px;
+        background: var(--ck-gold-glow);
+        bottom: -200px;
+        left: -100px;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero-eyebrow {
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ck-gold);
+        margin-bottom: 1.5rem;
+        animation: ck-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+      }
+
+      .hero-title {
+        font-family: 'Playfair Display', 'Georgia', serif;
+        font-weight: 900;
+        font-size: clamp(4rem, 12vw, 8rem);
+        letter-spacing: 0.08em;
+        line-height: 0.95;
+        color: var(--ck-text);
+        margin: 0 0 1.5rem;
+        animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+      }
+
+      .hero-title .gold-dot {
+        color: var(--ck-gold);
+      }
+
+      .hero-subtitle {
+        font-family: 'Lora', 'Georgia', serif;
+        font-size: 1.15rem;
+        font-style: italic;
+        color: var(--ck-text-secondary);
+        line-height: 1.7;
+        max-width: 500px;
+        margin: 0 auto 2rem;
+        animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+      }
+
+      /* Gold ornament */
+      .hero-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: var(--ck-gold);
+        opacity: 0.5;
+        animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+      }
+
+      .hero-ornament::before,
+      .hero-ornament::after {
+        content: '';
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--ck-gold), transparent);
+      }
+
+      .hero-ornament span {
+        font-size: 0.9rem;
+      }
+
+      /* ── Category Filters ── */
+      .filter-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem 1rem;
+      }
+
+      .filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+      }
+
+      .filter-btn {
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ck-text-muted);
+        background: transparent;
+        border: 1px solid var(--ck-border);
+        padding: 0.5rem 1.25rem;
+        border-radius: 100px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .filter-btn:hover {
+        color: var(--ck-gold);
+        border-color: var(--ck-border-gold);
+        background: var(--ck-gold-subtle);
+      }
+
+      .filter-btn.active {
+        color: var(--ck-gold);
+        border-color: var(--ck-gold);
+        background: var(--ck-badge-bg);
+      }
+
+      .filter-btn.coming-soon {
+        color: var(--ck-coming-soon-text);
+        border-color: var(--ck-coming-soon-border);
+        background: var(--ck-coming-soon-bg);
+        cursor: default;
+        position: relative;
+      }
+
+      .filter-btn.coming-soon::after {
+        content: 'soon';
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--ck-coming-soon-text);
+        position: absolute;
+        top: -6px;
+        right: -4px;
+        background: var(--ck-bg);
+        border: 1px solid var(--ck-coming-soon-border);
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+        line-height: 1;
+      }
+
+      .filter-count {
+        font-size: 0.65rem;
+        opacity: 0.5;
+        margin-left: 0.25rem;
+      }
+
+      /* ── Recipe Grid ── */
+      .recipe-grid-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 2rem 6rem;
+      }
+
+      .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 2rem;
+      }
+
+      /* Featured card spans full width */
+      .recipe-grid > :first-child {
+        grid-column: 1 / -1;
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        grid-column: 1 / -1;
+      }
+
+      .empty-state p {
+        font-family: 'Lora', 'Georgia', serif;
+        color: var(--ck-text-muted);
+        font-style: italic;
+        font-size: 1.1rem;
+      }
+
+      /* ── Footer ── */
+      .cooking-footer {
+        padding: 3rem 2rem;
+        background: var(--ck-bg-alt);
+        border-top: 1px solid var(--ck-border);
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: 'Playfair Display', 'Georgia', serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--ck-gold);
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-tagline {
+        font-family: 'Lora', 'Georgia', serif;
+        font-size: 0.85rem;
+        color: var(--ck-text-muted);
+        font-style: italic;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .footer-link {
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.8rem;
+        color: var(--ck-text-muted) !important;
+        text-decoration: none !important;
+        transition: color 0.2s ease !important;
+      }
+
+      .footer-link:hover {
+        color: var(--ck-gold) !important;
+      }
+
+      .footer-copy {
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.72rem;
+        color: var(--ck-text-muted);
+        margin-top: 1.5rem;
+        opacity: 0.6;
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 720px) {
+        .cooking-hero {
+          padding: 5rem 1.5rem 4rem;
+        }
+
+        .hero-title {
+          letter-spacing: 0.04em;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .filter-section {
+          padding: 2rem 1.25rem 0.5rem;
+        }
+
+        .filter-bar {
+          justify-content: flex-start;
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          padding-bottom: 0.5rem;
+        }
+
+        .filter-bar::-webkit-scrollbar {
+          display: none;
+        }
+
+        .recipe-grid-section {
+          padding: 1.5rem 1.25rem 4rem;
+        }
+
+        .recipe-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <CookingNav />
+
+    <!-- Hero -->
+    <section class="cooking-hero">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">From the Mager Kitchen</p>
+        <h1 class="hero-title">COOKING<span class="gold-dot">.</span></h1>
+        <p class="hero-subtitle">
+          Recipes, experiments & stories from a home kitchen
+          that takes flavor seriously.
+        </p>
+        <div class="hero-ornament"><span>✦</span></div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filter-section">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All<span class="filter-count">{recipes.length}</span></button>
+        <button class="filter-btn" data-filter="soup">Soup</button>
+        <button class="filter-btn" data-filter="casserole">Casserole</button>
+        <button class="filter-btn" data-filter="meat">Meat</button>
+        <button class="filter-btn" data-filter="pasta">Pasta</button>
+        <button class="filter-btn" data-filter="comfort">Comfort Food</button>
+        <button class="filter-btn coming-soon" data-filter="spice-blend" disabled>Spice Blends</button>
+      </div>
+    </section>
+
+    <!-- Recipe Grid -->
+    <main class="recipe-grid-section">
+      <div class="recipe-grid" id="recipe-grid">
+        {featured && (
+          <RecipeCard post={featured} featured={true} index={0} />
+        )}
+        {rest.map((post, i) => (
+          <RecipeCard post={post} index={i + 1} />
+        ))}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="cooking-footer">
+      <div class="footer-brand">COOKING</div>
+      <p class="footer-tagline">Recipes from the Mager kitchen</p>
+      <div class="footer-links">
+        <a href="/" class="footer-link">mager.co</a>
+        <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
+      </div>
+      <p class="footer-copy">&copy; {new Date().getFullYear()} mager.co</p>
+    </footer>
+
+    <!-- Theme restore -->
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('cooking-theme');
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
+    <!-- Category Filter Logic -->
+    <script>
+      const buttons = document.querySelectorAll('.filter-btn:not(.coming-soon)');
+      const cards = document.querySelectorAll('.recipe-card');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = (btn as HTMLElement).dataset.filter;
+
+          // Update active state
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          // Filter cards
+          cards.forEach(card => {
+            const el = card as HTMLElement;
+            const sub = el.dataset.subcategory;
+            if (filter === 'all') {
+              el.style.display = '';
+              el.style.animation = 'ck-fadeUp 0.4s ease both';
+            } else if (sub === filter) {
+              el.style.display = '';
+              el.style.animation = 'ck-fadeUp 0.4s ease both';
+            } else {
+              el.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
+
+    <SecretSearch posts={allPosts} />
+  </body>
+</html>
