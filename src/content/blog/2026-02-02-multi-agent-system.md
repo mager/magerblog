@@ -4,7 +4,7 @@ pubDate: "2026-02-02"
 description: "A practical guide to building a multi-agent AI system with OpenClaw. One principal agent, multiple specialists, shared skills, and the workspace files that give them personality. Includes real examples from my blog, sports app, and music discovery projects."
 category: "code"
 tags: ["AI", "Agents", "OpenClaw"]
-keyword: "AI agents"
+keyword: "Openclaw armies"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOyclwdveApYvSzyRLGL_u97lqI2MdRVOIOR_qkdh6iOO8IPoNlwXvDuzxXa61jNOD2efcOJwR4hOdug70lh9Fh5jB-ha55vh9gEjceTBgwdHxkssNhhu31daM70jKwvdkLj7gKw6oVkZTlPTz_4g__wg=w2322-h1522-s-no-gm"
 ---
 
