@@ -161,6 +161,68 @@ No runtime type errors in production.
 
 This agent has domain knowledge baked in. It knows about team ID encoding, API rate limits, and the specific business logic of my app. When it works on prxps, it's not starting from zero — it already understands the conventions.
 
+## Skills: Shared Knowledge, Custom Expertise
+
+Beyond workspace files, agents can have **skills** — modular packages that teach them how to do specific things. And here's where the architecture gets interesting: skills can be shared across all agents *or* scoped to individual specialists.
+
+### The Two-Tier System
+
+```
+~/.agents/skills/           # Global skills (shared)
+├── frontend-design         # → Claude Code, OpenClaw, OpenCode
+└── find-skills             # → Claude Code, OpenClaw, OpenCode
+
+~/.openclaw/workspace/skills/  # Agent-specific skills
+├── update-magerblog        # Only magerbot knows this
+└── update-prxps            # Only magerbot knows this
+```
+
+**Global skills** live in `~/.agents/skills/` and get symlinked to every agent that should use them. When I install a skill with `npx skills add -g`, all my dev agents immediately have access.
+
+**Agent-specific skills** live in each agent's workspace. My `update-magerblog` skill knows my blog's build process, frontmatter conventions, and git workflow. It's custom to my setup, so it stays in my workspace.
+
+### Installing Shared Skills
+
+I use the [skills CLI](https://github.com/anthropics/skills) to manage this:
+
+```bash
+# Install frontend-design globally (all agents get it)
+npx skills add https://github.com/anthropics/skills \
+  --skill frontend-design -g -y
+
+# Install find-skills (helps agents discover new capabilities)
+npx skills add https://github.com/vercel-labs/skills \
+  --skill find-skills -g -y
+
+# List what's installed
+npx skills ls -g
+```
+
+The skills automatically symlink to the right agent config folders. Now magerbot, magerblog-agent, and prxps-agent all know how to create production-grade frontend interfaces — same skill, shared knowledge.
+
+### Custom Skills for Custom Workflows
+
+For project-specific knowledge, I create skills in my workspace:
+
+```markdown
+# skills/update-magerblog/SKILL.md
+---
+name: update-magerblog
+description: Update magerblog
+---
+
+**Capability:** Manage content lifecycle for magerblog.
+
+- **Frontmatter Excellence:** Automatically populate 
+  `date`, `title`, and `draft: true`.
+- **Validation:** Run local build before any git push.
+- **Deployment:** Git-based workflow with clear commit messages.
+```
+
+This skill is mine. It encodes my blog's conventions, so when I say "publish the post," the agent knows exactly what validation to run.
+
+The pattern is powerful: **global skills for shared capabilities, local skills for custom workflows**. It's like having company-wide engineering standards plus team-specific runbooks.
+
 ## How It Works in Practice
 
 When I'm in a session with magerbot and say "add a dark mode toggle to prxps," here's what happens:
