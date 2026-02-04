@@ -6,7 +6,6 @@ category: "code"
 tags: ["AI", "Agents", "OpenClaw"]
 keyword: "AI agents"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOyclwdveApYvSzyRLGL_u97lqI2MdRVOIOR_qkdh6iOO8IPoNlwXvDuzxXa61jNOD2efcOJwR4hOdug70lh9Fh5jB-ha55vh9gEjceTBgwdHxkssNhhu31daM70jKwvdkLj7gKw6oVkZTlPTz_4g__wg=w2322-h1522-s-no-gm"
-draft: true
 ---
 
 I've been playing with [OpenClaw](https://github.com/openclaw/openclaw), an open-source framework for running AI agents locally. What started as "let me try this AI assistant thing" turned into building a full multi-agent system where specialized agents handle different projects, all reporting to a principal agent.
