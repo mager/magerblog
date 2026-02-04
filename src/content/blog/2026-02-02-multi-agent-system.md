@@ -22,11 +22,15 @@ My setup:
 
 1. **Create a dedicated user account on Mac** (standard user, not admin). This isolates the agent's access from your main account.
 
-2. **Install Brave as default browser.** Privacy-focused, blocks trackers, and you can give the agent browser access without worrying as much.
+2. **Use UTM for VMs.** I run the agent in a macOS VM with just Brave, iTerm2, and Homebrew. If something goes wrong, nuke the VM and start fresh.
 
-3. **Use UTM for VMs.** I run the agent in a macOS VM with just Brave, iTerm2, and Homebrew. If something goes wrong, nuke the VM and start fresh.
+3. **Use Tailscale for VPN.** I put the VM behind a Tailscale tailnet for secure remote access and to limit exposure — it makes accessing the VM from other machines safe without opening extra public ports.
 
-4. **Fine-grained GitHub tokens only.** Never give an agent your main GitHub credentials. Create tokens scoped to specific repos with minimal permissions.
+4. **Install Brave as default browser.** Privacy-focused, blocks trackers, and you can give the agent browser access without worrying as much.
+
+5. **Keep a separate Mac mini for persistent/high-trust agents.** For long-running services or agents that need persistent state, I use an isolated Mac mini (separate from my main workstation and VMs).
+
+6. **Fine-grained GitHub tokens only.** Never give an agent your main GitHub credentials. Create tokens scoped to specific repos with minimal permissions.
 
 The principle: compartmentalize. The agent gets its own sandbox, its own credentials, its own space to work. If you wouldn't give a junior developer root access on day one, don't give it to your agent either.
 
@@ -63,7 +67,9 @@ Every agent has these core files:
 
 - **SOUL.md** — personality, principles, boundaries
 - **IDENTITY.md** — name, role, emoji (yes, emoji matters)
-- **AGENTS.md** — operational instructions
+- **AGENTS.md** — operational instructions (OpenClaw also provides `AGENTS.default`)
+- **TOOLS.md** — tools and integrations the agent can use (CLI helpers, browser tooling, etc.)
+- **BOOT / BOOTSTRAP / HEARTBEAT** — runtime/control templates used by OpenClaw agents
 - **MEMORY.md** — curated long-term knowledge
 - **USER.md** — who they're helping
 
@@ -180,7 +186,7 @@ Beyond workspace files, agents can have **skills** — modular packages that tea
 └── beatbrain                  # Music discovery workflow
 ```
 
-**Global skills** (`-g` flag) live in `~/.agents/skills/` and get symlinked to every agent. I use this for shared capabilities like `frontend-design` — all my dev agents can build UIs.
+**Global skills** (`-g` flag) live in `~/.agents/skills/` and get symlinked to every agent. I use this for shared capabilities like [`frontend-design`](https://skills.sh/anthropics/skills/frontend-design) — all my dev agents can build UIs.
 
 **Principal-only skills** are installed to specific agents. `find-skills` lets agents discover and install new capabilities — that's powerful, so only magerbot gets it. Specialists can't self-expand.
 
@@ -214,21 +220,32 @@ For project-specific knowledge, I create skills in my workspace:
 # skills/magerblog/SKILL.md
 ---
 name: magerblog
-description: Manage magerblog content and deployments
+description: Manage magerblog content, deployments, and blog personality
 ---
 
 **Repo:** ~/Code/magerblog (Astro)
 
+**About This Blog:**
+This is where I share my code explorations (lots of AI and agent experiments), life notes from Chicago, my recipe creations, and a growing curbside collection of cozy tech, photos, and stories. I love to cook, try new things in generative AI, live in the heart of Chicago, and document it all in words and photos. Let the agent always bring warmth, curiosity, and clarity to every post.
+
 **Workflow:**
-1. Frontmatter: `title`, `pubDate`, `draft: true`
-2. Build: `npm run build` before any push
-3. Commit: `feat(blog):`, `fix(blog):`, `chore(blog):`
-4. Push to main → auto-deploys
+1. Frontmatter: Requires `title`, `pubDate`, and (optional) `draft: true`
+2. Content Types: Blog posts can be code deep-dives, AI projects, life musings, or original recipes. Recipes follow the “compact” Astro layout.
+3. Build: Always `npm run build` before any push (validate Astro)
+4. Commit: Use `feat(blog):`, `fix(blog):`, or `chore(blog):`
+5. Push to main → auto-deploys seamless to production
+
+**Extra Rules:**
+- Celebrate food posts with emoji in the excerpt when possible.
+- Recipes pulled from real cooking experience.
+- Blog imagery often uses original Chicago photos.
+- Remind: Audience is mix of devs, foodies, and curious readers.
+
 ```
 
-This skill is mine. It encodes my blog's conventions, so when I say "publish the post," the agent knows exactly what validation to run.
+This skill is mine. It encodes my blog’s conventions, my love of cooking, exploring AI, and sharing life in Chicago. When I say "publish the post," the agent knows exactly what validation to run — and how to channel the blog’s personality, too.
 
-The pattern is powerful: **global skills for shared capabilities, principal-only skills for sensitive operations, and custom skills for project workflows**. It's like having company-wide engineering standards, team lead permissions, and project-specific runbooks.
+The pattern is powerful: **global skills for shared capabilities, principal-only skills for sensitive operations, and custom skills for project workflows**. It’s like having company-wide engineering standards, team lead permissions, and project-specific runbooks.
 
 ## How It Works in Practice
 
@@ -294,11 +311,13 @@ That's the power of this architecture: **adding a new team member is just creati
 
 ## What I Learned
 
-Building this taught me that the "intelligence" of an AI agent is only partly about the model. A huge part is **context engineering** — giving the agent the right information, in the right format, at the right time.
+Context engineering is everything — that’s what really determines how well an agent works. Of course, you need the right model (I’m not using anything except Opus 4.5 these days), but it’s the information, the timing, and the structure you give it that actually unlocks results.
 
 The workspace files are like onboarding docs for a new engineer. You wouldn't expect a developer to be productive without knowing the codebase conventions, the deployment process, and the team dynamics. Agents are the same.
 
-The multi-agent hierarchy also forces clarity. When you have to write down "this agent owns X, escalates Y," you're building real organizational structure. It's like writing job descriptions — tedious, but it prevents confusion.
+You can spin up an "agent army" in minutes — use the AI to build the AI. Start with the least privilege, bootstrap agent "brains" in plain English, and expand access only as trust grows.
+
+The rest comes down to context engineering: workspace files (SOUL, IDENTITY, AGENTS/AGENTS.default, TOOLS, MEMORY, USER and runtime templates like BOOT/BOOTSTRAP/HEARTBEAT) plus carefully scoped skills and sandboxing. Those pieces give each agent personality, permissions, and repeatable workflows — clear boundaries that make the system safe and reliable.
 
 ## Try It Yourself
 
@@ -306,10 +325,4 @@ OpenClaw is open source: [github.com/openclaw/openclaw](https://github.com/openc
 
 Start with the [getting started guide](https://docs.openclaw.ai/start/getting-started), or run `openclaw onboard` to use the setup wizard.
 
-Start with one agent. Write its SOUL.md. Give it an emoji. See what happens when you tell it who it is, instead of just what to do.
-
 The future isn't one superintelligent AI — it's specialized agents working together, each owning their domain, each knowing their place in the hierarchy. Kind of like... a well-run engineering team.
-
----
-
-_Building the future, one workspace file at a time._
