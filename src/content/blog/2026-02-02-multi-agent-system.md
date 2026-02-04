@@ -165,23 +165,25 @@ This agent has domain knowledge baked in. It knows about team ID encoding, API r
 
 Beyond workspace files, agents can have **skills** — modular packages that teach them how to do specific things. And here's where the architecture gets interesting: skills can be shared across all agents *or* scoped to individual specialists.
 
-### The Two-Tier System
+### The Three-Tier System
 
 ```
-~/.agents/skills/           # Global skills (shared)
-├── frontend-design         # → Claude Code, OpenClaw, OpenCode
-└── find-skills             # → Claude Code, OpenClaw, OpenCode
+~/.agents/skills/              # Global (shared across agents)
+└── frontend-design            # → Claude Code, OpenClaw
 
-~/.openclaw/workspace/skills/  # Agent-specific skills
-├── update-magerblog        # Only magerbot knows this
-└── update-prxps            # Only magerbot knows this
+~/.openclaw/workspace/skills/  # Principal-only + custom
+├── find-skills                # → OpenClaw only (can install new skills)
+├── magerblog                  # Blog workflow
+└── prxps                      # App workflow
 ```
 
-**Global skills** live in `~/.agents/skills/` and get symlinked to every agent that should use them. When I install a skill with `npx skills add -g`, all my dev agents immediately have access.
+**Global skills** (`-g` flag) live in `~/.agents/skills/` and get symlinked to every agent. I use this for shared capabilities like `frontend-design` — all my dev agents can build UIs.
 
-**Agent-specific skills** live in each agent's workspace. My `update-magerblog` skill knows my blog's build process, frontmatter conventions, and git workflow. It's custom to my setup, so it stays in my workspace.
+**Principal-only skills** are installed to specific agents. `find-skills` lets agents discover and install new capabilities — that's powerful, so only magerbot gets it. Specialists can't self-expand.
 
-### Installing Shared Skills
+**Custom skills** are project-specific workflows. `magerblog` knows my blog's Astro setup and git conventions. `prxps` knows SvelteKit, Firestore caching rules, and RXP math.
+
+### Installing Skills
 
 I use the [skills CLI](https://github.com/anthropics/skills) to manage this:
 
@@ -190,12 +192,13 @@ I use the [skills CLI](https://github.com/anthropics/skills) to manage this:
 npx skills add https://github.com/anthropics/skills \
   --skill frontend-design -g -y
 
-# Install find-skills (helps agents discover new capabilities)
+# Install find-skills for principal only (can discover new skills)
 npx skills add https://github.com/vercel-labs/skills \
-  --skill find-skills -g -y
+  --skill find-skills -a openclaw -y
 
 # List what's installed
 npx skills ls -g
+npx skills ls
 ```
 
 The skills automatically symlink to the right agent config folders. Now magerbot, magerblog-agent, and prxps-agent all know how to create production-grade frontend interfaces — same skill, shared knowledge.
@@ -205,23 +208,24 @@ The skills automatically symlink to the right agent config folders. Now magerbot
 For project-specific knowledge, I create skills in my workspace:
 
 ```markdown
-# skills/update-magerblog/SKILL.md
+# skills/magerblog/SKILL.md
 ---
-name: update-magerblog
-description: Update magerblog
+name: magerblog
+description: Manage magerblog content and deployments
 ---
 
-**Capability:** Manage content lifecycle for magerblog.
+**Repo:** ~/Code/magerblog (Astro)
 
-- **Frontmatter Excellence:** Automatically populate 
-  `date`, `title`, and `draft: true`.
-- **Validation:** Run local build before any git push.
-- **Deployment:** Git-based workflow with clear commit messages.
+**Workflow:**
+1. Frontmatter: `title`, `pubDate`, `draft: true`
+2. Build: `npm run build` before any push
+3. Commit: `feat(blog):`, `fix(blog):`, `chore(blog):`
+4. Push to main → auto-deploys
 ```
 
 This skill is mine. It encodes my blog's conventions, so when I say "publish the post," the agent knows exactly what validation to run.
 
-The pattern is powerful: **global skills for shared capabilities, local skills for custom workflows**. It's like having company-wide engineering standards plus team-specific runbooks.
+The pattern is powerful: **global skills for shared capabilities, principal-only skills for sensitive operations, and custom skills for project workflows**. It's like having company-wide engineering standards, team lead permissions, and project-specific runbooks.
 
 ## How It Works in Practice
 
