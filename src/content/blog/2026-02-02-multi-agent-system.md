@@ -1,7 +1,7 @@
 ---
 title: "Building a Multi-Agent System with OpenClaw"
 pubDate: "2026-02-02"
-description: "How I set up a hierarchical AI agent system where specialized sub-agents handle different projects, all reporting to a principal agent. A sneak peek into the workspaces that make it work."
+description: "A practical guide to building a multi-agent AI system with OpenClaw. One principal agent, multiple specialists, shared skills, and the workspace files that give them personality. Includes real examples from my blog, sports app, and music discovery projects."
 category: "code"
 tags: ["AI", "Agents", "OpenClaw"]
 keyword: "AI agents"
@@ -33,14 +33,15 @@ The principle: compartmentalize. The agent gets its own sandbox, its own credent
 
 For more on sandboxing options, check out the [OpenClaw sandboxing docs](https://docs.openclaw.ai/gateway/sandboxing).
 
-## The Architecture: One Principal, Two Specialists
+## The Architecture: One Principal, Three Specialists
 
 Here's what I built:
 
 ```
 magerbot ⚡ (Principal Agent)
 ├── magerblog-agent 📝 (Content Specialist)
-└── prxps-agent 🎮 (Full-Stack Engineer)
+├── prxps-agent 🎮 (Full-Stack Engineer)
+└── beatbrain-agent 🎵 (Music Tech Engineer)
 ```
 
 **magerbot** is the principal — it handles direct conversations, makes architectural decisions, and can spawn the specialist agents for specific tasks.
@@ -48,6 +49,8 @@ magerbot ⚡ (Principal Agent)
 **magerblog-agent** owns the blog. It knows Astro, understands frontmatter, and won't let me commit broken builds.
 
 **prxps-agent** owns my sports predictions app. It knows SvelteKit, Firebase, the Odds API rate limits, and the sacred RXP calculation formulas.
+
+**beatbrain-agent** owns my music discovery project [beatbrain.xyz](https://beatbrain.xyz). It knows the full stack: Next.js frontend, Go backend (occipital), the melodex scraper service, and even my open-source [musicbrainz-go](https://github.com/mager/musicbrainz-go) library.
 
 When I ask magerbot to "write a blog post about X," it can delegate to magerblog-agent. When I need a feature in prxps, it spawns prxps-agent. The specialists do the work and report back.
 
@@ -174,7 +177,8 @@ Beyond workspace files, agents can have **skills** — modular packages that tea
 ~/.openclaw/workspace/skills/  # Principal-only + custom
 ├── find-skills                # → OpenClaw only (can install new skills)
 ├── magerblog                  # Blog workflow
-└── prxps                      # App workflow
+├── prxps                      # App workflow
+└── beatbrain                  # Music discovery workflow
 ```
 
 **Global skills** (`-g` flag) live in `~/.agents/skills/` and get symlinked to every agent. I use this for shared capabilities like `frontend-design` — all my dev agents can build UIs.
@@ -268,6 +272,26 @@ Capture what matters. Decisions, context, things to remember.
 ```
 
 This creates a system where the agent maintains continuity across sessions without relying on any magic — just markdown files it reads and writes. For more on memory patterns, see the [memory concepts doc](https://docs.openclaw.ai/concepts/memory).
+
+## Spinning Up a New Agent on the Fly
+
+The real test of a multi-agent system is how fast you can add a new specialist. Here's what happened when I decided to add beatbrain-agent:
+
+I told magerbot: *"Create a new dev agent for beatbrain. Visit beatbrain.xyz, explore the repos, and build me an agent that can own it."*
+
+Within minutes, magerbot:
+
+1. Cloned all four beatbrain repos (frontend, backend, scraper, library)
+2. Analyzed the stack (Next.js, Go, Prisma, MusicBrainz API)
+3. Created the agent workspace with SOUL.md, IDENTITY.md, etc.
+4. Wrote a custom skill encoding the project's conventions
+5. Even redesigned the homepage while it was at it
+
+![magerbot creating the beatbrain agent and redesigning the homepage](https://lh3.googleusercontent.com/pw/AP1GczO38Jsh1TS9IovGOsO9iM0phucAr7NwA0sumeAKwhk1EeGfjh6KSkgOcnQokrSF8eZSp9sIoBwb0R8ibgrMmsW-wLfaTIqmeMRUgOdz0jJdgfD8HOKXNCULXrItkxdaQkAaiRJKZd8B6-t_KJ1s_e_msg=w2318-h1522-s-no-gm)
+
+The new agent's SOUL.md includes deep knowledge about the ISRC-to-MusicBrainz pipeline, the scraper sources (Billboard, Hype Machine, WhoSampled), and even the `make publish` workflow for the open-source library.
+
+That's the power of this architecture: **adding a new team member is just creating a few markdown files**. No retraining, no fine-tuning — just context.
 
 ## What I Learned
 
