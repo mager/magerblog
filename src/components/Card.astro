@@ -86,7 +86,7 @@ const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 		border: 1px solid var(--terminal-border);
 		position: relative;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	/* Category-specific glow on hover */
@@ -95,10 +95,7 @@ const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 	.card[data-category="food"] { --glow-color: var(--status-orange); }
 
 	.card:hover {
-		transform: translateY(-6px);
-		box-shadow:
-			0 12px 40px rgba(0, 0, 0, 0.4),
-			0 0 40px -10px var(--glow-color, var(--status-purple));
+		transform: translateY(-3px);
 		border-color: var(--glow-color, var(--status-purple));
 	}
 

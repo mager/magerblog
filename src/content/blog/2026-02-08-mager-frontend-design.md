@@ -9,7 +9,7 @@ keyword: "agent skill design"
 
 I wanted to experiment with skill design and see the process end to end. Skills feel like where the whole industry is heading — reusable chunks of knowledge that AI agents can load up on demand — and I wanted to build one myself.
 
-I'm not a designer by trade. But honestly? We're all designers now. When you have skills and very smart computers to help you execute, the bottleneck isn't technical ability — it's taste. And taste I've got. Dark backgrounds, neon accents, monospace fonts, hover effects that feel satisfying to click — the whole terminal-hacker-but-make-it-hot vibe.
+I'm not a designer by trade. But honestly? We're all designers now. When you have skills and very smart computers to help you execute, the bottleneck isn't technical ability — it's taste. Dark backgrounds, neon accents, monospace fonts, hover effects that feel satisfying to click — the whole terminal-hacker-but-make-it-hot vibe.
 
 So I packaged my taste into a skill.
 

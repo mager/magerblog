@@ -49,40 +49,9 @@ const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || 
 				position: relative;
 				z-index: 1;
 			}
-
-			/* Cursor glow effect */
-			.cursor-glow {
-				position: fixed;
-				width: 600px;
-				height: 600px;
-				border-radius: 50%;
-				background: radial-gradient(
-					circle,
-					rgba(163, 113, 247, 0.06) 0%,
-					rgba(88, 166, 255, 0.03) 30%,
-					transparent 60%
-				);
-				pointer-events: none;
-				z-index: 0;
-				transform: translate(-50%, -50%);
-				transition: left 0.15s ease-out, top 0.15s ease-out;
-				will-change: left, top;
-			}
-
-			@media (max-width: 720px) {
-				.cursor-glow {
-					display: none;
-				}
-			}
 		</style>
 	</head>
 	<body>
-		<!-- Mesh Gradient Background -->
-		<div class="mesh-bg" aria-hidden="true"></div>
-
-		<!-- Cursor Glow Effect -->
-		<div class="cursor-glow" id="cursor-glow"></div>
-
 		<Header />
 		<main>
 			<BentoHero
@@ -96,41 +65,5 @@ const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || 
 		</main>
 		<Footer />
 		<SecretSearch posts={allPosts} />
-
-		<!-- Cursor Glow Script -->
-		<script>
-			const glow = document.getElementById('cursor-glow');
-			let mouseX = 0;
-			let mouseY = 0;
-			let currentX = 0;
-			let currentY = 0;
-
-			document.addEventListener('mousemove', (e) => {
-				mouseX = e.clientX;
-				mouseY = e.clientY;
-			});
-
-			function animate() {
-				currentX += (mouseX - currentX) * 0.08;
-				currentY += (mouseY - currentY) * 0.08;
-
-				if (glow) {
-					glow.style.left = currentX + 'px';
-					glow.style.top = currentY + 'px';
-				}
-
-				requestAnimationFrame(animate);
-			}
-
-			animate();
-
-			document.addEventListener('mouseleave', () => {
-				if (glow) glow.style.opacity = '0';
-			});
-
-			document.addEventListener('mouseenter', () => {
-				if (glow) glow.style.opacity = '1';
-			});
-		</script>
 	</body>
 </html>

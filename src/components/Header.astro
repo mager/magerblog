@@ -64,34 +64,10 @@ const { activeCategory } = Astro.props;
 		z-index: 100;
 		margin: 0;
 		padding: 0;
-		/* Glassmorphism effect */
-		background: rgba(13, 17, 23, 0.85);
-		backdrop-filter: blur(12px) saturate(180%);
-		-webkit-backdrop-filter: blur(12px) saturate(180%);
-		border-bottom: 1px solid rgba(48, 54, 61, 0.8);
-		box-shadow:
-			0 4px 30px rgba(0, 0, 0, 0.3),
-			inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+		background: var(--editor-bg);
+		border-bottom: 1px solid var(--terminal-border);
 	}
 
-	/* Subtle gradient line at top */
-	.site-header::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			var(--status-purple) 20%,
-			var(--status-cyan) 50%,
-			var(--status-green) 80%,
-			transparent 100%
-		);
-		opacity: 0.5;
-	}
 
 	h2 {
 		margin: 0;
@@ -113,48 +89,21 @@ const { activeCategory } = Astro.props;
 	}
 
 	.logo .bracket {
-		color: var(--status-purple);
+		color: var(--text-muted);
 		font-size: 1.1em;
 		font-weight: 700;
-		transition: all 0.3s ease;
-		opacity: 0.8;
 	}
 
 	.logo .brand {
 		color: var(--text-primary);
-		position: relative;
-		background: linear-gradient(
-			135deg,
-			var(--status-cyan) 0%,
-			var(--status-purple) 50%,
-			var(--text-primary) 100%
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		transition: all 0.3s ease;
-	}
-
-	.logo:hover {
-		transform: translateY(-1px);
 	}
 
 	.logo:hover .brand {
-		background: linear-gradient(
-			135deg,
-			var(--status-purple) 0%,
-			var(--status-cyan) 50%,
-			var(--status-purple) 100%
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		filter: brightness(1.2);
+		color: var(--cyan);
 	}
 
 	.logo:hover .bracket {
-		color: var(--status-cyan);
-		opacity: 1;
+		color: var(--text-secondary);
 	}
 
 	nav {
@@ -177,23 +126,6 @@ const { activeCategory } = Astro.props;
 		position: relative;
 	}
 
-	/* Nav item underline effect */
-	nav a::after {
-		content: '';
-		position: absolute;
-		bottom: -4px;
-		left: 50%;
-		width: 0;
-		height: 2px;
-		background: var(--status-cyan);
-		transition: all 0.2s ease;
-		transform: translateX(-50%);
-	}
-
-	nav a:hover::after {
-		width: 80%;
-	}
-
 	nav a:hover {
 		color: var(--text-primary);
 		text-decoration: none;
@@ -203,21 +135,10 @@ const { activeCategory } = Astro.props;
 		color: var(--status-purple);
 	}
 
-	nav a.active::after {
-		width: 80%;
-		background: var(--status-purple);
-	}
-
 	.nav-icon {
-		color: var(--status-green);
+		color: var(--text-muted);
 		margin-right: 0.25rem;
 		font-weight: 700;
-		opacity: 0.7;
-		transition: opacity 0.2s ease;
-	}
-
-	nav a:hover .nav-icon {
-		opacity: 1;
 	}
 
 	.nav-right {
@@ -253,8 +174,7 @@ const { activeCategory } = Astro.props;
 	}
 
 	.social-link:hover {
-		color: var(--status-purple);
-		background: rgba(163, 113, 247, 0.1);
+		color: var(--text-primary);
 	}
 
 	.social-link::after {
@@ -274,17 +194,10 @@ const { activeCategory } = Astro.props;
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: rgba(13, 17, 23, 0.98);
+			background: var(--editor-bg);
 			border-bottom: none;
-			border-top: 1px solid rgba(48, 54, 61, 0.8);
-			box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.4);
+			border-top: 1px solid var(--terminal-border);
 			padding-bottom: env(safe-area-inset-bottom, 0);
-		}
-
-		/* Gradient line on top for mobile */
-		.site-header::before {
-			top: 0;
-			bottom: auto;
 		}
 
 		nav {
@@ -356,7 +269,7 @@ const { activeCategory } = Astro.props;
 			font-size: 1.25rem;
 			margin-right: 0;
 			margin-bottom: 2px;
-			color: var(--status-cyan);
+			color: var(--text-muted);
 		}
 
 		nav a.active .nav-icon {
