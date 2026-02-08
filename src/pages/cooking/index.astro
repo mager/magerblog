@@ -382,12 +382,12 @@ const subcategories = [...new Set(recipes.map(r => r.data.subcategory).filter(Bo
       <p class="footer-copy">&copy; {new Date().getFullYear()} · Built with <a href="https://astro.build" target="_blank" class="footer-link" style="display:inline">Astro</a> · Press <kbd style="font-family:'DM Sans',sans-serif;font-size:0.65rem;padding:0.1rem 0.35rem;background:var(--ck-bg-surface);border:1px solid var(--ck-border);border-radius:3px;box-shadow:0 1px 0 var(--ck-border)">/</kbd> to search</p>
     </footer>
 
-    <!-- Theme restore -->
+    <!-- Theme restore (dark is default) -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('cooking-theme');
-        if (saved === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
+        if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       })();
     </script>

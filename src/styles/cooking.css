@@ -4,8 +4,45 @@
    Golden • Editorial • Warm • Elegant
    ============================================ */
 
-/* ── Light Mode (Default) ── */
+/* ── Dark Mode (Default) ── */
 html[data-cooking] {
+  --ck-bg: #0A0805;
+  --ck-bg-alt: #141008;
+  --ck-bg-card: #18140E;
+  --ck-bg-surface: #12100A;
+  --ck-bg-ingredients: #141008;
+  --ck-text: #F0E8D8;
+  --ck-text-secondary: #B8A890;
+  --ck-text-muted: #6B5E4E;
+  --ck-gold: #DAA520;
+  --ck-gold-light: #E8C84A;
+  --ck-gold-bright: #FFD700;
+  --ck-gold-subtle: rgba(218, 165, 32, 0.06);
+  --ck-gold-glow: rgba(218, 165, 32, 0.12);
+  --ck-accent: #E8734A;
+  --ck-accent-light: #F09070;
+  --ck-border: #28220A;
+  --ck-border-gold: rgba(218, 165, 32, 0.2);
+  --ck-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --ck-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --ck-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(218, 165, 32, 0.08);
+  --ck-overlay-start: rgba(10, 8, 5, 0.0);
+  --ck-overlay-end: rgba(10, 8, 5, 0.8);
+  --ck-hero-text: #F0E8D8;
+  --ck-nav-bg: rgba(10, 8, 5, 0.94);
+  --ck-nav-border: rgba(40, 34, 10, 0.8);
+  --ck-badge-bg: rgba(218, 165, 32, 0.1);
+  --ck-badge-border: rgba(218, 165, 32, 0.2);
+  --ck-divider: #28220A;
+  --ck-step-num: rgba(218, 165, 32, 0.08);
+  --ck-coming-soon-bg: rgba(107, 94, 78, 0.1);
+  --ck-coming-soon-border: rgba(107, 94, 78, 0.2);
+  --ck-coming-soon-text: #6B5E4E;
+  --ck-img-border: rgba(218, 165, 32, 0.12);
+}
+
+/* ── Light Mode ── */
+html[data-cooking][data-theme="light"] {
   --ck-bg: #FFFAF0;
   --ck-bg-alt: #FFF5E6;
   --ck-bg-card: #FFFFFF;
@@ -39,43 +76,6 @@ html[data-cooking] {
   --ck-coming-soon-border: rgba(156, 139, 120, 0.2);
   --ck-coming-soon-text: #9C8B78;
   --ck-img-border: rgba(184, 134, 11, 0.15);
-}
-
-/* ── Dark Mode ── */
-html[data-cooking][data-theme="dark"] {
-  --ck-bg: #0F0D0A;
-  --ck-bg-alt: #1A1610;
-  --ck-bg-card: #1E1A14;
-  --ck-bg-surface: #171310;
-  --ck-bg-ingredients: #1A1610;
-  --ck-text: #F0E8D8;
-  --ck-text-secondary: #B8A890;
-  --ck-text-muted: #6B5E4E;
-  --ck-gold: #DAA520;
-  --ck-gold-light: #E8C84A;
-  --ck-gold-bright: #FFD700;
-  --ck-gold-subtle: rgba(218, 165, 32, 0.06);
-  --ck-gold-glow: rgba(218, 165, 32, 0.12);
-  --ck-accent: #E8734A;
-  --ck-accent-light: #F09070;
-  --ck-border: #2E2820;
-  --ck-border-gold: rgba(218, 165, 32, 0.2);
-  --ck-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  --ck-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
-  --ck-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(218, 165, 32, 0.08);
-  --ck-overlay-start: rgba(15, 13, 10, 0.0);
-  --ck-overlay-end: rgba(15, 13, 10, 0.75);
-  --ck-hero-text: #F0E8D8;
-  --ck-nav-bg: rgba(15, 13, 10, 0.92);
-  --ck-nav-border: rgba(46, 40, 32, 0.8);
-  --ck-badge-bg: rgba(218, 165, 32, 0.1);
-  --ck-badge-border: rgba(218, 165, 32, 0.2);
-  --ck-divider: #2E2820;
-  --ck-step-num: rgba(218, 165, 32, 0.08);
-  --ck-coming-soon-bg: rgba(107, 94, 78, 0.1);
-  --ck-coming-soon-border: rgba(107, 94, 78, 0.2);
-  --ck-coming-soon-text: #6B5E4E;
-  --ck-img-border: rgba(218, 165, 32, 0.12);
 }
 
 /* ── Base Reset for Cooking Pages ── */
@@ -142,8 +142,8 @@ html[data-cooking] ::selection {
   color: var(--ck-text);
 }
 
-html[data-cooking][data-theme="dark"] ::selection {
-  background: rgba(218, 165, 32, 0.25);
+html[data-cooking][data-theme="light"] ::selection {
+  background: rgba(184, 134, 11, 0.15);
 }
 
 /* ── Scrollbar ── */

@@ -1,0 +1,203 @@
+/* ============================================
+   LIFE THEME
+   Urban exploration aesthetic
+   Deep Greens • Neon • City Nights • Discovery
+   ============================================ */
+
+/* ── Dark Mode (Default) ── */
+html[data-life] {
+  --lf-bg: #060D06;
+  --lf-bg-alt: #0C150C;
+  --lf-bg-card: #101A10;
+  --lf-bg-surface: #0A120A;
+  --lf-text: #E0F0E0;
+  --lf-text-secondary: #90B090;
+  --lf-text-muted: #4A6A4A;
+  --lf-green: #3FB950;
+  --lf-green-light: #56D364;
+  --lf-green-bright: #7EE787;
+  --lf-green-subtle: rgba(63, 185, 80, 0.06);
+  --lf-green-glow: rgba(63, 185, 80, 0.12);
+  --lf-accent: #58A6FF;
+  --lf-accent-light: #79C0FF;
+  --lf-border: #1A2A1A;
+  --lf-border-green: rgba(63, 185, 80, 0.2);
+  --lf-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --lf-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --lf-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(63, 185, 80, 0.06);
+  --lf-overlay-start: rgba(6, 13, 6, 0.0);
+  --lf-overlay-end: rgba(6, 13, 6, 0.8);
+  --lf-nav-bg: rgba(6, 13, 6, 0.94);
+  --lf-nav-border: rgba(26, 42, 26, 0.8);
+  --lf-badge-bg: rgba(63, 185, 80, 0.1);
+  --lf-badge-border: rgba(63, 185, 80, 0.2);
+  --lf-divider: #1A2A1A;
+}
+
+/* ── Base Reset for Life Pages ── */
+html[data-life] body {
+  font-family: 'Space Grotesk', 'JetBrains Mono', -apple-system, sans-serif;
+  background: var(--lf-bg);
+  color: var(--lf-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html[data-life] *,
+html[data-life] *::before,
+html[data-life] *::after {
+  box-sizing: border-box;
+}
+
+html[data-life] main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Typography ── */
+html[data-life] h1,
+html[data-life] h2,
+html[data-life] h3 {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  color: var(--lf-text);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+html[data-life] h4,
+html[data-life] h5,
+html[data-life] h6 {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--lf-text);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ── Links ── */
+html[data-life] a {
+  color: var(--lf-green);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+html[data-life] a:hover {
+  color: var(--lf-green-bright);
+}
+
+/* ── Selection ── */
+html[data-life] ::selection {
+  background: rgba(63, 185, 80, 0.25);
+  color: var(--lf-text);
+}
+
+/* ── Scrollbar ── */
+html[data-life] ::-webkit-scrollbar {
+  width: 6px;
+}
+
+html[data-life] ::-webkit-scrollbar-track {
+  background: var(--lf-bg);
+}
+
+html[data-life] ::-webkit-scrollbar-thumb {
+  background: var(--lf-border);
+  border-radius: 3px;
+}
+
+html[data-life] ::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-green);
+}
+
+/* ── Smooth Scroll ── */
+html[data-life] {
+  scroll-behavior: smooth;
+}
+
+/* ── Animations ── */
+@keyframes lf-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lf-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes lf-scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ── Focus Styles ── */
+html[data-life] :focus-visible {
+  outline: 2px solid var(--lf-green);
+  outline-offset: 2px;
+}
+
+/* ── Image defaults ── */
+html[data-life] img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ── Override global heading font ── */
+html[data-life] h1,
+html[data-life] h2,
+html[data-life] h3,
+html[data-life] h4,
+html[data-life] h5,
+html[data-life] h6 {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+html[data-life] h4,
+html[data-life] h5,
+html[data-life] h6 {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Override global code styling */
+html[data-life] code {
+  background: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border);
+  color: var(--lf-green);
+}
+
+/* Override global blockquote */
+html[data-life] blockquote {
+  border-left: 3px solid var(--lf-green);
+  background: var(--lf-bg-surface);
+  color: var(--lf-text-secondary);
+  font-style: italic;
+}
+
+/* Override global hr */
+html[data-life] hr {
+  border: none;
+  border-top: 1px solid var(--lf-divider);
+}
+
+/* Override global mobile padding */
+@media (max-width: 720px) {
+  html[data-life] body {
+    padding-bottom: 0 !important;
+    font-size: 16px;
+  }
+}

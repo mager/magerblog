@@ -1,0 +1,132 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<nav class="life-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">mager.co</a>
+
+    <a href="/life" class="nav-title">
+      <span class="nav-title-text">LIFE</span>
+      <span class="nav-dot"></span>
+    </a>
+
+    <div class="nav-actions">
+      <a href="/life" class="nav-back-link">All Posts</a>
+    </div>
+  </div>
+  <div class="nav-glow-line"></div>
+</nav>
+
+<style>
+  .life-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--lf-nav-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid var(--lf-nav-border);
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--lf-text-muted) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease !important;
+    white-space: nowrap;
+  }
+
+  .nav-logo:hover {
+    color: var(--lf-text) !important;
+  }
+
+  .nav-title {
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .nav-title-text {
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--lf-green);
+    transition: color 0.2s ease;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lf-green-bright);
+    box-shadow: 0 0 8px var(--lf-green-glow);
+    animation: lf-glow 2s ease-in-out infinite;
+  }
+
+  .nav-title:hover .nav-title-text {
+    color: var(--lf-green-bright);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-back-link {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--lf-text-muted) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s ease !important;
+    white-space: nowrap;
+  }
+
+  .nav-back-link:hover {
+    color: var(--lf-green) !important;
+  }
+
+  .nav-glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--lf-green) 20%, var(--lf-green-bright) 50%, var(--lf-green) 80%, transparent 100%);
+    opacity: 0.3;
+  }
+
+  @media (max-width: 720px) {
+    .nav-inner {
+      padding: 0.75rem 1.25rem;
+    }
+
+    .nav-title-text {
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+    }
+
+    .nav-back-link {
+      display: none;
+    }
+  }
+</style>

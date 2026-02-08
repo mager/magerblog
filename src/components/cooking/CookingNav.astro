@@ -137,12 +137,12 @@ const { currentPath } = Astro.props;
     background: var(--ck-gold-subtle);
   }
 
-  /* Sun visible in light mode, moon in dark */
-  .icon-moon { display: none; }
-  .icon-sun { display: block; }
+  /* Moon visible in dark mode (default), sun in light */
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
 
-  :global(html[data-theme="dark"]) .icon-sun { display: none; }
-  :global(html[data-theme="dark"]) .icon-moon { display: block; }
+  :global(html[data-theme="light"]) .icon-moon { display: none; }
+  :global(html[data-theme="light"]) .icon-sun { display: block; }
 
   .nav-gold-line {
     height: 1px;
@@ -170,22 +170,22 @@ const { currentPath } = Astro.props;
   const toggle = document.getElementById('theme-toggle');
   const html = document.documentElement;
 
-  // Restore saved theme
+  // Restore saved theme (dark is default)
   const saved = localStorage.getItem('cooking-theme');
-  if (saved === 'dark') {
-    html.setAttribute('data-theme', 'dark');
+  if (saved === 'light') {
+    html.setAttribute('data-theme', 'light');
   } else {
     html.removeAttribute('data-theme');
   }
 
   toggle?.addEventListener('click', () => {
-    const isDark = html.getAttribute('data-theme') === 'dark';
-    if (isDark) {
+    const isLight = html.getAttribute('data-theme') === 'light';
+    if (isLight) {
       html.removeAttribute('data-theme');
-      localStorage.setItem('cooking-theme', 'light');
-    } else {
-      html.setAttribute('data-theme', 'dark');
       localStorage.setItem('cooking-theme', 'dark');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      localStorage.setItem('cooking-theme', 'light');
     }
   });
 </script>

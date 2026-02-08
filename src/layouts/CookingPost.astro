@@ -985,12 +985,12 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
       <p class="footer-copy">&copy; {new Date().getFullYear()} · Built with <a href="https://astro.build" target="_blank" class="footer-link" style="display:inline">Astro</a></p>
     </footer>
 
-    <!-- Theme restore (runs before paint) -->
+    <!-- Theme restore (dark is default) -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('cooking-theme');
-        if (saved === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
+        if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       })();
     </script>
