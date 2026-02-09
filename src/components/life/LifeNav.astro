@@ -16,6 +16,9 @@ const { currentPath } = Astro.props;
     </a>
 
     <div class="nav-actions">
+      <a href="/code" class="nav-cross-link">Code</a>
+      <a href="/cooking" class="nav-cross-link">Cooking</a>
+      <span class="nav-divider"></span>
       <a href="/life" class="nav-back-link">All Posts</a>
     </div>
   </div>
@@ -109,6 +112,28 @@ const { currentPath } = Astro.props;
     color: var(--lf-green) !important;
   }
 
+  .nav-cross-link {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--lf-text-muted) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s ease !important;
+    white-space: nowrap;
+  }
+
+  .nav-cross-link:hover {
+    color: var(--lf-text) !important;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--lf-border);
+  }
+
   .nav-glow-line {
     height: 1px;
     background: linear-gradient(90deg, transparent 0%, var(--lf-green) 20%, var(--lf-green-bright) 50%, var(--lf-green) 80%, transparent 100%);
@@ -125,7 +150,9 @@ const { currentPath } = Astro.props;
       letter-spacing: 0.15em;
     }
 
-    .nav-back-link {
+    .nav-back-link,
+    .nav-cross-link,
+    .nav-divider {
       display: none;
     }
   }
