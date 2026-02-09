@@ -2,6 +2,7 @@
 layout: "../../layouts/post-layout.astro"
 title: "Gardening: Year 1"
 pubDate: "2022-11-11"
+updatedDate: "2022-11-11"
 description: "Our first foray into outdoor plants, flowers, and herbs in Chicago."
 category: "life"
 tags: ["Gardening", "Chicago", "Home"]

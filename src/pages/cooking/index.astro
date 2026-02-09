@@ -218,7 +218,7 @@ const subcategories = [...new Set(recipes.map(r => r.data.subcategory).filter(Bo
       }
 
       /* Featured card spans full width */
-      .recipe-grid > :first-child {
+      .recipe-grid > .featured {
         grid-column: 1 / -1;
       }
 
