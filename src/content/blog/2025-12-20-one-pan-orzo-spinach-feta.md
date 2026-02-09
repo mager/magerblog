@@ -4,17 +4,21 @@ title: "One-Pan Orzo with Spinach and Feta"
 pubDate: "2025-12-20"
 description: A quick, one-pan meal featuring orzo, spinach, peas, and feta. Similar to spanakorizo, this is deeply satisfying but still on the lighter side thanks to all those vegetables.
 category: "food"
+subcategory: "pasta"
 tags: ["Pasta", "Greek", "Weeknight"]
 draft: true
 prepTime: 10
 cookTime: 20
 ---
 
-This recipe is adapted from [Melissa Clark's One-Pan Orzo With Spinach and Feta](https://cooking.nytimes.com/recipes/1021485-one-pan-orzo-with-spinach-and-feta) on NYT Cooking.
+<div class="recipe-intro">
 
-![Shoutout to Melissa Clark](https://lh3.googleusercontent.com/pw/AP1GczNcyjUsmKQGD3JwZRwjdNp8afn5_ecuS02FqD5VSJF0qcoiaUg793LTcx5ZR2VqxAc3f-aLWVjCy4ioDgMBPmXEzpWtPVtkzWOcfBdmwTUYibRuDMREU9mTO-QSeoHoKGRf2laIjOPaA0gZ_0W7U2z9hg=w2320-h1520-s-no-gm)
+This recipe is adapted from [Melissa Clark's One-Pan Orzo With Spinach and Feta](https://cooking.nytimes.com/recipes/1021485-one-pan-orzo-with-spinach-and-feta) on NYT Cooking. Similar to spanakorizo, a Greek spinach and rice dish, this easy, meatless meal features orzo, spinach, peas and scallions. It's deeply satisfying but still on the lighter side of pasta recipes, thanks to all those vegetables. A little feta gives it creaminess and tang, while some lemon zest brightens everything up.
 
-Similar to spanakorizo, a Greek spinach and rice dish, this easy, meatless meal features orzo, spinach, peas and scallions. It's deeply satisfying but still on the lighter side of pasta recipes, thanks to all those vegetables. A little feta gives it creaminess and tang, while some lemon zest brightens everything up. It makes a complete meal on its own, or serve it as a hearty side dish to roasted meats or fish.
+</div>
+
+<div class="recipe-body">
+<div class="recipe-ingredients">
 
 #### Ingredients
 
@@ -30,7 +34,9 @@ Similar to spanakorizo, a Greek spinach and rice dish, this easy, meatless meal 
 - ½ cup frozen peas, thawed (optional)
 - 1 cup chopped fresh dill, or use parsley or cilantro
 
-#### Instructions
+</div>
+
+<div class="recipe-instructions">
 
 Heat a 10-inch skillet over medium, then melt butter, 30 seconds to 1 minute. Stir in about three-quarters of the scallions (saving some of the green parts for garnish) and garlic, and cook until softened, stirring frequently, about 3 minutes.
 
@@ -40,3 +46,11 @@ Stir in stock and bring to a simmer. Stir in orzo, lemon zest and remaining ½ t
 
 Stir in cheese, peas (if you like) and dill, cover the pan, and cook for another 1 minute, to finish cooking and warm the peas. To serve, sprinkle with more cheese and the reserved scallions.
 
+</div>
+</div>
+
+<div class="recipe-gallery">
+
+![Shoutout to Melissa Clark](https://lh3.googleusercontent.com/pw/AP1GczNcyjUsmKQGD3JwZRwjdNp8afn5_ecuS02FqD5VSJF0qcoiaUg793LTcx5ZR2VqxAc3f-aLWVjCy4ioDgMBPmXEzpWtPVtkzWOcfBdmwTUYibRuDMREU9mTO-QSeoHoKGRf2laIjOPaA0gZ_0W7U2z9hg=w2320-h1520-s-no-gm)
+
+</div>

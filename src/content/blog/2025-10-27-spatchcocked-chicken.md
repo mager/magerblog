@@ -4,17 +4,23 @@ title: "Roasted Spatchcocked Chicken"
 pubDate: "2025-10-27"
 description: A reverse sear technique for perfectly crispy skin and juicy meat, every time.
 category: "food"
+subcategory: "meat"
 tags: ["Chicken", "Roasting", "Weeknight"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm"
 prepTime: 15
 cookTime: 75
 ---
 
-The best roasted chicken you'll ever make, with incredibly crispy skin and perfectly juicy meat. This reverse sear technique starts hot to get that crispy crust, then drops the temp to cook everything through evenly.
+<div class="recipe-intro">
 
-Spatchcocking the chicken (removing the backbone and flattening it) is the secret—cooks faster and more evenly.
+The best roasted chicken you'll ever make, with incredibly crispy skin and perfectly juicy meat. This reverse sear technique starts hot to get that crispy crust, then drops the temp to cook everything through evenly. Spatchcocking the chicken (removing the backbone and flattening it) is the secret—cooks faster and more evenly.
 
-#### Ingredients
+</div>
+
+<div class="recipe-body">
+<div class="recipe-ingredients">
+
+#### Chicken
 
 - 1 whole chicken (4-5 lbs)
 - Olive oil or melted butter
@@ -23,7 +29,17 @@ Spatchcocking the chicken (removing the backbone and flattening it) is the secre
 - Optional: garlic powder, paprika, dried herbs (thyme, rosemary, oregano)
 - Optional: lemon slices, herbs for stuffing
 
-#### Instructions
+#### Creamy Pan Gravy
+
+- 4 Tbsp fat from pan drippings (supplement with butter if needed)
+- 1/4 cup flour
+- Remaining pan juices + chicken broth to make 1.5 cups
+- 1/2 cup half and half
+- Cracked black pepper and salt to taste
+
+</div>
+
+<div class="recipe-instructions">
 
 Preheat the oven to 500°F.
 
@@ -39,25 +55,13 @@ Use a meat thermometer—insert into the thickest part of the thigh (avoiding bo
 
 Let rest 10-15 minutes before carving. The crispy skin and juicy meat will make you question why you ever cooked chicken any other way.
 
+**For the gravy:** Pour all the drippings from your roasting pan into a measuring cup. Let it settle for a minute. Spoon 4 Tbsp of the fat (the yellow oil at the top) into a saucepan over medium heat. Whisk in 1/4 cup of flour and cook for 2 minutes until it smells nutty and looks golden. Combine the remaining juices with enough chicken broth to make 1.5 cups. Whisk this slowly into your roux until smooth and simmering. Stir in 1/2 cup of half and half. Lower the heat and simmer for 3 minutes until it coats the back of a spoon. Taste first (the drippings are salty!), then add plenty of cracked black pepper and a pinch of salt if needed.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm)
+</div>
+</div>
 
-Since your recipe uses a high-heat "shock" followed by a slow roast, you’ll have some incredible browned bits (fond) in that pan. Adding a "Pan to Plate" gravy section is the perfect way to finish the post.
+<div class="recipe-gallery">
 
-Here is a formatted section you can paste right at the bottom:
+![Spatchcocked chicken](https://lh3.googleusercontent.com/pw/AP1GczP-mX0kqu2GoTRmStA3m18cNHafdQsH3jtdRC_VVeyKY-g_MJWXqhI3imJ12M6SNDQHqpTU9xbhNYoQZ3TJwJOxnSvKZ91upQ9trTiSGPxEOZrmsEWiAYzjrxyrnRtfC0uJwUarpkaSqQW4_knYHvucug=w961-h578-s-no-gm)
 
-#### The Finishing Touch: Creamy Pan Gravy
-
-Don't let those golden drippings go to waste! While the chicken rests, turn those pan juices into a silky, restaurant-quality gravy.
-
-Capture the Liquid Gold: Pour all the drippings from your roasting pan into a measuring cup. Let it settle for a minute.
-
-Build the Base: Spoon 4 Tbsp of the fat (the yellow oil at the top) into a saucepan over medium heat. If you're short on fat, add butter to make up the difference.
-
-The Roux: Whisk in 1/4 cup of flour and cook for 2 minutes until it smells nutty and looks golden.
-
-The Blend: Combine the remaining juices with enough chicken broth to make 1.5 cups. Whisk this slowly into your roux until smooth and simmering.
-
-The Secret Ingredient: For a velvety finish, stir in 1/2 cup of half and half. Lower the heat and simmer for 3 minutes until it coats the back of a spoon.
-
-Season: Taste first (the drippings are salty!), then add plenty of cracked black pepper and a pinch of salt if needed.
+</div>

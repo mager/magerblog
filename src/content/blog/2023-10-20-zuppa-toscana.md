@@ -5,15 +5,24 @@ pubDate: "2023-10-20"
 updatedDate: "2026-01-12"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 category: "food"
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
+subcategory: "soup"
+keyword: "zuppa toscana"
 tags: ["Soup", "Italian", "Comfort Food"]
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
 prepTime: 30
 cookTime: 60
 ---
 
-This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://40aprons.com/whole30-zuppa-toscana/). This soup is heart-warming, filling, and delicious.
+<div class="recipe-intro">
 
-#### Sausage Dry-Rub Ingredients
+This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://40aprons.com/whole30-zuppa-toscana/). This soup is heart-warming, filling, and delicious—one of the best soups to kick off the autumn season.
+
+</div>
+
+<div class="recipe-body">
+<div class="recipe-ingredients">
+
+#### Sausage Dry-Rub
 
 - 1 pound ground chicken
 - 1½ teaspoon salt
@@ -29,7 +38,7 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 - ¼ teaspoon dried oregano (optional)
 - ¼ teaspoon dried thyme (optional)
 
-#### Soup Ingredients
+#### Soup
 
 - 3 tablespoons extra virgin olive oil
 - 1 medium white or yellow onion diced
@@ -41,22 +50,31 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 - Handful of grated pecorino romano or parm
 - Salt and pepper to taste
 
-#### Instructions
+</div>
+
+<div class="recipe-instructions">
 
 Grind your fennel and mix all of the dry seasoning in a bowl. Massage your ground chicken with the spice mixture thoroughly. It might seem like a lot of seasoning but it will also flavor the soup. Put this in the fridge at least 1 hour before cooking and up to 24 hours.
 
 In a Dutch oven or heavy-bottomed medium pot over medium-high heat, add the olive oil and sausage and cook. Use a wooden spoon to break up the pieces. When browned and cooked through, drain and set aside.
 
-![Chicken](https://lh3.googleusercontent.com/pw/AP1GczN7AqYVYTWZ2htf90Bz0QgU_UKBo2yF0FwUVYE-Wt8kfudF_2_RGJQPfeCC-52TMC-h65OBSQmIIExOXXFXL-hQfLeGWG_ZexKQoqEKLqssBxKtKtgFHLv09ZrAVlu7wdVBJPI2_WlDGnVTeuvRJCb7=w2286-h1714-s-no-gm)
+![Browning the chicken sausage](https://lh3.googleusercontent.com/pw/AP1GczN7AqYVYTWZ2htf90Bz0QgU_UKBo2yF0FwUVYE-Wt8kfudF_2_RGJQPfeCC-52TMC-h65OBSQmIIExOXXFXL-hQfLeGWG_ZexKQoqEKLqssBxKtKtgFHLv09ZrAVlu7wdVBJPI2_WlDGnVTeuvRJCb7=w2286-h1714-s-no-gm)
 
-Keep the oil from the chicken in the pot and stir in the onions for a few minutes. You might need 1-2 more tablespoons of olive oil. Add the garlic a few minutes later; cook until onions and garlic are soft and carmelized, about 12-15 minutes.
+Keep the oil from the chicken in the pot and stir in the onions for a few minutes. You might need 1-2 more tablespoons of olive oil. Add the garlic a few minutes later; cook until onions and garlic are soft and caramelized, about 12-15 minutes.
 
-Toss in the potatoes and coat them with the camelized onions and garlic for a minute. Pour the chicken broth into the Dutch oven and bring to a boil over medium high heat. Cover and reduce heat until potatoes are fork tender, about 15-20 minutes. Stir occasionally.
+Toss in the potatoes and coat them with the caramelized onions and garlic for a minute. Pour the chicken broth into the Dutch oven and bring to a boil over medium high heat. Cover and reduce heat until potatoes are fork tender, about 15-20 minutes. Stir occasionally.
 
-![Kale in](https://lh3.googleusercontent.com/pw/AP1GczPDIcaFdyd0m9Nvlx9Gloytca6ioU7UqDAjH9xlIV_8ZIB1ZSdKew4vVa2RKPIped33xyeGgF2yX_FPQUjI9kbY6LyT4yw76wUsgdjx5LMLInk_e2UP4SmaWMo3xGN5zSNCbo_xDDfKiWloXWH0i3eA=w2286-h1714-s-no-gm)
+![Adding kale to the soup](https://lh3.googleusercontent.com/pw/AP1GczPDIcaFdyd0m9Nvlx9Gloytca6ioU7UqDAjH9xlIV_8ZIB1ZSdKew4vVa2RKPIped33xyeGgF2yX_FPQUjI9kbY6LyT4yw76wUsgdjx5LMLInk_e2UP4SmaWMo3xGN5zSNCbo_xDDfKiWloXWH0i3eA=w2286-h1714-s-no-gm)
 
 Reduce the heat to medium and stir in the coconut milk, the cooked sausage for about 5 minutes. Add the kale into the soup just before serving and cook 3-5 more minutes, it should be bright green and soft.
 
 Serve immediately with a crusty piece of bread and a heavy sprinkle of pecorino romano and cracked black pepper.
 
-![Final product](https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm)
+</div>
+</div>
+
+<div class="recipe-gallery">
+
+![Zuppa Toscana](https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm)
+
+</div>

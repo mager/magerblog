@@ -1,17 +1,26 @@
 ---
+layout: "../../layouts/BlogPost.astro"
 title: "Chicken Pistachio Meatballs"
 pubDate: "2025-11-03"
 description: A lighter, bright and nutty take on classic meatballs with chicken and pistachios.
 category: "food"
+subcategory: "meat"
 tags: ["Chicken", "Healthy", "Meatballs"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm"
 prepTime: 90
 cookTime: 40
 ---
 
-These are inspired by my classic meatballs, swapped to juicy ground chicken and studded with chopped pistachios. They’re lighter, super flavorful, and perfect with a lemony yogurt sauce, tossed in a light red sauce, or served over a crisp salad.
+<div class="recipe-intro">
 
-#### Ingredients
+These are inspired by my classic meatballs, swapped to juicy ground chicken and studded with chopped pistachios. They're lighter, super flavorful, and perfect with a lemony yogurt sauce, tossed in a light red sauce, or served over a crisp salad.
+
+</div>
+
+<div class="recipe-body">
+<div class="recipe-ingredients">
+
+#### Meatballs
 
 - 2 lbs ground chicken (thigh preferred)
 - 1 baguette (white interior only, for panade)
@@ -32,7 +41,18 @@ These are inspired by my classic meatballs, swapped to juicy ground chicken and 
 - Olive oil (for coating the sheet pan and drizzling)
 - Optional boosters: pinch of red pepper flakes, 1 teaspoon Worcestershire, a few torn mint leaves
 
-#### Instructions
+#### Simple Butter-Garlic Pasta (optional)
+
+- 12 oz pasta (spaghetti, bucatini, or your favorite)
+- 4 tablespoons unsalted butter
+- 1 teaspoon garlic powder (or 1 grated clove for fresher garlic)
+- Salt and freshly ground black pepper
+- Pasta cooking water, as needed
+- Optional: grated parmesan and chopped parsley
+
+</div>
+
+<div class="recipe-instructions">
 
 Make the panade: Strip the soft white interior from the baguette into a bowl and cover with the half & half. Let sit 10–15 minutes, then squeeze out excess liquid. Set aside.
 
@@ -52,25 +72,21 @@ Roast: Bake on the middle rack for 15–17 minutes. Flip each meatball and roast
 
 Rest and serve: Let rest 5–10 minutes. Serve with a simple buttered pasta, a light marinara, on a hoagie, or over salad.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm)
-
-#### Simple Butter-Garlic Pasta (optional)
-
-- 12 oz pasta (spaghetti, bucatini, or your favorite)
-- 4 tablespoons unsalted butter
-- 1 teaspoon garlic powder (or 1 grated clove for fresher garlic)
-- Salt and freshly ground black pepper
-- Pasta cooking water, as needed
-- Optional: grated parmesan and chopped parsley
-
-Cook pasta in well-salted water until al dente. Reserve 1 cup of pasta water and drain. In the pot, melt butter over low heat; whisk in garlic powder. Add pasta back with a splash of pasta water and toss until glossy, adding more water as needed to create a silky coating. Season with salt and pepper. Finish with parmesan and parsley, if you like. Serve alongside the meatballs.
+**For the pasta:** Cook pasta in well-salted water until al dente. Reserve 1 cup of pasta water and drain. In the pot, melt butter over low heat; whisk in garlic powder. Add pasta back with a splash of pasta water and toss until glossy, adding more water as needed to create a silky coating. Season with salt and pepper. Finish with parmesan and parsley, if you like.
 
 #### Notes and Tips
 
 - Chicken cooks a bit faster than beef/pork. Start checking color and doneness at the earlier end of the range.
 - Cheese: use a 50/50 mix of pecorino romano and pecorino toscano; parmesan reggiano is a great lighter substitute.
-- Don’t skimp on olive oil on the pan and tops—this helps with browning since chicken is lean.
-- Make-ahead: you can do most prep in advance—soak the bread for the panade, crush the pistachios, pick and chop the parsley, and chop the onions and garlic. Cover components and refrigerate until ready to mix.
+- Don't skimp on olive oil on the pan and tops—this helps with browning since chicken is lean.
+- Make-ahead: you can do most prep in advance—soak the bread for the panade, crush the pistachios, pick and chop the parsley, and chop the onions and garlic.
 - You can also form the meatballs ahead of time; arrange on a sheet pan, cover, and refrigerate. Roast straight from the fridge, adding a minute or two if needed.
 
+</div>
+</div>
 
+<div class="recipe-gallery">
+
+![Chicken pistachio meatballs](https://lh3.googleusercontent.com/pw/AP1GczN3uGESGn72bPD9_9TxmNTnLS1MWQ7hJhdmGI7ByG1MXvbd-hOTHPVsCYwqohtLrn0zqqtdL7EdH0VSKAuvhO9EQcw1YCypamRZuGIwCGjdbCXFZVudoz6NvIeQoDTpezeLlbgGRc6w1Bpsp-IwlFU7tA=w2286-h1714-s-no-gm)
+
+</div>
