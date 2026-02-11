@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import LifeNav from '../components/life/LifeNav.astro';
+import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import '../styles/life.css';
@@ -493,7 +493,7 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
   </head>
 
   <body>
-    <LifeNav />
+    <Header activeCategory="life" />
 
     <!-- Hero -->
     <header class:list={["life-hero", { "no-image": !heroImage }]}>

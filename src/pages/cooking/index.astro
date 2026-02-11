@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import CookingNav from '../../components/cooking/CookingNav.astro';
+import Header from '../../components/Header.astro';
 import RecipeCard from '../../components/cooking/RecipeCard.astro';
 import SecretSearch from '../../components/SecretSearch.astro';
 import { SITE_TITLE } from '../../consts';
@@ -331,7 +331,7 @@ const subcategories = [...new Set(recipes.map(r => r.data.subcategory).filter(Bo
   </head>
 
   <body>
-    <CookingNav />
+    <Header activeCategory="recipes" />
 
     <!-- Hero -->
     <section class="cooking-hero">

@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import LifeNav from '../components/life/LifeNav.astro';
+import Header from '../components/Header.astro';
 import LifeCard from '../components/life/LifeCard.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE } from '../consts';
@@ -249,7 +249,7 @@ const rest = posts.slice(1);
   </head>
 
   <body>
-    <LifeNav />
+    <Header activeCategory="life" />
 
     <!-- Hero -->
     <section class="life-hero">
