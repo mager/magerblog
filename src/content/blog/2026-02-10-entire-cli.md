@@ -1,5 +1,5 @@
 ---
-title: "Entire CLI: Version Control for Your AI Coding Sessions"
+title: "Entire CLI: Version Control for Your Agent Sessions"
 pubDate: "2026-02-10"
 description: "A quick look at Entire, a CLI tool that captures AI agent sessions alongside your git commits. Think flight recorder for AI-assisted development."
 category: "code"
