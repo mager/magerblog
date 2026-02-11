@@ -28,14 +28,16 @@ All of this gets stored on a separate git branch (`entire/checkpoints/v1`), so y
 # Install
 curl -fsSL https://entire.io/install.sh | bash
 
-# Enable in your project
+# Enable in your project with auto-commit
 cd your-project
-entire enable
+entire enable --strategy auto-commit
 
 # That's it. Work normally.
 ```
 
-Once enabled, Entire tracks your AI sessions automatically. Check on it anytime:
+I'd recommend `auto-commit` over the default `manual-commit`. With auto-commit, Entire creates a checkpoint after every agent response — so you get fine-grained save points without having to remember to commit. It does mean more commits on your branch, but that's a small price for being able to rewind to any point in the conversation.
+
+Check on it anytime:
 
 ```bash
 entire status
@@ -43,7 +45,7 @@ entire status
 
 ## The Killer Feature: Rewind
 
-This is the part that sold me. If an agent goes sideways three steps into a task, you can roll back to any checkpoint:
+This is the part that sold me. With `auto-commit` strategy, Entire creates a checkpoint after every agent response. If an agent goes sideways three steps into a task, you can roll back to any of those save points — **while the session is still active**:
 
 ```bash
 entire rewind
@@ -51,10 +53,11 @@ entire rewind
 
 It shows all checkpoints in the current session. Pick one, and your code snaps back to that exact state. No more `git stash` gymnastics or hunting through undo history.
 
-You can also resume previous sessions on any branch:
+**Important caveat I learned the hard way:** `rewind` only works during a live session. Once the session ends, the temporary shadow branches get cleaned up and the session data gets condensed onto `entire/checkpoints/v1`. After that, use `entire explain` to review what happened, or `entire resume` to pick up where you left off:
 
 ```bash
-entire resume feature/my-branch
+entire explain HEAD              # what happened in the last session?
+entire resume feature/my-branch  # restore session metadata and continue
 ```
 
 ## A Real Example: Updating My Blog's Navigation
@@ -86,11 +89,11 @@ Later, when I wanted to remember *why* Claude restructured the header the way it
 entire explain HEAD
 ```
 
-And if the nav changes broke something downstream, I could rewind to a checkpoint before the layout refactor:
+And with `auto-commit`, if the nav changes started going sideways mid-session, I could rewind to a checkpoint before the layout refactor while Claude Code was still running:
 
 ```bash
 entire rewind
-# Pick a save point → code snaps back, session intact
+# Pick a save point → code snaps back, keep working
 ```
 
 ## Multi-Machine: The Part I Missed
@@ -109,6 +112,7 @@ So when I pulled the repo on a different machine, the config was already there. 
 curl -fsSL https://entire.io/install.sh | bash
 
 # Install the git hooks locally (hooks don't transfer via git clone)
+# --force reinstalls hooks, picks up the auto-commit strategy from settings.json
 entire enable --force
 ```
 
