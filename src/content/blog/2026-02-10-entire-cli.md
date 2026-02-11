@@ -8,130 +8,59 @@ keyword: "entire cli ai sessions"
 draft: true
 ---
 
-I've been using AI coding agents (Claude Code, OpenClaw) across several projects, and one thing that's always bugged me: **the reasoning disappears**. You get the commit, but not the conversation that produced it. Why did the agent refactor that function? What alternatives did it consider?
+When you use AI coding agents like Claude Code, the code stays but the conversation disappears. You get the commit, but not *why* the agent made the choices it did. [Entire](https://entire.io) fixes that.
 
-[Entire](https://entire.io) solves this by hooking into your git workflow to capture AI agent sessions on every push.
+It hooks into your git workflow to capture AI sessions — prompts, responses, files touched, token usage — and stores them on a separate git branch (`entire/checkpoints/v1`). Your commit history stays clean. The context lives alongside it.
 
-## What It Does
-
-Entire installs lightweight git hooks that run in the background while you work with Claude Code or Gemini CLI. It captures:
-
-- Every prompt and response in the session
-- Files modified and when
-- The full reasoning chain
-
-All of this gets stored on a separate git branch (`entire/checkpoints/v1`), so your actual commit history stays clean. No extra noise in your PRs.
-
-## Setup Takes 30 Seconds
+## Setup
 
 ```bash
 # Install
 curl -fsSL https://entire.io/install.sh | bash
 
-# Enable in your project with auto-commit
+# Enable in any git repo
 cd your-project
-entire enable --strategy auto-commit
-
-# That's it. Work normally.
+entire enable
 ```
 
-I'd recommend `auto-commit` over the default `manual-commit`. With auto-commit, Entire creates a checkpoint after every agent response — so you get fine-grained save points without having to remember to commit. It does mean more commits on your branch, but that's a small price for being able to rewind to any point in the conversation.
+That's it. Work with Claude Code or Gemini CLI normally. When you push, Entire prompts you to link the commit to your session. If you say yes, the session gets pushed to your repo as a checkpoint.
 
-Check on it anytime:
+## Rewind
 
-```bash
-entire status
-```
-
-## The Killer Feature: Rewind
-
-This is the part that sold me. With `auto-commit` strategy, Entire creates a checkpoint after every agent response. If an agent goes sideways three steps into a task, you can roll back to any of those save points — **while the session is still active**:
+The standout feature. During a live Claude Code session, Entire saves checkpoints as you go. If things go sideways, roll back:
 
 ```bash
 entire rewind
 ```
 
-It shows all checkpoints in the current session. Pick one, and your code snaps back to that exact state. No more `git stash` gymnastics or hunting through undo history.
+Pick a checkpoint, code snaps back. No `git stash`, no manual undo.
 
-**Important caveat I learned the hard way:** `rewind` only works during a live session. Once the session ends, the temporary shadow branches get cleaned up and the session data gets condensed onto `entire/checkpoints/v1`. After that, use `entire explain` to review what happened, or `entire resume` to pick up where you left off:
+**One thing that tripped me up:** rewind only works during an active session. Once the session ends, checkpoints get condensed onto the `entire/checkpoints/v1` branch. After that, use `entire explain` to review what happened or `entire resume` to pick up where you left off.
 
-```bash
-entire explain HEAD              # what happened in the last session?
-entire resume feature/my-branch  # restore session metadata and continue
-```
+## Real Example
 
-## A Real Example: Updating My Blog's Navigation
-
-I wanted to make the navigation consistent across my Astro blog — same header on every page, clean routing, no more one-off nav components. I fired up Claude Code and got to work:
-
-```bash
-claude
-
-> "Update the navigation to be consistent across all pages..."
-```
+I used Claude Code to refactor the navigation on this blog — making the header consistent across all pages. Entire captured the full session automatically.
 
 <!-- TODO: Add screenshot of the Claude Code session -->
 
-Claude refactored the header component, updated the layout files, and fixed the routing. A few back-and-forth exchanges later, the nav was solid. I committed and pushed:
-
-```bash
-git add -A && git commit -m "fix: consistent navigation across all pages"
-git push
-```
-
-Here's the part that wasn't obvious to me at first: **Entire captured that entire session automatically.** I didn't have to do anything extra. The prompts, responses, and file changes all got pushed to a separate branch (`entire/checkpoints/v1`) alongside my commit.
+Later, I could see exactly why Claude restructured the layout the way it did. And if it had broken something, I could've rewound mid-session to before the refactor.
 
 <!-- TODO: Add screenshot of the entire/checkpoints/v1 branch -->
 
-Later, when I wanted to remember *why* Claude restructured the header the way it did, I could pull up the session:
+## Works Across Machines
+
+The config files (`.entire/settings.json`, `.claude/settings.json`) get committed to your repo. On a new machine, just install the CLI and re-enable hooks:
 
 ```bash
-entire explain HEAD
-```
-
-And with `auto-commit`, if the nav changes started going sideways mid-session, I could rewind to a checkpoint before the layout refactor while Claude Code was still running:
-
-```bash
-entire rewind
-# Pick a save point → code snaps back, keep working
-```
-
-## Multi-Machine: The Part I Missed
-
-One thing that wasn't clear to me initially — **Entire's config and session history sync across machines via git.**
-
-When you run `entire enable`, it creates:
-- `.entire/settings.json` — your strategy config (committed to git)
-- `.claude/settings.json` — Claude Code hook config (committed to git)
-- `.entire/metadata/` — session data (gitignored, pushed to the checkpoint branch)
-
-So when I pulled the repo on a different machine, the config was already there. I just needed to:
-
-```bash
-# Install the CLI on the new machine
 curl -fsSL https://entire.io/install.sh | bash
-
-# Install the git hooks locally (hooks don't transfer via git clone)
-# --force reinstalls hooks, picks up the auto-commit strategy from settings.json
+git pull origin main
 entire enable --force
 ```
 
-After that, sessions from both machines get pushed to the same `entire/checkpoints/v1` branch. One unified history of how the code was written, regardless of which computer I was on.
+Sessions from all your machines push to the same checkpoint branch.
 
-## What It Doesn't Do
+## What It Doesn't Touch
 
-Entire is a **local dev tool**. It doesn't touch your build pipeline, CI/CD, or deployments. No changes to `package.json`, no new dependencies in your app. Your Vercel/Netlify/whatever deploys stay exactly the same.
+Entire is local dev tooling. No build changes, no CI/CD impact, no new dependencies. Your deploys stay exactly the same.
 
-The only file it adds to your project is `.entire/settings.json` for configuration.
-
-## Why I'm Using It
-
-I run AI agents across three projects (a music app, a sports picks app, and this blog). Having a searchable record of *how* code was written — not just what changed — is genuinely useful for:
-
-- **Debugging agent decisions** — "Why did it choose this approach?"
-- **Onboarding** — New contributors can read the AI sessions alongside the code
-- **Rewinding mistakes** — Cheaper than `git revert` when the agent went off the rails
-
-It's one of those tools that costs nothing to run and pays off the first time you need it.
-
-Check it out: [entire.io](https://entire.io) / [GitHub](https://github.com/entireio/cli)
+Check it out: [entire.io](https://entire.io) · [GitHub](https://github.com/entireio/cli) · [Docs](https://docs.entire.io)
