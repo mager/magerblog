@@ -23,6 +23,8 @@ cd your-project
 entire enable
 ```
 
+![Running entire enable in the magerblog repo — hooks installed, checkpoint branch created, ready to go](https://lh3.googleusercontent.com/pw/AP1GczOfvadrrZWqsJtTo-JfctGI__4OF7hr_t6pOL0l1icww7Qz9TD5GSlM_yznj5ZtqotC0aZfAwtY8HPrKwbNmFn4M0QmZti-bApb2ptaaQ5omjuswwvFFsCNeGTjCn42PQXYuZoWFOBCunyPooOP0QQzAw=w2318-h1522-s-no-gm)
+
 That's it. Work with Claude Code or Gemini CLI normally. When you push, Entire prompts you to link the commit to your session. If you say yes, the session gets pushed to your repo as a checkpoint.
 
 ## Rewind
@@ -41,11 +43,9 @@ Pick a checkpoint, code snaps back. No `git stash`, no manual undo.
 
 I used Claude Code to refactor the navigation on this blog — making the header consistent across all pages. Entire captured the full session automatically.
 
-<!-- TODO: Add screenshot of the Claude Code session -->
+Running `entire explain` shows each checkpoint with the original prompt and resulting commit. And `entire rewind` gives you an interactive picker to roll back to any save point:
 
-Later, I could see exactly why Claude restructured the layout the way it did. And if it had broken something, I could've rewound mid-session to before the refactor.
-
-<!-- TODO: Add screenshot of the entire/checkpoints/v1 branch -->
+![entire explain showing session checkpoints, and entire rewind with an interactive selector to roll back](https://lh3.googleusercontent.com/pw/AP1GczOU-x2EGCqDorE7x3UVdJOy55VUaQEjGgPG95BQwszWOVU8dM8dEFqSqGtsagCcD5hCmTxrtLcZzc8ciftpui61HTo97DUAZMrv6xnTkSZtZe82zlrHjHLgIMlMPdre7iEQE5MK6F983V5nc-zRqQgfOg=w2318-h1522-s-no-gm)
 
 ## Works Across Machines
 
