@@ -57,38 +57,62 @@ You can also resume previous sessions on any branch:
 entire resume feature/my-branch
 ```
 
-## A Real Example
+## A Real Example: Updating My Blog's Navigation
 
-Say I'm adding a new feature to my sports picks app. I fire up Claude Code and start working:
+I wanted to make the navigation consistent across my Astro blog — same header on every page, clean routing, no more one-off nav components. I fired up Claude Code and got to work:
 
 ```bash
-entire enable
-claude  # start a coding session
+claude
 
-> "Add a leaderboard page that ranks users by RXP earned this week"
+> "Update the navigation to be consistent across all pages..."
 ```
 
-Claude scaffolds the component, adds an API route, writes a Firestore query. Three back-and-forth exchanges later, I've got a working leaderboard. I commit:
+<!-- TODO: Add screenshot of the Claude Code session -->
+
+Claude refactored the header component, updated the layout files, and fixed the routing. A few back-and-forth exchanges later, the nav was solid. I committed and pushed:
 
 ```bash
-git add -A && git commit -m "feat: weekly RXP leaderboard"
+git add -A && git commit -m "fix: consistent navigation across all pages"
 git push
 ```
 
-Entire captures the full session — every prompt, every response, every file touched — and pushes it to `entire/checkpoints/v1` alongside the commit. Later, when I look at that commit and wonder "why did it use a composite index instead of a collection group query?", I can pull up the exact conversation:
+Here's the part that wasn't obvious to me at first: **Entire captured that entire session automatically.** I didn't have to do anything extra. The prompts, responses, and file changes all got pushed to a separate branch (`entire/checkpoints/v1`) alongside my commit.
+
+<!-- TODO: Add screenshot of the entire/checkpoints/v1 branch -->
+
+Later, when I wanted to remember *why* Claude restructured the header the way it did, I could pull up the session:
 
 ```bash
 entire explain HEAD
 ```
 
-Or if the leaderboard query turns out to be slow and I want to roll back to the checkpoint before the Firestore changes:
+And if the nav changes broke something downstream, I could rewind to a checkpoint before the layout refactor:
 
 ```bash
 entire rewind
-# Pick checkpoint 2 of 4 → code snaps back, session intact
+# Pick a save point → code snaps back, session intact
 ```
 
-No `git revert`, no manual undo. Just pick a save point.
+## Multi-Machine: The Part I Missed
+
+One thing that wasn't clear to me initially — **Entire's config and session history sync across machines via git.**
+
+When you run `entire enable`, it creates:
+- `.entire/settings.json` — your strategy config (committed to git)
+- `.claude/settings.json` — Claude Code hook config (committed to git)
+- `.entire/metadata/` — session data (gitignored, pushed to the checkpoint branch)
+
+So when I pulled the repo on a different machine, the config was already there. I just needed to:
+
+```bash
+# Install the CLI on the new machine
+curl -fsSL https://entire.io/install.sh | bash
+
+# Install the git hooks locally (hooks don't transfer via git clone)
+entire enable --force
+```
+
+After that, sessions from both machines get pushed to the same `entire/checkpoints/v1` branch. One unified history of how the code was written, regardless of which computer I was on.
 
 ## What It Doesn't Do
 
