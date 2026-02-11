@@ -43,7 +43,6 @@ html[data-life] body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.75;
   margin: 0;
-  padding: 0;
   overflow-x: hidden;
 }
 
@@ -194,10 +193,8 @@ html[data-life] hr {
   border-top: 1px solid var(--lf-divider);
 }
 
-/* Override global mobile padding */
 @media (max-width: 720px) {
   html[data-life] body {
-    padding-bottom: 0 !important;
     font-size: 16px;
   }
 }
