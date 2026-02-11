@@ -27,17 +27,23 @@ entire enable
 
 That's it. Work with Claude Code or Gemini CLI normally. When you push, Entire prompts you to link the commit to your session. If you say yes, the session gets pushed to your repo as a checkpoint.
 
+## Strategies
+
+Entire has two strategies: `manual-commit` (default) and `auto-commit`. I'd recommend auto-commit — it creates a checkpoint after every agent response, so you get fine-grained save points without having to remember to commit yourself:
+
+```bash
+entire enable --strategy auto-commit
+```
+
 ## Rewind
 
-The standout feature. During a live Claude Code session, Entire saves checkpoints as you go. If things go sideways, roll back:
+The standout feature. Entire saves checkpoints as you go. If things go sideways, roll back:
 
 ```bash
 entire rewind
 ```
 
-Pick a checkpoint, code snaps back. No `git stash`, no manual undo.
-
-**One thing that tripped me up:** rewind only works during an active session. Once the session ends, checkpoints get condensed onto the `entire/checkpoints/v1` branch. After that, use `entire explain` to review what happened or `entire resume` to pick up where you left off.
+Pick a checkpoint, code snaps back. No `git stash`, no manual undo. You can also use `entire explain` to review what happened in a session or `entire resume` to pick up where you left off.
 
 ## Real Example
 
