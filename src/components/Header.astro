@@ -1,12 +1,6 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
-
-interface Props {
-	activeCategory?: string;
-}
-
-const { activeCategory } = Astro.props;
 ---
 
 <header class="site-header">
@@ -20,16 +14,16 @@ const { activeCategory } = Astro.props;
 		</h2>
 		<div class="nav-right">
 			<div class="internal-links">
-				<HeaderLink href="/code" class={activeCategory === 'code' ? 'active' : ''}>
+				<HeaderLink href="/code" style="--accent: var(--cyan);">
 					<span class="nav-icon">$</span> Code
 				</HeaderLink>
-				<HeaderLink href="/life" class={activeCategory === 'life' ? 'active' : ''}>
+				<HeaderLink href="/life" style="--accent: var(--accent-green);">
 					<span class="nav-icon">~</span> Life
 				</HeaderLink>
-				<HeaderLink href="/cooking" class={activeCategory === 'recipes' ? 'active' : ''}>
+				<HeaderLink href="/cooking" style="--accent: var(--orange);">
 					<span class="nav-icon">#</span> Cooking
 				</HeaderLink>
-				<HeaderLink href="/about">
+				<HeaderLink href="/about" style="--accent: var(--text-primary);">
 					<span class="nav-icon">?</span> About
 				</HeaderLink>
 			</div>
@@ -65,11 +59,10 @@ const { activeCategory } = Astro.props;
 		margin: 0;
 		padding: 0;
 		background: var(--editor-bg);
-		border-bottom: 1px solid var(--terminal-border);
+		border-bottom: 1px solid rgba(48, 54, 61, 0.6);
 		font-family: 'JetBrains Mono', 'Fira Code', monospace;
 		line-height: 1.4;
 	}
-
 
 	h2 {
 		margin: 0;
@@ -86,7 +79,7 @@ const { activeCategory } = Astro.props;
 		align-items: center;
 		gap: 0.2rem;
 		position: relative;
-		transition: all 0.3s ease;
+		transition: color 0.2s ease;
 		padding: 0.25rem 0;
 	}
 
@@ -94,10 +87,12 @@ const { activeCategory } = Astro.props;
 		color: var(--text-muted);
 		font-size: 1.1em;
 		font-weight: 700;
+		transition: color 0.2s ease;
 	}
 
 	.logo .brand {
 		color: var(--text-primary);
+		transition: color 0.2s ease;
 	}
 
 	.logo:hover .brand {
@@ -117,12 +112,13 @@ const { activeCategory } = Astro.props;
 		padding: 1rem 2rem;
 	}
 
+	/* --- Nav links --- */
 	nav a {
 		padding: 0 0.75em;
 		color: var(--text-secondary);
 		text-decoration: none;
 		font-weight: 600;
-		transition: all 0.2s ease;
+		transition: color 0.2s ease;
 		font-family: 'JetBrains Mono', 'Fira Code', monospace;
 		font-size: 0.9em;
 		position: relative;
@@ -133,14 +129,52 @@ const { activeCategory } = Astro.props;
 		text-decoration: none;
 	}
 
+	/* Category-colored active state — each link sets --accent */
 	nav a.active {
-		color: var(--status-purple);
+		color: var(--accent, var(--text-primary));
+		text-shadow:
+			0 0 12px color-mix(in srgb, var(--accent, var(--text-primary)) 50%, transparent),
+			0 0 30px color-mix(in srgb, var(--accent, var(--text-primary)) 20%, transparent);
+	}
+
+	nav a.active .nav-icon {
+		color: var(--accent, var(--text-primary));
 	}
 
 	.nav-icon {
 		color: var(--text-muted);
 		margin-right: 0.25rem;
 		font-weight: 700;
+		transition: color 0.2s ease;
+	}
+
+	/* Hover lifts the icon into the link's accent color */
+	nav a:hover .nav-icon {
+		color: var(--accent, var(--text-secondary));
+	}
+
+	/* Underline indicator that slides in on hover/active */
+	:global(.internal-links) a::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0.75em;
+		right: 0.75em;
+		height: 1px;
+		background: var(--accent, var(--text-primary));
+		opacity: 0;
+		transform: scaleX(0);
+		transition: transform 0.2s ease, opacity 0.2s ease;
+	}
+
+	:global(.internal-links) a:hover::after {
+		opacity: 0.4;
+		transform: scaleX(1);
+	}
+
+	:global(.internal-links) a.active::after {
+		opacity: 0.7;
+		transform: scaleX(1);
 	}
 
 	.nav-right {
@@ -161,7 +195,7 @@ const { activeCategory } = Astro.props;
 		align-items: center;
 		gap: 0.5rem;
 		padding-left: 1rem;
-		border-left: 1px solid var(--terminal-border);
+		border-left: 1px solid rgba(48, 54, 61, 0.6);
 	}
 
 	.social-link {
@@ -169,7 +203,7 @@ const { activeCategory } = Astro.props;
 		align-items: center;
 		justify-content: center;
 		color: var(--text-muted);
-		transition: all 0.2s ease;
+		transition: color 0.2s ease;
 		padding: 0.4em;
 		border-radius: 6px;
 		background: transparent;
@@ -188,7 +222,7 @@ const { activeCategory } = Astro.props;
 		height: 20px;
 	}
 
-	/* Mobile styles - Bottom Navigation */
+	/* ---- Mobile: Bottom Navigation ---- */
 	@media (max-width: 720px) {
 		.site-header {
 			position: fixed;
@@ -198,7 +232,7 @@ const { activeCategory } = Astro.props;
 			right: 0;
 			background: var(--editor-bg);
 			border-bottom: none;
-			border-top: 1px solid var(--terminal-border);
+			border-top: 1px solid rgba(48, 54, 61, 0.6);
 			padding-bottom: env(safe-area-inset-bottom, 0);
 		}
 
@@ -210,7 +244,6 @@ const { activeCategory } = Astro.props;
 			justify-content: space-around;
 		}
 
-		/* Hide logo on mobile bottom nav */
 		h2 {
 			display: none;
 		}
@@ -228,12 +261,11 @@ const { activeCategory } = Astro.props;
 			gap: 0;
 		}
 
-		/* Hide desktop social links - can add to About page */
 		.social-links {
 			display: none;
 		}
 
-		/* Mobile nav items - big touch targets */
+		/* Mobile nav items — stacked icon + label, big touch targets */
 		nav a {
 			display: flex;
 			flex-direction: column;
@@ -247,25 +279,25 @@ const { activeCategory } = Astro.props;
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
 			border-radius: 8px;
-			transition: all 0.2s ease;
+			transition: color 0.2s ease, background 0.2s ease;
 		}
 
 		nav a:hover,
 		nav a:active {
-			background: rgba(163, 113, 247, 0.15);
+			background: rgba(255, 255, 255, 0.06);
 		}
 
 		nav a.active {
-			background: rgba(163, 113, 247, 0.2);
-			color: var(--status-purple);
+			color: var(--accent, var(--text-primary));
+			background: color-mix(in srgb, var(--accent, var(--text-primary)) 12%, transparent);
+			text-shadow: none;
 		}
 
-		/* Remove underline effects on mobile */
-		nav a::after {
+		/* Hide underline indicators on mobile */
+		:global(.internal-links) a::after {
 			display: none;
 		}
 
-		/* Show nav icons on mobile - stacked above text */
 		.nav-icon {
 			display: block;
 			font-size: 1.25rem;
@@ -275,11 +307,10 @@ const { activeCategory } = Astro.props;
 		}
 
 		nav a.active .nav-icon {
-			color: var(--status-purple);
+			color: var(--accent, var(--text-primary));
 		}
 	}
 
-	/* Add body padding for fixed bottom nav */
 	@media (max-width: 720px) {
 		:global(body) {
 			padding-bottom: calc(70px + env(safe-area-inset-bottom, 0));

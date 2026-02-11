@@ -26,17 +26,6 @@ const currentIndex = categoryPosts.findIndex(post => post.id === postId);
 const prevPost = currentIndex < categoryPosts.length - 1 ? categoryPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? categoryPosts[currentIndex - 1] : null;
 
-// Map category to display name for breadcrumb
-const getCategoryName = (cat: string | undefined) => {
-	if (!cat) return null;
-	const categoryMap: Record<string, string> = {
-		code: 'code',
-		food: 'recipes',
-		life: 'life'
-	};
-	return categoryMap[cat.toLowerCase()] || null;
-};
-
 // Map category to emoji + label for badge
 const getCategoryBadge = (cat: string | undefined) => {
 	if (!cat) return null;
@@ -48,7 +37,6 @@ const getCategoryBadge = (cat: string | undefined) => {
 	return categoryMap[cat.toLowerCase()] || null;
 };
 
-const categoryName = getCategoryName(category);
 const categoryBadge = getCategoryBadge(category);
 ---
 
@@ -672,7 +660,7 @@ const categoryBadge = getCategoryBadge(category);
 	</head>
 
 	<body data-category={category?.toLowerCase() || undefined} data-recipe-layout={recipeLayout || undefined}>
-		<Header activeCategory={categoryName || undefined} />
+		<Header />
 		<div class="sticky-header">
 			<div class="sticky-content">
 				<div class="sticky-left">
