@@ -63,4 +63,10 @@ Sessions from all your machines push to the same checkpoint branch.
 
 Entire is local dev tooling. No build changes, no CI/CD impact, no new dependencies. Your deploys stay exactly the same.
 
+## One More Thing
+
+Honestly, this feels like something that should just be built into Claude Code. Running a separate CLI for session history adds friction. But the tradeoff makes sense — Entire is agent-agnostic (works with Gemini CLI too) and stores everything in git, not a vendor's cloud. If Anthropic built it in natively, it'd only cover Claude. Having it as a git layer means the history lives in your repo regardless of which agent wrote the code.
+
+I wouldn't be surprised if Claude Code ships something like this eventually. Until then, Entire fills the gap.
+
 Check it out: [entire.io](https://entire.io) · [GitHub](https://github.com/entireio/cli) · [Docs](https://docs.entire.io)
