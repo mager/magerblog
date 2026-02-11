@@ -33,17 +33,18 @@ My staple mac & cheese—just a few pantry ingredients and a lot of comfort. The
 - 1½ tsp of kosher salt and 16-20 cracks of pepper, to taste
 - ½ tsp garlic powder (optional)
 - ½ tsp onion powder (optional)
-- ½ tsp mustard powder (optional)
+- ¼ tsp mustard powder (optional)
+- Pinch of cayenne pepper (optional)
 - 1-2 green onions for topping (optional)
-- 16 oz cooked pasta (pipe rigate, elbow macaroni, or shells)
+- 16 oz cooked pasta (pipe rigate, fusili, elbow macaroni, or shells)
 
 </div>
 
 <div class="recipe-instructions">
 
-Cook the pasta according to package instructions, subtracting 2 min for al dente. Drain and set aside.
+Cook the pasta in generously salted water according to package instructions, subtracting 2 min for al dente. Reserve ½ cup of pasta water before draining. Drain and set aside.
 
-In a medium saucepan, melt the butter over medium heat. Whisk in the flour and cook for 1-2 minutes, stirring constantly.
+In a medium saucepan, melt the butter over medium heat. Whisk in the flour and cook for 1-2 minutes, stirring constantly. Add the garlic powder, onion powder, and mustard powder (if using) and stir for 30 seconds to bloom the spices.
 
 Gradually add the half-and-half, whisking to combine, and cook until the mixture thickens (about 5 minutes).
 
@@ -51,7 +52,7 @@ Gradually add the half-and-half, whisking to combine, and cook until the mixture
 
 Stir in the shredded white cheddar, American cheese, and Parmesan cheese, mixing until the cheese is melted and the sauce is smooth for a few minutes.
 
-Season the sauce with salt, pepper, garlic powder and mustard powder, if using. Taste and adjust as needed. Combine the cheese sauce with the cooked pasta, mixing well to coat evenly.
+Season the sauce with salt, pepper, and a pinch of cayenne (if using). Taste and adjust as needed. Combine the cheese sauce with the cooked pasta, mixing well to coat evenly. If the sauce is too thick, add a splash of reserved pasta water to loosen it.
 
 Serve hot, optionally garnished with more grated parm and chopped green onions.
 
