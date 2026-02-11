@@ -4,15 +4,14 @@ pubDate: "2026-02-10"
 description: "A quick look at Entire, a CLI tool that captures AI agent sessions alongside your git commits. Think flight recorder for AI-assisted development."
 category: "code"
 tags: ["AI", "Developer Tools", "Git"]
-keyword: "entire cli ai sessions"
-draft: true
+keyword: "AI flight recorders"
 ---
 
 When you use AI coding agents like Claude Code, the code stays but the conversation disappears. You get the commit, but not *why* the agent made the choices it did. [Entire](https://entire.io) fixes that.
 
 It hooks into your git workflow to capture AI sessions — prompts, responses, files touched, token usage — and stores them on a separate git branch (`entire/checkpoints/v1`). Your commit history stays clean. The context lives alongside it.
 
-## Setup
+## 30s Setup
 
 ```bash
 # Install
