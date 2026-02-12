@@ -1,9 +1,9 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Sea Shell Sausage Soup"
+title: "Sea Shape Sausage Soup"
 pubDate: "2026-02-12"
 draft: true
-description: "Italian sausage, tiny sea shell pasta, crushed tomatoes, kale, and a Parmesan rind simmered into a brothy, deeply savory one-pot soup."
+description: "Italian sausage, tiny sea shape pasta, crushed tomatoes, kale, and a Parmesan rind simmered into a brothy, deeply savory one-pot soup."
 category: "food"
 subcategory: "soup"
 tags: ["Soup", "Pasta", "Italian Sausage", "Comfort Food"]
@@ -14,9 +14,9 @@ cookTime: 30
 
 <div class="recipe-intro">
 
-Little sea shell pasta swimming in a rich, sausage-laced tomato broth with kale and a Parmesan rind doing the heavy lifting on umami. The double-tomato move — paste caramelized with the aromatics, then crushed tomatoes stirred in — gives this soup a depth that single-source tomato can't touch. It's a one-pot weeknight move that feels way more put-together than the effort involved. A squeeze of lemon at the end wakes the whole thing up.
+Little sea shape pasta swimming in a rich, sausage-laced tomato broth with kale and a Parmesan rind doing the heavy lifting on umami. The double-tomato move — paste caramelized with the aromatics, then crushed tomatoes stirred in — gives this soup a depth that single-source tomato can't touch. It's a one-pot weeknight move that feels way more put-together than the effort involved. A squeeze of lemon at the end wakes the whole thing up.
 
-Inspired by [Gimme Some Oven's SpaghettiOs and Sausage Soup](https://www.gimmesomeoven.com/spaghettios-and-sausage-soup/) — we swapped in sea shell pasta, added crushed tomatoes for more depth, and use our house sausage dry-rub instead of store-bought.
+Inspired by [Gimme Some Oven's SpaghettiOs and Sausage Soup](https://www.gimmesomeoven.com/spaghettios-and-sausage-soup/) — we swapped in sea shape pasta, added crushed tomatoes for more depth, and use our house sausage dry-rub instead of store-bought.
 
 The sausage here uses the same dry-rub blend from the [Zuppa Toscana](/blog/2023-10-20-zuppa-toscana) — a fennel-forward Italian spice mix that turns plain ground meat into proper sausage. Make a double batch of the blend and keep it in a jar.
 
@@ -56,7 +56,7 @@ Use this on 1 pound of ground chicken, pork, or turkey to make your own Italian 
 - 1½ teaspoons fine sea salt (plus more to taste)
 - 7–8 cups chicken or vegetable broth
 - 1 Parmesan rind
-- 8 ounces sea shell pasta (or other small pasta)
+- 8 ounces sea shape pasta (or other small pasta)
 - 3–4 cups chopped kale, ribs removed
 
 #### Finishing
@@ -73,7 +73,7 @@ Heat the olive oil in a large stockpot over medium-high heat. Add the Italian sa
 
 Add the butter and onion and sauté for 4–5 minutes until the onion is soft and translucent. Stir in the garlic and cook for 30 seconds until fragrant. Add the tomato paste, crushed red pepper flakes, oregano, and salt. Cook for about 3 minutes, stirring constantly, to caramelize the tomato paste and deepen the flavor. Stir in the crushed tomatoes and cook for another 2 minutes to meld everything together — this double-tomato layer is what gives the broth its backbone.
 
-Pour in 6 cups of broth and drop in the Parmesan rind. Bring to a gentle simmer. Stir in the sea shell pasta and cook, stirring occasionally. When the pasta is about 3–4 minutes from al dente, stir in the chopped kale — it wilts quickly and this way the pasta doesn't overcook while you wait on the greens. Add additional broth as needed — the pasta will drink up more than you think.
+Pour in 6 cups of broth and drop in the Parmesan rind. Bring to a gentle simmer. Stir in the sea shape pasta and cook, stirring occasionally. When the pasta is about 3–4 minutes from al dente, stir in the chopped kale — it wilts quickly and this way the pasta doesn't overcook while you wait on the greens. Add additional broth as needed — the pasta will drink up more than you think.
 
 Once the pasta is al dente and the kale is wilted and tender, fish out the Parmesan rind and discard it (or eat the gooey remnants — no judgment).
 
