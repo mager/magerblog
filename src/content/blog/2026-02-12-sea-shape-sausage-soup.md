@@ -7,7 +7,7 @@ description: "Italian sausage, tiny sea shape pasta, crushed tomatoes, kale, and
 category: "food"
 subcategory: "soup"
 tags: ["Soup", "Pasta", "Italian Sausage", "Comfort Food"]
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNobaZyHvGZvWizCk67fMmP8KYdfeAZoD5fuyZcN9r8rrTaMTNy0UrouXhveMGloBr2-stLPWp3qn8WV_fFpgrJ0FAmJNNOU4Ics2JlOyNkK8vzqPF6Y7FhXIMlHIOt_GvRQi8Unrf8sdQQW7cCZk0xsg=w2030-h1522-s-no-gm"
 prepTime: 15
 cookTime: 30
 ---
@@ -82,4 +82,10 @@ Once the pasta is al dente and the kale is wilted and tender, fish out the Parme
 Finish with a squeeze of lemon juice to brighten things up. Taste and adjust salt. Serve warm with a heap of freshly grated Parmesan and a twist of black pepper.
 
 </div>
+</div>
+
+<div class="recipe-gallery">
+
+![Sea Shape Sausage Soup](https://lh3.googleusercontent.com/pw/AP1GczNobaZyHvGZvWizCk67fMmP8KYdfeAZoD5fuyZcN9r8rrTaMTNy0UrouXhveMGloBr2-stLPWp3qn8WV_fFpgrJ0FAmJNNOU4Ics2JlOyNkK8vzqPF6Y7FhXIMlHIOt_GvRQi8Unrf8sdQQW7cCZk0xsg=w2030-h1522-s-no-gm)
+
 </div>
