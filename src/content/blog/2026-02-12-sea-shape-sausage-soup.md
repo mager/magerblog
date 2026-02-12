@@ -69,11 +69,11 @@ Use this on 1 pound of ground chicken, pork, or turkey to make your own Italian 
 
 <div class="recipe-instructions">
 
-Heat the olive oil in a large stockpot over medium-high heat. Add the Italian sausage and cook, breaking it up with a spoon, until browned and cooked through. If there's excess grease, drain off most of it but leave about a tablespoon in the pot — that's flavor you want.
+Heat the olive oil in a large stockpot over medium-high heat. Add the sausage and cook, breaking it up with a spoon, until browned and cooked through. If there's excess grease, drain off most of it but leave about a tablespoon in the pot — that's flavor you want. Transfer the sausage to a bowl and set aside.
 
-Add the butter and onion and sauté for 4–5 minutes until the onion is soft and translucent. Stir in the garlic and cook for 30 seconds until fragrant. Add the tomato paste, crushed red pepper flakes, oregano, and salt. Cook for about 3 minutes, stirring constantly, to caramelize the tomato paste and deepen the flavor. Stir in the crushed tomatoes and cook for another 2 minutes to meld everything together — this double-tomato layer is what gives the broth its backbone.
+Add the butter and onion to the pot and sauté for 4–5 minutes until the onion is soft and translucent. Stir in the garlic and cook for 30 seconds until fragrant. Add the tomato paste, crushed red pepper flakes, oregano, and salt. Cook for about 3 minutes, stirring constantly, to caramelize the tomato paste and deepen the flavor. Stir in the crushed tomatoes and cook for another 2 minutes to meld everything together — this double-tomato layer is what gives the broth its backbone.
 
-Pour in 6 cups of broth and drop in the Parmesan rind. Bring to a gentle simmer. Stir in the sea shape pasta and cook, stirring occasionally. When the pasta is about 3–4 minutes from al dente, stir in the chopped kale — it wilts quickly and this way the pasta doesn't overcook while you wait on the greens. Add additional broth as needed — the pasta will drink up more than you think.
+Pour in 6 cups of broth and drop in the Parmesan rind. Return the sausage to the pot and bring to a gentle simmer. Stir in the sea shape pasta and cook, stirring occasionally. When the pasta is about 3–4 minutes from al dente, stir in the chopped kale — it wilts quickly and this way the pasta doesn't overcook while you wait on the greens. Add additional broth as needed — the pasta will drink up more than you think.
 
 Once the pasta is al dente and the kale is wilted and tender, fish out the Parmesan rind and discard it (or eat the gooey remnants — no judgment).
 
