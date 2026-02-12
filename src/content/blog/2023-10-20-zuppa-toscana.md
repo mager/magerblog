@@ -24,7 +24,7 @@ This recipe is heavily inspired by [Cheryl Malik's recipe on 40 Aprons](https://
 
 #### Sausage Dry-Rub
 
-This fennel-forward Italian spice blend turns any ground meat into proper sausage. Also used in the [SpaghettiOs Soup](/blog/2026-02-12-spaghettiops-soup) — make a double batch and keep it in a jar.
+This fennel-forward Italian spice blend turns any ground meat into proper sausage. Also used in the [Sea Shell Sausage Soup](/blog/2026-02-12-sea-shell-sausage-soup) — make a double batch and keep it in a jar.
 
 - 1 pound ground chicken
 - 1½ teaspoon salt
