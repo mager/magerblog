@@ -7,7 +7,7 @@ description: "Italian sausage, tiny sea shape pasta, crushed tomatoes, kale, and
 category: "food"
 subcategory: "soup"
 tags: ["Soup", "Pasta", "Italian Sausage", "Comfort Food"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOSisc_YQULi18xHCaT0GtZstrhv6baU7qJ_RaJNPgjkDW-IxiEGm3cC0_8sl_XFM4YVMbUQIuG_yc_XliGMbZsLKp6sCgD0CCidY7PImRwQXe1ru1f93Kp-3UvqSf8S5pJ6wJ7fLthCry_sRf4dICpgw=w2150-h1522-s-no-gm"
+heroImage: ""
 prepTime: 15
 cookTime: 30
 ---
@@ -68,6 +68,8 @@ Use this on 1 pound of ground chicken, pork, or turkey to make your own Italian 
 </div>
 
 <div class="recipe-instructions">
+
+![Sea Shape Sausage Soup](https://lh3.googleusercontent.com/pw/AP1GczOSisc_YQULi18xHCaT0GtZstrhv6baU7qJ_RaJNPgjkDW-IxiEGm3cC0_8sl_XFM4YVMbUQIuG_yc_XliGMbZsLKp6sCgD0CCidY7PImRwQXe1ru1f93Kp-3UvqSf8S5pJ6wJ7fLthCry_sRf4dICpgw=w2150-h1522-s-no-gm)
 
 Heat the olive oil in a large stockpot over medium-high heat. Add the sausage and cook, breaking it up with a spoon, until browned and cooked through. If there's excess grease, drain off most of it but leave about a tablespoon in the pot — that's flavor you want. Transfer the sausage to a bowl and set aside.
 
