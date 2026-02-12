@@ -14,11 +14,11 @@ cookTime: 30
 
 <div class="recipe-intro">
 
-Little sea shape pasta swimming in a rich, sausage-laced tomato broth with kale and a Parmesan rind doing the heavy lifting on umami. The double-tomato move — paste caramelized with the aromatics, then crushed tomatoes stirred in — gives this soup a depth that single-source tomato can't touch. It's a one-pot weeknight move that feels way more put-together than the effort involved. A squeeze of lemon at the end wakes the whole thing up.
+<p>Little sea shape pasta swimming in a rich, sausage-laced tomato broth with kale and a Parmesan rind doing the heavy lifting on umami. The double-tomato move — paste caramelized with the aromatics, then crushed tomatoes stirred in — gives this soup a depth that single-source tomato can't touch. It's a one-pot weeknight move that feels way more put-together than the effort involved. A squeeze of lemon at the end wakes the whole thing up.</p>
 
-Inspired by [Gimme Some Oven's SpaghettiOs and Sausage Soup](https://www.gimmesomeoven.com/spaghettios-and-sausage-soup/) — we swapped in sea shape pasta, added crushed tomatoes for more depth, and use our house sausage dry-rub instead of store-bought.
+<p>Inspired by <a href="https://www.gimmesomeoven.com/spaghettios-and-sausage-soup/">Gimme Some Oven's SpaghettiOs and Sausage Soup</a> — we swapped in sea shape pasta, added crushed tomatoes for more depth, and use our house sausage dry-rub instead of store-bought.</p>
 
-The sausage here uses the same dry-rub blend from the [Zuppa Toscana](/blog/2023-10-20-zuppa-toscana) — a fennel-forward Italian spice mix that turns plain ground meat into proper sausage. Make a double batch of the blend and keep it in a jar.
+<p>The sausage here uses the same dry-rub blend from the <a href="/blog/2023-10-20-zuppa-toscana">Zuppa Toscana</a> — a fennel-forward Italian spice mix that turns plain ground meat into proper sausage. Make a double batch of the blend and keep it in a jar.</p>
 
 </div>
 
