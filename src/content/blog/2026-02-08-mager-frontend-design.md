@@ -55,9 +55,9 @@ It's adaptive to whatever framework you're using but has opinions when starting 
 ## Try It
 
 ```bash
-npx skills add mager/mager-frontend-design
+npx skills add mager/frontend-design
 ```
 
-The repo is public: [github.com/mager/mager-frontend-design](https://github.com/mager/mager-frontend-design)
+The repo is public: [github.com/mager/frontend-design](https://github.com/mager/frontend-design)
 
 If you've got a design style you keep repeating, I'd recommend building your own skill. It's like having a design system that lives inside your AI tools instead of a Figma file nobody reads.
