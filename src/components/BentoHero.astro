@@ -245,15 +245,19 @@ const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeyw
 	.hero-headline {
 		font-size: clamp(2.5rem, 7vw, 5rem);
 		margin-bottom: 1rem;
+		overflow-wrap: break-word;
+		word-break: break-word;
 	}
 
 	/* Word Cycling Animation */
 	.word-cycle {
-		display: inline-block;
+		display: inline;
 		text-decoration: none;
 		transition: opacity 0.4s ease, transform 0.4s ease;
 		cursor: pointer;
 		position: relative;
+		overflow-wrap: break-word;
+		word-break: break-word;
 	}
 
 	.word-cycle::after {
