@@ -1,11 +1,12 @@
 ---
 title: "Building a Music Agent CLI with pi-mono"
-pubDate: "2026-02-14"
+pubDate: "2026-02-16"
+updatedDate: "2026-02-16"
 description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a free, terminal-based music friend that reads the BeatBrain discover feed and recommends what to listen to."
 category: "code"
 tags: ["AI", "Agents", "pi-mono", "Music", "BeatBrain", "CLI"]
 keyword: "pi-mono agent CLI"
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPNjQCVyiuLMmCswXaUqr4zeCqPe6-mOO4DyAJoca_M-y4Ntcj5mGv86MlEucwBGb7XXgRrmpSkqni8jvTl19pRpa6MgtRvjmvSJmOmDDlvsE-64xEmZzl3eBHjByucTsY2Fz27PmZ11DcL8MWaCA8z2A=w2322-h1522-s-no-gm"
 ---
 
 I've been running [OpenClaw](https://github.com/openclaw/openclaw) for a few weeks now — using it to manage my projects, write code, and keep my digital life organized. The more I used it, the more curious I got about what's under the hood. Turns out, OpenClaw is built on top of [pi-mono](https://github.com/badlogic/pi-mono), an open-source AI agent toolkit by Mario Zechner.
@@ -140,6 +141,8 @@ If OpenClaw already does all this (and more), why drop down to the raw SDK?
 **Zero cost to run.** By defaulting to Groq's free tier with Llama 4 Scout, anyone can clone the repo, grab a key in 30 seconds, and start chatting. No credit card, no usage fees. That was important to me — open source should be runnable, not just readable.
 
 **It's remarkably simple.** pi-mono's API surface is clean. `getModel`, `new Agent`, `agent.prompt`. That's the core loop.
+
+![BeatBrain Chat in action](https://lh3.googleusercontent.com/pw/AP1GczPNjQCVyiuLMmCswXaUqr4zeCqPe6-mOO4DyAJoca_M-y4Ntcj5mGv86MlEucwBGb7XXgRrmpSkqni8jvTl19pRpa6MgtRvjmvSJmOmDDlvsE-64xEmZzl3eBHjByucTsY2Fz27PmZ11DcL8MWaCA8z2A=w2322-h1522-s-no-gm)
 
 ## Running It
 
