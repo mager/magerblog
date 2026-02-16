@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "Greek Chicken Casserole"
-pubDate: "2025-02-15"
+pubDate: "2026-02-16"
 description: A dead-simple one-dish Greek chicken casserole with orzo, feta, spinach, broccoli, sautéed onion, and lemon. Minimal cleanup, maximum flavor.
 category: "food"
 subcategory: "comfort"
@@ -14,7 +14,7 @@ draft: true
 
 <div class="recipe-intro">
 
-One of those recipes that feels like it shouldn't work this well for how little effort it takes. Seven ingredients, one dish, and you've got a Greek-inspired casserole that punches way above its weight. Orzo soaks up the chicken broth, feta melts into everything, and the lemon slices on top keep the chicken tender and bright. Credit to [Meals with Maggie](https://www.mealswithmaggie.com/easy-greek-chicken-casserole/) for the original recipe.
+One of those recipes that feels like it shouldn't work this well for how little effort it takes. Orzo soaks up the chicken broth, feta melts into everything, and the lemon slices on top keep the chicken tender and bright. Credit to [Meals with Maggie](https://www.mealswithmaggie.com/easy-greek-chicken-casserole/) for the original recipe.
 
 </div>
 
@@ -31,7 +31,7 @@ One of those recipes that feels like it shouldn't work this well for how little 
 - 1 medium yellow onion, diced
 - 2½ cups low-sodium chicken broth
 - 2 large chicken breasts, cubed
-- Kinder's The Blend seasoning
+- Kinder's The Blend seasoning (generous for chicken + 1 tsp for the mix)
 - 1 lemon, sliced into rounds
 - Olive oil for sautéing
 - Fresh parsley, cracked black pepper, extra feta for garnish
@@ -39,6 +39,10 @@ One of those recipes that feels like it shouldn't work this well for how little 
 </div>
 
 <div class="recipe-instructions">
+
+Shoutout to [Meals with Maggie](https://www.mealswithmaggie.com/easy-greek-chicken-casserole/) for the original recipe inspiration:
+
+![Meals with Maggie's Easy Greek Chicken Casserole](https://lh3.googleusercontent.com/pw/AP1GczM7m3WXCvkLKx9nfuEEZTb4fwqmqchhdy2Saf5LCgzsLKeyUbObSSZSwkkl9gZ_aVD3x9P7aoOlXz3ca2k22JM_MGQZSgt0ACjBvz-i7bF6besI0ODapWBFMi8k1TVHTPcqm3ZJSkf5zYf7NGBcZIl25g=w2008-h1522-s-no-gm)
 
 Preheat oven to 375°F.
 
@@ -48,7 +52,9 @@ While the orzo cooks, season the cubed chicken generously with Kinder's The Blen
 
 In the same skillet, sauté the diced onion until soft and translucent, about 5 minutes.
 
-Add the sautéed onion, crumbled feta, fresh spinach, broccoli florets, and the entire can of diced tomatoes to the bowl with the orzo. Mix to combine.
+Add the sautéed onion, crumbled feta, fresh spinach, broccoli florets, and the entire can of diced tomatoes to the bowl with the orzo. Add about 1 teaspoon of Kinder's The Blend to the mix for extra seasoning throughout. Mix to combine.
+
+![The big bowl — orzo, feta, spinach, broccoli, tomatoes, onion, all mixed](https://lh3.googleusercontent.com/pw/AP1GczPu9PrjpaFq0N1sO_4XRLas_bd6QSokwaXe3t8dFtOd29yIujlUwxJRxS5rqlvREV1Um9ekCU8KysHHYqJt4hUKYcDiLzsHHPDzSDVY-bnpqMJ5VSf588MLh5BiRcQrhh7qyRtukoBZBjNdzVBcnc5WjQ=w2030-h1522-s-no-gm)
 
 Pour the orzo mixture into a casserole dish. Add the 2½ cups of chicken broth over the top. Arrange the seared chicken pieces on top of the mixture, then lay lemon slices over the chicken.
 
