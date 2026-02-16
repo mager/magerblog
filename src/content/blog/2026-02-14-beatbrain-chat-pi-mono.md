@@ -55,20 +55,20 @@ Setting up the agent is minimal:
 import { Agent } from "@mariozechner/pi-agent-core";
 import { getModel } from "@mariozechner/pi-ai";
 
-const model = getModel("groq", "llama-3.3-70b-versatile");
+const model = getModel("groq", "meta-llama/llama-4-scout-17b-16e-instruct");
 
 const agent = new Agent({
   initialState: {
     systemPrompt: SYSTEM_PROMPT,
     model,
-    tools: [discoverTool, searchTool],
+    tools: [discoverTool, searchTool, creatorTool, trackTool, genreTool],
   },
 });
 ```
 
 The `Agent` class manages the full conversation loop — you call `agent.prompt("what's hot?")` and it handles the LLM call, tool execution, and streaming. If the model decides to call the `beatbrain_discover` tool, pi-agent-core executes it and feeds the result back to the LLM automatically.
 
-I'm using [Groq](https://groq.com) running **Llama 4 Scout** (Meta's latest MoE model, April 2025 training cutoff) as the default — it's free, absurdly fast at 750 tokens/sec, and has the most recent training data of any free option. That means it actually knows about recent artists and releases, not just what was popular in 2023. Since `pi-ai` abstracts the provider, switching to Google Gemini, Anthropic, or OpenAI is a one-line change. But for a project I want anyone to be able to run without a credit card, free matters.
+I'm running **Llama 4 Scout** on [Groq](https://groq.com) — and honestly, it's kind of the perfect model for this. It's Meta's latest Mixture-of-Experts architecture (17B active parameters across 16 experts), trained through April 2025, so it actually knows about recent artists and releases instead of being stuck in 2023. On Groq's inference engine it runs at 750 tokens/sec — nearly 3x faster than the previous Llama 3.3 70B. And the best part: it's completely free on Groq's developer tier. No credit card, no usage cap that matters for a personal CLI tool. Since `pi-ai` abstracts the provider, you can swap to Google Gemini, Anthropic, or OpenAI with a single flag — but for a project I want anyone to clone and run in 30 seconds, free and fast wins.
 
 ### The Context Brain
 
