@@ -65,13 +65,3 @@ Let the casserole rest for 5–10 minutes before serving — the orzo will absor
 </div>
 </div>
 
-<div class="recipe-notes">
-
-#### Notes
-
-- **No chicken broth?** Water works in a pinch — the broth just adds depth.
-- **Can't find seasoned diced tomatoes?** Use regular diced tomatoes and add dried oregano, basil, garlic powder, and onion powder.
-- **Want olives?** Toss in some kalamatas. They're right at home here.
-- **Leftovers:** The orzo absorbs more liquid as it sits in the fridge, so it's even better the next day.
-
-</div>
