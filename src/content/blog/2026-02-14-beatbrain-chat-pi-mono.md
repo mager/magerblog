@@ -41,7 +41,7 @@ The project is a few hundred lines of TypeScript:
 - **`@mariozechner/pi-agent-core`** — The `Agent` class handles the conversation loop, tool execution, and state management
 - **`@mariozechner/pi-ai`** — `getModel()` gives us a typed model handle for any provider
 - **Five custom tools** — The agent's context brain: discover feed, Spotify search, deep track analysis, artist/creator profiles, and genre exploration
-- **Groq + Llama 3.3 70B** — Free inference via [Groq](https://console.groq.com), no paid API keys required
+- **Google Gemini 2.0 Flash** — Free inference via [Google AI Studio](https://aistudio.google.com), no paid API keys required (also works with Groq, Anthropic, OpenAI — just swap a flag)
 
 That's it. No framework. No wrapper. Just the agent runtime and its context brain.
 
@@ -68,7 +68,7 @@ const agent = new Agent({
 
 The `Agent` class manages the full conversation loop — you call `agent.prompt("what's hot?")` and it handles the LLM call, tool execution, and streaming. If the model decides to call the `beatbrain_discover` tool, pi-agent-core executes it and feeds the result back to the LLM automatically.
 
-I'm using [Groq](https://groq.com) as the inference provider — their free tier runs Llama 3.3 70B with absurdly fast inference. Since `pi-ai` abstracts the provider, switching between Groq, Anthropic, or OpenAI is a one-line change. But for a project I want anyone to be able to run without a credit card, free matters.
+I'm using [Google's Gemini 2.0 Flash](https://aistudio.google.com) as the default — it's free, fast, and handles tool chaining well (the model will call multiple tools in sequence to build rich answers). Since `pi-ai` abstracts the provider, switching to Groq, Anthropic, or OpenAI is a one-line change. But for a project I want anyone to be able to run without a credit card, free matters.
 
 ### The Context Brain
 
@@ -137,27 +137,27 @@ If OpenClaw already does all this (and more), why drop down to the raw SDK?
 
 **Custom CLI experiences.** Not everything needs to be a full agent platform. Sometimes you want a focused tool that does one thing well. BeatBrain Chat could live in a cron job that sends you a daily music digest, or plug into a Discord bot, or power a Raycast extension.
 
-**Zero cost to run.** By defaulting to Groq's free tier, anyone can clone the repo, grab a key in 30 seconds, and start chatting. No credit card, no usage fees. That was important to me — open source should be runnable, not just readable.
+**Zero cost to run.** By defaulting to Google's Gemini 2.0 Flash (free tier), anyone can clone the repo, grab a key in 30 seconds, and start chatting. No credit card, no usage fees. That was important to me — open source should be runnable, not just readable.
 
 **It's remarkably simple.** pi-mono's API surface is clean. `getModel`, `new Agent`, `agent.prompt`. That's the core loop.
 
 ## Running It
 
-Get a free API key at [console.groq.com](https://console.groq.com), then:
+Get a free API key at [aistudio.google.com](https://aistudio.google.com), then:
 
 ```bash
 git clone https://github.com/mager/beatbrain-chat.git
 cd beatbrain-chat
 npm install && npm run build
 
-export GROQ_API_KEY=gsk_...
+export GEMINI_API_KEY=...
 npm start
 ```
 
 ```
 🎵 BeatBrain Chat
 Your music-obsessed friend. Ask me anything about music.
-groq/llama-3.3-70b-versatile
+google/gemini-2.0-flash
 
 you: what should I listen to today?
 📡 Checking the feed...
@@ -167,8 +167,8 @@ beatbrain: Here's what's trending today! A few standouts...
 Want to use a different provider? Just swap the flags:
 
 ```bash
+beatbrain-chat -p groq -m llama-3.3-70b-versatile
 beatbrain-chat -p anthropic -m claude-sonnet-4-20250514
-beatbrain-chat -p openai -m gpt-4o
 ```
 
 ## What's Next
