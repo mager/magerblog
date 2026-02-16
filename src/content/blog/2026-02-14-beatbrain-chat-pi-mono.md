@@ -1,7 +1,7 @@
 ---
 title: "Building a Music Agent CLI with pi-mono"
 pubDate: "2026-02-14"
-description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a terminal-based music friend that reads the BeatBrain discover feed and recommends what to listen to."
+description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a free, terminal-based music friend that reads the BeatBrain discover feed and recommends what to listen to."
 category: "code"
 tags: ["AI", "Agents", "pi-mono", "Music", "BeatBrain", "CLI"]
 keyword: "pi-mono agent CLI"
@@ -18,7 +18,7 @@ pi-mono is a monorepo with a few key packages:
 
 OpenClaw uses these packages as its embedded agent runtime — importing `createAgentSession` from pi-coding-agent, wiring up custom tools for messaging and browser control, and managing sessions across channels like Telegram, Discord, and WhatsApp.
 
-But I wanted to go simpler. What would it look like to build a tiny, focused agent CLI from scratch using just `pi-ai` and `pi-agent-core`?
+But I wanted to go simpler. What would it look like to build a tiny, focused agent CLI from scratch using just `pi-ai` and `pi-agent-core`? And could I make it completely free to run?
 
 ## The Idea: A Music Friend in Your Terminal
 
@@ -36,13 +36,14 @@ That's **BeatBrain Chat** — a music-obsessed AI friend that reads the live Bea
 
 ## The Stack
 
-The entire project is ~100 lines of TypeScript:
+The project is a few hundred lines of TypeScript:
 
 - **`@mariozechner/pi-agent-core`** — The `Agent` class handles the conversation loop, tool execution, and state management
 - **`@mariozechner/pi-ai`** — `getModel()` gives us a typed model handle for any provider
-- **One custom tool** — `beatbrain_discover` fetches the ranked feed from our Go backend
+- **Five custom tools** — The agent's context brain: discover feed, Spotify search, deep track analysis, artist/creator profiles, and genre exploration
+- **Groq + Llama 3.3 70B** — Free inference via [Groq](https://console.groq.com), no paid API keys required
 
-That's it. No framework. No wrapper. Just the agent runtime and a tool.
+That's it. No framework. No wrapper. Just the agent runtime and its context brain.
 
 ## Building It
 
@@ -54,18 +55,32 @@ Setting up the agent is minimal:
 import { Agent } from "@mariozechner/pi-agent-core";
 import { getModel } from "@mariozechner/pi-ai";
 
-const model = getModel("anthropic", "claude-sonnet-4-20250514");
+const model = getModel("groq", "llama-3.3-70b-versatile");
 
 const agent = new Agent({
   initialState: {
     systemPrompt: SYSTEM_PROMPT,
     model,
-    tools: [discoverTool],
+    tools: [discoverTool, searchTool],
   },
 });
 ```
 
 The `Agent` class manages the full conversation loop — you call `agent.prompt("what's hot?")` and it handles the LLM call, tool execution, and streaming. If the model decides to call the `beatbrain_discover` tool, pi-agent-core executes it and feeds the result back to the LLM automatically.
+
+I'm using [Groq](https://groq.com) as the inference provider — their free tier runs Llama 3.3 70B with absurdly fast inference. Since `pi-ai` abstracts the provider, switching between Groq, Anthropic, or OpenAI is a one-line change. But for a project I want anyone to be able to run without a credit card, free matters.
+
+### The Context Brain
+
+The real power isn't the LLM — it's the context brain. That's the system prompt plus the tools that give the model access to real, live data. BeatBrain Chat has five tools:
+
+1. **`beatbrain_discover`** — The ranked trending feed from all five sources
+2. **`beatbrain_search`** — Spotify catalog search with popularity scores
+3. **`beatbrain_creator`** — Deep artist profiles: genres, origin, credits, top tracks, external links (powered by MusicBrainz + Spotify)
+4. **`beatbrain_track`** — Full track analysis: who played what instruments, who produced it, songwriting credits, musical key, BPM, danceability, energy, and more
+5. **`beatbrain_genre`** — Genre-based exploration: find popular tracks in any genre
+
+The agent can chain these together — search for an artist, pull their creator profile, then deep-dive into their top track to see who played bass. The system prompt coaches the model on _when_ to use each tool and how to present the data conversationally. The context brain is what makes it feel like talking to a friend who genuinely knows music, not a search engine.
 
 ### 2. The Tool
 
@@ -116,42 +131,54 @@ Text streams token-by-token. Tool calls show a spinner. Multi-turn conversations
 
 If OpenClaw already does all this (and more), why drop down to the raw SDK?
 
-**Domain focus.** OpenClaw is a general-purpose agent with dozens of tools — messaging, browser control, cron, sessions, memory. BeatBrain Chat has exactly one tool. The system prompt is tuned for music conversations. There's no overhead.
+**Domain focus.** OpenClaw is a general-purpose agent with dozens of tools — messaging, browser control, cron, sessions, memory. BeatBrain Chat has a focused context brain: five tools and a system prompt tuned for music conversations. There's no overhead.
 
 **Learning the internals.** Using a framework is different from understanding it. Building with `pi-agent-core` directly teaches you how the agent loop works — how tools get called, how context accumulates, how streaming events flow. When you go back to OpenClaw (or build something bigger), you know what's happening under the hood.
 
 **Custom CLI experiences.** Not everything needs to be a full agent platform. Sometimes you want a focused tool that does one thing well. BeatBrain Chat could live in a cron job that sends you a daily music digest, or plug into a Discord bot, or power a Raycast extension.
 
-**It's remarkably simple.** The entire agent — model setup, tool definition, streaming, and REPL — is about 100 lines. pi-mono's API surface is clean. `getModel`, `new Agent`, `agent.prompt`. That's the core loop.
+**Zero cost to run.** By defaulting to Groq's free tier, anyone can clone the repo, grab a key in 30 seconds, and start chatting. No credit card, no usage fees. That was important to me — open source should be runnable, not just readable.
+
+**It's remarkably simple.** pi-mono's API surface is clean. `getModel`, `new Agent`, `agent.prompt`. That's the core loop.
 
 ## Running It
+
+Get a free API key at [console.groq.com](https://console.groq.com), then:
 
 ```bash
 git clone https://github.com/mager/beatbrain-chat.git
 cd beatbrain-chat
 npm install && npm run build
 
-export ANTHROPIC_API_KEY=sk-ant-...
+export GROQ_API_KEY=gsk_...
 npm start
 ```
 
 ```
 🎵 BeatBrain Chat
 Your music-obsessed friend. Ask me anything about music.
+groq/llama-3.3-70b-versatile
 
 you: what should I listen to today?
-🔧 Using beatbrain_discover...
+📡 Checking the feed...
 beatbrain: Here's what's trending today! A few standouts...
+```
+
+Want to use a different provider? Just swap the flags:
+
+```bash
+beatbrain-chat -p anthropic -m claude-sonnet-4-20250514
+beatbrain-chat -p openai -m gpt-4o
 ```
 
 ## What's Next
 
-This is v0. Some ideas for iteration:
+Some ideas for iteration:
 
 - **Spotify integration** — Let the agent queue tracks directly to your Spotify
 - **Taste profiling** — Track what you like/skip and personalize recommendations
-- **More tools** — Artist deep-dives via MusicBrainz, genre exploration, "sounds like" chains
-- **Voice mode** — Use pi-mono's TUI components or pipe to a TTS engine for a spoken music companion
+- **"Sounds like" chains** — Given a track, find similar ones by audio features and genre overlap
+- **Voice mode** — Pipe to a TTS engine for a spoken music companion
 
 The repo is at [github.com/mager/beatbrain-chat](https://github.com/mager/beatbrain-chat). It's intentionally minimal — a starting point, not a finished product.
 
