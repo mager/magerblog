@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Greek Chicken Casserole"
 pubDate: "2025-02-15"
-description: A dead-simple one-dish Greek chicken casserole with orzo, feta, spinach, and lemon. Seven ingredients, minimal cleanup, maximum flavor.
+description: A dead-simple one-dish Greek chicken casserole with orzo, feta, spinach, broccoli, sautéed onion, and lemon. Minimal cleanup, maximum flavor.
 category: "food"
 subcategory: "comfort"
 tags: ["Chicken", "Greek", "Casserole", "Weeknight Dinner"]
@@ -27,9 +27,12 @@ One of those recipes that feels like it shouldn't work this well for how little 
 - 1 can (15 oz) diced tomatoes with basil, garlic, and oregano
 - 6 oz feta cheese, crumbled (~1 cup)
 - 1 big handful fresh spinach
+- 1 head broccoli, cut into small florets
+- 1 medium yellow onion, diced
 - 2 cups low-sodium chicken broth
 - 2 large chicken breasts, cubed
 - 1 lemon, sliced into rounds
+- Olive oil for sautéing
 - Fresh parsley, cracked black pepper, extra feta for garnish
 
 </div>
@@ -38,9 +41,11 @@ One of those recipes that feels like it shouldn't work this well for how little 
 
 Preheat oven to 375°F.
 
-Cook the orzo in a pot of boiling water for about 8 minutes. Drain in a mesh colander and rinse with cold water. Transfer to a large bowl.
+Cook the orzo in a pot of boiling water for about 5 minutes — it should still be firm since it'll keep cooking in the oven. Drain in a mesh colander and rinse with cold water. Transfer to a large bowl.
 
-Add the crumbled feta, fresh spinach, and the entire can of diced tomatoes to the bowl with the orzo. Mix to combine.
+While the orzo cooks, heat a drizzle of olive oil in a skillet over medium heat. Sauté the diced onion until soft and translucent, about 5 minutes.
+
+Add the sautéed onion, crumbled feta, fresh spinach, broccoli florets, and the entire can of diced tomatoes to the bowl with the orzo. Mix to combine.
 
 Pour the orzo mixture into a casserole dish. Add the 2 cups of chicken broth over the top. Arrange the cubed chicken pieces on top of the mixture, then lay lemon slices over the chicken.
 
