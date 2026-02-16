@@ -6,10 +6,10 @@ description: A dead-simple one-dish Greek chicken casserole with orzo, feta, spi
 category: "food"
 subcategory: "comfort"
 tags: ["Chicken", "Greek", "Casserole", "Weeknight Dinner"]
-heroImage: ""
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMPcr2vOr4I92GMyor7Q21i6lP3YsuS3mDby5Nk6vXo2QqPlR7e-a_2HNs1iSe7VAW6dFcAa58t_6bfH4W7Gd52Xo3wZFuG5z_QL5A6xQyaOR83UXnx8c-PRbjWycdvLCVtQlMrqykJUsURajYkzazmgA=w2274-h1522-s-no-gm"
 prepTime: 15
 cookTime: 40
-draft: true
+draft: false
 ---
 
 <div class="recipe-intro">
@@ -29,7 +29,7 @@ One of those recipes that feels like it shouldn't work this well for how little 
 - 1 big handful fresh spinach
 - 1 head broccoli, cut into small florets
 - 1 medium yellow onion, diced
-- 2½ cups low-sodium chicken broth
+- 1¾–2 cups low-sodium chicken broth
 - 2 large chicken breasts, cubed
 - Kinder's The Blend seasoning (generous for chicken + 1 tsp for the mix)
 - 1 lemon, sliced into rounds
@@ -56,7 +56,7 @@ Add the sautéed onion, crumbled feta, fresh spinach, broccoli florets, and the 
 
 ![The big bowl — orzo, feta, spinach, broccoli, tomatoes, onion, all mixed](https://lh3.googleusercontent.com/pw/AP1GczPu9PrjpaFq0N1sO_4XRLas_bd6QSokwaXe3t8dFtOd29yIujlUwxJRxS5rqlvREV1Um9ekCU8KysHHYqJt4hUKYcDiLzsHHPDzSDVY-bnpqMJ5VSf588MLh5BiRcQrhh7qyRtukoBZBjNdzVBcnc5WjQ=w2030-h1522-s-no-gm)
 
-Pour the orzo mixture into a casserole dish. Add the 2½ cups of chicken broth over the top. Arrange the seared chicken pieces on top of the mixture, then lay lemon slices over the chicken.
+Pour the orzo mixture into a casserole dish. Add the 1¾–2 cups of chicken broth over the top. Arrange the seared chicken pieces on top of the mixture, then lay lemon slices over the chicken.
 
 Cover tightly with aluminum foil or a lid. Bake at 375°F for 40 minutes. If you're using whole chicken breasts instead of cubed, add extra time.
 
