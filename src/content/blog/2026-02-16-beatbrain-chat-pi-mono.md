@@ -41,10 +41,10 @@ The project is a few hundred lines of TypeScript:
 
 - **`@mariozechner/pi-agent-core`** — The `Agent` class handles the conversation loop, tool execution, and state management
 - **`@mariozechner/pi-ai`** — `getModel()` gives us a typed model handle for any provider
-- **Five custom tools** — The agent's context brain: discover feed, Spotify search, deep track analysis, artist/creator profiles, and genre exploration
-- **GPT-OSS 120B on Groq** — OpenAI's open-weight MoE model (Apache 2.0) running at 500 tokens/sec on [Groq](https://console.groq.com), with native tool use and configurable reasoning effort (also works with Llama, Google Gemini, Anthropic — just swap a flag)
+- **Five custom tools** — The agent's "context brain": discover feed, Spotify search, deep track analysis, artist/creator profiles, and genre exploration
+- **GPT-OSS 120B on Groq** — OpenAI's open-weight MoE model (Apache 2.0) running at ~500 tokens/sec on [Groq](https://console.groq.com), completely free to use
 
-That's it. No framework. No wrapper. Just the agent runtime and its context brain.
+That's it. No framework. No wrapper. Just the agent runtime, a system prompt, and five tools that give it real data.
 
 ## Building It
 
@@ -67,13 +67,11 @@ const agent = new Agent({
 });
 ```
 
-The `Agent` class manages the full conversation loop — you call `agent.prompt("what's hot?")` and it handles the LLM call, tool execution, and streaming. If the model decides to call the `beatbrain_discover` tool, pi-agent-core executes it and feeds the result back to the LLM automatically.
+The `Agent` class manages the full conversation loop — you call `agent.prompt("what's hot?")` and it handles the LLM call, tool execution, and streaming. If the model decides to call the `beatbrain_discover` tool, pi-agent-core executes it and feeds the result back automatically.
 
-I'm running **GPT-OSS 120B** on [Groq](https://groq.com) — OpenAI's first open-weight language model since GPT-2, and it's a beast. It's a Mixture-of-Experts architecture (120B total parameters, 5.1B active per forward pass across 128 experts), released under Apache 2.0. On Groq's inference engine it runs at 500 tokens/sec with native tool use support and configurable reasoning effort (low/medium/high). It matches or surpasses OpenAI o4-mini on core reasoning benchmarks while fitting on a single 80GB GPU. Since `pi-ai` abstracts the provider, you can swap to Llama 4, Google Gemini, Anthropic, or any other supported model with a single flag.
+I'm running **GPT-OSS 120B** on [Groq](https://groq.com) — OpenAI's first open-weight language model since GPT-2. It's a Mixture-of-Experts architecture (120B total, 5.1B active per forward pass across 128 experts), released under Apache 2.0. On Groq it runs at ~500 tokens/sec with native tool use — and it's completely free. Since `pi-ai` abstracts the provider, you can swap to Llama 4, Gemini, Claude, or any other supported model with a single flag.
 
-### The Context Brain
-
-The real power isn't the LLM — it's the context brain. That's the system prompt plus the tools that give the model access to real, live data. beatbrain Chat has five tools:
+But the real power isn't the LLM — it's the **context brain**. That's the system prompt plus the tools that give the model access to real, live data. Temporal has five tools:
 
 1. **`beatbrain_discover`** — The ranked trending feed from all five sources
 2. **`beatbrain_search`** — Spotify catalog search with popularity scores
@@ -81,7 +79,7 @@ The real power isn't the LLM — it's the context brain. That's the system promp
 4. **`beatbrain_track`** — Full track analysis: who played what instruments, who produced it, songwriting credits, musical key, BPM, danceability, energy, and more
 5. **`beatbrain_genre`** — Genre-based exploration: find popular tracks in any genre
 
-The agent can chain these together — search for an artist, pull their creator profile, then deep-dive into their top track to see who played bass. The system prompt coaches the model on _when_ to use each tool and how to present the data conversationally. The context brain is what makes it feel like talking to a friend who genuinely knows music, not a search engine.
+The agent can chain these together — search for an artist, pull their creator profile, then deep-dive into a track to see who played bass. The system prompt coaches the model on _when_ to use each tool and how to present the data conversationally. This is what makes it feel like talking to a friend who genuinely knows music, not a search engine.
 
 ### 2. The Tool
 
@@ -99,7 +97,7 @@ export const discoverTool: AgentTool = {
   execute: async (_toolCallId, params, _signal, _onUpdate) => {
     const res = await fetch("https://occipital-cqaymsy2sa-uc.a.run.app/discover/v2");
     const data = await res.json();
-    const tracks = data.tracks.slice(0, params.limit ?? 20);
+    const tracks = data.tracks.slice(0, params.limit ?? 25);
 
     return {
       content: [{ type: "text", text: formatTracks(tracks, data.updated) }],
@@ -168,8 +166,8 @@ temporal: Here's what's trending today! A few standouts...
 Want to use a different provider? Just swap the flags:
 
 ```bash
-temporal -p google -m gemini-2.0-flash
-temporal -p anthropic -m claude-sonnet-4-20250514
+npm start -- -p google -m gemini-2.0-flash
+npm start -- -p anthropic -m claude-sonnet-4-20250514
 ```
 
 ## What's Next
