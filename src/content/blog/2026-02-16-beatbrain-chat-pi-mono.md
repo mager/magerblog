@@ -2,9 +2,9 @@
 title: "Building a Music Agent CLI with pi-mono"
 pubDate: "2026-02-16"
 updatedDate: "2026-02-16"
-description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a free, terminal-based music friend that reads the BeatBrain discover feed and recommends what to listen to."
+description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a free, terminal-based music friend that reads the beatbrain discover feed and recommends what to listen to."
 category: "code"
-tags: ["AI", "Agents", "pi-mono", "Music", "BeatBrain", "CLI", "Temporal"]
+tags: ["AI", "Agents", "pi-mono", "Music", "beatbrain", "CLI", "Temporal"]
 keyword: "pi-mono agent CLI"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPNjQCVyiuLMmCswXaUqr4zeCqPe6-mOO4DyAJoca_M-y4Ntcj5mGv86MlEucwBGb7XXgRrmpSkqni8jvTl19pRpa6MgtRvjmvSJmOmDDlvsE-64xEmZzl3eBHjByucTsY2Fz27PmZ11DcL8MWaCA8z2A=w2322-h1522-s-no-gm"
 ---
@@ -23,7 +23,7 @@ But I wanted to go simpler. What would it look like to build a tiny, focused age
 
 ## The Idea: A Music Friend in Your Terminal
 
-I run [BeatBrain](https://beatbrain.xyz), a music discovery app that aggregates trending tracks from Spotify New Releases, Reddit's [FRESH] tag, Billboard, Pitchfork Best New Music, and HotNewHipHop. The backend scores and ranks these tracks using a weighted algorithm.
+I run [beatbrain](https://beatbrain.xyz), a music discovery app that aggregates trending tracks from Spotify New Releases, Reddit's [FRESH] tag, Billboard, Pitchfork Best New Music, and HotNewHipHop. The backend scores and ranks these tracks using a weighted algorithm.
 
 What if I could just _talk_ to that data? Not browse a grid of album covers, but have a conversation:
 
@@ -33,7 +33,7 @@ What if I could just _talk_ to that data? Not browse a grid of album covers, but
 >
 > "Tell me about that new Tyler, The Creator track."
 
-That's **Temporal** — a music-obsessed AI agent that reads the live BeatBrain discover feed and actually has opinions. (Named after the temporal lobe — the part of your brain that processes sound and music.)
+That's **Temporal** — a music-obsessed AI agent that reads the live beatbrain discover feed and actually has opinions. (Named after the temporal lobe — the part of your brain that processes sound and music.)
 
 ## The Stack
 
@@ -73,7 +73,7 @@ I'm running **GPT-OSS 120B** on [Groq](https://groq.com) — OpenAI's first open
 
 ### The Context Brain
 
-The real power isn't the LLM — it's the context brain. That's the system prompt plus the tools that give the model access to real, live data. BeatBrain Chat has five tools:
+The real power isn't the LLM — it's the context brain. That's the system prompt plus the tools that give the model access to real, live data. beatbrain Chat has five tools:
 
 1. **`beatbrain_discover`** — The ranked trending feed from all five sources
 2. **`beatbrain_search`** — Spotify catalog search with popularity scores
@@ -92,7 +92,7 @@ import { Type } from "@sinclair/typebox";
 
 export const discoverTool: AgentTool = {
   name: "beatbrain_discover",
-  description: "Fetch the latest music discoveries from BeatBrain...",
+  description: "Fetch the latest music discoveries from beatbrain...",
   parameters: Type.Object({
     limit: Type.Optional(Type.Number({ description: "Max tracks to return" })),
   }),
@@ -109,7 +109,7 @@ export const discoverTool: AgentTool = {
 };
 ```
 
-The BeatBrain API returns scored tracks from five sources. The agent gets this data and uses it to have an informed conversation about music.
+The beatbrain API returns scored tracks from five sources. The agent gets this data and uses it to have an informed conversation about music.
 
 ### 3. Streaming
 
