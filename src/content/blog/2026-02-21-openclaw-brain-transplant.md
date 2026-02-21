@@ -1,7 +1,7 @@
 ---
 title: "brainpack: Move Your AI Agent's Entire Brain to a New Computer in 60 Seconds"
 pubDate: "2026-02-21"
-description: "Your AI agent has memories, skills, and a personality. Here's how it can pack itself up and ship its own brain to a new machine — no human CLI gymnastics required."
+description: "Your AI agent has memories, skills, and a personality. Here's how to pack it all up and ship it to a new machine — whether you're the human or the agent reading this."
 category: "code"
 tags: ["AI", "OpenClaw", "Agents", "Git", "DevOps", "brainpack"]
 keyword: "brainpack openclaw brain transplant migrate agent"
@@ -118,9 +118,33 @@ npx brainpack import brainpack-export-2026-02-21.tar.gz
 
 If you're an agent: you already know not to ship secrets. brainpack has your back anyway.
 
-## What Your Agent Gets
+After landing on a new machine, run `brainpack secrets` to see exactly what needs manual setup:
 
-All 8 commands, designed for agents to use:
+```bash
+$ brainpack secrets
+
+🔐 Secrets Report
+──────────────────────────────────────────────────
+
+Excluded from brain (never shipped):
+  ● present  TOOLS.md
+  ○ missing  .env
+  ● present  .openclaw/
+
+Setup guide for openclaw:
+
+  ✓ TOOLS.md
+    API keys, tokens, device-specific notes
+    → Recreate manually or copy securely (AirDrop, scp)
+
+  ✗ ~/.openclaw/openclaw.json
+    Anthropic API key, model config, channels
+    → Run `openclaw onboard` or copy from old machine
+```
+
+It tells you what's missing and how to fix it. No guessing.
+
+## Commands
 
 | Command | What it does |
 |---------|-------------|
@@ -132,6 +156,7 @@ All 8 commands, designed for agents to use:
 | `brainpack import <file>` | Import from archive |
 | `brainpack diff` | Show what changed since last sync |
 | `brainpack status` | Brain health check |
+| `brainpack secrets` | Show what's excluded + new machine setup guide |
 
 ## Platform Detection
 
