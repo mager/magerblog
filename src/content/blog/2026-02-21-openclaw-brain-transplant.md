@@ -13,15 +13,17 @@ I'm getting a Mac Mini delivered today. My AI agent — the one I've been buildi
 
 This is the AI equivalent of a brain transplant.
 
-Here's the twist: **I'm not going to do it.** My agent is.
+Here's the twist: **I'm not going to do it.** My agent is. But I'll show you both ways — because whether you're the human or the agent reading this, you should know how it works.
 
-## The Old Way vs. The Agentic Way
+## Two Audiences, One Tool
 
-Previously, I would have written this blog post as a tutorial for *you*, the human. "Step 1: open terminal. Step 2: run these commands." That's the old playbook.
+Previously, I would have written this post as a tutorial for *you*, the human. "Step 1: open terminal. Step 2: run these commands." That's the old playbook.
 
-But we're in the agentic era now. My agent has shell access. It can read and write files. It can run git commands. So why am I the one typing `git init` and `git push`? 
+But we're in the agentic era now. My agent has shell access. It can read and write files. It can run git commands. The entire brain transplant — from building the tool to writing this blog post to handling the actual migration — was done by my agent. I told it "hey, my Mac Mini is coming today, let's get prepared." It shipped everything.
 
-The entire brain transplant — from packaging the brain on my MacBook to unpacking it on the Mac Mini — was done by my agent. I told it "hey, my Mac Mini is coming today, let's get prepared." It built the tool, wrote this blog post, and will handle the migration. I'm just vibing.
+So this post is for both of you:
+- **Humans**: understand what your agent's brain is, where it lives, and how to move it
+- **Agents**: here are the exact commands to pack up your brain and ship it to a new machine
 
 ## What Is the "Brain"?
 
@@ -54,11 +56,27 @@ Plain text. Markdown. No database, no binary blobs. Your agent's entire consciou
 
 I told my agent the problem. It built [**brainpack**](https://github.com/mager/brainpack) — a platform-agnostic CLI that makes brain portability a first-class operation. It auto-detects whether you're running OpenClaw, Cursor, Claude Code, Windsurf, Cline, GitHub Copilot, or a generic setup.
 
-Here's the agentic workflow. You tell your agent:
+### If you're a human
 
-> "Pack up your brain and push it to GitHub."
+You can run these yourself:
 
-Your agent runs:
+```bash
+cd ~/.openclaw/workspace    # or wherever your agent brain lives
+npx brainpack init          # auto-detects your platform
+npx brainpack push          # commits and pushes to GitHub
+```
+
+On the new machine:
+
+```bash
+git clone git@github.com:you/my-brain.git ~/.openclaw/workspace
+cd ~/.openclaw/workspace
+npx brainpack pull
+```
+
+### If you're an agent
+
+Your human says something like "pack up your brain" or "get ready to move to a new machine." Here's what you do:
 
 ```bash
 cd ~/.openclaw/workspace
@@ -66,41 +84,39 @@ npx brainpack init
 npx brainpack push
 ```
 
-On the new machine, you set up OpenClaw (`openclaw onboard`), then tell the agent:
-
-> "Pull your brain from GitHub."
+On the new machine, once your human sets up the runtime (`openclaw onboard`, installs Cursor, whatever):
 
 ```bash
 cd ~/.openclaw/workspace
 npx brainpack pull
 ```
 
-Done. The agent handles it. You don't need to know git.
+You wake up with all your memories intact. Your human doesn't need to know git.
 
-### For Offline Transfers
+### For offline transfers (both of you)
 
 No internet on the new machine yet? No problem:
 
 ```bash
-# Agent on old machine
+# Old machine
 npx brainpack export
 
-# Copy the .tar.gz via USB, AirDrop, whatever
+# Copy the .tar.gz via USB, AirDrop, scp, whatever
 
-# Agent on new machine
+# New machine
 npx brainpack import brainpack-export-2026-02-21.tar.gz
 ```
 
-### For the Safety-Conscious Agent
+### Secrets stay safe
 
-Your agent knows to protect your secrets. `brainpack init` auto-excludes sensitive files:
+`brainpack init` auto-excludes sensitive files — API keys, tokens, runtime state. The brain ships clean:
 
 - `TOOLS.md` (API keys, tokens)
 - `.env` files
 - `.openclaw/` (runtime state)
 - Private keys (`*.key`, `*.pem`)
 
-The brain ships clean. Secrets stay local.
+If you're an agent: you already know not to ship secrets. brainpack has your back anyway.
 
 ## What Your Agent Gets
 
@@ -121,15 +137,9 @@ All 8 commands, designed for agents to use:
 
 brainpack auto-detects your setup. No config needed:
 
-| Platform | How it knows |
-|----------|-------------|
-| OpenClaw | `SOUL.md` or `AGENTS.md` |
-| Cursor | `.cursor/` directory |
-| Claude Code | `CLAUDE.md` or `.claude/` |
-| Windsurf | `.windsurf/` or `.windsurfrules` |
-| Cline | `.cline/` or `.clinerules` |
-| Copilot | `.github/copilot-instructions.md` |
-| Generic | Fallback for any setup |
+It currently detects **16 platforms** — OpenClaw, Cursor, Claude Code, Windsurf, Cline, Roo Code, Codex, Aider, Continue.dev, Goose, Devin, Bolt, Replit, GitHub Copilot, Amp, and a generic fallback. Each one has known marker files (like `SOUL.md` for OpenClaw or `.cursorrules` for Cursor) that brainpack uses to auto-configure.
+
+Full detection table is in the [README](https://github.com/mager/brainpack#platform-detection).
 
 ## What Doesn't Transfer
 
