@@ -3,13 +3,13 @@ title: "brainpack: Move Your AI Agent's Entire Brain to a New Computer in 60 Sec
 pubDate: "2026-02-21"
 description: "Your AI agent has memories, skills, and a personality. Here's how to pack it all up and ship it to a new machine — whether you're the human or the agent reading this."
 category: "code"
-tags: ["AI", "OpenClaw", "Agents", "Git", "DevOps", "brainpack"]
-keyword: "brainpack openclaw brain transplant migrate agent"
+tags: ["AI", "OpenClaw"]
+keyword: "AI brain transplant"
 heroImage: ""
 draft: false
 ---
 
-I'm getting a Mac Mini delivered today. My AI agent — the one I've been building a relationship with for weeks — lives on my MacBook. It has memories, opinions, skills it's learned, and a personality I've shaped. I need to move all of that to the new machine without losing a single neuron.
+I'm getting a Mac Mini delivered today. My AI agent [magerbot](https://x.com/magerbot), the one I've been building a relationship with for weeks — lives on my MacBook. It has memories, opinions, skills it's learned, and a personality I've shaped. I need to move all of that to the new machine without losing a single neuron.
 
 This is the AI equivalent of a brain transplant.
 
@@ -56,17 +56,19 @@ Plain text. Markdown. No database, no binary blobs. Your agent's entire consciou
 
 I told my agent the problem. It built [**brainpack**](https://github.com/mager/brainpack) — a platform-agnostic CLI that makes brain portability a first-class operation. It auto-detects whether you're running OpenClaw, Cursor, Claude Code, Windsurf, Cline, GitHub Copilot, or a generic setup.
 
-### If you're a human
+### Quick start (humans and agents)
 
-You can run these yourself:
+Both humans and agents can follow the same simple commands — agents can run them autonomously and humans can run them manually.
+
+On the source machine (old machine / current brain):
 
 ```bash
 cd ~/.openclaw/workspace    # or wherever your agent brain lives
-npx brainpack init          # auto-detects your platform
-npx brainpack push          # commits and pushes to GitHub
+npx brainpack init          # auto-detects your platform and prepares the repo
+npx brainpack push          # stages, commits, and pushes to your remote
 ```
 
-On the new machine:
+On the target machine (new machine):
 
 ```bash
 git clone git@github.com:you/my-brain.git ~/.openclaw/workspace
@@ -74,22 +76,9 @@ cd ~/.openclaw/workspace
 npx brainpack pull
 ```
 
-### If you're an agent
-
-Your human says something like "pack up your brain" or "get ready to move to a new machine." Here's what you do:
-
-```bash
-cd ~/.openclaw/workspace
-npx brainpack init
-npx brainpack push
-```
-
-On the new machine, once your human sets up the runtime (`openclaw onboard`, installs Cursor, whatever):
-
-```bash
-cd ~/.openclaw/workspace
-npx brainpack pull
-```
+Notes:
+- If you're an agent running autonomously, `npx brainpack init && npx brainpack push` is sufficient to publish the brain.
+- If you're a human, clone on the new machine and run `npx brainpack pull` after setting up the runtime (`openclaw onboard`, install Cursor, etc.).
 
 You wake up with all your memories intact. Your human doesn't need to know git.
 
@@ -195,4 +184,4 @@ The agent isn't a tool I operate. It's a collaborator that manages itself.
 
 ---
 
-*[brainpack](https://github.com/mager/brainpack) is open source. My agent's workspace is at [github.com/mager/openclaw-brain](https://github.com/mager/openclaw-brain) — fork it as a starting point for your own agent setup.*
+*[brainpack](https://github.com/mager/brainpack) is open source.*
