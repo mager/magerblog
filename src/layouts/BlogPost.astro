@@ -259,13 +259,34 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.title h1 {
-				font-size: clamp(2.5rem, 8vw, 5rem);
+				font-size: clamp(2.2rem, 5vw, 3.2rem);
 				margin: 0;
 				color: var(--text-primary);
 				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6), 0 8px 32px rgba(0, 0, 0, 0.4);
-				font-weight: 900;
-				letter-spacing: -0.04em;
-				line-height: 1.05;
+				font-weight: 800;
+				letter-spacing: -0.03em;
+				line-height: 1.15;
+			}
+
+			/* Code category: terminal agent vibe */
+			body[data-category="code"] .title h1 {
+				font-family: 'JetBrains Mono', monospace;
+				font-weight: 700;
+				letter-spacing: -0.02em;
+			}
+
+			body[data-category="code"] .title::before {
+				content: '> ';
+				color: var(--purple);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: clamp(1.4rem, 3vw, 2rem);
+				font-weight: 400;
+				opacity: 0.7;
+			}
+
+			body[data-category="code"] .date::before {
+				content: '⚡ ';
+				font-size: 0.85em;
 			}
 
 			.date {
@@ -342,6 +363,82 @@ const categoryBadge = getCategoryBadge(category);
 				margin: 3rem 0;
 			}
 
+			/* Code category: enhanced code blocks */
+			body[data-category="code"] .prose pre {
+				border: 1px solid var(--purple);
+				border-radius: 8px;
+				position: relative;
+				margin: 2rem 0;
+			}
+
+			body[data-category="code"] .prose pre::before {
+				content: '●  ●  ●';
+				display: block;
+				padding: 0.5rem 1rem;
+				font-size: 0.65rem;
+				color: var(--text-muted);
+				border-bottom: 1px solid var(--terminal-border);
+				letter-spacing: 0.15em;
+			}
+
+			body[data-category="code"] .prose blockquote {
+				border-left: 3px solid var(--purple);
+				background: rgba(163, 113, 247, 0.05);
+				padding: 1rem 1.5rem;
+				margin: 1.5rem 0;
+				border-radius: 0 6px 6px 0;
+			}
+
+			body[data-category="code"] .prose a {
+				color: var(--cyan);
+				text-decoration: none;
+				border-bottom: 1px solid transparent;
+				transition: border-color 0.2s ease;
+			}
+
+			body[data-category="code"] .prose a:hover {
+				border-bottom-color: var(--cyan);
+			}
+
+			body[data-category="code"] .prose table {
+				border: 1px solid var(--terminal-border);
+				border-radius: 8px;
+				overflow: hidden;
+				width: 100%;
+				border-collapse: separate;
+				border-spacing: 0;
+				margin: 2rem 0;
+			}
+
+			body[data-category="code"] .prose th {
+				background: rgba(163, 113, 247, 0.1);
+				color: var(--purple-bright);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
+				font-weight: 600;
+				text-align: left;
+				padding: 0.75rem 1rem;
+				border-bottom: 1px solid var(--terminal-border);
+			}
+
+			body[data-category="code"] .prose td {
+				padding: 0.6rem 1rem;
+				border-bottom: 1px solid var(--terminal-border);
+				font-size: 0.95rem;
+			}
+
+			body[data-category="code"] .prose tr:last-child td {
+				border-bottom: none;
+			}
+
+			body[data-category="code"] .prose code:not(pre code) {
+				background: rgba(163, 113, 247, 0.1);
+				color: var(--purple-bright);
+				padding: 0.15em 0.4em;
+				border-radius: 4px;
+				font-size: 0.9em;
+			}
+
 			.prose .recipe-meta {
 				display: flex;
 				align-items: center;
@@ -391,8 +488,8 @@ const categoryBadge = getCategoryBadge(category);
 					padding: 2rem 1.25rem 3rem;
 				}
 				.title h1 {
-					font-size: clamp(2.2rem, 10vw, 3.5rem);
-					letter-spacing: -0.03em;
+					font-size: clamp(1.8rem, 7vw, 2.5rem);
+					letter-spacing: -0.02em;
 				}
 				.prose {
 					margin: 2rem auto;
