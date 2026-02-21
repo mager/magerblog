@@ -1,10 +1,10 @@
 ---
-title: "How to Transplant Your AI Agent's Brain to a New Computer"
+title: "brainpack: Move Your AI Agent's Entire Brain to a New Computer in 60 Seconds"
 pubDate: "2026-02-21"
-description: "Your AI agent has memories, skills, and a personality. Here's how to move all of it to a new machine using Git — and why your agent's brain should be version-controlled."
+description: "Your AI agent has memories, skills, and a personality. Here's how to pack it all up and ship it to a new machine — and why your agent's brain should be version-controlled."
 category: "code"
-tags: ["AI", "OpenClaw", "Agents", "Git", "DevOps"]
-keyword: "openclaw brain transplant migrate agent"
+tags: ["AI", "OpenClaw", "Agents", "Git", "DevOps", "brainpack"]
+keyword: "brainpack openclaw brain transplant migrate agent"
 heroImage: ""
 draft: false
 ---
@@ -97,29 +97,25 @@ TOOLS.md
 *.key
 ```
 
-## The Bigger Vision: Portable Agent Brains
+## brainpack: The Tool I'm Building
 
-Git works great, but it's a developer tool. What if you could do this?
-
-```bash
-npx openclaw-brain export --to brain-backup.tar.gz
-npx openclaw-brain import --from brain-backup.tar.gz
-```
-
-Or even:
+Git works great, but wrapping raw Git commands every time you switch machines is tedious. So I'm building [**brainpack**](https://github.com/mager/brainpack) — a tiny CLI that makes agent brain portability a first-class operation.
 
 ```bash
-npx openclaw-brain push   # pushes to your configured remote
-npx openclaw-brain pull   # pulls latest state
-npx openclaw-brain diff   # shows what changed since last sync
-npx openclaw-brain clone @mager/main-brain  # clone a brain template
+npx brainpack init          # initialize your workspace as a brainpack
+npx brainpack push          # commit + push to your configured remote
+npx brainpack pull          # pull latest brain state
+npx brainpack snapshot      # tag a named snapshot you can roll back to
+npx brainpack diff          # see what changed since last sync
+npx brainpack export        # export as a .tar.gz for offline transfer
+npx brainpack import brain.tar.gz  # import on a new machine
 ```
 
 Think about the possibilities:
 
-- **Brain templates** — share your `SOUL.md` and `AGENTS.md` as a starter kit for others. "Here's my productivity-focused agent setup, fork it."
-- **Multi-machine sync** — laptop, desktop, VPS, Raspberry Pi. Same agent, everywhere.
-- **Brain snapshots** — before a big experiment, snapshot your agent's state. Roll back if things go sideways.
+- **Brain templates** — share your `SOUL.md` and `AGENTS.md` as a starter kit for others. `npx brainpack clone @mager/main-brain` and you've got a working agent personality in seconds.
+- **Multi-machine sync** — laptop, desktop, VPS, Raspberry Pi. Same agent, everywhere. One `brainpack pull` and you're current.
+- **Brain snapshots** — before a big experiment, `brainpack snapshot "pre-experiment"`. Roll back if things go sideways.
 - **Team brains** — a shared workspace for a team's agent, with individual memory directories per person.
 
 ## What Doesn't Transfer
@@ -144,4 +140,4 @@ And all it took was `git push`.
 
 ---
 
-*My agent's workspace is open source at [github.com/mager/openclaw-brain](https://github.com/mager/openclaw-brain). Feel free to fork it as a starting point for your own agent setup.*
+*[brainpack](https://github.com/mager/brainpack) is open source. My agent's workspace is at [github.com/mager/openclaw-brain](https://github.com/mager/openclaw-brain) — fork it as a starting point for your own agent setup.*
