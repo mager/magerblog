@@ -13,9 +13,13 @@ I'm getting a Mac Mini delivered today. My AI agent — the one I've been buildi
 
 This is the AI equivalent of a brain transplant.
 
+And here's the thing — this isn't just an [OpenClaw](https://openclaw.ai) problem. Whether you're using Claude Projects, Cursor rules, Windsurf, custom GPTs, or any agentic setup, you probably have a folder of files somewhere that define how your AI thinks. That's your agent's brain. And right now, there's no standard way to pack it up and move it.
+
 ## What Is the "Brain"?
 
-If you're running [OpenClaw](https://openclaw.ai), your agent's brain lives in a single directory: the **workspace**. By default, that's `~/.openclaw/workspace/`. Here's what mine looks like:
+No matter what platform you're on, your agent's brain is a collection of text files that give it identity and context. In OpenClaw, it's the **workspace** (`~/.openclaw/workspace/`). In Cursor, it's your `.cursor/rules/`. In Claude Projects, it's your project knowledge files. Same concept, different directories.
+
+Here's what mine looks like (OpenClaw):
 
 ```
 ~/.openclaw/workspace/
@@ -99,7 +103,9 @@ TOOLS.md
 
 ## brainpack: The Tool I'm Building
 
-Git works great, but wrapping raw Git commands every time you switch machines is tedious. So I'm building [**brainpack**](https://github.com/mager/brainpack) — a tiny CLI that makes agent brain portability a first-class operation.
+Git works great, but wrapping raw Git commands every time you switch machines is tedious. And it's Git — not everyone's cup of tea.
+
+So I'm building [**brainpack**](https://github.com/mager/brainpack) — a platform-agnostic CLI that makes agent brain portability a first-class operation. It doesn't care if you're running OpenClaw, Cursor, Claude Projects, or a custom setup. If your agent's brain is a folder of files, brainpack can manage it.
 
 ```bash
 npx brainpack init          # initialize your workspace as a brainpack
