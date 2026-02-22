@@ -5,11 +5,11 @@ description: "How to run OpenClaw on a Mac Mini 24/7, lock it down with Tailscal
 category: "code"
 tags: ["AI", "OpenClaw", "Tailscale"]
 heroImage: ""
-keyword: "Openclaw Mac Mini setup"
+keyword: "my Openclaw Mac Mini setup"
 draft: false
 ---
 
-I wanted my AI agent to be always on. Not sleeping in a browser tab, not waiting for me to open an app — actually running, on real hardware, 24/7, accessible from my laptop no matter where I am.
+I wanted my AI agent to be always on. Not sleeping in a browser tab, not waiting for me to open an app — actually running, on real hardware, 24/7, accessible from my laptop or phone no matter where I am.
 
 A Mac Mini + Tailscale is the answer. And this post is the setup guide I wish I had.
 
@@ -103,7 +103,7 @@ No other local users can browse your files.
 
 ## Phase 2: Tailscale — Secure Access Without a VPN
 
-Tailscale is magic: it creates a private, encrypted mesh network between your devices with zero config. Your Mac Mini gets a stable hostname on your tailnet. Your laptop can reach it from home, the office, a coffee shop — anywhere.
+[Tailscale](https://tailscale.com/) is magic (and it has a great free tier): it creates a private, encrypted mesh network between your devices with zero config. Your Mac Mini gets a stable hostname on your tailnet. Your laptop can reach it from home, the office, a coffee shop — anywhere.
 
 Critically: **it never exposes anything to the public internet.** You're not opening ports. You're not running a reverse proxy. You're not managing certificates manually. Tailscale handles all of that with WireGuard under the hood.
 
@@ -163,16 +163,6 @@ openclaw onboard --install-daemon
 ```
 
 The wizard sets up your gateway, API key, Telegram bot, and installs the daemon. During setup, grab your Telegram bot token from [@BotFather](https://t.me/BotFather) — you'll paste it when prompted.
-
-**Known bug:** On some versions the onboarding wizard skips the API key step entirely. If your agent is unresponsive after setup, add the key manually to `~/.openclaw/openclaw.json`:
-
-```json
-{
-  "env": {
-    "ANTHROPIC_API_KEY": "sk-ant-api03-YOUR_KEY_HERE"
-  }
-}
-```
 
 Then add model config inside `agents.defaults`:
 
