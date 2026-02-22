@@ -4,9 +4,9 @@ pubDate: "2026-02-22"
 description: "I'm going to Japan in 60 days. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
 category: "life"
 tags: ["AI", "Japanese", "Claude Code", "Loooom", "Learning"]
-heroImage: ""
-keyword: "claude code japanese teacher"
-draft: true
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm"
+keyword: "learning Japanese with Claude"
+draft: false
 ---
 
 I booked a trip to Japan. Two months out. My Japanese vocabulary: ありがとう and すみません (thank you and excuse me). That's it.
@@ -37,8 +37,6 @@ I built a 5-skill curriculum on [Loooom](https://loooom.xyz/p/mager/beginner-jap
 4. 💬 **Learn Basic Conversation** — greetings, survival phrases, particles
 5. 🔥 **Level Up** — casual forms, te-form, compound sentences
 
-<!-- SCREENSHOT: loooom.xyz/p/mager/beginner-japanese plugin page -->
-
 ## Setup in 60 Seconds
 
 You need [Claude Code](https://claude.ai/code) installed and a Claude Pro subscription.
@@ -57,31 +55,51 @@ npx loooom add mager/beginner-japanese
 
 This pulls all 5 skill files from Loooom and writes them to `.claude/skills/`. No account needed.
 
-<!-- SCREENSHOT: Terminal running npx loooom add mager/beginner-japanese -->
-
-**Step 3: Verify the install**
-
-```bash
-ls .claude/skills/
-```
-
-You should see all 5 skill files sitting there.
-
-<!-- SCREENSHOT: .claude/skills/ directory listing -->
-
-**Step 4: Start learning**
+**Step 3: Start learning**
 
 ```bash
 claude
 ```
 
-Claude Code picks up the skills automatically. Tell it which module you want to start with:
+Claude Code picks up the skills automatically. Tell it where you're at:
 
 ```
-Let's start with Hiragana. Teach me the first row.
+I am going to Japan in 2 months, help me prepare!
 ```
 
-<!-- SCREENSHOT: Claude Code session showing hiragana lesson -->
+![Installing the skill and starting Claude Code](https://lh3.googleusercontent.com/pw/AP1GczNSHZ1C6bVqJTKAZqNxzF_GCmPP7THQj3sDGUkgp2qpmCfN8vzM9YrQ82yoswWWe1VM7OMZfoCgmNgLzneXSj1fdGg2f5tob-5n6Ge4ciEEksOYY22as5uLBzyp_E_4XPwosP4K218fcddLRcjeK__eHg=w2322-h1522-s-no-gm)
+
+Claude loads the skill, figures out you're a beginner, and immediately gets to work. The first response asked me my level (absolute zero, picked up a few things, or studied but forgot), and without me asking, dropped my first survival phrase:
+
+**すみません** (*Sumimasen*) — "Excuse me / Sorry / Hey, could you help me?"
+
+Use it to get a waiter's attention. Apologize for bumping into someone on the train. Start any question with a stranger. This one phrase alone will save you a dozen awkward silences in Tokyo.
+
+![Claude's first response — assessing level and teaching すみません](https://lh3.googleusercontent.com/pw/AP1GczPRxUGtS1BnVwJ3qf3VHE2AqvSXOoeOXT9KhKy5gj6c6ClwvV_RMPAlRkHCa3_n8K5_SkIDHL-iUjBgeepnB6KSESyK3bDQZ1iru2CV-ATt0pLEaUbVe5f1Gr76Xz_sGxYNaYakkl-ispOcdjAn5ouXFg=w2322-h1522-s-no-gm)
+
+## The Killer Move: Paste Your Itinerary
+
+Here's where it gets genuinely wild. I had a rough skeleton of my trip — some days blocked off, a few must-do things. I pasted the whole thing and asked Claude to fill in the blanks.
+
+It thought for a few minutes:
+
+![Claude thinking through the itinerary](https://lh3.googleusercontent.com/pw/AP1GczOIdCfsUwahvvNz0IrQSxywk3ZSOU7uWTc2d2dMZI7p05an8t5uLBzyp_E_4XPwosP4K218fcddLRcjeK__eHg=w2322-h1522-s-no-gm)
+
+Then it created `ITINERARY-2026.md` — a fully structured source of truth for the trip:
+
+![The ITINERARY-2026.md source of truth](https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm)
+
+For every day: specific activity suggestions with real place names, recommended timing, food picks tied to that location, **Japanese phrases relevant to that day's scenarios**, and booking priorities. It immediately flagged three things:
+
+1. **Book a sumo stable visit ASAP** — May is a tournament month (honbasho) in Tokyo. Limited spots.
+2. **Hakone ryokan** — the good ones with Mt. Fuji views fill up months out.
+3. **teamLab Borderless** — books out weeks in advance.
+
+That's a travel agent and a language tutor in a single session. And then it said: *"Want to roleplay some of these scenarios? We can practice like you're already there."*
+
+![Continuing the lesson — roleplaying ordering ramen](https://lh3.googleusercontent.com/pw/AP1GczN6v2V7JBpHX9ciulOJTgBO20LqAky21KnSwZGrz8LjeJcwyRVAeu8r91ulZOIPxaUmTVKsMkLuh6O91MiFZrp-v3EER0RJVSlWmOBxTGeXmifrRwm3-UnAVowIWPn3_mGgeionYkIr1RYzJHMGk_95DQ=w2322-h1522-s-no-gm)
+
+Yes. Let's practice ordering ramen.
 
 ## How to Trigger Each Skill
 
@@ -142,42 +160,6 @@ Mnemonic: Someone tied the letter 'a' into a knot. Messy — but it IS an 'a' in
 ```
 
 Weird? Yes. Memorable? Extremely. That's the whole point.
-
-## What a Lesson Actually Looks Like
-
-Here's a real exchange from my first session using the Conversation module:
-
----
-
-**Me:** Teach me how to introduce myself at a restaurant in Japan.
-
-**Claude:** Let's start with the basics and build up.
-
-When you walk into a restaurant, you'll typically hear:
-
-> **いらっしゃいませ！** (*Irasshaimase!*) — "Welcome!"
-
-You don't need to respond to that — it's a greeting, not a question.
-
-When you're seated, a server will ask:
-> **何名様ですか？** (*Nan-mei-sama desu ka?*) — "How many people?"
-
-If you're alone: **一人です。** (*Hitori desu.*) — "Just one."
-Two people: **二人です。** (*Futari desu.*) — "Two people."
-
-The key pattern here is **〜です (desu)** — it's the polite "to be." You'll use it constantly.
-
-**Try it:** How would you say "three people"?
-
----
-
-**Me:** 三人です？
-
-**Claude:** ✅ 三人 (*san-nin*) — perfect! You remembered 三 from kanji! The counter 人 (*nin/hito*) changes with the number — 一人 is *hitori*, 二人 is *futari*, but from 3 onward it's just *[number] + nin*. Native pattern, not a mistake.
-
----
-
-That's what $0 extra and a SKILL.md gets you: a patient, context-aware tutor who remembers you just learned 三 from the kanji module and connects the dots.
 
 ## The Real Power: It Remembers You
 
