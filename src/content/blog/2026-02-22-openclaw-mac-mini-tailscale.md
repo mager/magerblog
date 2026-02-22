@@ -285,21 +285,55 @@ The web dashboard is great, but `openclaw tui` — the terminal UI — is how yo
 
 ### Option A: SSH tunnel (simplest — no config changes)
 
-Open a tunnel from your laptop to the Mac Mini over Tailscale:
+#### Step 1: Enable SSH on the Mac Mini
+
+macOS ships with SSH off by default. Enable it once:
 
 ```bash
+# On the Mac Mini:
+sudo systemsetup -setremotelogin on
+```
+
+Or via GUI: **System Settings → General → Sharing → Remote Login → toggle on**.
+
+> **Is this safe?** Yes. Tailscale means your Mac Mini is never reachable from the public internet — only devices already on your tailnet can connect. SSH over Tailscale is WireGuard-encrypted end-to-end, and the firewall's stealth mode (set in Phase 1) silently drops anything not on your tailnet. You're fine.
+
+Verify SSH is up:
+
+```bash
+ssh magerbot@magerbot-mini "echo ok"
+```
+
+`magerbot-mini` is your Tailscale MagicDNS hostname — check `tailscale status` on the Mini if you're unsure.
+
+#### Step 2: Tunnel the gateway port
+
+```bash
+# On your laptop — run in a background terminal:
 ssh -N -L 18789:127.0.0.1:18789 magerbot@magerbot-mini
 ```
 
-`magerbot-mini` is your Tailscale MagicDNS hostname (check `tailscale status` on the Mini). With the tunnel up in the background, your laptop thinks the gateway is local:
+With the tunnel up, your laptop thinks the gateway is local:
 
 ```bash
 openclaw tui
 ```
 
-That's it. The TUI connects to `ws://127.0.0.1:18789` — which the tunnel forwards to the Mac Mini.
+That's it. The TUI connects to `ws://127.0.0.1:18789` — the tunnel forwards it to the Mac Mini.
 
-To avoid typing the SSH command every time, add this to your laptop's `~/.openclaw/openclaw.json`:
+#### Step 3: Find your gateway token
+
+The gateway uses token auth. Grab it from the Mac Mini:
+
+```bash
+cat ~/.openclaw/openclaw.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['gateway']['auth']['token'])"
+```
+
+It lives at `gateway.auth.token` in `~/.openclaw/openclaw.json`. Keep it somewhere safe on your laptop (password manager, 1Password, etc.).
+
+#### Step 4: Persist the remote config on your laptop
+
+Add this to your laptop's `~/.openclaw/openclaw.json` so you don't have to pass flags every time:
 
 ```json5
 {
@@ -307,13 +341,13 @@ To avoid typing the SSH command every time, add this to your laptop's `~/.opencl
     mode: "remote",
     remote: {
       url: "ws://127.0.0.1:18789",
-      token: "your-gateway-token"
+      token: "your-gateway-token-here"
     }
   }
 }
 ```
 
-Find your token in the Mac Mini's `~/.openclaw/openclaw.json` under `gateway.auth.token`, or set `OPENCLAW_GATEWAY_TOKEN` on the Mac Mini side.
+Now `openclaw tui` (with the SSH tunnel running) just works, no flags needed.
 
 ### Option B: Bind directly to the Tailscale IP (no SSH needed)
 
