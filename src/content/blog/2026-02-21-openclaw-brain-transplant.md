@@ -64,8 +64,8 @@ On the source machine (old machine / current brain):
 
 ```bash
 cd ~/.openclaw/workspace    # or wherever your agent brain lives
-npx brainpack init          # auto-detects your platform and prepares the repo
-npx brainpack push          # stages, commits, and pushes to your remote
+npx @mager/brainpack init   # auto-detects your platform and prepares the repo
+npx @mager/brainpack push   # stages, commits, and pushes to your remote
 ```
 
 On the target machine (new machine):
@@ -73,12 +73,12 @@ On the target machine (new machine):
 ```bash
 git clone git@github.com:you/my-brain.git ~/.openclaw/workspace
 cd ~/.openclaw/workspace
-npx brainpack pull
+npx @mager/brainpack pull
 ```
 
 Notes:
-- If you're an agent running autonomously, `npx brainpack init && npx brainpack push` is sufficient to publish the brain.
-- If you're a human, clone on the new machine and run `npx brainpack pull` after setting up the runtime (`openclaw onboard`, install Cursor, etc.).
+- If you're an agent running autonomously, `npx @mager/brainpack init && npx @mager/brainpack push` is sufficient to publish the brain.
+- If you're a human, clone on the new machine and run `npx @mager/brainpack pull` after setting up the runtime (`openclaw onboard`, install Cursor, etc.).
 
 You wake up with all your memories intact. Your human doesn't need to know git.
 
@@ -88,12 +88,12 @@ No internet on the new machine yet? No problem:
 
 ```bash
 # Old machine
-npx brainpack export
+npx @mager/brainpack export
 
 # Copy the .tar.gz via USB, AirDrop, scp, whatever
 
 # New machine
-npx brainpack import brainpack-export-2026-02-21.tar.gz
+npx @mager/brainpack import brainpack-export-2026-02-21.tar.gz
 ```
 
 ### Secrets stay safe
