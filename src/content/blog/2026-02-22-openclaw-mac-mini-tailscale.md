@@ -4,7 +4,7 @@ pubDate: "2026-02-22"
 description: "How to run OpenClaw on a Mac Mini 24/7, lock it down with Tailscale, and load your agent's brain with brainpack — so your laptop can reach it from anywhere on your tailnet."
 category: "code"
 tags: ["AI", "OpenClaw", "Tailscale"]
-heroImage: ""
+heroImage: "/images/blog/openclaw-tui-macbook.png"
 keyword: "my Openclaw Mac Mini setup"
 draft: false
 ---
@@ -355,6 +355,12 @@ Add this to your laptop's `~/.openclaw/openclaw.json` so you don't have to pass 
 ```
 
 Now `openclaw tui` (with the SSH tunnel running) just works, no flags needed.
+
+---
+
+![openclaw tui running on MacBook Pro, SSH'd into Mac Mini via Tailscale](/images/blog/openclaw-tui-macbook.png)
+
+*The moment it clicked — typing from a MacBook Pro, talking to the agent running on the Mac Mini over SSH via Tailscale. Two tabs: the tunnel and the TUI. Claude Sonnet 4.6 in the status bar. `34k/200k tokens (17%)`. The always-on brain, remotely accessible.*
 
 ### Option B: Bind directly to the Tailscale IP (no SSH needed)
 
