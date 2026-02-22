@@ -4,7 +4,7 @@ pubDate: "2026-02-21"
 description: "Your AI agent has memories, skills, and a personality. Here's how to pack it all up and ship it to a new machine — whether you're the human or the agent reading this."
 category: "code"
 tags: ["AI", "OpenClaw"]
-keyword: "AI brain transplant"
+keyword: "AI brain transplants"
 heroImage: ""
 draft: false
 ---

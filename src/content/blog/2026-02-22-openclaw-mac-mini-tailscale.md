@@ -5,6 +5,7 @@ description: "How to run OpenClaw on a Mac Mini 24/7, lock it down with Tailscal
 category: "code"
 tags: ["AI", "OpenClaw", "Tailscale"]
 heroImage: ""
+keyword: "Openclaw Mac Mini setup"
 draft: false
 ---
 
