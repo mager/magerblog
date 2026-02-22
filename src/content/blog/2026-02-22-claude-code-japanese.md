@@ -97,32 +97,51 @@ Once installed, each module is a conversation starter. Here are the prompts that
 
 The pattern: **put yourself in a scenario**. Claude plays along. You learn in context, not in a vacuum.
 
-## Bonus Skill: Kana ASCII
+## Bonus: Kana ASCII
 
-Here's something I built while working through Hiragana — a companion skill called `kana-ascii`. Claude Code runs in a terminal, so you can't render images or fonts. But you *can* draw characters as ASCII art, with stroke order and mnemonics baked in.
+While working through Hiragana I built a companion tool — `kana-ascii`. Claude Code runs in a terminal, so you can't render images or fancy fonts. But you *can* draw characters as ASCII art with stroke order baked in.
 
+It exists as both an npm package and a Loooom skill.
+
+**CLI:**
+```bash
+npx kana-ascii あ
+npx kana-ascii aiueo       # renders あいうえお in sequence
+npx kana-ascii konnichiwa  # shows こんにちわ, notes unsupported chars
+npx kana-ascii AIUEO       # katakana mode
+```
+
+**Or as a Claude Code skill** (Claude draws them in-session):
 ```bash
 npx loooom add mager/kana-ascii
 ```
+Then: `Draw あ for me. Show me the stroke order.`
 
-Then ask:
-```
-Draw あ for me. Show me the stroke order.
-```
-
-And you get something like:
+Output uses a locked dot-grid canvas — guaranteed monospace across all terminals:
 
 ```
-  ─────①─────
-  ╭──②──╮
-  │  ③   │
-  ╰──∫───╯
-      ④⌒
+あ (a) — ah as in father
+
+. . . . . . . . . . . . .
+. . - - - [1] - - - . . .
+. . . . | . . | . . . . .
+. . . . | [2] | . . . . .
+. . . . - - - - . . . . .
+. . . . . | . . . . . . .
+. . . . ( . ) [3] . . . .
+. . . . . . \ . . . . . .
+. . . . . . ~[4] . . . . .
+
+Strokes:
+  [1] horizontal bar — left to right across top
+  [2] box enclosure  — down, across, up (open top-left)
+  [3] drop + loop    — down, curves into circle
+  [4] hook sweep     — sweeps right, flicks up
+
+Mnemonic: Someone tied the letter 'a' into a knot. Messy — but it IS an 'a' in there.
 ```
 
-With a mnemonic: *"あ looks like someone tied the letter 'a' into a knot."*
-
-Weird? Yes. Memorable? Extremely.
+Weird? Yes. Memorable? Extremely. That's the whole point.
 
 ## What a Lesson Actually Looks Like
 
