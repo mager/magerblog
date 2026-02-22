@@ -291,10 +291,17 @@ macOS ships with SSH off by default. Enable it once:
 
 ```bash
 # On the Mac Mini:
-sudo systemsetup -setremotelogin on
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 ```
 
-Or via GUI: **System Settings → General → Sharing → Remote Login → toggle on**.
+> **Why not `systemsetup`?** On macOS Sequoia, `sudo systemsetup -setremotelogin on` throws a Full Disk Access error. The `launchctl` command above works without it. Alternatively: **System Settings → General → Sharing → Remote Login → toggle on**.
+
+Verify SSH is listening:
+
+```bash
+sudo lsof -i :22 | grep LISTEN
+# Should show launchd entries on TCP *:ssh
+```
 
 > **Is this safe?** Yes. Tailscale means your Mac Mini is never reachable from the public internet — only devices already on your tailnet can connect. SSH over Tailscale is WireGuard-encrypted end-to-end, and the firewall's stealth mode (set in Phase 1) silently drops anything not on your tailnet. You're fine.
 
