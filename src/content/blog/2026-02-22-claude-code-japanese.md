@@ -117,6 +117,8 @@ Once installed, each module is a conversation starter. Here are the prompts that
 
 The pattern: **put yourself in a scenario**. Claude plays along. You learn in context, not in a vacuum.
 
+![Kanji](https://lh3.googleusercontent.com/pw/AP1GczONJ2O1MYewIsz3UeRqOgfYZdy-UXsSm60wv2p2BNuFLvJSubygEY6i8bxtnLNTFv-FQl7xA1jf56tODU42u4MQsH8rqwGQ1_mckLI4YHy2AgNL4veqODvMYuZStCO4ADjnqWvdwwKZNVJniA9ljTVpbw=w2322-h1522-s-no-gm)
+
 ## Bonus: Kana ASCII
 
 While working through Hiragana I built a companion tool — `kana-ascii`. Claude Code runs in a terminal, so you can't render images or fancy fonts. But you *can* draw characters as ASCII art with stroke order baked in.
