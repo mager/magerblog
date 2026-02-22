@@ -1,7 +1,7 @@
 ---
-title: "Claude Code: My Free Japanese Sensei (Japan in 2 Months)"
+title: "Claude Code: My Sensei"
 pubDate: "2026-02-22"
-description: "I'm going to Japan in 60 days. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
+description: "I'm going to Japan in 2 months. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
 category: "life"
 tags: ["AI", "Japanese", "Claude Code", "Loooom", "Learning"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIubRWM4Z5YjDhgsIbdsosT2vOD9JIBksNQIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm"
@@ -9,7 +9,7 @@ keyword: "learning Japanese with Claude"
 draft: false
 ---
 
-I booked a trip to Japan. Two months out. My Japanese vocabulary: ありがとう and すみません (thank you and excuse me). That's it.
+My wife and I booked a trip to Japan. Two months out. My Japanese vocabulary: ありがとう and すみません (thank you and excuse me). That's it.
 
 I'm not paying for another app. I already have Claude Pro. So I built a Japanese learning plugin, published it on [Loooom](https://loooom.xyz), and I've been using Claude Code as my daily sensei. Here's how to do the same thing.
 
