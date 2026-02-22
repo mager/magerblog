@@ -2,7 +2,7 @@
 title: "Claude Code: My Free Japanese Sensei (Japan in 2 Months)"
 pubDate: "2026-02-22"
 description: "I'm going to Japan in 60 days. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
-category: "code"
+category: "life"
 tags: ["AI", "Japanese", "Claude Code", "Loooom", "Learning"]
 heroImage: ""
 keyword: "claude code japanese teacher"
@@ -82,6 +82,47 @@ Let's start with Hiragana. Teach me the first row.
 ```
 
 <!-- SCREENSHOT: Claude Code session showing hiragana lesson -->
+
+## How to Trigger Each Skill
+
+Once installed, each module is a conversation starter. Here are the prompts that work best for each:
+
+| Module | What to say |
+|--------|------------|
+| 🔤 Hiragana & Katakana | `"Teach me the あいうえお row. Draw each character."` |
+| 📐 Radicals | `"Show me the 10 most important radicals with visuals."` |
+| 🈁 Easy Kanji | `"Teach me the kanji for numbers 1–5. One at a time."` |
+| 💬 Basic Conversation | `"I just walked into a restaurant in Tokyo. What do I say?"` |
+| 🔥 Level Up | `"Teach me te-form with examples I'd actually use in Japan."` |
+
+The pattern: **put yourself in a scenario**. Claude plays along. You learn in context, not in a vacuum.
+
+## Bonus Skill: Kana ASCII
+
+Here's something I built while working through Hiragana — a companion skill called `kana-ascii`. Claude Code runs in a terminal, so you can't render images or fonts. But you *can* draw characters as ASCII art, with stroke order and mnemonics baked in.
+
+```bash
+npx loooom add mager/kana-ascii
+```
+
+Then ask:
+```
+Draw あ for me. Show me the stroke order.
+```
+
+And you get something like:
+
+```
+  ─────①─────
+  ╭──②──╮
+  │  ③   │
+  ╰──∫───╯
+      ④⌒
+```
+
+With a mnemonic: *"あ looks like someone tied the letter 'a' into a knot."*
+
+Weird? Yes. Memorable? Extremely.
 
 ## What a Lesson Actually Looks Like
 
