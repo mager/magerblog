@@ -85,11 +85,11 @@ Here's where it gets genuinely wild. I had a rough skeleton of my trip — some 
 
 It thought for a few minutes:
 
-![Claude thinking through the itinerary](https://lh3.googleusercontent.com/pw/AP1GczOIdCfsUwahvvNz0IrQSxywk3ZSOU7uWTc2d2dMZI7p05an8t5uLBzyp_E_4XPwosP4K218fcddLRcjeK__eHg=w2322-h1522-s-no-gm)
+![Claude thinking through the itinerary](https://lh3.googleusercontent.com/pw/AP1GczMgpbZqlDEWJcMGWkKNIbnchlkaNK4MRfUy8hrfFvyr9tvXSfwXg8DktOBRt6q6QzBVMEqtgH5Rzzyya-GAw-JGkfMj8DN4_QP14Mx2zCaIfb8whhTCA3OtUXizqaXpFmqYTIDLB9QNBS-_QSdUd97VYg=w2322-h1522-s-no-gm)
 
 Then it created `ITINERARY-2026.md` — a fully structured source of truth for the trip:
 
-![The ITINERARY-2026.md source of truth](https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm)
+![The ITINERARY-2026.md source of truth](https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIubRWM4Z5YjDhgsIbdsosT2vOD9JIBksNQIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm)
 
 For every day: specific activity suggestions with real place names, recommended timing, food picks tied to that location, **Japanese phrases relevant to that day's scenarios**, and booking priorities. It immediately flagged three things:
 
@@ -161,7 +161,7 @@ Strokes:
 Mnemonic: Someone tied the letter 'a' into a knot. Messy — but it IS an 'a' in there.
 ```
 
-Weird? Yes. Memorable? Extremely. That's the whole point.
+Weird? Yes. Memorable? Extremely. That's the whole point. It will keep getting better.
 
 ## The Real Power: It Remembers You
 
