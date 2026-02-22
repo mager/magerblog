@@ -146,8 +146,8 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         margin: 0 auto;
         padding: 4rem 2rem 2rem;
         font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.1rem;
-        line-height: 1.85;
+        font-size: 1.175rem;
+        line-height: 1.9;
         color: var(--lf-text);
       }
 
@@ -260,6 +260,94 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
 
       .life-content :global(.twitter-tweet) {
         margin: 2rem auto !important;
+      }
+
+      /* ── Code Blocks ── */
+      .life-content :global(.astro-code),
+      .life-content :global(pre) {
+        position: relative;
+        margin: 2.5rem 0 !important;
+        padding: 0 !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(63, 185, 80, 0.28) !important;
+        background: #070F07 !important;
+        overflow: hidden !important;
+        box-shadow:
+          0 6px 32px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(63, 185, 80, 0.06),
+          inset 0 1px 0 rgba(63, 185, 80, 0.1) !important;
+        /* reset Shiki overflow */
+        overflow-x: unset !important;
+      }
+
+      /* Terminal header — macOS traffic lights */
+      .life-content :global(.astro-code)::before,
+      .life-content :global(pre)::before {
+        content: '';
+        display: block;
+        height: 2.75rem;
+        background-color: rgba(63, 185, 80, 0.05);
+        background-image:
+          radial-gradient(circle, #FF5F57 5.5px, transparent 5.5px),
+          radial-gradient(circle, #FEBC2E 5.5px, transparent 5.5px),
+          radial-gradient(circle, #28C840 5.5px, transparent 5.5px);
+        background-repeat: no-repeat;
+        background-size: 11px 11px;
+        background-position: 14px center, 32px center, 50px center;
+        border-bottom: 1px solid rgba(63, 185, 80, 0.14);
+        flex-shrink: 0;
+      }
+
+      /* Language label in top-right */
+      .life-content :global(.astro-code[data-language])::after,
+      .life-content :global(pre[data-language])::after {
+        content: attr(data-language);
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2.75rem;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--lf-text-muted);
+      }
+
+      /* Code content area */
+      .life-content :global(pre > code) {
+        all: unset;
+        display: block;
+        padding: 1.5rem 1.75rem !important;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+        font-size: 0.92rem !important;
+        line-height: 1.75 !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Individual highlighted lines */
+      .life-content :global(.astro-code .line) {
+        display: inline-block;
+        min-width: 100%;
+      }
+
+      /* ── Inline Code ── */
+      .life-content :global(code:not(pre code)) {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 0.855em;
+        color: var(--lf-green-bright);
+        background: rgba(63, 185, 80, 0.1);
+        border: 1px solid rgba(63, 185, 80, 0.24);
+        border-radius: 5px;
+        padding: 0.15em 0.48em;
+        white-space: nowrap;
+        vertical-align: baseline;
+        position: relative;
+        top: -0.05em;
       }
 
       /* ── Tags ── */
@@ -471,6 +559,24 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
 
         .life-content {
           padding: 2.5rem 1.25rem 1.5rem;
+          font-size: 1.075rem;
+          line-height: 1.85;
+        }
+
+        .life-content :global(pre > code) {
+          padding: 1.25rem 1.25rem !important;
+          font-size: 0.85rem !important;
+        }
+
+        .life-content :global(.astro-code)::before,
+        .life-content :global(pre)::before {
+          height: 2.5rem;
+          background-position: 12px center, 28px center, 44px center;
+        }
+
+        .life-content :global(.astro-code[data-language])::after,
+        .life-content :global(pre[data-language])::after {
+          height: 2.5rem;
         }
 
         .life-navigation {

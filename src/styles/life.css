@@ -172,11 +172,17 @@ html[data-life] h6 {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Override global code styling */
-html[data-life] code {
+/* Override global code styling — inline only */
+html[data-life] code:not(pre code) {
   background: var(--lf-bg-surface);
   border: 1px solid var(--lf-border);
   color: var(--lf-green);
+}
+
+/* Code block base */
+html[data-life] pre {
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 /* Override global blockquote */
@@ -195,6 +201,7 @@ html[data-life] hr {
 
 @media (max-width: 720px) {
   html[data-life] body {
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.8;
   }
 }
