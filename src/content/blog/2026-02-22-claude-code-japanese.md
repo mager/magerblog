@@ -179,16 +179,46 @@ The key pattern here is **〜です (desu)** — it's the polite "to be." You'll
 
 That's what $0 extra and a SKILL.md gets you: a patient, context-aware tutor who remembers you just learned 三 from the kanji module and connects the dots.
 
-## The Real Power: Continuity
+## The Real Power: It Remembers You
 
-Because this is Claude Code, you can keep a `notes.md` in your Japanese directory and have it track what you've learned, what you struggled with, and what to review next. The plugin already tells Claude to do this.
+The biggest problem with AI tutors: every session starts from zero. You explain your level, your goals, what you already know — and then next time, same thing.
 
-After each session, run:
+The v2.0.0 update fixes this with a progress file.
+
+At the end of every session, Claude writes your state to `.claude/japanese-progress.md`:
+
+```markdown
+# Japanese Learning Progress
+
+**Last session:** 2026-02-22
+**Total sessions:** 1
+**Trip date:** ~2 months from 2026-02-22
+**Destination:** Tokyo / Kyoto
+
+## Current Module
+Module 1: Kana Foundations — in progress
+
+## Kana Covered
+### Hiragana
+- あ (a) ✓ confident
+- い (i) ✓ confident
+- う (u) ~ learning
+- え (e) ~ learning
+- お (o) ~ learning
+
+## Vocab Bank
+- すみません — excuse me / sorry ✓
+
+## Next Session
+- Review: う (u), え (e), お (o)
+- Continue: か row (ka ki ku ke ko)
 ```
-Summarize what we covered today and add it to notes.md
-```
 
-Two months from now, you'll have a complete log of your learning journey. And when you land in Tokyo, you'll have a tutor you can pull up on your phone via the Claude mobile app.
+Next session, Claude reads that file first. No recap. No re-explaining your level. You say "let's continue" and it says "Welcome back — last time you got through the vowel row. Today we're doing か."
+
+That's a stateful tutor on your own filesystem. No account, no server, no subscription beyond what you already pay for.
+
+Two months of consistent sessions and you'll have a complete log of exactly what you learned, what stuck, and what to review before you land.
 
 ## Try It Yourself
 
