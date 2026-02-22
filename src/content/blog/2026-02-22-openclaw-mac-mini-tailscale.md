@@ -277,6 +277,87 @@ openclaw cron list
 
 ---
 
+## Bonus: Terminal TUI from Your Laptop
+
+The web dashboard is great, but `openclaw tui` — the terminal UI — is how you actually talk to your agent from the command line. Here's how to connect it from your laptop to the Mac Mini's gateway.
+
+> **Quick answer to "is the gateway open to my tailnet?"** No — by default it's bound to loopback only (`127.0.0.1:18789`). `tailscale serve` exposes the web dashboard, but the WebSocket that `openclaw tui` uses is the same port. You have two options.
+
+### Option A: SSH tunnel (simplest — no config changes)
+
+Open a tunnel from your laptop to the Mac Mini over Tailscale:
+
+```bash
+ssh -N -L 18789:127.0.0.1:18789 magerbot@magerbot-mini
+```
+
+`magerbot-mini` is your Tailscale MagicDNS hostname (check `tailscale status` on the Mini). With the tunnel up in the background, your laptop thinks the gateway is local:
+
+```bash
+openclaw tui
+```
+
+That's it. The TUI connects to `ws://127.0.0.1:18789` — which the tunnel forwards to the Mac Mini.
+
+To avoid typing the SSH command every time, add this to your laptop's `~/.openclaw/openclaw.json`:
+
+```json5
+{
+  gateway: {
+    mode: "remote",
+    remote: {
+      url: "ws://127.0.0.1:18789",
+      token: "your-gateway-token"
+    }
+  }
+}
+```
+
+Find your token in the Mac Mini's `~/.openclaw/openclaw.json` under `gateway.auth.token`, or set `OPENCLAW_GATEWAY_TOKEN` on the Mac Mini side.
+
+### Option B: Bind directly to the Tailscale IP (no SSH needed)
+
+If you'd rather skip the tunnel entirely, tell the gateway to listen on your Tailscale interface. On the Mac Mini, edit `~/.openclaw/openclaw.json`:
+
+```json5
+{
+  gateway: {
+    bind: "tailnet",
+    auth: { mode: "token", token: "your-token" }
+  }
+}
+```
+
+Restart the gateway:
+
+```bash
+openclaw gateway restart
+```
+
+Now from your laptop:
+
+```bash
+openclaw tui --url ws://100.x.x.x:18789 --token your-token
+```
+
+Replace `100.x.x.x` with the Mac Mini's Tailscale IP (`tailscale ip -4` on the Mini). The gateway listens directly on the Tailscale interface — no SSH, no tunnel, no `tailscale serve` needed.
+
+> **Note:** In `tailnet` bind mode, `http://127.0.0.1:18789` no longer works on the Mac Mini itself — it only listens on the Tailscale IP. Keep `loopback` + SSH tunnel if you want both local and remote access without extra config.
+
+### Which should you use?
+
+| | SSH Tunnel | Tailnet Bind |
+|---|---|---|
+| Gateway config change | None | Yes (`bind: tailnet`) |
+| Requires SSH running | Yes | No |
+| Works on Mac Mini locally | Yes | No (loopback gone) |
+| Token required | Optional | Required |
+| Simpler long-term | If you already SSH | If you never SSH |
+
+Most people want the SSH tunnel. It's zero config, fully recoverable, and SSH over Tailscale is already encrypted.
+
+---
+
 ## The Full Stack
 
 What you now have:
