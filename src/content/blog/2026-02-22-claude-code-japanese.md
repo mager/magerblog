@@ -4,7 +4,7 @@ pubDate: "2026-02-22"
 description: "I'm going to Japan in 60 days. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
 category: "life"
 tags: ["AI", "Japanese", "Claude Code", "Loooom", "Learning"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIubRWM4Z5YjDhgsIbdsosT2vOD9JIBksNQIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm"
 keyword: "learning Japanese with Claude"
 draft: false
 ---
@@ -36,6 +36,8 @@ I built a 5-skill curriculum on [Loooom](https://loooom.xyz/p/mager/beginner-jap
 3. 🈁 **Learn Easy Kanji** — your first 50 kanji (numbers, days, basic nouns)
 4. 💬 **Learn Basic Conversation** — greetings, survival phrases, particles
 5. 🔥 **Level Up** — casual forms, te-form, compound sentences
+
+![Loooom](https://lh3.googleusercontent.com/pw/AP1GczOKGtPKYT8d3_jJxjukSZmNlqV_HZDvAmkr0XVUaGhzalvo5zfpQXN7irtGKmNV_jWMoqZsJFlSNbpt41Yesqb8p6Cc1EAhMFH_ZvmDgxVErj2v3ce9WLLg5rE7Ibr45y7999SXprwZx1cD5j_FTTbq7g=w2322-h1522-s-no-gm)
 
 ## Setup in 60 Seconds
 
