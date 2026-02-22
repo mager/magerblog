@@ -218,7 +218,31 @@ Next session, Claude reads that file first. No recap. No re-explaining your leve
 
 That's a stateful tutor on your own filesystem. No account, no server, no subscription beyond what you already pay for.
 
-Two months of consistent sessions and you'll have a complete log of exactly what you learned, what stuck, and what to review before you land.
+Two months of sessions and you'll have a complete log of exactly what you learned, what stuck, and what to review before you land.
+
+## Level Up: Cloud Memory with mem0
+
+The file approach has one limitation: it's stuck on one machine.
+
+If you want to study at your desk tonight and continue on your phone on the train in Japan — you need cloud memory. That's where [mem0](https://mem0.ai) comes in.
+
+Mem0 is a managed memory layer for AI apps. Free tier gives you 10,000 memories and 1,000 retrieval calls per month. A 2-month Japanese journey is maybe 600 total operations. You won't get close to the limit.
+
+**Setup (2 minutes):**
+
+1. Sign up at [app.mem0.ai](https://app.mem0.ai)
+2. Grab your API key from the dashboard
+3. Add it to your environment:
+
+```bash
+export MEM0_API_KEY=your-key-here
+```
+
+That's it. The skill detects the key automatically and switches to cloud mode.
+
+**What changes:** Instead of writing a markdown file, Claude calls the mem0 API at the end of every session. It passes a summary of what you covered, and mem0's AI extracts and stores what matters — kana confidence, upcoming goals, your trip date, what you struggled with. Next session, it retrieves those memories semantically and resumes exactly where you left off.
+
+No different from your perspective. But now it works from every device where you've set `MEM0_API_KEY` — including the Claude mobile app when you're already in Japan.
 
 ## Try It Yourself
 
