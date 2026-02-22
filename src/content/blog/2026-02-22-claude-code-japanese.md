@@ -4,7 +4,7 @@ pubDate: "2026-02-22"
 description: "I'm going to Japan in 2 months. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
 category: "life"
 tags: ["AI", "Japanese", "Claude Code", "Loooom", "Learning"]
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP1MAy9HkYl7-lTRNaYr_85TaizdyCzLEORDP1fqI-QIubRWM4Z5YjDhgsIbdsosT2vOD9JIBksNQIfnEHralS2xJDITFw76gqOAIynAiI6N8ve0FXMsTMGCjB4-H0aDX7ApP79ifGO-_fiwJcAKO_wqw=w2322-h1522-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN5l8_0JL1x4n7FfIR5tZfYKGeICmjOkk75z4YsjBrgvCMvtsWI45VpJn9OUNFEVdhfENTJVfv8fRilrXm4UkhBfZNwsQTqii5otWZ5TaBdje_c3JjF5_wh4wHH48VrxLLv9Fxxs0dsxgZ-pvG1gMbH0A=w1024-h1024-s-no-gm"
 keyword: "learning Japanese with Claude"
 draft: false
 ---
