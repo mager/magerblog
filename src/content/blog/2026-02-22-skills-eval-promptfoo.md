@@ -141,47 +141,75 @@ assert:
 
 ---
 
-## Running Against All Your Skills
+## How Loooom Uses This
 
-If you're building on [Loooom](https://loooom.xyz), you'll have multiple skills in the catalog. Script it:
+We shipped eval scores as a first-class feature in [Loooom](https://loooom.xyz). Here's the full system.
 
-```bash
-#!/bin/bash
-# eval-all-skills.sh
-SKILLS=(beginner-japanese kana-ascii learn-anything socratic-thinking)
+**The catalog repo** ([mager/loooom](https://github.com/mager/loooom)) has a `promptfooconfig.yaml` next to every plugin — 8 test cases each, covering all six quality dimensions listed below. The scores are stored in `eval-scores.json` at the repo root:
 
-for skill in "${SKILLS[@]}"; do
-  echo "→ Evaluating $skill..."
-  cd ~/Code/loooom-catalog/skills/$skill
-  npx promptfoo eval --output results/$skill.json
-done
+```json
+{
+  "updatedAt": "2026-02-22T00:00:00Z",
+  "plugins": {
+    "mager/beginner-japanese": { "score": 94, "passed": 7, "total": 8, "status": "passing" },
+    "mager/frontend-design": { "score": 87, "passed": 7, "total": 8, "status": "passing" }
+  }
+}
 ```
 
-Then aggregate results and flag anything below your quality threshold (we use 80%).
-
----
-
-## CI Integration
-
-Add to your GitHub Actions workflow:
+**A GitHub Action** runs every night at 02:00 UTC. It loops through all plugins, runs promptfoo eval on each, aggregates the pass rates into `eval-scores.json`, and auto-commits. Zero human involvement after setup.
 
 ```yaml
-# .github/workflows/eval.yml
-name: Skill Quality Eval
-on: [push, pull_request]
+# .github/workflows/eval.yml (simplified)
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  push:
+    paths: ["plugins/*/promptfooconfig.yaml"]
 
 jobs:
   eval:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - run: npx promptfoo eval --ci
+      - run: npm install -g promptfoo
+      - run: |
+          npx promptfoo eval --config plugins/beginner-japanese/promptfooconfig.yaml \
+            --output /tmp/beginner-japanese.json || true
+          # ... repeat for each plugin
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - run: node scripts/aggregate-scores.js  # writes eval-scores.json
+      - run: |
+          git config user.name "Loooom Eval Bot"
+          git add eval-scores.json
+          git diff --cached --quiet || git commit -m "ci: update eval scores [skip ci]"
+          git push
 ```
 
-`--ci` flag exits non-zero if your pass rate drops below threshold. PRs that degrade skill quality get blocked automatically.
+**The website** (`loooom.xyz`) fetches `eval-scores.json` from `raw.githubusercontent.com` server-side on every plugin page load, with a 60-second module-level cache. No database. No webhooks. Just a GitHub raw URL.
+
+```ts
+// src/lib/eval-scores.ts
+const SCORES_URL = 'https://raw.githubusercontent.com/mager/loooom/main/eval-scores.json';
+let cache: { data: EvalScores; fetchedAt: number } | null = null;
+
+export async function fetchEvalScores(): Promise<EvalScores | null> {
+  if (cache && Date.now() - cache.fetchedAt < 60_000) return cache.data;
+  try {
+    const res = await fetch(SCORES_URL, { signal: AbortSignal.timeout(5000) });
+    const data = await res.json();
+    cache = { data, fetchedAt: Date.now() };
+    return data;
+  } catch { return null; }
+}
+```
+
+The score shows up as a badge on plugin detail pages and browse cards — green pill for passing (≥80%), yellow for failing. It auto-updates nightly without a website deploy.
+
+The methodology is fully public: anyone can look at the `promptfooconfig.yaml`, run the same eval locally, and reproduce the score. That's the trust story.
 
 ---
 
@@ -206,11 +234,9 @@ The AI skill ecosystem is going to hit the same quality problem the npm ecosyste
 
 The npm solution was downloads + stars + weekly trends. That's a popularity signal, not a quality signal.
 
-Evals are the quality signal. A skill with 100 tests and 94% pass rate is objectively more trustworthy than one with zero tests and 500 installs.
+Evals are the quality signal. A skill with 100 tests and a 94% pass rate is objectively more trustworthy than one with zero tests and 500 installs.
 
-We're thinking about baking eval scores into Loooom's plugin catalog — a visible quality score next to every skill, backed by a public `promptfooconfig.yaml` in the repo. Open methodology, reproducible results.
-
-That's the direction this is heading. Might as well start building the infrastructure now.
+The community should expect this from plugin authors. If you publish a Claude Code skill without a `promptfooconfig.yaml`, you're asking users to trust you on vibes alone. That's fine for v0. It shouldn't be fine for anything people actually depend on.
 
 ---
 
@@ -218,11 +244,13 @@ That's the direction this is heading. Might as well start building the infrastru
 
 ```bash
 npm install -g promptfoo
-# write promptfooconfig.yaml in your skill dir
+# write promptfooconfig.yaml in your skill dir (8 tests covering the six categories below)
 npx promptfoo eval
 npx promptfoo view
 ```
 
 Spec-compliant → ✅ published. High eval score → ✅ trusted.
 
-Both matter. Run both.
+On [Loooom](https://loooom.xyz): every plugin has a public `promptfooconfig.yaml`, scores run nightly via GitHub Actions, badge shows on every plugin card. Open methodology, reproducible results, no infra required.
+
+Both matter. Ship both.
