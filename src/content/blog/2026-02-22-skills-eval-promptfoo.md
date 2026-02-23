@@ -41,7 +41,7 @@ Three frameworks dominate right now:
 
 **[inspect_ai](https://github.com/UKGovernmentBEIS/inspect_ai)** — Built by the UK AI Security Institute. 100+ pre-built evals, designed for rigorous safety evaluations. Overkill for most skills, but good reference for scoring methodology.
 
-We're picking **promptfoo** because: declarative config (no Python required), native Claude support, and it runs in CI without a server.
+We're picking **promptfoo** because: declarative config (no Python required), works with any model including free ones, and it runs in CI without a server.
 
 ---
 
@@ -52,6 +52,22 @@ npm install -g promptfoo
 # or npx (no install)
 npx promptfoo@latest
 ```
+
+---
+
+## Free LLM for Evals
+
+You don't need to burn Claude credits to run evals. promptfoo supports any OpenAI-compatible provider. The best free option for CI:
+
+**[Groq](https://console.groq.com)** — free API tier, `llama-3.3-70b-versatile`, runs in GitHub Actions, fast. Get an API key in 2 minutes.
+
+```bash
+export GROQ_API_KEY=your_key_here
+```
+
+Other free options:
+- `google:gemini-1.5-flash` — Google's free tier (generous limits)
+- `ollama:llama3.2` — fully local, zero cost, but can't run in standard GH Actions runners
 
 ---
 
@@ -67,7 +83,7 @@ prompts:
   - "{{message}}"
 
 providers:
-  - id: anthropic:claude-sonnet-4-5
+  - id: groq:llama-3.3-70b-versatile   # free!
     config:
       system: |
         You are a beginner Japanese tutor. Your student is preparing for a trip to Japan.
@@ -157,7 +173,7 @@ We shipped eval scores as a first-class feature in [Loooom](https://loooom.xyz).
 }
 ```
 
-**A GitHub Action** runs every night at 02:00 UTC. It loops through all plugins, runs promptfoo eval on each, aggregates the pass rates into `eval-scores.json`, and auto-commits. Zero human involvement after setup.
+**A GitHub Action** runs every night at 02:00 UTC — but only for plugins that have actually changed. `eval-scores.json` stores a `lastCommit` SHA per plugin. On each run, the action checks `git log $lastCommit..HEAD -- plugins/$slug/`. If nothing changed, it skips. Only re-evals what's new.
 
 ```yaml
 # .github/workflows/eval.yml (simplified)
@@ -165,7 +181,7 @@ on:
   schedule:
     - cron: "0 2 * * *"
   push:
-    paths: ["plugins/*/promptfooconfig.yaml"]
+    paths: ["plugins/*/promptfooconfig.yaml", "plugins/*/skills/**"]
 
 jobs:
   eval:
@@ -174,20 +190,24 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for git log
       - run: npm install -g promptfoo
       - run: |
-          npx promptfoo eval --config plugins/beginner-japanese/promptfooconfig.yaml \
-            --output /tmp/beginner-japanese.json || true
-          # ... repeat for each plugin
+          # For each plugin: check git log since lastCommit
+          # If changes exist → run eval → update score + lastCommit SHA
+          # If no changes → skip entirely
+          node scripts/eval-changed.js
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      - run: node scripts/aggregate-scores.js  # writes eval-scores.json
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}  # free!
       - run: |
           git config user.name "Loooom Eval Bot"
           git add eval-scores.json
           git diff --cached --quiet || git commit -m "ci: update eval scores [skip ci]"
           git push
 ```
+
+This means a catalog with 50 plugins doesn't run 50 evals every night — it only runs the ones that shipped changes. Cost stays near zero even as the catalog grows.
 
 **The website** (`loooom.xyz`) fetches `eval-scores.json` from `raw.githubusercontent.com` server-side on every plugin page load, with a 60-second module-level cache. No database. No webhooks. Just a GitHub raw URL.
 
@@ -244,7 +264,8 @@ The community should expect this from plugin authors. If you publish a Claude Co
 
 ```bash
 npm install -g promptfoo
-# write promptfooconfig.yaml in your skill dir (8 tests covering the six categories below)
+export GROQ_API_KEY=your_free_key  # get one at console.groq.com
+# write promptfooconfig.yaml with provider: groq:llama-3.3-70b-versatile
 npx promptfoo eval
 npx promptfoo view
 ```
