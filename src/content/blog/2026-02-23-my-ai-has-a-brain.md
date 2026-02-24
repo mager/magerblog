@@ -4,7 +4,7 @@ pubDate: "2026-02-23"
 description: "The problem: Every session, my AI wakes up fresh. The worse problem: Even when AI tools do remember, they trap it in proprietary black boxes. So I built a brain that follows me across tools."
 category: "code"
 tags: ["AI", "OpenClaw", "brainpack", "mem0", "Claude Code"]
-draft: true
+draft: false
 ---
 
 **The problem:** Every session, my AI wakes up fresh. No memory of yesterday's decisions, no context on my preferences, no clue that I hate cilantro or that my wife knits. It's Groundhog Day with better autocomplete.
@@ -88,5 +88,4 @@ Files for structure. Cloud for context. Own your brain.
 
 ---
 
-*Repo: [github.com/mager/openclaw-brain](https://github.com/mager/openclaw-brain)*  
 *brainpack: `npm install -g @mager/brainpack`*
