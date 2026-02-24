@@ -1,17 +1,17 @@
 ---
-title: "obra/superpowers: The Agent That Closes the Loop"
+title: "The Full-Loop Agent: What obra/superpowers Gets Right"
 pubDate: "2026-02-24"
-description: "Most coding agents stop at the PR. obra/superpowers keeps going — specs, implementation, tests, deployment, and monitoring. A deep dive into what it takes to build an agent that truly owns the full software lifecycle."
+description: "Most coding agents stop at the PR. The best ones keep going — specs, implementation, tests, deployment, and monitoring. A deep dive into obra/superpowers and what it takes to build an agent that truly owns the full software lifecycle."
 category: "code"
-tags: ["AI", "Agents", "Claude Code", "Loooom", "DevOps", "Software Development"]
+tags: ["AI", "Agents", "Claude Code", "DevOps", "Software Development"]
 heroImage: ""
-keyword: "obra superpowers claude code plugin full loop"
+keyword: "obra superpowers full loop agent software development"
 draft: true
 ---
 
 There's a moment every engineer recognizes: the PR is merged, the code is "done," but the feature isn't real until it's running in production and someone has verified it works. That gap — between "merged" and "live" — is where most AI coding assistants tap out.
 
-Not obra/superpowers. This plugin is built for the **full loop**.
+I came across obra/superpowers recently — a Claude Code skill that attempts to close this gap. It's not just a coding assistant. It's built for the **full loop**.
 
 ## The Loop Nobody Closes
 
@@ -158,20 +158,16 @@ The bottleneck is:
 
 obra/superpowers attacks those bottlenecks directly. It's not a faster typist. It's a more reliable engineer.
 
-## Using It
+## What Using It Looks Like
 
-```bash
-npx loooom add obra/superpowers
-```
-
-Then in Claude Code:
+The skill lives in your `.claude/skills/` directory. Once activated, you can prompt:
 
 ```
 I need to add payment retry logic to the billing service. 
 Walk me through the spec, then implement and deploy to staging.
 ```
 
-It'll pause at each gate (spec review, PR approval) and ask for human sign-off. Or, if you trust it:
+It pauses at each gate (spec review, PR approval) and asks for human sign-off. Or, if you trust it:
 
 ```
 Enable autonomous mode. Deploy to prod once CI passes.
@@ -244,6 +240,4 @@ obra/superpowers is a glimpse of what that looks like.
 
 ---
 
-*Plugin: [loooom.xyz/p/obra/superpowers](https://loooom.xyz/p/obra/superpowers)*
-
-*Building agent tooling? [I'd love to hear what you're working on](https://x.com/mager).*
+*Building agent tooling or full-loop automation? [I'd love to hear what you're working on](https://x.com/mager).*
