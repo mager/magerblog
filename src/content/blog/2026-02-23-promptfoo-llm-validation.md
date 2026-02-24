@@ -6,7 +6,7 @@ category: "engineering"
 tags: ["AI", "LLM", "Testing", "promptfoo", "Evals", "Validation"]
 heroImage: ""
 keyword: "LLM evaluation testing promptfoo"
-draft: true
+draft: false
 ---
 
 You've heard the term. "Evals." It's dropped in every AI product meeting, every HN thread about the latest model release, every paper from OpenAI or Anthropic.
