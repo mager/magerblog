@@ -74,14 +74,8 @@ const categories = [
 		<div class="nebula nebula-teal"   aria-hidden="true"></div>
 		<div class="nebula nebula-blue"   aria-hidden="true"></div>
 
-		<!-- Planet + ring -->
-		<div class="planet-wrap" aria-hidden="true">
-			<div class="orbital-ring"></div>
-			<div class="planet">
-				<div class="planet-shimmer"></div>
-			</div>
-			<div class="planet-glow"></div>
-		</div>
+		<!-- Interactive galaxy -->
+		<canvas id="galaxy-canvas" aria-label="Interactive galaxy visualization"></canvas>
 
 		<!-- Hero content -->
 		<div class="hero-content">
@@ -152,6 +146,180 @@ const categories = [
 </div>
 
 <script define:vars={{ codeKeywords, lifeKeywords, recipeKeywords }}>
+	// ── Interactive Galaxy ─────────────────────────────────────
+	(function() {
+		const gal = document.getElementById('galaxy-canvas');
+		if (!gal) return;
+		const ctx = gal.getContext('2d');
+		const DPR = window.devicePixelRatio || 1;
+		const SIZE = 420;
+		gal.width  = SIZE * DPR;
+		gal.height = SIZE * DPR;
+		ctx.scale(DPR, DPR);
+		const cx = SIZE / 2, cy = SIZE / 2;
+
+		// ── Generate spiral particles ──────────────────────────
+		const PARTICLE_COUNT = 2600;
+		const GALAXY_R = 170;
+		const TILT = 0.45; // oblique viewing angle (radians)
+
+		const particles = [];
+		for (let i = 0; i < PARTICLE_COUNT; i++) {
+			const arm  = i % 2;
+			const base = (arm / 2) * Math.PI * 2;
+			const t    = Math.pow(Math.random(), 0.55); // more inner particles
+			const r    = t * GALAXY_R;
+			const spin = r * 0.016;
+			const scatter = (Math.random() - 0.5) * (0.25 + t * 0.95);
+			const angle  = base + spin + scatter;
+
+			// 3D coords
+			const gx3 = r * Math.cos(angle);
+			const gy3 = r * Math.sin(angle);
+			const gz3 = (Math.random() - 0.5) * 12 * (1 - t); // galaxy thickness
+
+			// Project with tilt (oblique top-down view)
+			const px = gx3;
+			const py = gy3 * Math.cos(TILT) - gz3 * Math.sin(TILT);
+			const depth = gy3 * Math.sin(TILT) + gz3 * Math.cos(TILT);
+
+			const bright = Math.pow(1 - t, 1.4) * 0.85 + 0.12;
+			const size   = Math.random() * 1.6 + 0.25;
+
+			particles.push({
+				ox: px, oy: py,    // original projected position
+				x: px,  y: py,     // current position (for shockwave)
+				vx: 0,  vy: 0,     // velocity for spring-back
+				depth,
+				bright,
+				size,
+				colorT: t,         // 0=core, 1=outer
+			});
+		}
+		// Painter's algorithm: back particles first
+		particles.sort((a, b) => b.depth - a.depth);
+
+		// ── Mouse & shockwave state ────────────────────────────
+		let mouseX = 0, mouseY = 0, mouseOver = false;
+		const waves = []; // active shockwaves
+
+		gal.addEventListener('mousemove', e => {
+			const rect = gal.getBoundingClientRect();
+			mouseX = (e.clientX - rect.left - rect.width  / 2) * (SIZE / rect.width);
+			mouseY = (e.clientY - rect.top  - rect.height / 2) * (SIZE / rect.height);
+			mouseOver = true;
+
+			// 3D tilt based on mouse position
+			const tx = ((e.clientY - rect.top)  / rect.height - 0.5) * -18;
+			const ty = ((e.clientX - rect.left) / rect.width  - 0.5) *  18;
+			gal.style.transform = `translateY(-50%) perspective(700px) rotateX(${tx}deg) rotateY(${ty}deg)`;
+		});
+		gal.addEventListener('mouseleave', () => {
+			mouseOver = false;
+			mouseX = mouseY = 0;
+			gal.style.transform = 'translateY(-50%)';
+		});
+
+		gal.addEventListener('click', e => {
+			const rect = gal.getBoundingClientRect();
+			const wx = (e.clientX - rect.left - rect.width  / 2) * (SIZE / rect.width);
+			const wy = (e.clientY - rect.top  - rect.height / 2) * (SIZE / rect.height);
+			waves.push({ x: wx, y: wy, r: 0, maxR: 200, strength: 28 });
+		});
+
+		// ── Color helper ───────────────────────────────────────
+		function particleColor(colorT, alpha) {
+			if (colorT < 0.12) {
+				// Core — blue-white
+				return `rgba(220,235,255,${alpha.toFixed(2)})`;
+			} else if (colorT < 0.45) {
+				const m = (colorT - 0.12) / 0.33;
+				const r = Math.round(160 - m * 40);
+				const g = Math.round(180 - m * 80);
+				return `rgba(${r},${g},255,${alpha.toFixed(2)})`;
+			} else {
+				// Outer — purple/violet
+				const fade = 1 - (colorT - 0.45) / 0.55;
+				return `rgba(168,100,255,${(alpha * fade).toFixed(2)})`;
+			}
+		}
+
+		// ── Draw loop ──────────────────────────────────────────
+		let rotation = 0;
+
+		function draw() {
+			ctx.clearRect(0, 0, SIZE, SIZE);
+			rotation += 0.0008;
+
+			// Advance shockwaves
+			for (let i = waves.length - 1; i >= 0; i--) {
+				waves[i].r += 3.5;
+				if (waves[i].r > waves[i].maxR) waves.splice(i, 1);
+			}
+
+			// Core glow
+			const coreG = ctx.createRadialGradient(cx, cy, 0, cx, cy, 55);
+			coreG.addColorStop(0,   'rgba(230,240,255,0.75)');
+			coreG.addColorStop(0.25,'rgba(160,180,255,0.4)');
+			coreG.addColorStop(0.6, 'rgba(100,60,220,0.15)');
+			coreG.addColorStop(1,   'transparent');
+			ctx.fillStyle = coreG;
+			ctx.beginPath();
+			ctx.arc(cx, cy, 55, 0, Math.PI * 2);
+			ctx.fill();
+
+			// Particles
+			const cosR = Math.cos(rotation), sinR = Math.sin(rotation);
+			for (const p of particles) {
+				// Rotate
+				const rx = p.ox * cosR - p.oy * sinR;
+				const ry = p.ox * sinR + p.oy * cosR;
+
+				// Shockwave displacement
+				let dispX = 0, dispY = 0;
+				for (const w of waves) {
+					const dx = rx - w.x, dy = ry - w.y;
+					const d  = Math.sqrt(dx * dx + dy * dy);
+					const ring = Math.abs(d - w.r);
+					if (ring < 18) {
+						const push = (1 - ring / 18) * w.strength * (1 - w.r / w.maxR);
+						const nd = d || 1;
+						dispX += (dx / nd) * push;
+						dispY += (dy / nd) * push;
+					}
+				}
+
+				const px = cx + rx + dispX;
+				const py = cy + ry + dispY;
+
+				// Mouse glow boost
+				const mdx = px - (cx + mouseX * 0.35);
+				const mdy = py - (cy + mouseY * 0.35);
+				const md  = Math.sqrt(mdx * mdx + mdy * mdy);
+				const mouseBoost = mouseOver ? Math.max(0, 1 - md / 70) * 0.55 : 0;
+
+				const alpha = Math.min(1, p.bright + mouseBoost);
+				const sz    = p.size * (1 + mouseBoost * 0.8);
+
+				ctx.beginPath();
+				ctx.arc(px, py, sz, 0, Math.PI * 2);
+				ctx.fillStyle = particleColor(p.colorT, alpha);
+				ctx.fill();
+
+				// Bright core stars get a tiny glow halo
+				if (p.colorT < 0.15 && p.bright > 0.7) {
+					ctx.beginPath();
+					ctx.arc(px, py, sz * 3, 0, Math.PI * 2);
+					ctx.fillStyle = `rgba(200,220,255,${(p.bright * 0.08).toFixed(3)})`;
+					ctx.fill();
+				}
+			}
+
+			requestAnimationFrame(draw);
+		}
+		draw();
+	})();
+
 	// ── Starfield ──────────────────────────────────────────────
 	const canvas = document.getElementById('starfield');
 	if (canvas) {
@@ -405,68 +573,18 @@ const categories = [
 	top: 10%; right: 15%;
 }
 
-/* Planet */
-.planet-wrap {
+/* Galaxy canvas */
+#galaxy-canvas {
 	position: absolute;
-	right: 6%;
+	right: 4%;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 320px; height: 320px;
+	width: 420px;
+	height: 420px;
 	z-index: 2;
-}
-.planet {
-	position: absolute;
-	inset: 0;
-	border-radius: 50%;
-	background: radial-gradient(circle at 38% 38%,
-		rgba(200,220,255,0.9) 0%,
-		rgba(100,140,220,0.85) 20%,
-		rgba(40,70,160,0.9) 45%,
-		rgba(18,30,80,0.95) 68%,
-		rgba(5,8,25,1) 100%
-	);
-	box-shadow:
-		0 0 0 1px rgba(100,140,255,0.15),
-		0 0 40px 8px rgba(80,120,255,0.25),
-		0 0 100px 30px rgba(50,80,200,0.15);
-}
-.planet-shimmer {
-	position: absolute;
-	inset: 8%;
-	border-radius: 50%;
-	background: radial-gradient(circle at 30% 30%,
-		rgba(255,255,255,0.12) 0%,
-		transparent 60%
-	);
-}
-.planet-glow {
-	position: absolute;
-	inset: -30px;
-	border-radius: 50%;
-	background: radial-gradient(circle,
-		rgba(80,120,255,0.08) 0%,
-		transparent 70%
-	);
-	animation: planet-pulse 6s ease-in-out infinite;
-}
-@keyframes planet-pulse {
-	0%, 100% { opacity: 1; transform: scale(1); }
-	50%       { opacity: 0.7; transform: scale(1.05); }
-}
-
-/* Orbital ring */
-.orbital-ring {
-	position: absolute;
-	width: 110%;
-	height: 55%;
-	left: -5%;
-	top: 22%;
-	border-radius: 50%;
-	border: 1px solid rgba(160,190,255,0.25);
-	transform: rotateX(72deg);
-	box-shadow:
-		0 0 8px rgba(160,190,255,0.15),
-		inset 0 0 8px rgba(160,190,255,0.08);
+	cursor: crosshair;
+	transition: transform 0.25s ease-out;
+	filter: drop-shadow(0 0 30px rgba(120,80,255,0.25));
 }
 
 /* Hero content */
@@ -813,12 +931,12 @@ const categories = [
 
 /* ─── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
-	.planet-wrap { width: 240px; height: 240px; right: 4%; }
+	#galaxy-canvas { width: 300px; height: 300px; }
 	.hero-content { padding-left: 3rem; }
 }
 
 @media (max-width: 900px) {
-	.planet-wrap { display: none; }
+	#galaxy-canvas { display: none; }
 	#geo-shape { display: none; }
 	.hero-content { padding: 3rem 2rem; max-width: 100%; }
 	.posts-grid { grid-template-columns: repeat(2, 1fr); }
