@@ -3,672 +3,716 @@ import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 
 interface Props {
-	featuredCode: CollectionEntry<'blog'>;
-	featuredLife: CollectionEntry<'blog'>;
-	featuredRecipe: CollectionEntry<'blog'>;
 	codePosts: CollectionEntry<'blog'>[];
 	lifePosts: CollectionEntry<'blog'>[];
 	recipePosts: CollectionEntry<'blog'>[];
+	// Legacy props kept for compat but unused
+	featuredCode?: CollectionEntry<'blog'>;
+	featuredLife?: CollectionEntry<'blog'>;
+	featuredRecipe?: CollectionEntry<'blog'>;
 }
 
-const { featuredCode, featuredLife, featuredRecipe, codePosts, lifePosts, recipePosts } = Astro.props;
+const { codePosts, lifePosts, recipePosts } = Astro.props;
 
-// Get keyword - use frontmatter field if set, otherwise extract smartly from title
+const top3Code   = codePosts.slice(0, 3);
+const top3Life   = lifePosts.slice(0, 3);
+const top3Recipe = recipePosts.slice(0, 3);
+
+// Cycling words — pull keyword or smart extract from title
 function getKeyword(post: CollectionEntry<'blog'>): string {
-	// Use explicit keyword if provided
-	if (post.data.keyword) {
-		return post.data.keyword;
-	}
-
-	// Fallback: extract 1-2 punchy words from title
+	if (post.data.keyword) return post.data.keyword;
 	const title = post.data.title;
 	const cleaned = title
 		.replace(/^(Building an?|My|The|How to|A Guide to|Visit to)\s+/i, '')
-		.replace(/,.*$/, '') // Remove everything after comma
+		.replace(/,.*$/, '')
 		.replace(/\s+(with|using|in|on|for|from|and).*$/i, '');
-
-	// Take just first 1-2 words
-	const words = cleaned.split(' ').slice(0, 2);
-	return words.join(' ').toLowerCase();
+	return cleaned.split(' ').slice(0, 2).join(' ').toLowerCase();
 }
 
-// Build keyword data for cycling - pick a few from each category
-const codeKeywords = codePosts.slice(0, 3).map(post => ({
-	word: getKeyword(post),
-	slug: post.id,
-	color: 'purple'
-}));
+const codeKeywords   = codePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'purple' }));
+const lifeKeywords   = lifePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'green' }));
+const recipeKeywords = recipePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'orange' }));
 
-const lifeKeywords = lifePosts.slice(0, 3).map(post => ({
-	word: getKeyword(post),
-	slug: post.id,
-	color: 'green'
-}));
-
-const recipeKeywords = recipePosts.slice(0, 3).map(post => ({
-	word: getKeyword(post),
-	slug: post.id,
-	color: 'orange'
-}));
-
-// Create pairs: code+recipe, recipe+life, life+code (rotating through)
-const allKeywords = { code: codeKeywords, life: lifeKeywords, recipe: recipeKeywords };
+const categories = [
+	{
+		key: 'code',
+		label: 'Code',
+		href: '/code/',
+		icon: '◈',
+		color: 'purple',
+		posts: top3Code,
+		placeholderGrad: 'linear-gradient(135deg, #1e1033 0%, #2d1b4e 50%, #0f0a1e 100%)',
+	},
+	{
+		key: 'life',
+		label: 'Life',
+		href: '/life/',
+		icon: '◉',
+		color: 'green',
+		posts: top3Life,
+		placeholderGrad: 'linear-gradient(135deg, #0a1f15 0%, #143d24 50%, #050f0a 100%)',
+	},
+	{
+		key: 'food',
+		label: 'Recipes',
+		href: '/recipes/',
+		icon: '◎',
+		color: 'orange',
+		posts: top3Recipe,
+		placeholderGrad: 'linear-gradient(135deg, #1f1108 0%, #3d2211 50%, #0f0804 100%)',
+	},
+] as const;
 ---
 
-<section class="bento-hero">
-	<!-- Hero Header -->
-	<div class="hero-header">
-		<h1 class="hero-headline headline-display">
-			From <a href="#" class="word-cycle word-one" id="word-one">AI recommendations</a><br />
-			to <a href="#" class="word-cycle word-two" id="word-two">Sicily</a><br />
-			to <a href="#" class="word-cycle word-three" id="word-three">green curry</a>.
-		</h1>
-		<p class="hero-sub">Code, life, and recipes from Chicago.</p>
-	</div>
+<div class="cosmos-page">
+	<!-- ══════════════════════ HERO ══════════════════════ -->
+	<section class="hero">
+		<canvas id="starfield" aria-hidden="true"></canvas>
 
-	<!-- Bento Grid -->
-	<div class="bento-grid">
-		<!-- Feature Tile (Code - 70%) -->
-		<a href={`/blog/${featuredCode.id}/`} class="bento-tile tile-feature">
-			<div class="tile-image">
-				{featuredCode.data.heroImage && (
-					<img src={featuredCode.data.heroImage} alt="" loading="eager" />
-				)}
-				<div class="tile-overlay"></div>
+		<!-- Nebula blobs -->
+		<div class="nebula nebula-purple" aria-hidden="true"></div>
+		<div class="nebula nebula-teal"   aria-hidden="true"></div>
+		<div class="nebula nebula-blue"   aria-hidden="true"></div>
+
+		<!-- Planet + ring -->
+		<div class="planet-wrap" aria-hidden="true">
+			<div class="orbital-ring"></div>
+			<div class="planet">
+				<div class="planet-shimmer"></div>
 			</div>
-			<div class="tile-content">
-				<div class="tile-meta">
-					<span class="tile-label tile-label-purple">Code</span>
-					<span class="tile-date">
-						<FormattedDate date={featuredCode.data.pubDate} />
-					</span>
-				</div>
-				<h2 class="tile-title">{featuredCode.data.title}</h2>
-				<p class="tile-desc">{featuredCode.data.description}</p>
-			</div>
-			<div class="tile-glow tile-glow-purple"></div>
-		</a>
-
-		<!-- Side Stack (30%) -->
-		<div class="bento-side">
-			<!-- Life Tile -->
-			<a href={`/blog/${featuredLife.id}/`} class="bento-tile tile-small tile-life">
-				{featuredLife.data.heroImage && (
-					<img src={featuredLife.data.heroImage} alt="" loading="lazy" class="tile-bg-image" />
-				)}
-				<div class="tile-small-overlay"></div>
-				<div class="tile-content">
-					<span class="tile-label tile-label-green">Life</span>
-					<h3 class="tile-title-sm">{featuredLife.data.title}</h3>
-				</div>
-				<div class="tile-glow tile-glow-green"></div>
-			</a>
-
-			<!-- Recipe Tile -->
-			<a href={`/blog/${featuredRecipe.id}/`} class="bento-tile tile-small tile-recipe">
-				{featuredRecipe.data.heroImage && (
-					<img src={featuredRecipe.data.heroImage} alt="" loading="lazy" class="tile-bg-image" />
-				)}
-				<div class="tile-small-overlay"></div>
-				<div class="tile-content">
-					<span class="tile-label tile-label-orange">Recipe</span>
-					<h3 class="tile-title-sm">{featuredRecipe.data.title}</h3>
-					{(featuredRecipe.data.prepTime || featuredRecipe.data.cookTime) && (
-						<div class="tile-recipe-meta">
-							{featuredRecipe.data.prepTime && <span>{featuredRecipe.data.prepTime}m prep</span>}
-							{featuredRecipe.data.prepTime && featuredRecipe.data.cookTime && <span class="meta-dot">·</span>}
-							{featuredRecipe.data.cookTime && <span>{featuredRecipe.data.cookTime}m cook</span>}
-						</div>
-					)}
-				</div>
-				<div class="tile-glow tile-glow-orange"></div>
-			</a>
+			<div class="planet-glow"></div>
 		</div>
-	</div>
 
-	<!-- Category Links -->
-	<div class="category-links">
-		<a href="/code/" class="cat-link cat-link-purple">
-			<span class="cat-dot"></span>
-			<span>All Code</span>
-			<span class="cat-arrow">→</span>
-		</a>
-		<a href="/life/" class="cat-link cat-link-green">
-			<span class="cat-dot"></span>
-			<span>All Life</span>
-			<span class="cat-arrow">→</span>
-		</a>
-		<a href="/recipes/" class="cat-link cat-link-orange">
-			<span class="cat-dot"></span>
-			<span>All Recipes</span>
-			<span class="cat-arrow">→</span>
-		</a>
+		<!-- Hero content -->
+		<div class="hero-content">
+			<h1 class="hero-headline headline-display">
+				From <a href="#" class="word-cycle word-one" id="word-one">AI recommendations</a><br />
+				to <a href="#" class="word-cycle word-two" id="word-two">Sicily</a><br />
+				to <a href="#" class="word-cycle word-three" id="word-three">green curry</a>.
+			</h1>
+			<p class="hero-sub">Code, life, and recipes from Chicago.</p>
+			<nav class="hero-cats" aria-label="Categories">
+				<a href="/code/"    class="hero-cat cat-purple">✦ Code</a>
+				<a href="/life/"    class="hero-cat cat-green" >✦ Life</a>
+				<a href="/recipes/" class="hero-cat cat-orange">✦ Recipes</a>
+			</nav>
+		</div>
+	</section>
+
+	<!-- ══════════════════════ CATEGORIES ══════════════════════ -->
+	<div class="categories-wrap">
+		{categories.map(cat => (
+			<section class={`cat-section cat-${cat.color}`}>
+				<div class="cat-orbit-line" aria-hidden="true"></div>
+
+				<div class="cat-header">
+					<div class="cat-header-left">
+						<span class="cat-icon" aria-hidden="true">{cat.icon}</span>
+						<h2 class="cat-name">{cat.label}</h2>
+					</div>
+					<a href={cat.href} class="cat-view-all">
+						View all <span aria-hidden="true">→</span>
+					</a>
+				</div>
+
+				<div class="posts-grid">
+					{cat.posts.map(post => (
+						<a href={`/blog/${post.id}/`} class="post-card">
+							<div class="card-img-wrap">
+								{post.data.heroImage
+									? <img src={post.data.heroImage} alt="" loading="lazy" class="card-img" />
+									: <div class="card-img-placeholder" style={`background: ${cat.placeholderGrad}`}></div>
+								}
+								<div class="card-img-overlay"></div>
+							</div>
+							<div class="card-body">
+								<div class="card-meta">
+									<span class={`card-badge badge-${cat.color}`}>{cat.label}</span>
+									<span class="card-date"><FormattedDate date={post.data.pubDate} /></span>
+								</div>
+								<h3 class="card-title">{post.data.title}</h3>
+								{post.data.description && (
+									<p class="card-desc">{post.data.description}</p>
+								)}
+							</div>
+							<div class={`card-glow glow-${cat.color}`}></div>
+						</a>
+					))}
+				</div>
+			</section>
+		))}
 	</div>
-</section>
+</div>
 
 <script define:vars={{ codeKeywords, lifeKeywords, recipeKeywords }}>
-	// Build triplets with rotating category order
-	const triplets = [];
+	// ── Starfield ──────────────────────────────────────────────
+	const canvas = document.getElementById('starfield');
+	if (canvas) {
+		const ctx = canvas.getContext('2d');
+		let stars = [];
+		let W, H;
 
-	// Order 1: Code → Life → Recipe
-	codeKeywords.forEach((code, i) => {
-		const life = lifeKeywords[i % lifeKeywords.length];
-		const recipe = recipeKeywords[i % recipeKeywords.length];
-		triplets.push({
-			one: { word: code.word, slug: code.slug, color: 'purple' },
-			two: { word: life.word, slug: life.slug, color: 'green' },
-			three: { word: recipe.word, slug: recipe.slug, color: 'orange' }
-		});
-	});
+		function resize() {
+			W = canvas.width  = canvas.offsetWidth;
+			H = canvas.height = canvas.offsetHeight;
+		}
 
-	// Order 2: Recipe → Code → Life
-	recipeKeywords.forEach((recipe, i) => {
-		const code = codeKeywords[i % codeKeywords.length];
-		const life = lifeKeywords[i % lifeKeywords.length];
-		triplets.push({
-			one: { word: recipe.word, slug: recipe.slug, color: 'orange' },
-			two: { word: code.word, slug: code.slug, color: 'purple' },
-			three: { word: life.word, slug: life.slug, color: 'green' }
-		});
-	});
+		function initStars() {
+			stars = [];
+			const count = Math.floor((W * H) / 4000);
+			for (let i = 0; i < count; i++) {
+				stars.push({
+					x: Math.random() * W,
+					y: Math.random() * H,
+					r: Math.random() * 1.4 + 0.2,
+					a: Math.random(),
+					da: (Math.random() - 0.5) * 0.006,
+					vx: (Math.random() - 0.5) * 0.08,
+					vy: (Math.random() - 0.5) * 0.04,
+				});
+			}
+		}
 
-	// Order 3: Life → Recipe → Code
-	lifeKeywords.forEach((life, i) => {
-		const recipe = recipeKeywords[i % recipeKeywords.length];
-		const code = codeKeywords[i % codeKeywords.length];
-		triplets.push({
-			one: { word: life.word, slug: life.slug, color: 'green' },
-			two: { word: recipe.word, slug: recipe.slug, color: 'orange' },
-			three: { word: code.word, slug: code.slug, color: 'purple' }
-		});
-	});
+		function drawStars() {
+			ctx.clearRect(0, 0, W, H);
+			for (const s of stars) {
+				s.a += s.da;
+				if (s.a > 1 || s.a < 0) s.da = -s.da;
+				s.x += s.vx;
+				s.y += s.vy;
+				if (s.x < 0) s.x = W;
+				if (s.x > W) s.x = 0;
+				if (s.y < 0) s.y = H;
+				if (s.y > H) s.y = 0;
 
-	let currentIndex = 0;
-	const wordOne = document.getElementById('word-one');
-	const wordTwo = document.getElementById('word-two');
-	const wordThree = document.getElementById('word-three');
+				ctx.beginPath();
+				ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+				ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, Math.min(1, s.a))})`;
+				ctx.fill();
+			}
+			requestAnimationFrame(drawStars);
+		}
 
-	function updateTriplet(triplet) {
-		wordOne.textContent = triplet.one.word;
-		wordOne.href = `/blog/${triplet.one.slug}/`;
-		wordOne.className = `word-cycle word-one text-glow-${triplet.one.color}`;
-
-		wordTwo.textContent = triplet.two.word;
-		wordTwo.href = `/blog/${triplet.two.slug}/`;
-		wordTwo.className = `word-cycle word-two text-glow-${triplet.two.color}`;
-
-		wordThree.textContent = triplet.three.word;
-		wordThree.href = `/blog/${triplet.three.slug}/`;
-		wordThree.className = `word-cycle word-three text-glow-${triplet.three.color}`;
+		const ro = new ResizeObserver(() => { resize(); initStars(); });
+		ro.observe(canvas);
+		resize();
+		initStars();
+		drawStars();
 	}
 
-	function cycleWords() {
-		// Fade out
-		wordOne.classList.add('fade-out');
-		wordTwo.classList.add('fade-out');
-		wordThree.classList.add('fade-out');
+	// ── Word cycling ───────────────────────────────────────────
+	const triplets = [];
+	codeKeywords.forEach((code, i) => {
+		const life   = lifeKeywords[i % lifeKeywords.length];
+		const recipe = recipeKeywords[i % recipeKeywords.length];
+		triplets.push({
+			one:   { word: code.word,   slug: code.slug,   color: 'purple' },
+			two:   { word: life.word,   slug: life.slug,   color: 'green'  },
+			three: { word: recipe.word, slug: recipe.slug, color: 'orange' },
+		});
+	});
+	recipeKeywords.forEach((recipe, i) => {
+		const code = codeKeywords[i % codeKeywords.length];
+		const life  = lifeKeywords[i % lifeKeywords.length];
+		triplets.push({
+			one:   { word: recipe.word, slug: recipe.slug, color: 'orange' },
+			two:   { word: code.word,   slug: code.slug,   color: 'purple' },
+			three: { word: life.word,   slug: life.slug,   color: 'green'  },
+		});
+	});
+	lifeKeywords.forEach((life, i) => {
+		const recipe = recipeKeywords[i % recipeKeywords.length];
+		const code   = codeKeywords[i % codeKeywords.length];
+		triplets.push({
+			one:   { word: life.word,   slug: life.slug,   color: 'green'  },
+			two:   { word: recipe.word, slug: recipe.slug, color: 'orange' },
+			three: { word: code.word,   slug: code.slug,   color: 'purple' },
+		});
+	});
 
+	let idx = 0;
+	const w1 = document.getElementById('word-one');
+	const w2 = document.getElementById('word-two');
+	const w3 = document.getElementById('word-three');
+
+	function applyTriplet(t) {
+		const setWord = (el, d) => {
+			if (!el) return;
+			el.textContent = d.word;
+			el.href = `/blog/${d.slug}/`;
+			el.className = `word-cycle word-${el.id.split('-')[1]} text-glow-${d.color}`;
+		};
+		setWord(w1, t.one);
+		setWord(w2, t.two);
+		setWord(w3, t.three);
+	}
+
+	function cycle() {
+		[w1, w2, w3].forEach(w => w?.classList.add('fade-out'));
 		setTimeout(() => {
-			currentIndex = (currentIndex + 1) % triplets.length;
-			updateTriplet(triplets[currentIndex]);
-
-			// Fade in
-			wordOne.classList.remove('fade-out');
-			wordTwo.classList.remove('fade-out');
-			wordThree.classList.remove('fade-out');
+			idx = (idx + 1) % triplets.length;
+			applyTriplet(triplets[idx]);
+			[w1, w2, w3].forEach(w => w?.classList.remove('fade-out'));
 		}, 400);
 	}
 
-	// Set initial state
-	if (triplets.length > 0) {
-		updateTriplet(triplets[0]);
+	if (triplets.length) {
+		applyTriplet(triplets[0]);
+		setInterval(cycle, 10000);
 	}
-
-	// Cycle every 10 seconds
-	setInterval(cycleWords, 10000);
 </script>
 
 <style>
-	.bento-hero {
-		padding: 2rem 2rem 4rem;
-		max-width: 1400px;
-		margin: 0 auto;
-	}
-
-	/* Hero Header */
-	.hero-header {
-		text-align: center;
-		margin-bottom: 3rem;
-		padding: 1rem 0 2rem;
-	}
-
-	.hero-headline {
-		font-size: clamp(2.5rem, 7vw, 5rem);
-		margin-bottom: 1rem;
-		overflow-wrap: break-word;
-		word-break: break-word;
-	}
-
-	/* Word Cycling Animation */
-	.word-cycle {
-		display: inline;
-		text-decoration: none;
-		transition: opacity 0.4s ease, transform 0.4s ease;
-		cursor: pointer;
-		position: relative;
-		overflow-wrap: break-word;
-		word-break: break-word;
-	}
-
-	.word-cycle::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 3px;
-		background: currentColor;
-		transform: scaleX(0);
-		transform-origin: right;
-		transition: transform 0.3s ease;
-		opacity: 0.5;
-	}
-
-	.word-cycle:hover::after {
-		transform: scaleX(1);
-		transform-origin: left;
-	}
-
-	.word-cycle.fade-out {
-		opacity: 0;
-		transform: translateY(-8px);
-	}
-
-	.word-cycle.text-glow-purple {
-		color: #a855f7;
-		text-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
-	}
-	.word-cycle.text-glow-green {
-		color: #22c55e;
-		text-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
-	}
-	.word-cycle.text-glow-orange {
-		color: #f97316;
-		text-shadow: 0 0 40px rgba(249, 115, 22, 0.5);
-	}
-
-	.hero-sub {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 1rem;
-		color: var(--text-secondary);
-		margin: 0;
-	}
-
-	/* Bento Grid */
-	.bento-grid {
-		display: grid;
-		grid-template-columns: 7fr 3fr;
-		gap: 1.5rem;
-		margin-bottom: 2rem;
-	}
-
-	.bento-side {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
-
-	/* Tile Base */
-	.bento-tile {
-		position: relative;
-		border-radius: 20px;
-		overflow: hidden;
-		background: rgba(22, 27, 34, 0.6);
-		border: 1px solid var(--terminal-border);
-		backdrop-filter: blur(12px);
-		text-decoration: none;
-		color: inherit;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.bento-tile:hover {
-		transform: translateY(-3px);
-	}
-
-	/* Feature Tile */
-	.tile-feature {
-		aspect-ratio: 16 / 9;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
-	.tile-feature:hover {
-		box-shadow:
-			0 25px 50px -12px rgba(0, 0, 0, 0.5),
-			0 0 60px -15px rgba(168, 85, 247, 0.5);
-	}
-
-	.tile-image {
-		position: absolute;
-		inset: 0;
-	}
-
-	.tile-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.tile-feature:hover .tile-image img {
-		transform: scale(1.05);
-	}
-
-	.tile-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			to top,
-			rgba(10, 10, 10, 0.95) 0%,
-			rgba(10, 10, 10, 0.7) 35%,
-			rgba(10, 10, 10, 0.2) 60%,
-			transparent 100%
-		);
-	}
-
-	.tile-content {
-		position: relative;
-		z-index: 2;
-		padding: 2rem;
-	}
-
-	.tile-meta {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 0.75rem;
-	}
-
-	.tile-label {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.7rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		padding: 0.3rem 0.6rem;
-		border-radius: 4px;
-	}
-
-	.tile-label-purple {
-		color: #a855f7;
-		background: rgba(168, 85, 247, 0.15);
-		border: 1px solid rgba(168, 85, 247, 0.3);
-	}
-
-	.tile-label-green {
-		color: #22c55e;
-		background: rgba(34, 197, 94, 0.15);
-		border: 1px solid rgba(34, 197, 94, 0.3);
-	}
-
-	.tile-label-orange {
-		color: #f97316;
-		background: rgba(249, 115, 22, 0.15);
-		border: 1px solid rgba(249, 115, 22, 0.3);
-	}
-
-	.tile-date {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.75rem;
-		color: var(--text-muted);
-	}
-
-	.tile-title {
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 1.75rem;
-		font-weight: 700;
-		line-height: 1.2;
-		margin: 0 0 0.5rem 0;
-		color: var(--text-primary);
-		transition: color 0.3s ease;
-	}
-
-	.tile-feature:hover .tile-title {
-		color: #a855f7;
-	}
-
-	.tile-desc {
-		font-size: 0.95rem;
-		color: var(--text-secondary);
-		line-height: 1.5;
-		margin: 0;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-
-	/* Small Tiles */
-	.tile-small {
-		flex: 1;
-		min-height: 180px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
-	.tile-life:hover {
-		box-shadow:
-			0 20px 40px -10px rgba(0, 0, 0, 0.4),
-			0 0 40px -10px rgba(34, 197, 94, 0.5);
-	}
-
-	.tile-recipe:hover {
-		box-shadow:
-			0 20px 40px -10px rgba(0, 0, 0, 0.4),
-			0 0 40px -10px rgba(249, 115, 22, 0.5);
-	}
-
-	.tile-bg-image {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: 0.4;
-		transition: opacity 0.4s ease, transform 0.6s ease;
-	}
-
-	.tile-small:hover .tile-bg-image {
-		opacity: 0.6;
-		transform: scale(1.05);
-	}
-
-	.tile-small-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			to top,
-			rgba(10, 10, 10, 0.9) 0%,
-			rgba(10, 10, 10, 0.4) 50%,
-			transparent 100%
-		);
-	}
-
-	.tile-small .tile-content {
-		padding: 1.25rem;
-	}
-
-	.tile-small .tile-label {
-		margin-bottom: 0.5rem;
-	}
-
-	.tile-title-sm {
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 1.1rem;
-		font-weight: 600;
-		line-height: 1.3;
-		margin: 0;
-		color: var(--text-primary);
-		transition: color 0.3s ease;
-	}
-
-	.tile-life:hover .tile-title-sm {
-		color: #22c55e;
-	}
-
-	.tile-recipe:hover .tile-title-sm {
-		color: #f97316;
-	}
-
-	.tile-recipe-meta {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.7rem;
-		color: var(--text-muted);
-		margin-top: 0.5rem;
-		display: flex;
-		gap: 0.4rem;
-	}
-
-	.meta-dot {
-		opacity: 0.5;
-	}
-
-	/* Category Links */
-	.category-links {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
-		padding-top: 1rem;
-	}
-
-	.cat-link {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.6rem 1rem;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		font-weight: 500;
-		text-decoration: none;
-		color: var(--text-secondary);
-		background: rgba(22, 27, 34, 0.6);
-		border: 1px solid var(--terminal-border);
-		border-radius: 8px;
-		transition: all 0.2s ease;
-	}
-
-	.cat-link:hover {
-		background: rgba(22, 27, 34, 0.9);
-		transform: translateY(-2px);
-	}
-
-	.cat-dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		transition: box-shadow 0.2s ease;
-	}
-
-	.cat-link-purple .cat-dot { background: #a855f7; }
-	.cat-link-green .cat-dot { background: #22c55e; }
-	.cat-link-orange .cat-dot { background: #f97316; }
-
-	.cat-link-purple:hover {
-		border-color: rgba(168, 85, 247, 0.5);
-		color: #a855f7;
-	}
-	.cat-link-purple:hover .cat-dot {
-		box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
-	}
-
-	.cat-link-green:hover {
-		border-color: rgba(34, 197, 94, 0.5);
-		color: #22c55e;
-	}
-	.cat-link-green:hover .cat-dot {
-		box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
-	}
-
-	.cat-link-orange:hover {
-		border-color: rgba(249, 115, 22, 0.5);
-		color: #f97316;
-	}
-	.cat-link-orange:hover .cat-dot {
-		box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
-	}
-
-	.cat-arrow {
-		opacity: 0;
-		transform: translateX(-4px);
-		transition: all 0.2s ease;
-	}
-
-	.cat-link:hover .cat-arrow {
-		opacity: 1;
-		transform: translateX(0);
-	}
-
-	/* Responsive */
-	@media (max-width: 900px) {
-		.bento-hero {
-			padding: 1.5rem 1rem 3rem;
-		}
-
-		.hero-header {
-			margin-bottom: 2rem;
-		}
-
-		.bento-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.bento-side {
-			flex-direction: row;
-		}
-
-		.tile-small {
-			min-height: 200px;
-		}
-
-		.tile-title {
-			font-size: 1.4rem;
-		}
-
-		.category-links {
-			flex-wrap: wrap;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.bento-side {
-			flex-direction: column;
-		}
-
-		.tile-feature {
-			aspect-ratio: 4 / 3;
-		}
-
-		.tile-content {
-			padding: 1.25rem;
-		}
-
-		.tile-title {
-			font-size: 1.25rem;
-		}
-
-		.hero-headline {
-			font-size: 2rem;
-		}
-
-		.category-links {
-			gap: 0.5rem;
-		}
-
-		.cat-link {
-			font-size: 0.75rem;
-			padding: 0.5rem 0.75rem;
-		}
-	}
+/* ─── Page shell ──────────────────────────────────────────────────── */
+.cosmos-page {
+	background: #030712;
+	min-height: 100vh;
+	overflow-x: hidden;
+}
+
+/* ─── Hero ────────────────────────────────────────────────────────── */
+.hero {
+	position: relative;
+	min-height: 88vh;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+
+#starfield {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+
+/* Nebula blobs */
+.nebula {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(80px);
+	pointer-events: none;
+	z-index: 1;
+}
+.nebula-purple {
+	width: 600px; height: 600px;
+	background: radial-gradient(circle, rgba(88,28,135,0.45) 0%, transparent 70%);
+	top: -100px; left: -100px;
+}
+.nebula-teal {
+	width: 500px; height: 500px;
+	background: radial-gradient(circle, rgba(14,116,144,0.3) 0%, transparent 70%);
+	bottom: -80px; left: 30%;
+}
+.nebula-blue {
+	width: 450px; height: 450px;
+	background: radial-gradient(circle, rgba(30,58,138,0.4) 0%, transparent 70%);
+	top: 10%; right: 15%;
+}
+
+/* Planet */
+.planet-wrap {
+	position: absolute;
+	right: 6%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 320px; height: 320px;
+	z-index: 2;
+}
+.planet {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	background: radial-gradient(circle at 38% 38%,
+		rgba(200,220,255,0.9) 0%,
+		rgba(100,140,220,0.85) 20%,
+		rgba(40,70,160,0.9) 45%,
+		rgba(18,30,80,0.95) 68%,
+		rgba(5,8,25,1) 100%
+	);
+	box-shadow:
+		0 0 0 1px rgba(100,140,255,0.15),
+		0 0 40px 8px rgba(80,120,255,0.25),
+		0 0 100px 30px rgba(50,80,200,0.15);
+}
+.planet-shimmer {
+	position: absolute;
+	inset: 8%;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%,
+		rgba(255,255,255,0.12) 0%,
+		transparent 60%
+	);
+}
+.planet-glow {
+	position: absolute;
+	inset: -30px;
+	border-radius: 50%;
+	background: radial-gradient(circle,
+		rgba(80,120,255,0.08) 0%,
+		transparent 70%
+	);
+	animation: planet-pulse 6s ease-in-out infinite;
+}
+@keyframes planet-pulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50%       { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Orbital ring */
+.orbital-ring {
+	position: absolute;
+	width: 110%;
+	height: 55%;
+	left: -5%;
+	top: 22%;
+	border-radius: 50%;
+	border: 1px solid rgba(160,190,255,0.25);
+	transform: rotateX(72deg);
+	box-shadow:
+		0 0 8px rgba(160,190,255,0.15),
+		inset 0 0 8px rgba(160,190,255,0.08);
+}
+
+/* Hero content */
+.hero-content {
+	position: relative;
+	z-index: 3;
+	padding: 3rem 2rem 3rem 4rem;
+	max-width: 680px;
+}
+
+.hero-headline {
+	font-size: clamp(2.4rem, 6vw, 4.8rem);
+	line-height: 1.2;
+	margin-bottom: 1.25rem;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+/* Cycling words */
+.word-cycle {
+	display: inline;
+	text-decoration: none;
+	transition: opacity 0.4s ease, transform 0.4s ease;
+	cursor: pointer;
+	position: relative;
+}
+.word-cycle::after {
+	content: '';
+	position: absolute;
+	bottom: 0; left: 0;
+	width: 100%; height: 2px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 0.3s ease;
+	opacity: 0.5;
+}
+.word-cycle:hover::after { transform: scaleX(1); transform-origin: left; }
+.word-cycle.fade-out { opacity: 0; transform: translateY(-8px); }
+
+.text-glow-purple { color: #a855f7; text-shadow: 0 0 40px rgba(168,85,247,0.55); }
+.text-glow-green  { color: #10b981; text-shadow: 0 0 40px rgba(16,185,129,0.55); }
+.text-glow-orange { color: #f59e0b; text-shadow: 0 0 40px rgba(245,158,11,0.55); }
+
+.hero-sub {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 1rem;
+	color: rgba(140,160,200,0.85);
+	margin: 0 0 2rem;
+}
+
+.hero-cats {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+.hero-cat {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.45rem 1.1rem;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.82rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	border-radius: 999px;
+	text-decoration: none;
+	border: 1px solid;
+	transition: all 0.25s ease;
+	backdrop-filter: blur(8px);
+}
+.cat-purple {
+	color: #c084fc;
+	border-color: rgba(168,85,247,0.4);
+	background: rgba(88,28,135,0.2);
+}
+.cat-purple:hover {
+	background: rgba(168,85,247,0.25);
+	box-shadow: 0 0 20px rgba(168,85,247,0.3);
+	transform: translateY(-2px);
+}
+.cat-green {
+	color: #34d399;
+	border-color: rgba(16,185,129,0.4);
+	background: rgba(6,78,59,0.2);
+}
+.cat-green:hover {
+	background: rgba(16,185,129,0.25);
+	box-shadow: 0 0 20px rgba(16,185,129,0.3);
+	transform: translateY(-2px);
+}
+.cat-orange {
+	color: #fbbf24;
+	border-color: rgba(245,158,11,0.4);
+	background: rgba(120,53,15,0.2);
+}
+.cat-orange:hover {
+	background: rgba(245,158,11,0.25);
+	box-shadow: 0 0 20px rgba(245,158,11,0.3);
+	transform: translateY(-2px);
+}
+
+/* ─── Category sections ───────────────────────────────────────────── */
+.categories-wrap {
+	padding: 0 2rem 5rem;
+	max-width: 1300px;
+	margin: 0 auto;
+}
+
+.cat-section {
+	margin-bottom: 4rem;
+}
+
+/* Thin orbit-line separator */
+.cat-orbit-line {
+	width: 100%;
+	height: 1px;
+	margin-bottom: 2rem;
+	position: relative;
+	overflow: visible;
+}
+.cat-orbit-line::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to right, transparent, var(--cat-accent-color), transparent);
+	opacity: 0.35;
+}
+.cat-orbit-line::after {
+	content: '◦';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: var(--cat-accent-color);
+	opacity: 0.5;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.cat-purple { --cat-accent-color: #a855f7; }
+.cat-green  { --cat-accent-color: #10b981; }
+.cat-orange { --cat-accent-color: #f59e0b; }
+
+/* Category header */
+.cat-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.5rem;
+}
+.cat-header-left {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+.cat-icon {
+	font-size: 1.4rem;
+	color: var(--cat-accent-color);
+	line-height: 1;
+	filter: drop-shadow(0 0 8px var(--cat-accent-color));
+}
+.cat-name {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: #e2e8f0;
+	margin: 0;
+	letter-spacing: -0.01em;
+}
+.cat-view-all {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.8rem;
+	color: var(--cat-accent-color);
+	text-decoration: none;
+	opacity: 0.75;
+	transition: opacity 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+}
+.cat-view-all:hover { opacity: 1; }
+
+/* Post cards grid */
+.posts-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.25rem;
+}
+
+/* Post card */
+.post-card {
+	position: relative;
+	background: rgba(15,23,42,0.8);
+	border: 1px solid rgba(255,255,255,0.07);
+	border-radius: 14px;
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+	transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease;
+	display: flex;
+	flex-direction: column;
+}
+
+.cat-purple .post-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 50px -10px rgba(168,85,247,0.25), 0 0 0 1px rgba(168,85,247,0.3);
+	border-color: rgba(168,85,247,0.35);
+}
+.cat-green .post-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 50px -10px rgba(16,185,129,0.25), 0 0 0 1px rgba(16,185,129,0.3);
+	border-color: rgba(16,185,129,0.35);
+}
+.cat-orange .post-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 50px -10px rgba(245,158,11,0.25), 0 0 0 1px rgba(245,158,11,0.3);
+	border-color: rgba(245,158,11,0.35);
+}
+
+/* Card image */
+.card-img-wrap {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+.card-img {
+	width: 100%; height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+.post-card:hover .card-img { transform: scale(1.06); }
+.card-img-placeholder {
+	width: 100%; height: 100%;
+}
+.card-img-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 50%);
+}
+
+/* Card body */
+.card-body {
+	padding: 1rem 1.1rem 1.2rem;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.card-meta {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+.card-badge {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.65rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	padding: 0.2rem 0.5rem;
+	border-radius: 4px;
+}
+.badge-purple {
+	color: #c084fc;
+	background: rgba(168,85,247,0.15);
+	border: 1px solid rgba(168,85,247,0.3);
+}
+.badge-green {
+	color: #34d399;
+	background: rgba(16,185,129,0.15);
+	border: 1px solid rgba(16,185,129,0.3);
+}
+.badge-orange {
+	color: #fbbf24;
+	background: rgba(245,158,11,0.15);
+	border: 1px solid rgba(245,158,11,0.3);
+}
+.card-date {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.7rem;
+	color: rgba(148,163,184,0.7);
+}
+.card-title {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.35;
+	margin: 0;
+	color: #e2e8f0;
+	transition: color 0.25s ease;
+}
+.cat-purple .post-card:hover .card-title { color: #c084fc; }
+.cat-green  .post-card:hover .card-title { color: #34d399; }
+.cat-orange .post-card:hover .card-title { color: #fbbf24; }
+
+.card-desc {
+	font-size: 0.83rem;
+	color: rgba(148,163,184,0.8);
+	line-height: 1.5;
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* Card hover glow overlay */
+.card-glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.35s ease;
+	border-radius: 14px;
+}
+.post-card:hover .card-glow { opacity: 1; }
+.glow-purple { box-shadow: inset 0 0 40px rgba(168,85,247,0.06); }
+.glow-green  { box-shadow: inset 0 0 40px rgba(16,185,129,0.06); }
+.glow-orange { box-shadow: inset 0 0 40px rgba(245,158,11,0.06); }
+
+/* ─── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+	.planet-wrap { width: 240px; height: 240px; right: 4%; }
+	.hero-content { padding-left: 3rem; }
+}
+
+@media (max-width: 900px) {
+	.planet-wrap { display: none; }
+	.hero-content { padding: 3rem 2rem; max-width: 100%; }
+	.posts-grid { grid-template-columns: repeat(2, 1fr); }
+	.categories-wrap { padding: 0 1.25rem 4rem; }
+}
+
+@media (max-width: 600px) {
+	.hero { min-height: 75vh; }
+	.hero-headline { font-size: 2rem; }
+	.hero-content { padding: 2rem 1.25rem; }
+	.posts-grid { grid-template-columns: 1fr; }
+	.hero-cats { gap: 0.5rem; }
+	.hero-cat { font-size: 0.75rem; padding: 0.4rem 0.9rem; }
+}
 </style>

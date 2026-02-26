@@ -13,7 +13,7 @@ const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 // Helper to get the most recent date (updatedDate or pubDate)
 const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).valueOf();
 
-// Get posts from each category, sorted by date
+// Get posts from each category, sorted by date (newest first)
 const codePosts = allPosts
 	.filter(post => post.data.category === 'code')
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
@@ -26,13 +26,12 @@ const recipePosts = allPosts
 	.filter(post => post.data.category === 'food')
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
-// Featured posts are the first from each category
-const featuredCode = codePosts[0];
-const featuredLife = lifePosts[0];
-const featuredRecipe = recipePosts[0];
-
-// Use the first post's hero image for OG image
-const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || featuredRecipe?.data.heroImage || '/blog-placeholder-1.jpg';
+// OG image: use first available hero image across categories
+const ogImage =
+	codePosts.find(p => p.data.heroImage)?.data.heroImage ||
+	lifePosts.find(p => p.data.heroImage)?.data.heroImage ||
+	recipePosts.find(p => p.data.heroImage)?.data.heroImage ||
+	'/blog-placeholder-1.jpg';
 ---
 
 <!doctype html>
@@ -41,7 +40,7 @@ const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || 
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
 		<style>
 			body {
-				background-color: var(--editor-bg);
+				background-color: #030712;
 				overflow-x: hidden;
 			}
 
@@ -55,9 +54,6 @@ const ogImage = featuredCode?.data.heroImage || featuredLife?.data.heroImage || 
 		<Header />
 		<main>
 			<BentoHero
-				featuredCode={featuredCode}
-				featuredLife={featuredLife}
-				featuredRecipe={featuredRecipe}
 				codePosts={codePosts}
 				lifePosts={lifePosts}
 				recipePosts={recipePosts}
