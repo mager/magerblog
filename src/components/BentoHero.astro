@@ -90,54 +90,61 @@ const categories = [
 				to <a href="#" class="word-cycle word-two" id="word-two">Sicily</a><br />
 				to <a href="#" class="word-cycle word-three" id="word-three">green curry</a>.
 			</h1>
-			<p class="hero-sub">Code, life, and recipes from Chicago.</p>
+			<p class="hero-sub">Always learning. Always eating. Chicago.</p>
 			<nav class="hero-cats" aria-label="Categories">
 				<a href="/code/"    class="hero-cat cat-purple">✦ Code</a>
 				<a href="/life/"    class="hero-cat cat-green" >✦ Life</a>
 				<a href="/recipes/" class="hero-cat cat-orange">✦ Recipes</a>
 			</nav>
 		</div>
+
+		<!-- Geometric wireframe icosahedron -->
+		<canvas id="geo-shape" aria-hidden="true"></canvas>
 	</section>
 
 	<!-- ══════════════════════ CATEGORIES ══════════════════════ -->
 	<div class="categories-wrap">
 		{categories.map(cat => (
 			<section class={`cat-section cat-${cat.color}`}>
+				<!-- Full-bleed separator line -->
 				<div class="cat-orbit-line" aria-hidden="true"></div>
 
-				<div class="cat-header">
-					<div class="cat-header-left">
-						<span class="cat-icon" aria-hidden="true">{cat.icon}</span>
-						<h2 class="cat-name">{cat.label}</h2>
-					</div>
-					<a href={cat.href} class="cat-view-all">
-						View all <span aria-hidden="true">→</span>
-					</a>
-				</div>
-
-				<div class="posts-grid">
-					{cat.posts.map(post => (
-						<a href={`/blog/${post.id}/`} class="post-card">
-							<div class="card-img-wrap">
-								{post.data.heroImage
-									? <img src={post.data.heroImage} alt="" loading="lazy" class="card-img" />
-									: <div class="card-img-placeholder" style={`background: ${cat.placeholderGrad}`}></div>
-								}
-								<div class="card-img-overlay"></div>
-							</div>
-							<div class="card-body">
-								<div class="card-meta">
-									<span class={`card-badge badge-${cat.color}`}>{cat.label}</span>
-									<span class="card-date"><FormattedDate date={post.data.pubDate} /></span>
-								</div>
-								<h3 class="card-title">{post.data.title}</h3>
-								{post.data.description && (
-									<p class="card-desc">{post.data.description}</p>
-								)}
-							</div>
-							<div class={`card-glow glow-${cat.color}`}></div>
+				<!-- Content constrained to readable width -->
+				<div class="cat-inner">
+					<div class="cat-header">
+						<div class="cat-header-left">
+							<span class="cat-icon" aria-hidden="true">{cat.icon}</span>
+							<h2 class="cat-name">{cat.label}</h2>
+						</div>
+						<a href={cat.href} class="cat-view-all">
+							View all <span aria-hidden="true">→</span>
 						</a>
-					))}
+					</div>
+
+					<div class="posts-grid">
+						{cat.posts.map(post => (
+							<a href={`/blog/${post.id}/`} class="post-card">
+								<div class="card-img-wrap">
+									{post.data.heroImage
+										? <img src={post.data.heroImage} alt="" loading="lazy" class="card-img" />
+										: <div class="card-img-placeholder" style={`background: ${cat.placeholderGrad}`}></div>
+									}
+									<div class="card-img-overlay"></div>
+								</div>
+								<div class="card-body">
+									<div class="card-meta">
+										<span class={`card-badge badge-${cat.color}`}>{cat.label}</span>
+										<span class="card-date"><FormattedDate date={post.data.pubDate} /></span>
+									</div>
+									<h3 class="card-title">{post.data.title}</h3>
+									{post.data.description && (
+										<p class="card-desc">{post.data.description}</p>
+									)}
+								</div>
+								<div class={`card-glow glow-${cat.color}`}></div>
+							</a>
+						))}
+					</div>
 				</div>
 			</section>
 		))}
@@ -198,6 +205,93 @@ const categories = [
 		resize();
 		initStars();
 		drawStars();
+	}
+
+	// ── Rotating wireframe icosahedron ────────────────────────
+	const geoCanvas = document.getElementById('geo-shape');
+	if (geoCanvas) {
+		const gc = geoCanvas.getContext('2d');
+		const DPR = window.devicePixelRatio || 1;
+		const SIZE = 160;
+		geoCanvas.width  = SIZE * DPR;
+		geoCanvas.height = SIZE * DPR;
+		gc.scale(DPR, DPR);
+
+		// Golden ratio icosahedron vertices (normalized)
+		const t = (1 + Math.sqrt(5)) / 2;
+		const norm = 1 / Math.sqrt(1 + t * t);
+		const rawVerts = [
+			[-1,  t,  0], [ 1,  t,  0], [-1, -t,  0], [ 1, -t,  0],
+			[ 0, -1,  t], [ 0,  1,  t], [ 0, -1, -t], [ 0,  1, -t],
+			[ t,  0, -1], [ t,  0,  1], [-t,  0, -1], [-t,  0,  1],
+		].map(([x,y,z]) => [x*norm, y*norm, z*norm]);
+
+		const edges = [
+			[0,1],[0,5],[0,7],[0,10],[0,11],
+			[1,5],[1,7],[1,8],[1,9],
+			[2,3],[2,4],[2,6],[2,10],[2,11],
+			[3,4],[3,6],[3,8],[3,9],
+			[4,5],[4,9],[4,11],
+			[5,9],[5,11],
+			[6,7],[6,8],[6,10],
+			[7,8],[7,10],
+			[8,9],[10,11],
+		];
+
+		let angleY = 0, angleX = 0.3;
+
+		function rotateY([x,y,z], a) {
+			return [x*Math.cos(a)+z*Math.sin(a), y, -x*Math.sin(a)+z*Math.cos(a)];
+		}
+		function rotateX([x,y,z], a) {
+			return [x, y*Math.cos(a)-z*Math.sin(a), y*Math.sin(a)+z*Math.cos(a)];
+		}
+		function project([x,y,z]) {
+			const fov = 3;
+			const scale = SIZE / 2 * (fov / (fov + z + 1.5));
+			return [SIZE/2 + x*scale, SIZE/2 - y*scale];
+		}
+
+		function drawGeo() {
+			gc.clearRect(0, 0, SIZE, SIZE);
+			angleY += 0.006;
+			angleX += 0.002;
+
+			const verts = rawVerts.map(v => {
+				let r = rotateY(v, angleY);
+				r = rotateX(r, angleX);
+				return r;
+			});
+
+			for (const [i, j] of edges) {
+				const [ax, ay] = project(verts[i]);
+				const [bx, by] = project(verts[j]);
+
+				// Depth-based alpha
+				const avgZ = (verts[i][2] + verts[j][2]) / 2;
+				const alpha = Math.max(0.08, Math.min(0.7, (avgZ + 1.5) / 3));
+
+				gc.beginPath();
+				gc.moveTo(ax, ay);
+				gc.lineTo(bx, by);
+				gc.strokeStyle = `rgba(168, 130, 255, ${alpha})`;
+				gc.lineWidth = 0.8;
+				gc.stroke();
+			}
+
+			// Draw vertices as tiny dots
+			for (const v of verts) {
+				const [px, py] = project(v);
+				const alpha = Math.max(0.1, Math.min(0.9, (v[2] + 1.5) / 3));
+				gc.beginPath();
+				gc.arc(px, py, 1.5, 0, Math.PI * 2);
+				gc.fillStyle = `rgba(200, 180, 255, ${alpha})`;
+				gc.fill();
+			}
+
+			requestAnimationFrame(drawGeo);
+		}
+		drawGeo();
 	}
 
 	// ── Word cycling ───────────────────────────────────────────
@@ -475,22 +569,43 @@ const categories = [
 	transform: translateY(-2px);
 }
 
+/* ─── Geo shape canvas ────────────────────────────────────────────── */
+#geo-shape {
+	position: absolute;
+	bottom: 2.5rem;
+	left: 3.5rem;
+	width: 160px;
+	height: 160px;
+	z-index: 3;
+	opacity: 0.6;
+}
+
 /* ─── Category sections ───────────────────────────────────────────── */
 .categories-wrap {
-	padding: 0 2rem 5rem;
-	max-width: 1300px;
-	margin: 0 auto;
+	/* Full-bleed — no max-width here */
+	width: 100%;
+	padding-bottom: 5rem;
 }
 
 .cat-section {
-	margin-bottom: 4rem;
+	/* Each section is full viewport width */
+	width: 100%;
+	margin-bottom: 0;
+	padding: 2.5rem 0;
 }
 
-/* Thin orbit-line separator */
+/* Inner content wrapper with max-width */
+.cat-inner {
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+/* Full-bleed orbit-line separator */
 .cat-orbit-line {
 	width: 100%;
 	height: 1px;
-	margin-bottom: 2rem;
+	margin-bottom: 2.5rem;
 	position: relative;
 	overflow: visible;
 }
@@ -498,8 +613,8 @@ const categories = [
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(to right, transparent, var(--cat-accent-color), transparent);
-	opacity: 0.35;
+	background: linear-gradient(to right, transparent 0%, var(--cat-accent-color) 30%, var(--cat-accent-color) 70%, transparent 100%);
+	opacity: 0.3;
 }
 .cat-orbit-line::after {
 	content: '◦';
@@ -508,9 +623,11 @@ const categories = [
 	top: 50%;
 	transform: translate(-50%, -50%);
 	color: var(--cat-accent-color);
-	opacity: 0.5;
+	opacity: 0.55;
 	font-size: 1rem;
 	line-height: 1;
+	background: #030712;
+	padding: 0 0.5rem;
 }
 
 .cat-purple { --cat-accent-color: #a855f7; }
@@ -702,9 +819,11 @@ const categories = [
 
 @media (max-width: 900px) {
 	.planet-wrap { display: none; }
+	#geo-shape { display: none; }
 	.hero-content { padding: 3rem 2rem; max-width: 100%; }
 	.posts-grid { grid-template-columns: repeat(2, 1fr); }
-	.categories-wrap { padding: 0 1.25rem 4rem; }
+	.cat-inner { padding: 0 1.25rem; }
+	.categories-wrap { padding-bottom: 4rem; }
 }
 
 @media (max-width: 600px) {
