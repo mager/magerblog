@@ -289,6 +289,17 @@ const categoryBadge = getCategoryBadge(category);
 				font-size: 0.85em;
 			}
 
+			/* No-image code posts: minimal hero, direct entry */
+			body[data-category="code"] .hero[data-has-image="false"] {
+				min-height: auto;
+				border-bottom: 1px solid rgba(163, 113, 247, 0.2);
+			}
+
+			body[data-category="code"] .hero[data-has-image="false"] .title {
+				padding-top: 4rem;
+				padding-bottom: 2.5rem;
+			}
+
 			.date {
 				margin-bottom: 0.75em;
 				color: var(--cyan);

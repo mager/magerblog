@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Card from '../components/Card.astro';
+import CodePostRow from '../components/code/CodePostRow.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
@@ -19,57 +19,96 @@ const posts = allPosts
 		<BaseHead title={`Code - ${SITE_TITLE}`} description="Programming, development, and tech adventures" />
 		<style>
 			main {
-				width: 1200px;
+				max-width: 860px;
+				margin: 0 auto;
+				padding: 0 2rem;
 			}
+
 			.page-header {
-				text-align: center;
-				margin-bottom: 2rem;
-				position: relative;
-				padding: 2rem 0;
+				padding: 3rem 0 2rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+				margin-bottom: 0;
 			}
+
 			@keyframes blink {
 				0%, 100% { opacity: 1; }
 				50% { opacity: 0; }
 			}
+
 			.page-header h1 {
-				font-size: 2.8em;
-				margin-bottom: 0.5rem;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1.5rem;
+				font-weight: 700;
 				color: var(--text-primary);
-				position: relative;
-				display: inline-block;
-				font-weight: 800;
-				letter-spacing: -0.03em;
+				margin: 0 0 0.5rem;
+				letter-spacing: -0.01em;
 			}
 
-			.page-header h1::after {
-				content: '█';
+			.page-header h1 .prompt {
+				color: var(--accent-green);
+				margin-right: 0.5rem;
+			}
+
+			.page-header h1 .cursor {
 				color: var(--accent-green);
 				animation: blink 1s infinite;
-				margin-left: 0.25rem;
-			}
-			.page-header p {
-				font-size: 1.15rem;
-				color: var(--text-secondary);
-				font-family: 'JetBrains Mono', monospace;
-			}
-			.blog-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 2rem;
 			}
 
-			@media (max-width: 1200px) {
-				.blog-grid {
-					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				}
+			.page-header p {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--text-muted);
+				margin: 0;
+				letter-spacing: 0.02em;
+			}
+
+			/* Column headers */
+			.list-header {
+				display: grid;
+				grid-template-columns: 10rem 1fr auto;
+				gap: 1.5rem;
+				padding: 0.5rem 1rem;
+				margin-top: 0;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			}
+
+			.list-header span {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.65rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--text-muted);
+				opacity: 0.5;
+			}
+
+			.post-list {
+				padding: 0.25rem 0 3rem;
+			}
+
+			.empty-state {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				color: var(--text-muted);
+				padding: 3rem 1rem;
+				text-align: center;
 			}
 
 			@media (max-width: 720px) {
-				.page-header h1 {
-					font-size: 1.5em;
+				main {
+					padding: 0 1rem;
 				}
-				.page-header p {
-					font-size: 1rem;
+
+				.page-header {
+					padding: 2rem 0 1.5rem;
+				}
+
+				.page-header h1 {
+					font-size: 1.1rem;
+				}
+
+				.list-header {
+					display: none;
 				}
 			}
 		</style>
@@ -77,19 +116,25 @@ const posts = allPosts
 	<body>
 		<Header />
 		<main>
-			<section>
-				<div class="page-header">
-					<h1>💻 $ ls -la ~/code</h1>
-					<p>Programming, development, and tech adventures</p>
-				</div>
-				<div class="blog-grid">
-					{
-						posts.map((post) => (
-							<Card {post} />
-						))
-					}
-				</div>
-			</section>
+			<div class="page-header">
+				<h1>
+					<span class="prompt">~</span>$ ls -la ~/code<span class="cursor">█</span>
+				</h1>
+				<p>{posts.length} post{posts.length !== 1 ? 's' : ''} · sorted by date desc</p>
+			</div>
+
+			<div class="list-header">
+				<span>date</span>
+				<span>title</span>
+				<span>tags</span>
+			</div>
+
+			<div class="post-list">
+				{posts.length > 0
+					? posts.map(post => <CodePostRow post={post} />)
+					: <p class="empty-state">// no posts yet</p>
+				}
+			</div>
 		</main>
 		<Footer />
 		<SecretSearch posts={allPosts} />
