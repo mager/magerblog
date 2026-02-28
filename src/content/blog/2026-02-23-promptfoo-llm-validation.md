@@ -5,7 +5,7 @@ description: "Stop shipping AI features blind. Here's everything you need to kno
 category: "code"
 tags: ["AI", "LLM", "Testing", "promptfoo", "Evals", "CI/CD"]
 heroImage: ""
-keyword: "LLM evaluation testing promptfoo unit testing prompts"
+keyword: "unit-testing prompts"
 draft: false
 ---
 
