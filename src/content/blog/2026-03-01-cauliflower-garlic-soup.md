@@ -13,7 +13,7 @@ cookTime: 60
 
 <div class="recipe-intro">
 
-<p>Three ingredients. No cream. No tricks. Just cauliflower and a whole head of roasted garlic — caramelized until nutty and sweet — blended with broth into something that tastes way richer than it has any right to. Adapted from <a href="https://cooking.nytimes.com/recipes/1024289-roasted-cauliflower-and-garlic-soup">Ali Slagle's Roasted Cauliflower and Garlic Soup</a> on NYT Cooking — we swap water for broth for extra depth.</p>
+<p>Three ingredients. No cream. No tricks. Just cauliflower and a whole head of roasted garlic — caramelized until nutty and sweet — blended with broth into something that tastes way richer than it has any right to. Adapted from <a href="https://cooking.nytimes.com/recipes/1025127-roasted-cauliflower-and-garlic-soup">Ali Slagle's Roasted Cauliflower and Garlic Soup</a> on NYT Cooking — we swap water for broth for extra depth.</p>
 
 </div>
 
@@ -32,7 +32,7 @@ cookTime: 60
 
 <div class="recipe-instructions">
 
-Shoutout to [Ali Slagle](https://cooking.nytimes.com/recipes/1024289-roasted-cauliflower-and-garlic-soup) for the original — this is one of those recipes that proves restraint is a skill:
+Shoutout to [Ali Slagle](https://cooking.nytimes.com/recipes/1025127-roasted-cauliflower-and-garlic-soup) for the original — this is one of those recipes that proves restraint is a skill:
 
 Heat the oven to 425°F. On a sheet pan, toss the cauliflower florets and leaves with the olive oil and season generously with salt and pepper. Cut off the top ¼ inch of the garlic head to expose the cloves. Place it cut-side up on a piece of foil, sprinkle the exposed cloves with salt, and drizzle with a little oil. Wrap the garlic in the foil and set it on the sheet pan alongside the cauliflower.
 
