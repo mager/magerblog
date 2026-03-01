@@ -1,86 +1,85 @@
 /* ============================================
-   COOKING THEME
-   Luxury food magazine aesthetic
-   Golden • Editorial • Warm • Elegant
+   COOKING THEME — NYT Cooking-inspired
+   Clean · White · Editorial · Simple
    ============================================ */
 
-/* ── Dark Mode (Default) ── */
+/* ── Light Mode (Default) ── */
 html[data-cooking] {
-  --ck-bg: #0A0805;
-  --ck-bg-alt: #141008;
-  --ck-bg-card: #18140E;
-  --ck-bg-surface: #12100A;
-  --ck-bg-ingredients: #141008;
-  --ck-text: #F0E8D8;
-  --ck-text-secondary: #B8A890;
-  --ck-text-muted: #6B5E4E;
-  --ck-gold: #DAA520;
-  --ck-gold-light: #E8C84A;
-  --ck-gold-bright: #FFD700;
-  --ck-gold-subtle: rgba(218, 165, 32, 0.06);
-  --ck-gold-glow: rgba(218, 165, 32, 0.12);
-  --ck-accent: #E8734A;
-  --ck-accent-light: #F09070;
-  --ck-border: #28220A;
-  --ck-border-gold: rgba(218, 165, 32, 0.2);
-  --ck-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  --ck-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --ck-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(218, 165, 32, 0.08);
-  --ck-overlay-start: rgba(10, 8, 5, 0.0);
-  --ck-overlay-end: rgba(10, 8, 5, 0.8);
-  --ck-hero-text: #F0E8D8;
-  --ck-nav-bg: rgba(10, 8, 5, 0.94);
-  --ck-nav-border: rgba(40, 34, 10, 0.8);
-  --ck-badge-bg: rgba(218, 165, 32, 0.1);
-  --ck-badge-border: rgba(218, 165, 32, 0.2);
-  --ck-divider: #28220A;
-  --ck-step-num: rgba(218, 165, 32, 0.08);
-  --ck-coming-soon-bg: rgba(107, 94, 78, 0.1);
-  --ck-coming-soon-border: rgba(107, 94, 78, 0.2);
-  --ck-coming-soon-text: #6B5E4E;
-  --ck-img-border: rgba(218, 165, 32, 0.12);
+  --ck-bg: #ffffff;
+  --ck-bg-alt: #f7f6f2;
+  --ck-bg-card: #ffffff;
+  --ck-bg-surface: #f2f1ed;
+  --ck-bg-ingredients: #f7f6f2;
+  --ck-text: #121212;
+  --ck-text-secondary: #444444;
+  --ck-text-muted: #767676;
+  --ck-gold: #d0021b;          /* "gold" alias — now NYT red */
+  --ck-gold-light: #a80116;
+  --ck-gold-bright: #d0021b;
+  --ck-gold-subtle: rgba(208, 2, 27, 0.06);
+  --ck-gold-glow: rgba(208, 2, 27, 0.10);
+  --ck-accent: #d0021b;
+  --ck-accent-light: #a80116;
+  --ck-border: #e2e2e2;
+  --ck-border-gold: rgba(208, 2, 27, 0.25);
+  --ck-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --ck-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --ck-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --ck-overlay-start: rgba(0, 0, 0, 0.0);
+  --ck-overlay-end: rgba(0, 0, 0, 0.55);
+  --ck-hero-text: #ffffff;
+  --ck-nav-bg: rgba(255, 255, 255, 0.96);
+  --ck-nav-border: rgba(226, 226, 226, 0.9);
+  --ck-badge-bg: rgba(208, 2, 27, 0.06);
+  --ck-badge-border: rgba(208, 2, 27, 0.18);
+  --ck-divider: #e2e2e2;
+  --ck-step-num: rgba(208, 2, 27, 0.08);
+  --ck-coming-soon-bg: rgba(118, 118, 118, 0.08);
+  --ck-coming-soon-border: rgba(118, 118, 118, 0.2);
+  --ck-coming-soon-text: #767676;
+  --ck-img-border: rgba(0, 0, 0, 0.08);
 }
 
-/* ── Light Mode ── */
-html[data-cooking][data-theme="light"] {
-  --ck-bg: #FFFAF0;
-  --ck-bg-alt: #FFF5E6;
-  --ck-bg-card: #FFFFFF;
-  --ck-bg-surface: #FDF6EC;
-  --ck-bg-ingredients: #FBF5EA;
-  --ck-text: #1C1410;
-  --ck-text-secondary: #5C4D3C;
-  --ck-text-muted: #9C8B78;
-  --ck-gold: #B8860B;
-  --ck-gold-light: #DAA520;
-  --ck-gold-bright: #E8B94A;
-  --ck-gold-subtle: rgba(184, 134, 11, 0.08);
-  --ck-gold-glow: rgba(184, 134, 11, 0.15);
-  --ck-accent: #C8553D;
-  --ck-accent-light: #E07A5F;
-  --ck-border: #E8DCC8;
-  --ck-border-gold: rgba(184, 134, 11, 0.25);
-  --ck-shadow: 0 4px 20px rgba(60, 45, 30, 0.06);
-  --ck-shadow-lg: 0 12px 40px rgba(60, 45, 30, 0.1);
-  --ck-shadow-card: 0 2px 16px rgba(60, 45, 30, 0.06), 0 0 0 1px rgba(184, 134, 11, 0.06);
-  --ck-overlay-start: rgba(28, 20, 16, 0.0);
-  --ck-overlay-end: rgba(28, 20, 16, 0.65);
-  --ck-hero-text: #FFFFFF;
-  --ck-nav-bg: rgba(255, 250, 240, 0.92);
-  --ck-nav-border: rgba(232, 220, 200, 0.8);
-  --ck-badge-bg: rgba(184, 134, 11, 0.1);
-  --ck-badge-border: rgba(184, 134, 11, 0.2);
-  --ck-divider: #E0D4C0;
-  --ck-step-num: rgba(184, 134, 11, 0.12);
-  --ck-coming-soon-bg: rgba(156, 139, 120, 0.08);
-  --ck-coming-soon-border: rgba(156, 139, 120, 0.2);
-  --ck-coming-soon-text: #9C8B78;
-  --ck-img-border: rgba(184, 134, 11, 0.15);
+/* ── Dark Mode ── */
+html[data-cooking][data-theme="dark"] {
+  --ck-bg: #121212;
+  --ck-bg-alt: #1a1a1a;
+  --ck-bg-card: #1e1e1e;
+  --ck-bg-surface: #222222;
+  --ck-bg-ingredients: #1a1a1a;
+  --ck-text: #f5f5f5;
+  --ck-text-secondary: #aaaaaa;
+  --ck-text-muted: #666666;
+  --ck-gold: #ff4d5e;
+  --ck-gold-light: #ff6b7a;
+  --ck-gold-bright: #ff4d5e;
+  --ck-gold-subtle: rgba(255, 77, 94, 0.08);
+  --ck-gold-glow: rgba(255, 77, 94, 0.12);
+  --ck-accent: #ff4d5e;
+  --ck-accent-light: #ff6b7a;
+  --ck-border: #2a2a2a;
+  --ck-border-gold: rgba(255, 77, 94, 0.25);
+  --ck-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --ck-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --ck-shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --ck-overlay-start: rgba(18, 18, 18, 0.0);
+  --ck-overlay-end: rgba(18, 18, 18, 0.8);
+  --ck-hero-text: #f5f5f5;
+  --ck-nav-bg: rgba(18, 18, 18, 0.96);
+  --ck-nav-border: rgba(42, 42, 42, 0.9);
+  --ck-badge-bg: rgba(255, 77, 94, 0.1);
+  --ck-badge-border: rgba(255, 77, 94, 0.2);
+  --ck-divider: #2a2a2a;
+  --ck-step-num: rgba(255, 77, 94, 0.1);
+  --ck-coming-soon-bg: rgba(102, 102, 102, 0.1);
+  --ck-coming-soon-border: rgba(102, 102, 102, 0.2);
+  --ck-coming-soon-text: #666666;
+  --ck-img-border: rgba(255, 255, 255, 0.08);
 }
 
 /* ── Base Reset for Cooking Pages ── */
 html[data-cooking] body {
-  font-family: 'Lora', 'Georgia', serif;
+  font-family: Georgia, "Times New Roman", serif;
   background: var(--ck-bg);
   color: var(--ck-text);
   -webkit-font-smoothing: antialiased;
@@ -88,7 +87,7 @@ html[data-cooking] body {
   line-height: 1.75;
   margin: 0;
   padding: 0;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
 }
 
@@ -109,7 +108,7 @@ html[data-cooking] main {
 html[data-cooking] h1,
 html[data-cooking] h2,
 html[data-cooking] h3 {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Playfair Display', Georgia, serif;
   color: var(--ck-text);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -138,12 +137,8 @@ html[data-cooking] a:hover {
 
 /* ── Selection ── */
 html[data-cooking] ::selection {
-  background: rgba(184, 134, 11, 0.2);
+  background: rgba(208, 2, 27, 0.12);
   color: var(--ck-text);
-}
-
-html[data-cooking][data-theme="light"] ::selection {
-  background: rgba(184, 134, 11, 0.15);
 }
 
 /* ── Scrollbar ── */
@@ -169,7 +164,7 @@ html[data-cooking] {
   scroll-behavior: smooth;
 }
 
-/* ── Utility: Gold Ornament Divider ── */
+/* ── Ornament Divider ── */
 .ck-ornament {
   display: flex;
   align-items: center;
@@ -190,16 +185,10 @@ html[data-cooking] {
   background: linear-gradient(90deg, transparent, var(--ck-gold), transparent);
 }
 
-/* ── Utility: Fade-in Animation ── */
+/* ── Animations ── */
 @keyframes ck-fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes ck-fadeIn {
@@ -208,47 +197,35 @@ html[data-cooking] {
 }
 
 @keyframes ck-scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.ck-animate {
-  animation: ck-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
+.ck-animate { animation: ck-fadeUp 0.6s ease both; }
 .ck-animate-delay-1 { animation-delay: 0.1s; }
 .ck-animate-delay-2 { animation-delay: 0.2s; }
 .ck-animate-delay-3 { animation-delay: 0.3s; }
 .ck-animate-delay-4 { animation-delay: 0.4s; }
 
-/* ── Utility: Gold Text ── */
+/* ── Utility ── */
 .ck-gold-text {
-  background: linear-gradient(135deg, var(--ck-gold) 0%, var(--ck-gold-bright) 50%, var(--ck-gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--ck-gold);
 }
 
-/* ── Focus Styles ── */
+/* ── Focus ── */
 html[data-cooking] :focus-visible {
   outline: 2px solid var(--ck-gold);
   outline-offset: 2px;
 }
 
-/* ── Image defaults ── */
+/* ── Images ── */
 html[data-cooking] img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
-/* Override global mobile padding (global.css adds bottom padding for main site's mobile nav) */
+/* ── Mobile override ── */
 @media (max-width: 720px) {
   html[data-cooking] body {
     padding-bottom: 0 !important;
@@ -256,14 +233,14 @@ html[data-cooking] img {
   }
 }
 
-/* Override global heading font */
+/* ── Global heading overrides ── */
 html[data-cooking] h1,
 html[data-cooking] h2,
 html[data-cooking] h3,
 html[data-cooking] h4,
 html[data-cooking] h5,
 html[data-cooking] h6 {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Playfair Display', Georgia, serif;
   line-height: 1.2;
   margin: 0 0 0.5rem;
 }
@@ -274,14 +251,14 @@ html[data-cooking] h6 {
   font-family: 'DM Sans', -apple-system, sans-serif;
 }
 
-/* Override global code styling for cooking pages */
+/* ── Code ── */
 html[data-cooking] code {
   background: var(--ck-bg-surface);
   border: 1px solid var(--ck-border);
   color: var(--ck-gold);
 }
 
-/* Override global blockquote */
+/* ── Blockquote ── */
 html[data-cooking] blockquote {
   border-left: 3px solid var(--ck-gold);
   background: var(--ck-bg-surface);
@@ -289,7 +266,7 @@ html[data-cooking] blockquote {
   font-style: italic;
 }
 
-/* Override global hr */
+/* ── HR ── */
 html[data-cooking] hr {
   border: none;
   border-top: 1px solid var(--ck-divider);

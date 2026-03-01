@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post, featured = false, index = 0 } = Astro.props;
-const { title, description, heroImage, prepTime, cookTime, subcategory, tags } = post.data;
+const { title, description, heroImage, prepTime, cookTime, subcategory } = post.data;
 const totalTime = (prepTime || 0) + (cookTime || 0);
 ---
 
@@ -17,7 +17,7 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
   href={`/blog/${post.id}/`}
   class={`recipe-card ${featured ? 'featured' : ''}`}
   data-subcategory={subcategory || ''}
-  style={`animation-delay: ${index * 0.08}s`}
+  style={`animation-delay: ${index * 0.06}s`}
 >
   <div class="card-image">
     {heroImage ? (
@@ -27,21 +27,20 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
         <span>🍽</span>
       </div>
     )}
-    <div class="card-image-overlay"></div>
-    {subcategory && (
-      <span class="card-category">{subcategory}</span>
-    )}
   </div>
 
   <div class="card-content">
+    {subcategory && (
+      <p class="card-category-label">{subcategory}</p>
+    )}
     <h3 class="card-title">{title}</h3>
-
-    <p class="card-description">{description}</p>
-
+    {description && (
+      <p class="card-description">{description}</p>
+    )}
     <div class="card-footer">
       {totalTime > 0 && (
         <span class="card-time">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
@@ -60,21 +59,19 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
     display: flex;
     flex-direction: column;
     background: var(--ck-bg-card);
-    border-radius: 16px;
+    border: 1px solid var(--ck-border);
+    border-radius: 4px;
     overflow: hidden;
     text-decoration: none !important;
     color: inherit;
-    border: 1px solid var(--ck-border);
     position: relative;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: var(--ck-shadow);
-    animation: ck-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    animation: ck-fadeUp 0.5s ease both;
   }
 
   .recipe-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--ck-shadow-lg), 0 0 0 1px var(--ck-border-gold);
-    border-color: var(--ck-border-gold);
+    box-shadow: var(--ck-shadow-lg);
+    border-color: rgba(208, 2, 27, 0.2);
   }
 
   .recipe-card.featured {
@@ -87,39 +84,24 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
     width: 100%;
     aspect-ratio: 4 / 3;
     overflow: hidden;
+    background: var(--ck-bg-surface);
   }
 
   .recipe-card.featured .card-image {
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 16 / 7;
   }
 
   .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     border-radius: 0;
+    transition: transform 0.5s ease;
+    display: block;
   }
 
   .recipe-card:hover .card-image img {
-    transform: scale(1.06);
-  }
-
-  .card-image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      var(--ck-overlay-end) 0%,
-      transparent 50%
-    );
-    pointer-events: none;
-    opacity: 0.4;
-    transition: opacity 0.4s ease;
-  }
-
-  .recipe-card:hover .card-image-overlay {
-    opacity: 0.2;
+    transform: scale(1.03);
   }
 
   .card-placeholder {
@@ -129,50 +111,42 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
     align-items: center;
     justify-content: center;
     background: var(--ck-bg-surface);
-    font-size: 3rem;
+    font-size: 2.5rem;
     opacity: 0.4;
-  }
-
-  .card-category {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ck-gold);
-    background: var(--ck-badge-bg);
-    border: 1px solid var(--ck-badge-border);
-    padding: 0.3rem 0.75rem;
-    border-radius: 100px;
-    backdrop-filter: blur(8px);
-    z-index: 2;
   }
 
   /* ── Content ── */
   .card-content {
-    padding: 1.5rem;
+    padding: 1.25rem 1.25rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.4rem;
     flex: 1;
   }
 
+  .card-category-label {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ck-gold);
+    margin: 0;
+  }
+
   .card-title {
-    font-family: 'Playfair Display', 'Georgia', serif;
-    font-size: 1.35rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
     font-weight: 700;
     line-height: 1.25;
     color: var(--ck-text);
     margin: 0;
     letter-spacing: -0.01em;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
   }
 
   .recipe-card.featured .card-title {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .recipe-card:hover .card-title {
@@ -180,10 +154,11 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
   }
 
   .card-description {
-    font-family: 'Lora', 'Georgia', serif;
-    font-size: 0.9rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.875rem;
+    font-style: italic;
     color: var(--ck-text-secondary);
-    line-height: 1.6;
+    line-height: 1.55;
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -193,7 +168,7 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
 
   .recipe-card.featured .card-description {
     -webkit-line-clamp: 3;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   /* ── Footer ── */
@@ -208,46 +183,36 @@ const totalTime = (prepTime || 0) + (cookTime || 0);
 
   .card-time {
     font-family: 'DM Sans', -apple-system, sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
     color: var(--ck-gold);
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-  }
-
-  .card-time svg {
-    opacity: 0.7;
+    gap: 0.3rem;
   }
 
   .card-date {
     font-family: 'DM Sans', -apple-system, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--ck-text-muted);
-    letter-spacing: 0.02em;
   }
 
   /* ── Responsive ── */
   @media (max-width: 720px) {
     .card-content {
-      padding: 1.25rem;
+      padding: 1rem;
     }
 
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
 
     .recipe-card.featured .card-title {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
 
     .recipe-card.featured .card-image {
-      aspect-ratio: 16 / 10;
-    }
-
-    .card-description {
-      font-size: 0.85rem;
-      -webkit-line-clamp: 2;
+      aspect-ratio: 4 / 3;
     }
   }
 </style>
