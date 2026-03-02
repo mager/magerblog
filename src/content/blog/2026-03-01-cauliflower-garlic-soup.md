@@ -54,7 +54,7 @@ Serve topped with the reserved roasted cauliflower, a good drizzle of olive oil,
 
 ![Two bulbs of garlic ready for the oven](https://lh3.googleusercontent.com/pw/AP1GczNJeSlzEkgO0viUOV5vglKMH-vcB95dvAG_5WS1hVBLRRmGGyp8TAI2ldQiyP4tPEebsX6sN87gRztNtoAnyJIQ5nGqJwD4j-ARqJ_N2_O3OJGj5P1s0x4qdDyDsTeG1rG99bdDj_aHv0eXO4NJBb6jbg=w2030-h1522-s-no-gm)
 
-![Soup before the immersion blender](https://lh3.googleusercontent.com/pw/AP1GczPVrhxVtoRxItGqO7nvsbNpR6L6amP02840svOqeCCcRVpmHpMHdGmAf1SDbRd9uYm3JM40Ew4e2QXCqAo1XEUtFYgYwghU7noZ780kqIkDc7dy4uXGxA8N63H3t4hBVwUA=w2030-h1522-s-no-gm)
+![Soup before the immersion blender](https://lh3.googleusercontent.com/pw/AP1GczOZM_68Fjsvt3qdx91P2OJEEkCJcPBeNwrdB5eVtAfo1xV_fssxjmHs7UrJdEGncdSGdKcdK5nGih_ey6yJj08dRrS1XB0DBMGOBZkD6IYloNtrfKt1YrbZ9pjcQAwpxOTVfEn5VcZjx6v0l_oCZZGmTA=w2030-h1522-s-no-gm)
 
 ![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMHpxPumPjsbbw=w2030-h1522-s-no-gm)
 
