@@ -6,7 +6,8 @@ description: "Three ingredients, one sheet pan, and a blender. Roasted cauliflow
 category: "food"
 subcategory: "soup"
 tags: ["Soup", "Vegan", "Cauliflower", "Weeknight"]
-draft: true
+keywords: "cauliflower garlic soup"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMBsF0V9sVsjJ0Lw-VycsjlC5R8wyjTMHpxPumPjsbbw=w2030-h1522-s-no-gm"
 prepTime: 10
 cookTime: 60
 ---
@@ -49,6 +50,12 @@ Serve topped with the reserved roasted cauliflower, a good drizzle of olive oil,
 
 <div class="recipe-gallery">
 
-<!-- Add photos after cooking -->
+![Big tray of cauliflower ready to roast](https://lh3.googleusercontent.com/pw/AP1GczPV0-Pk9w4EfuaefgyWajHVwLVZx0zV-SvjKlDb6Y32lteMzfHpcHa4G8tdHIHaYM-lLDn1kiaOmyJzxiQeEiJHtUZSg-DMeeDp3tpXVZ0tkb9wu6k8Q4Mui7HGdn8WlPn6B-4qOauL3pKwyttRQfeyEQ=w1962-h1522-s-no-gm)
+
+![Two bulbs of garlic ready for the oven](https://lh3.googleusercontent.com/pw/AP1GczNJeSlzEkgO0viUOV5vglKMH-vcB95dvAG_5WS1hVBLRRmGGyp8TAI2ldQiyP4tPEebsX6sN87gRztNtoAnyJIQ5nGqJwD4j-ARqJ_N2_O3OJGj5P1s0x4qdDyDsTeG1rG99bdDj_aHv0eXO4NJBb6jbg=w2030-h1522-s-no-gm)
+
+![Soup before the immersion blender](https://lh3.googleusercontent.com/pw/AP1GczPVrhxVtoRxItGqO7nvsbNpR6L6amP02840svOqeCCcRVpmHpMHdGmAf1SDbRd9uYm3JM40Ew4e2QXCqAo1XEUtFYgYwghU7noZ780kqIkDc7dy4uXGxA8N63H3t4hBVwUA=w2030-h1522-s-no-gm)
+
+![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMBsF0V9sVsjJ0Lw-VycsjlC5R8wyjTMHpxPumPjsbbw=w2030-h1522-s-no-gm)
 
 </div>
