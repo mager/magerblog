@@ -7,7 +7,7 @@ category: "food"
 subcategory: "soup"
 tags: ["Soup", "Vegan", "Cauliflower", "Weeknight"]
 keywords: "cauliflower garlic soup"
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMBsF0V9sVsjJ0Lw-VycsjlC5R8wyjTMHpxPumPjsbbw=w2030-h1522-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMHpxPumPjsbbw=w2030-h1522-s-no-gm"
 prepTime: 10
 cookTime: 60
 ---
@@ -56,6 +56,6 @@ Serve topped with the reserved roasted cauliflower, a good drizzle of olive oil,
 
 ![Soup before the immersion blender](https://lh3.googleusercontent.com/pw/AP1GczPVrhxVtoRxItGqO7nvsbNpR6L6amP02840svOqeCCcRVpmHpMHdGmAf1SDbRd9uYm3JM40Ew4e2QXCqAo1XEUtFYgYwghU7noZ780kqIkDc7dy4uXGxA8N63H3t4hBVwUA=w2030-h1522-s-no-gm)
 
-![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMBsF0V9sVsjJ0Lw-VycsjlC5R8wyjTMHpxPumPjsbbw=w2030-h1522-s-no-gm)
+![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMHpxPumPjsbbw=w2030-h1522-s-no-gm)
 
 </div>
