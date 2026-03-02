@@ -6,7 +6,7 @@ description: "A whole chicken browned on the stovetop, then slow-roasted in a Du
 category: "food"
 subcategory: "chicken"
 tags: ["Chicken", "Rice", "One-Pot", "Dutch Oven", "Weeknight"]
-draft: false
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN_XiFNoOk0HJTEXGAn2wel6TrrqeSLyKKDpN8YLqLRJOgq8VFwxwsdk50A1FZPodSOw_w1YFU6R9qwTwW7wNXH-aITB_5qloCCBJYMDyOEb0arWUD0pJk9kb8Kgll1MXpc0R15puxz-WFXzHQSdW5hQQ=w2104-h1522-s-no-gm"
 prepTime: 20
 cookTime: 100
 ---
@@ -63,6 +63,8 @@ Carve in the pot or on a board — either way, pile rice alongside and finish wi
 
 <div class="recipe-gallery">
 
-<!-- Add photos after cooking -->
+![Golden Dutch Oven Chicken & Saffron Rice — step by step](https://lh3.googleusercontent.com/pw/AP1GczM3eT_3dDqFp8i1NFtD9x24WRHGPhsCLqZgGyj5VVyWviFNjgzUcO2oG2lKZhYMkp-0MVZSuZxY113ml4B1xabqfxuqIw5xSrdb8p-I5eZgBVQqBLU7Bv70EfltAXvlrgQ6WdItnzX1tAVg3yx5pZ7voQ=w1522-h1522-s-no-gm)
+
+![Golden Dutch Oven Chicken & Saffron Rice — finished](https://lh3.googleusercontent.com/pw/AP1GczN_XiFNoOk0HJTEXGAn2wel6TrrqeSLyKKDpN8YLqLRJOgq8VFwxwsdk50A1FZPodSOw_w1YFU6R9qwTwW7wNXH-aITB_5qloCCBJYMDyOEb0arWUD0pJk9kb8Kgll1MXpc0R15puxz-WFXzHQSdW5hQQ=w2104-h1522-s-no-gm)
 
 </div>
