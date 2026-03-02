@@ -5,8 +5,8 @@ pubDate: "2026-03-01"
 description: "A whole chicken browned on the stovetop, then slow-roasted in a Dutch oven over turmeric-saffron basmati rice. Cozy, hands-off, and spectacular for a Sunday."
 category: "food"
 subcategory: "chicken"
-tags: ["Chicken", "Rice", "One-Pot", "Dutch Oven", "Weeknight"]
-keywords: "one-pot chicken with rice"
+tags: ["Chicken", "Rice", "One-Pot", "Dutch Oven"]
+keywords: "one-pot chicken & rice"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczN_XiFNoOk0HJTEXGAn2wel6TrrqeSLyKKDpN8YLqLRJOgq8VFwxwsdk50A1FZPodSOw_w1YFU6R9qwTwW7wNXH-aITB_5qloCCBJYMDyOEb0arWUD0pJk9kb8Kgll1MXpc0R15puxz-WFXzHQSdW5hQQ=w2104-h1522-s-no-gm"
 prepTime: 20
 cookTime: 100

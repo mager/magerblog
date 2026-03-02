@@ -5,7 +5,7 @@ pubDate: "2026-03-01"
 description: "Three ingredients, one sheet pan, and a blender. Roasted cauliflower and a whole head of garlic blended into a velvety, dairy-free soup that somehow tastes indulgent."
 category: "food"
 subcategory: "soup"
-tags: ["Soup", "Vegan", "Cauliflower", "Weeknight"]
+tags: ["Soup", "Vegan", "Cauliflower"]
 keywords: "cauliflower garlic soup"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMJTyNXP06-oWs-b1mJGNrGNH_Prbxi3rvyeR7ickm2Sf3gvfg7yVurZeJLtUMck8nLQbjUcMUci0qvcM14e7O0PDredvAa8tIcW2AGzWI3EE6fP8pQ3vFTcb0ylhMGoHo6DjHmfIRBSB933Jjeo3kc0w=w2030-h1522-s-no-gm"
 prepTime: 10
