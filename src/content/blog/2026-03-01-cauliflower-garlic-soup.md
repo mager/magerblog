@@ -7,7 +7,7 @@ category: "food"
 subcategory: "soup"
 tags: ["Soup", "Vegan", "Cauliflower", "Weeknight"]
 keywords: "cauliflower garlic soup"
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMHpxPumPjsbbw=w2030-h1522-s-no-gm"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMJTyNXP06-oWs-b1mJGNrGNH_Prbxi3rvyeR7ickm2Sf3gvfg7yVurZeJLtUMck8nLQbjUcMUci0qvcM14e7O0PDredvAa8tIcW2AGzWI3EE6fP8pQ3vFTcb0ylhMGoHo6DjHmfIRBSB933Jjeo3kc0w=w2030-h1522-s-no-gm"
 prepTime: 10
 cookTime: 60
 ---
