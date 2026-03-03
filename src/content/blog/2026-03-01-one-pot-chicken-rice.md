@@ -45,6 +45,10 @@ cookTime: 100
 
 <div class="recipe-instructions">
 
+![Naz Deravian's One-Pot Whole Roasted Chicken and Rice on NYT Cooking](https://lh3.googleusercontent.com/pw/AP1GczMs2OCm6zwdFUrJI7LSz48WCefl2b9Kd5uTZacIawxynhjZiptcpVGeLrI8QInjLuOsx0drJ7xvMB5lFc4lAlUONCs7EZ5_iVK-wzKmhzkzZ9H2LSikd_S3V34IYKtCL57YNK-CvaREyBgGtMbaQQHnew=w2322-h1522-s-no-gm)
+
+Shoutout to [Naz Deravian's One-Pot Whole Roasted Chicken and Rice on NYT Cooking](https://cooking.nytimes.com/recipes/1024109-one-pot-whole-roasted-chicken-and-rice) for the inspiration — 5 stars and 2,500+ ratings don't lie.
+
 Heat the oven to 350°F convection. If using saffron, grind it with the sugar to a fine powder, add the hot water, and let steep.
 
 Pat the chicken dry and season generously all over — inside the cavity too — with kosher salt and black pepper. (You can do this up to 24 hours ahead; leave it uncovered in the fridge and pull it out 30 minutes before cooking.)
