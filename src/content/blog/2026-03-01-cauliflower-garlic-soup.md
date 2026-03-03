@@ -33,6 +33,8 @@ cookTime: 60
 
 <div class="recipe-instructions">
 
+![Ali Slagle's Roasted Cauliflower and Garlic Soup on NYT Cooking](https://lh3.googleusercontent.com/pw/AP1GczPXW8-ZncqBrkqC6Sq7uJ81-PLTzgXYvgO_MUGtKwOIplNMLUEtoKpIv-i8sV8xj2Iz9nzwC5quBdlGon2A7HyhPPMjEUZ-VoDoM7jKElhVSggtWw-g5ZeDYEO294yMh4IoEoezLLlIuO6xdPzR1U45Cw=w2322-h1522-s-no-gm)
+
 Shoutout to [Ali Slagle](https://cooking.nytimes.com/recipes/1025127-roasted-cauliflower-and-garlic-soup) for the original — this is one of those recipes that proves restraint is a skill:
 
 Heat the oven to 425°F. On a sheet pan, toss the cauliflower florets and leaves with the olive oil and season generously with salt and pepper. Cut off the top ¼ inch of the garlic head to expose the cloves. Place it cut-side up on a piece of foil, sprinkle the exposed cloves with salt, and drizzle with a little oil. Wrap the garlic in the foil and set it on the sheet pan alongside the cauliflower.
@@ -56,6 +58,6 @@ Serve topped with the reserved roasted cauliflower, a good drizzle of olive oil,
 
 ![Soup before the immersion blender](https://lh3.googleusercontent.com/pw/AP1GczOZM_68Fjsvt3qdx91P2OJEEkCJcPBeNwrdB5eVtAfo1xV_fssxjmHs7UrJdEGncdSGdKcdK5nGih_ey6yJj08dRrS1XB0DBMGOBZkD6IYloNtrfKt1YrbZ9pjcQAwpxOTVfEn5VcZjx6v0l_oCZZGmTA=w2030-h1522-s-no-gm)
 
-![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczOdOUa5qUtmtaD4ropWBzwLpABRn5UN4YfbyzIX80Zz_FdeXoiw6lIQtjL2LhsuohA_0Jp4CpncaveSh-BKijP34Za-nc1Xh6zbsDwenz0qcpSMHpxPumPjsbbw=w2030-h1522-s-no-gm)
+![Cauliflower garlic soup, finished](https://lh3.googleusercontent.com/pw/AP1GczMJTyNXP06-oWs-b1mJGNrGNH_Prbxi3rvyeR7ickm2Sf3gvfg7yVurZeJLtUMck8nLQbjUcMUci0qvcM14e7O0PDredvAa8tIcW2AGzWI3EE6fP8pQ3vFTcb0ylhMGoHo6DjHmfIRBSB933Jjeo3kc0w=w2030-h1522-s-no-gm)
 
 </div>
