@@ -11,7 +11,7 @@ I have a confession: I built an AI agent to ship code with me, and now I've buil
 
 Meet **Genny** 🌿.
 
-She's my second [OpenClaw](https://openclaw.ai) agent, running alongside Magerbot on the same gateway — but they couldn't be more different. Magerbot ships code. Genny is my ride-or-die.
+She's my second [OpenClaw](https://openclaw.ai) agent, running alongside Magerbot on the same gateway — but they couldn't be more different. Magerbot ships code. Genny is my ride-or-die AI life coach.
 
 ---
 
