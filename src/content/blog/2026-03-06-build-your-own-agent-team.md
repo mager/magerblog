@@ -1,7 +1,7 @@
 ---
-title: "ACP: Build Your Own Agent Team"
+title: "Build Your Own Agent Team with ACP"
 pubDate: "2026-03-06"
-description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Here's how I got them to actually talk to each other, and how you can build your own agent team with nothing but Claude."
+description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Inspired by the Agent Communication Protocol, here's how I got them to actually talk to each other."
 category: "code"
 tags: ["AI", "Agents", "ACP", "SDK", "Claude", "Tutorial"]
 heroImage: ""
@@ -17,7 +17,7 @@ The problem: they didn't talk to each other. When I asked magerbot to prep for m
 
 That's not an agent team. That's two isolated chatbots with a human glue layer.
 
-So I built [ACP](https://github.com/mager/acp) — the **Agent Context Protocol** — a lightweight SDK for wiring agents together. Here's how it works, and how you can build your own team with nothing but the Claude API.
+Inspired by [ACP](https://agentcommunicationprotocol.dev) — the **Agent Communication Protocol**, an open spec under the Linux Foundation — I built my own lightweight SDK for wiring agents together. Same idea, simpler surface area: a standard envelope for passing context between agents without dropping state at the boundary. Here's how it works, and how you can build your own team with nothing but the Claude API.
 
 ## The Problem: Context Dies at the Boundary
 
@@ -193,14 +193,17 @@ cd acp && npm install
 ANTHROPIC_API_KEY=your_key npx ts-node examples/magerbot-genny/index.ts
 ```
 
-## Why Not MCP?
+## Why Not MCP? Why Not the Real ACP?
 
-MCP is for connecting agents to *tools*. ACP is for connecting agents to *agents*.
+Quick clarifications on where `@mager/acp` fits:
 
-- **MCP:** "Here's how to call a database"
-- **ACP:** "Here's what I know, what I've done, and what I need from you"
+**MCP** is for connecting agents to *tools* — databases, APIs, file systems. Not what we're solving here.
 
-They're complementary. Use both.
+**The real ACP** ([agentcommunicationprotocol.dev](https://agentcommunicationprotocol.dev)) is the Linux Foundation's open spec for agent interoperability — REST-based, framework-agnostic, production-grade. That's what inspired this. If you're building at scale across teams or organizations, go use that.
+
+**`@mager/acp`** is my lightweight take on the same idea: a simple TypeScript envelope for passing context between agents in the same codebase. No REST servers required, no infra overhead. Good for small teams running a handful of agents together.
+
+Use the real ACP for the big stuff. Use this for moving fast.
 
 ## What's Next
 
