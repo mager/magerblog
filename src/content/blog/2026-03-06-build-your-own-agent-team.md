@@ -1,185 +1,216 @@
 ---
 title: "ACP: Build Your Own Agent Team"
 pubDate: "2026-03-06"
-description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Here's how I got them to actually talk to each other, and how you can build your own agent team using nothing but Claude."
+description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Here's how I got them to actually talk to each other, and how you can build your own agent team with nothing but Claude."
 category: "code"
 tags: ["AI", "Agents", "ACP", "SDK", "Claude", "Tutorial"]
 heroImage: ""
 keyword: "agent context protocol SDK tutorial"
-draft: true
+draft: false
 ---
 
 I run two AI agents.
 
-**magerbot** handles everything technical — code reviews, deploys, infra, debugging at 2 AM. **genny** manages my life — exercise, nutrition, travel planning, long-term goals. They're both running 24/7 on OpenClaw, my personal agent infrastructure.
+**magerbot** handles everything technical — code reviews, deploys, infra, debugging at 2 AM. **genny** manages my life — exercise, nutrition, travel planning, long-term goals. They're both running 24/7.
 
-The problem: they didn't talk to each other. When I asked magerbot to prep for my Japan trip, it knew I had flights booked. But genny owns the health protocol and itinerary logic. The handoff was me, manually copy-pasting context between two chat windows like it's 2019.
+The problem: they didn't talk to each other. When I asked magerbot to prep for my Japan trip, it knew the flights were booked. But genny owns the health protocol and itinerary logic. The handoff was me, manually copy-pasting context between two chat windows.
 
 That's not an agent team. That's two isolated chatbots with a human glue layer.
 
-So I built ACP — the **Agent Context Protocol** — and an SDK to go with it. Here's how it works, and how you can build your own agent team using nothing but the Claude API.
+So I built [ACP](https://github.com/mager/acp) — the **Agent Context Protocol** — a lightweight SDK for wiring agents together. Here's how it works, and how you can build your own team with nothing but the Claude API.
 
 ## The Problem: Context Dies at the Boundary
 
-When agents hand off to each other today, they pass strings. Maybe some JSON if you're organized. But all the *accumulated reasoning* — the session state, the retrieved memory, the dead ends already explored — gets dropped.
+When agents hand off to each other today, they pass strings. All the *accumulated reasoning* — session state, retrieved memory, dead ends already explored — gets dropped.
 
-Agent B starts from zero. Repeats work. Makes different assumptions. You get compounding drift across a pipeline.
+Agent B starts from zero. Repeats work. Makes different assumptions.
 
-ACP fixes this by defining a standard envelope for four things an agent needs to hand off:
+ACP fixes this with a standard envelope for four things:
 
 | Field | What it carries |
 |-------|----------------|
-| **Identity** | Who is this agent? What can it do? |
-| **State** | Session-scoped data accumulated so far |
-| **Memory** | Long-term facts and preferences |
-| **Intent** | What the caller actually wants done |
+| **identity** | Who is this agent? What can it do? |
+| **state** | Session-scoped data accumulated so far |
+| **memory** | Long-term facts and preferences |
+| **intent** | What the caller actually wants done |
 
-## Install the SDK
+## Install
 
 ```bash
-npm install acp-sdk
+npm install @mager/acp
 ```
 
-## Build Your First Agent Team (Plain Claude, No Infra)
+## Build Your First Agent
 
-No OpenClaw. No special setup. Just your Anthropic API key and two agents that can actually collaborate.
+Extend `ACPAgent`. Override `handle()`. Done.
 
 ```ts
+import { ACPAgent, ACPMessage } from "@mager/acp";
 import Anthropic from "@anthropic-ai/sdk";
-import { ACPAgent } from "acp-sdk";
 
 const claude = new Anthropic();
 
-// --- Agent A: Researcher ---
-const researcher = new ACPAgent({
-  id: "researcher",
-  capabilities: ["web_search", "summarize"],
-});
+class ResearchAgent extends ACPAgent {
+  constructor() {
+    super({
+      id: "researcher",
+      capabilities: ["search", "analyze", "summarize"],
+      systemPrompt: "You are a research agent. Be thorough.",
+    });
+  }
 
-async function researchAgent(topic: string): Promise<string> {
-  // Do some work, build up state
-  const findings = `Key facts about ${topic}: [mock research results]`;
-
-  // Build an ACP context to hand off to the writer
-  const ctx = researcher.createContext(
-    {
-      action: "write_summary",
-      target: topic,
-      constraints: { audience: "technical", max_length: 300 },
-      payload: { findings },
-    },
-    {
-      current_task: "research_complete",
-      metadata: { sources_checked: 5, confidence: 0.85 },
-    }
-  );
-
-  // Delegate to the writer agent with full context
-  return researcher.delegate(writerAgent, ctx.intent, ctx.state);
+  async handle(ctx: ACPMessage): Promise<string> {
+    const { intent, state, identity } = ctx;
+    // ctx has everything: who sent it, what they want, session state, memory
+    const response = await claude.messages.create({
+      model: "claude-opus-4-5",
+      max_tokens: 500,
+      system: this.systemPrompt,
+      messages: [{ role: "user", content: `Research: ${intent.target}` }],
+    });
+    return response.content[0].type === "text" ? response.content[0].text : "";
+  }
 }
-
-// --- Agent B: Writer ---
-const writer = new ACPAgent({
-  id: "writer",
-  capabilities: ["write", "edit", "format"],
-});
-
-async function writerAgent(ctx: ACPMessage): Promise<string> {
-  // Writer receives the FULL context — not just a string
-  const { intent, state, memory, identity } = ctx;
-
-  const prompt = `
-You are a technical writer. The researcher (${identity.agent_id}) has handed you context:
-
-Task: ${intent.action} about "${intent.target}"
-Audience: ${intent.constraints?.audience}
-Max length: ${intent.constraints?.max_length} words
-Research findings: ${JSON.stringify(intent.payload)}
-Research confidence: ${state.metadata?.confidence}
-
-Write the summary now.
-  `.trim();
-
-  const response = await claude.messages.create({
-    model: "claude-opus-4-5",
-    max_tokens: 500,
-    messages: [{ role: "user", content: prompt }],
-  });
-
-  return response.content[0].type === "text" ? response.content[0].text : "";
-}
-
-// Run it
-const result = await researchAgent("the Agent Context Protocol");
-console.log(result);
 ```
 
-That's it. Two agents. One protocol. No context lost at the handoff.
+## Wire Two Agents Together
 
-## The magerbot → genny Pattern
-
-Here's the real-world version from my stack. When I ask magerbot to help plan my Japan trip:
+The magic is in `delegate()` — pass an `ACPAgent` instance and it handles the context automatically.
 
 ```ts
-// magerbot knows: flights booked, dates set, budget rough estimate
-const magebotCtx = magerbot.createContext(
-  {
-    action: "plan_trip_health_protocol",
-    target: "japan_trip",
-    constraints: { duration_days: 14, departure: "2026-04-20" },
-    payload: {
-      flights_booked: true,
-      cities: ["Tokyo", "Kyoto", "Osaka"],
-      budget_usd: 4000,
-    },
-  },
-  {
-    current_task: "trip_prep",
-    metadata: { user: "mager", context_source: "booking_confirmed" },
+class WriterAgent extends ACPAgent {
+  constructor() {
+    super({ id: "writer", capabilities: ["write", "edit"] });
   }
-);
 
-// Hands off to genny with FULL context
-// genny picks up knowing: who asked, what's booked, what's needed
-const gennyResponse = await magerbot.delegate(
-  gennyAgent,
-  magebotCtx.intent,
-  magebotCtx.state
-);
+  async handle(ctx: ACPMessage): Promise<string> {
+    const { intent, state, identity } = ctx;
+    // Writer gets the FULL context from researcher — nothing lost at the handoff
+    const response = await claude.messages.create({
+      model: "claude-opus-4-5",
+      max_tokens: 400,
+      messages: [{
+        role: "user",
+        content: `Write a summary about "${intent.target}".
+Research: ${JSON.stringify(intent.payload)}
+Confidence: ${state.metadata?.confidence}
+Handed off by: ${identity.agent_id}`,
+      }],
+    });
+    return response.content[0].type === "text" ? response.content[0].text : "";
+  }
+}
+
+const writer = new WriterAgent();
+const researcher = new ResearchAgent();
+
+// Researcher delegates to writer — passes the ACPAgent instance directly
+const result = await researcher.delegate(writer, {
+  action: "write_summary",
+  target: "the Agent Context Protocol",
+  payload: { key_finding: "context dies at the boundary without ACP" },
+}, {
+  current_task: "research_complete",
+  metadata: { confidence: 0.92, sources_checked: 8 },
+});
 ```
 
-genny receives the session, knows the flights are booked, knows the dates, and builds a health protocol without magerbot having to re-explain any of it. Zero human glue.
+That's the whole pattern. Two agents, one protocol, zero context lost.
 
-## Why Not Just Use MCP?
+## The Real Thing: magerbot + genny
 
-MCP is for *tools*. ACP is for *agents*.
+Here's how my actual stack works. I ask magerbot to help prep for my Japan trip:
 
-- **MCP** says: "Here's how to call a function"
-- **ACP** says: "Here's what I know, what I want, and who I am"
-- They're complementary — an MCP server can expose a tool that speaks ACP
+```ts
+import { Genny } from "./genny";
+import { Magerbot } from "./magerbot";
 
-## Build Your Own Agent Team
+const genny = new Genny();
+const magerbot = new Magerbot(genny); // magerbot knows about genny
 
-You don't need OpenClaw. You don't need any special infra. Here's the minimum to replicate what I built:
+// One entry point — magerbot routes internally
+const result = await magerbot.handle({
+  acp_version: "0.1.0",
+  identity: { agent_id: "user", capabilities: ["request"] },
+  state: { session_id: "sess_001", turn_count: 1 },
+  memory: { retrieved: [] },
+  intent: {
+    action: "prepare_for_japan_trip",
+    target: "japan_2026",
+    payload: {
+      departure: "April 20, 2026",
+      cities: ["Tokyo", "Kyoto", "Osaka"],
+      flights_booked: true,
+      current_fitness: "gym 3x/week",
+    },
+  },
+});
+```
 
-1. **Pick your domains** — code, life, health, finance, whatever. One agent per domain.
-2. **Define capabilities** — be specific. `["write_code", "run_tests", "deploy"]` not just `["code"]`.
-3. **Map your handoffs** — which agents need to talk? What context do they need?
-4. **Wrap with ACP** — let the SDK handle serialization, session IDs, turn tracking.
+Magerbot handles the ops side (logistics checklist, SIM card, offline maps), detects that health planning is needed, then **delegates to genny via ACP** with everything it already gathered. Genny receives the full context — she knows the dates, the cities, the fitness baseline — and builds the health protocol without magerbot having to re-explain any of it.
 
-The hard part isn't the protocol. It's deciding what your agents are actually responsible for. Get that right and the handoffs fall into place.
+The ACP message genny receives looks like this:
 
-## SDK Roadmap
+```json
+{
+  "acp_version": "0.1.0",
+  "identity": { "agent_id": "magerbot", "capabilities": ["code", "ops", "planning"] },
+  "state": {
+    "session_id": "sess_m1k2_abc",
+    "turn_count": 2,
+    "current_task": "prepare_for_japan_trip",
+    "metadata": { "delegated_by": "magerbot", "confidence": 0.95 }
+  },
+  "memory": { "retrieved": [] },
+  "intent": {
+    "action": "build_trip_health_protocol",
+    "target": "japan_2026",
+    "payload": {
+      "departure": "April 20, 2026",
+      "cities": ["Tokyo", "Kyoto", "Osaka"],
+      "magerbot_handled": "Logistics checklist complete. SIM card ordered..."
+    }
+  }
+}
+```
 
-- [x] TypeScript core (types, ACPAgent, context builder/validator)
-- [x] Plain Claude examples
-- [ ] Python port
-- [ ] Formal JSON Schema spec
-- [ ] OpenClaw native integration
-- [ ] Agent registry (discover agents by capability)
+Genny picks up mid-stride. No re-briefing. Zero human glue.
 
-The repo is at [github.com/mager/acp](https://github.com/mager/acp). It's early. Come shape it.
+## Build Your Own Team
 
----
+You don't need my infra. You don't need OpenClaw. Just:
 
-*Running your own agent team? Wrestling with agent-to-agent handoffs? [Hit me up](https://x.com/mager).*
+1. **Pick domains** — one agent per area of expertise
+2. **Define capabilities** — be specific (`["write_code", "run_tests"]` not `["code"]`)
+3. **Map your handoffs** — which agents talk? what context do they need?
+4. **Extend ACPAgent** — override `handle()`, use `delegate()` to pass control
+
+The full magerbot + genny example is in the repo. Clone it, rename the agents, make it yours.
+
+```bash
+git clone https://github.com/mager/acp
+cd acp && npm install
+ANTHROPIC_API_KEY=your_key npx ts-node examples/magerbot-genny/index.ts
+```
+
+## Why Not MCP?
+
+MCP is for connecting agents to *tools*. ACP is for connecting agents to *agents*.
+
+- **MCP:** "Here's how to call a database"
+- **ACP:** "Here's what I know, what I've done, and what I need from you"
+
+They're complementary. Use both.
+
+## What's Next
+
+The spec is early. The SDK works. What I want to add:
+
+- HTTP transport helpers so agents can live in separate services
+- Python port for the ML crowd
+- Agent registry — discover agents by capability, not by hardcoded imports
+
+Repo: [github.com/mager/acp](https://github.com/mager/acp)  
+Package: `npm install @mager/acp`
+
+If you build something with it, [let me know](https://x.com/mager).
