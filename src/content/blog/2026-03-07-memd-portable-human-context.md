@@ -1,10 +1,12 @@
 ---
 title: "ME.md: robots.txt for human consciousness"
+pubDate: "2026-03-07"
 description: "Stop re-prompting every AI session. One file. Every AI knows you. Introducing ME.md — a portable human context standard built on Loooom."
-date: 2026-03-07
 draft: false
-category: ai
-tags: [ai, loooom, memd, agents, protocol]
+category: "code"
+tags: ["AI", "ME.md", "Loooom", "Agents", "Protocol"]
+heroImage: ""
+keyword: "portable human context AI agents"
 ---
 
 Every morning I open a new Claude session and type the same thing.
