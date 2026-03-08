@@ -507,6 +507,21 @@ const categoryBadge = getCategoryBadge(category);
 					margin: 2rem auto;
 					padding: 1em;
 					font-size: 1.05rem;
+					/* Prevent any child from busting out of the viewport */
+					overflow-x: hidden;
+				}
+				.prose pre {
+					font-size: 0.78rem;
+					padding: 1em 0.875em;
+					border-radius: 8px;
+					/* Scroll within the block, don't blow out the page */
+					overflow-x: auto;
+					max-width: 100%;
+					-webkit-overflow-scrolling: touch;
+				}
+				.prose pre code {
+					font-size: inherit;
+					white-space: pre;
 				}
 				.hero-image {
 					padding: 0;
