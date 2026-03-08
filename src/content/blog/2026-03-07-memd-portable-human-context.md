@@ -9,23 +9,21 @@ heroImage: ""
 keyword: "portable human context AI agents"
 ---
 
-Every morning I open a new Claude session and type the same thing.
+I run a coding agent, a life agent, and use Claude, ChatGPT, and Cursor on any given day.
 
-*"I'm a developer in Chicago building a sports predictions app and an AI skills marketplace. I prefer TypeScript, SvelteKit, Neon Postgres, and Drizzle. I have two agents — magerbot handles code, genny handles life. I don't want hand-holding. I want root causes, not symptom patches. I hate padded responses. Don't ask 'would you like me to...' — just do it."*
+None of them know who I am. Not really.
 
-It's a paragraph I've typed, in various forms, maybe a hundred times across a hundred sessions.
+They're helpful — but they're working from a generic model of "developer" or "someone who asks questions." They don't know my values, my constraints, what I'm currently building. And they definitely don't know about each other. My coding agent doesn't know my life agent exists. Each one thinks it's the only AI in the picture, giving advice in a vacuum.
 
-It's stupid. And I'm done doing it.
+This isn't a problem you feel acutely. It's a slow leak. Slightly generic responses everywhere. You've just normalized it.
 
 ## The Problem
 
-Every AI context window starts blank. No memory. No history. No sense of who you are or how you work. You have to re-establish yourself from scratch — your stack, your preferences, your working style, your agent ecosystem — every single time.
+Every AI tool starts with zero context about who you are. Not just your stack — the deeper stuff. How you think. What you won't tolerate. What you're actually trying to build right now. Switch tools, open a new tab, try a different model — you're anonymous again.
 
-Some tools have partial memory. Some agents persist state. But the moment you switch tools, switch models, or open a new tab, you're anonymous again.
+The web solved a version of this early. `robots.txt` tells crawlers who you are and how to behave. `.gitignore` tells git what not to touch. These are simple, plain-text files that carry intent across tools.
 
-The web solved this with `robots.txt` — a single file that tells crawlers who you are and how to behave. DNS solved routing with a single file. `.gitignore` tells git what not to touch.
-
-We need the same thing for humans in an AI world.
+We never built that for humans.
 
 ## Introducing ME.md
 
