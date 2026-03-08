@@ -1,7 +1,7 @@
 ---
 title: "LangGraph + Claude Agent SDK: The Ultimate Guide to Multi-Agent Systems in 2026"
 pubDate: 2026-03-07
-draft: false
+draft: true
 description: "A deep dive into the two most powerful tools for building production-grade multi-agent systems — LangGraph's graph-based orchestration and Anthropic's Claude Agent SDK (formerly Claude Code SDK)."
 category: tech
 ---
@@ -445,20 +445,6 @@ Building a dev tool / CI integration?
 
 ---
 
-## The Bleeding Edge
-
-What to watch in 2026:
-
-**LangGraph** is moving toward **LangSmith Deployments** as a managed cloud runtime for graphs — you define the graph, LangSmith runs and scales it. Less ops, same control.
-
-**Claude Agent SDK** just rebranded from "Claude Code" to "Claude Agent" — signaling a push beyond dev tooling into general-purpose agentic workloads. The subagents API is where the velocity is: Anthropic is clearly betting on Claude as the orchestrator AND the executor.
-
-**MCP (Model Context Protocol)** is the common substrate emerging under all of this. Both LangGraph nodes and Claude Agent SDK subagents can be MCP servers/clients. The agent ecosystem is converging on this protocol for tool and context sharing across frameworks.
-
-**Agent-to-agent communication** is the next frontier. When your LangGraph supervisor needs to hand off to a Claude Agent SDK executor inside a tool call that's itself an MCP server — that's where we're headed. Protocols like [ACP (Agent Context Protocol)](https://github.com/mager/acp) are emerging to standardize the handoff envelopes.
-
----
-
 ## Quick Start Recipes
 
 ### Claude Agent SDK — Code Review Bot in 20 lines
@@ -523,7 +509,3 @@ app = graph.compile(checkpointer=MemorySaver())
 - **Use both** when you want LangGraph's orchestration guarantees + Claude's execution power inside each node.
 
 The multi-agent era demands frameworks, not just models. Learn the graph.
-
----
-
-*For more on the emerging agent communication standards powering systems like this, check out the [ACP (Agent Context Protocol)](https://github.com/mager/acp) — a lightweight SDK for agent-to-agent context passing.*
