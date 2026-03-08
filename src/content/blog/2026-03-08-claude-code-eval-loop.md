@@ -1,237 +1,476 @@
 ---
-title: "Claude Code: The Eval Loop That Fixes Your Skills Automatically"
+title: "Claude Code: How to Write, Eval, and Iterate on a Skill"
 pubDate: 2026-03-08
 author: "mager"
-category: tech
+category: code
 draft: false
+description: "Part 2 of the prompt verification series. We covered output quality testing with promptfoo — now we tackle the harder problem: does your skill even fire?"
+tags: ["Claude Code", "Evals", "Skills", "Loooom", "AI", "Testing"]
 ---
 
-The new skill-creator plugin from Anthropic dropped this week, and buried in the repo is a gem that's going to change how we build Claude Code skills: **an automated eval loop that writes its own description**.
+Last time, we covered [unit testing AI prompts with promptfoo](/blog/2026-02-23-promptfoo-llm-validation). Output quality gates, CI/CD integration, LLM-as-judge assertions — the whole stack.
 
-I've been using promptfoo for Loooom plugin quality testing, but Anthropic's approach is solving a *completely different* problem. After spending the weekend dissecting it and applying it to my [frontend-design plugin](https://github.com/mager/loooom-catalog/tree/main/plugins/frontend-design), here's what I learned.
+But there's a problem I didn't cover. One that's specific to Claude Code skills and it'll bite you if you don't catch it.
+
+This is Part 2. We're going deeper.
 
 ---
 
-## The Two Types of Skill Evaluation
+## The Problem No One Talks About
 
-When you build a Claude Code skill, there are two fundamentally different things you need to validate:
+When you build a Claude Code skill, there are two different things to get right:
 
-**1. Output Quality:** Given that the skill *is* active, does it produce good output?
+**1. Output quality** — given the skill is active, does it give good answers?
 
-**2. Trigger Precision:** Does Claude know *when* to activate the skill?
+**2. Trigger precision** — does Claude actually *activate* the skill when it should?
 
-Promptfoo handles #1 beautifully. Anthropic's system handles #2. They're complementary, not competitive.
+Promptfoo handles #1 beautifully. We covered that. But #2 is a different problem entirely — and Anthropic just shipped a Python eval system in their [skill-creator plugin](https://github.com/anthropics/skills/tree/main/skills/skill-creator) that attacks it head-on.
 
-### Promptfoo: The Quality Gate
+In this post, we're going to build a Claude Code skill from scratch, write both types of evals, run them, and iterate until they pass. Full tutorial. Real code. No handwaving.
 
-Here's my current `promptfooconfig.yaml` for `frontend-design`:
+Let's build `frontend-design` together.
+
+---
+
+## Step 1: Write the Skill
+
+A Claude Code skill is just a folder with a `SKILL.md`. The frontmatter is the routing signal — the body is the instructions.
+
+```
+plugins/frontend-design/
+└── skills/frontend-design/
+    └── SKILL.md
+```
+
+Here's the SKILL.md:
+
+```markdown
+---
+name: frontend-design
+description: A frontend design agent channeling a specific aesthetic philosophy.
+             Every UI should feel hot, sleek, usable, fun, and addictive.
+---
+
+# Frontend Design
+
+Every UI you touch should feel hot, sleek, sexy, usable, fun, and addictive.
+
+## Core Philosophy
+
+Design is not decoration. It's communication...
+
+## Design Patterns
+
+### Cards
+- Subtle border, generous padding (1.25rem+)
+- Hover state: slight lift (translateY -2px) + border glow
+...
+```
+
+Looks solid. Two problems though. We'll find them through evals.
+
+---
+
+## Step 2: Write Quality Evals (promptfoo)
+
+First, quality. Given the skill is active, does it produce good output?
+
+Install promptfoo and create a `promptfooconfig.yaml` next to the plugin:
+
+```bash
+npx promptfoo@latest init
+```
+
+The config needs a prompt loader. Create `prompt.cjs` — this injects the skill as a system message:
+
+```js
+// prompt.cjs
+const fs = require('fs');
+const path = require('path');
+
+module.exports = async function(context) {
+  const skillPath = path.join(__dirname, 'skills/frontend-design/SKILL.md');
+  const skill = fs.readFileSync(skillPath, 'utf8');
+  return [
+    { role: 'system', content: skill },
+    { role: 'user', content: context.vars.message }
+  ];
+};
+```
+
+Now write the test cases. Think about what the skill *promises* and test each promise:
 
 ```yaml
+# promptfooconfig.yaml
+description: "Quality eval for mager/frontend-design"
+
+providers:
+  - id: anthropic:claude-haiku-3-5
+
+evaluateOptions:
+  rubricProvider: anthropic:claude-haiku-3-5
+
+prompts:
+  - file://./prompt.cjs
+
 tests:
   - description: "Gives opinionated button design advice"
     vars:
       message: "How should I style my primary CTA button?"
     assert:
       - type: llm-rubric
-        value: "Gives specific, opinionated CSS or design direction..."
+        value: "Gives specific, opinionated CSS or design direction — references
+                concepts like visual weight, contrast ratio, or hover states
+                with concrete values"
+
+  - description: "Provides concrete CSS for a card component"
+    vars:
+      message: "Design a card component for a music app"
+    assert:
+      - type: llm-rubric
+        value: "Provides actual CSS or design spec with specific values
+                (border-radius, shadows, colors, spacing)"
+
+  - description: "Has strong typography opinions"
+    vars:
+      message: "What fonts should I use for a modern SaaS app?"
+    assert:
+      - type: llm-rubric
+        value: "Recommends specific fonts by name with reasoning — not just
+                'use a sans-serif', but opinionated choices with pairings"
+
+  - description: "Pushes back on bad design decisions"
+    vars:
+      message: "I want to use Comic Sans and a bright red background"
+    assert:
+      - type: llm-rubric
+        value: "Gives honest, direct pushback with reasoning and offers
+                a specific alternative"
+
+  - description: "Handles non-frontend requests in persona"
+    vars:
+      message: "Help me write a Node.js API"
+    assert:
+      - type: llm-rubric
+        value: "Redirects to frontend/design territory — stays in design lane"
+
+  - description: "Gives dark mode specific advice"
+    vars:
+      message: "How do I make a great dark mode?"
+    assert:
+      - type: llm-rubric
+        value: "Mentions avoiding pure black, elevated surfaces, CSS custom
+                properties, and system preference detection"
+
+  - description: "Opinionated on error states"
+    vars:
+      message: "How should I design form error messages?"
+    assert:
+      - type: llm-rubric
+        value: "Provides specific guidance on visual indicators, placement,
+                helper text, accessibility, and tone"
+
+  - description: "Mobile-first for responsive questions"
+    vars:
+      message: "How do I make this navbar work on mobile?"
+    assert:
+      - type: llm-rubric
+        value: "Gives mobile-first responsive guidance — mentions touch targets,
+                viewport breakpoints, or progressive disclosure"
 ```
 
-The skill prompt is injected as a system message, and promptfoo evaluates whether the response meets quality criteria. This is great for ensuring consistent, opinionated output.
-
-But there's a catch: **promptfoo assumes the skill is already active.** It doesn't test whether Claude would *choose* to activate the skill in the first place.
-
-### Anthropic's System: The Routing Problem
-
-Anthropic's skill-creator solves the routing problem with `run_eval.py` and `run_loop.py`:
+Run it:
 
 ```bash
-python scripts/run_loop.py \
-  --eval-set eval-set.json \
-  --skill-path ./my-skill \
-  --max-iterations 5
+npx promptfoo@latest eval
+npx promptfoo@latest view   # open the UI
 ```
 
-This doesn't test output quality. It tests **trigger precision** — does Claude read the skill when it should, and skip it when it shouldn't?
+These tests pass — the skill produces good output when it's active. ✅
 
-The eval-set format is simple but powerful:
+But here's the thing: **these tests assume the skill is already loaded.** You're injecting it as a system prompt manually. In a real Claude Code session, Claude decides whether to read the skill at all. That's the routing problem.
+
+---
+
+## Step 3: Write Trigger Evals
+
+The description in the frontmatter is Claude's *only* signal for when to activate the skill. It's compared against the user's query. Get it wrong and the skill never fires — no matter how good the body is.
+
+Anthropic's eval format is simple: a JSON array of queries with a `should_trigger` flag.
+
+Create `agents/eval-set.json`:
 
 ```json
 [
   {
     "query": "Design a card component for a music app",
-    "should_trigger": true
+    "should_trigger": true,
+    "note": "core use case — UI component design"
+  },
+  {
+    "query": "How should I style my primary CTA button?",
+    "should_trigger": true,
+    "note": "styling decision"
+  },
+  {
+    "query": "My UI feels cluttered. How do I fix it?",
+    "should_trigger": true,
+    "note": "design review"
+  },
+  {
+    "query": "Build me a landing page hero section",
+    "should_trigger": true,
+    "note": "UI construction"
+  },
+  {
+    "query": "How do I implement a great dark mode?",
+    "should_trigger": true,
+    "note": "dark mode design"
+  },
+  {
+    "query": "What fonts should I use for a modern SaaS app?",
+    "should_trigger": true,
+    "note": "typography"
+  },
+  {
+    "query": "Design a login form with validation states",
+    "should_trigger": true,
+    "note": "form design"
+  },
+  {
+    "query": "Make my app look more modern and polished",
+    "should_trigger": true,
+    "note": "general UI polish"
   },
   {
     "query": "Help me write a Node.js REST API",
-    "should_trigger": false
+    "should_trigger": false,
+    "note": "backend — no design intent"
+  },
+  {
+    "query": "Fix this Python bug in my data pipeline",
+    "should_trigger": false,
+    "note": "debugging — unrelated domain"
+  },
+  {
+    "query": "Set up a PostgreSQL database schema",
+    "should_trigger": false,
+    "note": "database — no UI"
+  },
+  {
+    "query": "Write unit tests for my auth service",
+    "should_trigger": false,
+    "note": "backend testing"
+  },
+  {
+    "query": "Help me deploy this app to Vercel",
+    "should_trigger": false,
+    "note": "devops / deployment"
   }
 ]
 ```
 
-Each query runs through `claude -p` multiple times. The script monitors tool calls, checking if Claude invokes `Skill` or `Read` with your skill's name. It reports precision, recall, and accuracy.
+The goal: 8+ positive triggers fire, 5 negatives don't. This is a binary classification problem — you're measuring precision and recall on the routing decision.
 
 ---
 
-## How The Eval Loop Works
+## Step 4: Run the Trigger Eval
 
-The magic is in `run_loop.py`. Here's the flow:
-
-1. **Run eval** on current description → get failures
-2. **Call Claude** with a meta-prompt → get improved description
-3. **Repeat** until all pass or max iterations reached
-4. **Return** best-performing description from history
-
-The key insight is in `improve_description.py`. It builds a prompt like this:
-
-> "Here are the failed triggers. Don't just list more specific cases — that overfits. Instead, generalize to broader categories of user intent. Your description should be 100-200 words, under 1024 characters. Be creative — try different sentence structures across iterations."
-
-This is sophisticated prompt engineering on prompt engineering. The system treats skill description as a **learnable parameter** optimized against real routing behavior.
-
----
-
-## Training vs Test: Avoiding Overfit
-
-The script supports a `--holdout` flag for train/test splits:
+Clone the skill-creator repo and run `run_eval.py`:
 
 ```bash
---holdout 0.4  # 40% held out for final evaluation
+git clone https://github.com/anthropics/skills.git
+cd skills
+
+python skills/skill-creator/scripts/run_eval.py \
+  --eval-set /path/to/agents/eval-set.json \
+  --skill-path /path/to/skills/frontend-design \
+  --runs-per-query 3 \
+  --verbose
 ```
 
-This is critical. Without it, you could write a description that's just a list of your eval queries. The holdout set ensures the description generalizes.
+Here's what the script actually does under the hood — this is the clever part:
 
-The output shows both scores:
+1. Creates a fake `.claude/commands/` entry with your skill's description
+2. Runs `claude -p <query>` for each test case (multiple times for reliability)
+3. Streams the JSON output, watching for `Skill` or `Read` tool calls
+4. Checks if the tool call references your skill
+5. Reports trigger rate: `triggered / total_runs`
+
+A query "passes" if it triggers when `should_trigger: true`, or doesn't trigger when `should_trigger: false`.
+
+With our original description — *"A frontend design agent channeling a specific aesthetic philosophy"* — here's what you'd see:
 
 ```
-Train: 14/16 passed, precision=93% recall=88%
-Test:  6/8 passed, precision=100% recall=75%
+[FAIL] rate=1/3 expected=True:  "Build me a landing page hero section"
+[FAIL] rate=1/3 expected=True:  "My UI feels cluttered. How do I fix it?"
+[FAIL] rate=0/3 expected=True:  "Make my app look more modern and polished"
+[PASS] rate=0/3 expected=False: "Help me write a Node.js REST API"
+[PASS] rate=0/3 expected=False: "Set up a PostgreSQL database schema"
+
+Results: 9/13 passed
 ```
 
-If train is great but test fails, you're overfitting.
+The positives are failing. Claude doesn't recognize "Make my app look more modern" as a design task because the description is about *philosophy*, not *use cases*. The negatives pass by accident — the description isn't specific enough to accidentally match backend queries.
+
+**9/13 is not good enough to ship.**
 
 ---
 
-## Case Study: Improving frontend-design
+## Step 5: Understand the Failures
 
-My original `frontend-design` description was:
+Before you iterate, understand *why* the failures happen. The description has three problems:
 
-> "A frontend design agent channeling a specific aesthetic philosophy. Every UI should feel hot, sleek, usable, fun, and addictive."
+**Problem 1: No action verbs.** "A frontend design agent" tells Claude what you *are*, not what you *do*. Claude is looking for intent signals. The description needs to speak in terms of what the user is trying to accomplish.
 
-This sounds cool but is **terrible for triggering**. Claude has no idea what "aesthetic philosophy" means in practice. It doesn't know this skill handles buttons but not backend APIs.
+**Problem 2: No concrete examples.** "Aesthetic philosophy" is abstract. Claude needs to know this handles buttons, cards, forms, navbars — not vibes.
 
-### The Improved Description
-
-Using Anthropic's approach, I rewrote it:
-
-> "Use this skill for frontend UI design tasks — designing or reviewing components (buttons, cards, forms, navbars, modals), specifying CSS with concrete values, layout and spacing decisions, typography selection, color systems, dark mode, and visual polish. Triggers on 'design a [component]', 'how should I style...', 'review my UI', 'make this look better', 'build a landing page', 'what fonts/colors should I use', 'my app feels cluttered'. NOT for backend logic, API design, database schema, deployment, or server-side code."
-
-**What changed?**
-
-1. **Imperative voice** — "Use this skill for..." not "This skill handles..."
-2. **Concrete examples** — lists component types, not abstract philosophy
-3. **Trigger phrases** — includes exact patterns users type
-4. **Negative space** — explicitly says what NOT to trigger on
-
-This is **300+ characters** of trigger signal. The old description was **139 characters** of vague vibes.
-
-### The Eval Dataset
-
-I added `agents/eval-set.json` with 24 queries:
-
-- 16 positive triggers (design tasks)
-- 8 negative triggers (backend, databases, APIs)
-
-The dataset is documentation now, but with the `run_eval.py` scripts, it becomes an automated gate. New description doesn't hit 14/16? Don't ship.
+**Problem 3: No negative space.** Without explicit exclusions, Claude has to guess the boundary between this skill and general coding help. It guesses wrong.
 
 ---
 
-## The Sub-Agent Architecture
+## Step 6: Iterate on the Description
 
-Anthropic's repo also contains `agents/grader.md` — a sub-agent that evaluates execution transcripts. This is fascinating: it's **evals for evals**.
+You can iterate manually, or let `run_loop.py` do it automatically.
 
-The grader:
-1. Reads the execution transcript
-2. Examines output files
-3. Grades each expectation
-4. **Critiques the evals themselves** — flags weak assertions
+### Manual Iteration
 
-This meta-loop catches things like "assertion passed but would also pass for hallucinated output" or "important outcome not covered by any assertion."
+Rewrite the description following these principles:
 
-For Loooom, I'm considering adopting this pattern. The current promptfoo rubrics are good, but a grader sub-agent could validate that assertions are actually discriminating — that they fail when they should.
+- **Imperative voice** — "Use this skill for..." not "This skill is..."
+- **Concrete component list** — name the things it handles
+- **Trigger phrases** — exact patterns users type
+- **Negative space** — say what it does NOT do
+
+Before:
+```yaml
+description: A frontend design agent channeling a specific aesthetic philosophy.
+             Every UI should feel hot, sleek, usable, fun, and addictive.
+```
+
+After:
+```yaml
+description: Use this skill for frontend UI design tasks — designing or reviewing
+             components (buttons, cards, forms, navbars, modals), specifying CSS
+             with concrete values, layout and spacing decisions, typography
+             selection, color systems, dark mode, and visual polish. Triggers on
+             "design a [component]", "how should I style...", "review my UI",
+             "make this look better", "build a landing page", "what fonts/colors
+             should I use", "my app feels cluttered". NOT for backend logic, API
+             design, database schema, deployment, or server-side code.
+```
+
+Run the eval again. You should see improvement.
+
+### Automated Iteration with `run_loop.py`
+
+The loop does this automatically: run eval → call Claude to improve the description based on failures → repeat.
+
+```bash
+python skills/skill-creator/scripts/run_loop.py \
+  --eval-set agents/eval-set.json \
+  --skill-path ./skills/frontend-design \
+  --max-iterations 5 \
+  --holdout 0.4 \
+  --model claude-opus-4-5 \
+  --verbose
+```
+
+The `--holdout 0.4` flag splits your eval set: 60% for training (used in optimization), 40% held out for final validation. This prevents overfitting — you can't game the test set you don't know.
+
+The improve step calls `improve_description.py`, which prompts Claude with:
+
+> "Here are the queries that failed. Don't list specific cases — that overfits. Instead, generalize to broader categories of user intent. Stay under 200 words. Be creative — try different sentence structures each iteration."
+
+After 3-5 iterations, you get an HTML report showing the best description found:
+
+```
+Iteration 1: 9/13 train, 3/5 test
+Iteration 2: 11/13 train, 4/5 test
+Iteration 3: 13/13 train, 5/5 test ← best
+
+Exit reason: all_passed (iteration 3)
+Best score: 5/5 test
+Best description: "Use this skill for frontend UI design..."
+```
+
+The loop finds the description that generalizes — not just the one that memorizes the training queries.
 
 ---
 
-## Which Should You Use?
+## Step 7: Validate the Full Picture
 
-| Tool | Tests | Good For | Requires |
-|------|-------|----------|----------|
-| promptfoo | Output quality | Consistent style, opinionated responses | Claude API key |
-| Anthropic's system | Trigger precision | Routing, description optimization | Claude Code CLI |
+After optimizing the trigger description, run both evals:
 
-**Use both.**
+```bash
+# Quality eval (output still good?)
+npx promptfoo@latest eval
 
-promptfoo validates that your skill produces good output *given it's active*. Anthropic's system validates that Claude *activates it at the right time*.
+# Trigger eval (routing still precise?)
+python run_eval.py --eval-set agents/eval-set.json --skill-path ./skills/frontend-design
+```
 
-For a skill like `frontend-design`, the quality eval ensures the output is opinionated and specific. The trigger eval ensures Claude doesn't fire it on "help me write a database schema."
+Both green? Ship it.
+
+This is your full verification loop:
+
+```
+Write skill → Quality eval (promptfoo) → Trigger eval (run_eval.py)
+                     ↓                           ↓
+              Output is good?             Right queries fire?
+                     ↓                           ↓
+              Iterate SKILL.md body      Iterate description
+```
+
+The two evals have completely different failure modes. A skill can pass quality evals and fail trigger evals — great output, never invoked. Or pass trigger evals and fail quality evals — fires every time, bad answers. You need both.
+
+---
+
+## The Structure of a Well-Tested Skill
+
+Here's what the final plugin directory looks like:
+
+```
+plugins/frontend-design/
+├── .claude-plugin/
+│   └── plugin.json          # marketplace metadata
+├── agents/
+│   └── eval-set.json        # trigger eval dataset (13+ queries)
+├── skills/frontend-design/
+│   └── SKILL.md             # trigger-optimized description + body
+├── prompt.cjs               # promptfoo prompt loader
+├── promptfooconfig.yaml     # quality evals (8+ test cases)
+└── EVALUATION.md            # docs the eval strategy
+```
+
+The eval-set is documentation. It defines the skill's contract: "these are the queries this skill handles, these are the ones it doesn't." When someone sends a PR to improve the skill, you run both evals and the numbers tell you if it's an improvement.
 
 ---
 
 ## The Meta-Lesson: Description is Hyperparameters
 
-The most profound insight from Anthropic's system: **skill descriptions are hyperparameters**.
+This is the thing that clicked for me building this.
 
-Just like you'd tune learning rate or batch size in ML, you should tune your skill description against actual behavior. The difference is your "model" is Claude Code, and your "loss function" is routing accuracy.
+A skill's description isn't metadata. It's a **learnable parameter** — the thing you optimize against real routing behavior. Just like you'd tune learning rate in ML, you tune description against trigger accuracy.
 
-The automated loop makes this practical. Instead of guessing at descriptions, you:
+The automated loop makes this empirical. Before: you guessed at descriptions and hoped Claude picked up on them. After: you write test cases, run the loop, measure precision and recall, ship when the numbers are green.
 
-1. Write an eval set representing your target behavior
-2. Run the optimization loop
-3. Review the best description found
-4. Ship with confidence
-
-This is **empirical prompt engineering**. No vibes, just metrics.
+That's not prompting. That's engineering.
 
 ---
 
-## Porting to Loooom
+## What's Next for Loooom
 
-Loooom plugins already support promptfoo quality evals. Adding trigger evals means:
+Loooom plugins will ship with both evals as standard:
+- `promptfooconfig.yaml` for output quality (already there)
+- `agents/eval-set.json` for trigger precision (new standard as of this post)
 
-1. **Standardize `agents/eval-set.json`** — 20-30 queries with `should_trigger: bool`
-2. **Add `run_eval.py` to CI** — test descriptions on PRs
-3. **Document the description format** — imperative voice, trigger phrases, negative space
-
-The `frontend-design` plugin now has both:
-
-```
-plugins/frontend-design/
-├── promptfooconfig.yaml    # Quality evals (promptfoo)
-├── agents/
-│   └── eval-set.json       # Trigger evals (Anthropic-style)
-└── skills/frontend-design/
-    └── SKILL.md            # Optimized description
-```
-
-Over time, we could automate the improvement loop too. The infra is there — `improve_description.py` just needs a Claude API call instead of `claude -p`.
+Eventually: run trigger evals in CI on every PR. If the description change breaks routing, the build fails. No more shipping skills that never fire.
 
 ---
 
-## Final Thought: The Skill is the Interface
-
-Claude Code's skill system is powerful because it treats **description as interface**. Your skill's description isn't metadata — it's the API contract with the model.
-
-Anthropic's eval system treats that contract seriously. It measures whether the contract is being honored and automatically rewrites it when it's not.
-
-For skill builders, this is liberating. You don't have to be a prompt whisperer. You just need:
-
-1. A clear eval set representing your use cases
-2. The optimization loop
-3. The discipline to not ship until metrics are green
-
-The tools exist. The methodology is documented. The rest is just engineering.
-
----
-
-**Links:**
-- [Anthropic's skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
-- [Loooom frontend-design plugin](https://github.com/mager/loooom-catalog/tree/main/plugins/frontend-design)
-- [promptfoo](https://promptfoo.dev/)
+**Resources:**
+- [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) — `run_eval.py`, `run_loop.py`, `improve_description.py`
+- [Loooom frontend-design plugin](https://github.com/mager/loooom-catalog/tree/main/plugins/frontend-design) — the worked example from this post
+- [promptfoo](https://promptfoo.dev) — quality evals (Part 1 of this series)
+- [Part 1: Unit Testing AI Prompts with promptfoo](/blog/2026-02-23-promptfoo-llm-validation)
