@@ -29,6 +29,8 @@ We never built that for humans.
 
 **ME.md** is a structured markdown file that lives at a public URL. Any AI can fetch it. Any agent can parse it. You own it, version it, and evolve it as you do.
 
+![ME.md](https://lh3.googleusercontent.com/pw/AP1GczPdT6UZ5NSZBW3FTGapVeqMfPpLhxoZCNBp-whADxfMdec8KtQwf2pCMAbpBA-xKJse3_go3bMdH7et52xEqeFO48THyrVxLaeJvIJo_q_P0mY4MBAfF9uyQbxkOaam_jdzliE0dmQu-sF3-4zojNt8gw=w2322-h1522-s-no-gm)
+
 The spec is simple: YAML frontmatter for machine-readable metadata, followed by a set of canonical `# Header` sections for human-readable context. The combination gives you something neither format alone can: identity that's both parseable and readable.
 
 Here's a minimal example:

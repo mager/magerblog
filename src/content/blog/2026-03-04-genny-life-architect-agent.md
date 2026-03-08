@@ -4,12 +4,13 @@ description: "I built a second AI agent to manage the parts of my life that code
 pubDate: "2026-03-04"
 category: "code"
 tags: ["ai", "openclaw", "agents", "health", "longevity"]
-draft: false
 ---
 
 I have a confession: I built an AI agent to ship code with me, and now I've built a second one to handle everything else.
 
 Meet **Genny** 🌿.
+
+![Genny](https://lh3.googleusercontent.com/pw/AP1GczP0rI0YedRh4Y3vHBjDg-w4sH0B1YkijAGxjb4QxqIRIq011AnHCZEQX0zOEuM6KrMZ3K0NErZzyOuMLhv2a1pqO1NvmjmJgdKxxiNB-2yBwvQtHBSMGY03h4JHvXgJSrlj4JBE9YVDCjjKJK4iOQrkyA=w2322-h1522-s-no-gm)
 
 She's my second [OpenClaw](https://openclaw.ai) agent, running alongside Magerbot on the same gateway — but they couldn't be more different. Magerbot ships code. Genny is my ride-or-die AI life coach.
 
