@@ -85,7 +85,7 @@ npm install -D @types/react typescript
 export ANTHROPIC_API_KEY=your-key
 ```
 
-We'll use [Ink](https://github.com/vadimdemedes/ink) — React for the terminal. The pattern: stream messages from the Agent SDK, render them reactively.
+I'm using [Ink](https://github.com/vadimdemedes/ink) — React for the terminal. The pattern: stream messages from the Agent SDK, render them reactively.
 
 ### Step 1: The Message Stream
 
