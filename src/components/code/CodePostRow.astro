@@ -109,6 +109,9 @@ const tags = (post.data.tags || []).slice(0, 2);
 		.row-title {
 			font-size: 0.9rem;
 			white-space: normal;
+			overflow: visible;
+			text-overflow: clip;
+			word-break: break-word;
 		}
 	}
 </style>

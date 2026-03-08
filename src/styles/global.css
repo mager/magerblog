@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+html {
+	overflow-x: hidden;
+}
+
 /*
   Agentic Coding Environment Theme
   Inspired by Claude Dev, Aider, Warp, and modern terminal aesthetics
