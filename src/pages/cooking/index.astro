@@ -14,11 +14,57 @@ const recipes = allPosts
 
 const featured = recipes[0];
 const rest = recipes.slice(1);
+
+// Build collection schema for recipes
+const siteUrl = 'https://mager.co';
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Cooking — Recipes from the Mager Kitchen',
+  description: 'A collection of homemade recipes including soups, meatballs, pasta dishes, and comfort food classics. Step-by-step instructions with photos.',
+  url: `${siteUrl}/cooking`,
+  image: featured?.data.heroImage,
+  author: {
+    '@type': 'Person',
+    name: 'Mager'
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: recipes.map((recipe, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `${siteUrl}/blog/${recipe.id}`,
+      name: recipe.data.title
+    }))
+  }
+};
+
+// Breadcrumb schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Cooking',
+      item: `${siteUrl}/cooking`
+    }
+  ]
+};
 ---
 
 <html lang="en" data-cooking>
   <head>
-    <BaseHead title={`Cooking — ${SITE_TITLE}`} description="Recipes and culinary experiments from the Mager kitchen" />
+    <BaseHead title={`Cooking — ${SITE_TITLE}`} description="Homemade recipes from a Chicago kitchen. Soups, meatballs, comfort food, and weeknight dinners with step-by-step instructions and photos." keywords="recipes, cooking, soup, meatballs, comfort food, homemade, dinner, easy recipes" />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
