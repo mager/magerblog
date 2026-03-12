@@ -2,7 +2,7 @@
 title: "Claude Agent SDK: Build Your Own AI Terminal in 10 Minutes"
 pubDate: "2026-03-08"
 description: "The Claude Agent SDK gives you the same engine that powers Claude Code, fully programmable. Here's how to build a custom TUI with it in 10 minutes."
-draft: true
+draft: false
 category: "code"
 tags: ["AI", "Agents", "Claude", "TypeScript", "TUI", "Terminal"]
 heroImage: ""
