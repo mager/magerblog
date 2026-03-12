@@ -1,11 +1,12 @@
 ---
 title: "Build Your Own Agent Team with ACP"
 pubDate: "2026-03-06"
-description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Inspired by the Agent Communication Protocol, here's how I got them to actually talk to each other."
+updatedAt: "2026-03-12"
+description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Inspired by the Agent Communication Protocol, here's how I got them to actually talk to each other. Now with a full TUI built on the Claude Agent SDK."
 category: "code"
-tags: ["AI", "Agents", "ACP", "SDK", "Claude", "Tutorial"]
+tags: ["AI", "Agents", "ACP", "SDK", "Claude", "Tutorial", "TUI"]
 heroImage: ""
-keyword: "agent context protocol SDK tutorial"
+keyword: "agent context protocol SDK tutorial TUI"
 draft: false
 ---
 
@@ -204,6 +205,94 @@ Quick clarifications on where `@mager/acp` fits:
 **`@mager/acp`** is my lightweight take on the same idea: a simple TypeScript envelope for passing context between agents in the same codebase. No REST servers required, no infra overhead. Good for small teams running a handful of agents together.
 
 Use the real ACP for the big stuff. Use this for moving fast.
+
+## Update: The TUI Refactor (v0.2.0)
+
+*Updated March 12, 2026*
+
+I rewrote the SDK. Not the core — the context envelope and delegation pattern are solid. But the developer experience needed to evolve.
+
+The original ACP was a library you imported. You wrote scripts, ran them, saw text output. It worked, but it didn't *feel* like an agent team. The handoffs were invisible. You'd run a script and get a result, but you couldn't *see* magerbot thinking, then the context passing to genny, then her picking up the thread.
+
+So I rebuilt it as a **TUI** — a terminal user interface — using [Ink](https://github.com/vadimdemedes/ink) (React for terminals) and the Claude Agent SDK's streaming API.
+
+### What Changed
+
+**From this:**
+```bash
+npx ts-node examples/magerbot-genny/index.ts
+# ...waits...
+# ...output appears...
+```
+
+**To this:**
+```bash
+npx acp
+```
+
+You get a live interface. Three panels:
+
+1. **Agent Team** — Live status indicators showing who's thinking, who's idle, who's handing off
+2. **Message History** — Scrollable conversation with visual handoff markers
+3. **ACP Context Panel** (toggle with `H`) — Inspect the full context envelope at any handoff
+
+### Why Ink + React?
+
+I wanted real-time streaming without the complexity of a web app. Ink gives you React's component model in the terminal. I can update agent status indicators, append streaming tokens to the message log, and handle keyboard input — all with the same mental model as a web app.
+
+The streaming integration with Claude's Agent SDK means you *see* the agent thinking in real-time. Not just a spinner. The actual tokens appearing. When magerbot decides to hand off to genny, you see the "↳ Handoff" message with the ACP context payload.
+
+### The New Architecture
+
+The SDK now has two layers:
+
+```
+┌─────────────────────────────────────────┐
+│           TUI Layer (Ink/React)         │
+│  ┌─────────┐ ┌──────────┐ ┌──────────┐ │
+│  │ Agent   │ │ Message  │ │ Context  │ │
+│  │ Team    │ │ List     │ │ Panel    │ │
+│  └────┬────┘ └────┬─────┘ └────┬─────┘ │
+└───────┼──────────┼────────────┼───────┘
+        └──────────┼────────────┘
+                   ▼
+┌─────────────────────────────────────────┐
+│        ACPAgentRunner (Orchestrator)    │
+│  - Claude streaming API integration     │
+│  - Handoff detection (DELEGATE_TO:)     │
+│  - Real-time callbacks to TUI           │
+└─────────────────────────────────────────┘
+                   │
+        ┌──────────┴──────────┐
+        ▼                     ▼
+┌──────────────┐      ┌──────────────┐
+│  magerbot ⚡  │←────→│   genny 🌿   │
+│  ACPAgent    │  ACP  │  ACPAgent    │
+└──────────────┘       └──────────────┘
+```
+
+The `ACPAgentRunner` is new. It manages the agent lifecycle, handles streaming responses from Claude, detects when an agent wants to hand off (via a `DELEGATE_TO:` marker in the response), and fires callbacks that the TUI uses to update the interface.
+
+### Try It
+
+```bash
+npm install -g @mager/acp
+ANTHROPIC_API_KEY=your_key npx acp --agents=magerbot,genny
+```
+
+Type a request that spans both domains — like "I'm going to Japan for two weeks, help me prepare." You'll see magerbot handle the logistics, then hand off to genny for the health protocol, all in one continuous flow.
+
+Press `H` to inspect the ACP context at any handoff. You'll see the exact payload genny receives — session ID, turn count, everything magerbot already gathered.
+
+### What I Learned
+
+1. **Streaming changes everything.** When you can see the agent thinking token-by-token, you trust it more. You know it's working, not stuck.
+
+2. **Visibility matters.** The handoff used to be invisible — just a function call. Now it's a first-class UI event. You *see* context passing between agents. That visibility makes the abstraction real.
+
+3. **Ink is underrated.** For developer tools, a TUI hits a sweet spot. Richer than CLI scripts, lighter than web apps. No browser, no server, just the terminal.
+
+The core SDK is still there — you can use `ACPAgent` and `delegate()` programmatically without the TUI. But the TUI is now the primary interface. It's how I run my agent team every day.
 
 ## What's Next
 
