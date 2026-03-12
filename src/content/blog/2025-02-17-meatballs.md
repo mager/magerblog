@@ -6,7 +6,7 @@ updatedDate: "2025-10-12"
 description: A taste of Italy anytime, these meatballs will steal the show at any special occasion or a Tuesday.
 category: "food"
 subcategory: "meat"
-tags: ["Italian", "Beef", "Comfort Food"]
+tags: ["Italian", "Beef", "Comfort Food", "Pork", "Pasta", "Sunday-Dinner", "Family-Style"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPCYQ19vuUHqGhcODGZzH2S1lKjkjyHIlEx1Wrs5UluF4gbAtbfsP4j60ft_zudEPdfDF8vpQJTFSfSbjswQeMxpnAVFC3_Rh8FK58i8RTrhDFXSMb49fbxFzz34PCb1c_CPk1BRX7Fr0a5Hu0CCc_0=w2400-h1432-s-no-gm"
 prepTime: 90
 cookTime: 35

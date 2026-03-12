@@ -6,7 +6,7 @@ updatedDate: "2026-01-25"
 description: "A beautifully tender pork roast, slow-cooked in savory aromatics with an incredible crust. Works great with pork shoulder or bone-in pork chops."
 category: "food"
 subcategory: "meat"
-tags: ["Pork", "Roasting"]
+tags: ["Pork", "Roasting", "Dutch-Oven", "Sunday-Dinner", "Holiday", "Fall", "Comfort-Food", "Slow-Cooked"]
 keyword: "pork roast"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOmjKACxJ9LoomNGVw4PCc32139qFV9Qca3hd7PjhRk-ocMErk_1INTEuG1KlFgV_K0DdxMemUtt9gIrKytruwoN4EjT9sLmqj8ruqXXogb2AAV0XNbF_Gn7zw2-MsgiyE-RmM5OVkRzUIHucT9XBinCg=w2026-h1520-s-no-gm"
 prepTime: 30
