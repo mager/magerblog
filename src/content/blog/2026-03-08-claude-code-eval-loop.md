@@ -6,6 +6,8 @@ category: code
 draft: false
 description: "Part 2 of the prompt verification series. We covered output quality testing with promptfoo — now we tackle the harder problem: does your skill even fire?"
 tags: ["Claude Code", "Evals", "Skills", "Loooom", "AI", "Testing"]
+keyword: "claude code skill eval firing loop testing"
+heroImage: ""
 ---
 
 Last time, we covered [unit testing AI prompts with promptfoo](/blog/2026-02-23-promptfoo-llm-validation). Output quality gates, CI/CD integration, LLM-as-judge assertions — the whole stack.

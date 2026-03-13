@@ -5,6 +5,7 @@ description: "A quick look at Entire, a CLI tool that captures AI agent sessions
 category: "code"
 tags: ["AI", "Developer Tools", "Git"]
 keyword: "AI flight recorders"
+heroImage: ""
 ---
 
 When you use AI coding agents like Claude Code, the code stays but the conversation disappears. You get the commit, but not *why* the agent made the choices it did. [Entire](https://entire.io) fixes that.

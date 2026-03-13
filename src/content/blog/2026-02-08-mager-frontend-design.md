@@ -5,6 +5,7 @@ description: "I analyzed three of my projects, interviewed myself about what mak
 category: "code"
 tags: ["AI", "Design", "Claude Code", "Skills"]
 keyword: "agent skill design"
+heroImage: ""
 ---
 
 I wanted to experiment with skill design and see the process end to end. Skills feel like where the whole industry is heading — reusable chunks of knowledge that AI agents can load up on demand — and I wanted to build one myself.

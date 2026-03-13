@@ -3,6 +3,9 @@ title: "LangGraph + Claude Agent SDK: The Ultimate Guide to Multi-Agent Systems 
 pubDate: 2026-03-07
 description: "A deep dive into the two most powerful tools for building production-grade multi-agent systems — LangGraph's graph-based orchestration and Anthropic's Claude Agent SDK (formerly Claude Code SDK)."
 category: tech
+tags: ["AI", "LangGraph", "Claude", "Agents", "TypeScript", "Multi-Agent"]
+keyword: "LangGraph claude agent SDK multi-agent systems 2026"
+heroImage: ""
 ---
 
 The agent era isn't coming. It's here. And if you're building serious agentic systems in 2026, two tools belong in your arsenal: **LangGraph** and **Anthropic's Claude Agent SDK** (which Anthropic just renamed from the Claude Code SDK — we'll get into that). This isn't a "hello world" primer. This is the guide I wish existed when I started going deep on these.

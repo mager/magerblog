@@ -5,6 +5,7 @@ description: "The problem: Every session, my AI wakes up fresh. The worse proble
 category: "code"
 tags: ["AI", "OpenClaw", "brainpack", "mem0", "Claude Code"]
 keyword: "AI brain in the cloud"
+heroImage: ""
 draft: false
 ---
 

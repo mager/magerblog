@@ -3,6 +3,9 @@ title: "DeepAgents: The Claude Code Alternative That Works With Any LLM"
 pubDate: 2026-03-10
 description: "LangChain just shipped DeepAgents — a batteries-included agent harness that brings Claude Code's magic to any model. Here's your 10-minute deep dive."
 category: code
+tags: ["AI", "Agents", "LangChain", "DeepAgents", "Python", "LLM"]
+keyword: "DeepAgents LangChain claude code alternative any LLM"
+heroImage: ""
 ---
 
 LangChain dropped [DeepAgents](https://github.com/langchain-ai/deepagents) last week, and it's already my favorite way to spin up a capable agent without wiring prompts together like it's 2024.

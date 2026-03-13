@@ -3,6 +3,9 @@ title: "promptfoo: Rate Your Claude Code Skills Before Your Users Do"
 description: "Spec compliance tells you if a skill is readable. Evals tell you if it's actually good. Here's how we added a public quality score to every Loooom plugin."
 pubDate: 2026-02-23
 category: tech
+tags: ["Claude Code", "Skills", "Evals", "Loooom", "Testing", "AI"]
+keyword: "claude code skill quality eval testing"
+heroImage: ""
 draft: false
 ---
 
