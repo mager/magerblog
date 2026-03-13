@@ -6,7 +6,6 @@ description: A quick, one-pan meal featuring orzo, spinach, peas, and feta. Simi
 category: "food"
 subcategory: "pasta"
 tags: ["Pasta", "Greek", "Weeknight"]
-draft: true
 prepTime: 10
 cookTime: 20
 ---
