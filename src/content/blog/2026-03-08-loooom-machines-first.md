@@ -5,7 +5,7 @@ description: "Most websites beg search engines for attention. I flipped it — L
 category: "code"
 tags: ["AI", "Agents", "Loooom", "ME.md", "Protocol", "Machine-First"]
 heroImage: ""
-keyword: "Loooooooom"
+keyword: "machine-first websites"
 ---
 
 Most websites talk *about* AI. Loooom talks *to* it.
