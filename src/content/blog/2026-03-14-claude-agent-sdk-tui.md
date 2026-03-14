@@ -258,9 +258,9 @@ while (true) {
 
 Run it with `npm run repl`. Type anything. Claude responds. Type again — it still has context from everything before. That's the `resume: sessionId` doing its job.
 
-![REPL demo — asking Claude why Chicago dyes the river green on St. Patty's Day](https://lh3.googleusercontent.com/pw/AP1GczN3F6Kj_iJAIHSxKGHutE7r29Wulw3YIaCkBVl46_uFSoGP2hn45_lUYduMGJ5QaaadNd_J0UlOMZNNxN7JNh7FEqNyU5NWex8Yi0uqKc1v3X-PNXmqoQDkEF0FO1T6HuGYopJ8-f3ibGKrxQISUtvAg=w2322-h1522-s-no-gm)
+![REPL demo — asking Claude why Chicago dyes the river green on St. Patty's Day](https://lh3.googleusercontent.com/pw/AP1GczOA3a2D94i_YOcyRcxGZGClPEVHt3h4zynT69NDLGt7xkrKD0AwJ2PRg7nhQNA8tDoJ11YdusH5NQquI19fMEWcXTqMaw2qtGyvVSghz0gi0MZpuRBkx10XS0dqbi7C7klpCKrVvxxLQRu-y_WBsBWwwA=w2218-h1454-s-no-gm)
 
-![REPL demo — follow-up question about St. Patty's Day traditions in the midwest](https://lh3.googleusercontent.com/pw/AP1GczNPxJG8XKMUNQYZ0M01k8xAPNZaCSF9evWXECJC5b3Xfd9MH-cFxagMnZFp7Ya0gSVcDYI4ewI1gWvo6n8zggY81zE-MiJcCktKn7NxgO9-vgszEaWwVLZTWUubczywszxxMzxH9dZSe3DIaCH_17iK8Q=w2322-h1522-s-no-gm)
+![REPL demo — follow-up question about St. Patty's Day traditions in the midwest](https://lh3.googleusercontent.com/pw/AP1GczMNmicOSW7ou46W4Aj2kjpZ5YojrG-6plEt4jOlyJWr0J3rZRSmlfSR335xxLMWb7NRoCoBDRlGQGNt98Vg4O5SN6qBGz2dR2PpPHzEai5dPsxK876tMI130zoY0peK1urjmlVWFpSFNl1mmk_zz1qUJw=w2218-h1454-s-no-gm)
 
 ## Level Up: Hooks
 
