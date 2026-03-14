@@ -1,7 +1,7 @@
 ---
 title: "agency-agents: I Hired 145 AI Specialists to Run My Company"
 description: "mager.co is no longer just a blog. It's a corporation. Here's how I staffed it with 145 specialized AI agents using agency-agents and OpenClaw."
-date: 2026-03-14
+pubDate: 2026-03-14
 draft: true
 category: ai
 tags: [ai, agents, openclaw, mager-co, agency-agents]
