@@ -258,6 +258,10 @@ while (true) {
 
 Run it with `npm run repl`. Type anything. Claude responds. Type again — it still has context from everything before. That's the `resume: sessionId` doing its job.
 
+![REPL demo — asking Claude why Chicago dyes the river green on St. Patty's Day](https://lh3.googleusercontent.com/pw/AP1GczN3F6Kj_iJAIHSxKGHutE7r29Wulw3YIaCkBVl46_uFSoGP2hn45_lUYduMGJ5QaaadNd_J0UlOMZNNxN7JNh7FEqNyU5NWex8Yi0uqKc1v3X-PNXmqoQDkEF0FO1T6HuGYopJ8-f3ibGKrxQISUtvAg=w2322-h1522-s-no-gm)
+
+![REPL demo — follow-up question about St. Patty's Day traditions in the midwest](https://lh3.googleusercontent.com/pw/AP1GczNPxJG8XKMUNQYZ0M01k8xAPNZaCSF9evWXECJC5b3Xfd9MH-cFxagMnZFp7Ya0gSVcDYI4ewI1gWvo6n8zggY81zE-MiJcCktKn7NxgO9-vgszEaWwVLZTWUubczywszxxMzxH9dZSe3DIaCH_17iK8Q=w2322-h1522-s-no-gm)
+
 ## Level Up: Hooks
 
 The real power is hooks — callbacks that fire at key points in the agent lifecycle. This is how you add audit logs, approval gates, or custom UI feedback:
@@ -319,6 +323,81 @@ The money detail: the second turn fires **zero tool calls** — Claude already h
 ![Persistent session demo — same session ID across both turns, Turn 2 needs no tool calls](https://lh3.googleusercontent.com/pw/AP1GczNbxDRyGbdLs8pDgB4E6ZNTQrNUA0FdJzTGq6wQNqeKgUFZbhlCb1zXxklJwcwmEzKCIcf9UvqSqHOO6gmbP21IE4fX6_HhimhAKbsjjwT_tvVK8xKK7FLLqvuCa_xUlS4ddyOfywfZpWbtDOi0EERWGQ=w2322-h1522-s-no-gm)
 
 Run the demo: `npm run session`.
+
+## Bonus: Go Flavor with Bubble Tea
+
+If TypeScript isn't your thing, [Bubble Tea](https://github.com/charmbracelet/bubbletea) is the Go equivalent — and it's gorgeous. Built by [Charm](https://charm.sh/), it uses the **Elm Architecture**: all state in a `model`, pure `Update(msg)` and `View()` functions, no side effects anywhere.
+
+Where Ink feels like React (hooks, JSX, component tree), Bubble Tea feels like a state machine. Same streaming pattern underneath — but the mental model is completely different.
+
+The core structure:
+
+```go
+// main.go
+type model struct {
+    lines  []lineMsg  // all output so far
+    done   bool
+    prompt string
+}
+
+// Init — kick off the agent as a Cmd
+func (m model) Init() (tea.Model, tea.Cmd) {
+    return m, runAgent(m.prompt)
+}
+
+// Update — pure: (model, msg) → (model, cmd)
+func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+    switch msg := msg.(type) {
+    case lineMsg:
+        m.lines = append(m.lines, msg)
+        if msg.kind == "result" {
+            m.done = true
+            return m, tea.Quit
+        }
+    case tea.KeyMsg:
+        if msg.String() == "ctrl+c" { return m, tea.Quit }
+    }
+    return m, nil
+}
+
+// View — pure: model → string (lipgloss for colors)
+func (m model) View() string {
+    var sb strings.Builder
+    for _, line := range m.lines {
+        switch line.kind {
+        case "tool":   sb.WriteString(styleTool.Render("⚙ " + line.text))
+        case "agent":  sb.WriteString(styleAgent.Render(line.text))
+        case "result": sb.WriteString(styleResult.Render(line.text))
+        }
+        sb.WriteString("\n")
+    }
+    if !m.done { sb.WriteString(styleWait.Render("▸ thinking...")) }
+    return sb.String()
+}
+```
+
+`Init` returns a command (the agent stream). Each streamed line comes back as a `lineMsg` and flows through `Update`. `View` just renders whatever's in the model. No hooks, no `useEffect`, no async state — just pure functions.
+
+The full Go version lives in [`bubbletea/main.go`](https://github.com/mager/claude-tui-demo/tree/main/bubbletea) in the demo repo:
+
+```bash
+cd bubbletea
+go mod tidy
+export ANTHROPIC_API_KEY=your-key
+go run main.go "What files are in this directory?"
+```
+
+**Ink vs Bubble Tea at a glance:**
+
+| | Ink (TypeScript) | Bubble Tea (Go) |
+|---|---|---|
+| Mental model | React hooks | Elm Architecture |
+| State | `useState` | `model` struct |
+| Side effects | `useEffect` | `Cmd` return values |
+| Styling | Props (`color`, `bold`) | lipgloss |
+| Best for | TS/React developers | Go developers, strict state control |
+
+Both are production-grade. Pick the one that matches your team.
 
 ## Real-World Example: The Email Agent
 
