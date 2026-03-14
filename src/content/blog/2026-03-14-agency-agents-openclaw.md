@@ -25,24 +25,42 @@ That's the exact pitch for mager.co.
 
 ## Installing on OpenClaw
 
-OpenClaw has native support. Each agent becomes its own workspace with `SOUL.md`, `AGENTS.md`, and `IDENTITY.md`. The install is three commands:
+OpenClaw has native support for agency-agents. Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and `IDENTITY.md`. The install process:
 
 ```bash
 # Clone the repo
 git clone https://github.com/msitarzewski/agency-agents.git ~/Code/agency-agents
-cd ~/Code/agency-agents
-
-# Generate OpenClaw workspaces
-./scripts/convert.sh --tool openclaw
-
-# Install (registers each agent in openclaw.json)
-./scripts/install.sh --tool openclaw
-
-# Restart gateway to activate
-openclaw gateway restart
 ```
 
-That's it. 145 agents converted, registered, and live. No config editing. No YAML gymnastics. magerbot just asked me for the GitHub URL, cloned it, and handled the rest.
+From there, the agency-agents repo includes conversion and install scripts for OpenClaw. Check the repo's README for the current install flow — the tooling is actively evolving. The end state: each agent is registered in `openclaw.json` under `agents.list` with its own workspace and `agentDir`.
+
+**One more step for OpenClaw orchestration.** If you want your main agent to spawn these as subagents programmatically, you need to unlock them in `openclaw.json`. OpenClaw has a security layer called `subagents.allowAgents` — by default, no agents are in the allowlist, so spawning will return a `forbidden` error. Add the agents you want callable to your main agent's config:
+
+```json
+// in openclaw.json → agents.list[0] (your main agent)
+{
+  "id": "main",
+  "subagents": {
+    "allowAgents": ["reality-checker", "content-creator", "frontend-developer"]
+  }
+}
+```
+
+Or use `config.patch` via magerbot to add all 143 at once — that's what I did. After a gateway restart, magerbot can spawn any of them on demand.
+
+**One more step for OpenClaw orchestration.** If you want your main agent to spawn these as subagents programmatically, you need to unlock them in `openclaw.json`. OpenClaw has a security layer called `subagents.allowAgents` — by default, no agents are in the allowlist, so spawning will return a `forbidden` error. Add the agents you want callable to your main agent's config:
+
+```json
+// in openclaw.json → agents.list[0] (your main agent)
+{
+  "id": "main",
+  "subagents": {
+    "allowAgents": ["reality-checker", "content-creator", "frontend-developer"]
+  }
+}
+```
+
+Or use `config.patch` via magerbot to add all 143 at once — that's what I did. After a gateway restart, magerbot can spawn any of them on demand.
 
 ## The mager.co Org Chart
 
