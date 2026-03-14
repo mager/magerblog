@@ -6,7 +6,7 @@ category: "code"
 tags: ["Claude Code", "SEO", "Skills", "Loooom", "Evals", "Astro"]
 keyword: "blog seo audit skill claude code astro"
 heroImage: ""
-draft: true
+draft: false
 ---
 
 I've been doing the same SEO cleanup by hand for weeks. Run a mental diff across all my posts, find the ones missing a `keyword` field, punch up three descriptions, wonder why that one post has an empty `heroImage`. Repeat.

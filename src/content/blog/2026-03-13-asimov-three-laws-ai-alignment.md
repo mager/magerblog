@@ -5,7 +5,7 @@ description: "Eighty years after Asimov's Three Laws of Robotics debuted, we're 
 category: tech
 tags: ["AI", "Robotics", "Alignment", "Asimov", "Safety"]
 keyword: "Asimov Three Laws Robotics AI"
-draft: true
+draft: false
 ---
 
 In 1942, a 22-year-old biochemistry graduate student named Isaac Asimov published a short story in *Super Science Stories* that would outlive him by decades. "Runaround" introduced the Three Laws of Robotics—not as a philosophical treatise, but as narrative scaffolding for pulp sci-fi. Eighty years later, those same laws are cited in congressional hearings, AI safety papers, and Elon Musk tweets. The world Asimov imagined is arriving. The safeguards he imagined are not.
