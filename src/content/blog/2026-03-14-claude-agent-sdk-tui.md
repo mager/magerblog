@@ -5,7 +5,7 @@ updatedDate: "2026-03-14"
 description: "The Claude Agent SDK gives you the same engine that powers Claude Code, fully programmable. Here's how to build a custom TUI with it in 10 minutes."
 draft: false
 category: "code"
-tags: ["AI", "Agents", "Claude", "TypeScript", "TUI", "Terminal"]
+tags: ["AI", "Agents", "Claude", "TypeScript", "TUI", "Terminal", "Rezi"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMkAoMNzZ5evwXljzJ5Z7TcaPmHmP1OcxQ6lhT1jPqnp4Guwr3xOBLvuB0L8e1vUyXE-GMpb1p-yC4gd13QCVGof_bDKgWobqfrpenI-KJYPhlFsf18z7IvUp_Pu4N2G1P0ofKTnzPl9IxZY0cwLp-7rg=w2322-h1522-s-no-gm"
 keyword: "Claude Agent SDK tutorial"
 ---
@@ -324,80 +324,121 @@ The money detail: the second turn fires **zero tool calls** — Claude already h
 
 Run the demo: `npm run session`.
 
-## Bonus: Go Flavor with Bubble Tea
+## Bonus: Level Up with Rezi
 
-If TypeScript isn't your thing, [Bubble Tea](https://github.com/charmbracelet/bubbletea) is the Go equivalent — and it's gorgeous. Built by [Charm](https://charm.sh/), it uses the **Elm Architecture**: all state in a `model`, pure `Update(msg)` and `View()` functions, no side effects anywhere.
+Ink is great for quick TUIs. But if you want richer widgets — tables, command palettes, split panes, charts, modals — **[Rezi](https://rezitui.dev)** is the upgrade path. Still TypeScript, still Node.js, but native-backed rendering through a C engine and 50+ built-in widgets.
 
-Where Ink feels like React (hooks, JSX, component tree), Bubble Tea feels like a state machine. Same streaming pattern underneath — but the mental model is completely different.
+Where Ink feels like React (hooks, JSX, component tree), Rezi is state-driven: you define a `view` function that maps state → UI, and call `app.update()` to change state. Same mental model as Bubble Tea's Elm Architecture, but in TypeScript.
 
-The core structure:
-
-```go
-// main.go
-type model struct {
-    lines  []lineMsg  // all output so far
-    done   bool
-    prompt string
-}
-
-// Init — kick off the agent as a Cmd
-func (m model) Init() (tea.Model, tea.Cmd) {
-    return m, runAgent(m.prompt)
-}
-
-// Update — pure: (model, msg) → (model, cmd)
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-    switch msg := msg.(type) {
-    case lineMsg:
-        m.lines = append(m.lines, msg)
-        if msg.kind == "result" {
-            m.done = true
-            return m, tea.Quit
-        }
-    case tea.KeyMsg:
-        if msg.String() == "ctrl+c" { return m, tea.Quit }
-    }
-    return m, nil
-}
-
-// View — pure: model → string (lipgloss for colors)
-func (m model) View() string {
-    var sb strings.Builder
-    for _, line := range m.lines {
-        switch line.kind {
-        case "tool":   sb.WriteString(styleTool.Render("⚙ " + line.text))
-        case "agent":  sb.WriteString(styleAgent.Render(line.text))
-        case "result": sb.WriteString(styleResult.Render(line.text))
-        }
-        sb.WriteString("\n")
-    }
-    if !m.done { sb.WriteString(styleWait.Render("▸ thinking...")) }
-    return sb.String()
-}
-```
-
-`Init` returns a command (the agent stream). Each streamed line comes back as a `lineMsg` and flows through `Update`. `View` just renders whatever's in the model. No hooks, no `useEffect`, no async state — just pure functions.
-
-The full Go version lives in [`bubbletea/main.go`](https://github.com/mager/claude-tui-demo/tree/main/bubbletea) in the demo repo:
+Install it:
 
 ```bash
-cd bubbletea
-go mod tidy
-export ANTHROPIC_API_KEY=your-key
-go run main.go "What files are in this directory?"
+npm install @rezi-ui/core @rezi-ui/node
 ```
 
-**Ink vs Bubble Tea at a glance:**
+Here's the same Claude TUI rebuilt in Rezi:
 
-| | Ink (TypeScript) | Bubble Tea (Go) |
+```typescript
+// rezi/rezi-app.ts
+import { ui } from "@rezi-ui/core";
+import { createNodeApp } from "@rezi-ui/node";
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+type LineKind = "user" | "agent" | "tool" | "result";
+type LogLine = { kind: LineKind; text: string };
+type State = { lines: LogLine[]; done: boolean };
+
+const prompt = process.argv.slice(2).join(" ") || "What files are in this directory?";
+
+const app = createNodeApp<State>({
+  initialState: { lines: [{ kind: "user", text: `> ${prompt}` }], done: false },
+});
+
+const kindVariant: Record<LineKind, string> = {
+  user: "info",
+  agent: "body",
+  tool: "warning",
+  result: "success",
+};
+
+app.view((state) =>
+  ui.page({
+    p: 1,
+    gap: 1,
+    header: ui.header({ title: "◆ My AI Terminal", subtitle: "q to quit" }),
+    body: ui.panel("Output", [
+      ...state.lines.map((line, i) =>
+        ui.text(line.text, { key: String(i), variant: kindVariant[line.kind] as any })
+      ),
+      ...(!state.done ? [ui.spinner({ label: "thinking…", key: "spinner" })] : []),
+    ]),
+  })
+);
+
+app.keys({ q: () => app.stop(), escape: () => app.stop() });
+
+// Kick off the agent stream
+(async () => {
+  for await (const msg of query({
+    prompt,
+    options: { allowedTools: ["Read", "Glob", "Grep", "Bash"] },
+  })) {
+    if (msg.type === "assistant") {
+      for (const block of msg.message.content) {
+        if (block.type === "text") {
+          app.update((s) => ({ ...s, lines: [...s.lines, { kind: "agent", text: block.text }] }));
+        }
+        if (block.type === "tool_use") {
+          const preview = JSON.stringify(block.input).slice(0, 60);
+          app.update((s) => ({
+            ...s,
+            lines: [...s.lines, { kind: "tool", text: `⚙ ${block.name}(${preview})` }],
+          }));
+        }
+      }
+    }
+    if (msg.type === "result") {
+      app.update((s) => ({
+        ...s,
+        lines: [...s.lines, { kind: "result", text: `✓ ${msg.result}` }],
+        done: true,
+      }));
+    }
+  }
+})();
+
+await app.start();
+```
+
+The key differences from the Ink version:
+
+- **No React** — `app.view()` is a pure function of state, not a component tree
+- **No `useEffect`** — the agent stream runs outside the view; `app.update()` pushes state changes in
+- **`ui.spinner()`** built in — no manual blinking text
+- **Semantic variants** (`info`, `warning`, `success`) — Rezi handles the colors per-theme
+
+The full Rezi version lives in [`rezi/rezi-app.ts`](https://github.com/mager/claude-tui-demo/tree/main/rezi) in the demo repo:
+
+```bash
+cd rezi
+npm install
+export ANTHROPIC_API_KEY=your-key
+npm start "What files are in this directory?"
+```
+
+**Ink vs Rezi at a glance:**
+
+| | Ink | Rezi |
 |---|---|---|
-| Mental model | React hooks | Elm Architecture |
-| State | `useState` | `model` struct |
-| Side effects | `useEffect` | `Cmd` return values |
-| Styling | Props (`color`, `bold`) | lipgloss |
-| Best for | TS/React developers | Go developers, strict state control |
+| Mental model | React hooks + JSX | State-driven, pure view fn |
+| State | `useState` | `app.update()` |
+| Side effects | `useEffect` | Run outside the view |
+| Styling | Color/bold props | Semantic variants + 6 built-in themes |
+| Widget library | Minimal (Text, Box) | 50+ (tables, modals, charts, command palette) |
+| Rendering | Node.js | Native C engine via Zireael |
+| Best for | Quick TUIs, React devs | Production tools, rich UIs |
 
-Both are production-grade. Pick the one that matches your team.
+Both work perfectly with the Agent SDK stream. Ink is the fastest on-ramp; Rezi is where you go when you outgrow it.
 
 ## Real-World Example: The Email Agent
 
