@@ -6,7 +6,7 @@ draft: false
 category: "code"
 tags: ["AI", "Agents", "Claude", "TypeScript", "TUI", "Terminal"]
 heroImage: ""
-keyword: "claude agent sdk tutorial typescript TUI"
+keyword: "Claude Agent SDK tutorial"
 ---
 
 You've used Claude Code from the terminal. Now build your own.

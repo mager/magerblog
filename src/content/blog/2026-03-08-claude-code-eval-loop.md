@@ -5,7 +5,7 @@ author: "mager"
 category: code
 draft: false
 description: "Part 2 of the prompt verification series. We covered output quality testing with promptfoo — now we tackle the harder problem: does your skill even fire?"
-tags: ["Claude Code", "Evals", "Skills", "Loooom", "AI", "Testing"]
+tags: ["skill evals & iterations"]
 keyword: "claude code skill eval firing loop testing"
 heroImage: ""
 ---

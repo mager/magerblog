@@ -6,7 +6,7 @@ draft: false
 category: "code"
 tags: ["AI", "Agents", "LangGraph", "LangChain", "TypeScript", "React"]
 heroImage: ""
-keyword: "LangGraph tutorial multi-agent chat stateful"
+keyword: "LangGraph tutorial multi-agent chat"
 ---
 
 You've built an agent with `while` loops. It worked... until it didn't. The server restarted and your agent forgot everything. A long-running task timed out and you had to start over. Your "multi-agent system" is actually just three `Promise.all()` calls duct-taped together.

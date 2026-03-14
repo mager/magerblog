@@ -4,7 +4,7 @@ pubDate: "2026-03-13"
 description: "I kept fixing the same frontmatter issues by hand — missing keywords, empty heroImages, weak descriptions. So I turned the whole workflow into a Claude Code skill with both spec and quality evals."
 category: "code"
 tags: ["Claude Code", "SEO", "Skills", "Loooom", "Evals", "Astro"]
-keyword: "blog seo audit skill claude code astro"
+keyword: "SEO audit skill"
 heroImage: ""
 draft: false
 ---

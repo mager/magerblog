@@ -4,7 +4,7 @@ pubDate: 2026-03-13
 description: "Eighty years after Asimov's Three Laws of Robotics debuted, we're building the future he imagined—without the safeguards. What the 'Father of Robotics' got right, where his vision fails, and why 2026's AI alignment problem is harder than fiction."
 category: tech
 tags: ["AI", "Robotics", "Alignment", "Asimov", "Safety"]
-keyword: "Asimov Three Laws Robotics AI"
+keyword: "Asimov laws of robotics and AI"
 draft: false
 ---
 

@@ -4,7 +4,7 @@ pubDate: 2026-03-10
 description: "LangChain just shipped DeepAgents — a batteries-included agent harness that brings Claude Code's magic to any model. Here's your 10-minute deep dive."
 category: code
 tags: ["AI", "Agents", "LangChain", "DeepAgents", "Python", "LLM"]
-keyword: "DeepAgents LangChain claude code alternative any LLM"
+keyword: "DeepAgents"
 heroImage: ""
 ---
 
