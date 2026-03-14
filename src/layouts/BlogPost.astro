@@ -43,6 +43,7 @@ const categoryBadge = getCategoryBadge(category);
 <html lang="en">
 	<head>
 		<BaseHead title={displayTitle} description={description} image={heroImage} />
+		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
 		<style>
 			main {
 				width: 100%;
@@ -260,29 +261,41 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			.title h1 {
-				font-size: clamp(2.2rem, 5vw, 3.2rem);
+				font-size: clamp(2.5rem, 6vw, 4rem);
 				margin: 0;
 				color: var(--text-primary);
 				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6), 0 8px 32px rgba(0, 0, 0, 0.4);
 				font-weight: 800;
 				letter-spacing: -0.03em;
-				line-height: 1.15;
+				line-height: 1.1;
 			}
 
-			/* Code category: terminal agent vibe */
+			/* Code category: bold magazine title */
 			body[data-category="code"] .title h1 {
-				font-family: 'JetBrains Mono', monospace;
-				font-weight: 700;
-				letter-spacing: -0.02em;
+				font-family: 'Barlow Condensed', sans-serif;
+				font-weight: 900;
+				font-size: clamp(3rem, 8vw, 6.5rem);
+				line-height: 0.95;
+				letter-spacing: -0.01em;
+				background: linear-gradient(
+					135deg,
+					#E6EDF3 0%,
+					#BC8CFF 40%,
+					#79C0FF 100%
+				);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				text-shadow: none;
 			}
 
 			body[data-category="code"] .title::before {
 				content: '> ';
-				color: var(--purple);
+				color: rgba(163, 113, 247, 0.55);
 				font-family: 'JetBrains Mono', monospace;
-				font-size: clamp(1.4rem, 3vw, 2rem);
+				font-size: clamp(1rem, 2vw, 1.4rem);
 				font-weight: 400;
-				opacity: 0.7;
+				opacity: 1;
 			}
 
 			body[data-category="code"] .date::before {
@@ -723,9 +736,9 @@ const categoryBadge = getCategoryBadge(category);
 
 		.nav-title {
 			color: var(--text-primary);
-			font-family: 'JetBrains Mono', monospace;
+			font-family: 'Space Grotesk', sans-serif;
 			font-size: 1.1rem;
-			font-weight: 700;
+			font-weight: 600;
 			line-height: 1.3;
 		}
 
