@@ -1,5 +1,5 @@
 ---
-title: "Banana Bread: The Yogurt Upgrade That Makes It"
+title: "Banana Bread"
 description: "3 ripe bananas, brown sugar, walnuts, and a scoop of plain yogurt — baked at 325° convection for the moistest loaf you'll make."
 pubDate: 2026-03-15
 category: "food"
