@@ -3,7 +3,7 @@ title: "Banana Bread: The Yogurt Upgrade That Makes It"
 description: "3 ripe bananas, brown sugar, walnuts, and a scoop of plain yogurt — baked at 325° convection for the moistest loaf you'll make."
 pubDate: 2026-03-15
 category: "food"
-tags: ["baking", "banana-bread", "comfort-food", "quick-bread"]
+tags: ["baking", "banana bread", "comfort-food", "quick-bread"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNU1b93t0nXSukfwsQ1d_MBASFhkS_YFKHqI_Sbp1JPoHuCZPp85bWCaiFg8nbTyH7_Q7keYEw2c4qNMf0hEOr6Md7MfM9VvQnX-aWQJrIdO6V7T3BYRZS6x-Q6xwCothu9V5wwHAQh9GPWL5PmTsgpfA=w2030-h1522-s-no-gm"
 ---
 
