@@ -1,7 +1,7 @@
 ---
 title: "Open SWE: Build Your Own Internal Coding Agent in 10 Minutes"
 pubDate: 2026-03-17
-draft: true
+draft: false
 category: code
 tags: [ai, agents, langchain, coding-agents, open-source]
 description: "LangChain just dropped Open SWE — an open-source framework for building internal coding agents like Stripe's Minions, Ramp's Inspect, and Coinbase's Cloudbot. Here's what it is, how it works, and how to customize it."
