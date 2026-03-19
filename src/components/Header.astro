@@ -5,27 +5,15 @@ import { SITE_TITLE } from '../consts';
 
 <header class="site-header">
 	<nav>
-		<h2>
-			<a href="/" class="logo">
-				<span class="bracket">&lt;</span>
-				<span class="brand">{SITE_TITLE}</span>
-				<span class="bracket"> /&gt;</span>
-			</a>
-		</h2>
+		<a href="/" class="logo" aria-label="mager.co home">
+			<span class="logo-name">mager</span><span class="logo-tld">.co</span>
+		</a>
 		<div class="nav-right">
 			<div class="internal-links">
-				<HeaderLink href="/code" style="--accent: var(--cyan);">
-					<span class="nav-icon">$</span> Code
-				</HeaderLink>
-				<HeaderLink href="/life" style="--accent: var(--accent-green);">
-					<span class="nav-icon">~</span> Life
-				</HeaderLink>
-				<HeaderLink href="/cooking" style="--accent: var(--orange);">
-					<span class="nav-icon">#</span> Cooking
-				</HeaderLink>
-				<HeaderLink href="/about" style="--accent: var(--text-primary);">
-					<span class="nav-icon">?</span> About
-				</HeaderLink>
+				<HeaderLink href="/code" style="--accent: var(--cyan);">Code</HeaderLink>
+				<HeaderLink href="/life" style="--accent: var(--accent-green);">Life</HeaderLink>
+				<HeaderLink href="/cooking" style="--accent: var(--orange);">Cooking</HeaderLink>
+				<HeaderLink href="/about" style="--accent: var(--text-primary);">About</HeaderLink>
 			</div>
 			<div class="social-links">
 				<a href="https://x.com/mager" target="_blank" class="social-link">
@@ -56,146 +44,97 @@ import { SITE_TITLE } from '../consts';
 		position: sticky;
 		top: 0;
 		z-index: 100;
-		margin: 0;
-		padding: 0;
-		background: var(--editor-bg);
-		border-bottom: 1px solid rgba(48, 54, 61, 0.6);
-		font-family: 'JetBrains Mono', 'Fira Code', monospace;
-		line-height: 1.4;
-	}
-
-	h2 {
-		margin: 0;
-		padding: 0;
-		font-size: 1.35em;
-		font-family: 'JetBrains Mono', 'Fira Code', monospace;
-		font-weight: 800;
-		letter-spacing: -0.04em;
-	}
-
-	.logo {
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.2rem;
-		position: relative;
-		transition: color 0.2s ease;
-		padding: 0.25rem 0;
-	}
-
-	.logo .bracket {
-		color: var(--text-muted);
-		font-size: 1.1em;
-		font-weight: 700;
-		transition: color 0.2s ease;
-	}
-
-	.logo .brand {
-		color: var(--text-primary);
-		transition: color 0.2s ease;
-	}
-
-	.logo:hover .brand {
-		color: var(--cyan);
-	}
-
-	.logo:hover .bracket {
-		color: var(--text-secondary);
+		background: rgba(13, 17, 23, 0.92);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid rgba(48, 54, 61, 0.4);
 	}
 
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
 		max-width: 1400px;
 		margin: 0 auto;
-		padding: 1rem 2rem;
+		padding: 0 2rem;
+		height: 56px;
 	}
 
-	/* --- Nav links --- */
-	nav a {
-		padding: 0 0.75em;
-		color: var(--text-secondary);
+	/* ── Logo ── */
+	.logo {
 		text-decoration: none;
-		font-weight: 600;
-		transition: color 0.2s ease;
-		font-family: 'JetBrains Mono', 'Fira Code', monospace;
-		font-size: 0.9em;
-		position: relative;
+		display: inline-flex;
+		align-items: baseline;
+		flex-shrink: 0;
+		transition: opacity 0.2s ease;
 	}
 
-	nav a:hover {
+	.logo:hover {
+		opacity: 0.8;
+	}
+
+	.logo-name {
+		font-family: 'Syne', sans-serif;
+		font-weight: 800;
+		font-size: 1.4rem;
 		color: var(--text-primary);
-		text-decoration: none;
+		letter-spacing: -0.02em;
+		line-height: 1;
 	}
 
-	/* Category-colored active state — each link sets --accent */
-	nav a.active {
-		color: var(--accent, var(--text-primary));
-		text-shadow:
-			0 0 12px color-mix(in srgb, var(--accent, var(--text-primary)) 50%, transparent),
-			0 0 30px color-mix(in srgb, var(--accent, var(--text-primary)) 20%, transparent);
-	}
-
-	nav a.active .nav-icon {
-		color: var(--accent, var(--text-primary));
-	}
-
-	.nav-icon {
-		color: var(--text-muted);
-		margin-right: 0.25rem;
+	.logo-tld {
+		font-family: 'Syne', sans-serif;
 		font-weight: 700;
-		transition: color 0.2s ease;
+		font-size: 1.1rem;
+		color: var(--cyan);
+		letter-spacing: -0.01em;
+		line-height: 1;
 	}
 
-	/* Hover lifts the icon into the link's accent color */
-	nav a:hover .nav-icon {
-		color: var(--accent, var(--text-secondary));
-	}
-
-	/* Underline indicator that slides in on hover/active */
-	:global(.internal-links) a::after {
-		content: '';
-		position: absolute;
-		bottom: -4px;
-		left: 0.75em;
-		right: 0.75em;
-		height: 1px;
-		background: var(--accent, var(--text-primary));
-		opacity: 0;
-		transform: scaleX(0);
-		transition: transform 0.2s ease, opacity 0.2s ease;
-	}
-
-	:global(.internal-links) a:hover::after {
-		opacity: 0.4;
-		transform: scaleX(1);
-	}
-
-	:global(.internal-links) a.active::after {
-		opacity: 0.7;
-		transform: scaleX(1);
-	}
-
+	/* ── Right side ── */
 	.nav-right {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
 		margin-left: auto;
-		flex-wrap: wrap;
 	}
 
 	.internal-links {
 		display: flex;
-		gap: 0.25rem;
+		align-items: center;
+		gap: 0.1rem;
 	}
 
+	/* ── Nav links ── */
+	:global(.internal-links) a {
+		padding: 0.3em 0.7em;
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.875rem;
+		font-weight: 500;
+		letter-spacing: 0.01em;
+		border-radius: 6px;
+		transition: color 0.15s ease, background 0.15s ease;
+		position: relative;
+	}
+
+	:global(.internal-links) a:hover {
+		color: var(--text-primary);
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	:global(.internal-links) a.active {
+		color: var(--accent, var(--text-primary));
+		background: color-mix(in srgb, var(--accent, var(--text-primary)) 10%, transparent);
+	}
+
+	/* ── Social links ── */
 	.social-links {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding-left: 1rem;
-		border-left: 1px solid rgba(48, 54, 61, 0.6);
+		gap: 0.25rem;
+		padding-left: 1.25rem;
+		border-left: 1px solid rgba(48, 54, 61, 0.5);
 	}
 
 	.social-link {
@@ -203,26 +142,23 @@ import { SITE_TITLE } from '../consts';
 		align-items: center;
 		justify-content: center;
 		color: var(--text-muted);
-		transition: color 0.2s ease;
 		padding: 0.4em;
 		border-radius: 6px;
-		background: transparent;
+		transition: color 0.15s ease, background 0.15s ease;
 	}
 
 	.social-link:hover {
 		color: var(--text-primary);
-	}
-
-	.social-link::after {
-		display: none;
+		background: rgba(255, 255, 255, 0.06);
 	}
 
 	.social-links svg {
-		width: 20px;
-		height: 20px;
+		width: 18px;
+		height: 18px;
+		display: block;
 	}
 
-	/* ---- Mobile: Bottom Navigation ---- */
+	/* ── Mobile: bottom nav ── */
 	@media (max-width: 720px) {
 		.site-header {
 			position: fixed;
@@ -230,29 +166,28 @@ import { SITE_TITLE } from '../consts';
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: var(--editor-bg);
+			background: rgba(13, 17, 23, 0.97);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			border-top: 1px solid rgba(48, 54, 61, 0.5);
 			border-bottom: none;
-			border-top: 1px solid rgba(48, 54, 61, 0.6);
-			padding-bottom: env(safe-area-inset-bottom, 0);
 		}
 
 		nav {
-			padding: 0.5rem 0.75rem;
-			flex-direction: row;
-			gap: 0;
-			align-items: center;
+			height: auto;
+			padding: 0.4rem 0.5rem calc(0.4rem + env(safe-area-inset-bottom, 0));
 			justify-content: space-around;
 		}
 
-		h2 {
+		.logo {
 			display: none;
 		}
 
 		.nav-right {
 			width: 100%;
 			margin-left: 0;
+			gap: 0;
 			justify-content: space-around;
-			padding: 0;
 		}
 
 		.internal-links {
@@ -265,55 +200,24 @@ import { SITE_TITLE } from '../consts';
 			display: none;
 		}
 
-		/* Mobile nav items — stacked icon + label, big touch targets */
-		nav a {
+		:global(.internal-links) a {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: center;
 			min-width: 64px;
-			min-height: 52px;
+			min-height: 48px;
 			padding: 8px 12px;
 			font-size: 0.7rem;
 			font-weight: 600;
 			text-transform: uppercase;
-			letter-spacing: 0.05em;
+			letter-spacing: 0.06em;
 			border-radius: 8px;
-			transition: color 0.2s ease, background 0.2s ease;
-		}
-
-		nav a:hover,
-		nav a:active {
-			background: rgba(255, 255, 255, 0.06);
-		}
-
-		nav a.active {
-			color: var(--accent, var(--text-primary));
-			background: color-mix(in srgb, var(--accent, var(--text-primary)) 12%, transparent);
-			text-shadow: none;
-		}
-
-		/* Hide underline indicators on mobile */
-		:global(.internal-links) a::after {
-			display: none;
-		}
-
-		.nav-icon {
-			display: block;
-			font-size: 1.25rem;
-			margin-right: 0;
-			margin-bottom: 2px;
-			color: var(--text-muted);
-		}
-
-		nav a.active .nav-icon {
-			color: var(--accent, var(--text-primary));
 		}
 	}
 
 	@media (max-width: 720px) {
 		:global(body) {
-			padding-bottom: calc(70px + env(safe-area-inset-bottom, 0));
+			padding-bottom: calc(64px + env(safe-area-inset-bottom, 0));
 		}
 	}
 </style>
