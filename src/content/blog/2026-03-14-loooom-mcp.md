@@ -3,6 +3,7 @@ title: "Loooom MCP: Let Any AI Discover and Install Skills Mid-Conversation"
 description: "I built an MCP server for Loooom so AI agents can search, explore, and install Claude Code skills without ever leaving their context."
 pubDate: 2026-03-14
 category: "code"
+keyword: "loooom MCP"
 draft: false
 tags: ["mcp", "claude", "ai", "loooom", "tools", "skills", "model-context-protocol"]
 ---
