@@ -3,8 +3,8 @@ title: "prxps: I Let AI Analyze Every First-Round March Madness Matchup"
 description: "12 hours before my bracket was due, I used Gemma-3-27b to generate unique insights for all 32 first-round games. Here's what the AI found — and what it got wrong."
 date: 2026-03-18
 category: code
-tags: [ai, sports, march-madness, prxps, gemma]
-draft: false
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO99n5T6bZvVhwBDBwpY9zpzp0iGP_ZV0oJR5og5pjRGIv_36k6kSh1A5q4ryrHA5hdWjMXN7ZOePFnev85qD9_gdz63l8_ACSRp6_sHQ_fUwE4wynFQnYw5vkC6uXsmYym-syInPpSyv9FKslf9FqSAg=w2322-h1522-s-no-gm"
+tags: [ai, sports, prxps, gemma]
 ---
 
 It's 5 PM on bracket submission day. I have 12 hours.
@@ -27,6 +27,8 @@ But for March Madness, I wanted something different. I wanted:
 Not "Duke is really good." That's useless. I wanted *why* a specific game has a structural mismatch that could change the outcome.
 
 ## What the AI Found
+
+![Results](https://lh3.googleusercontent.com/pw/AP1GczNr4nuiFwHBiLRnnV0Zqj9iMPZOSbFM93nzdamGtjrzEcnmzdeu_4HMl2j-KicY1uEltm0Uw3LngrHcvlHpppHoDu1o1quUPbm9Hue3TQCrwtRHUEgRotiE_iBqM2-lhU7cQglT0FNWQ9_eadp_TnODSA=w2322-h1522-s-no-gm)
 
 ### The Most Dangerous Upsets
 
