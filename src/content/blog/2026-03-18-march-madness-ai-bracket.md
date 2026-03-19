@@ -3,6 +3,7 @@ title: "prxps: I Let AI Analyze Every First-Round March Madness Matchup"
 description: "12 hours before my bracket was due, I used Gemma-3-27b to generate unique insights for all 32 first-round games. Here's what the AI found — and what it got wrong."
 pubDate: 2026-03-18
 category: code
+keyword: "tourney picks with Gemma"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO99n5T6bZvVhwBDBwpY9zpzp0iGP_ZV0oJR5og5pjRGIv_36k6kSh1A5q4ryrHA5hdWjMXN7ZOePFnev85qD9_gdz63l8_ACSRp6_sHQ_fUwE4wynFQnYw5vkC6uXsmYym-syInPpSyv9FKslf9FqSAg=w2322-h1522-s-no-gm"
 tags: [ai, sports, prxps, gemma]
 ---
