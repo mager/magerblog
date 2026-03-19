@@ -15,7 +15,7 @@ So I did what any reasonable person building a sports predictions app would do: 
 
 ## The Setup
 
-[prxps](https://prxps.app) has had a Gemma-3-27b integration running for a few months. The original idea was behavioral embeddings → game recommendations. Think Spotify Discover Weekly, but for sports bets.
+[prxps](https://www.prxps.xyz) has had a Gemma-3-27b integration running for a few months. The original idea was behavioral embeddings → game recommendations. Think Spotify Discover Weekly, but for sports bets.
 
 But for March Madness, I wanted something different. I wanted:
 
@@ -71,7 +71,7 @@ The `pace_mismatch` category caught some interesting games. **Saint Mary's vs Te
 
 ## What I Built
 
-Everything lives at [prxps.app/bracket-2026](https://prxps.app/bracket-2026).
+Everything lives at [tourney picks with AI](https://www.prxps.xyz/bracket-2026) on prxps.
 
 The technical stack:
 
@@ -106,4 +106,4 @@ That's what I'm trying to build at prxps.
 
 ---
 
-*Bracket analysis live at [prxps.app/bracket-2026](https://prxps.app/bracket-2026). Built with SvelteKit + Gemma-3-27b. Chaos is a feature, not a bug.*
+*[Tourney picks with AI](https://www.prxps.xyz/bracket-2026) — live on prxps. Built with SvelteKit + Gemma-3-27b. Chaos is a feature, not a bug.*
