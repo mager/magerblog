@@ -28,7 +28,7 @@ Not "Duke is really good." That's useless. I wanted *why* a specific game has a 
 
 ## What the AI Found
 
-![Results](https://lh3.googleusercontent.com/pw/AP1GczNr4nuiFwHBiLRnnV0Zqj9iMPZOSbFM93nzdamGtjrzEcnmzdeu_4HMl2j-KicY1uEltm0Uw3LngrHcvlHpppHoDu1o1quUPbm9Hue3TQCrwtRHUEgRotiE_iBqM2-lhU7cQglT0FNWQ9_eadp_TnODSA=w2322-h1522-s-no-gm)
+[![View the full AI bracket analysis on prxps](https://lh3.googleusercontent.com/pw/AP1GczNr4nuiFwHBiLRnnV0Zqj9iMPZOSbFM93nzdamGtjrzEcnmzdeu_4HMl2j-KicY1uEltm0Uw3LngrHcvlHpppHoDu1o1quUPbm9Hue3TQCrwtRHUEgRotiE_iBqM2-lhU7cQglT0FNWQ9_eadp_TnODSA=w2322-h1522-s-no-gm)](https://www.prxps.xyz/bracket-2026)
 
 ### The Most Dangerous Upsets
 
@@ -73,14 +73,79 @@ The `pace_mismatch` category caught some interesting games. **Saint Mary's vs Te
 
 Everything lives at [tourney picks with AI](https://www.prxps.xyz/bracket-2026) on prxps.
 
-The technical stack:
+The core is a typed data structure for each matchup — `InsightType` as a union, `Matchup` as an interface:
 
-- **Data layer:** TypeScript types for `Matchup`, `InsightType`, with region filtering and upset picker utilities
-- **AI pipeline:** Gemma-3-27b analyzed seed differentials, conference strength, records, and system matchups
-- **UI:** Region tabs, expandable "deep dive" analysis, chaos bar coloring, confidence indicators
-- **Integration:** Linked directly from the main prxps feed via the March Madness banner
+```typescript
+type InsightType =
+  | 'upset_alert'
+  | 'coin_flip'
+  | 'trap_game'
+  | 'pace_mismatch'
+  | 'style_clash'
+  | 'dominant'
+  | 'momentum_play'
+  | 'first_timer';
 
-The whole thing — data, analysis, page — was built in about 2 hours. The AI did the research; I built the frame.
+interface Matchup {
+  id: string;
+  region: 'East' | 'West' | 'South' | 'Midwest';
+  seed1: number;
+  team1: string;
+  record1: string;
+  seed2: number;
+  team2: string;
+  record2: string;
+  chaosIndex: number;   // 0–100
+  insightType: InsightType;
+  keyEdge: string;      // the non-obvious structural edge
+  aiPick: string;
+  confidence: 'Low' | 'Medium' | 'High';
+  deepDive: string;     // Gemma's full analysis
+}
+```
+
+The Chaos Index is a single number per game — hand-tuned weights across seed differential, conference strength gap, system matchup, and momentum signals. For example, Miami (OH) vs Tennessee:
+
+```typescript
+{
+  id: 'm-6-11',
+  region: 'Midwest',
+  seed1: 6,  team1: 'Tennessee',  record1: '22–11',
+  seed2: 11, team2: 'Miami (OH)', record2: '31–1',
+  chaosIndex: 62,  // highest in the field
+  insightType: 'upset_alert',
+  insightLabel: '🔥 Cinderella Alert',
+  keyEdge: `Miami (OH) survived the First Four at 31-1 —
+    the best record in the entire field. They are the hottest
+    team in the bracket. Tennessee at 22-11 is a vulnerable
+    6-seed. This is the most dangerous upset game left.`,
+  aiPick: 'Miami (OH)',
+  confidence: 'Low',
+}
+```
+
+Utility functions keep the SvelteKit components clean:
+
+```typescript
+// Filter by region for the tab UI
+export function getMatchupsByRegion(region: 'East' | 'West' | 'South' | 'Midwest') {
+  return BRACKET_2026.filter(m => m.region === region);
+}
+
+// Pull every game where AI picks the lower seed
+export function getUpsetPicks() {
+  return BRACKET_2026.filter(m => m.aiPick === m.team2);
+}
+
+// Average chaos score across the full field
+export function getAverageChaos() {
+  return Math.round(
+    BRACKET_2026.reduce((sum, m) => sum + m.chaosIndex, 0) / BRACKET_2026.length
+  );
+}
+```
+
+The whole thing — data, analysis, page — took about 2 hours. The AI did the research; I built the frame.
 
 ## What I Actually Think
 
