@@ -24,9 +24,9 @@ The autoresearch pattern has four constraints:
 
 Loooom already has an eval pipeline using [promptfoo](https://promptfoo.dev) and [Groq](https://groq.com) — free, fast LLM inference. Each skill has 8 test cases that grade whether the agent follows the skill's instructions.
 
-**Baseline:** 0/8 (0%).
+**Baseline:** 0/8 (0%). **After one iteration:** 7/8 (87.5%).
 
-The original `learn-anything` skill was failing every test. The model was lecturing instead of asking questions, summarizing instead of assigning exercises, giving abstract advice instead of concrete actions. The skill *described* Franklin's method, but it didn't *enforce* it.
+After one iteration of improvements, the skill jumped from 0% to **87.5% (7/8)**. The original skill was failing every test. The model was lecturing instead of asking questions, summarizing instead of assigning exercises, giving abstract advice instead of concrete actions. The skill *described* Franklin's method, but it didn't *enforce* it.
 
 ## Iteration 1: The Six Core Rules
 
@@ -80,9 +80,9 @@ This is actually a key insight about the autoresearch pattern: **the evaluation 
 
 LLM rubrics are none of these. They're slow, cost money, and vary between runs.
 
-## What Worked Anyway
+## What Worked
 
-Even with eval friction, the pattern produced a significantly better skill. The improvements weren't incremental — they were structural:
+The pattern produced a significantly better skill in one iteration. **0% → 87.5%.** The improvements weren't incremental — they were structural:
 
 **Before:** Passive description of Franklin's method
 **After:** Active enforcement of specific behaviors
