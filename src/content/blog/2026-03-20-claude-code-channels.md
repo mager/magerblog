@@ -1,10 +1,10 @@
 ---
-title: "Claude Code: Channels Turn Your Agent Into a Group Chat Participant"
+title: "DM your agent with Claude Code Channels"
 description: "Claude Code's new channels feature lets you push messages from Telegram and Discord into a running session. Here's how it works, why mobile access changes everything, and how I'd wire it into my projects."
-pubDate: 2026-03-20T00:00:00Z
-draft: false
-category: ai
-tags: [ai, claude-code, channels, telegram, discord, agents, mobile]
+pubDate: 2026-03-21T00:00:00Z
+category: code
+keyword: Claude in your DMs
+tags: [ai, claude-code, agents]
 ---
 
 I've been running AI agents from my phone for months now — OpenClaw routes Telegram and Discord messages to magerbot, and I can fire off instructions from the couch, the grocery store, wherever. It's become second nature. So when Anthropic shipped [channels](https://code.claude.com/docs/en/channels) for Claude Code, my first thought was: *finally, everyone else gets to feel this*.

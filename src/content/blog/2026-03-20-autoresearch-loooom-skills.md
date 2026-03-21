@@ -3,7 +3,7 @@ title: "autoresearch on Loooom: Teaching a Skill to Improve Itself"
 description: "Dogfooding Karpathy's autoresearch pattern on my own skill marketplace. How I'm using evals and tight feedback loops to make the learn-anything skill measurably better."
 pubDate: 2026-03-20
 category: "code"
-keyword: "autoresearch skill improvement"
+keyword: "autoresearch loops"
 tags: ["autoresearch", "karpathy", "loooom", "skills", "evals", "agents"]
 ---
 

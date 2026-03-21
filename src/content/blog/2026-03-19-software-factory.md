@@ -3,6 +3,7 @@ title: "Software Factory: The End Goal of Agentic Engineering"
 pubDate: 2026-03-19
 draft: false
 category: code
+keyword: "software factories"
 tags: ["ai", "agents", "software-factory", "engineering"]
 description: "Everyone's talking about building a software factory. Here's where the term came from and how engineers can start thinking about building one."
 ---
