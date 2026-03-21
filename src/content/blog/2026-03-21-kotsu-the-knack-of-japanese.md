@@ -4,7 +4,7 @@ description: "I built a Japanese learning site in a morning because I wanted som
 pubDate: "2026-03-21"
 category: code
 keyword: "building my own Japanese learning site"
-draft: true
+draft: false
 ---
 
 I've been studying Japanese for a few months now. My trip to Japan is coming up, and I want to be able to read signs, order food, and not embarrass myself at a konbini.
@@ -14,6 +14,8 @@ I've been using some great tools. [Kana](https://apps.apple.com/app/kana/id14542
 But I kept wanting something simpler. Something I could pull up on my phone in 10 seconds, see the characters in big bold type, and just... absorb them. Not a lesson. Not a quiz with a timer. Not gamification with streaks and XP and cartoon owls. A reference wall I can stare at on the train or while waiting for coffee.
 
 So I built [Kotsu](https://kotsu.org).
+
+![The Kotsu homepage — five columns of Japanese characters on off-white paper](https://lh3.googleusercontent.com/pw/AP1GczPtn5zs7clo3yJygE1lr40pVu_3huAAsYi_vg33P_72ILyKfYwF9YLlhQSRMPavhdSKBIpBLcI_VI74N6huxBZdbq7bDhzkHOBBIll54u0daJofeKk1Xort5WGb8L7pYvUIS-viRUNRbIeB2inrBufESQ=w2322-h1522-s-no-gm)
 
 ## The name
 
@@ -53,11 +55,17 @@ The entire UI is five vertical columns, each one a progression:
 
 Tap any character and it fills your entire screen. Arrow keys to flip through. That's the study loop.
 
-## 朱色 — The color of learned
+![Immersive character view — 食 fills the screen with on and kun readings below](https://lh3.googleusercontent.com/pw/AP1GczOzpqGFFmw8QP67_avDmUkO0TqmB3sJxJBn34xHnQVLgSFsjitysf8qcoYiol2TKLIsmchzM0sAy-AdvQRJ9GVmdL8bDtvGRVFLn0dihtTxjKKhktMn5iCUwAtY8l3Yhv7Z0z8F-vtDo0u7_VQy9HACrw=w2322-h1522-s-no-gm)
 
-When you mark a character as learned, it doesn't just check a box. It turns **朱色 (shuiro)** — vermillion red, the color of torii shrine gates, hanko seal stamps, and autumn maples. A subtle circular border fades in like a stamp pressed onto paper.
+## Ink over ash
 
-It's a small detail, but it transforms the grid. Black ink characters you haven't learned yet. Red ones you have. Your progress is visible at a glance — a wall of ink slowly turning to red stamps.
+When you mark a character as learned, it doesn't just check a box. Characters you haven't touched yet are **灰 (hai)** — ash gray, faded into the paper like ghosts. Once you learn them, they emerge in full **墨 (sumi)** black ink.
+
+It's a small detail, but it transforms the grid. Gray characters you haven't learned yet. Bold black ones you have. Your progress is visible at a glance — a wall of ghosts slowly solidifying into ink.
+
+Your profile page tracks everything — a massive percentage display, per-column breakdowns with accent-colored progress bars, and all your learned characters displayed in big beautiful type.
+
+![Profile page — 12% complete with per-column progress and learned characters](https://lh3.googleusercontent.com/pw/AP1GczMvitdrEFRvyNG-094KGbsJPNuxfHUsH_6Kt0OoTNVi8XVARuYx2wfF7d-sK3LUehRkkkWtqYlxQ7vxr9H7oGMPSiAU4ktgsfb6fwm4l9R7Dy29flYsCG0CVVdcBMV1HmMeT50sNy1uMJR8qK24tFl7IA=w2322-h1522-s-no-gm)
 
 ## The stack
 
