@@ -2,7 +2,7 @@
 title: "Claude Code: Channels Turn Your Agent Into a Group Chat Participant"
 description: "Claude Code's new channels feature lets you push messages from Telegram and Discord into a running session. Here's how it works, why mobile access changes everything, and how I'd wire it into my projects."
 pubDate: 2026-03-20T00:00:00Z
-draft: true
+draft: false
 category: ai
 tags: [ai, claude-code, channels, telegram, discord, agents, mobile]
 ---
