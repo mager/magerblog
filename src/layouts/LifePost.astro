@@ -122,12 +122,12 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       /* ── No-image hero ── */
       .life-hero.no-image {
         min-height: auto;
-        padding-top: 8rem;
+        padding-top: 5rem;
         background: var(--lf-bg);
       }
 
       .life-hero.no-image .hero-content {
-        padding-bottom: 3rem;
+        padding: 3rem 3rem 2.5rem;
       }
 
       .life-hero.no-image .hero-title {
@@ -143,12 +143,15 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       /* ── Content ── */
       .life-content {
         max-width: 800px;
+        width: 100%;
         margin: 0 auto;
         padding: 4rem 2rem 2rem;
         font-family: 'Space Grotesk', -apple-system, sans-serif;
         font-size: 1.175rem;
         line-height: 1.9;
         color: var(--lf-text);
+        overflow-x: hidden;
+        box-sizing: border-box;
       }
 
       .life-content :global(p) {
@@ -237,11 +240,14 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       /* ── Images ── */
       .life-content :global(img) {
         width: 100%;
+        max-width: 100%;
+        height: auto;
         margin: 2rem 0;
         border-radius: 12px;
         border: 1px solid var(--lf-border);
         box-shadow: var(--lf-shadow);
         transition: all 0.4s ease;
+        display: block;
       }
 
       .life-content :global(img:hover) {
@@ -272,12 +278,12 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         border: 1px solid rgba(63, 185, 80, 0.28) !important;
         background: #070F07 !important;
         overflow: hidden !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
         box-shadow:
           0 6px 32px rgba(0, 0, 0, 0.55),
           0 0 0 1px rgba(63, 185, 80, 0.06),
           inset 0 1px 0 rgba(63, 185, 80, 0.1) !important;
-        /* reset Shiki overflow */
-        overflow-x: unset !important;
       }
 
       /* Terminal header — macOS traffic lights */
@@ -325,8 +331,12 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
         font-size: 0.92rem !important;
         line-height: 1.75 !important;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-width: 100% !important;
+        white-space: pre !important;
+        word-break: normal !important;
+        word-wrap: normal !important;
       }
 
       /* Individual highlighted lines */
