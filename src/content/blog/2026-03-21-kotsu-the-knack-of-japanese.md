@@ -4,6 +4,7 @@ description: "I built a Japanese learning site in a morning because I wanted som
 pubDate: "2026-03-21"
 category: code
 keyword: "building my own Japanese learning site"
+tags: ["Japanese", "language", "learning", "SvelteKit", "Firebase", "open-source"]
 draft: false
 ---
 
