@@ -37,7 +37,7 @@ cookTime: 100
 - 1½ teaspoons ground turmeric, divided
 - 1½ cups white basmati rice, rinsed and drained
 - 2 tablespoons lemon juice
-- 2½ cups water
+- 2½ cups chicken broth
 - 1–2 cups frozen vegetables (peas, carrots, or a mix)
 - Fresh parsley or cilantro, for garnish
 
@@ -57,7 +57,7 @@ In a large Dutch oven, heat 3 tablespoons of olive oil over medium. Cook the oni
 
 Rub the remaining turmeric all over the chicken. Add the last tablespoon of oil to the pot over medium-high. Brown the chicken breast-side down, 5 minutes, then flip and brown the back, 5 more minutes.
 
-Scatter the onion mixture around the chicken. Pour 2½ cups water in from the sides, bring to a boil, cover, and roast for 1 hour.
+Scatter the onion mixture around the chicken. Pour 2½ cups chicken broth in from the sides, bring to a boil, cover, and roast for 1 hour.
 
 Pull the pot out. Spoon the rice into the liquid around the chicken, add the frozen vegetables, drizzle with lemon juice and saffron water, cover, and return to the oven for 30 minutes. Rest 5 minutes before serving.
 
