@@ -40,11 +40,12 @@ const ogImage =
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
 		<style>
 			body {
-				background-color: #030712;
+				background-color: #faf8f5;
 				overflow-x: hidden;
+				color: #1a1a2e;
 			}
 
-			/* Full-bleed override — let cosmos-page span edge-to-edge */
+			/* Full-bleed override */
 			main {
 				max-width: 100%;
 				width: 100%;
@@ -56,7 +57,7 @@ const ogImage =
 		</style>
 	</head>
 	<body>
-		<Header />
+		<Header homepage={true} />
 		<main>
 			<BentoHero
 				codePosts={codePosts}
@@ -64,7 +65,7 @@ const ogImage =
 				recipePosts={recipePosts}
 			/>
 		</main>
-		<Footer />
+		<Footer homepage={true} />
 		<SecretSearch posts={allPosts} />
 	</body>
 </html>

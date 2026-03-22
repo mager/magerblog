@@ -1,19 +1,25 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+
+interface Props {
+	homepage?: boolean;
+}
+
+const { homepage = false } = Astro.props;
 ---
 
-<header class="site-header">
+<header class:list={["site-header", { "header-light": homepage }]}>
 	<nav>
 		<a href="/" class="logo" aria-label="mager.co home">
 			<span class="logo-name">mager</span><span class="logo-tld">.co</span>
 		</a>
 		<div class="nav-right">
 			<div class="internal-links">
-				<HeaderLink href="/code" style="--accent: var(--cyan);">Code</HeaderLink>
-				<HeaderLink href="/life" style="--accent: var(--accent-green);">Life</HeaderLink>
-				<HeaderLink href="/cooking" style="--accent: var(--orange);">Cooking</HeaderLink>
-				<HeaderLink href="/about" style="--accent: var(--text-primary);">About</HeaderLink>
+				<HeaderLink href="/code" style="--accent: var(--link-accent-indigo);">Code</HeaderLink>
+				<HeaderLink href="/life" style="--accent: var(--link-accent-teal);">Life</HeaderLink>
+				<HeaderLink href="/cooking" style="--accent: var(--link-accent-amber);">Cooking</HeaderLink>
+				<HeaderLink href="/about" style="--accent: var(--link-accent-neutral);">About</HeaderLink>
 			</div>
 			<div class="social-links">
 				<a href="https://x.com/mager" target="_blank" class="social-link">
@@ -48,6 +54,35 @@ import { SITE_TITLE } from '../consts';
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 		border-bottom: 1px solid rgba(48, 54, 61, 0.4);
+
+		/* Dark mode defaults */
+		--header-text: var(--text-primary, #e6edf3);
+		--header-text-secondary: var(--text-secondary, #8b949e);
+		--header-text-muted: var(--text-muted, #484f58);
+		--header-logo-tld: var(--cyan, #79c0ff);
+		--link-accent-indigo: var(--cyan, #79c0ff);
+		--link-accent-teal: var(--accent-green, #3fb950);
+		--link-accent-amber: var(--orange, #ffa657);
+		--link-accent-neutral: var(--text-primary, #e6edf3);
+		--header-social-border: rgba(48, 54, 61, 0.5);
+		--header-hover-bg: rgba(255, 255, 255, 0.05);
+	}
+
+	/* Light mode for homepage */
+	.header-light {
+		background: rgba(250, 248, 245, 0.85);
+		border-bottom: 1px solid rgba(26, 26, 46, 0.06);
+
+		--header-text: #1a1a2e;
+		--header-text-secondary: #4b5563;
+		--header-text-muted: #9ca3af;
+		--header-logo-tld: #6366f1;
+		--link-accent-indigo: #6366f1;
+		--link-accent-teal: #0d9488;
+		--link-accent-amber: #d97706;
+		--link-accent-neutral: #1a1a2e;
+		--header-social-border: rgba(26, 26, 46, 0.1);
+		--header-hover-bg: rgba(26, 26, 46, 0.04);
 	}
 
 	nav {
@@ -59,7 +94,6 @@ import { SITE_TITLE } from '../consts';
 		height: 56px;
 	}
 
-	/* ── Logo ── */
 	.logo {
 		text-decoration: none;
 		display: inline-flex;
@@ -67,30 +101,25 @@ import { SITE_TITLE } from '../consts';
 		flex-shrink: 0;
 		transition: opacity 0.2s ease;
 	}
-
-	.logo:hover {
-		opacity: 0.8;
-	}
+	.logo:hover { opacity: 0.7; }
 
 	.logo-name {
 		font-family: 'Syne', sans-serif;
 		font-weight: 800;
 		font-size: 1.4rem;
-		color: var(--text-primary);
+		color: var(--header-text);
 		letter-spacing: -0.02em;
 		line-height: 1;
 	}
-
 	.logo-tld {
 		font-family: 'Syne', sans-serif;
 		font-weight: 700;
 		font-size: 1.1rem;
-		color: var(--cyan);
+		color: var(--header-logo-tld);
 		letter-spacing: -0.01em;
 		line-height: 1;
 	}
 
-	/* ── Right side ── */
 	.nav-right {
 		display: flex;
 		align-items: center;
@@ -104,10 +133,9 @@ import { SITE_TITLE } from '../consts';
 		gap: 0.1rem;
 	}
 
-	/* ── Nav links ── */
 	:global(.internal-links) a {
 		padding: 0.3em 0.7em;
-		color: var(--text-secondary);
+		color: var(--header-text-secondary);
 		text-decoration: none;
 		font-family: 'Space Grotesk', sans-serif;
 		font-size: 0.875rem;
@@ -115,41 +143,38 @@ import { SITE_TITLE } from '../consts';
 		letter-spacing: 0.01em;
 		border-radius: 6px;
 		transition: color 0.15s ease, background 0.15s ease;
-		position: relative;
 	}
 
 	:global(.internal-links) a:hover {
-		color: var(--text-primary);
-		background: rgba(255, 255, 255, 0.05);
+		color: var(--header-text);
+		background: var(--header-hover-bg);
 	}
 
 	:global(.internal-links) a.active {
-		color: var(--accent, var(--text-primary));
-		background: color-mix(in srgb, var(--accent, var(--text-primary)) 10%, transparent);
+		color: var(--accent, var(--header-text));
+		background: color-mix(in srgb, var(--accent, var(--header-text)) 10%, transparent);
 	}
 
-	/* ── Social links ── */
 	.social-links {
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
 		padding-left: 1.25rem;
-		border-left: 1px solid rgba(48, 54, 61, 0.5);
+		border-left: 1px solid var(--header-social-border);
 	}
 
 	.social-link {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--text-muted);
+		color: var(--header-text-muted);
 		padding: 0.4em;
 		border-radius: 6px;
 		transition: color 0.15s ease, background 0.15s ease;
 	}
-
 	.social-link:hover {
-		color: var(--text-primary);
-		background: rgba(255, 255, 255, 0.06);
+		color: var(--header-text);
+		background: var(--header-hover-bg);
 	}
 
 	.social-links svg {
@@ -158,7 +183,6 @@ import { SITE_TITLE } from '../consts';
 		display: block;
 	}
 
-	/* ── Mobile: bottom nav ── */
 	@media (max-width: 720px) {
 		.site-header {
 			position: fixed;
@@ -166,11 +190,11 @@ import { SITE_TITLE } from '../consts';
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: rgba(13, 17, 23, 0.97);
-			backdrop-filter: blur(16px);
-			-webkit-backdrop-filter: blur(16px);
-			border-top: 1px solid rgba(48, 54, 61, 0.5);
+			border-top: 1px solid var(--header-social-border);
 			border-bottom: none;
+		}
+		.header-light {
+			background: rgba(250, 248, 245, 0.97);
 		}
 
 		nav {
@@ -178,27 +202,19 @@ import { SITE_TITLE } from '../consts';
 			padding: 0.4rem 0.5rem calc(0.4rem + env(safe-area-inset-bottom, 0));
 			justify-content: space-around;
 		}
-
-		.logo {
-			display: none;
-		}
-
+		.logo { display: none; }
 		.nav-right {
 			width: 100%;
 			margin-left: 0;
 			gap: 0;
 			justify-content: space-around;
 		}
-
 		.internal-links {
 			width: 100%;
 			justify-content: space-around;
 			gap: 0;
 		}
-
-		.social-links {
-			display: none;
-		}
+		.social-links { display: none; }
 
 		:global(.internal-links) a {
 			display: flex;
