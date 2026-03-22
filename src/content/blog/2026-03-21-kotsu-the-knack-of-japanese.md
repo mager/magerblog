@@ -81,6 +81,18 @@ The aesthetic is intentionally stark. Off-white paper background (`#fafaf8`), no
 
 The whole thing is open source at [github.com/mager/kotsu](https://github.com/mager/kotsu). If you spot a wrong reading, want to add more kanji, or have ideas for the UI — [send a PR](https://github.com/mager/kotsu/pulls). I'd love contributions from people who actually know Japanese better than me.
 
+## Add your own words
+
+The best moment when you're learning a language is when you hear a word out in the wild and want to know what it means *right now*. Someone says 温泉 (onsen) at a restaurant. You catch it. You want to lock it in before you forget.
+
+That's why I added a custom words feature. Hit the **+** button floating in the corner of the app, type the romaji, and Kotsu does the rest — it auto-converts to kana as you type, looks up the kanji and meaning from Jisho, and saves it to your personal 私 (mine) column.
+
+So the flow is: hear it → open Kotsu → type it → done. It's in your list, with the kanji, the reading, and the meaning, forever.
+
+It uses [wanakana](https://wanakana.com/) for the romaji-to-kana conversion and the [Jisho API](https://jisho.org/api/v1/search/words) for live lookups. Type `onsen` and watch it resolve to おんせん → 温泉 + "hot spring". The whole thing happens in under a second.
+
+Your custom words live in Firestore alongside your learned characters — same account, same profile.
+
 ## What's next
 
 - Spaced repetition — surface characters you haven't reviewed recently
