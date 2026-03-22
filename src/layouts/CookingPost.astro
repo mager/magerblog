@@ -722,6 +722,205 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         border-radius: 3px;
       }
 
+      /* ══════════════════════════════════════════
+         COOK MODE — large text for kitchen use
+         ══════════════════════════════════════════ */
+      html[data-cooking].cook-mode body {
+        background: #fff;
+      }
+
+      html[data-cooking].cook-mode .recipe-photo-wrap {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .recipe-header {
+        padding: 1.5rem 1.5rem 1rem;
+      }
+
+      html[data-cooking].cook-mode .recipe-title-main {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+      }
+
+      html[data-cooking].cook-mode .recipe-desc-main {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .recipe-meta-strip {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .recipe-breadcrumb {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .recipe-cat-label {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .cooking-content {
+        max-width: 100%;
+        padding: 1.5rem;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-intro) {
+        display: none;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-body) {
+        display: block;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-ingredients) {
+        position: static;
+        margin-bottom: 2rem;
+        font-size: 1.15rem;
+        padding: 1.5rem;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-ingredients li) {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        padding: 0.5rem 0 0.5rem 1.3rem;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions) {
+        font-size: 1.4rem;
+        line-height: 1.8;
+        max-width: 100%;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions p) {
+        padding-left: 3.5rem;
+        margin-bottom: 2.5rem;
+        font-size: 1.4rem;
+        line-height: 1.8;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions p)::before {
+        font-size: 2rem;
+        width: 2.5rem;
+      }
+
+      /* Fallback for non-recipe-body layouts */
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-text) {
+        font-size: 1.4rem;
+        line-height: 1.8;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(.recipe-text li) {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        padding: 0.5rem 0 0.5rem 1.3rem;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(> p) {
+        font-size: 1.4rem;
+        line-height: 1.8;
+        max-width: 100%;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(> ul li),
+      html[data-cooking].cook-mode .cooking-content :global(> ol li) {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        padding: 0.5rem 0 0.5rem 1.3rem;
+      }
+
+      html[data-cooking].cook-mode .cooking-content :global(strong) {
+        color: var(--ck-gold);
+        font-weight: 700;
+      }
+
+      html[data-cooking].cook-mode .recipe-tags,
+      html[data-cooking].cook-mode .recipe-navigation,
+      html[data-cooking].cook-mode .cooking-footer,
+      html[data-cooking].cook-mode .keyboard-hints {
+        display: none;
+      }
+
+      /* Cook mode toggle button */
+      .cook-mode-toggle {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        z-index: 60;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--ck-text-muted);
+        background: var(--ck-bg-card, #fff);
+        border: 1px solid var(--ck-border);
+        border-radius: 8px;
+        padding: 0.55rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+
+      .cook-mode-toggle:hover {
+        color: var(--ck-gold);
+        border-color: var(--ck-border-gold);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      }
+
+      .cook-mode-toggle .toggle-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      html[data-cooking].cook-mode .cook-mode-toggle {
+        color: #fff;
+        background: var(--ck-gold);
+        border-color: var(--ck-gold);
+      }
+
+      html[data-cooking].cook-mode .cook-mode-toggle:hover {
+        opacity: 0.9;
+        color: #fff;
+      }
+
+      /* Keep screen awake hint in cook mode */
+      .cook-mode-hint {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 60;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--ck-gold);
+        background: var(--ck-badge-bg);
+        border: 1px solid var(--ck-badge-border);
+        border-radius: 4px;
+        padding: 0.35rem 0.7rem;
+      }
+
+      html[data-cooking].cook-mode .cook-mode-hint {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions) {
+          font-size: 1.3rem;
+        }
+        html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions p) {
+          font-size: 1.3rem;
+          padding-left: 3rem;
+        }
+        html[data-cooking].cook-mode .cooking-content :global(.recipe-instructions p)::before {
+          font-size: 1.75rem;
+          width: 2rem;
+        }
+        .cook-mode-toggle {
+          bottom: 1rem;
+          left: 1rem;
+        }
+      }
+
       /* ── Print ── */
       @media print {
         .recipe-navigation, .cooking-footer, .recipe-tags,
@@ -866,6 +1065,13 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
       </p>
     </footer>
 
+    <!-- Cook Mode Toggle -->
+    <button class="cook-mode-toggle" id="cook-mode-btn" aria-label="Toggle cook mode">
+      <span class="toggle-icon">🍳</span>
+      <span class="toggle-label">Cook Mode</span>
+    </button>
+    <div class="cook-mode-hint" id="cook-mode-hint">🍳 Cook Mode — large text, less clutter</div>
+
     <!-- Theme restore (light is default now) -->
     <script is:inline>
       (function() {
@@ -873,6 +1079,41 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         if (saved === 'dark') {
           document.documentElement.setAttribute('data-theme', 'dark');
         }
+      })();
+    </script>
+
+    <!-- Cook Mode Script -->
+    <script is:inline>
+      (function() {
+        const btn = document.getElementById('cook-mode-btn');
+        const label = btn?.querySelector('.toggle-label');
+        const key = 'cook-mode';
+        const html = document.documentElement;
+
+        // Restore saved state
+        if (localStorage.getItem(key) === 'on') {
+          html.classList.add('cook-mode');
+          if (label) label.textContent = 'Exit Cook Mode';
+        }
+
+        btn?.addEventListener('click', () => {
+          const active = html.classList.toggle('cook-mode');
+          localStorage.setItem(key, active ? 'on' : 'off');
+          if (label) label.textContent = active ? 'Exit Cook Mode' : 'Cook Mode';
+
+          // Try to keep screen awake in cook mode
+          if (active && 'wakeLock' in navigator) {
+            navigator.wakeLock.request('screen').catch(() => {});
+          }
+
+          // Scroll to instructions in cook mode
+          if (active) {
+            const instructions = document.querySelector('.recipe-instructions') || document.querySelector('.recipe-text');
+            if (instructions) {
+              setTimeout(() => instructions.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+            }
+          }
+        });
       })();
     </script>
 
