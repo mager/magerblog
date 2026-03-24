@@ -99,21 +99,14 @@ const categories = [
 				to <a href="#" class="word-cycle word-teal" id="word-two">Sicily</a><br />
 				to <a href="#" class="word-cycle word-amber" id="word-three">green curry</a>.
 			</h1>
-			<div class="hero-dots" id="hero-dots" aria-hidden="true"></div>
 			<nav class="hero-nav" aria-label="Categories">
 				<a href="/code/"    class="hero-pill pill-indigo">Code</a>
 				<a href="/life/"    class="hero-pill pill-teal">Life</a>
 				<a href="/recipes/" class="hero-pill pill-amber">Recipes</a>
 			</nav>
 		</div>
-		<!-- Decorative line art -->
-		<svg class="hero-line-art" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-			<circle cx="200" cy="200" r="120" fill="none" stroke="rgba(99,102,241,0.12)" stroke-width="1" />
-			<circle cx="200" cy="200" r="80" fill="none" stroke="rgba(20,184,166,0.1)" stroke-width="1" />
-			<circle cx="200" cy="200" r="160" fill="none" stroke="rgba(245,158,11,0.08)" stroke-width="1" stroke-dasharray="8 6" />
-			<line x1="80" y1="200" x2="320" y2="200" stroke="rgba(99,102,241,0.06)" stroke-width="0.5" />
-			<line x1="200" y1="40" x2="200" y2="360" stroke="rgba(20,184,166,0.06)" stroke-width="0.5" />
-		</svg>
+		<!-- Geometric objects -->
+		<canvas id="geo-canvas" class="hero-geo-canvas" aria-hidden="true"></canvas>
 	</section>
 
 	<!-- ══════════════════════ CATEGORIES ══════════════════════ -->
@@ -211,6 +204,172 @@ const categories = [
 		draw();
 	})();
 
+	// ── Geometric wireframe canvas ─────────────────────────
+	(function() {
+		const canvas = document.getElementById('geo-canvas');
+		if (!canvas) return;
+		const ctx = canvas.getContext('2d');
+		let W, H;
+
+		function resize() {
+			const rect = canvas.getBoundingClientRect();
+			W = canvas.width = rect.width * window.devicePixelRatio;
+			H = canvas.height = rect.height * window.devicePixelRatio;
+			ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+		}
+
+		// 3D vector helpers
+		function rotX(v, a) {
+			const [x,y,z] = v;
+			return [x, y*Math.cos(a)-z*Math.sin(a), y*Math.sin(a)+z*Math.cos(a)];
+		}
+		function rotY(v, a) {
+			const [x,y,z] = v;
+			return [x*Math.cos(a)+z*Math.sin(a), y, -x*Math.sin(a)+z*Math.cos(a)];
+		}
+		function rotZ(v, a) {
+			const [x,y,z] = v;
+			return [x*Math.cos(a)-y*Math.sin(a), x*Math.sin(a)+y*Math.cos(a), z];
+		}
+		function project(v, cx, cy, fov) {
+			const [x,y,z] = v;
+			const scale = fov / (fov + z);
+			return [cx + x * scale, cy + y * scale, scale];
+		}
+
+		// Icosahedron vertices
+		const phi = (1 + Math.sqrt(5)) / 2;
+		const icoVerts = [
+			[0,1,phi],[0,-1,phi],[0,1,-phi],[0,-1,-phi],
+			[1,phi,0],[-1,phi,0],[1,-phi,0],[-1,-phi,0],
+			[phi,0,1],[phi,0,-1],[-phi,0,1],[-phi,0,-1]
+		].map(v => { const m = Math.sqrt(v[0]**2+v[1]**2+v[2]**2); return v.map(x=>x/m); });
+		const icoEdges = [
+			[0,1],[0,4],[0,5],[0,8],[0,10],
+			[1,6],[1,7],[1,8],[1,10],
+			[2,3],[2,4],[2,5],[2,9],[2,11],
+			[3,6],[3,7],[3,9],[3,11],
+			[4,5],[4,8],[4,9],
+			[5,10],[5,11],
+			[6,7],[6,8],[6,9],
+			[7,10],[7,11],
+			[8,9],[10,11]
+		];
+
+		// Octahedron vertices
+		const octVerts = [
+			[0,1,0],[0,-1,0],[1,0,0],[-1,0,0],[0,0,1],[0,0,-1]
+		];
+		const octEdges = [
+			[0,2],[0,3],[0,4],[0,5],
+			[1,2],[1,3],[1,4],[1,5],
+			[2,4],[4,3],[3,5],[5,2]
+		];
+
+		// Tetrahedron vertices
+		const tetVerts = [
+			[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]
+		].map(v => { const m = Math.sqrt(3); return v.map(x=>x/m); });
+		const tetEdges = [
+			[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]
+		];
+
+		// Cube vertices
+		const cubeVerts = [
+			[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+			[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
+		].map(v => { const m = Math.sqrt(3); return v.map(x=>x/m); });
+		const cubeEdges = [
+			[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],
+			[0,4],[1,5],[2,6],[3,7]
+		];
+
+		const objects = [
+			{
+				verts: icoVerts, edges: icoEdges,
+				x: 0.72, y: 0.38, size: 90,
+				rx: 0, ry: 0, rz: 0,
+				vx: 0.0004, vy: 0.0007, vz: 0.0003,
+				color: [99, 102, 241],  // indigo
+				lineWidth: 1.0,
+			},
+			{
+				verts: octVerts, edges: octEdges,
+				x: 0.28, y: 0.65, size: 60,
+				rx: 0.5, ry: 0.2, rz: 0.8,
+				vx: -0.0005, vy: 0.0009, vz: 0.0006,
+				color: [20, 184, 166],  // teal
+				lineWidth: 1.0,
+			},
+			{
+				verts: tetVerts, edges: tetEdges,
+				x: 0.78, y: 0.72, size: 48,
+				rx: 0.3, ry: 0.7, rz: 0.1,
+				vx: 0.0008, vy: -0.0004, vz: 0.0007,
+				color: [245, 158, 11],  // amber
+				lineWidth: 0.9,
+			},
+			{
+				verts: cubeVerts, edges: cubeEdges,
+				x: 0.18, y: 0.28, size: 40,
+				rx: 0.1, ry: 0.4, rz: 0.6,
+				vx: -0.0003, vy: 0.0006, vz: -0.0005,
+				color: [168, 85, 247],  // purple accent
+				lineWidth: 0.8,
+			},
+		];
+
+		function drawObject(obj, cW, cH) {
+			const cx = obj.x * cW;
+			const cy = obj.y * cH;
+			const fov = 400;
+
+			const transformed = obj.verts.map(v => {
+				let t = v.map(x => x * obj.size);
+				t = rotX(t, obj.rx);
+				t = rotY(t, obj.ry);
+				t = rotZ(t, obj.rz);
+				return t;
+			});
+
+			const [r,g,b] = obj.color;
+			obj.edges.forEach(([a, b_]) => {
+				const pA = project(transformed[a], cx, cy, fov);
+				const pB = project(transformed[b_], cx, cy, fov);
+				// depth-based opacity
+				const zA = transformed[a][2];
+				const zB = transformed[b_][2];
+				const avgZ = (zA + zB) / 2;
+				const alpha = 0.12 + (avgZ / obj.size + 1) * 0.22;
+				ctx.beginPath();
+				ctx.moveTo(pA[0], pA[1]);
+				ctx.lineTo(pB[0], pB[1]);
+				ctx.strokeStyle = `rgba(${r},${g},${b},${Math.min(0.55, Math.max(0.08, alpha))})`;
+				ctx.lineWidth = obj.lineWidth;
+				ctx.stroke();
+			});
+
+			obj.rx += obj.vx;
+			obj.ry += obj.vy;
+			obj.rz += obj.vz;
+		}
+
+		function draw() {
+			const cW = W / window.devicePixelRatio;
+			const cH = H / window.devicePixelRatio;
+			ctx.clearRect(0, 0, cW, cH);
+			objects.forEach(o => drawObject(o, cW, cH));
+			requestAnimationFrame(draw);
+		}
+
+		resize();
+		window.addEventListener('resize', () => {
+			ctx.resetTransform();
+			resize();
+		});
+		draw();
+	})();
+
 	// ── Word cycling ───────────────────────────────────────
 	const triplets = [];
 	codeKeywords.forEach((code, i) => {
@@ -246,33 +405,6 @@ const categories = [
 	const w1 = document.getElementById('word-one');
 	const w2 = document.getElementById('word-two');
 	const w3 = document.getElementById('word-three');
-	const dotsEl = document.getElementById('hero-dots');
-
-	function buildDots() {
-		if (!dotsEl || !triplets.length) return;
-		dotsEl.innerHTML = '';
-		triplets.forEach((t, i) => {
-			const dot = document.createElement('button');
-			dot.className = 'dot';
-			dot.setAttribute('aria-label', `Slide ${i + 1}`);
-			dot.dataset.color = t.one.color;
-			dot.addEventListener('click', () => {
-				if (i !== idx) { idx = i; applyTriplet(triplets[idx]); updateDots(); }
-			});
-			dotsEl.appendChild(dot);
-		});
-		updateDots();
-	}
-
-	function updateDots() {
-		if (!dotsEl) return;
-		const dots = dotsEl.querySelectorAll('.dot');
-		dots.forEach((dot, i) => {
-			dot.classList.toggle('active', i === idx);
-			dot.dataset.color = triplets[i].one.color;
-		});
-	}
-
 	function applyTriplet(t) {
 		const setWord = (el, d) => {
 			if (!el) return;
@@ -291,7 +423,6 @@ const categories = [
 		setTimeout(() => {
 			idx = (idx + 1) % triplets.length;
 			applyTriplet(triplets[idx]);
-			updateDots();
 			[w1, w2, w3].forEach(w => w?.classList.remove('fade-out'));
 		}, 380);
 	}
@@ -303,7 +434,6 @@ const categories = [
 
 	if (triplets.length) {
 		applyTriplet(triplets[0]);
-		buildDots();
 		setInterval(cycle, 6000);
 	}
 </script>
@@ -405,10 +535,12 @@ const categories = [
 }
 
 .hero-headline {
-	font-family: 'Space Grotesk', sans-serif;
-	font-weight: 700;
+	font-family: 'Fraunces', serif;
+	font-weight: 800;
+	font-style: italic;
+	font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 	font-size: clamp(2.8rem, 7vw, 5.5rem);
-	line-height: 1.1;
+	line-height: 1.08;
 	letter-spacing: -0.02em;
 	color: #111111;
 	margin: 0 0 2rem;
@@ -473,31 +605,6 @@ const categories = [
 	background: #fde68a;
 }
 
-/* ─── Dots ────────────────────────────────────────────────── */
-.hero-dots {
-	display: flex;
-	gap: 6px;
-	justify-content: center;
-	margin-bottom: 2rem;
-}
-.dot {
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	border: none;
-	background: rgba(26, 26, 46, 0.15);
-	cursor: pointer;
-	padding: 0;
-	transition: all 0.3s ease;
-}
-.dot.active {
-	width: 20px;
-	border-radius: 3px;
-}
-.dot[data-color="indigo"].active { background: #6366f1; }
-.dot[data-color="teal"].active   { background: #14b8a6; }
-.dot[data-color="amber"].active  { background: #f59e0b; }
-
 /* ─── Hero nav pills ─────────────────────────────────────── */
 .hero-nav {
 	display: flex;
@@ -552,22 +659,15 @@ const categories = [
 	box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
 }
 
-/* ─── Hero line art ───────────────────────────────────────── */
-.hero-line-art {
+/* ─── Geometric canvas ────────────────────────────────────── */
+.hero-geo-canvas {
 	position: absolute;
-	right: 5%;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 320px;
-	height: 320px;
-	opacity: 0.6;
-	animation: spin-slow 60s linear infinite;
+	right: 0;
+	top: 0;
+	width: 45%;
+	height: 100%;
 	pointer-events: none;
-}
-
-@keyframes spin-slow {
-	from { transform: translateY(-50%) rotate(0deg); }
-	to   { transform: translateY(-50%) rotate(360deg); }
+	opacity: 0.85;
 }
 
 /* ─── Category sections ───────────────────────────────────── */
@@ -793,11 +893,11 @@ const categories = [
 
 /* ─── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1100px) {
-	.hero-line-art { width: 240px; height: 240px; right: 2%; }
+	.hero-geo-canvas { width: 38%; }
 }
 
 @media (max-width: 900px) {
-	.hero-line-art { display: none; }
+	.hero-geo-canvas { display: none; }
 	.hero { min-height: 65vh; padding: 5rem 2rem 3rem; }
 	.posts-grid { grid-template-columns: repeat(2, 1fr); }
 }
