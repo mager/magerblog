@@ -1,12 +1,257 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/images/mager.jpg"
->
-	<p>Hey there, I'm Mager, a software engineer at Uber—let's connect on <a href="https://x.com/mager">Twitter</a>!</p>
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`About — ${SITE_TITLE}`}
+			description="Software engineer, home cook, Chicago. I build things with AI, write about it, and cook dinner."
+		/>
+		<style>
+			body {
+				background: #faf8f5;
+				color: #1a1a2e;
+			}
+			main {
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 4rem 2rem 6rem;
+			}
+
+			/* ── Page header ──────────────────────────────── */
+			.about-eyebrow {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.72rem;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: #9ca3af;
+				margin: 0 0 1rem;
+			}
+
+			.about-headline {
+				font-family: 'Fraunces', serif;
+				font-weight: 800;
+				font-style: italic;
+				font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+				font-size: clamp(2.2rem, 5vw, 3.5rem);
+				line-height: 1.08;
+				letter-spacing: -0.02em;
+				color: #111;
+				margin: 0 0 2.5rem;
+			}
+			.about-headline em {
+				color: #6366f1;
+				font-style: italic;
+			}
+
+			/* ── Photo ────────────────────────────────────── */
+			.about-photo-wrap {
+				margin: 0 0 2.5rem;
+				border-radius: 20px;
+				overflow: hidden;
+				aspect-ratio: 16 / 7;
+				background: linear-gradient(135deg, #e0e7ff, #ccfbf1);
+			}
+			.about-photo {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center top;
+				display: block;
+				transition: transform 0.6s ease;
+			}
+			.about-photo-wrap:hover .about-photo {
+				transform: scale(1.02);
+			}
+
+			/* ── Body copy ────────────────────────────────── */
+			.about-body {
+				font-family: 'Atkinson Hyperlegible', 'Atkinson', sans-serif;
+				font-size: 1.05rem;
+				line-height: 1.75;
+				color: #374151;
+			}
+			.about-body p {
+				margin: 0 0 1.4rem;
+			}
+			.about-body p:last-child {
+				margin-bottom: 0;
+			}
+			.about-body a {
+				color: #6366f1;
+				text-decoration: underline;
+				text-decoration-color: rgba(99,102,241,0.3);
+				text-underline-offset: 3px;
+				transition: text-decoration-color 0.2s ease;
+			}
+			.about-body a:hover {
+				text-decoration-color: #6366f1;
+			}
+
+			/* ── Divider ──────────────────────────────────── */
+			.about-divider {
+				width: 40px;
+				height: 3px;
+				border-radius: 2px;
+				background: linear-gradient(90deg, #6366f1, #14b8a6);
+				margin: 2rem 0;
+				border: none;
+			}
+
+			/* ── Chips ────────────────────────────────────── */
+			.chips {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin: 1.5rem 0 0;
+			}
+			.chip {
+				font-family: 'Space Grotesk', sans-serif;
+				font-size: 0.8rem;
+				font-weight: 600;
+				padding: 0.3rem 0.75rem;
+				border-radius: 999px;
+				background: rgba(99,102,241,0.08);
+				color: #6366f1;
+				border: 1px solid rgba(99,102,241,0.15);
+			}
+			.chip.teal {
+				background: rgba(20,184,166,0.08);
+				color: #0d9488;
+				border-color: rgba(20,184,166,0.15);
+			}
+			.chip.amber {
+				background: rgba(245,158,11,0.08);
+				color: #d97706;
+				border-color: rgba(245,158,11,0.15);
+			}
+
+			/* ── Links row ────────────────────────────────── */
+			.about-links {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				margin-top: 2.5rem;
+			}
+			.about-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-family: 'Space Grotesk', sans-serif;
+				font-size: 0.9rem;
+				font-weight: 600;
+				text-decoration: none;
+				padding: 0.5rem 1.2rem;
+				border-radius: 999px;
+				border: 1.5px solid rgba(99,102,241,0.25);
+				color: #6366f1;
+				background: rgba(99,102,241,0.05);
+				transition: all 0.2s ease;
+			}
+			.about-link:hover {
+				background: rgba(99,102,241,0.1);
+				border-color: rgba(99,102,241,0.45);
+				transform: translateY(-1px);
+			}
+			.about-link.gh {
+				color: #1a1a2e;
+				border-color: rgba(26,26,46,0.2);
+				background: rgba(26,26,46,0.04);
+			}
+			.about-link.gh:hover {
+				background: rgba(26,26,46,0.08);
+				border-color: rgba(26,26,46,0.35);
+			}
+
+			@media (max-width: 600px) {
+				main { padding: 2.5rem 1.25rem 4rem; }
+				.about-headline { font-size: 2rem; }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="about-eyebrow">About</p>
+			<h1 class="about-headline">
+				Hi, I'm <em>Mager</em>.
+			</h1>
+
+			<div class="about-photo-wrap">
+				<img src="/images/mager.jpg" alt="Mager" class="about-photo" />
+			</div>
+
+			<div class="about-body">
+				<p>
+					I'm a software engineer based in Chicago. I've spent my career building products at places like
+					<a href="https://www.uber.com" target="_blank" rel="noopener">Uber</a>,
+					<a href="https://www.ning.com" target="_blank" rel="noopener">Ning</a>, and
+					<a href="https://simplegeo.com" target="_blank" rel="noopener">SimpleGeo</a> —
+					and these days I'm spending most of my time exploring what it actually means to build software with AI
+					as a first-class collaborator.
+				</p>
+
+				<p>
+					I write about the tools I'm using, the agents I'm building, and the experiments that work (and don't).
+					I'm obsessed with the craft of agentic engineering — not just the hype, but the real patterns:
+					context management, skill design, multi-agent coordination, eval loops.
+				</p>
+
+				<hr class="about-divider" />
+
+				<p>
+					Outside the terminal, I cook constantly. My wife and I treat our kitchen like a test environment —
+					always iterating, always refining. I post recipes here when something's worth writing down.
+					Dutch oven braises, soups, pasta, the occasional perfect steak.
+				</p>
+
+				<p>
+					I also travel when I can. The Sicily post is one of my favorites. Japan is next.
+				</p>
+
+				<hr class="about-divider" />
+
+				<p>
+					This blog is a personal log — written for me first, and for whoever finds it useful second.
+					I don't optimize for SEO or engagement. I write when something is worth saying.
+				</p>
+
+				<div class="chips">
+					<span class="chip">TypeScript</span>
+					<span class="chip">SvelteKit</span>
+					<span class="chip">Go</span>
+					<span class="chip">Claude Code</span>
+					<span class="chip">OpenClaw</span>
+					<span class="chip teal">Chicago</span>
+					<span class="chip amber">Home Cook</span>
+					<span class="chip teal">Japan-bound</span>
+				</div>
+
+				<div class="about-links">
+					<a href="https://x.com/mager" target="_blank" rel="noopener" class="about-link">
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+						</svg>
+						@mager
+					</a>
+					<a href="https://github.com/mager" target="_blank" rel="noopener" class="about-link gh">
+						<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+							<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+						</svg>
+						github/mager
+					</a>
+					<a href="https://loooom.xyz/me/mager" target="_blank" rel="noopener" class="about-link">
+						ME.md →
+					</a>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
