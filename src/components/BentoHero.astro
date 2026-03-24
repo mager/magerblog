@@ -14,20 +14,10 @@ const top3Code   = codePosts.slice(0, 3);
 const top3Life   = lifePosts.slice(0, 3);
 const top3Recipe = recipePosts.slice(0, 3);
 
-// Cycling words — pull keyword or smart extract from title
-function getKeyword(post: CollectionEntry<'blog'>): string {
-	if (post.data.keyword) return post.data.keyword;
-	const title = post.data.title;
-	const cleaned = title
-		.replace(/^(Building an?|My|The|How to|A Guide to|Visit to)\s+/i, '')
-		.replace(/,.*$/, '')
-		.replace(/\s+(with|using|in|on|for|from|and).*$/i, '');
-	return cleaned.split(' ').slice(0, 2).join(' ').toLowerCase();
-}
-
-const codeKeywords   = codePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'indigo' }));
-const lifeKeywords   = lifePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'teal' }));
-const recipeKeywords = recipePosts.slice(0, 3).map(p => ({ word: getKeyword(p), slug: p.id, color: 'amber' }));
+// All posts as marquee items
+const codeItems   = codePosts.map(p => ({ title: p.data.title, slug: p.id }));
+const lifeItems   = lifePosts.map(p => ({ title: p.data.title, slug: p.id }));
+const recipeItems = recipePosts.map(p => ({ title: p.data.title, slug: p.id }));
 
 const categories = [
 	{
@@ -52,6 +42,13 @@ const categories = [
 		posts: top3Recipe,
 	},
 ] as const;
+
+// Marquee strips config
+const marqueeStrips = [
+	{ items: codeItems,   color: 'indigo', label: 'Code',    href: '/code/',    direction: 'left'  },
+	{ items: lifeItems,   color: 'teal',   label: 'Life',    href: '/life/',    direction: 'right' },
+	{ items: recipeItems, color: 'amber',  label: 'Recipes', href: '/recipes/', direction: 'left'  },
+];
 ---
 
 <div class="homepage">
@@ -94,11 +91,7 @@ const categories = [
 	<section class="hero">
 		<div class="hero-inner">
 			<p class="hero-eyebrow">Always learning. Always eating. Chicago.</p>
-			<h1 class="hero-headline">
-				From <a href="#" class="word-cycle word-indigo" id="word-one">AI recommendations</a><br />
-				to <a href="#" class="word-cycle word-teal" id="word-two">Sicily</a><br />
-				to <a href="#" class="word-cycle word-amber" id="word-three">green curry</a>.
-			</h1>
+			<h1 class="hero-headline">mager<span class="hero-dot">.</span></h1>
 			<nav class="hero-nav" aria-label="Categories">
 				<a href="/code/"    class="hero-pill pill-indigo">Code</a>
 				<a href="/life/"    class="hero-pill pill-teal">Life</a>
@@ -108,6 +101,30 @@ const categories = [
 		<!-- Geometric objects -->
 		<canvas id="geo-canvas" class="hero-geo-canvas" aria-hidden="true"></canvas>
 	</section>
+
+	<!-- ══════════════════════ MARQUEE STRIPS ══════════════════════ -->
+	<div class="marquee-section">
+		{marqueeStrips.map((strip, si) => (
+			<div class={`marquee-row marquee-${strip.color} marquee-dir-${strip.direction}`}>
+				<a href={strip.href} class={`marquee-label label-${strip.color}`}>{strip.label}</a>
+				<div class="marquee-mask">
+					<div class={`marquee-track track-${strip.direction}`}>
+						{/* render twice for seamless loop */}
+						{[0, 1].map(() => (
+							<span class="marquee-inner" aria-hidden={si > 0 ? 'true' : undefined}>
+								{strip.items.map(item => (
+									<a href={`/blog/${item.slug}/`} class={`marquee-item mitem-${strip.color}`}>
+										{item.title}
+										<span class="marquee-sep" aria-hidden="true">·</span>
+									</a>
+								))}
+							</span>
+						))}
+					</div>
+				</div>
+			</div>
+		))}
+	</div>
 
 	<!-- ══════════════════════ CATEGORIES ══════════════════════ -->
 	<div class="sections-wrap">
@@ -154,7 +171,7 @@ const categories = [
 	</div>
 </div>
 
-<script define:vars={{ codeKeywords, lifeKeywords, recipeKeywords }}>
+<script define:vars={{ _unused: null }}>
 	// ── Mesh gradient canvas ────────────────────────────────
 	(function() {
 		const canvas = document.getElementById('mesh-canvas');
@@ -370,72 +387,12 @@ const categories = [
 		draw();
 	})();
 
-	// ── Word cycling ───────────────────────────────────────
-	const triplets = [];
-	codeKeywords.forEach((code, i) => {
-		const life   = lifeKeywords[i % lifeKeywords.length];
-		const recipe = recipeKeywords[i % recipeKeywords.length];
-		triplets.push({
-			one:   { word: code.word,   slug: code.slug,   color: 'indigo' },
-			two:   { word: life.word,   slug: life.slug,   color: 'teal'  },
-			three: { word: recipe.word, slug: recipe.slug, color: 'amber' },
-		});
+	// Marquee: pause on hover
+	document.querySelectorAll('.marquee-track').forEach(track => {
+		const row = track.closest('.marquee-row');
+		row?.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+		row?.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
 	});
-	recipeKeywords.forEach((recipe, i) => {
-		const code = codeKeywords[i % codeKeywords.length];
-		const life = lifeKeywords[i % lifeKeywords.length];
-		triplets.push({
-			one:   { word: recipe.word, slug: recipe.slug, color: 'amber' },
-			two:   { word: code.word,   slug: code.slug,   color: 'indigo' },
-			three: { word: life.word,   slug: life.slug,   color: 'teal'  },
-		});
-	});
-	lifeKeywords.forEach((life, i) => {
-		const recipe = recipeKeywords[i % recipeKeywords.length];
-		const code   = codeKeywords[i % codeKeywords.length];
-		triplets.push({
-			one:   { word: life.word,   slug: life.slug,   color: 'teal'  },
-			two:   { word: recipe.word, slug: recipe.slug, color: 'amber' },
-			three: { word: code.word,   slug: code.slug,   color: 'indigo' },
-		});
-	});
-
-	let idx = 0;
-	let paused = false;
-	const w1 = document.getElementById('word-one');
-	const w2 = document.getElementById('word-two');
-	const w3 = document.getElementById('word-three');
-	function applyTriplet(t) {
-		const setWord = (el, d) => {
-			if (!el) return;
-			el.textContent = d.word;
-			el.href = `/blog/${d.slug}/`;
-			el.className = `word-cycle word-${d.color}`;
-		};
-		setWord(w1, t.one);
-		setWord(w2, t.two);
-		setWord(w3, t.three);
-	}
-
-	function cycle() {
-		if (paused) return;
-		[w1, w2, w3].forEach(w => w?.classList.add('fade-out'));
-		setTimeout(() => {
-			idx = (idx + 1) % triplets.length;
-			applyTriplet(triplets[idx]);
-			[w1, w2, w3].forEach(w => w?.classList.remove('fade-out'));
-		}, 380);
-	}
-
-	[w1, w2, w3].forEach(w => {
-		w?.addEventListener('mouseenter', () => { paused = true; });
-		w?.addEventListener('mouseleave', () => { paused = false; });
-	});
-
-	if (triplets.length) {
-		applyTriplet(triplets[0]);
-		setInterval(cycle, 6000);
-	}
 </script>
 
 <style>
@@ -546,63 +503,107 @@ const categories = [
 	margin: 0 0 2rem;
 }
 
-/* ─── Cycling words ───────────────────────────────────────── */
-.word-cycle {
-	display: inline;
-	text-decoration: none;
-	transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
-	cursor: pointer;
-	position: relative;
-}
-.word-cycle::after {
-	content: '';
-	position: absolute;
-	bottom: 2px;
-	left: 0;
-	width: 100%;
-	height: 6px;
-	border-radius: 3px;
-	opacity: 0.3;
-	transform: scaleX(0);
-	transform-origin: right;
-	transition: transform 0.3s ease;
-}
-.word-cycle:hover::after {
-	transform: scaleX(1);
-	transform-origin: left;
-}
-.word-cycle.fade-out {
-	opacity: 0;
-	transform: translateY(-8px);
-	filter: blur(4px);
-}
-
-@keyframes wordSlideIn {
-	from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
-	to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
-}
-.word-cycle:not(.fade-out) {
-	animation: wordSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Word colors — rich and warm on light bg */
-.word-indigo {
+/* ─── Hero headline ───────────────────────────────────────── */
+.hero-dot {
 	color: #6366f1;
 }
-.word-indigo::after {
-	background: #c7d2fe;
+
+/* ─── Marquee strips ─────────────────────────────────────── */
+.marquee-section {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding: 0.25rem 0 2rem;
 }
-.word-teal {
-	color: #0d9488;
+
+.marquee-row {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 0.6rem 0;
+	border-top: 1px solid rgba(26, 26, 46, 0.06);
+	overflow: hidden;
+	position: relative;
 }
-.word-teal::after {
-	background: #99f6e4;
+.marquee-row:last-child {
+	border-bottom: 1px solid rgba(26, 26, 46, 0.06);
 }
-.word-amber {
-	color: #d97706;
+
+.marquee-label {
+	flex-shrink: 0;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.68rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	padding: 0.25rem 1rem 0.25rem 1.5rem;
+	text-decoration: none;
+	border-right: 1px solid rgba(26, 26, 46, 0.08);
+	margin-right: 1rem;
+	min-width: 80px;
+	transition: opacity 0.2s ease;
 }
-.word-amber::after {
-	background: #fde68a;
+.marquee-label:hover { opacity: 0.7; }
+.label-indigo { color: #6366f1; }
+.label-teal   { color: #0d9488; }
+.label-amber  { color: #d97706; }
+
+.marquee-mask {
+	flex: 1;
+	overflow: hidden;
+	mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+}
+
+.marquee-track {
+	display: flex;
+	width: max-content;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+.track-left  { animation-name: marquee-left;  animation-duration: 40s; }
+.track-right { animation-name: marquee-right; animation-duration: 44s; }
+
+@keyframes marquee-left {
+	from { transform: translateX(0); }
+	to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+	from { transform: translateX(-50%); }
+	to   { transform: translateX(0); }
+}
+
+.marquee-inner {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+
+.marquee-item {
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 0.95rem;
+	font-weight: 500;
+	text-decoration: none;
+	padding: 0.1rem 0;
+	transition: opacity 0.2s ease;
+	color: #3a3a5c;
+}
+.marquee-item:hover { opacity: 0.6; }
+.mitem-indigo:hover { color: #6366f1; }
+.mitem-teal:hover   { color: #0d9488; }
+.mitem-amber:hover  { color: #d97706; }
+
+.marquee-sep {
+	margin: 0 1rem;
+	color: #d1d5db;
+	font-weight: 300;
+	font-size: 1.1rem;
 }
 
 /* ─── Hero nav pills ─────────────────────────────────────── */
