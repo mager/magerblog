@@ -35,8 +35,7 @@ for (let i = 0; i < maxLen; i++) {
 	if (foodAll[i]) allItems.push(foodAll[i]);
 }
 
-// Row 2 starts mid-pool for visual offset
-const row2Items = [...allItems.slice(Math.floor(allItems.length / 2)), ...allItems.slice(0, Math.floor(allItems.length / 2))];
+
 ---
 
 <div class="homepage">
@@ -97,33 +96,12 @@ const row2Items = [...allItems.slice(Math.floor(allItems.length / 2)), ...allIte
 
 	<!-- ══════════════════════ UNIFIED MARQUEE ══════════════════════ -->
 	<div class="marquee-zone" id="marquee-zone">
-		<!-- Row 1 — scrolls left -->
 		<div class="mq-row">
 			<div class="mq-mask">
 				<div class="mq-track mq-left" id="mq-track-1">
 					{[0, 1].map(pass => (
 						<span class="mq-inner" aria-hidden={pass > 0 ? 'true' : undefined}>
 							{allItems.map(item => (
-								<a href={`/blog/${item.slug}/`} class={`mq-item cat-${item.cat}`}>
-									<span class={`mq-badge badge-${item.cat}`}>
-										{item.cat === 'code' ? 'Code' : item.cat === 'life' ? 'Life' : 'Recipes'}
-									</span>
-									{item.title}
-									<span class="mq-bullet" aria-hidden="true">◆</span>
-								</a>
-							))}
-						</span>
-					))}
-				</div>
-			</div>
-		</div>
-		<!-- Row 2 — scrolls right, offset start -->
-		<div class="mq-row mq-row-2">
-			<div class="mq-mask">
-				<div class="mq-track mq-right" id="mq-track-2">
-					{[0, 1].map(pass => (
-						<span class="mq-inner" aria-hidden={pass > 0 ? 'true' : undefined}>
-							{row2Items.map(item => (
 								<a href={`/blog/${item.slug}/`} class={`mq-item cat-${item.cat}`}>
 									<span class={`mq-badge badge-${item.cat}`}>
 										{item.cat === 'code' ? 'Code' : item.cat === 'life' ? 'Life' : 'Recipes'}
@@ -406,11 +384,9 @@ const row2Items = [...allItems.slice(Math.floor(allItems.length / 2)), ...allIte
 	const t2 = document.getElementById('mq-track-2');
 	zone?.addEventListener('mouseenter', () => {
 		if (t1) t1.style.animationPlayState = 'paused';
-		if (t2) t2.style.animationPlayState = 'paused';
 	});
 	zone?.addEventListener('mouseleave', () => {
 		if (t1) t1.style.animationPlayState = 'running';
-		if (t2) t2.style.animationPlayState = 'running';
 	});
 </script>
 
@@ -544,10 +520,6 @@ const row2Items = [...allItems.slice(Math.floor(allItems.length / 2)), ...allIte
 	border-bottom: 1px solid rgba(26, 26, 46, 0.07);
 }
 
-/* Slight background tint on row 2 for depth */
-.mq-row-2 {
-	background: rgba(99, 102, 241, 0.018);
-}
 
 .mq-mask {
 	overflow: hidden;
@@ -561,16 +533,11 @@ const row2Items = [...allItems.slice(Math.floor(allItems.length / 2)), ...allIte
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 }
-.mq-left  { animation-name: mq-scroll-left;  animation-duration: 90s; }
-.mq-right { animation-name: mq-scroll-right; animation-duration: 96s; }
+.mq-left { animation-name: mq-scroll-left; animation-duration: 90s; }
 
 @keyframes mq-scroll-left {
 	from { transform: translateX(0); }
 	to   { transform: translateX(-50%); }
-}
-@keyframes mq-scroll-right {
-	from { transform: translateX(-50%); }
-	to   { transform: translateX(0); }
 }
 
 .mq-inner {
