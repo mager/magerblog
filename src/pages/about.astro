@@ -132,10 +132,53 @@ import { SITE_TITLE } from '../consts';
 				border-color: rgba(245,158,11,0.15);
 			}
 
+			/* ── Projects grid ────────────────────────────── */
+			.projects-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 0.75rem;
+				margin: 1.5rem 0 0;
+			}
+			.project-card {
+				display: flex;
+				flex-direction: column;
+				gap: 0.25rem;
+				padding: 1rem 1.1rem;
+				border-radius: 12px;
+				border: 1px solid rgba(26,26,46,0.07);
+				background: rgba(255,255,255,0.6);
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
+			.project-card:hover {
+				border-color: rgba(99,102,241,0.25);
+				background: rgba(255,255,255,0.9);
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(99,102,241,0.07);
+			}
+			.project-name {
+				font-family: 'Space Grotesk', sans-serif;
+				font-size: 0.9rem;
+				font-weight: 700;
+				color: #1a1a2e;
+			}
+			.project-desc {
+				font-family: 'Atkinson Hyperlegible', 'Atkinson', sans-serif;
+				font-size: 0.8rem;
+				color: #6b7280;
+				line-height: 1.4;
+			}
+			.project-url {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.65rem;
+				color: #6366f1;
+				margin-top: 0.15rem;
+			}
+
 			/* ── Links row ────────────────────────────────── */
 			.about-links {
 				display: flex;
-				gap: 1rem;
+				gap: 0.75rem;
 				flex-wrap: wrap;
 				margin-top: 2.5rem;
 			}
@@ -144,10 +187,10 @@ import { SITE_TITLE } from '../consts';
 				align-items: center;
 				gap: 0.4rem;
 				font-family: 'Space Grotesk', sans-serif;
-				font-size: 0.9rem;
+				font-size: 0.88rem;
 				font-weight: 600;
 				text-decoration: none;
-				padding: 0.5rem 1.2rem;
+				padding: 0.5rem 1.1rem;
 				border-radius: 999px;
 				border: 1.5px solid rgba(99,102,241,0.25);
 				color: #6366f1;
@@ -170,8 +213,17 @@ import { SITE_TITLE } from '../consts';
 			}
 
 			@media (max-width: 600px) {
-				main { padding: 2.5rem 1.25rem 4rem; }
-				.about-headline { font-size: 2rem; }
+				main {
+					padding: 2rem 1.25rem calc(80px + 2rem);
+				}
+				.about-headline { font-size: 1.9rem; }
+				.about-photo-wrap { aspect-ratio: 4 / 3; border-radius: 14px; }
+				.about-body { font-size: 0.97rem; }
+				.projects-grid { grid-template-columns: 1fr; }
+				.chips { gap: 0.4rem; }
+				.chip { font-size: 0.75rem; }
+				.about-links { gap: 0.5rem; }
+				.about-link { font-size: 0.82rem; padding: 0.45rem 1rem; }
 			}
 		</style>
 	</head>
@@ -189,31 +241,62 @@ import { SITE_TITLE } from '../consts';
 
 			<div class="about-body">
 				<p>
-					I'm a software engineer based in Chicago. I've spent my career building products at places like
-					<a href="https://www.uber.com" target="_blank" rel="noopener">Uber</a>,
-					<a href="https://www.ning.com" target="_blank" rel="noopener">Ning</a>, and
-					<a href="https://simplegeo.com" target="_blank" rel="noopener">SimpleGeo</a> —
-					and these days I'm spending most of my time exploring what it actually means to build software with AI
+					I'm a software engineer based in Chicago. Over the years I've built products at
+					<a href="https://cnet.com" target="_blank" rel="noopener">CNET</a>,
+					<a href="https://www.ning.com" target="_blank" rel="noopener">Ning</a>,
+					<a href="https://simplegeo.com" target="_blank" rel="noopener">SimpleGeo</a>,
+					<a href="https://www.spotify.com" target="_blank" rel="noopener">Spotify</a>,
+					<a href="https://www.smartthings.com" target="_blank" rel="noopener">SmartThings</a>, and
+					<a href="https://www.uber.com" target="_blank" rel="noopener">Uber</a>.
+					These days I spend most of my time exploring what it actually means to build software with AI
 					as a first-class collaborator.
 				</p>
 
 				<p>
 					I write about the tools I'm using, the agents I'm building, and the experiments that work (and don't).
-					I'm obsessed with the craft of agentic engineering — not just the hype, but the real patterns:
-					context management, skill design, multi-agent coordination, eval loops.
+					I'm obsessed with the craft of agentic engineering — context management, skill design,
+					multi-agent coordination, eval loops. The real stuff, not the hype.
 				</p>
 
 				<hr class="about-divider" />
 
 				<p>
 					Outside the terminal, I cook constantly. My wife and I treat our kitchen like a test environment —
-					always iterating, always refining. I post recipes here when something's worth writing down.
-					Dutch oven braises, soups, pasta, the occasional perfect steak.
+					always iterating, always refining. Dutch oven braises, soups, pasta, the occasional tomahawk steak.
 				</p>
 
 				<p>
-					I also travel when I can. The Sicily post is one of my favorites. Japan is next.
+					I also travel when I can. The Sicily post is one of my favorites on this blog. Japan is next.
 				</p>
+
+				<hr class="about-divider" />
+
+				<p>
+					Things I'm currently building:
+				</p>
+
+				<div class="projects-grid">
+					<a href="https://loooom.xyz" target="_blank" rel="noopener" class="project-card">
+						<span class="project-name">Loooom</span>
+						<span class="project-desc">Claude Code plugin marketplace + ME.md human context protocol</span>
+						<span class="project-url">loooom.xyz</span>
+					</a>
+					<a href="https://prxps.com" target="_blank" rel="noopener" class="project-card">
+						<span class="project-name">prxps</span>
+						<span class="project-desc">AI-powered sports predictions and bracket analysis</span>
+						<span class="project-url">prxps.com</span>
+					</a>
+					<a href="https://beatbrain.xyz" target="_blank" rel="noopener" class="project-card">
+						<span class="project-name">BeatBrain</span>
+						<span class="project-desc">Music discovery agent — finds what's worth hearing</span>
+						<span class="project-url">beatbrain.xyz</span>
+					</a>
+					<a href="https://mager.co" target="_blank" rel="noopener" class="project-card">
+						<span class="project-name">mager.co</span>
+						<span class="project-desc">This blog — code, recipes, and everything in between</span>
+						<span class="project-url">mager.co</span>
+					</a>
+				</div>
 
 				<hr class="about-divider" />
 
