@@ -14,26 +14,22 @@ const top3Code   = codePosts.slice(0, 3);
 const top3Life   = lifePosts.slice(0, 3);
 const top3Recipe = recipePosts.slice(0, 3);
 
+// Latest post from each category for the hero preview strip
+const latestCode   = codePosts[0]   ?? null;
+const latestLife   = lifePosts[0]   ?? null;
+const latestRecipe = recipePosts[0] ?? null;
+
+const latestPosts = [
+	{ post: latestCode,   label: 'Code',    href: '/code/',    color: 'indigo' as const },
+	{ post: latestLife,   label: 'Life',    href: '/life/',    color: 'teal'   as const },
+	{ post: latestRecipe, label: 'Recipes', href: '/recipes/', color: 'amber'  as const },
+].filter(item => item.post !== null);
+
 const categories = [
 	{ key: 'code',  label: 'Code',    href: '/code/',    color: 'indigo', posts: top3Code   },
 	{ key: 'life',  label: 'Life',    href: '/life/',    color: 'teal',   posts: top3Life   },
 	{ key: 'food',  label: 'Recipes', href: '/recipes/', color: 'amber',  posts: top3Recipe },
 ] as const;
-
-// Build one interleaved pool of all posts for the unified marquee
-type MarqueeItem = { title: string; slug: string; cat: 'code' | 'life' | 'food' };
-const codeAll:   MarqueeItem[] = codePosts.map(p  => ({ title: p.data.title, slug: p.id, cat: 'code' }));
-const lifeAll:   MarqueeItem[] = lifePosts.map(p  => ({ title: p.data.title, slug: p.id, cat: 'life' }));
-const foodAll:   MarqueeItem[] = recipePosts.map(p => ({ title: p.data.title, slug: p.id, cat: 'food' }));
-
-// Interleave code/life/food so the mix is visible across the strip
-const maxLen = Math.max(codeAll.length, lifeAll.length, foodAll.length);
-const allItems: MarqueeItem[] = [];
-for (let i = 0; i < maxLen; i++) {
-	if (codeAll[i]) allItems.push(codeAll[i]);
-	if (lifeAll[i]) allItems.push(lifeAll[i]);
-	if (foodAll[i]) allItems.push(foodAll[i]);
-}
 
 
 ---
@@ -78,11 +74,11 @@ for (let i = 0; i < maxLen; i++) {
 	<section class="hero">
 		<div class="hero-inner">
 			<h1 class="hero-headline">
-				Building things.<br />
-				<em>Eating everything.</em>
+				Always learning.<br />
+				<em>Always eating.</em>
 			</h1>
 			<p class="hero-sub">
-				Software, recipes, and the occasional rabbit hole —&nbsp;from Chicago.
+				Code, cooking, and life from Chicago.
 			</p>
 			<nav class="hero-nav" aria-label="Categories">
 				<a href="/code/"    class="hero-pill pill-indigo">Code</a>
@@ -94,25 +90,24 @@ for (let i = 0; i < maxLen; i++) {
 		<canvas id="geo-canvas" class="hero-geo-canvas" aria-hidden="true"></canvas>
 	</section>
 
-	<!-- ══════════════════════ UNIFIED MARQUEE ══════════════════════ -->
-	<div class="marquee-zone" id="marquee-zone">
-		<div class="mq-row">
-			<div class="mq-mask">
-				<div class="mq-track mq-left" id="mq-track-1">
-					{[0, 1].map(pass => (
-						<span class="mq-inner" aria-hidden={pass > 0 ? 'true' : undefined}>
-							{allItems.map(item => (
-								<a href={`/blog/${item.slug}/`} class={`mq-item cat-${item.cat}`}>
-									<span class={`mq-badge badge-${item.cat}`}>
-										{item.cat === 'code' ? 'Code' : item.cat === 'life' ? 'Life' : 'Recipes'}
-									</span>
-									{item.title}
-									<span class="mq-bullet" aria-hidden="true">◆</span>
-								</a>
-							))}
-						</span>
-					))}
-				</div>
+	<!-- ══════════════════════ LATEST POSTS STRIP ══════════════════════ -->
+	<div class="latest-strip">
+		<div class="latest-inner">
+			<p class="latest-label">Latest</p>
+			<div class="latest-grid">
+				{latestPosts.map(({ post, label, href, color }) => post && (
+					<a href={`/blog/${post.id}/`} class={`latest-card lc-${color}`}>
+						<div class="lc-category">
+							<span class={`lc-dot dot-${color}`}></span>
+							<span class="lc-cat-name">{label}</span>
+						</div>
+						<p class="lc-title">{post.data.title}</p>
+						{post.data.description && (
+							<p class="lc-desc">{post.data.description}</p>
+						)}
+						<span class={`lc-read read-${color}`}>Read →</span>
+					</a>
+				))}
 			</div>
 		</div>
 	</div>
@@ -378,16 +373,7 @@ for (let i = 0; i < maxLen; i++) {
 		draw();
 	})();
 
-	// Marquee: pause both tracks on hover over the zone
-	const zone = document.getElementById('marquee-zone');
-	const t1 = document.getElementById('mq-track-1');
-	const t2 = document.getElementById('mq-track-2');
-	zone?.addEventListener('mouseenter', () => {
-		if (t1) t1.style.animationPlayState = 'paused';
-	});
-	zone?.addEventListener('mouseleave', () => {
-		if (t1) t1.style.animationPlayState = 'running';
-	});
+	// No marquee — nothing to wire up here.
 </script>
 
 <style>
@@ -499,94 +485,129 @@ for (let i = 0; i < maxLen; i++) {
 	line-height: 1.6;
 }
 
-/* ─── Unified marquee zone ────────────────────────────────── */
-.marquee-zone {
+/* ─── Latest posts strip ──────────────────────────────────── */
+.latest-strip {
 	position: relative;
 	z-index: 1;
 	width: 100%;
-	padding: 0.5rem 0 2.5rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0;
+	padding: 0 0 3rem;
 }
 
-.mq-row {
-	width: 100%;
-	overflow: hidden;
-	padding: 0.85rem 0;
-	border-top: 1px solid rgba(26, 26, 46, 0.07);
-}
-.mq-row:last-child {
-	border-bottom: 1px solid rgba(26, 26, 46, 0.07);
+.latest-inner {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 2rem;
 }
 
-
-.mq-mask {
-	overflow: hidden;
-	mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-}
-
-.mq-track {
-	display: flex;
-	width: max-content;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-}
-.mq-left { animation-name: mq-scroll-left; animation-duration: 90s; }
-
-@keyframes mq-scroll-left {
-	from { transform: translateX(0); }
-	to   { transform: translateX(-50%); }
-}
-
-.mq-inner {
-	display: flex;
-	align-items: center;
-}
-
-.mq-item {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.6rem;
-	white-space: nowrap;
-	text-decoration: none;
-	font-family: 'Space Grotesk', sans-serif;
-	font-size: clamp(1rem, 1.6vw, 1.2rem);
-	font-weight: 500;
-	color: #2d2d4e;
-	padding: 0.15rem 0;
-	margin-right: 2rem;
-	transition: color 0.2s ease;
-}
-.mq-item:hover { color: #1a1a2e; }
-.cat-code:hover  { color: #6366f1; }
-.cat-life:hover  { color: #0d9488; }
-.cat-food:hover  { color: #d97706; }
-
-/* inline category badge */
-.mq-badge {
+.latest-label {
 	font-family: 'JetBrains Mono', monospace;
-	font-size: 0.6rem;
+	font-size: 0.7rem;
 	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.09em;
-	padding: 0.18rem 0.5rem;
-	border-radius: 4px;
-	flex-shrink: 0;
-	vertical-align: middle;
+	letter-spacing: 0.12em;
+	color: #9ca3af;
+	margin: 0 0 1rem;
 }
-.badge-code   { color: #6366f1; background: rgba(99,102,241,0.1);  }
-.badge-life   { color: #0d9488; background: rgba(20,184,166,0.1);  }
-.badge-food   { color: #d97706; background: rgba(245,158,11,0.1);  }
 
-/* separator bullet between items */
-.mq-bullet {
-	margin-left: 2rem;
-	color: #e5e7eb;
-	font-size: 0.45rem;
+.latest-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+}
+
+.latest-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.25rem 1.35rem 1.1rem;
+	background: rgba(255, 255, 255, 0.65);
+	border: 1px solid rgba(26, 26, 46, 0.07);
+	border-radius: 14px;
+	text-decoration: none;
+	color: inherit;
+	backdrop-filter: blur(10px);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+				box-shadow 0.3s ease,
+				border-color 0.3s ease;
+}
+.latest-card:hover {
+	transform: translateY(-3px);
+}
+.lc-indigo:hover {
+	border-color: rgba(99, 102, 241, 0.25);
+	box-shadow: 0 8px 32px -4px rgba(99, 102, 241, 0.12);
+}
+.lc-teal:hover {
+	border-color: rgba(20, 184, 166, 0.25);
+	box-shadow: 0 8px 32px -4px rgba(20, 184, 166, 0.12);
+}
+.lc-amber:hover {
+	border-color: rgba(245, 158, 11, 0.25);
+	box-shadow: 0 8px 32px -4px rgba(245, 158, 11, 0.12);
+}
+
+.lc-category {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+}
+
+.lc-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
 	flex-shrink: 0;
 }
+.dot-indigo { background: #6366f1; }
+.dot-teal   { background: #14b8a6; }
+.dot-amber  { background: #f59e0b; }
+
+.lc-cat-name {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.65rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	color: #9ca3af;
+}
+
+.lc-title {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.35;
+	color: #1a1a2e;
+	margin: 0;
+	transition: color 0.2s ease;
+}
+.lc-indigo:hover .lc-title { color: #6366f1; }
+.lc-teal:hover   .lc-title { color: #0d9488; }
+.lc-amber:hover  .lc-title { color: #d97706; }
+
+.lc-desc {
+	font-family: 'Atkinson', sans-serif;
+	font-size: 0.82rem;
+	color: #6b7280;
+	line-height: 1.55;
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.lc-read {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.72rem;
+	font-weight: 600;
+	margin-top: 0.25rem;
+	transition: opacity 0.2s;
+	opacity: 0;
+}
+.latest-card:hover .lc-read { opacity: 1; }
+.read-indigo { color: #6366f1; }
+.read-teal   { color: #0d9488; }
+.read-amber  { color: #d97706; }
 
 /* ─── Hero nav pills ─────────────────────────────────────── */
 .hero-nav {
@@ -894,18 +915,18 @@ for (let i = 0; i < maxLen; i++) {
 	.hero-geo-canvas { display: none; }
 	.hero { padding: 4rem 2rem 2.5rem; }
 	.posts-grid { grid-template-columns: repeat(2, 1fr); }
-	.mq-item { font-size: 0.95rem; }
+	.latest-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
 	.hero { padding: 3.5rem 1.25rem 2rem; }
 	.hero-headline { font-size: 2rem; }
 	.posts-grid { grid-template-columns: 1fr; }
+	.latest-grid { grid-template-columns: 1fr; }
 	.hero-nav { gap: 0.5rem; }
 	.hero-pill { font-size: 0.82rem; padding: 0.45rem 1.1rem; }
 	.cat-inner { padding: 0 1.25rem; }
+	.latest-inner { padding: 0 1.25rem; }
 	.blob { width: 300px; height: 300px; }
-	.mq-item { font-size: 0.88rem; }
-	.mq-badge { display: none; }
 }
 </style>
