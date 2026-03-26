@@ -1,143 +1,101 @@
 ---
-title: "beatbrain v2: From 3-Second Loads to 200ms — A Backend Rewrite"
+title: "beatbrain: 3 Seconds to 200ms"
 pubDate: "2026-03-25"
-description: "How I rebuilt the beatbrain backend with parallel fetching, Firestore caching, and Claude's impeccable design skills. What used to take 2-3 months now takes an afternoon."
+description: "I rebuilt the beatbrain backend in an afternoon. Parallel fetching, Firestore caching, and a podcast discovery engine that indexes 100+ categories. Here's the whole story."
 category: "code"
 tags: ["Go", "Music", "AI", "Performance", "Side Projects"]
-keyword: "beatbrain v2 backend rewrite"
+keyword: "beatbrain backend rewrite"
 heroImage: ""
 draft: false
 ---
 
-I built the first version of [beatbrain](https://beatbrain.xyz) the hard way. Three months of stitching together Go code, copying and pasting into Google AI Studio, uploading entire zip files to get help with debugging. The backend worked, but it was slow — track pages took 2-3 seconds to load as I made sequential API calls to Spotify and MusicBrainz.
+I built the first version of [beatbrain](https://beatbrain.xyz)'s backend in late 2024. It took me 2-3 months. I was stitching together Go code by hand, copy-pasting entire files into Google AI Studio, and at one point I literally uploaded a zip of the whole project because I couldn't figure out a MusicBrainz parsing issue. It worked. Barely.
 
-This week I rewrote the backend from scratch. Track pages now load in 100-200ms. That's not a typo. Here's how it happened.
+This week I rewrote the whole thing in an afternoon. Track pages went from 2-3 second loads to 100-200ms. Here's what happened.
 
-## The Old Way: Sequential and Painful
+## The old backend was a waterfall
 
-The v1 backend was straightforward but naive:
+The backend service is called [occipital](https://github.com/mager/occipital) — named after the part of your brain that processes visual information. It's a Go service running on Cloud Run with [Uber FX](https://uber-go.github.io/fx/) for dependency injection.
 
-1. Call Spotify API for track info
-2. Wait for response
-3. Call Spotify API for audio features
-4. Wait for response
-5. Call Spotify API for audio analysis
-6. Wait for response
-7. Call MusicBrainz API for credits and genres
-8. Wait for response
-9. Call MusicBrainz API for work info
-10. Wait for response
-11. Assemble and return
+The v1 track endpoint did everything sequentially:
 
-Each API call was 200-500ms. Stack them sequentially and you're looking at 2-3 seconds before the user sees anything. And if MusicBrainz was having a slow day? Forget about it.
+1. Call Spotify for track info. Wait.
+2. Call Spotify for audio features. Wait.
+3. Call Spotify for audio analysis. Wait.
+4. Use the ISRC to search MusicBrainz. Wait.
+5. Fetch the full recording with credits. Wait.
+6. Look up the associated work for songwriting credits. Wait.
+7. Assemble everything. Return.
 
-The code was also brittle — I remember spending entire weekends debugging why a particular track wouldn't load, tracing through chains of API calls that would fail silently halfway through.
+Each call is 200-500ms. Stack six of them and you're at 2-3 seconds. If MusicBrainz was having a bad day, it could be worse.
 
-## The New Way: Parallel, Cached, and Fast
+I remember staring at the Chrome devtools waterfall thinking "this is fine, I'll optimize later." Later took a year.
 
-The v2 backend is a completely different beast. Same APIs, radically different approach:
+## The v2 endpoint fans out everything
 
-**Parallel fetching.** All three Spotify calls (track info, audio features, audio analysis) fire simultaneously. The MusicBrainz calls start as soon as the ISRC comes back from Spotify. What used to be a waterfall is now a fan-out that completes in the time of the slowest single call.
+The insight is obvious in retrospect: most of these calls don't depend on each other. The three Spotify calls can all fire at the same time. The MusicBrainz chain only needs the ISRC, which comes back from the first Spotify call.
 
-**Intelligent caching.** Every track gets cached in Firestore for 7 days. The cache key is the Spotify ID, so repeated visits are served instantly without hitting any external APIs. Cache hits are sub-50ms.
-
-**Graceful degradation.** If MusicBrainz is down, you still get the Spotify data. If audio analysis isn't available, you get everything else. No more broken pages.
-
-The result: 100-200ms for cache misses, sub-50ms for cache hits. A 10-20x speedup.
-
-## The Architecture
-
-I kept the Go + Uber FX stack — it's solid for dependency injection and modular handlers. But I rewrote the track handler from the ground up:
+So v2 uses goroutines and a channel:
 
 ```go
-// v2: Parallel fetch with goroutines and channels
-func (h *GetTrackV2Handler) fetchParallel(ctx context.Context, spotifyId string) occipital.Track {
-    // isrcCh carries ISRC from GetTrack to MB goroutine
-    isrcCh := make(chan string, 1)
-    
-    var wg sync.WaitGroup
-    
-    // Spotify calls — all concurrent
-    wg.Add(1)
-    go fetchTrack(ctx, spotifyId, isrcCh)
-    
-    wg.Add(1)
-    go fetchAudioFeatures(ctx, spotifyId)
-    
-    wg.Add(1)
-    go fetchAudioAnalysis(ctx, spotifyId)
-    
-    // MB calls — starts when ISRC arrives
-    wg.Add(1)
-    go fetchMusicBrainzData(isrcCh)
-    
-    wg.Wait()
-    // Assemble track from concurrent results
-}
+isrcCh := make(chan string, 1)
+
+// These three fire simultaneously
+go fetchTrack(ctx, spotifyId, isrcCh)    // sends ISRC when ready
+go fetchAudioFeatures(ctx, spotifyId)
+go fetchAudioAnalysis(ctx, spotifyId)
+
+// This starts as soon as the ISRC arrives
+go fetchMusicBrainzData(isrcCh)
+
+wg.Wait()
 ```
 
-The key insight: the ISRC is the bridge between Spotify and MusicBrainz. As soon as we have it, the MB goroutine starts. Everything else runs in parallel. No blocking until the final assembly.
+The ISRC channel is the clever bit. The Spotify `GetTrack` goroutine sends the ISRC as soon as it has it, and the MusicBrainz goroutine is already waiting on the other end. No polling. No sleeps. Just a buffered channel connecting two concurrent pipelines.
 
-## Building Faster with AI
+Total wall-clock time: however long the slowest single call takes. Usually 300-500ms for a cache miss.
 
-Here's what surprised me most: the rewrite took one afternoon. Not weeks. One afternoon.
+## Firestore caching makes it instant
 
-I used Claude Code with the impeccable design skills I've been developing. Instead of copy-pasting into Google AI Studio like I did for v1, I worked directly in the codebase with an agent that understands Go concurrency, Uber FX, and the existing patterns.
+But 300ms felt like a lot for tracks people look up repeatedly. So I added a Firestore cache with a 7-day TTL.
 
-The workflow looked like this:
+First request: fan out all the API calls, assemble the track, fire-and-forget the cache write (so it doesn't block the response), return in ~300ms.
 
-1. "Build a parallel track fetcher that starts MB calls as soon as ISRC is available"
-2. "Add Firestore caching with a 7-day TTL"
-3. "Make sure cache writes are fire-and-forget so they don't block the response"
+Second request: read from Firestore, deserialize, return. Sub-50ms.
 
-Each request was a conversation. I'd review the code, ask for tweaks, and iterate. The agent understood context — it knew the existing Spotify client, the MusicBrainz types, the response format the frontend expected. No need to explain the codebase from scratch each time.
+The cache write is its own goroutine — `go h.saveToCache(context.Background(), ...)` — so the user never waits for it. If it fails, no big deal, we'll just fetch fresh next time.
 
-## The Design Refresh
+## Podcasts from 100+ categories
 
-While the backend was getting faster, the frontend got a redesign. I used the same impeccable skills approach — instead of spending days tweaking CSS, I described what I wanted:
+While I was in the backend, I built out podcast discovery. The scraper (called [melodex](https://github.com/mager/melodex)) already indexed music from Spotify New Releases, Reddit's [FRESH] tag, Billboard, and HotNewHipHop. I added a podcast pipeline that hits Spotify's catalog across 100+ categories.
 
-- "Dark terminal aesthetic like a music production DAW"
-- "Audio DNA section showing the track's characteristics"
-- "Loudness map visualizing the dynamic range"
-- "Credits that look like liner notes"
+And I mean *weird* categories. Linguistics. Cybersecurity. DJing. Philosophy. Firefighting. Spotify has a category for firefighting podcasts and I indexed all of them.
 
-The result is a site that feels intentional. Every section has purpose. The typography is tight, the spacing is consistent, and the color palette (deep blacks, phosphor greens, warm accents) matches the music-tech vibe.
+The shows land in Firestore, and the frontend has a new `/podcasts` page where you can browse by category. Same social layer as music — share your favorites, see what friends are listening to.
 
-## Podcast Discovery
+## Building with Claude
 
-The redesign included a new feature: podcast discovery. beatbrain now indexes shows from 100+ categories — everything from Linguistics and Philosophy to Cybersecurity and DJing to Firefighting.
+Here's the part that still trips me out. The v1 backend took me months. I was a solo dev with Google AI Studio and Stack Overflow. The v2 rewrite took an afternoon.
 
-The podcast scraper runs on the same backend, feeding a dedicated page where you can browse by category or see what's trending. It's the same social approach as music: share your favorite shows, see what friends are listening to, discover something new.
+I used Claude with the [impeccable](https://github.com/pbasaus/impeccable) design skills — the same ones that are trending right now on the skills marketplace. For the backend, I described the architecture I wanted ("parallel fetcher, ISRC channel, Firestore cache with fire-and-forget writes") and iterated on the implementation. For the frontend redesign, I worked through the terminal aesthetic — dark mode, monospace type, the audio DNA visualization, loudness maps.
 
-## What I Learned
+The difference isn't just speed. It's that I can hold the whole architecture in my head and let the agent handle the implementation details. I know what a buffered channel does. I know why the cache write should be fire-and-forget. But writing the boilerplate for Firestore serialization and goroutine synchronization? That's where an afternoon becomes a month.
 
-**Sequential API calls are a performance killer.** Even if each call is "fast," stacking them kills user experience. Parallel fetch with proper synchronization is worth the complexity.
+## The about page
 
-**Caching is non-negotiable.** Most tracks are looked up repeatedly. Serving from Firestore instead of hitting external APIs is the difference between 200ms and 50ms — and it saves you from rate limits.
+I also added an about page to beatbrain. The origin story is simple: I loved [Last.fm](https://last.fm). That site understood that music is social — the scrobbling, the charts, seeing what your friends actually listen to. Last.fm is still around but it doesn't hit the same anymore. beatbrain is my take on that idea.
 
-**AI-assisted development changes the timeline.** What took 2-3 months in 2024 took an afternoon in 2025. The key is having clear architectural vision and working with tools that understand your codebase.
+The site is heavily Spotify-integrated and I'm fine with it. I worked at Spotify from 2011-2014 as their first Developer Advocate. I believe in their catalog and their APIs. But beatbrain adds what Spotify doesn't show you: who played bass, who produced it, what key it's in. That data comes from [MusicBrainz](https://musicbrainz.org), the open music encyclopedia.
 
-**Design is easier with constraints.** The terminal aesthetic gave me a framework: monospace fonts, limited color palette, clear hierarchy. Instead of endless tweaking, I made decisions and moved on.
+Check it out at [beatbrain.xyz/about](https://beatbrain.xyz/about).
 
-## The Stack
-
-- **Frontend:** Next.js 14, Tailwind, Prisma, Vercel
-- **Backend:** Go + Uber FX, Cloud Run
-- **Databases:** Firestore (caching + social data), Postgres (user data)
-- **APIs:** Spotify, MusicBrainz, Cover Art Archive
-- **AI:** Claude Code with impeccable design skills
+## The stack
 
 All open source:
 
-- [beatbrain-web](https://github.com/mager/beatbrain-web) — Frontend
-- [occipital](https://github.com/mager/occipital) — Backend API (v2 is live!)
-- [melodex](https://github.com/mager/melodex) — Music scraper
-- [musicbrainz-go](https://github.com/mager/musicbrainz-go) — MusicBrainz client
+- [beatbrain-web](https://github.com/mager/beatbrain-web) — Next.js 14, Tailwind, Vercel
+- [occipital](https://github.com/mager/occipital) — Go + Uber FX, Cloud Run
+- [melodex](https://github.com/mager/melodex) — Go scraper for music + podcasts
+- [musicbrainz-go](https://github.com/mager/musicbrainz-go) — MusicBrainz client library
 
-## Try It
-
-Visit [beatbrain.xyz](https://beatbrain.xyz), click any track, and watch how fast the page loads. Check the "Audio DNA" section to see the track's characteristics. Browse the podcast discovery page. Save a track to your profile.
-
-And if you're building something similar: parallelize your API calls, cache aggressively, and don't be afraid to let AI handle the implementation while you focus on the architecture.
-
-Follow along at [@beatbrainxyz](https://x.com/beatbrainxyz) or [@mager](https://x.com/mager) for updates.
+Click any track on [beatbrain.xyz](https://beatbrain.xyz) and count the milliseconds. That used to be seconds. ✌️
