@@ -43,7 +43,7 @@ Garry's example in the docs is perfect: you say "daily briefing app for my calen
 
 The recommendation is always the same: ship the narrowest wedge tomorrow, learn from real usage, and treat the full vision as a roadmap.
 
-I've spent entire evenings going in circles on scope before touching code. `/office-hours` kills that pattern.
+I've definitely spent 30 minutes spinning on scope before touching code. `/office-hours` kills that pattern.
 
 ### 2. `/plan-ceo-review` — The CEO you don't have to hire
 
