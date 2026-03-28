@@ -111,7 +111,7 @@ The framing I keep coming back to: Garry is shipping more code now than at any p
 
 gstack is his attempt to make those modes transferable. The fact that it's open source, MIT-licensed, and installs in 30 seconds means there's no reason not to try it.
 
-I'm putting it in my personal Claude workspace today. I'll run `/office-hours` on a few things I've been turning over in my head, and I'll report back on Twitter after I've lived with it for a week.
+I'm putting it in my personal Claude workspace today, and also trying it on my work harness at Uber. I'll run `/office-hours` on a few things I've been turning over in my head, and I'll report back on Twitter after I've lived with it for a week.
 
 ---
 
