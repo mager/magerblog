@@ -6,8 +6,6 @@ category: code
 draft: false
 ---
 
-# Anthropic's Knowledge Work Plugins: The 10 Essential Tools for Modern Tech Teams
-
 I spend most of my day in Claude Code. It's become the center of gravity for how I build — coding, writing, researching, planning. So when Anthropic dropped their [official knowledge work plugins](https://github.com/anthropics/knowledge-work-plugins) earlier this year, I installed all of them immediately.
 
 These aren't toy extensions. They're full domain experts packaged as file-based bundles — skills, slash commands, and MCP connectors that turn Claude from a general-purpose assistant into a specialized colleague who understands your role, your tools, and your workflows.
