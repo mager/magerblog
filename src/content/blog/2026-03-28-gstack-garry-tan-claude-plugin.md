@@ -7,9 +7,13 @@ draft: false
 tags: ["claude", "ai", "claude-code", "gstack", "garry-tan", "yc", "skills", "tools"]
 ---
 
-I first heard about [gstack](https://github.com/garrytan/gstack) the way most things spread right now — someone in my feed couldn't stop posting about it. Then I checked GitHub and saw 39,000 stars in 11 days. That stopped me cold.
+My entire X feed has been talking about [gstack](https://github.com/garrytan/gstack) this week. And honestly, I saw it coming.
 
-I know Garry Tan from the SF tech scene — he's the kind of person who shows up at parties and quietly knows everyone who matters. That was true in the late 2000s when he was early at Palantir, and it's even more true now as President & CEO of Y Combinator. When someone with that track record open-sources their personal Claude setup, you install it first and ask questions later.
+Back in January I asked Garry Tan directly if he was building anything fun with Claude Code. He said "Yes coming soon." That was gstack.
+
+![Garry Tan tweeting about staying up 19 hours using Claude Code, and replying "Yes coming soon" when asked what he's building](/images/blog/2026-03-28-gstack-garry-tan-claude-plugin/garry-tan-tweet.jpg)
+
+I know Garry from the SF tech scene — the kind of person who shows up at parties and quietly knows everyone who matters. That was true in the late 2000s when he was early at Palantir, and it's even more true now as President & CEO of Y Combinator. When someone with that track record open-sources their entire Claude workflow, you install it first and ask questions later. 39,000 GitHub stars in 11 days says I wasn't the only one.
 
 Here's what it is, why it's different, and the 10 skills I'm most interested in.
 
