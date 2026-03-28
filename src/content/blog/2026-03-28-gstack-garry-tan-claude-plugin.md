@@ -7,7 +7,7 @@ draft: false
 tags: ["claude", "ai", "claude-code", "gstack", "garry-tan", "yc", "skills", "tools"]
 ---
 
-My entire X feed has been talking about [gstack](https://github.com/garrytan/gstack) this week. I miss SF — used to run into Garry Tan at Laughing Squid events back in the late 2000s. The guy is brilliant. Now he's President & CEO of Y Combinator, and this gstack plugin should honestly be every dev shop's default setup.
+My entire X feed has been talking about [gstack](https://github.com/garrytan/gstack) this week. I miss SF — used to run into Garry Tan at Laughing Squid events back in the late 2000s. The guy is brilliant. He's at Y Combinator now, and gstack feels like decades of hard-won startup intuition compressed into a Claude context — a gift to the world. This should be every dev shop's default setup.
 
 Back in January I asked him if he was building anything fun with Claude Code. He said "Yes coming soon." Was that gstack, I wonder?
 
