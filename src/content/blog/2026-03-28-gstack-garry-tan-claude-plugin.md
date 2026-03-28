@@ -1,5 +1,5 @@
 ---
-title: "gstack: Garry Tan's Claude Code Setup Is Basically a Virtual Software Team"
+title: "gstack: Garry Tan's Claude Setup Is 🔥"
 pubDate: 2026-03-28
 description: "The Y Combinator CEO open-sourced his entire Claude Code workflow. Here are the 10 skills worth knowing — including why office-hours should be the first thing you run on any new idea."
 category: code
