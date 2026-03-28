@@ -9,7 +9,7 @@ tags: ["claude", "ai", "claude-code", "gstack", "garry-tan", "yc", "skills", "to
 
 My entire X feed has been talking about [gstack](https://github.com/garrytan/gstack) this week. I miss SF — used to run into Garry Tan at Laughing Squid events back in the late 2000s. The guy is brilliant. Now he's President & CEO of Y Combinator, and this gstack plugin should honestly be every dev shop's default setup.
 
-Back in January I asked him if he was building anything fun with Claude Code. He said "Yes coming soon." Was that gstack? Ya know.
+Back in January I asked him if he was building anything fun with Claude Code. He said "Yes coming soon." Was that gstack, I wonder?
 
 ![Garry Tan tweeting about staying up 19 hours using Claude Code, and replying "Yes coming soon" when asked what he's building](/images/blog/2026-03-28-gstack-garry-tan-claude-plugin/garry-tan-tweet.jpg)
 
