@@ -43,9 +43,16 @@ Oh, I almost forgot—where am I headed next? Promise you didn't just scroll dow
 I wrote a blog called **The Web Life** on ZDNet from 2008–2011, covering early social media, SF tech parties, and the open web movement. ZDNet still hosts these, but who knows for how long — so here they are, preserved:
 
 - [Hello World! Welcome to my world](https://www.zdnet.com/article/hello-world-welcome-to-my-world/) — the first post, July 2008. Twitter broke news of an LA earthquake before any newsroom could. The open web was just getting started.
+
 - [Follow Friday: Essential Webbies](https://www.zdnet.com/article/follow-friday-essential-webbies/) — May 2009. My picks for the best people to follow in the early Twitter era.
+
 - [Facebook open streams, takes down walled garden](https://www.zdnet.com/article/facebook-open-streams-takes-down-walled-garden/) — April 2009. Facebook opening up felt like a big deal at the time.
+
 - [Ubercab: a step above the yellow taxi](https://www.zdnet.com/article/ubercab-a-step-above-the-yellow-taxi/) — an early review of what would become Uber, before anyone called it that. Black Mercedes, no cash exchange, 2-minute pickup. I was sold.
+
+![Ubercab](https://lh3.googleusercontent.com/pw/AP1GczNBFseFRljq_0-nvpWkC3Gh7271BRjNJHqi8EpJ1PBM7r0RIbY1U6fq-3TVgKV1SJqxaFUYS_lJLeafWz8XWXQNWtXiPGzkTkEi_aT-4_-MquQr6VI_75pcYQ-7Gu3IEAtfAW7MpFhyLvjpT5l0S6d4ZA=w1752-h1522-s-no-gm)
+
 - [Spotify and Facebook: The best personal and social music experience](https://www.zdnet.com/article/spotify-and-facebook-the-best-personal-and-social-music-experience/) — Spotify was invite-only and felt like the future of music. I still think I was right.
+
 - [5 interesting points from Facebook's open identity guy](https://www.zdnet.com/article/5-interesting-points-from-facebooks-open-identity-guy/) — live coverage from FOWA 2010 in Miami. OAuth 2.0, PubSubHubBub, and a Python web server called Tornado. The plumbing of the web in real time.
 
