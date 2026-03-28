@@ -9,11 +9,11 @@ tags: ["claude", "ai", "claude-code", "gstack", "garry-tan", "yc", "skills", "to
 
 My entire X feed has been talking about [gstack](https://github.com/garrytan/gstack) this week. And honestly, I saw it coming.
 
-Back in January I asked Garry Tan directly if he was building anything fun with Claude Code. He said "Yes coming soon." That was gstack.
+Back in January I asked Garry Tan directly if he was building anything fun with Claude Code. He said "Yes coming soon." Was that gstack? Ya know.
 
 ![Garry Tan tweeting about staying up 19 hours using Claude Code, and replying "Yes coming soon" when asked what he's building](/images/blog/2026-03-28-gstack-garry-tan-claude-plugin/garry-tan-tweet.jpg)
 
-I know Garry from the SF tech scene — miss seeing him at Laughing Squid events back in the day. He's the kind of person who shows up and quietly knows everyone who matters. That energy hasn't changed, and now he's President & CEO of Y Combinator. When someone with that track record open-sources their entire Claude workflow, you install it first and ask questions later. 39,000 GitHub stars in 11 days says I wasn't the only one.
+I've known Garry from the SF tech scene since the late 2000s — I miss seeing him at Laughing Squid events, haha. He's the kind of person who shows up and quietly knows everyone who matters. That energy hasn't changed, and now he's President & CEO of Y Combinator. When someone with that track record open-sources their entire Claude workflow, you install it first and ask questions later. 39,000 GitHub stars in 11 days says I wasn't the only one.
 
 Here's what it is, why it's different, and the 10 skills I'm most interested in.
 
