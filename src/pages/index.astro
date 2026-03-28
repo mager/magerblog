@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import BentoHero from '../components/BentoHero.astro';
+import NewspaperHero from '../components/NewspaperHero.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
@@ -42,7 +42,7 @@ const ogImage =
 			body {
 				background-color: #faf8f5;
 				overflow-x: hidden;
-				color: #1a1a2e;
+				color: #0a0a0a;
 			}
 
 			/* Full-bleed override */
@@ -59,7 +59,7 @@ const ogImage =
 	<body>
 		<Header homepage={true} />
 		<main>
-			<BentoHero
+			<NewspaperHero
 				codePosts={codePosts}
 				lifePosts={lifePosts}
 				recipePosts={recipePosts}

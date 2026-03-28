@@ -157,7 +157,54 @@ p { margin-bottom: 1em; }
 
 textarea { width: 100%; font-size: 16px; }
 input { font-size: 16px; }
-table { width: 100%; }
+/* Table styling */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 2em 0;
+	font-size: 0.9em;
+	font-family: 'JetBrains Mono', 'Fira Code', monospace;
+	background: var(--terminal-bg-dark);
+	border: 1px solid var(--terminal-border);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+table thead {
+	background: var(--midnight-surface);
+}
+
+table thead th {
+	padding: 0.75em 1em;
+	text-align: left;
+	font-weight: 600;
+	color: var(--cyan);
+	border-bottom: 1px solid var(--terminal-border);
+	white-space: nowrap;
+}
+
+table tbody tr {
+	border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+	transition: background 0.15s ease;
+}
+
+table tbody tr:last-child {
+	border-bottom: none;
+}
+
+table tbody tr:hover {
+	background: var(--midnight-surface);
+}
+
+table tbody td {
+	padding: 0.65em 1em;
+	color: var(--text-primary);
+	vertical-align: top;
+}
+
+table tbody td code {
+	font-size: 0.85em;
+}
 
 img {
 	max-width: 100%;
