@@ -9,6 +9,29 @@ const today = new Date();
 
 <footer class:list={[{ "footer-light": homepage }]}>
 	<div class="footer-content">
+		<!-- Sites I manage -->
+		<div class="sites-section">
+			<p class="sites-label">Also building</p>
+			<div class="sites-grid">
+				<a href="https://loooom.xyz" target="_blank" rel="noopener" class="site-card">
+					<span class="site-name">Loooom</span>
+					<span class="site-desc">Claude Code plugin marketplace + ME.md</span>
+				</a>
+				<a href="https://prxps.xyz" target="_blank" rel="noopener" class="site-card">
+					<span class="site-name">prxps</span>
+					<span class="site-desc">AI-powered sports predictions</span>
+				</a>
+				<a href="https://beatbrain.xyz" target="_blank" rel="noopener" class="site-card">
+					<span class="site-name">BeatBrain</span>
+					<span class="site-desc">Music discovery agent</span>
+				</a>
+				<a href="https://kotsu.org" target="_blank" rel="noopener" class="site-card">
+					<span class="site-name">kotsu</span>
+					<span class="site-desc">Learn Japanese kanji</span>
+				</a>
+			</div>
+		</div>
+
 		<div class="footer-brand">
 			<span class="brand-text">mager.co</span>
 		</div>
@@ -181,6 +204,71 @@ const today = new Date();
 	.built-link:hover {
 		color: var(--ft-link-hover);
 		border-bottom-color: var(--ft-link-hover);
+	}
+
+	/* ─── Sites section ─────────────────────────────── */
+	.sites-section {
+		margin-bottom: 2.5rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--ft-separator);
+	}
+
+	.sites-label {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ft-muted);
+		margin: 0 0 1rem;
+	}
+
+	.sites-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.75rem;
+	}
+
+	.site-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding: 1rem;
+		border-radius: 10px;
+		border: 1px solid var(--ft-separator);
+		background: var(--ft-social-bg);
+		text-decoration: none;
+		transition: all 0.2s ease;
+		text-align: left;
+	}
+
+	.site-card:hover {
+		border-color: var(--ft-link);
+		background: var(--ft-social-hover-bg);
+		transform: translateY(-2px);
+	}
+
+	.site-name {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--ft-brand);
+	}
+
+	.site-desc {
+		font-family: 'Atkinson Hyperlegible', sans-serif;
+		font-size: 0.72rem;
+		color: var(--ft-text);
+		line-height: 1.4;
+	}
+
+	@media (max-width: 720px) {
+		.sites-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.site-card {
+			padding: 0.875rem;
+		}
 	}
 
 	@media (max-width: 720px) {
