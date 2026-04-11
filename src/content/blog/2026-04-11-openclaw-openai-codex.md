@@ -8,7 +8,13 @@ draft: true
 
 This morning's first task was getting my agent back online.
 
-Anthropic ended the OAuth usage path I had been relying on, which meant my old setup for Claude Code and OpenClaw was suddenly the wrong foundation. I had to make a call: keep paying for a subscription that no longer matched how I actually use these tools, or move the stack.
+That timing was not random.
+
+My sites had been down for a while, and I hadn't posted in a bit. Part of that was infrastructure pain: BeatBrain was getting hammered by DDoS traffic out of Singapore, and I ended up shutting it down while I figure out a better firewall strategy. That spike also burned through my Vercel credits, so even the boring "just ship a post" part of my workflow was blocked until Vercel gave me a one-time unblock.
+
+So this post is happening at exactly the moment things are starting to come back up.
+
+At the same time, Anthropic ended the OAuth usage path I had been relying on, which meant my old setup for Claude Code and OpenClaw was suddenly the wrong foundation. I had to make a call: keep paying for a subscription that no longer matched how I actually use these tools, or move the stack.
 
 So I canceled my Anthropic subscription.
 
@@ -124,7 +130,7 @@ The first thing I did after getting OpenClaw back up was this post.
 
 That felt right.
 
-Not because writing about infrastructure is inherently important, but because it proved the system was alive again. Wake up the agent, load the workspace, remember what matters, route through the right tools, and ship something real.
+Not because writing about infrastructure is inherently important, but because it proved the system was alive again. After the site downtime, the BeatBrain mess, the Vercel credit block, and the provider switch, I wanted one clean confirmation that the machine still worked: wake up the agent, load the workspace, remember what matters, route through the right tools, and ship something real.
 
 That's the bar.
 
