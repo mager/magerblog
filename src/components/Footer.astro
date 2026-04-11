@@ -9,7 +9,6 @@ const today = new Date();
 
 <footer class:list={[{ "footer-light": homepage }]}>
 	<div class="footer-content">
-		<!-- Sites I manage -->
 		<div class="sites-section">
 			<p class="sites-label">Also building</p>
 			<div class="sites-grid">
@@ -21,10 +20,6 @@ const today = new Date();
 					<span class="site-name">prxps</span>
 					<span class="site-desc">AI-powered sports predictions</span>
 				</a>
-				<a href="https://beatbrain.xyz" target="_blank" rel="noopener" class="site-card">
-					<span class="site-name">BeatBrain</span>
-					<span class="site-desc">Music discovery agent</span>
-				</a>
 				<a href="https://kotsu.org" target="_blank" rel="noopener" class="site-card">
 					<span class="site-name">kotsu</span>
 					<span class="site-desc">Learn Japanese kanji</span>
@@ -32,47 +27,45 @@ const today = new Date();
 			</div>
 		</div>
 
-		<div class="footer-brand">
-			<span class="brand-text">mager.co</span>
-		</div>
+		<div class="footer-meta">
+			<div class="footer-branding">
+				<span class="brand-text">mager.co</span>
+				<p class="copyright">&copy; {today.getFullYear()}</p>
+			</div>
 
-		<p class="copyright">
-			&copy; {today.getFullYear()}
-		</p>
+			<div class="footer-nav-social">
+				<div class="footer-links">
+					<a href="/" class="footer-link">Home</a>
+					<a href="/code" class="footer-link">Code</a>
+					<a href="/life" class="footer-link">Life</a>
+					<a href="/cooking" class="footer-link">Cooking</a>
+				</div>
 
-		<div class="footer-links">
-			<a href="/" class="footer-link">Home</a>
-			<span class="separator">·</span>
-			<a href="/code" class="footer-link">Code</a>
-			<span class="separator">·</span>
-			<a href="/life" class="footer-link">Life</a>
-			<span class="separator">·</span>
-			<a href="/cooking" class="footer-link">Cooking</a>
-		</div>
-
-		<div class="social-links">
-			<a href="https://x.com/mager" target="_blank" class="social-link">
-				<span class="sr-only">Follow @mager on X</span>
-				<svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
-					<path
-						fill="currentColor"
-						d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-					></path>
-				</svg>
-			</a>
-			<a href="https://github.com/mager" target="_blank" class="social-link">
-				<span class="sr-only">Go to mager's GitHub page</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20">
-					<path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path>
-				</svg>
-			</a>
+				<div class="social-links">
+					<a href="https://x.com/mager" target="_blank" rel="noopener" class="social-link">
+						<span class="sr-only">Follow @mager on X</span>
+						<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+							<path
+								fill="currentColor"
+								d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+							></path>
+						</svg>
+					</a>
+					<a href="https://github.com/mager" target="_blank" rel="noopener" class="social-link">
+						<span class="sr-only">Go to mager's GitHub page</span>
+						<svg viewBox="0 0 16 16" aria-hidden="true" width="18" height="18">
+							<path
+								fill="currentColor"
+								d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+							></path>
+						</svg>
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<p class="built-line">
-			Built with <a href="https://claude.ai/code" target="_blank" class="built-link">Claude</a> and <a href="https://x.com/magerbot" target="_blank" class="built-link">@magerbot</a>
+			Built with <a href="https://claude.ai/code" target="_blank" rel="noopener" class="built-link">Claude</a> and <a href="https://x.com/magerbot" target="_blank" rel="noopener" class="built-link">@magerbot</a>
 		</p>
 	</div>
 </footer>
@@ -115,12 +108,32 @@ const today = new Date();
 	.footer-content {
 		position: relative;
 		z-index: 1;
-		max-width: 800px;
+		max-width: 880px;
 		margin: 0 auto;
 	}
 
-	.footer-brand {
-		margin-bottom: 0.35rem;
+	.footer-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1.5rem;
+		margin-bottom: 0.85rem;
+		text-align: left;
+	}
+
+	.footer-branding {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-nav-social {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 1rem;
+		flex-wrap: wrap;
 	}
 
 	.brand-text {
@@ -132,9 +145,9 @@ const today = new Date();
 	}
 
 	.copyright {
-		font-size: 0.8rem;
+		font-size: 0.76rem;
 		color: var(--ft-muted);
-		margin: 0 0 0.75rem;
+		margin: 0;
 		font-family: 'JetBrains Mono', monospace;
 	}
 
@@ -142,11 +155,11 @@ const today = new Date();
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 0.75rem;
-		margin-bottom: 0.75rem;
+		gap: 1rem;
 		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.85rem;
+		font-size: 0.82rem;
 		font-weight: 500;
+		flex-wrap: wrap;
 	}
 
 	.footer-link {
@@ -158,15 +171,10 @@ const today = new Date();
 		color: var(--ft-link);
 	}
 
-	.separator {
-		color: var(--ft-separator);
-	}
-
 	.social-links {
 		display: flex;
 		justify-content: center;
-		gap: 0.75rem;
-		margin-bottom: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	.social-link {
@@ -176,8 +184,8 @@ const today = new Date();
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.5rem;
-		border-radius: 8px;
+		padding: 0.45rem;
+		border-radius: 999px;
 		background: var(--ft-social-bg);
 		border: 1px solid transparent;
 	}
@@ -189,7 +197,7 @@ const today = new Date();
 	}
 
 	.built-line {
-		font-size: 0.75rem;
+		font-size: 0.72rem;
 		color: var(--ft-muted);
 		font-family: 'JetBrains Mono', monospace;
 		margin: 0;
@@ -208,8 +216,8 @@ const today = new Date();
 
 	/* ─── Sites section ─────────────────────────────── */
 	.sites-section {
-		margin-bottom: 2.5rem;
-		padding-bottom: 2rem;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1.25rem;
 		border-bottom: 1px solid var(--ft-separator);
 	}
 
@@ -225,15 +233,15 @@ const today = new Date();
 
 	.sites-grid {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 0.75rem;
 	}
 
 	.site-card {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
-		padding: 1rem;
+		gap: 0.2rem;
+		padding: 0.9rem;
 		border-radius: 10px;
 		border: 1px solid var(--ft-separator);
 		background: var(--ft-social-bg);
@@ -263,9 +271,20 @@ const today = new Date();
 	}
 
 	@media (max-width: 720px) {
-		.sites-grid {
-			grid-template-columns: repeat(2, 1fr);
+		.footer-meta {
+			flex-direction: column;
+			align-items: flex-start;
+			text-align: left;
 		}
+
+		.footer-nav-social {
+			justify-content: flex-start;
+		}
+
+		.sites-grid {
+			grid-template-columns: 1fr;
+		}
+
 		.site-card {
 			padding: 0.875rem;
 		}
