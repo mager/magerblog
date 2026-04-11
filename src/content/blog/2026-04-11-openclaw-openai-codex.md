@@ -59,6 +59,14 @@ That's the unlock.
 
 At a practical level, the move was simple: point OpenClaw at OpenAI Codex instead of Anthropic.
 
+I used:
+
+```bash
+openclaw onboard --auth-choice openai-codex
+```
+
+If you want the official provider docs, they're here: [OpenClaw OpenAI provider setup](https://docs.openclaw.ai/providers/openai).
+
 OpenClaw already treats the model as configuration, not destiny. My current session is now running on:
 
 ```txt
