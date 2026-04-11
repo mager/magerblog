@@ -1,34 +1,26 @@
 ---
 title: "OpenClaw: I Switched My Agent Stack from Claude to OpenAI Codex"
-description: "Anthropic shutting down OAuth-based Claude Code access forced my hand. Here's how I pointed OpenClaw at OpenAI Codex, why I came back to Codex after bouncing off it before, and why skills plus brainpack changed the equation."
+description: "Anthropic shutting down OAuth-based Claude Code access forced my hand. Here's how I moved OpenClaw to OpenAI Codex, why Codex makes more sense inside a real agent harness than it did on its own, and why brainpack changes the switching cost."
 pubDate: 2026-04-11
 category: code
-draft: true
+draft: false
 ---
 
 This morning's first task was getting my agent back online.
 
-That timing was not random.
+That was partly practical and partly symbolic. My sites had been down for a while, I had not posted in a bit, and a pile of unrelated infrastructure problems had started to blur together. BeatBrain was getting hammered by DDoS traffic out of Singapore, I shut it down while I figure out a better firewall strategy, and the extra traffic also burned through my Vercel credits. Even the boring part of the workflow, publish a post, was blocked until Vercel gave me a one-time unblock.
 
-My sites had been down for a while, and I hadn't posted in a bit. Part of that was infrastructure pain: BeatBrain was getting hammered by DDoS traffic out of Singapore, and I ended up shutting it down while I figure out a better firewall strategy. That spike also burned through my Vercel credits, so even the boring "just ship a post" part of my workflow was blocked until Vercel gave me a one-time unblock.
+At the same time, Anthropic ended the OAuth path I had been relying on for Claude Code access. That meant my OpenClaw setup was suddenly attached to the wrong foundation. I had a choice to make: keep paying for a subscription that no longer matched how I actually use these tools, or move the stack.
 
-So this post is happening at exactly the moment things are starting to come back up.
+So I canceled the Anthropic subscription and switched the harness over to OpenAI Codex.
 
-At the same time, Anthropic ended the OAuth usage path I had been relying on, which meant my old setup for Claude Code and OpenClaw was suddenly the wrong foundation. I had to make a call: keep paying for a subscription that no longer matched how I actually use these tools, or move the stack.
+I have spent a lot of time in Claude Code, and I do not mean that dismissively. It shaped how I think about terminal-native agents, long-running coding sessions, and what it feels like when an AI tool starts to disappear into the workflow.
 
-So I canceled my Anthropic subscription.
+But I was also curious to try Codex again, especially now that GPT 5.4 is in the mix, and especially now that my setup is no longer just a model in a terminal.
 
-Honestly, that felt a little sad.
+It is a real harness.
 
-I've spent a lot of time in Claude Code. It shaped how I think about terminal-native agents, long-running coding sessions, and what it feels like when an AI tool actually starts to disappear into the workflow.
-
-But I was also weirdly excited, because this felt like the right moment to try OpenAI Codex again, especially now that GPT 5.4 is in the mix.
-
-And more importantly: my setup is no longer just "a model in a terminal."
-
-It's a real harness now.
-
-OpenClaw gives me the routing, channels, sessions, cron jobs, memory files, tooling, and persistent agent identity. My skills layer gives me reusable behavior. And [brainpack](https://github.com/mager/brainpack) gives me a way to back up and move the brain itself.
+OpenClaw gives me routing, channels, sessions, cron jobs, memory files, tooling, and persistent agent identity. My skills layer gives me reusable behavior. [brainpack](https://github.com/mager/brainpack) gives me a way to back up and move the brain itself.
 
 That changes the switching cost completely.
 
@@ -42,7 +34,7 @@ I had tried switching to Codex before, and I didn't stick with it.
 
 At the time, it just felt worse.
 
-Claude had the stronger vibe, better flow, and a much more convincing sense of continuity during real work. Codex felt thinner. Less capable in the places I cared about. Easier to bounce out of.
+Claude had the stronger flow and a much more convincing sense of continuity during real work. Codex felt thinner, less capable in the places I cared about, and easier to bounce out of.
 
 But that comparison was happening before I had a serious agent substrate.
 
@@ -72,6 +64,8 @@ openclaw onboard --auth-choice openai-codex
 ```
 
 If you want the official provider docs, they're here: [OpenClaw OpenAI provider setup](https://docs.openclaw.ai/providers/openai).
+
+![OpenClaw OpenAI provider docs screenshot](https://lh3.googleusercontent.com/pw/AP1GczMizgWZJJcBrLilsN2apu65eFD3TBsdWHLLJy0Hk0_fO-mkgJLv4_jvPjF_PEjoYUso4tr6cU1uLPId3l_CbJSSZero4p2tE4ioSj2QONQTv2VxHoWC2RIb4khY2PNN60SxjdWc3jKlzsm1aNhXAKTZ8g=w2322-h1522-s-no-gm)
 
 OpenClaw already treats the model as configuration, not destiny. My current session is now running on:
 
@@ -128,11 +122,7 @@ And honestly, this migration is a good test. If my own stack can't survive a pro
 
 The first thing I did after getting OpenClaw back up was this post.
 
-That felt right.
-
-Not because writing about infrastructure is inherently important, but because it proved the system was alive again. After the site downtime, the BeatBrain mess, the Vercel credit block, and the provider switch, I wanted one clean confirmation that the machine still worked: wake up the agent, load the workspace, remember what matters, route through the right tools, and ship something real.
-
-That's the bar.
+That was useful for a simple reason: it proved the system was alive again. After the site downtime, the BeatBrain mess, the Vercel credit block, and the provider switch, I wanted one clean confirmation that the machine still worked. Wake up the agent, load the workspace, remember what matters, route through the right tools, and ship something real.
 
 Not a benchmark screenshot. Not a vibes-based first impression.
 
