@@ -124,6 +124,29 @@ Images in blog posts receive category-specific border colors applied via `body[d
 3. For recipes, include prepTime and cookTime
 4. Optionally add heroImage URL
 5. Write content in Markdown/MDX
+6. Do a tone pass before shipping
+
+### Writing Voice for magerblog
+
+This is a personal technical blog. Write in first person, but keep the tone smart, calm, and specific.
+
+Target something closer to Karpathy or Simon Willison than startup-founder thread voice.
+
+Prefer:
+- clear explanations
+- technical specificity
+- concrete examples
+- honest tradeoffs
+- earned insight
+
+Avoid:
+- bro-y lines like "That felt right" or "That's the bar"
+- dramatic one-line paragraphs used only for swagger
+- generic claims about AI, creativity, or the future
+- self-congratulatory narration
+- "vibes" in place of argument
+
+If a sentence sounds like it is trying to be quoted on X, it is probably making the draft worse.
 
 ### Category Pages
 
