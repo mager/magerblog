@@ -128,6 +128,8 @@ Not a benchmark screenshot. Not a vibes-based first impression.
 
 Real work, in the real environment, with the actual harness.
 
+As a small bonus, I also ended up tightening the writing layer around the system itself. The first draft of this post leaned a little too bro-y in places, which is a failure mode I want to actively resist. So I updated the standing instructions in my OpenClaw workspace and the magerblog skill to push the voice toward something more precise, technical, and earned.
+
 ## If you're making the same move
 
 If you're moving off Claude because the OAuth path is gone, my advice is simple:
