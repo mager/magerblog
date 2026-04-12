@@ -23,10 +23,10 @@ A simple pot of rice with a little swagger. Garlic gives it depth, cilantro make
 
 - 1 cup white rice
 - 2 cups water
-- 2 to 4 garlic cloves, minced
+- 4 big garlic cloves, minced
 - 1 tsp kosher salt, plus more to taste
 - 1 tbsp butter or olive oil (optional)
-- 1 large handful cilantro, chopped
+- 1 whole bunch cilantro, chopped
 - Juice of 1 lime, plus more to taste
 
 </div>
