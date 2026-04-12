@@ -17,6 +17,20 @@ A simple pot of rice with a little swagger. Garlic gives it depth, cilantro make
 </div>
 
 <div class="recipe-body">
+<div class="recipe-ingredients">
+
+#### Ingredients
+
+- 1 cup white rice
+- 2 cups water
+- 2 to 4 garlic cloves, minced
+- 1 tsp kosher salt, plus more to taste
+- 1 tbsp butter or olive oil (optional)
+- 1 large handful cilantro, chopped
+- Juice of 1 lime, plus more to taste
+
+</div>
+
 <div class="recipe-instructions">
 
 Cook the rice the normal way with water, salt, and garlic. If you want a slightly richer version, sauté the garlic in a little butter or olive oil first. If not, straight into the pot is fine.
