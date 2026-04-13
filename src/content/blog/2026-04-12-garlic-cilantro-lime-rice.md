@@ -3,11 +3,11 @@ layout: "../../layouts/BlogPost.astro"
 title: "Garlic Cilantro Lime Rice"
 pubDate: "2026-04-12"
 description: "A bright, high-impact rice finished with garlic, lots of cilantro, and fresh lime juice added after cooking."
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOJcA-rD2dlvoXWqBzqegUnyN8RRQjOYgtbBbEP-WG5oBrZyqNJTx0mle4d7tzE8u-XlQIj2bnZ_rP4K90kqad7wLlpUIpFcaH9eGrgTKvNnlZ9rruCL33Wa-ZIQaqz4VnkXz3Z3K1zJ_dLTTjoEAj34w=w1930-h1522-s-no-gm"
 category: "food"
 subcategory: "side"
 tags: ["Rice", "Garlic", "Cilantro", "Lime", "Side Dish", "Taco Night"]
 keyword: "garlic cilantro lime rice"
-draft: true
 ---
 
 <div class="recipe-intro">
@@ -40,6 +40,8 @@ While the rice cooks, pick the cilantro, rinse it well, and dry it before choppi
 When the rice is done, fluff it first. Then add the lime juice, chopped cilantro, and a final pinch of salt. Taste and adjust.
 
 High level, that's the whole move.
+
+![Finished garlic cilantro lime rice](https://lh3.googleusercontent.com/pw/AP1GczPz50L1gUSremLF695BqyNuJDt24Mt0nNsVuOYirQ0DvBh4GHobJsmRzX7RUWJOajF5HyZ6xk7yI7rr2nVcJKafB3TZZAXADNWLPoCOO3aKfrNaHhvwF0mXXalkf841vGHc86sJPOEnVswnatLbA_jm3w=w2030-h1522-s-no-gm)
 
 </div>
 </div>
