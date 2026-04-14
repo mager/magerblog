@@ -23,7 +23,6 @@ import { SITE_TITLE } from '../consts';
 				padding: 4rem 2rem 6rem;
 			}
 
-			/* ── Page header ──────────────────────────────── */
 			.about-eyebrow {
 				font-family: 'JetBrains Mono', monospace;
 				font-size: 0.72rem;
@@ -50,7 +49,6 @@ import { SITE_TITLE } from '../consts';
 				font-style: italic;
 			}
 
-			/* ── Photo ────────────────────────────────────── */
 			.about-photo-wrap {
 				margin: 0 0 2.5rem;
 				border-radius: 20px;
@@ -70,7 +68,6 @@ import { SITE_TITLE } from '../consts';
 				transform: scale(1.02);
 			}
 
-			/* ── Body copy ────────────────────────────────── */
 			.about-body {
 				font-family: 'Atkinson Hyperlegible', 'Atkinson', sans-serif;
 				font-size: 1.05rem;
@@ -86,7 +83,7 @@ import { SITE_TITLE } from '../consts';
 			.about-body a {
 				color: #6366f1;
 				text-decoration: underline;
-				text-decoration-color: rgba(99,102,241,0.3);
+				text-decoration-color: rgba(99, 102, 241, 0.3);
 				text-underline-offset: 3px;
 				transition: text-decoration-color 0.2s ease;
 			}
@@ -94,7 +91,6 @@ import { SITE_TITLE } from '../consts';
 				text-decoration-color: #6366f1;
 			}
 
-			/* ── Divider ──────────────────────────────────── */
 			.about-divider {
 				width: 40px;
 				height: 3px;
@@ -104,7 +100,6 @@ import { SITE_TITLE } from '../consts';
 				border: none;
 			}
 
-			/* ── Chips ────────────────────────────────────── */
 			.chips {
 				display: flex;
 				flex-wrap: wrap;
@@ -117,29 +112,21 @@ import { SITE_TITLE } from '../consts';
 				font-weight: 600;
 				padding: 0.3rem 0.75rem;
 				border-radius: 999px;
-				background: rgba(99,102,241,0.08);
+				background: rgba(99, 102, 241, 0.08);
 				color: #6366f1;
-				border: 1px solid rgba(99,102,241,0.15);
+				border: 1px solid rgba(99, 102, 241, 0.15);
 			}
 			.chip.teal {
-				background: rgba(20,184,166,0.08);
+				background: rgba(20, 184, 166, 0.08);
 				color: #0d9488;
-				border-color: rgba(20,184,166,0.15);
+				border-color: rgba(20, 184, 166, 0.15);
 			}
 			.chip.amber {
-				background: rgba(245,158,11,0.08);
+				background: rgba(245, 158, 11, 0.08);
 				color: #d97706;
-				border-color: rgba(245,158,11,0.15);
+				border-color: rgba(245, 158, 11, 0.15);
 			}
 
-			/* ── Projects grid ────────────────────────────── */
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.65rem;
-				color: #6366f1;
-				margin-top: 0.15rem;
-			}
-
-			/* ── Links row ────────────────────────────────── */
 			.about-links {
 				display: flex;
 				gap: 0.75rem;
@@ -156,30 +143,86 @@ import { SITE_TITLE } from '../consts';
 				text-decoration: none;
 				padding: 0.5rem 1.1rem;
 				border-radius: 999px;
-				border: 1.5px solid rgba(99,102,241,0.25);
+				border: 1.5px solid rgba(99, 102, 241, 0.25);
 				color: #6366f1;
-				background: rgba(99,102,241,0.05);
+				background: rgba(99, 102, 241, 0.05);
 				transition: all 0.2s ease;
 			}
 			.about-link:hover {
-				background: rgba(99,102,241,0.1);
-				border-color: rgba(99,102,241,0.45);
+				background: rgba(99, 102, 241, 0.1);
+				border-color: rgba(99, 102, 241, 0.45);
 				transform: translateY(-1px);
 			}
 			.about-link.gh {
 				color: #1a1a2e;
-				border-color: rgba(26,26,46,0.2);
-				background: rgba(26,26,46,0.04);
+				border-color: rgba(26, 26, 46, 0.2);
+				background: rgba(26, 26, 46, 0.04);
 			}
 			.about-link.gh:hover {
-				background: rgba(26,26,46,0.08);
-				border-color: rgba(26,26,46,0.35);
+				background: rgba(26, 26, 46, 0.08);
+				border-color: rgba(26, 26, 46, 0.35);
 			}
 
 			@media (max-width: 600px) {
 				main {
 					padding: 2rem 1.25rem calc(80px + 2rem);
 				}
-				.about-headline { font-size: 1.9rem; }
-				.about-photo-wrap { aspect-ratio: 1 / 1; border-radius: 14px; }
-				.about-body { font-size: 0.97rem; }
+				.about-headline {
+					font-size: 1.9rem;
+				}
+				.about-photo-wrap {
+					aspect-ratio: 1 / 1;
+					border-radius: 14px;
+				}
+				.about-body {
+					font-size: 0.97rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="about-eyebrow">About</p>
+			<h1 class="about-headline">
+				I build things with <em>AI</em>, write about what I learn, and cook dinner in Chicago.
+			</h1>
+
+			<div class="about-photo-wrap">
+				<img class="about-photo" src="/andrew.jpeg" alt="Andrew Mager" />
+			</div>
+
+			<div class="about-body">
+				<p>
+					I'm Andrew Mager, a software engineer and builder obsessed with tools that make the internet feel a little more alive.
+					I like agent systems, weird product ideas, careful interface design, and shipping things that actually work.
+				</p>
+				<p>
+					Lately I've been building with AI every day, not as a novelty, but as part of the real stack.
+					That means agent runtimes, memory systems, developer tooling, and the messy practical work of getting all of it to hold together.
+				</p>
+				<p>
+					When I'm not writing code, I'm usually writing down what I learned or making something in the kitchen.
+					This site is where those threads meet: software, systems, recipes, experiments, and notes from the edge of whatever I'm currently obsessed with.
+				</p>
+			</div>
+
+			<hr class="about-divider" />
+
+			<div class="chips" aria-label="Topics">
+				<span class="chip">AI agents</span>
+				<span class="chip teal">Frontend</span>
+				<span class="chip">Developer tools</span>
+				<span class="chip amber">Cooking</span>
+				<span class="chip teal">Chicago</span>
+			</div>
+
+			<div class="about-links">
+				<a class="about-link gh" href="https://github.com/mager" target="_blank" rel="noreferrer">GitHub</a>
+				<a class="about-link" href="https://x.com/mager" target="_blank" rel="noreferrer">X</a>
+				<a class="about-link" href="/blog">Blog</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
