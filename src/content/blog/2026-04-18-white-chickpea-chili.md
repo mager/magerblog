@@ -53,7 +53,6 @@ Blend a portion of the chili until the broth turns creamy and thickened. If you 
 
 Serve with crushed tortilla chips, shredded cheese, avocado, cilantro, or whatever version of "something on top" sounds right that night.
 
-What I like about this one is the ratio of effort to payoff. No meat to cook, no long simmer, no weird ingredients, still tastes like an actual meal.
 
 </div>
 </div>
