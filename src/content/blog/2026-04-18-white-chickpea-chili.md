@@ -12,7 +12,7 @@ draft: false
 
 <div class="recipe-intro">
 
-This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatlearn.com/white-chickpea-chili/) idea and keeps the spirit intact: pantry beans, green chiles, a fast one-pot build, and a creamy finish. I swapped the whole milk for cream cheese, which gives it a thicker, richer texture and feels a little more chili, a little less soup. Hearty enough to feel like dinner, easy enough to throw together without thinking too hard.
+This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatlearn.com/white-chickpea-chili/) idea and keeps the spirit intact: pantry beans, green chiles, a fast one-pot build, and a creamy finish. I skipped the dairy entirely and thickened it the better way anyway, by blending part of the pot. The beans do the work, the broth gets silky, and it still lands squarely in white chili territory. Hearty enough to feel like dinner, easy enough to throw together without thinking too hard.
 
 </div>
 
@@ -35,7 +35,6 @@ This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatle
 - 2 cans white beans, drained (navy or cannellini both work)
 - 1 can corn, drained
 - 2 small cans diced green chiles
-- 4 to 6 ounces cream cheese
 - Optional toppings: tortilla chips, Monterey Jack, avocado, cilantro
 
 </div>
@@ -50,7 +49,7 @@ Pour in the broth, then add the chickpeas, white beans, corn, and green chiles. 
 
 If you want a thicker chili, blend a portion of it. An immersion blender is easiest, but scooping out a couple cups and blending that separately works too. You don't need to puree the whole pot. Just rough up enough beans to give the broth some body.
 
-Lower the heat and stir in the cream cheese until fully melted and smooth. If you want it looser, add a splash more broth. That's the move that turns it from bean soup into white chili.
+Blend a portion of the chili until the broth turns creamy and thickened. If you want it looser, add a splash more broth. That's the move that turns it from bean soup into white chili, no dairy required.
 
 Serve with crushed tortilla chips, shredded cheese, avocado, cilantro, or whatever version of "something on top" sounds right that night.
 
