@@ -7,7 +7,7 @@ category: "food"
 subcategory: "soup"
 tags: ["Soup", "Beef", "Barley", "Comfort Food", "Dutch Oven", "Leeks"]
 keyword: "beef barley soup with leeks"
-draft: false
+draft: true
 ---
 
 <div class="recipe-intro">

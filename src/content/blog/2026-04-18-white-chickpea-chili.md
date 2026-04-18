@@ -7,7 +7,7 @@ category: "food"
 subcategory: "soup"
 tags: ["Chili", "Chickpeas", "Beans", "Vegetarian", "Soup", "Comfort Food"]
 keyword: "white chickpea chili"
-draft: false
+draft: true
 ---
 
 <div class="recipe-intro">
