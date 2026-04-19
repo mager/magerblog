@@ -22,6 +22,7 @@ This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatle
 #### Ingredients
 
 - 1 tablespoon olive oil
+- 1 teaspoon butter
 - 1 medium yellow onion, diced
 - 4 cloves garlic, minced
 - 1 tablespoon flour
@@ -42,7 +43,7 @@ This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatle
 
 <div class="recipe-instructions">
 
-Heat the olive oil in a large pot over medium heat. Add the onion and garlic and cook until the onion softens, about 3 minutes.
+Heat the olive oil and butter in a large pot over medium heat. Add the onion and garlic and cook until the onion softens, about 3 minutes.
 
 Add the flour, cumin, smoked paprika, oregano, salt, and pepper. Stir until the flour disappears into the onions and everything smells like you're heading toward something good.
 
