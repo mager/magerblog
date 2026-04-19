@@ -54,6 +54,9 @@ Blend a portion of the chili until the broth turns creamy and thickened. If you 
 
 Serve with crushed tortilla chips, shredded cheese, avocado, cilantro, or whatever version of "something on top" sounds right that night.
 
+#### Variations
+
+If you want to take this in a Thai direction, swap the cumin and oregano for a spoonful of green curry paste, then finish with extra coconut cream, lime, and cilantro. If you want it to lean Indian, trade the oregano for coriander and turmeric, add a little ginger, and finish with garam masala and lemon. Same structure, different passport.
 
 </div>
 </div>
