@@ -24,7 +24,7 @@ This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatle
 - 1 tablespoon olive oil
 - 1 medium yellow onion, diced
 - 4 cloves garlic, minced
-- 1/3 cup flour
+- 1 tablespoon flour
 - 2 teaspoons cumin
 - 1 teaspoon smoked paprika
 - 1 teaspoon oregano
