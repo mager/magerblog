@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "White Chickpea Chili"
 pubDate: "2026-04-18"
-description: "A fast, pantry-friendly white chili built on chickpeas, white beans, green chiles, corn, and broth, finished with milk for a creamy bowl that eats bigger than the ingredient list suggests."
+description: "A fast, pantry-friendly white chili built on chickpeas, white beans, green chiles, corn, and broth, thickened by blending part of the pot into a creamy bowl that eats bigger than the ingredient list suggests."
 category: "food"
 subcategory: "soup"
 tags: ["Chili", "Chickpeas", "Beans", "Vegetarian", "Soup", "Comfort Food"]
