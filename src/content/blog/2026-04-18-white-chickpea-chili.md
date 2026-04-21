@@ -31,7 +31,7 @@ This starts with the Live Eat Learn [white chickpea chili](https://www.liveeatle
 - 1 teaspoon oregano
 - 1 teaspoon kosher salt, plus more to taste
 - 1/2 teaspoon black pepper
-- 4 cups vegetable broth
+- 1 cup vegetable broth
 - 1/2 to 1 cup coconut cream
 - 2 cans chickpeas, drained
 - 2 cans white beans, drained (navy or cannellini both work)
@@ -47,9 +47,9 @@ Heat the olive oil and butter in a large pot over medium heat. Add the onion, ga
 
 Add the flour, cumin, smoked paprika, oregano, salt, and pepper. Stir until the flour disappears into the onions and everything smells like you're heading toward something good.
 
-Pour in the broth, then add the chickpeas, white beans, and corn. Bring it to a simmer and let it cook for 10 to 20 minutes. Longer is fine if you want the flavors to settle in more.
+Pour in the broth, then add the chickpeas, white beans, and corn. Stir well and bring it to a gentle simmer. With less liquid, this will tighten up fast, so 10 minutes is usually enough to get everything cozy and concentrated.
 
-Stir in the coconut cream, then blend a portion of the chili until the broth turns creamy and thickened. An immersion blender is easiest, but scooping out a couple cups and blending that separately works too. You don't need to puree the whole pot, just rough up enough beans to give the broth some body. If it gets too thick, add a splash more broth.
+Stir in the coconut cream, then blend a portion of the chili until it turns creamy and thickened. An immersion blender is easiest, but scooping out a cup or two and blending that separately works too. You don't need to puree the whole pot, just rough up enough beans to give it body. If it gets too thick, add a splash more broth.
 
 Serve with crushed tortilla chips, shredded cheese, avocado, cilantro, or whatever version of "something on top" sounds right that night.
 
