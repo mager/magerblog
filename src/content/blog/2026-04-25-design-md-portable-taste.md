@@ -3,7 +3,7 @@ title: "DESIGN.md: Can taste be made portable?"
 description: "I reverse engineered several of my own sites into DESIGN.md files to see how much of a design system can actually be described, and what happens when you try to write down taste instead of just relying on instinct."
 pubDate: 2026-04-25
 category: code
-draft: true
+draft: false
 tags: [design, design-systems, ai, frontend]
 ---
 
