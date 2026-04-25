@@ -209,15 +209,17 @@ That prompt alone gets you somewhere useful. The better part is what happens aft
 
 ## My reverse-engineered design systems
 
-I wanted to end this post with direct links to all of my `DESIGN.md` files.
+I wanted to end this post with the actual files.
 
-I have the reverse engineering work, but I have not actually published those standalone `DESIGN.md` files into the repos yet, so I do not have honest public file links to give you today.
+### Public `DESIGN.md` links
 
-What I can link for now are the products I reverse engineered:
+- [Kotsu `DESIGN.md`](https://github.com/mager/kotsu/blob/main/DESIGN.md)
+
+### Products I reverse engineered
 
 - [magerblog](https://www.mager.co/)
 - [Kotsu](https://www.kotsu.app/)
 - [Loooom](https://www.loooom.xyz/)
 - [prxps](https://www.prxps.com/)
 
-I will probably do a follow-up once I clean up the files enough to publish them directly.
+I will add the other direct `DESIGN.md` links here as I publish them.
