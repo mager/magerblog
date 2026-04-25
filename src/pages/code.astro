@@ -51,33 +51,34 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Code - ${SITE_TITLE}`} description="A sharper editorial front page for programming, AI systems, product experiments, and shipping notes." />
+		<BaseHead title={`Code - ${SITE_TITLE}`} description="Dark terminal dispatches on code, AI systems, product experiments, and shipping notes." />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 		<style>
 			:root {
-				--bg: #071018;
-				--bg-2: #0d1721;
-				--panel: #121d27;
-				--paper: #f5ecdb;
-				--paper-2: #efe3cf;
-				--ink: #0b1218;
-				--ink-soft: #31424d;
-				--line: rgba(11, 18, 24, 0.14);
-				--line-strong: rgba(11, 18, 24, 0.28);
-				--cream-line: rgba(245, 236, 219, 0.12);
-				--mint: #7ef0bf;
-				--cyan: #98cfff;
-				--amber: #ffcf66;
-				--red: #ff6c64;
-				--paper-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+				--bg: #060b10;
+				--bg-2: #0b1117;
+				--panel: #0f1720;
+				--panel-2: #131c26;
+				--panel-3: #0b141d;
+				--line: rgba(230, 237, 243, 0.08);
+				--line-strong: rgba(230, 237, 243, 0.16);
+				--text: #e6edf3;
+				--text-soft: #8b949e;
+				--text-dim: #6e7681;
+				--mint: #7ee787;
+				--cyan: #79c0ff;
+				--purple: #bc8cff;
+				--amber: #e3b341;
+				--red: #ff7b72;
 			}
 
 			body {
 				background:
-					radial-gradient(circle at top, rgba(126, 240, 191, 0.12), transparent 24%),
-					linear-gradient(180deg, #03080d 0%, var(--bg) 26%, var(--bg-2) 100%);
+					radial-gradient(circle at top, rgba(121, 192, 255, 0.09), transparent 28%),
+					radial-gradient(circle at 20% 0%, rgba(126, 231, 135, 0.08), transparent 24%),
+					linear-gradient(180deg, #020409 0%, var(--bg) 26%, var(--bg-2) 100%);
 			}
 
 			main.code-frontpage {
@@ -90,11 +91,11 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				position: relative;
 				border-radius: 24px;
 				overflow: hidden;
-				border: 1px solid rgba(245, 236, 219, 0.12);
+				border: 1px solid rgba(230, 237, 243, 0.08);
 				background:
-					repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 5px),
-					linear-gradient(180deg, rgba(6, 11, 16, 0.95), rgba(12, 20, 28, 0.98));
-				box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+					repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px),
+					linear-gradient(180deg, rgba(6, 10, 14, 0.98), rgba(11, 17, 23, 0.98));
+				box-shadow: 0 42px 140px rgba(0,0,0,0.55);
 			}
 
 			.monitor-topbar {
@@ -103,7 +104,7 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				align-items: center;
 				gap: 1rem;
 				padding: 0.9rem 1rem;
-				border-bottom: 1px solid var(--cream-line);
+				border-bottom: 1px solid var(--line);
 				background: rgba(255,255,255,0.02);
 			}
 
@@ -123,17 +124,19 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 			.monitor-lights span:nth-child(1) { background: var(--red); }
 			.monitor-lights span:nth-child(2) { background: var(--amber); }
-			.monitor-lights span:nth-child(3) { background: var(--mint); box-shadow: 0 0 12px rgba(126, 240, 191, 0.45); }
+			.monitor-lights span:nth-child(3) { background: var(--mint); box-shadow: 0 0 12px rgba(126, 231, 135, 0.45); }
 
 			.shell-label,
-			.paper-label,
 			.kicker,
 			.terminal-chip,
 			.ticker-item,
 			.archive-kicker,
 			.mini-label,
 			.stat-label,
-			.column-label {
+			.column-label,
+			.panel-label,
+			.hero-tag,
+			.tag-board span {
 				font-family: 'IBM Plex Mono', monospace;
 				text-transform: uppercase;
 				letter-spacing: 0.12em;
@@ -141,21 +144,23 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 			.shell-label {
 				font-size: 0.72rem;
-				color: rgba(245, 236, 219, 0.74);
+				color: rgba(230, 237, 243, 0.74);
 			}
 
 			.topbar-meta {
-				color: rgba(245, 236, 219, 0.45);
+				color: rgba(230, 237, 243, 0.42);
 			}
 
-			.newspaper {
-				margin: 1rem;
-				padding: 1.2rem;
-				background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
-				color: var(--ink);
+			.terminal-screen {
+				padding: 1rem;
+			}
+
+			.hero-shell {
+				padding: 1.15rem;
+				background: linear-gradient(180deg, rgba(15, 23, 32, 0.98), rgba(11, 20, 29, 0.98));
+				border: 1px solid var(--line-strong);
 				border-radius: 18px;
-				border: 1px solid rgba(11, 18, 24, 0.12);
-				box-shadow: var(--paper-shadow);
+				box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
 			}
 
 			.edition-bar {
@@ -163,144 +168,160 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 1rem;
 				padding-bottom: 0.9rem;
-				border-bottom: 1px solid var(--line-strong);
+				border-bottom: 1px solid var(--line);
 			}
 
 			.edition-bar > div:nth-child(2) { text-align: center; }
 			.edition-bar > div:last-child { text-align: right; }
 
-			.paper-label {
-				display: block;
-				font-size: 0.7rem;
-				color: #0e6a4b;
-				margin-bottom: 0.18rem;
+			.panel-label,
+			.column-label,
+			.archive-kicker,
+			.stat-label,
+			.mini-label {
+				font-size: 0.68rem;
+				color: var(--mint);
+			}
+
+			.edition-copy,
+			.hero-note span,
+			.secondary-card-copy,
+			.archive-copy,
+			.mini-story-copy,
+			.sidebar-list {
+				font-family: 'IBM Plex Sans', sans-serif;
+				line-height: 1.5;
+				color: var(--text-soft);
 			}
 
 			.edition-copy {
 				display: block;
-				font-family: 'IBM Plex Sans', sans-serif;
-				font-size: 0.95rem;
-				line-height: 1.35;
-				color: var(--ink-soft);
+				font-size: 0.94rem;
+				margin-top: 0.18rem;
 			}
 
 			.masthead {
-				padding: 1.15rem 0 1rem;
-				border-bottom: 3px double var(--line-strong);
-				text-align: center;
+				padding: 1.1rem 0 1rem;
+				border-bottom: 1px solid var(--line);
 			}
 
 			.kicker {
 				display: inline-flex;
 				align-items: center;
 				gap: 0.55rem;
-				font-size: 0.72rem;
-				color: #0e6a4b;
+				font-size: 0.7rem;
+				color: var(--cyan);
 			}
 
 			.kicker::before,
 			.kicker::after {
 				content: '';
-				width: 2.25rem;
+				width: 2rem;
 				height: 1px;
 				background: currentColor;
-				opacity: 0.38;
+				opacity: 0.42;
 			}
 
 			.masthead-title {
 				margin: 0.65rem 0 0;
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
 				font-size: clamp(3.5rem, 10vw, 8rem);
-				line-height: 0.85;
+				line-height: 0.83;
 				letter-spacing: -0.06em;
 				text-transform: uppercase;
-				color: #09111a;
+				color: var(--text);
+				text-shadow: 0 0 24px rgba(121, 192, 255, 0.08);
 			}
 
 			.masthead-subtitle {
-				max-width: 52rem;
-				margin: 0.85rem auto 0;
+				max-width: 54rem;
+				margin: 0.8rem 0 0;
 				font-family: 'Instrument Serif', serif;
-				font-size: clamp(1.1rem, 2vw, 1.7rem);
-				line-height: 1.18;
-				color: var(--ink-soft);
+				font-size: clamp(1.12rem, 1.8vw, 1.55rem);
+				line-height: 1.14;
+				color: #c9d1d9;
 			}
 
 			.ticker {
 				display: grid;
 				grid-template-columns: auto 1fr;
-				margin: 1rem 0 1.25rem;
-				border: 1px solid var(--line-strong);
-				background: rgba(11, 18, 24, 0.04);
+				margin: 1rem 0 1.2rem;
+				border: 1px solid var(--line);
+				background: rgba(121, 192, 255, 0.03);
 			}
 
 			.ticker-label {
 				padding: 0.8rem 1rem;
-				background: #101920;
-				color: var(--paper);
+				background: #0a131b;
+				color: var(--mint);
 				font-family: 'IBM Plex Mono', monospace;
-				font-size: 0.72rem;
+				font-size: 0.7rem;
 				font-weight: 700;
 				letter-spacing: 0.12em;
 				text-transform: uppercase;
+				border-right: 1px solid var(--line);
 			}
 
 			.ticker-track {
 				display: flex;
 				align-items: center;
 				gap: 0.85rem;
-				padding: 0.7rem 1rem;
+				padding: 0.72rem 1rem;
 				flex-wrap: wrap;
 			}
 
 			.ticker-item {
-				font-size: 0.7rem;
-				color: var(--ink-soft);
+				font-size: 0.68rem;
+				color: var(--text-soft);
 			}
 
-			.ticker-item strong { color: var(--ink); }
+			.ticker-item strong {
+				color: var(--cyan);
+				margin-right: 0.3rem;
+			}
 
 			.front-grid {
 				display: grid;
-				grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.8fr);
-				gap: 1.4rem;
+				grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.82fr);
+				gap: 1.3rem;
 			}
 
 			.hero-story {
 				display: grid;
 				grid-template-columns: minmax(0, 1.2fr) 16rem;
-				gap: 1.1rem;
+				gap: 1rem;
 				padding-bottom: 1.2rem;
-				border-bottom: 1px solid var(--line-strong);
+				border-bottom: 1px solid var(--line);
 			}
 
 			.hero-card {
 				display: flex;
 				flex-direction: column;
-				gap: 0.9rem;
+				gap: 0.85rem;
 			}
 
 			.terminal-chip {
 				display: inline-flex;
 				align-items: center;
 				gap: 0.45rem;
-				padding: 0.45rem 0.7rem;
+				padding: 0.46rem 0.68rem;
 				width: fit-content;
-				font-size: 0.72rem;
-				background: #101920;
+				font-size: 0.7rem;
+				background: rgba(126, 231, 135, 0.08);
 				color: var(--mint);
+				border: 1px solid rgba(126, 231, 135, 0.14);
 				border-radius: 999px;
 			}
 
 			.terminal-chip::before {
 				content: '▋';
-				text-shadow: 0 0 8px rgba(126, 240, 191, 0.5);
+				text-shadow: 0 0 8px rgba(126, 231, 135, 0.5);
 			}
 
 			.hero-headline {
 				margin: 0;
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
-				font-size: clamp(2.2rem, 5.5vw, 5.4rem);
+				font-size: clamp(2.2rem, 5.6vw, 5.2rem);
 				line-height: 0.9;
 				letter-spacing: -0.05em;
 				text-transform: uppercase;
@@ -315,9 +336,9 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			.hero-deck {
 				margin: 0;
 				font-family: 'Instrument Serif', serif;
-				font-size: clamp(1.15rem, 1.8vw, 1.55rem);
-				line-height: 1.18;
-				color: var(--ink-soft);
+				font-size: clamp(1.08rem, 1.7vw, 1.4rem);
+				line-height: 1.15;
+				color: #c9d1d9;
 			}
 
 			.hero-meta {
@@ -328,31 +349,30 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 			.hero-tag,
 			.tag-board span {
-				font-family: 'IBM Plex Mono', monospace;
-				font-size: 0.68rem;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
+				font-size: 0.66rem;
 				padding: 0.42rem 0.55rem;
-				border: 1px solid rgba(11, 18, 24, 0.12);
-				background: rgba(11, 18, 24, 0.035);
-				color: var(--ink-soft);
+				border: 1px solid rgba(121, 192, 255, 0.15);
+				background: rgba(121, 192, 255, 0.06);
+				color: var(--cyan);
 			}
 
 			.hero-notes,
-			.rail-panel {
+			.rail-panel,
+			.archive-shell {
 				padding: 1rem;
-				background: rgba(255, 255, 255, 0.24);
-				border: 1px solid var(--line-strong);
+				background: linear-gradient(180deg, rgba(17, 25, 34, 0.94), rgba(11, 18, 25, 0.94));
+				border: 1px solid var(--line);
+				border-radius: 14px;
 			}
 
 			.hero-notes {
 				display: grid;
-				gap: 0.9rem;
+				gap: 0.85rem;
 			}
 
 			.hero-note {
-				padding-bottom: 0.8rem;
-				border-bottom: 1px solid rgba(11, 18, 24, 0.08);
+				padding-bottom: 0.78rem;
+				border-bottom: 1px solid rgba(230, 237, 243, 0.06);
 			}
 
 			.hero-note:last-child {
@@ -366,23 +386,14 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			.archive-heading,
 			.mini-story-title {
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
+				color: var(--text);
 			}
 
 			.hero-note strong {
 				display: block;
-				font-size: 1.1rem;
+				font-size: 1.08rem;
 				letter-spacing: -0.03em;
 				margin-bottom: 0.2rem;
-			}
-
-			.hero-note span,
-			.secondary-card-copy,
-			.archive-copy,
-			.mini-story-copy,
-			.sidebar-list {
-				font-family: 'IBM Plex Sans', sans-serif;
-				color: var(--ink-soft);
-				line-height: 1.5;
 			}
 
 			.news-columns {
@@ -393,26 +404,18 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			}
 
 			.secondary-card {
-				padding-top: 0.85rem;
-				border-top: 1px solid var(--line);
 				display: grid;
-				gap: 0.45rem;
-			}
-
-			.mini-label,
-			.archive-kicker,
-			.column-label,
-			.stat-label {
-				font-size: 0.68rem;
-				color: #0e6a4b;
+				gap: 0.42rem;
+				padding: 0.95rem 0;
+				border-top: 1px solid var(--line);
 			}
 
 			.secondary-card-title {
-				font-size: clamp(1.35rem, 2.2vw, 2rem);
+				margin: 0;
+				font-size: clamp(1.3rem, 2.1vw, 1.9rem);
 				line-height: 0.96;
 				letter-spacing: -0.04em;
 				text-transform: uppercase;
-				margin: 0;
 			}
 
 			.side-rail,
@@ -429,35 +432,35 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			}
 
 			.stat-box {
-				padding: 0.75rem;
-				background: rgba(11, 18, 24, 0.05);
-				border: 1px solid rgba(11, 18, 24, 0.08);
+				padding: 0.78rem;
+				background: rgba(121, 192, 255, 0.04);
+				border: 1px solid rgba(121, 192, 255, 0.08);
+				border-radius: 10px;
 			}
 
 			.stat-value {
 				display: block;
-				font-size: 1.9rem;
+				font-size: 1.85rem;
 				line-height: 0.9;
 			}
 
 			.sidebar-list {
 				margin: 0;
-				padding-left: 1.15rem;
+				padding-left: 1.1rem;
 			}
 
 			.rail-panel.dark {
-				background: #0f1720;
-				border-color: rgba(126, 240, 191, 0.14);
+				background: linear-gradient(180deg, rgba(10, 18, 24, 0.98), rgba(7, 13, 18, 0.98));
+				border-color: rgba(126, 231, 135, 0.12);
 			}
 
-			.rail-panel.dark .column-label,
-			.rail-panel.dark .mini-story-copy {
-				color: rgba(126, 240, 191, 0.75);
+			.rail-panel.dark .column-label {
+				color: var(--mint);
 			}
 
 			.mini-story {
-				padding-top: 0.75rem;
-				border-top: 1px solid rgba(245, 236, 219, 0.08);
+				padding-top: 0.76rem;
+				border-top: 1px solid rgba(230, 237, 243, 0.06);
 			}
 
 			.mini-story:first-child {
@@ -467,32 +470,32 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 			.mini-story-title {
 				margin: 0 0 0.2rem;
-				font-size: 1.15rem;
+				font-size: 1.12rem;
 				line-height: 1;
-				text-transform: uppercase;
 				letter-spacing: -0.03em;
-				color: var(--paper);
+				text-transform: uppercase;
+			}
+
+			.archive-shell {
+				margin-top: 1.2rem;
 			}
 
 			.archive-section {
 				display: grid;
 				grid-template-columns: minmax(0, 1fr) 18rem;
-				gap: 1.3rem;
-				margin-top: 1.3rem;
-				padding-top: 1.3rem;
-				border-top: 3px double var(--line-strong);
+				gap: 1.2rem;
 			}
 
 			.archive-heading {
-				margin: 0.25rem 0 0.5rem;
-				font-size: clamp(1.9rem, 4vw, 3.2rem);
+				margin: 0.25rem 0 0.45rem;
+				font-size: clamp(1.9rem, 4vw, 3rem);
 				line-height: 0.92;
 				letter-spacing: -0.05em;
 				text-transform: uppercase;
 			}
 
 			.archive-list {
-				border-top: 1px solid var(--line-strong);
+				border-top: 1px solid var(--line);
 			}
 
 			.tag-board {
@@ -501,7 +504,7 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				gap: 0.45rem;
 			}
 
-			.tag-board strong { color: var(--ink); }
+			.tag-board strong { color: var(--text); }
 
 			@media (max-width: 1080px) {
 				.front-grid,
@@ -533,20 +536,28 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 				.topbar-meta {
 					gap: 0.45rem;
+				}
+
+				.shell-label {
 					font-size: 0.66rem;
 				}
 
-				.newspaper {
-					margin: 0.7rem;
-					padding: 0.95rem;
-					border-radius: 14px;
+				.terminal-screen {
+					padding: 0.75rem;
+				}
+
+				.hero-shell,
+				.archive-shell,
+				.rail-panel {
+					padding: 0.9rem;
+					border-radius: 12px;
 				}
 
 				.edition-bar {
 					display: flex;
 					flex-direction: column;
-					gap: 0.55rem;
-					padding-bottom: 0.85rem;
+					gap: 0.48rem;
+					padding-bottom: 0.75rem;
 				}
 
 				.edition-bar > div,
@@ -561,14 +572,11 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				}
 
 				.masthead {
-					padding: 0.95rem 0 0.85rem;
-					text-align: left;
+					padding: 0.9rem 0 0.85rem;
 				}
 
 				.kicker {
-					display: flex;
-					justify-content: flex-start;
-					font-size: 0.66rem;
+					font-size: 0.64rem;
 					letter-spacing: 0.14em;
 				}
 
@@ -577,15 +585,13 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				}
 
 				.masthead-title {
-					font-size: clamp(2.5rem, 16vw, 4rem);
-					line-height: 0.88;
+					font-size: clamp(2.4rem, 15vw, 4rem);
 					max-width: 6ch;
 				}
 
 				.masthead-subtitle {
-					margin: 0.65rem 0 0;
-					font-size: 1.35rem;
-					line-height: 1.08;
+					font-size: 1.05rem;
+					line-height: 1.16;
 				}
 
 				.ticker {
@@ -594,11 +600,13 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				}
 
 				.ticker-label {
-					padding: 0.65rem 0.8rem;
+					padding: 0.68rem 0.8rem;
+					border-right: none;
+					border-bottom: 1px solid var(--line);
 				}
 
 				.ticker-track {
-					padding: 0.65rem 0.8rem;
+					padding: 0.68rem 0.8rem;
 					gap: 0.55rem;
 				}
 
@@ -607,16 +615,12 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					padding-bottom: 1rem;
 				}
 
-				.hero-card {
-					gap: 0.75rem;
-				}
-
 				.hero-headline {
-					font-size: clamp(1.95rem, 10vw, 3.1rem);
+					font-size: clamp(1.95rem, 10vw, 3rem);
 				}
 
 				.hero-deck {
-					font-size: 1.15rem;
+					font-size: 1rem;
 				}
 
 				.hero-notes {
@@ -628,14 +632,6 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					grid-template-columns: 1fr;
 				}
 
-				.secondary-card {
-					padding-top: 0.7rem;
-				}
-
-				.secondary-card-title {
-					font-size: 1.6rem;
-				}
-
 				.side-rail {
 					margin-top: 0.9rem;
 				}
@@ -645,17 +641,16 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					display: none;
 				}
 
-				.archive-section {
+				.archive-shell {
 					margin-top: 1rem;
-					padding-top: 1rem;
 				}
 
 				.archive-heading {
-					font-size: 1.8rem;
+					font-size: 1.7rem;
 				}
 
 				.archive-copy {
-					font-size: 0.98rem;
+					font-size: 0.95rem;
 				}
 			}
 		</style>
@@ -675,142 +670,146 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					</div>
 				</div>
 
-				<div class="newspaper">
-					<div class="edition-bar">
-						<div>
-							<span class="paper-label">Edition {issueNumber}</span>
-							<span class="edition-copy">{fullDate}</span>
+				<div class="terminal-screen">
+					<div class="hero-shell">
+						<div class="edition-bar">
+							<div>
+								<span class="panel-label">Edition {issueNumber}</span>
+								<span class="edition-copy">{fullDate}</span>
+							</div>
+							<div>
+								<span class="panel-label">Terminal desk</span>
+								<span class="edition-copy">Code, AI systems, and shipping notes from the build queue.</span>
+							</div>
+							<div>
+								<span class="panel-label">Since {decadeStart}</span>
+								<span class="edition-copy">{yearsCovered.size} years in archive</span>
+							</div>
 						</div>
-						<div>
-							<span class="paper-label">Mager Multiplex Terminal</span>
-							<span class="edition-copy">Shipping notes, AI systems, and code worth reading twice.</span>
-						</div>
-						<div>
-							<span class="paper-label">Since {decadeStart}</span>
-							<span class="edition-copy">{yearsCovered.size} years in archive</span>
-						</div>
-					</div>
 
-					<div class="masthead">
-						<div class="kicker">Late Edition • Tech Newspaper</div>
-						<h1 class="masthead-title">Code Dispatch</h1>
-						<p class="masthead-subtitle">Part newsroom, part terminal multiplexer, part running log of experiments worth stealing from.</p>
-					</div>
-
-					<div class="ticker">
-						<div class="ticker-label">On the wire</div>
-						<div class="ticker-track">
-							{topTags.map(([tag, count]) => (
-								<span class="ticker-item"><strong>{tag}</strong> {count}</span>
-							))}
+						<div class="masthead">
+							<div class="kicker">Late Edition • Terminal Dispatch</div>
+							<h1 class="masthead-title">Code Dispatch</h1>
+							<p class="masthead-subtitle">A dark multiplex for code posts: lead story up top, wire feed underneath, terminal hum all the way through.</p>
 						</div>
-					</div>
 
-					<div class="front-grid">
-						<section>
-							{featuredPost && (
-								<>
-									<div class="hero-story">
-										<div class="hero-card">
-											<div class="terminal-chip">Lead story • {shortDate(featuredPost.data.pubDate)}</div>
-											<h2 class="hero-headline"><a href={leadHref}>{featuredPost.data.title}</a></h2>
-											<p class="hero-deck">The code section should feel like a publication, not a category page. Stronger type. Sharper contrast. Faster scanning.</p>
-											<div class="hero-meta">
-												{leadTags.map(tag => <span class="hero-tag">{tag}</span>)}
+						<div class="ticker">
+							<div class="ticker-label">On the wire</div>
+							<div class="ticker-track">
+								{topTags.map(([tag, count]) => (
+									<span class="ticker-item"><strong>{tag}</strong> {count}</span>
+								))}
+							</div>
+						</div>
+
+						<div class="front-grid">
+							<section>
+								{featuredPost && (
+									<>
+										<div class="hero-story">
+											<div class="hero-card">
+												<div class="terminal-chip">Lead story • {shortDate(featuredPost.data.pubDate)}</div>
+												<h2 class="hero-headline"><a href={leadHref}>{featuredPost.data.title}</a></h2>
+												<p class="hero-deck">The code section should feel like a real terminal publication: sharp, dark, fast to scan, and a little dangerous.</p>
+												<div class="hero-meta">
+													{leadTags.map(tag => <span class="hero-tag">{tag}</span>)}
+												</div>
+											</div>
+
+											<div class="hero-notes">
+												<div class="hero-note">
+													<strong>Dark by default</strong>
+													<span>No paper tones. No washed-out headlines. The archive should glow, not fade.</span>
+												</div>
+												<div class="hero-note">
+													<strong>Terminal first</strong>
+													<span>Everything sits inside one coherent shell: monitor chrome, wire labels, luminous tags.</span>
+												</div>
+												<div class="hero-note">
+													<strong>Phone readable</strong>
+													<span>One strong lead, clean feed rows, and no decorative baggage that muddies the hierarchy.</span>
+												</div>
 											</div>
 										</div>
 
-										<div class="hero-notes">
-											<div class="hero-note">
-												<strong>Editorial first</strong>
-												<span>Lead with the newest idea and make the rest feel like a wire service.</span>
-											</div>
-											<div class="hero-note">
-												<strong>Terminal frame</strong>
-												<span>Keep the monitor shell, but let the paper do the talking.</span>
-											</div>
-											<div class="hero-note">
-												<strong>Phone readable</strong>
-												<span>Fewer boxes, stronger headlines, no invisible labels.</span>
-											</div>
+										<div class="news-columns">
+											{secondaryPosts.map(post => (
+												<article class="secondary-card">
+													<span class="mini-label">{shortDate(post.data.pubDate)}</span>
+													<h3 class="secondary-card-title"><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+													<p class="secondary-card-copy">{(post.data.tags || []).slice(0, 4).join(' • ') || 'AI • systems • shipping'}</p>
+												</article>
+											))}
+										</div>
+									</>
+								)}
+							</section>
+
+							<aside class="side-rail">
+								<div class="rail-panel">
+									<span class="column-label">Desk stats</span>
+									<div class="stats-grid">
+										<div class="stat-box">
+											<span class="stat-value">{posts.length}</span>
+											<span class="stat-label">stories</span>
+										</div>
+										<div class="stat-box">
+											<span class="stat-value">{topTags.length}</span>
+											<span class="stat-label">beats</span>
+										</div>
+										<div class="stat-box">
+											<span class="stat-value">{yearsCovered.size}</span>
+											<span class="stat-label">years</span>
+										</div>
+										<div class="stat-box">
+											<span class="stat-value">24/7</span>
+											<span class="stat-label">hum</span>
 										</div>
 									</div>
+								</div>
 
-									<div class="news-columns">
-										{secondaryPosts.map(post => (
-											<article class="secondary-card">
-												<span class="mini-label">{shortDate(post.data.pubDate)}</span>
-												<h3 class="secondary-card-title"><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
-												<p class="secondary-card-copy">{(post.data.tags || []).slice(0, 4).join(' • ') || 'AI • systems • shipping'}</p>
+								<div class="rail-panel dark">
+									<span class="column-label">Night desk</span>
+									<div class="mini-stories">
+										{posts.slice(0, 3).map(post => (
+											<article class="mini-story">
+												<h3 class="mini-story-title"><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+												<p class="mini-story-copy">{shortDate(post.data.pubDate)} · {(post.data.tags || []).slice(0, 3).join(' • ') || 'field notes from the build queue'}</p>
 											</article>
 										))}
 									</div>
-								</>
-							)}
-						</section>
+								</div>
 
-						<aside class="side-rail">
-							<div class="rail-panel">
-								<span class="column-label">Desk stats</span>
-								<div class="stats-grid">
-									<div class="stat-box">
-										<span class="stat-value">{posts.length}</span>
-										<span class="stat-label">stories</span>
-									</div>
-									<div class="stat-box">
-										<span class="stat-value">{topTags.length}</span>
-										<span class="stat-label">beats</span>
-									</div>
-									<div class="stat-box">
-										<span class="stat-value">{yearsCovered.size}</span>
-										<span class="stat-label">years</span>
-									</div>
-									<div class="stat-box">
-										<span class="stat-value">24/7</span>
-										<span class="stat-label">hum</span>
+								<div class="rail-panel">
+									<span class="column-label">Coverage map</span>
+									<div class="tag-board">
+										{topTags.map(([tag, count]) => <span><strong>{count}</strong> {tag}</span>)}
 									</div>
 								</div>
-							</div>
-
-							<div class="rail-panel">
-								<span class="column-label">Coverage map</span>
-								<div class="tag-board">
-									{topTags.map(([tag, count]) => <span><strong>{count}</strong> {tag}</span>)}
-								</div>
-							</div>
-
-							<div class="rail-panel dark">
-								<span class="column-label">Night desk</span>
-								<div class="mini-stories">
-									{posts.slice(0, 3).map(post => (
-										<article class="mini-story">
-											<h3 class="mini-story-title"><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
-											<p class="mini-story-copy">{shortDate(post.data.pubDate)} · {(post.data.tags || []).slice(0, 3).join(' • ') || 'field notes from the build queue'}</p>
-										</article>
-									))}
-								</div>
-							</div>
-						</aside>
+							</aside>
+						</div>
 					</div>
 
-					<div class="archive-section">
-						<section>
-							<span class="archive-kicker">Archive feed</span>
-							<h2 class="archive-heading">All dispatches, sorted like a wire.</h2>
-							<p class="archive-copy">The front page now does the seduction. The archive below does the work.</p>
-							<div class="archive-list">
-								{posts.length > 0
-									? posts.map((post, i) => <CodePostRow post={post} index={i} />)
-									: <p class="archive-copy">No code posts yet.</p>}
-							</div>
-						</section>
+					<div class="archive-shell">
+						<div class="archive-section">
+							<section>
+								<span class="archive-kicker">Archive feed</span>
+								<h2 class="archive-heading">All dispatches, sorted like a wire.</h2>
+								<p class="archive-copy">Lead story on top. Terminal feed below. Dark all the way through.</p>
+								<div class="archive-list">
+									{posts.length > 0
+										? posts.map((post, i) => <CodePostRow post={post} index={i} />)
+										: <p class="archive-copy">No code posts yet.</p>}
+								</div>
+							</section>
 
-						<aside class="archive-aside">
-							<div class="rail-panel">
-								<span class="column-label">Archive note</span>
-								<p class="archive-copy" style="margin: 0;">This should feel like a publication with a terminal problem, not a terminal with a publication problem.</p>
-							</div>
-						</aside>
+							<aside class="archive-aside">
+								<div class="rail-panel">
+									<span class="column-label">Archive note</span>
+									<p class="archive-copy" style="margin: 0;">This now reads like a terminal publication, not a beige editorial experiment wearing the wrong clothes.</p>
+								</div>
+							</aside>
+						</div>
 					</div>
 				</div>
 			</div>
