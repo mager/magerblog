@@ -106,7 +106,7 @@ Here is [Kotsu](https://www.kotsu.app/), the latest one I did this for:
 
 ![Kotsu, my Japanese character learning site, with its own calmer and more studious atmosphere](https://lh3.googleusercontent.com/pw/AP1GczN42b4mu7VAxkEc9A5HtFuj_PdlccN-78vO8o_eUcrR67Vl9-a8m60IT-nGo85EPp33ZDeoB7DhbTXjzcrQMYSnBT-cHRYOnk2zKC8zwt6YVb-MvyRltiiXuUsa8s_lMUPiIh162XpBD8e3KiAdE56TZg=w2322-h1522-s-no-gm)
 
-Kotsu should not feel like my blog. It should not feel like Loooom either. It needs to feel calmer, more focused, more studious, more respectful of the content.
+Kotsu should not feel like my blog. It should not feel like [Loooom](https://loooom.xyz) either. It needs to feel calmer, more focused, more studious, more respectful of the content.
 
 What ends up being reusable is not one frozen visual style. It is the deeper logic underneath the style.
 
