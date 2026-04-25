@@ -38,9 +38,103 @@ Good uses:
 
 If you have ever thought "I want Claude Code to keep acting like Claude Code, but with one extra rule," this is the flag.
 
-## 2. `--allowedTools` and `--disallowedTools`
+## 2. `--json-schema`
 
-These two are easy to skip until you want tighter control over what the session can do.
+This is probably the highest leverage flag in the whole CLI if you care about automation.
+
+A lot of people treat agent tooling like it has to end in prose. `--json-schema` is the thing that lets you stop hoping the output is parseable and start requiring that it be shaped the way your next system expects.
+
+Example:
+
+```bash
+claude --print \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"title":{"type":"string"},"risk":{"type":"string"}},"required":["title","risk"]}' \
+  "Review this patch and return a title and risk level"
+```
+
+Instead of parsing loose text, you can ask for validated structure.
+
+That is useful for:
+
+- CI annotations
+- PR review helpers
+- changelog generation
+- content pipelines
+- release tooling
+- chaining Claude Code into other programs without brittle parsing glue
+
+This is the difference between "interesting terminal demo" and "something I can actually wire into a workflow."
+
+If I were building lightweight automation around Claude Code, this is one of the first flags I would reach for.
+
+## 3. `--continue` and `--resume`
+
+These sound similar, but they solve slightly different problems.
+
+- `--continue` resumes the most recent conversation in the current directory
+- `--resume` resumes by session ID, or opens a picker
+
+Examples:
+
+```bash
+claude --continue
+```
+
+```bash
+claude --resume
+```
+
+```bash
+claude --resume 12345678-1234-1234-1234-123456789abc
+```
+
+This matters if you treat Claude Code as more than a one-shot assistant.
+
+`--continue` is the low-friction choice when you are back in the same repo and just want to pick up where you left off. `--resume` is better when you have multiple threads of work and want the exact session, not simply the latest one in a directory.
+
+Once you start actually using session history on purpose, Claude Code feels a lot more like a runtime and a lot less like a prompt box.
+
+## 4. `--fork-session`
+
+This one gets much more useful once you care about `--continue` and `--resume`.
+
+When paired with either of them, `--fork-session` creates a new session ID instead of reusing the old one.
+
+```bash
+claude --continue --fork-session
+```
+
+Why this is nice:
+
+- you can branch off an existing context without mutating its history
+- you get the benefit of prior conversation state without collapsing everything into one long thread
+- it fits real engineering work, where exploration often diverges
+
+It is basically the CLI equivalent of saying, "start from here, but make this a new branch of thought."
+
+## 5. `--print` with `--output-format stream-json`
+
+A lot of people think of Claude Code as purely interactive, but the non-interactive surface is deeper than it looks.
+
+`--print` makes Claude Code emit output and exit. Add `--output-format stream-json`, and it becomes much easier to integrate into scripts, supervisors, or your own harness.
+
+```bash
+claude --print --output-format stream-json "Summarize the latest git diff"
+```
+
+Related flags that pair well with this:
+
+- `--input-format stream-json`
+- `--include-partial-messages`
+- `--replay-user-messages`
+- `--json-schema`
+
+This is one of the flags that turns Claude Code from a terminal app into a component.
+
+## 6. `--allowedTools` and `--disallowedTools`
+
+These are easy to skip until you want tighter control over what the session can do.
 
 Claude Code exposes tool-level constraints through:
 
@@ -68,7 +162,7 @@ This is useful when you want to:
 
 A lot of agent weirdness disappears when the tool boundary is explicit.
 
-## 3. `--permission-mode`
+## 7. `--permission-mode`
 
 Most people know Claude Code has permission controls. Fewer seem to use the CLI flag that makes the mode explicit up front.
 
@@ -95,97 +189,11 @@ This is great when you want different interaction styles for different moments:
 
 The main win is predictability. The session starts in the operating mode you intended, instead of drifting there interactively.
 
-## 4. `--continue` and `--resume`
-
-These sound similar, but they solve slightly different problems.
-
-- `--continue` resumes the most recent conversation in the current directory
-- `--resume` resumes by session ID, or opens a picker
-
-Examples:
-
-```bash
-claude --continue
-```
-
-```bash
-claude --resume
-```
-
-```bash
-claude --resume 12345678-1234-1234-1234-123456789abc
-```
-
-This matters if you treat Claude Code as more than a one-shot assistant.
-
-`--continue` is the low-friction choice when you are back in the same repo and just want to pick up where you left off. `--resume` is better when you have multiple threads of work and want the exact session, not simply the latest one in a directory.
-
-## 5. `--fork-session`
-
-This one is subtle and genuinely useful.
-
-When paired with `--resume` or `--continue`, `--fork-session` creates a new session ID instead of reusing the old one.
-
-```bash
-claude --continue --fork-session
-```
-
-Why this is nice:
-
-- you can branch off an existing context without mutating its history
-- you get the benefit of prior conversation state without collapsing everything into one long thread
-- it fits real engineering work, where exploration often diverges
-
-It is basically the CLI equivalent of saying, "start from here, but make this a new branch of thought."
-
-## 6. `--print` with `--output-format stream-json`
-
-A lot of people think of Claude Code as purely interactive, but the non-interactive surface is deeper than it looks.
-
-`--print` makes Claude Code emit output and exit. Add structured output options, and it becomes much easier to integrate into scripts, supervisors, or other tools.
-
-```bash
-claude --print --output-format stream-json "Summarize the latest git diff"
-```
-
-Related flags that pair well with this:
-
-- `--input-format stream-json`
-- `--include-partial-messages`
-- `--replay-user-messages`
-- `--json-schema`
-
-This is one of the flags that turns Claude Code from a terminal app into a component.
-
-## 7. `--json-schema`
-
-If you are doing anything automated, this is one of the highest leverage flags in the whole CLI.
-
-Example:
-
-```bash
-claude --print \
-  --output-format json \
-  --json-schema '{"type":"object","properties":{"title":{"type":"string"},"risk":{"type":"string"}},"required":["title","risk"]}' \
-  "Review this patch and return a title and risk level"
-```
-
-Instead of parsing loose prose, you can ask for a validated structure.
-
-That is useful for:
-
-- CI annotations
-- PR review helpers
-- content pipelines
-- chaining Claude Code into other programs
-
-The gap between "interesting demo" and "reliable automation" is often just structured output.
-
 ## 8. `--mcp-config` and `--strict-mcp-config`
 
 Claude Code's MCP support is broad enough now that config isolation matters.
 
-`--mcp-config` lets you load MCP servers from JSON files or inline JSON strings. `--strict-mcp-config` tells Claude Code to use only the MCP servers supplied that way, ignoring other MCP configuration sources.
+`--mcp-config` lets you load MCP servers from JSON files or inline JSON strings. The more important flag, in my opinion, is `--strict-mcp-config`, which tells Claude Code to use only the MCP servers supplied that way and ignore other MCP configuration sources.
 
 That combination is excellent for reproducibility.
 
@@ -198,8 +206,9 @@ I like this for task-specific sessions where I want:
 - one known toolchain
 - no ambient config bleed from global settings
 - cleaner debugging when an MCP server behaves badly
+- confidence that the integration surface is exactly the one I intended
 
-It is the difference between "use whatever is lying around" and "use this exact integration surface."
+It is the difference between "use whatever is lying around" and "use this exact tool boundary."
 
 ## 9. `--add-dir`
 
@@ -220,6 +229,8 @@ Good examples:
 - product repo + docs repo
 
 In real codebases, the interesting context is often one directory over.
+
+It also hints at something bigger: once you combine `--add-dir`, structured output, and strict tool boundaries, you are getting pretty close to building your own custom harness around Claude Code without needing some giant framework.
 
 ## 10. `--debug-file`
 
