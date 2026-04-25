@@ -14,7 +14,6 @@ const posts = allPosts
 
 const featuredPost = posts[0];
 const secondaryPosts = posts.slice(1, 5);
-const archivePosts = posts.slice(5);
 const latestIssueDate = featuredPost?.data.pubDate ?? new Date();
 
 const fullDate = new Intl.DateTimeFormat('en-US', {
@@ -52,65 +51,50 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Code - ${SITE_TITLE}`} description="A terminal-front-page archive of programming, AI systems, product experiments, and shipping notes." />
+		<BaseHead title={`Code - ${SITE_TITLE}`} description="A sharper editorial front page for programming, AI systems, product experiments, and shipping notes." />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 		<style>
 			:root {
-				--paper: #f4efe4;
-				--paper-2: #e8decb;
-				--ink: #09111a;
-				--ink-soft: #30404d;
-				--rule: rgba(9, 17, 26, 0.14);
-				--rule-strong: rgba(9, 17, 26, 0.3);
-				--terminal-green: #77f5b1;
-				--signal-red: #ff6159;
-				--signal-amber: #ffbe2f;
-				--signal-blue: #77bdfb;
-				--glow: rgba(119, 245, 177, 0.2);
+				--bg: #071018;
+				--bg-2: #0d1721;
+				--panel: #121d27;
+				--paper: #f5ecdb;
+				--paper-2: #efe3cf;
+				--ink: #0b1218;
+				--ink-soft: #31424d;
+				--line: rgba(11, 18, 24, 0.14);
+				--line-strong: rgba(11, 18, 24, 0.28);
+				--cream-line: rgba(245, 236, 219, 0.12);
+				--mint: #7ef0bf;
+				--cyan: #98cfff;
+				--amber: #ffcf66;
+				--red: #ff6c64;
+				--paper-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
 			}
 
 			body {
 				background:
-					radial-gradient(circle at top, rgba(119, 245, 177, 0.08), transparent 24%),
-					linear-gradient(180deg, #05080d 0%, #0a1119 22%, #0f1822 100%);
+					radial-gradient(circle at top, rgba(126, 240, 191, 0.12), transparent 24%),
+					linear-gradient(180deg, #03080d 0%, var(--bg) 26%, var(--bg-2) 100%);
 			}
 
 			main.code-frontpage {
-				width: min(1500px, calc(100% - 2rem));
+				width: min(1440px, calc(100% - 2rem));
 				max-width: none;
-				padding: 1.25rem 1rem 4rem;
+				padding: 1rem 1rem 4rem;
 			}
 
 			.frontpage-shell {
 				position: relative;
-				border: 1px solid rgba(244, 239, 228, 0.14);
-				background:
-					repeating-linear-gradient(
-						0deg,
-						rgba(255, 255, 255, 0.025) 0,
-						rgba(255, 255, 255, 0.025) 1px,
-						transparent 1px,
-						transparent 5px
-					),
-					linear-gradient(180deg, rgba(4, 7, 10, 0.92), rgba(10, 14, 20, 0.96));
-				box-shadow:
-					0 40px 120px rgba(0, 0, 0, 0.5),
-					inset 0 1px 0 rgba(255, 255, 255, 0.04);
 				border-radius: 24px;
 				overflow: hidden;
-			}
-
-			.frontpage-shell::before {
-				content: '';
-				position: absolute;
-				inset: 0;
+				border: 1px solid rgba(245, 236, 219, 0.12);
 				background:
-					radial-gradient(circle at 20% 0%, rgba(119, 245, 177, 0.08), transparent 28%),
-					radial-gradient(circle at 100% 10%, rgba(119, 189, 251, 0.08), transparent 24%),
-					radial-gradient(circle at 50% 100%, rgba(255, 190, 47, 0.05), transparent 18%);
-				pointer-events: none;
+					repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 5px),
+					linear-gradient(180deg, rgba(6, 11, 16, 0.95), rgba(12, 20, 28, 0.98));
+				box-shadow: 0 40px 120px rgba(0,0,0,0.5);
 			}
 
 			.monitor-topbar {
@@ -118,11 +102,9 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				justify-content: space-between;
 				align-items: center;
 				gap: 1rem;
-				padding: 0.8rem 1rem;
-				border-bottom: 1px solid rgba(244, 239, 228, 0.1);
-				background: rgba(244, 239, 228, 0.04);
-				position: relative;
-				z-index: 1;
+				padding: 0.9rem 1rem;
+				border-bottom: 1px solid var(--cream-line);
+				background: rgba(255,255,255,0.02);
 			}
 
 			.monitor-lights,
@@ -139,143 +121,122 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				display: inline-block;
 			}
 
-			.monitor-lights span:nth-child(1) { background: var(--signal-red); }
-			.monitor-lights span:nth-child(2) { background: var(--signal-amber); }
-			.monitor-lights span:nth-child(3) { background: var(--terminal-green); box-shadow: 0 0 14px rgba(119, 245, 177, 0.45); }
+			.monitor-lights span:nth-child(1) { background: var(--red); }
+			.monitor-lights span:nth-child(2) { background: var(--amber); }
+			.monitor-lights span:nth-child(3) { background: var(--mint); box-shadow: 0 0 12px rgba(126, 240, 191, 0.45); }
 
-			.topbar-pill,
+			.shell-label,
+			.paper-label,
 			.kicker,
 			.terminal-chip,
 			.ticker-item,
-			.stat-label,
-			.column-label,
 			.archive-kicker,
-			.mini-label {
+			.mini-label,
+			.stat-label,
+			.column-label {
 				font-family: 'IBM Plex Mono', monospace;
 				text-transform: uppercase;
 				letter-spacing: 0.12em;
-				font-size: 0.72rem;
 			}
 
-			.topbar-pill {
-				color: rgba(244, 239, 228, 0.72);
+			.shell-label {
+				font-size: 0.72rem;
+				color: rgba(245, 236, 219, 0.74);
 			}
 
 			.topbar-meta {
-				color: rgba(244, 239, 228, 0.5);
+				color: rgba(245, 236, 219, 0.45);
 			}
 
 			.newspaper {
-				position: relative;
-				z-index: 1;
 				margin: 1rem;
-				padding: clamp(1.1rem, 2vw, 2rem);
-				background:
-					linear-gradient(180deg, rgba(244, 239, 228, 0.97), rgba(234, 225, 207, 0.98));
+				padding: 1.2rem;
+				background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
 				color: var(--ink);
 				border-radius: 18px;
-				border: 1px solid rgba(9, 17, 26, 0.12);
-				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-			}
-
-			.newspaper::after {
-				content: '';
-				position: absolute;
-				inset: 0;
-				background-image: radial-gradient(rgba(9, 17, 26, 0.045) 0.8px, transparent 0.8px);
-				background-size: 11px 11px;
-				opacity: 0.28;
-				pointer-events: none;
-			}
-
-			.edition-bar,
-			.masthead,
-			.front-grid,
-			.ticker,
-			.archive-section {
-				position: relative;
-				z-index: 1;
+				border: 1px solid rgba(11, 18, 24, 0.12);
+				box-shadow: var(--paper-shadow);
 			}
 
 			.edition-bar {
 				display: grid;
 				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 1rem;
-				padding-bottom: 0.8rem;
-				border-bottom: 1px solid var(--rule-strong);
-				align-items: end;
+				padding-bottom: 0.9rem;
+				border-bottom: 1px solid var(--line-strong);
 			}
 
-			.edition-bar > div:nth-child(2) {
-				text-align: center;
-			}
+			.edition-bar > div:nth-child(2) { text-align: center; }
+			.edition-bar > div:last-child { text-align: right; }
 
-			.edition-bar > div:last-child {
-				text-align: right;
+			.paper-label {
+				display: block;
+				font-size: 0.7rem;
+				color: #0e6a4b;
+				margin-bottom: 0.18rem;
 			}
 
 			.edition-copy {
 				display: block;
 				font-family: 'IBM Plex Sans', sans-serif;
 				font-size: 0.95rem;
+				line-height: 1.35;
 				color: var(--ink-soft);
-				margin-top: 0.2rem;
 			}
 
 			.masthead {
-				padding: 1.1rem 0 1.15rem;
-				border-bottom: 3px double var(--rule-strong);
+				padding: 1.15rem 0 1rem;
+				border-bottom: 3px double var(--line-strong);
 				text-align: center;
 			}
 
 			.kicker {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.5rem;
-				color: #0d6a4d;
-				margin-bottom: 0.8rem;
+				gap: 0.55rem;
+				font-size: 0.72rem;
+				color: #0e6a4b;
 			}
 
 			.kicker::before,
 			.kicker::after {
 				content: '';
-				width: 2.5rem;
+				width: 2.25rem;
 				height: 1px;
 				background: currentColor;
-				opacity: 0.4;
+				opacity: 0.38;
 			}
 
 			.masthead-title {
+				margin: 0.65rem 0 0;
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
-				font-size: clamp(4rem, 11vw, 8.6rem);
+				font-size: clamp(3.5rem, 10vw, 8rem);
 				line-height: 0.85;
 				letter-spacing: -0.06em;
-				font-weight: 700;
-				margin: 0;
 				text-transform: uppercase;
+				color: #09111a;
 			}
 
 			.masthead-subtitle {
-				max-width: 68rem;
-				margin: 0.9rem auto 0;
+				max-width: 52rem;
+				margin: 0.85rem auto 0;
 				font-family: 'Instrument Serif', serif;
-				font-size: clamp(1.2rem, 2vw, 1.8rem);
-				line-height: 1.2;
+				font-size: clamp(1.1rem, 2vw, 1.7rem);
+				line-height: 1.18;
 				color: var(--ink-soft);
 			}
 
 			.ticker {
 				display: grid;
 				grid-template-columns: auto 1fr;
-				gap: 0;
-				margin: 1.1rem 0 1.4rem;
-				border: 1px solid var(--rule-strong);
-				background: rgba(9, 17, 26, 0.03);
+				margin: 1rem 0 1.25rem;
+				border: 1px solid var(--line-strong);
+				background: rgba(11, 18, 24, 0.04);
 			}
 
 			.ticker-label {
-				padding: 0.85rem 1rem;
-				background: var(--ink);
+				padding: 0.8rem 1rem;
+				background: #101920;
 				color: var(--paper);
 				font-family: 'IBM Plex Mono', monospace;
 				font-size: 0.72rem;
@@ -288,110 +249,110 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				display: flex;
 				align-items: center;
 				gap: 0.85rem;
-				padding: 0.65rem 1rem;
+				padding: 0.7rem 1rem;
 				flex-wrap: wrap;
 			}
 
 			.ticker-item {
+				font-size: 0.7rem;
 				color: var(--ink-soft);
 			}
 
-			.ticker-item strong {
-				color: var(--ink);
-				margin-right: 0.25rem;
-			}
+			.ticker-item strong { color: var(--ink); }
 
 			.front-grid {
 				display: grid;
-				grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.9fr);
+				grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.8fr);
 				gap: 1.4rem;
 			}
 
 			.hero-story {
 				display: grid;
-				grid-template-columns: minmax(0, 1.2fr) 17rem;
-				gap: 1.2rem;
-				padding-bottom: 1.4rem;
-				border-bottom: 1px solid var(--rule-strong);
+				grid-template-columns: minmax(0, 1.2fr) 16rem;
+				gap: 1.1rem;
+				padding-bottom: 1.2rem;
+				border-bottom: 1px solid var(--line-strong);
 			}
 
 			.hero-card {
 				display: flex;
 				flex-direction: column;
-				gap: 1rem;
-				padding-right: 0.4rem;
+				gap: 0.9rem;
 			}
 
 			.terminal-chip {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.5rem;
-				padding: 0.5rem 0.7rem;
-				background: #0b1218;
-				color: var(--terminal-green);
-				border-radius: 999px;
-				box-shadow: inset 0 0 0 1px rgba(119, 245, 177, 0.18), 0 8px 24px rgba(0, 0, 0, 0.08);
+				gap: 0.45rem;
+				padding: 0.45rem 0.7rem;
 				width: fit-content;
+				font-size: 0.72rem;
+				background: #101920;
+				color: var(--mint);
+				border-radius: 999px;
 			}
 
 			.terminal-chip::before {
 				content: '▋';
-				color: var(--terminal-green);
-				text-shadow: 0 0 8px rgba(119, 245, 177, 0.55);
+				text-shadow: 0 0 8px rgba(126, 240, 191, 0.5);
 			}
 
 			.hero-headline {
 				margin: 0;
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
-				font-size: clamp(2.8rem, 6vw, 5.8rem);
-				line-height: 0.92;
+				font-size: clamp(2.2rem, 5.5vw, 5.4rem);
+				line-height: 0.9;
 				letter-spacing: -0.05em;
 				text-transform: uppercase;
 			}
 
-			.hero-headline a {
+			.hero-headline a,
+			.secondary-card-title a,
+			.mini-story-title a {
 				color: inherit;
 			}
 
 			.hero-deck {
 				margin: 0;
 				font-family: 'Instrument Serif', serif;
-				font-size: clamp(1.25rem, 2vw, 1.8rem);
-				line-height: 1.2;
+				font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+				line-height: 1.18;
 				color: var(--ink-soft);
 			}
 
 			.hero-meta {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.75rem;
-				align-items: center;
+				gap: 0.55rem;
 			}
 
-			.hero-tag {
+			.hero-tag,
+			.tag-board span {
 				font-family: 'IBM Plex Mono', monospace;
-				font-size: 0.7rem;
+				font-size: 0.68rem;
+				letter-spacing: 0.1em;
 				text-transform: uppercase;
-				letter-spacing: 0.12em;
-				padding: 0.45rem 0.6rem;
-				border: 1px solid rgba(9, 17, 26, 0.18);
-				background: rgba(9, 17, 26, 0.035);
+				padding: 0.42rem 0.55rem;
+				border: 1px solid rgba(11, 18, 24, 0.12);
+				background: rgba(11, 18, 24, 0.035);
 				color: var(--ink-soft);
 			}
 
-			.hero-notes {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				gap: 0.9rem;
+			.hero-notes,
+			.rail-panel {
 				padding: 1rem;
-				background: rgba(9, 17, 26, 0.04);
-				border: 1px solid rgba(9, 17, 26, 0.1);
+				background: rgba(255, 255, 255, 0.24);
+				border: 1px solid var(--line-strong);
+			}
+
+			.hero-notes {
+				display: grid;
+				gap: 0.9rem;
 			}
 
 			.hero-note {
-				padding-bottom: 0.85rem;
-				border-bottom: 1px solid rgba(9, 17, 26, 0.08);
+				padding-bottom: 0.8rem;
+				border-bottom: 1px solid rgba(11, 18, 24, 0.08);
 			}
 
 			.hero-note:last-child {
@@ -400,8 +361,8 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			}
 
 			.hero-note strong,
-			.stat-value,
 			.secondary-card-title,
+			.stat-value,
 			.archive-heading,
 			.mini-story-title {
 				font-family: 'IBM Plex Sans Condensed', sans-serif;
@@ -409,85 +370,56 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 			.hero-note strong {
 				display: block;
-				font-size: 1.15rem;
+				font-size: 1.1rem;
 				letter-spacing: -0.03em;
-				margin-bottom: 0.25rem;
+				margin-bottom: 0.2rem;
 			}
 
-			.hero-note span {
-				display: block;
+			.hero-note span,
+			.secondary-card-copy,
+			.archive-copy,
+			.mini-story-copy,
+			.sidebar-list {
 				font-family: 'IBM Plex Sans', sans-serif;
-				font-size: 0.95rem;
-				line-height: 1.45;
 				color: var(--ink-soft);
+				line-height: 1.5;
 			}
 
 			.news-columns {
 				display: grid;
 				grid-template-columns: repeat(2, minmax(0, 1fr));
-				gap: 1rem;
-				margin-top: 1.2rem;
+				gap: 0.9rem;
+				margin-top: 1rem;
 			}
 
 			.secondary-card {
-				display: flex;
-				flex-direction: column;
-				gap: 0.65rem;
-				padding-top: 0.9rem;
-				border-top: 1px solid var(--rule);
+				padding-top: 0.85rem;
+				border-top: 1px solid var(--line);
+				display: grid;
+				gap: 0.45rem;
+			}
+
+			.mini-label,
+			.archive-kicker,
+			.column-label,
+			.stat-label {
+				font-size: 0.68rem;
+				color: #0e6a4b;
 			}
 
 			.secondary-card-title {
-				font-size: clamp(1.45rem, 2.3vw, 2.3rem);
-				line-height: 0.98;
-				margin: 0;
-				text-transform: uppercase;
+				font-size: clamp(1.35rem, 2.2vw, 2rem);
+				line-height: 0.96;
 				letter-spacing: -0.04em;
-			}
-
-			.secondary-card-title a,
-			.mini-story-title a {
-				color: inherit;
-			}
-
-			.secondary-card-copy,
-			.mini-story-copy {
+				text-transform: uppercase;
 				margin: 0;
-				font-family: 'IBM Plex Sans', sans-serif;
-				line-height: 1.5;
-				color: var(--ink-soft);
 			}
 
-			.side-rail {
-				display: flex;
-				flex-direction: column;
+			.side-rail,
+			.archive-aside,
+			.mini-stories {
+				display: grid;
 				gap: 1rem;
-			}
-
-			.rail-panel {
-				padding: 1rem;
-				border: 1px solid var(--rule-strong);
-				background: rgba(255, 255, 255, 0.26);
-			}
-
-			.rail-panel.dark {
-				background: #0b1218;
-				color: var(--paper);
-				border-color: rgba(119, 245, 177, 0.16);
-				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-			}
-
-			.rail-panel.dark .column-label,
-			.rail-panel.dark .stat-label,
-			.rail-panel.dark .mini-story-copy,
-			.rail-panel.dark .sidebar-list li {
-				color: rgba(244, 239, 228, 0.68);
-			}
-
-			.column-label {
-				display: block;
-				margin-bottom: 0.85rem;
-				color: #0d6a4d;
 			}
 
 			.stats-grid {
@@ -497,46 +429,35 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			}
 
 			.stat-box {
-				padding: 0.8rem;
-				background: rgba(9, 17, 26, 0.05);
-				border: 1px solid rgba(9, 17, 26, 0.08);
-			}
-
-			.rail-panel.dark .stat-box {
-				background: rgba(255, 255, 255, 0.04);
-				border-color: rgba(255, 255, 255, 0.08);
+				padding: 0.75rem;
+				background: rgba(11, 18, 24, 0.05);
+				border: 1px solid rgba(11, 18, 24, 0.08);
 			}
 
 			.stat-value {
 				display: block;
-				font-size: 2rem;
+				font-size: 1.9rem;
 				line-height: 0.9;
-				letter-spacing: -0.04em;
-			}
-
-			.stat-label {
-				display: block;
-				margin-top: 0.35rem;
-				color: var(--ink-soft);
 			}
 
 			.sidebar-list {
 				margin: 0;
 				padding-left: 1.15rem;
-				display: grid;
-				gap: 0.6rem;
-				font-family: 'IBM Plex Sans', sans-serif;
-				line-height: 1.45;
 			}
 
-			.mini-stories {
-				display: grid;
-				gap: 0.9rem;
+			.rail-panel.dark {
+				background: #0f1720;
+				border-color: rgba(126, 240, 191, 0.14);
+			}
+
+			.rail-panel.dark .column-label,
+			.rail-panel.dark .mini-story-copy {
+				color: rgba(126, 240, 191, 0.75);
 			}
 
 			.mini-story {
-				padding-top: 0.85rem;
-				border-top: 1px solid rgba(255, 255, 255, 0.08);
+				padding-top: 0.75rem;
+				border-top: 1px solid rgba(245, 236, 219, 0.08);
 			}
 
 			.mini-story:first-child {
@@ -545,47 +466,33 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			}
 
 			.mini-story-title {
-				margin: 0 0 0.3rem;
-				font-size: 1.2rem;
+				margin: 0 0 0.2rem;
+				font-size: 1.15rem;
 				line-height: 1;
-				letter-spacing: -0.03em;
 				text-transform: uppercase;
+				letter-spacing: -0.03em;
 				color: var(--paper);
 			}
 
 			.archive-section {
 				display: grid;
-				grid-template-columns: minmax(0, 1fr) 19rem;
-				gap: 1.4rem;
-				margin-top: 1.4rem;
-				padding-top: 1.4rem;
-				border-top: 3px double var(--rule-strong);
+				grid-template-columns: minmax(0, 1fr) 18rem;
+				gap: 1.3rem;
+				margin-top: 1.3rem;
+				padding-top: 1.3rem;
+				border-top: 3px double var(--line-strong);
 			}
 
 			.archive-heading {
-				margin: 0 0 0.45rem;
-				font-size: clamp(2.1rem, 4vw, 3.5rem);
+				margin: 0.25rem 0 0.5rem;
+				font-size: clamp(1.9rem, 4vw, 3.2rem);
 				line-height: 0.92;
 				letter-spacing: -0.05em;
 				text-transform: uppercase;
 			}
 
-			.archive-copy {
-				max-width: 48rem;
-				margin: 0 0 1rem;
-				font-family: 'IBM Plex Sans', sans-serif;
-				line-height: 1.55;
-				color: var(--ink-soft);
-			}
-
 			.archive-list {
-				border-top: 1px solid var(--rule-strong);
-			}
-
-			.archive-aside {
-				display: flex;
-				flex-direction: column;
-				gap: 1rem;
+				border-top: 1px solid var(--line-strong);
 			}
 
 			.tag-board {
@@ -594,29 +501,12 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 				gap: 0.45rem;
 			}
 
-			.tag-board a,
-			.tag-board span {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.35rem;
-				padding: 0.45rem 0.55rem;
-				border: 1px solid rgba(9, 17, 26, 0.12);
-				background: rgba(9, 17, 26, 0.03);
-				font-family: 'IBM Plex Mono', monospace;
-				font-size: 0.7rem;
-				text-transform: uppercase;
-				letter-spacing: 0.1em;
-				color: var(--ink-soft);
-			}
-
-			.tag-board strong {
-				color: var(--ink);
-			}
+			.tag-board strong { color: var(--ink); }
 
 			@media (max-width: 1080px) {
 				.front-grid,
-				.archive-section,
-				.hero-story {
+				.hero-story,
+				.archive-section {
 					grid-template-columns: 1fr;
 				}
 
@@ -628,7 +518,7 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 			@media (max-width: 720px) {
 				main.code-frontpage {
 					width: 100%;
-					padding: 0.75rem 0 2rem;
+					padding: 0.65rem 0 2rem;
 				}
 
 				.frontpage-shell {
@@ -637,15 +527,26 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					border-right: none;
 				}
 
-				.newspaper {
-					margin: 0.75rem;
-					padding: 1rem;
+				.monitor-topbar {
+					padding: 0.8rem 0.9rem;
 				}
 
-				.edition-bar,
-				.news-columns,
-				.stats-grid {
-					grid-template-columns: 1fr;
+				.topbar-meta {
+					gap: 0.45rem;
+					font-size: 0.66rem;
+				}
+
+				.newspaper {
+					margin: 0.7rem;
+					padding: 0.95rem;
+					border-radius: 14px;
+				}
+
+				.edition-bar {
+					display: flex;
+					flex-direction: column;
+					gap: 0.55rem;
+					padding-bottom: 0.85rem;
 				}
 
 				.edition-bar > div,
@@ -654,18 +555,107 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					text-align: left;
 				}
 
-				.ticker {
-					grid-template-columns: 1fr;
+				.edition-bar > div:nth-child(2),
+				.edition-bar > div:last-child {
+					display: none;
+				}
+
+				.masthead {
+					padding: 0.95rem 0 0.85rem;
+					text-align: left;
+				}
+
+				.kicker {
+					display: flex;
+					justify-content: flex-start;
+					font-size: 0.66rem;
+					letter-spacing: 0.14em;
+				}
+
+				.kicker::after {
+					display: none;
 				}
 
 				.masthead-title {
-					font-size: clamp(3.15rem, 18vw, 5rem);
+					font-size: clamp(2.5rem, 16vw, 4rem);
+					line-height: 0.88;
+					max-width: 6ch;
 				}
 
-				.hero-headline,
-				.archive-heading,
+				.masthead-subtitle {
+					margin: 0.65rem 0 0;
+					font-size: 1.35rem;
+					line-height: 1.08;
+				}
+
+				.ticker {
+					grid-template-columns: 1fr;
+					margin: 0.9rem 0 1rem;
+				}
+
+				.ticker-label {
+					padding: 0.65rem 0.8rem;
+				}
+
+				.ticker-track {
+					padding: 0.65rem 0.8rem;
+					gap: 0.55rem;
+				}
+
+				.hero-story {
+					gap: 0.9rem;
+					padding-bottom: 1rem;
+				}
+
+				.hero-card {
+					gap: 0.75rem;
+				}
+
+				.hero-headline {
+					font-size: clamp(1.95rem, 10vw, 3.1rem);
+				}
+
+				.hero-deck {
+					font-size: 1.15rem;
+				}
+
+				.hero-notes {
+					display: none;
+				}
+
+				.news-columns,
+				.stats-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.secondary-card {
+					padding-top: 0.7rem;
+				}
+
 				.secondary-card-title {
-					word-break: break-word;
+					font-size: 1.6rem;
+				}
+
+				.side-rail {
+					margin-top: 0.9rem;
+				}
+
+				.side-rail .rail-panel:nth-child(2),
+				.archive-aside .rail-panel:last-child {
+					display: none;
+				}
+
+				.archive-section {
+					margin-top: 1rem;
+					padding-top: 1rem;
+				}
+
+				.archive-heading {
+					font-size: 1.8rem;
+				}
+
+				.archive-copy {
+					font-size: 0.98rem;
 				}
 			}
 		</style>
@@ -679,39 +669,39 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 						<span></span><span></span><span></span>
 					</div>
 					<div class="topbar-meta">
-						<span class="topbar-pill">mager.co/code</span>
+						<span class="shell-label">mager.co/code</span>
 						<span>•</span>
-						<span class="topbar-pill">live edition</span>
+						<span class="shell-label">live edition</span>
 					</div>
 				</div>
 
 				<div class="newspaper">
 					<div class="edition-bar">
 						<div>
-							<span class="topbar-pill">Edition {issueNumber}</span>
+							<span class="paper-label">Edition {issueNumber}</span>
 							<span class="edition-copy">{fullDate}</span>
 						</div>
 						<div>
-							<span class="topbar-pill">Mager Multiplex Terminal</span>
+							<span class="paper-label">Mager Multiplex Terminal</span>
 							<span class="edition-copy">Shipping notes, AI systems, and code worth reading twice.</span>
 						</div>
 						<div>
-							<span class="topbar-pill">Since {decadeStart}</span>
+							<span class="paper-label">Since {decadeStart}</span>
 							<span class="edition-copy">{yearsCovered.size} years in archive</span>
 						</div>
 					</div>
 
 					<div class="masthead">
-						<div class="kicker">Late Edition • Tech Newspaper for Internet Sickos</div>
+						<div class="kicker">Late Edition • Tech Newspaper</div>
 						<h1 class="masthead-title">Code Dispatch</h1>
-						<p class="masthead-subtitle">Part newsroom, part terminal multiplexer, part running log of experiments that escaped the lab.</p>
+						<p class="masthead-subtitle">Part newsroom, part terminal multiplexer, part running log of experiments worth stealing from.</p>
 					</div>
 
 					<div class="ticker">
-						<div class="ticker-label">on the wire</div>
+						<div class="ticker-label">On the wire</div>
 						<div class="ticker-track">
 							{topTags.map(([tag, count]) => (
-								<span class="ticker-item"><strong>{tag}</strong> {count} dispatch{count !== 1 ? 'es' : ''}</span>
+								<span class="ticker-item"><strong>{tag}</strong> {count}</span>
 							))}
 						</div>
 					</div>
@@ -724,7 +714,7 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 										<div class="hero-card">
 											<div class="terminal-chip">Lead story • {shortDate(featuredPost.data.pubDate)}</div>
 											<h2 class="hero-headline"><a href={leadHref}>{featuredPost.data.title}</a></h2>
-											<p class="hero-deck">New tools are easy. New taste is harder. This page now leads with ideas the way a front page should: louder, stranger, and impossible to confuse with a generic blog index.</p>
+											<p class="hero-deck">The code section should feel like a publication, not a category page. Stronger type. Sharper contrast. Faster scanning.</p>
 											<div class="hero-meta">
 												{leadTags.map(tag => <span class="hero-tag">{tag}</span>)}
 											</div>
@@ -732,16 +722,16 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 										<div class="hero-notes">
 											<div class="hero-note">
-												<strong>Front-page thesis</strong>
-												<span>Code writing deserves editorial hierarchy, not just another list of posts in a dark box.</span>
+												<strong>Editorial first</strong>
+												<span>Lead with the newest idea and make the rest feel like a wire service.</span>
 											</div>
 											<div class="hero-note">
-												<strong>Visual language</strong>
-												<span>Warm newsprint inside a terminal chassis. IBM Plex everywhere. Condensed headlines. Multiplex energy.</span>
+												<strong>Terminal frame</strong>
+												<span>Keep the monitor shell, but let the paper do the talking.</span>
 											</div>
 											<div class="hero-note">
-												<strong>Reader promise</strong>
-												<span>Fast scanning, obvious hierarchy, and enough attitude to feel like a real artifact.</span>
+												<strong>Phone readable</strong>
+												<span>Fewer boxes, stronger headlines, no invisible labels.</span>
 											</div>
 										</div>
 									</div>
@@ -765,30 +755,28 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 								<div class="stats-grid">
 									<div class="stat-box">
 										<span class="stat-value">{posts.length}</span>
-										<span class="stat-label">stories filed</span>
+										<span class="stat-label">stories</span>
 									</div>
 									<div class="stat-box">
 										<span class="stat-value">{topTags.length}</span>
-										<span class="stat-label">active beats</span>
+										<span class="stat-label">beats</span>
 									</div>
 									<div class="stat-box">
 										<span class="stat-value">{yearsCovered.size}</span>
-										<span class="stat-label">years covered</span>
+										<span class="stat-label">years</span>
 									</div>
 									<div class="stat-box">
 										<span class="stat-value">24/7</span>
-										<span class="stat-label">terminal hum</span>
+										<span class="stat-label">hum</span>
 									</div>
 								</div>
 							</div>
 
 							<div class="rail-panel">
-								<span class="column-label">Why this works</span>
-								<ol class="sidebar-list">
-									<li>A masthead gives the page a point of view instead of acting like a filtered archive.</li>
-									<li>The warm paper tone breaks the monochrome fatigue without losing the terminal frame.</li>
-									<li>Lead story + side rail + archive creates real editorial rhythm.</li>
-								</ol>
+								<span class="column-label">Coverage map</span>
+								<div class="tag-board">
+									{topTags.map(([tag, count]) => <span><strong>{count}</strong> {tag}</span>)}
+								</div>
 							</div>
 
 							<div class="rail-panel dark">
@@ -808,8 +796,8 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 					<div class="archive-section">
 						<section>
 							<span class="archive-kicker">Archive feed</span>
-							<h2 class="archive-heading">All dispatches, sorted like a newsroom wire.</h2>
-							<p class="archive-copy">The archive stays scannable, but the page now earns its keep before you even start scrolling. Big front page up top. Fast wire feed below. No dead space. No timid styling.</p>
+							<h2 class="archive-heading">All dispatches, sorted like a wire.</h2>
+							<p class="archive-copy">The front page now does the seduction. The archive below does the work.</p>
 							<div class="archive-list">
 								{posts.length > 0
 									? posts.map((post, i) => <CodePostRow post={post} index={i} />)
@@ -819,15 +807,8 @@ const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 
 						<aside class="archive-aside">
 							<div class="rail-panel">
-								<span class="column-label">Coverage map</span>
-								<div class="tag-board">
-									{topTags.map(([tag, count]) => <span><strong>{count}</strong> {tag}</span>)}
-								</div>
-							</div>
-
-							<div class="rail-panel">
 								<span class="column-label">Archive note</span>
-								<p class="archive-copy" style="margin: 0; font-size: 0.96rem;">If this were an actual multiplex terminal, this side column would be where the IRC pane, build log, and Vercel deploy feed all scream at each other.</p>
+								<p class="archive-copy" style="margin: 0;">This should feel like a publication with a terminal problem, not a terminal with a publication problem.</p>
 							</div>
 						</aside>
 					</div>
