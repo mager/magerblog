@@ -422,6 +422,200 @@ const categoryBadge = getCategoryBadge(category);
 				letter-spacing: 0.15em;
 			}
 
+			body[data-category="code"] .prose .code-panel {
+				--code-preview-max: min(68vh, 34rem);
+				width: min(100vw - 2rem, 120ch);
+				margin: 2.25rem 50%;
+				transform: translateX(-50%);
+				border: 1px solid rgba(163, 113, 247, 0.62);
+				border-radius: 14px;
+				background:
+					linear-gradient(135deg, rgba(163, 113, 247, 0.12), rgba(88, 166, 255, 0.05) 45%, rgba(0, 0, 0, 0.22)),
+					var(--terminal-black);
+				box-shadow:
+					0 0 0 1px rgba(88, 166, 255, 0.08),
+					0 24px 70px rgba(0, 0, 0, 0.35),
+					0 0 44px rgba(163, 113, 247, 0.12);
+				overflow: hidden;
+				position: relative;
+			}
+
+			body[data-category="code"] .prose .code-panel-toolbar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				padding: 0.65rem 0.8rem 0.65rem 1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+				background: rgba(5, 8, 14, 0.88);
+				backdrop-filter: blur(14px);
+			}
+
+			body[data-category="code"] .prose .code-panel-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				min-width: 0;
+				color: rgba(184, 196, 206, 0.75);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.68rem;
+				letter-spacing: 0.08em;
+				line-height: 1.3;
+				text-transform: uppercase;
+			}
+
+			body[data-category="code"] .prose .code-panel-lights {
+				display: inline-flex;
+				gap: 0.32rem;
+				flex: 0 0 auto;
+			}
+
+			body[data-category="code"] .prose .code-panel-lights span {
+				width: 0.58rem;
+				height: 0.58rem;
+				border-radius: 999px;
+				background: var(--purple);
+				box-shadow: 0 0 12px rgba(163, 113, 247, 0.65);
+			}
+
+			body[data-category="code"] .prose .code-panel-lights span:nth-child(2) {
+				background: var(--cyan);
+				box-shadow: 0 0 12px rgba(88, 166, 255, 0.65);
+			}
+
+			body[data-category="code"] .prose .code-panel-lights span:nth-child(3) {
+				background: var(--accent-green);
+				box-shadow: 0 0 12px rgba(80, 250, 123, 0.55);
+			}
+
+			body[data-category="code"] .prose .code-panel-title {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			body[data-category="code"] .prose .code-panel-actions {
+				display: flex;
+				flex: 0 0 auto;
+				flex-wrap: wrap;
+				gap: 0.45rem;
+				justify-content: flex-end;
+			}
+
+			body[data-category="code"] .prose .code-panel-btn {
+				background: rgba(22, 27, 34, 0.92);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				color: rgba(220, 235, 255, 0.78);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				line-height: 1.2;
+				text-transform: uppercase;
+				padding: 0.42rem 0.64rem;
+				border-radius: 999px;
+				cursor: pointer;
+				transition:
+					border-color 0.2s ease,
+					box-shadow 0.2s ease,
+					color 0.2s ease,
+					transform 0.2s ease;
+			}
+
+			body[data-category="code"] .prose .code-panel-btn:hover {
+				border-color: rgba(88, 166, 255, 0.65);
+				color: var(--cyan);
+				box-shadow: 0 0 18px rgba(88, 166, 255, 0.16);
+				transform: translateY(-1px);
+			}
+
+			body[data-category="code"] .prose .code-panel-btn.copied {
+				border-color: rgba(80, 250, 123, 0.55);
+				color: var(--accent-green);
+			}
+
+			body[data-category="code"] .prose .code-panel.is-short .code-panel-toggle {
+				display: none;
+			}
+
+			body[data-category="code"] .prose .code-panel pre {
+				margin: 0;
+				border: 0;
+				border-radius: 0;
+				background: rgba(0, 0, 0, 0.66);
+				box-shadow: none;
+				max-height: none;
+				padding: 1.15rem 1.35rem;
+				scrollbar-color: rgba(163, 113, 247, 0.65) rgba(255, 255, 255, 0.06);
+			}
+
+			body[data-category="code"] .prose .code-panel pre::before {
+				content: none;
+				display: none;
+			}
+
+			body[data-category="code"] .prose .code-panel.is-collapsible:not(.is-expanded) pre {
+				max-height: var(--code-preview-max);
+				overflow-x: auto;
+				overflow-y: hidden;
+			}
+
+			body[data-category="code"] .prose .code-panel.is-collapsible:not(.is-expanded)::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 7rem;
+				background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.92) 78%);
+				pointer-events: none;
+			}
+
+			body[data-category="code"] .prose .code-panel.is-expanded {
+				box-shadow:
+					0 0 0 1px rgba(88, 166, 255, 0.16),
+					0 24px 90px rgba(0, 0, 0, 0.42),
+					0 0 54px rgba(88, 166, 255, 0.16);
+			}
+
+			body[data-category="code"] .prose .code-panel:fullscreen,
+			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback {
+				width: 100vw;
+				height: 100vh;
+				margin: 0;
+				transform: none;
+				border: 0;
+				border-radius: 0;
+				display: flex;
+				flex-direction: column;
+				background: #03050a;
+				z-index: 2000;
+			}
+
+			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback {
+				position: fixed;
+				inset: 0;
+			}
+
+			body[data-category="code"] .prose .code-panel:fullscreen .code-panel-toolbar,
+			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback .code-panel-toolbar {
+				position: sticky;
+				top: 0;
+				z-index: 1;
+			}
+
+			body[data-category="code"] .prose .code-panel:fullscreen pre,
+			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback pre {
+				flex: 1;
+				height: 100%;
+				max-height: none !important;
+				overflow: auto !important;
+			}
+
+			body.code-panel-open {
+				overflow: hidden;
+			}
+
 			body[data-category="code"] .prose blockquote {
 				border-left: 3px solid var(--purple);
 				background: rgba(163, 113, 247, 0.05);
@@ -551,6 +745,31 @@ const categoryBadge = getCategoryBadge(category);
 				.prose pre code {
 					font-size: inherit;
 					white-space: pre;
+				}
+				body[data-category="code"] .prose .code-panel {
+					--code-preview-max: min(62vh, 30rem);
+					width: calc(100vw - 1rem);
+					margin: 1.5rem 50%;
+					border-radius: 12px;
+				}
+				body[data-category="code"] .prose .code-panel-toolbar {
+					align-items: flex-start;
+					flex-direction: column;
+					gap: 0.65rem;
+					padding: 0.75rem;
+				}
+				body[data-category="code"] .prose .code-panel-actions {
+					justify-content: flex-start;
+					width: 100%;
+				}
+				body[data-category="code"] .prose .code-panel-btn {
+					font-size: 0.58rem;
+					padding: 0.42rem 0.58rem;
+				}
+				body[data-category="code"] .prose .code-panel pre {
+					border-radius: 0;
+					font-size: 0.78rem;
+					padding: 1em 0.875em;
 				}
 				.hero-image {
 					padding: 0;
@@ -873,40 +1092,6 @@ const categoryBadge = getCategoryBadge(category);
 			font-weight: 400;
 		}
 
-		/* ── Copy button on code blocks ──────────────────────── */
-		.prose pre {
-			position: relative;
-		}
-		.copy-code-btn {
-			position: absolute;
-			top: 2.4rem; /* below the ● ● ● dots line */
-			right: 0.75rem;
-			background: rgba(22,27,34,0.9);
-			border: 1px solid rgba(255,255,255,0.1);
-			color: rgba(180,195,220,0.55);
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 0.62rem;
-			letter-spacing: 0.04em;
-			text-transform: uppercase;
-			padding: 0.22rem 0.55rem;
-			border-radius: 4px;
-			cursor: pointer;
-			opacity: 0;
-			transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-			line-height: 1.4;
-		}
-		.prose pre:hover .copy-code-btn {
-			opacity: 1;
-		}
-		.copy-code-btn:hover {
-			color: rgba(220,235,255,0.9);
-			border-color: rgba(255,255,255,0.25);
-		}
-		.copy-code-btn.copied {
-			color: #3fb950;
-			border-color: rgba(63,185,80,0.4);
-		}
-
 		/* ── HR glow for code posts ───────────────────────────── */
 		body[data-category="code"] .prose hr {
 			border: none;
@@ -1091,29 +1276,135 @@ const categoryBadge = getCategoryBadge(category);
 				readingTimeBadge.textContent = `${minutes} min read`;
 			}
 
-			// ── Copy buttons on code blocks ──────────────────────
-			document.querySelectorAll<HTMLElement>('.prose pre').forEach(pre => {
-				const btn = document.createElement('button');
-				btn.className = 'copy-code-btn';
-				btn.textContent = 'copy';
-				btn.setAttribute('aria-label', 'Copy code');
-				btn.addEventListener('click', () => {
-					const code = pre.querySelector('code');
-					const text = code?.innerText || pre.innerText;
-					navigator.clipboard.writeText(text).then(() => {
-						btn.textContent = '✓ copied';
-						btn.classList.add('copied');
-						setTimeout(() => {
-							btn.textContent = 'copy';
-							btn.classList.remove('copied');
-						}, 2000);
-					}).catch(() => {
-						btn.textContent = 'error';
-						setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+			// ── Code post panels: collapse, copy, fullscreen ─────
+			if (document.body.dataset.category === 'code') {
+				const getLanguage = (pre: HTMLElement, code: HTMLElement | null) => {
+					const languageClass = Array.from(code?.classList || [])
+						.find(className => className.startsWith('language-'));
+					return pre.dataset.language || languageClass?.replace('language-', '') || 'code';
+				};
+
+				const closeFullscreenFallback = () => {
+					document.querySelectorAll<HTMLElement>('.code-panel.is-fullscreen-fallback').forEach(panel => {
+						panel.classList.remove('is-fullscreen-fallback');
+					});
+					document.querySelectorAll<HTMLButtonElement>('.code-panel [aria-label="View code fullscreen"]').forEach(button => {
+						button.textContent = 'fullscreen';
+					});
+					document.body.classList.remove('code-panel-open');
+				};
+
+				document.querySelectorAll<HTMLElement>('.prose pre').forEach((pre, index) => {
+					if (pre.closest('.code-panel')) return;
+
+					const code = pre.querySelector<HTMLElement>('code');
+					const rawText = code?.innerText || pre.innerText || '';
+					const lineCount = Math.max(1, rawText.replace(/\n$/, '').split('\n').length);
+					const language = getLanguage(pre, code);
+					const panel = document.createElement('section');
+					const toolbar = document.createElement('div');
+					const meta = document.createElement('div');
+					const lights = document.createElement('span');
+					const title = document.createElement('span');
+					const actions = document.createElement('div');
+					const copyBtn = document.createElement('button');
+					const toggleBtn = document.createElement('button');
+					const fullscreenBtn = document.createElement('button');
+					const isLong = lineCount > 20;
+
+					panel.className = `code-panel ${isLong ? 'is-collapsible' : 'is-short'}`;
+					panel.setAttribute('aria-label', `Code snippet ${index + 1}`);
+
+					toolbar.className = 'code-panel-toolbar';
+					meta.className = 'code-panel-meta';
+					lights.className = 'code-panel-lights';
+					lights.setAttribute('aria-hidden', 'true');
+					lights.innerHTML = '<span></span><span></span><span></span>';
+					title.className = 'code-panel-title';
+					title.textContent = `${language} · ${lineCount} ${lineCount === 1 ? 'line' : 'lines'}`;
+
+					actions.className = 'code-panel-actions';
+					copyBtn.className = 'code-panel-btn';
+					copyBtn.type = 'button';
+					copyBtn.textContent = 'copy';
+					copyBtn.setAttribute('aria-label', 'Copy code');
+
+					toggleBtn.className = 'code-panel-btn code-panel-toggle';
+					toggleBtn.type = 'button';
+					toggleBtn.textContent = isLong ? 'expand' : 'expanded';
+					toggleBtn.setAttribute('aria-expanded', isLong ? 'false' : 'true');
+
+					fullscreenBtn.className = 'code-panel-btn';
+					fullscreenBtn.type = 'button';
+					fullscreenBtn.textContent = 'fullscreen';
+					fullscreenBtn.setAttribute('aria-label', 'View code fullscreen');
+
+					meta.append(lights, title);
+					actions.append(toggleBtn, fullscreenBtn, copyBtn);
+					toolbar.append(meta, actions);
+					pre.parentNode?.insertBefore(panel, pre);
+					panel.append(toolbar, pre);
+
+					toggleBtn.addEventListener('click', () => {
+						const isExpanded = panel.classList.toggle('is-expanded');
+						toggleBtn.textContent = isExpanded ? 'collapse' : 'expand';
+						toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+					});
+
+					fullscreenBtn.addEventListener('click', async () => {
+						if (document.fullscreenElement === panel) {
+							await document.exitFullscreen();
+							return;
+						}
+
+						if (panel.classList.contains('is-fullscreen-fallback')) {
+							closeFullscreenFallback();
+							return;
+						}
+
+						panel.classList.add('is-expanded');
+						toggleBtn.textContent = 'collapse';
+						toggleBtn.setAttribute('aria-expanded', 'true');
+
+						try {
+							await panel.requestFullscreen();
+						} catch {
+							closeFullscreenFallback();
+							panel.classList.add('is-fullscreen-fallback');
+							fullscreenBtn.textContent = 'exit';
+							document.body.classList.add('code-panel-open');
+						}
+					});
+
+					copyBtn.addEventListener('click', () => {
+						navigator.clipboard.writeText(rawText).then(() => {
+							copyBtn.textContent = 'copied';
+							copyBtn.classList.add('copied');
+							setTimeout(() => {
+								copyBtn.textContent = 'copy';
+								copyBtn.classList.remove('copied');
+							}, 1800);
+						}).catch(() => {
+							copyBtn.textContent = 'error';
+							setTimeout(() => { copyBtn.textContent = 'copy'; }, 1800);
+						});
 					});
 				});
-				pre.appendChild(btn);
-			});
+
+				document.addEventListener('fullscreenchange', () => {
+					const fullscreenPanel = document.fullscreenElement?.classList.contains('code-panel')
+						? document.fullscreenElement as HTMLElement
+						: null;
+					document.querySelectorAll<HTMLButtonElement>('.code-panel [aria-label="View code fullscreen"]').forEach(button => {
+						const panel = button.closest('.code-panel');
+						button.textContent = panel === fullscreenPanel ? 'exit' : 'fullscreen';
+					});
+				});
+
+				document.addEventListener('keydown', event => {
+					if (event.key === 'Escape') closeFullscreenFallback();
+				});
+			}
 		</script>
 		<SecretSearch posts={allPosts} />
 	</body>
