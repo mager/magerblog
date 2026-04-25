@@ -10,188 +10,136 @@ const { post, index = 0 } = Astro.props;
 
 const isDraft = !!post.data.draft;
 const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
-
-// Format date as YYYY-MM-DD
 const d = post.data.pubDate;
 const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-
-// Month/day short for mobile
-const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 const monthShort = monthNames[d.getMonth()];
 const dayStr = String(d.getDate()).padStart(2, '0');
 const yearStr = String(d.getFullYear());
-
-// Max 2 tags shown
-const tags = (post.data.tags || []).slice(0, 2);
-
-// Zero-padded index for mobile
+const tags = (post.data.tags || []).slice(0, 3);
 const idxStr = String(index + 1).padStart(2, '0');
+const dek = tags.length > 0 ? tags.join(' • ') : 'ai • systems • shipping notes';
 ---
 
 <a href={`/blog/${post.id}/`} class={`code-row ${isDraft ? 'draft' : ''}`}>
-
-	<!-- ── DESKTOP ROW ── -->
+	<span class="row-index">{idxStr}</span>
 	<span class="row-date">{dateStr}</span>
-	<span class="row-title">
-		<span class="comment-prefix" aria-hidden="true">//</span>
-		{displayTitle}
+	<span class="row-body">
+		<span class="row-title">{displayTitle}</span>
+		<span class="row-dek">{dek}</span>
 	</span>
 	<span class="row-tags">
 		{tags.map(tag => <span class="tag">{tag}</span>)}
-		<span class="row-arrow" aria-hidden="true">→</span>
+		<span class="row-arrow" aria-hidden="true">↗</span>
 	</span>
 
-	<!-- ── MOBILE CARD ── -->
 	<span class="mobile-card" aria-hidden="true">
-		<span class="mc-left">
+		<span class="mc-topline">
 			<span class="mc-idx">{idxStr}</span>
-			<span class="mc-date">
-				<span class="mc-month">{monthShort}</span>
-				<span class="mc-day">{dayStr}</span>
-				<span class="mc-year">{yearStr}</span>
-			</span>
+			<span class="mc-date">{monthShort} {dayStr}, {yearStr}</span>
 		</span>
-		<span class="mc-body">
-			<span class="mc-title">{displayTitle}</span>
-			<span class="mc-tags">
-				{tags.map(tag => <span class="mc-tag">{tag}</span>)}
-			</span>
-		</span>
-		<span class="mc-arrow">→</span>
+		<span class="mc-title">{displayTitle}</span>
+		<span class="mc-dek">{dek}</span>
 	</span>
-
 </a>
 
 <style>
-	/* ═══════════════════════════════════════════════
-	   DESKTOP ROW  (default, ≥ 721px)
-	═══════════════════════════════════════════════ */
 	.code-row {
 		display: grid;
-		grid-template-columns: 8.5rem 1fr auto;
-		align-items: center;
-		gap: 2rem;
-		padding: 1rem 1.25rem;
+		grid-template-columns: 3.4rem 8rem minmax(0, 1fr) auto;
+		gap: 1rem;
+		align-items: start;
+		padding: 1rem 0.2rem;
 		text-decoration: none;
 		color: inherit;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-		transition: background 0.18s ease, border-left-color 0.18s ease;
-		border-left: 2px solid transparent;
-		position: relative;
+		border-bottom: 1px solid rgba(9, 17, 26, 0.1);
+		transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
 	}
 
 	.code-row:hover {
-		background: rgba(163, 113, 247, 0.07);
-		border-left-color: var(--purple-bright, #BC8CFF);
-	}
-
-	.code-row::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		width: 2px;
-		background: var(--purple-bright, #BC8CFF);
-		box-shadow: 0 0 10px 2px rgba(188, 140, 255, 0.6);
-		opacity: 0;
-		transition: opacity 0.18s ease;
-	}
-
-	.code-row:hover::before {
-		opacity: 1;
+		transform: translateX(4px);
+		background: rgba(9, 17, 26, 0.03);
+		border-color: rgba(9, 17, 26, 0.2);
 	}
 
 	.code-row.draft {
-		opacity: 0.6;
+		opacity: 0.7;
 	}
 
-	/* ── DATE ─── */
+	.row-index,
+	.row-date,
+	.row-dek,
+	.tag,
+	.row-arrow,
+	.mc-topline,
+	.mc-dek {
+		font-family: 'IBM Plex Mono', monospace;
+	}
+
+	.row-index {
+		font-size: 0.8rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: rgba(9, 17, 26, 0.42);
+		padding-top: 0.25rem;
+	}
+
 	.row-date {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.75rem;
-		color: var(--text-muted);
-		white-space: nowrap;
-		letter-spacing: 0.03em;
-		transition: color 0.18s ease;
+		font-size: 0.76rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: rgba(9, 17, 26, 0.55);
+		padding-top: 0.25rem;
 	}
 
-	.code-row:hover .row-date {
-		color: var(--text-secondary);
+	.row-body {
+		display: grid;
+		gap: 0.3rem;
+		min-width: 0;
 	}
 
-	/* ── TITLE ─── */
 	.row-title {
-		font-family: 'Space Grotesk', -apple-system, sans-serif;
-		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-		font-weight: 600;
-		color: var(--text-primary);
-		transition: color 0.18s ease;
-		/* KEY FIX: let titles wrap instead of truncating */
-		white-space: normal;
-		overflow: visible;
-		display: flex;
-		align-items: baseline;
-		gap: 0.5rem;
-		line-height: 1.4;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-size: clamp(1.2rem, 2vw, 1.7rem);
+		line-height: 0.98;
+		letter-spacing: -0.04em;
+		text-transform: uppercase;
+		color: #09111a;
 	}
 
-	.comment-prefix {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.75rem;
-		font-weight: 400;
-		color: var(--text-muted);
-		opacity: 0;
-		transform: translateX(-4px);
-		transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease;
-		flex-shrink: 0;
+	.row-dek {
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.11em;
+		color: rgba(9, 17, 26, 0.56);
+		line-height: 1.45;
 	}
 
-	.code-row:hover .comment-prefix {
-		opacity: 1;
-		transform: translateX(0);
-		color: var(--purple-bright, #BC8CFF);
-	}
-
-	.code-row:hover .row-title {
-		color: #fff;
-	}
-
-	/* ── TAGS + ARROW ─── */
 	.row-tags {
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
-		flex-shrink: 0;
+		gap: 0.45rem;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		padding-top: 0.2rem;
 	}
 
 	.tag {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.62rem;
-		font-weight: 600;
+		font-size: 0.66rem;
 		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--purple-bright, #BC8CFF);
-		padding: 0.2rem 0.45rem;
-		border: 1px solid rgba(163, 113, 247, 0.3);
-		border-radius: 3px;
-		background: rgba(163, 113, 247, 0.07);
-		white-space: nowrap;
-		transition: background 0.18s ease, border-color 0.18s ease;
-	}
-
-	.code-row:hover .tag {
-		background: rgba(163, 113, 247, 0.15);
-		border-color: rgba(163, 113, 247, 0.5);
+		letter-spacing: 0.08em;
+		padding: 0.35rem 0.5rem;
+		border: 1px solid rgba(9, 17, 26, 0.12);
+		background: rgba(9, 17, 26, 0.04);
+		color: rgba(9, 17, 26, 0.68);
 	}
 
 	.row-arrow {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		color: var(--purple-bright, #BC8CFF);
+		font-size: 1rem;
+		color: #0d6a4d;
 		opacity: 0;
 		transform: translateX(-6px);
-		transition: opacity 0.18s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: opacity 0.18s ease, transform 0.18s ease;
 	}
 
 	.code-row:hover .row-arrow {
@@ -199,180 +147,61 @@ const idxStr = String(index + 1).padStart(2, '0');
 		transform: translateX(0);
 	}
 
-	/* Hide mobile card on desktop */
 	.mobile-card {
 		display: none;
 	}
 
-	/* ═══════════════════════════════════════════════
-	   MOBILE CARD  (≤ 720px)
-	═══════════════════════════════════════════════ */
 	@media (max-width: 720px) {
-		/* Hide desktop elements */
-		.code-row .row-date,
-		.code-row .row-title,
-		.code-row .row-tags {
-			display: none;
-		}
-
-		/* Reset grid to single column */
 		.code-row {
 			display: block;
 			padding: 0;
-			border-left: none;
-			border-bottom: none;
+			transform: none;
 			background: transparent;
 		}
 
-		.code-row::before {
+		.row-index,
+		.row-date,
+		.row-body,
+		.row-tags {
 			display: none;
 		}
 
-		.code-row:hover {
-			background: transparent;
-		}
-
-		/* Show mobile card */
 		.mobile-card {
-			display: flex;
-			align-items: stretch;
-			gap: 0;
-			padding: 1.1rem 1.25rem;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-			border-left: 3px solid transparent;
-			transition: background 0.2s ease, border-left-color 0.2s ease;
-			position: relative;
-			min-height: 80px;
+			display: grid;
+			gap: 0.45rem;
+			padding: 1rem 0;
 		}
 
-		.code-row:active .mobile-card,
-		.code-row:hover .mobile-card {
-			background: rgba(163, 113, 247, 0.09);
-			border-left-color: var(--purple-bright, #BC8CFF);
-		}
-
-		/* Left gutter: index + date stack */
-		.mc-left {
+		.mc-topline {
 			display: flex;
-			flex-direction: column;
 			align-items: center;
-			justify-content: center;
-			gap: 0.35rem;
-			min-width: 3rem;
-			padding-right: 1rem;
-			border-right: 1px solid rgba(255, 255, 255, 0.06);
-			flex-shrink: 0;
+			gap: 0.65rem;
+			font-size: 0.68rem;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(9, 17, 26, 0.52);
 		}
 
 		.mc-idx {
-			font-family: 'Barlow Condensed', sans-serif;
-			font-weight: 900;
-			font-size: 1.4rem;
-			line-height: 1;
-			color: rgba(163, 113, 247, 0.25);
-			letter-spacing: -0.02em;
-			transition: color 0.2s ease;
-		}
-
-		.code-row:hover .mc-idx,
-		.code-row:active .mc-idx {
-			color: rgba(163, 113, 247, 0.55);
-		}
-
-		.mc-date {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 0;
-			line-height: 1.1;
-		}
-
-		.mc-month {
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 0.55rem;
+			color: #0d6a4d;
 			font-weight: 700;
-			letter-spacing: 0.12em;
-			color: var(--cyan);
-			text-transform: uppercase;
-		}
-
-		.mc-day {
-			font-family: 'Barlow Condensed', sans-serif;
-			font-weight: 700;
-			font-size: 1.25rem;
-			color: var(--text-secondary);
-			line-height: 1;
-			letter-spacing: -0.01em;
-		}
-
-		.mc-year {
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 0.5rem;
-			color: var(--text-muted);
-			letter-spacing: 0.05em;
-		}
-
-		/* Main body: title + tags */
-		.mc-body {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 0.5rem;
-			flex: 1;
-			padding: 0 0.9rem;
-			min-width: 0;
 		}
 
 		.mc-title {
-			font-family: 'Space Grotesk', sans-serif;
-			font-size: 1.05rem;
-			font-weight: 600;
-			color: var(--text-primary);
-			line-height: 1.3;
-			letter-spacing: -0.01em;
-			transition: color 0.2s ease;
-		}
-
-		.code-row:hover .mc-title,
-		.code-row:active .mc-title {
-			color: #fff;
-		}
-
-		.mc-tags {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.3rem;
-		}
-
-		.mc-tag {
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 0.58rem;
-			font-weight: 600;
+			font-family: 'IBM Plex Sans Condensed', sans-serif;
+			font-size: 1.5rem;
+			line-height: 0.98;
+			letter-spacing: -0.04em;
 			text-transform: uppercase;
-			letter-spacing: 0.07em;
-			color: var(--purple-bright, #BC8CFF);
-			padding: 0.15rem 0.4rem;
-			border: 1px solid rgba(163, 113, 247, 0.25);
-			border-radius: 3px;
-			background: rgba(163, 113, 247, 0.06);
+			color: #09111a;
 		}
 
-		/* Arrow: right side */
-		.mc-arrow {
-			display: flex;
-			align-items: center;
-			padding-left: 0.5rem;
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 1rem;
-			color: var(--text-muted);
-			flex-shrink: 0;
-			transition: color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.code-row:hover .mc-arrow,
-		.code-row:active .mc-arrow {
-			color: var(--purple-bright, #BC8CFF);
-			transform: translateX(3px);
+		.mc-dek {
+			font-size: 0.68rem;
+			letter-spacing: 0.11em;
+			text-transform: uppercase;
+			line-height: 1.5;
+			color: rgba(9, 17, 26, 0.58);
 		}
 	}
 </style>
