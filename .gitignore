@@ -31,3 +31,5 @@ pnpm-debug.log*
 !.yarn/versions
 .pnp.*
 .vercel
+
+.agents/skills/impeccable
