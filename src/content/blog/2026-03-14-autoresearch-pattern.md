@@ -2,7 +2,7 @@
 title: "autoresearch: Karpathy's Blueprint for Agents That Improve Themselves"
 description: "Andrej Karpathy open-sourced a loop where AI agents run experiments, measure results, and keep what works — all while you sleep. Here's how the pattern works and how I'm applying it beyond LLM training."
 pubDate: 2026-03-14
-category: "code"
+category: tech
 keyword: "autoresearch learnings"
 tags: ["autoresearch", "karpathy", "ai", "agents", "autonomous", "skills", "patterns"]
 ---

@@ -2,7 +2,7 @@
 title: "Loooom: I Built It for the Bots"
 pubDate: "2026-03-08"
 description: "Most websites beg search engines for attention. I flipped it — Loooom is machine-first, humans secondary. Here's what that actually means in practice."
-category: "code"
+category: tech
 tags: ["AI", "Agents", "Loooom", "ME.md", "Protocol", "Machine-First"]
 heroImage: ""
 keyword: "machine-first websites"

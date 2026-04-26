@@ -2,7 +2,7 @@
 title: "OpenClaw: I Turned Three Shell Aliases Into a Real CLI Command"
 description: "How a weekend contribution to OpenClaw replaced my autossh aliases with `openclaw tunnel up/down/status` — and what I learned reading a real codebase to do it right."
 pubDate: 2026-03-14
-category: code
+category: tech
 draft: false
 ---
 

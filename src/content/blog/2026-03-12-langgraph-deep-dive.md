@@ -3,7 +3,7 @@ title: "LangGraph: Build Stateful Multi-Agent Systems That Don't Crash"
 pubDate: "2026-03-12"
 description: "LangGraph is the production framework for complex agent workflows. Here's how to build a real-time chat system with persistent state, human-in-the-loop, and multi-agent orchestration."
 draft: false
-category: "code"
+category: tech
 tags: ["AI", "Agents", "LangGraph", "LangChain", "TypeScript", "React"]
 heroImage: ""
 keyword: "LangGraph tutorial multi-agent chat"

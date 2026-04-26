@@ -30,7 +30,7 @@ const nextPost = currentIndex > 0 ? categoryPosts[currentIndex - 1] : null;
 const getCategoryBadge = (cat: string | undefined) => {
 	if (!cat) return null;
 	const categoryMap: Record<string, string> = {
-		code: '💻 Code',
+		tech: '💻 Tech',
 		food: '🍳 Recipes',
 		life: '🌆 Life'
 	};
@@ -270,8 +270,8 @@ const categoryBadge = getCategoryBadge(category);
 				line-height: 1.1;
 			}
 
-			/* Code category: bold magazine title */
-			body[data-category="code"] .title h1 {
+			/* Tech category: bold magazine title */
+			body[data-category="tech"] .title h1 {
 				font-family: 'Barlow Condensed', sans-serif;
 				font-weight: 900;
 				font-size: clamp(3rem, 8vw, 6.5rem);
@@ -289,7 +289,7 @@ const categoryBadge = getCategoryBadge(category);
 				text-shadow: none;
 			}
 
-			body[data-category="code"] .title::before {
+			body[data-category="tech"] .title::before {
 				content: '> ';
 				color: rgba(163, 113, 247, 0.55);
 				font-family: 'JetBrains Mono', monospace;
@@ -298,18 +298,18 @@ const categoryBadge = getCategoryBadge(category);
 				opacity: 1;
 			}
 
-			body[data-category="code"] .date::before {
+			body[data-category="tech"] .date::before {
 				content: '⚡ ';
 				font-size: 0.85em;
 			}
 
-			/* No-image code posts: minimal hero, direct entry */
-			body[data-category="code"] .hero[data-has-image="false"] {
+			/* No-image tech posts: minimal hero, direct entry */
+			body[data-category="tech"] .hero[data-has-image="false"] {
 				min-height: auto;
 				border-bottom: 1px solid rgba(163, 113, 247, 0.2);
 			}
 
-			body[data-category="code"] .hero[data-has-image="false"] .title {
+			body[data-category="tech"] .hero[data-has-image="false"] .title {
 				padding-top: 4rem;
 				padding-bottom: 2.5rem;
 			}
@@ -371,12 +371,12 @@ const categoryBadge = getCategoryBadge(category);
 				transition: all 0.3s ease;
 			}
 
-			/* Code category - Purple */
-			body[data-category="code"] .prose img {
+			/* Tech category - Purple */
+			body[data-category="tech"] .prose img {
 				border: 1px solid var(--purple);
 			}
 
-			body[data-category="code"] .prose img:hover {
+			body[data-category="tech"] .prose img:hover {
 				border-color: var(--cyan);
 				transform: scale(1.01);
 			}
@@ -404,15 +404,15 @@ const categoryBadge = getCategoryBadge(category);
 				margin: 3rem 0;
 			}
 
-			/* Code category: enhanced code blocks */
-			body[data-category="code"] .prose pre {
+			/* Tech category: enhanced code blocks */
+			body[data-category="tech"] .prose pre {
 				border: 1px solid var(--purple);
 				border-radius: 8px;
 				position: relative;
 				margin: 2rem 0;
 			}
 
-			body[data-category="code"] .prose pre::before {
+			body[data-category="tech"] .prose pre::before {
 				content: '●  ●  ●';
 				display: block;
 				padding: 0.5rem 1rem;
@@ -422,7 +422,7 @@ const categoryBadge = getCategoryBadge(category);
 				letter-spacing: 0.15em;
 			}
 
-			body[data-category="code"] .prose .code-panel {
+			body[data-category="tech"] .prose .code-panel {
 				--code-preview-max: min(68vh, 34rem);
 				width: min(100vw - 2rem, 120ch);
 				margin: 2.25rem 50%;
@@ -440,7 +440,7 @@ const categoryBadge = getCategoryBadge(category);
 				position: relative;
 			}
 
-			body[data-category="code"] .prose .code-panel-toolbar {
+			body[data-category="tech"] .prose .code-panel-toolbar {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
@@ -451,7 +451,7 @@ const categoryBadge = getCategoryBadge(category);
 				backdrop-filter: blur(14px);
 			}
 
-			body[data-category="code"] .prose .code-panel-meta {
+			body[data-category="tech"] .prose .code-panel-meta {
 				display: flex;
 				align-items: center;
 				gap: 0.75rem;
@@ -464,13 +464,13 @@ const categoryBadge = getCategoryBadge(category);
 				text-transform: uppercase;
 			}
 
-			body[data-category="code"] .prose .code-panel-lights {
+			body[data-category="tech"] .prose .code-panel-lights {
 				display: inline-flex;
 				gap: 0.32rem;
 				flex: 0 0 auto;
 			}
 
-			body[data-category="code"] .prose .code-panel-lights span {
+			body[data-category="tech"] .prose .code-panel-lights span {
 				width: 0.58rem;
 				height: 0.58rem;
 				border-radius: 999px;
@@ -478,23 +478,23 @@ const categoryBadge = getCategoryBadge(category);
 				box-shadow: 0 0 12px rgba(163, 113, 247, 0.65);
 			}
 
-			body[data-category="code"] .prose .code-panel-lights span:nth-child(2) {
+			body[data-category="tech"] .prose .code-panel-lights span:nth-child(2) {
 				background: var(--cyan);
 				box-shadow: 0 0 12px rgba(88, 166, 255, 0.65);
 			}
 
-			body[data-category="code"] .prose .code-panel-lights span:nth-child(3) {
+			body[data-category="tech"] .prose .code-panel-lights span:nth-child(3) {
 				background: var(--accent-green);
 				box-shadow: 0 0 12px rgba(80, 250, 123, 0.55);
 			}
 
-			body[data-category="code"] .prose .code-panel-title {
+			body[data-category="tech"] .prose .code-panel-title {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
 
-			body[data-category="code"] .prose .code-panel-actions {
+			body[data-category="tech"] .prose .code-panel-actions {
 				display: flex;
 				flex: 0 0 auto;
 				flex-wrap: wrap;
@@ -502,7 +502,7 @@ const categoryBadge = getCategoryBadge(category);
 				justify-content: flex-end;
 			}
 
-			body[data-category="code"] .prose .code-panel-btn {
+			body[data-category="tech"] .prose .code-panel-btn {
 				background: rgba(22, 27, 34, 0.92);
 				border: 1px solid rgba(255, 255, 255, 0.12);
 				color: rgba(220, 235, 255, 0.78);
@@ -522,23 +522,23 @@ const categoryBadge = getCategoryBadge(category);
 					transform 0.2s ease;
 			}
 
-			body[data-category="code"] .prose .code-panel-btn:hover {
+			body[data-category="tech"] .prose .code-panel-btn:hover {
 				border-color: rgba(88, 166, 255, 0.65);
 				color: var(--cyan);
 				box-shadow: 0 0 18px rgba(88, 166, 255, 0.16);
 				transform: translateY(-1px);
 			}
 
-			body[data-category="code"] .prose .code-panel-btn.copied {
+			body[data-category="tech"] .prose .code-panel-btn.copied {
 				border-color: rgba(80, 250, 123, 0.55);
 				color: var(--accent-green);
 			}
 
-			body[data-category="code"] .prose .code-panel.is-short .code-panel-toggle {
+			body[data-category="tech"] .prose .code-panel.is-short .code-panel-toggle {
 				display: none;
 			}
 
-			body[data-category="code"] .prose .code-panel pre {
+			body[data-category="tech"] .prose .code-panel pre {
 				margin: 0;
 				border: 0;
 				border-radius: 0;
@@ -549,18 +549,18 @@ const categoryBadge = getCategoryBadge(category);
 				scrollbar-color: rgba(163, 113, 247, 0.65) rgba(255, 255, 255, 0.06);
 			}
 
-			body[data-category="code"] .prose .code-panel pre::before {
+			body[data-category="tech"] .prose .code-panel pre::before {
 				content: none;
 				display: none;
 			}
 
-			body[data-category="code"] .prose .code-panel.is-collapsible:not(.is-expanded) pre {
+			body[data-category="tech"] .prose .code-panel.is-collapsible:not(.is-expanded) pre {
 				max-height: var(--code-preview-max);
 				overflow-x: auto;
 				overflow-y: hidden;
 			}
 
-			body[data-category="code"] .prose .code-panel.is-collapsible:not(.is-expanded)::after {
+			body[data-category="tech"] .prose .code-panel.is-collapsible:not(.is-expanded)::after {
 				content: '';
 				position: absolute;
 				left: 0;
@@ -571,15 +571,15 @@ const categoryBadge = getCategoryBadge(category);
 				pointer-events: none;
 			}
 
-			body[data-category="code"] .prose .code-panel.is-expanded {
+			body[data-category="tech"] .prose .code-panel.is-expanded {
 				box-shadow:
 					0 0 0 1px rgba(88, 166, 255, 0.16),
 					0 24px 90px rgba(0, 0, 0, 0.42),
 					0 0 54px rgba(88, 166, 255, 0.16);
 			}
 
-			body[data-category="code"] .prose .code-panel:fullscreen,
-			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback {
+			body[data-category="tech"] .prose .code-panel:fullscreen,
+			body[data-category="tech"] .prose .code-panel.is-fullscreen-fallback {
 				width: 100vw;
 				height: 100vh;
 				margin: 0;
@@ -592,20 +592,20 @@ const categoryBadge = getCategoryBadge(category);
 				z-index: 2000;
 			}
 
-			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback {
+			body[data-category="tech"] .prose .code-panel.is-fullscreen-fallback {
 				position: fixed;
 				inset: 0;
 			}
 
-			body[data-category="code"] .prose .code-panel:fullscreen .code-panel-toolbar,
-			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback .code-panel-toolbar {
+			body[data-category="tech"] .prose .code-panel:fullscreen .code-panel-toolbar,
+			body[data-category="tech"] .prose .code-panel.is-fullscreen-fallback .code-panel-toolbar {
 				position: sticky;
 				top: 0;
 				z-index: 1;
 			}
 
-			body[data-category="code"] .prose .code-panel:fullscreen pre,
-			body[data-category="code"] .prose .code-panel.is-fullscreen-fallback pre {
+			body[data-category="tech"] .prose .code-panel:fullscreen pre,
+			body[data-category="tech"] .prose .code-panel.is-fullscreen-fallback pre {
 				flex: 1;
 				height: 100%;
 				max-height: none !important;
@@ -616,7 +616,7 @@ const categoryBadge = getCategoryBadge(category);
 				overflow: hidden;
 			}
 
-			body[data-category="code"] .prose blockquote {
+			body[data-category="tech"] .prose blockquote {
 				border-left: 3px solid var(--purple);
 				background: rgba(163, 113, 247, 0.05);
 				padding: 1rem 1.5rem;
@@ -624,18 +624,18 @@ const categoryBadge = getCategoryBadge(category);
 				border-radius: 0 6px 6px 0;
 			}
 
-			body[data-category="code"] .prose a {
+			body[data-category="tech"] .prose a {
 				color: var(--cyan);
 				text-decoration: none;
 				border-bottom: 1px solid transparent;
 				transition: border-color 0.2s ease;
 			}
 
-			body[data-category="code"] .prose a:hover {
+			body[data-category="tech"] .prose a:hover {
 				border-bottom-color: var(--cyan);
 			}
 
-			body[data-category="code"] .prose table {
+			body[data-category="tech"] .prose table {
 				border: 1px solid var(--terminal-border);
 				border-radius: 8px;
 				overflow: hidden;
@@ -645,7 +645,7 @@ const categoryBadge = getCategoryBadge(category);
 				margin: 2rem 0;
 			}
 
-			body[data-category="code"] .prose th {
+			body[data-category="tech"] .prose th {
 				background: rgba(163, 113, 247, 0.1);
 				color: var(--purple-bright);
 				font-family: 'JetBrains Mono', monospace;
@@ -656,17 +656,17 @@ const categoryBadge = getCategoryBadge(category);
 				border-bottom: 1px solid var(--terminal-border);
 			}
 
-			body[data-category="code"] .prose td {
+			body[data-category="tech"] .prose td {
 				padding: 0.6rem 1rem;
 				border-bottom: 1px solid var(--terminal-border);
 				font-size: 0.95rem;
 			}
 
-			body[data-category="code"] .prose tr:last-child td {
+			body[data-category="tech"] .prose tr:last-child td {
 				border-bottom: none;
 			}
 
-			body[data-category="code"] .prose code:not(pre code) {
+			body[data-category="tech"] .prose code:not(pre code) {
 				background: rgba(163, 113, 247, 0.1);
 				color: var(--purple-bright);
 				padding: 0.15em 0.4em;
@@ -746,27 +746,27 @@ const categoryBadge = getCategoryBadge(category);
 					font-size: inherit;
 					white-space: pre;
 				}
-				body[data-category="code"] .prose .code-panel {
+				body[data-category="tech"] .prose .code-panel {
 					--code-preview-max: min(62vh, 30rem);
 					width: calc(100vw - 1rem);
 					margin: 1.5rem 50%;
 					border-radius: 12px;
 				}
-				body[data-category="code"] .prose .code-panel-toolbar {
+				body[data-category="tech"] .prose .code-panel-toolbar {
 					align-items: flex-start;
 					flex-direction: column;
 					gap: 0.65rem;
 					padding: 0.75rem;
 				}
-				body[data-category="code"] .prose .code-panel-actions {
+				body[data-category="tech"] .prose .code-panel-actions {
 					justify-content: flex-start;
 					width: 100%;
 				}
-				body[data-category="code"] .prose .code-panel-btn {
+				body[data-category="tech"] .prose .code-panel-btn {
 					font-size: 0.58rem;
 					padding: 0.42rem 0.58rem;
 				}
-				body[data-category="code"] .prose .code-panel pre {
+				body[data-category="tech"] .prose .code-panel pre {
 					border-radius: 0;
 					font-size: 0.78rem;
 					padding: 1em 0.875em;
@@ -1066,17 +1066,17 @@ const categoryBadge = getCategoryBadge(category);
 		}
 		.reading-time-badge:empty { display: none; }
 
-		/* ── Dot-grid background (code posts only) ────────────── */
-		body[data-category="code"] .prose {
+		/* ── Dot-grid background (tech posts only) ────────────── */
+		body[data-category="tech"] .prose {
 			background-image: radial-gradient(rgba(163,113,247,0.07) 1px, transparent 1px);
 			background-size: 22px 22px;
 		}
 
-		/* ── Heading prefix in prose (code posts) ────────────── */
-		body[data-category="code"] .prose h2 {
+		/* ── Heading prefix in prose (tech posts) ────────────── */
+		body[data-category="tech"] .prose h2 {
 			position: relative;
 		}
-		body[data-category="code"] .prose h2::before {
+		body[data-category="tech"] .prose h2::before {
 			content: '// ';
 			color: rgba(163,113,247,0.45);
 			font-family: 'JetBrains Mono', monospace;
@@ -1084,7 +1084,7 @@ const categoryBadge = getCategoryBadge(category);
 			font-weight: 400;
 			letter-spacing: 0;
 		}
-		body[data-category="code"] .prose h3::before {
+		body[data-category="tech"] .prose h3::before {
 			content: '— ';
 			color: rgba(88,166,255,0.45);
 			font-family: 'JetBrains Mono', monospace;
@@ -1092,15 +1092,15 @@ const categoryBadge = getCategoryBadge(category);
 			font-weight: 400;
 		}
 
-		/* ── HR glow for code posts ───────────────────────────── */
-		body[data-category="code"] .prose hr {
+		/* ── HR glow for tech posts ───────────────────────────── */
+		body[data-category="tech"] .prose hr {
 			border: none;
 			height: 1px;
 			background: linear-gradient(to right, transparent, rgba(163,113,247,0.5), rgba(88,166,255,0.5), transparent);
 			margin: 3rem 0;
 			position: relative;
 		}
-		body[data-category="code"] .prose hr::after {
+		body[data-category="tech"] .prose hr::after {
 			content: '◆';
 			position: absolute;
 			left: 50%;
@@ -1116,7 +1116,7 @@ const categoryBadge = getCategoryBadge(category);
 	</head>
 
 	<body data-category={category?.toLowerCase() || undefined} data-recipe-layout={recipeLayout || undefined}>
-		<!-- Reading progress bar (code posts get purple→blue, others get a neutral) -->
+		<!-- Reading progress bar (tech posts get purple→blue, others get a neutral) -->
 		<div class="reading-progress" aria-hidden="true">
 			<div class="reading-progress-fill"></div>
 		</div>
@@ -1277,7 +1277,7 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			// ── Code post panels: collapse, copy, fullscreen ─────
-			if (document.body.dataset.category === 'code') {
+			if (document.body.dataset.category === 'tech') {
 				const getLanguage = (pre: HTMLElement, code: HTMLElement | null) => {
 					const languageClass = Array.from(code?.classList || [])
 						.find(className => className.startsWith('language-'));

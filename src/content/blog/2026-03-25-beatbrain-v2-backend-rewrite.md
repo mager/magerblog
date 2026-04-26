@@ -2,7 +2,7 @@
 title: "beatbrain: 3 Seconds to 200ms"
 pubDate: "2026-03-25"
 description: "I rebuilt the beatbrain backend in an afternoon. Parallel fetching, Firestore caching, and a podcast discovery engine that indexes 100+ categories. Here's the whole story."
-category: "code"
+category: tech
 tags: ["Go", "Music", "AI", "Performance", "Side Projects"]
 keyword: "beatbrain backend rewrite"
 heroImage: ""

@@ -3,7 +3,7 @@ title: "Build Your Own Agent Team with ACP"
 pubDate: "2026-03-06"
 updatedAt: "2026-03-12"
 description: "I run two AI agents — magerbot handles code and ops, genny runs my life. Inspired by the Agent Communication Protocol, here's how I got them to actually talk to each other. Now with a full TUI built on the Claude Agent SDK."
-category: "code"
+category: tech
 tags: ["AI", "Agents", "ACP", "SDK", "Claude", "Tutorial", "TUI"]
 heroImage: ""
 keyword: "agent context protocol SDK tutorial TUI"

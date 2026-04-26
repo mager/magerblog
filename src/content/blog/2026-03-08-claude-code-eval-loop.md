@@ -2,7 +2,7 @@
 title: "Claude Code: How to Write, Eval, and Iterate on a Skill"
 pubDate: 2026-03-08
 author: "mager"
-category: code
+category: tech
 draft: false
 description: "Part 2 of the prompt verification series. We covered output quality testing with promptfoo — now we tackle the harder problem: does your skill even fire?"
 tags: ["skill evals & iterations"]

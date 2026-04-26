@@ -2,7 +2,7 @@
 title: "OpenClaw: Meet Genny, My AI Life Architect"
 description: "I built a second AI agent to manage the parts of my life that code can't fix — exercise, nutrition, travel, and living to 100."
 pubDate: "2026-03-04"
-category: "code"
+category: tech
 tags: ["ai", "openclaw", "agents", "health", "longevity"]
 keyword: "AI life architect agent openclaw longevity"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP0rI0YedRh4Y3vHBjDg-w4sH0B1YkijAGxjb4QxqIRIq011AnHCZEQX0zOEuM6KrMZ3K0NErZzyOuMLhv2a1pqO1NvmjmJgdKxxiNB-2yBwvQtHBSMGY03h4JHvXgJSrlj4JBE9YVDCjjKJK4iOQrkyA=w2322-h1522-s-no-gm"

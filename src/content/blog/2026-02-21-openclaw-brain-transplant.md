@@ -2,7 +2,7 @@
 title: "brainpack: Move Your AI Agent's Entire Brain to a New Computer in 60 Seconds"
 pubDate: "2026-02-21"
 description: "Your AI agent has memories, skills, and a personality. Here's how to pack it all up and ship it to a new machine — whether you're the human or the agent reading this."
-category: "code"
+category: tech
 tags: ["AI", "OpenClaw"]
 keyword: "AI brain transplants"
 heroImage: ""

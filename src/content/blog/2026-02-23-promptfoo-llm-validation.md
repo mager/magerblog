@@ -2,7 +2,7 @@
 title: "promptfoo: The Ultimate Guide to Unit Testing Your AI Prompts"
 pubDate: "2026-02-26"
 description: "Stop shipping AI features blind. Here's everything you need to know about unit testing prompts — from five-minute quick starts to CI/CD pipelines, agent workflow testing, and building a regression suite that actually catches breakage."
-category: "code"
+category: tech
 tags: ["AI", "LLM", "Testing", "promptfoo", "Evals", "CI/CD"]
 heroImage: ""
 keyword: "unit-testing prompts"

@@ -2,7 +2,7 @@
 title: "OpenClaw + Tailscale: Your Always-On AI Agent, Accessible from Anywhere"
 pubDate: "2026-02-22"
 description: "How to run OpenClaw on a Mac Mini 24/7, lock it down with Tailscale, and load your agent's brain with brainpack — so your laptop can reach it from anywhere on your tailnet."
-category: "code"
+category: tech
 tags: ["AI", "OpenClaw", "Tailscale"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPzrjhOfytD1EDDRFchZ3ZD_bfCajyEK0j312ivtCoCr63gNcKQ_yK1QocUOQjG3YEOjLvRiRsYfu2C3kTY3dH8nVznOeY4HjmGWr7v4t8nWBmCSY7P_lmKAIt2BnY3KkhxHRBagkLMgP2PSsLHZJqW1w=w2322-h1522-s-no-gm"
 keyword: "my Openclaw Mac Mini setup"

@@ -3,14 +3,14 @@ import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 
 interface Props {
-	codePosts: CollectionEntry<'blog'>[];
+	techPosts: CollectionEntry<'blog'>[];
 	lifePosts: CollectionEntry<'blog'>[];
 	recipePosts: CollectionEntry<'blog'>[];
 }
 
-const { codePosts, lifePosts, recipePosts } = Astro.props;
+const { techPosts, lifePosts, recipePosts } = Astro.props;
 
-const topCode = codePosts.slice(0, 10);
+const topTech = techPosts.slice(0, 10);
 const topFood = recipePosts.slice(0, 4);
 const topLife = lifePosts.slice(0, 2);
 ---
@@ -20,7 +20,7 @@ const topLife = lifePosts.slice(0, 2);
 	<!-- ── TOPBAR ── -->
 	<div class="topbar">
 		<nav class="topbar-nav">
-			<a href="/code/">Code</a>
+			<a href="/tech/">Tech</a>
 			<a href="/cooking/">Food</a>
 			<a href="/life/">Life</a>
 			<a href="/about">About</a>
@@ -56,14 +56,14 @@ const topLife = lifePosts.slice(0, 2);
 	<!-- ── ZONES ── -->
 	<div class="zones">
 
-		<!-- CODE -->
-		<section class="zone zone--code">
+		<!-- TECH -->
+		<section class="zone zone--tech">
 			<header class="zone-head">
 				<span class="zone-label">Technology</span>
-				<a href="/code/" class="zone-more">All posts →</a>
+				<a href="/tech/" class="zone-more">All posts →</a>
 			</header>
 			<ol class="post-list">
-				{topCode.map((post, i) => (
+				{topTech.map((post, i) => (
 					<li>
 						<a href={`/blog/${post.id}/`} class:list={['post-item', { 'post-item--lead': i === 0 }]}>
 							<span class="post-num">{String(i + 1).padStart(2, '0')}</span>
@@ -245,7 +245,7 @@ const topLife = lifePosts.slice(0, 2);
 	--rule-dark:   oklch(78%   0.008 80);
 
 	/* Category accents */
-	--code-accent: oklch(32%  0.14  250);  /* warm navy */
+	--tech-accent: oklch(32%  0.14  250);  /* warm navy */
 	--food-accent: oklch(50%  0.14  38);   /* terracotta  */
 	--life-accent: oklch(42%  0.10  90);   /* warm olive   */
 
@@ -422,7 +422,7 @@ const topLife = lifePosts.slice(0, 2);
 	border-bottom: 2px solid currentColor;
 }
 
-.zone--code .zone-head { border-color: var(--code-accent); color: var(--code-accent); }
+.zone--tech .zone-head { border-color: var(--tech-accent); color: var(--tech-accent); }
 .zone--food .zone-head { border-color: var(--food-accent); color: var(--food-accent); }
 .zone--life .zone-head { border-color: var(--life-accent); color: var(--life-accent); }
 
@@ -477,7 +477,7 @@ const topLife = lifePosts.slice(0, 2);
 
 
 /* ══════════════════════════════════════════════════
-   CODE ZONE
+   TECH ZONE
 ══════════════════════════════════════════════════ */
 .post-list {
 	list-style: none;
@@ -527,7 +527,7 @@ const topLife = lifePosts.slice(0, 2);
 .post-num {
 	font-family: var(--font-mono);
 	font-size: 0.65rem;
-	color: var(--code-accent);
+	color: var(--tech-accent);
 	opacity: 0.5;
 	padding-top: 0.2rem;
 	flex-shrink: 0;
@@ -870,4 +870,3 @@ const topLife = lifePosts.slice(0, 2);
 }
 
 </style>
-

@@ -1,0 +1,185 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+	index?: number;
+}
+
+const { post, index = 0 } = Astro.props;
+
+const isDraft = !!post.data.draft;
+const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
+const d = post.data.updatedDate || post.data.pubDate;
+const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const tags = (post.data.tags || []).slice(0, 3);
+const idxStr = String(index + 1).padStart(2, '0');
+const dek = post.data.description || tags.join(' / ') || 'field note from the build queue';
+---
+
+<li class={`tech-row-wrap ${isDraft ? 'draft' : ''}`}>
+	<a href={`/blog/${post.id}/`} class="tech-row">
+		<span class="row-index">{idxStr}</span>
+		<span class="row-date">{dateStr}</span>
+		<span class="row-body">
+			<span class="row-title">{displayTitle}</span>
+			<span class="row-dek">{dek}</span>
+		</span>
+		<span class="row-tags">
+			{tags.map(tag => <span class="tag">{tag}</span>)}
+			<span class="row-arrow" aria-hidden="true">↗</span>
+		</span>
+	</a>
+</li>
+
+<style>
+	.tech-row-wrap {
+		margin: 0;
+		padding: 0;
+	}
+
+	.tech-row-wrap.draft {
+		opacity: 0.68;
+	}
+
+	.tech-row {
+		display: grid;
+		grid-template-columns: 3.2rem 7.6rem minmax(0, 1fr) minmax(8rem, auto);
+		gap: 1rem;
+		align-items: start;
+		padding: 1rem 0;
+		color: inherit;
+		text-decoration: none;
+		border-bottom: 1px solid var(--rule, oklch(82% 0.014 78));
+		transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.tech-row:hover {
+		transform: translateX(3px);
+		background: color-mix(in oklch, var(--yc, oklch(63% 0.19 43)) 7%, transparent);
+	}
+
+	.row-index,
+	.row-date,
+	.row-dek,
+	.tag,
+	.row-arrow {
+		font-family: var(--font-mono, 'JetBrains Mono', monospace);
+	}
+
+	.row-index {
+		color: var(--yc, oklch(63% 0.19 43));
+		font-size: 0.78rem;
+		font-weight: 700;
+		padding-top: 0.18rem;
+	}
+
+	.row-date {
+		color: var(--ink-muted, oklch(55% 0.014 250));
+		font-size: 0.74rem;
+		padding-top: 0.18rem;
+		white-space: nowrap;
+	}
+
+	.row-body {
+		display: grid;
+		gap: 0.32rem;
+		min-width: 0;
+	}
+
+	.row-title {
+		font-family: var(--font-ui, 'Space Grotesk', system-ui, sans-serif);
+		font-size: 1.12rem;
+		font-weight: 700;
+		line-height: 1.18;
+		color: var(--ink, oklch(15% 0.018 250));
+	}
+
+	.row-dek {
+		display: -webkit-box;
+		color: var(--ink-soft, oklch(36% 0.018 250));
+		font-size: 0.78rem;
+		line-height: 1.45;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+	}
+
+	.row-tags {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.4rem;
+		flex-wrap: wrap;
+	}
+
+	.tag {
+		border: 1px solid var(--rule-strong, oklch(66% 0.03 72));
+		background: color-mix(in oklch, var(--surface-blue, oklch(95% 0.028 252)) 72%, var(--paper, oklch(97.5% 0.012 78)));
+		color: var(--tech-blue, oklch(39% 0.15 253));
+		font-size: 0.68rem;
+		line-height: 1;
+		padding: 0.34rem 0.44rem;
+	}
+
+	.row-arrow {
+		color: var(--yc, oklch(63% 0.19 43));
+		font-size: 0.96rem;
+		opacity: 0;
+		transform: translateX(-4px);
+		transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1), transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.tech-row:hover .row-arrow {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	@media (max-width: 840px) {
+		.tech-row {
+			grid-template-columns: 2.5rem minmax(0, 1fr);
+			gap: 0.7rem;
+			padding: 0.95rem 0;
+		}
+
+		.row-date {
+			grid-column: 2;
+			grid-row: 1;
+		}
+
+		.row-body {
+			grid-column: 2;
+		}
+
+		.row-tags {
+			grid-column: 2;
+			justify-content: flex-start;
+		}
+
+		.row-arrow {
+			display: none;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.tech-row {
+			grid-template-columns: 2.1rem minmax(0, 1fr);
+			gap: 0.55rem;
+		}
+
+		.row-index,
+		.row-date {
+			font-size: 0.68rem;
+		}
+
+		.row-date { white-space: normal; }
+
+		.row-title {
+			font-size: 1rem;
+		}
+
+		.row-dek {
+			font-size: 0.74rem;
+		}
+	}
+</style>

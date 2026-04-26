@@ -2,7 +2,7 @@
 title: "Kotsu: The Knack of Japanese"
 description: "I built a Japanese learning site in a morning because I wanted something I could pull up on my phone and just look at characters. Here's how Gemini wrote the prompt and magerbot built the whole thing."
 pubDate: "2026-03-21"
-category: code
+category: tech
 keyword: "building my own Japanese learning site"
 tags: ["Japanese", "language", "learning", "SvelteKit", "Firebase", "open-source"]
 draft: false

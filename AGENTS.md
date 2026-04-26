@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-This is a personal blog built with Astro v5, featuring three main content categories: Code, Life, and Recipes. The site uses a dark, terminal-inspired design theme reminiscent of code editors like Codex, with category-specific color schemes applied to images and navigation elements.
+This is a personal blog built with Astro v5, featuring three main content categories: Tech, Life, and Recipes. The site uses a dark, terminal-inspired design theme reminiscent of code editors like Codex, with category-specific color schemes applied to images and navigation elements.
 
 Site URL: https://mager.co
 
@@ -39,7 +39,7 @@ Blog posts are written in Markdown/MDX with frontmatter schema defined in `src/c
 - **pubDate** (date, required): Publication date
 - **updatedDate** (date, optional): Last update date
 - **heroImage** (string, optional): Hero image URL
-- **category** (string, optional): One of "code", "food", or "life"
+- **category** (string, optional): One of "tech", "food", or "life"
 - **prepTime** (number, optional): Recipe prep time in minutes
 - **cookTime** (number, optional): Recipe cook time in minutes
 
@@ -49,8 +49,8 @@ File naming convention: `YYYY-MM-DD-slug.md` (e.g., `2024-12-29-mac-and-cheese.m
 
 The site organizes content into three categories, each with distinct visual themes:
 
-1. **Code** (`category: "code"`) - Purple & Cyan theme
-   - Route: `/code`
+1. **Tech** (`category: "tech"`) - Purple & Cyan theme
+   - Route: `/tech`
    - Image border colors: Purple and Cyan with glow effects
    - Icon: 💻
 
@@ -78,7 +78,7 @@ The site organizes content into three categories, each with distinct visual them
 
 - `src/pages/index.astro`: Homepage displaying latest post from each category
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
-- `src/pages/code.astro`, `recipes.astro`, `life.astro`: Category listing pages
+- `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
 - `src/pages/about.astro`: About page
 
 ### Layouts

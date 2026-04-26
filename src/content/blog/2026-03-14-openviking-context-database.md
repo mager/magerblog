@@ -2,7 +2,7 @@
 title: "OpenViking: The Open-Source Context Database Your Agents Have Been Waiting For"
 description: "Stop stuffing your prompts. OpenViking gives AI agents a filesystem-native brain — tiered, retrievable, self-evolving context at 91% lower token cost."
 pubDate: 2026-03-14
-category: code
+category: tech
 keyyword: OpenViking
 draft: false
 tags: [ai, agents, context, open-source, memory]

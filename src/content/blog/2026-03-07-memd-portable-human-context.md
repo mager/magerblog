@@ -3,7 +3,7 @@ title: "ME.md: robots.txt for human consciousness"
 pubDate: "2026-03-07"
 description: "Stop re-prompting every AI session. One file. Every AI knows you — and your agents. Introducing ME.md on Loooom."
 draft: false
-category: "code"
+category: tech
 tags: ["AI", "ME.md", "Loooom", "Agents", "Protocol"]
 heroImage: ""
 keyword: "portable human context AI agents"

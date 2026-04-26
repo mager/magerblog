@@ -13,8 +13,8 @@ const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).valueOf();
 
 // Get posts from each category, sorted by date (newest first)
-const codePosts = allPosts
-	.filter(post => post.data.category === 'code')
+const techPosts = allPosts
+	.filter(post => post.data.category === 'tech')
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
 const lifePosts = allPosts
@@ -27,7 +27,7 @@ const recipePosts = allPosts
 
 // OG image: use first available hero image across categories
 const ogImage =
-	codePosts.find(p => p.data.heroImage)?.data.heroImage ||
+	techPosts.find(p => p.data.heroImage)?.data.heroImage ||
 	lifePosts.find(p => p.data.heroImage)?.data.heroImage ||
 	recipePosts.find(p => p.data.heroImage)?.data.heroImage ||
 	'/blog-placeholder-1.jpg';
@@ -58,7 +58,7 @@ const ogImage =
 	<body>
 		<main>
 			<NewspaperHero
-				codePosts={codePosts}
+				techPosts={techPosts}
 				lifePosts={lifePosts}
 				recipePosts={recipePosts}
 			/>

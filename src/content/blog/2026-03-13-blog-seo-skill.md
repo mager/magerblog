@@ -2,7 +2,7 @@
 title: "blog-seo: Audit Any Blog's SEO With a Claude Code Skill"
 pubDate: "2026-03-13"
 description: "I kept fixing the same SEO issues by hand — missing keywords, empty hero images, weak descriptions. So I built a Claude Code skill that audits any blog's frontmatter and runs quality evals."
-category: "code"
+category: tech
 tags: ["Claude Code", "SEO", "Skills", "Loooom", "Evals", "Astro", "Hugo"]
 keyword: "seo audit claude code skill"
 heroImage: ""

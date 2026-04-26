@@ -2,7 +2,7 @@
 title: "I Turned My Design Taste Into a Claude Code Skill"
 pubDate: "2026-02-08"
 description: "I analyzed three of my projects, interviewed myself about what makes a UI hot, and packaged it all into a reusable skill for Claude Code."
-category: "code"
+category: tech
 tags: ["AI", "Design", "Claude Code", "Skills"]
 keyword: "agent skill design"
 heroImage: ""

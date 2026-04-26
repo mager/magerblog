@@ -2,7 +2,7 @@
 title: "beatbrain: A Social Music Discovery App"
 pubDate: "2025-11-29"
 description: "beatbrain is a social music discovery app built on Go Fx and Firestore. Find hot new releases, share your favorites, and see what your friends are actually listening to — Spotify meets Last.fm, built from scratch."
-category: "code"
+category: tech
 tags: ["Go", "Music", "Side Projects"]
 keyword: "beatbrain"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMhwXmrQNmmwG95sOSC8arAaiOnt2Jpk5VH41jODORoq-5avO7I7J3RC67DIE9vYRCkToBHG4Q1bBw0vkq-c1tr3no29yo9iv0ARKHZEBjwHW8wgWPxFBlbOL2ORv3dwc81TjUbQXrtpt4ZsC_uk-0f4A=w2320-h1520-s-no-gm"

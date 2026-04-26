@@ -4,7 +4,7 @@ pubDate: "2026-03-14"
 updatedDate: "2026-03-14"
 description: "The Claude Agent SDK gives you the same engine that powers Claude Code, fully programmable. Here's how to build a custom TUI with it in 10 minutes."
 draft: false
-category: "code"
+category: tech
 tags: ["AI", "Agents", "Claude", "TypeScript", "TUI", "Terminal"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMkAoMNzZ5evwXljzJ5Z7TcaPmHmP1OcxQ6lhT1jPqnp4Guwr3xOBLvuB0L8e1vUyXE-GMpb1p-yC4gd13QCVGof_bDKgWobqfrpenI-KJYPhlFsf18z7IvUp_Pu4N2G1P0ofKTnzPl9IxZY0cwLp-7rg=w2322-h1522-s-no-gm"
 keyword: "Claude Agent SDK tutorial"

@@ -3,30 +3,30 @@ import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 
 interface Props {
-	codePosts: CollectionEntry<'blog'>[];
+	techPosts: CollectionEntry<'blog'>[];
 	lifePosts: CollectionEntry<'blog'>[];
 	recipePosts: CollectionEntry<'blog'>[];
 }
 
-const { codePosts, lifePosts, recipePosts } = Astro.props;
+const { techPosts, lifePosts, recipePosts } = Astro.props;
 
-const top3Code   = codePosts.slice(0, 3);
+const top3Tech   = techPosts.slice(0, 3);
 const top3Life   = lifePosts.slice(0, 3);
 const top3Recipe = recipePosts.slice(0, 3);
 
 // Latest post from each category for the hero preview strip
-const latestCode   = codePosts[0]   ?? null;
+const latestTech   = techPosts[0]   ?? null;
 const latestLife   = lifePosts[0]   ?? null;
 const latestRecipe = recipePosts[0] ?? null;
 
 const latestPosts = [
-	{ post: latestCode,   label: 'Code',    href: '/code/',    color: 'indigo' as const },
+	{ post: latestTech,   label: 'Tech',    href: '/tech/',    color: 'indigo' as const },
 	{ post: latestLife,   label: 'Life',    href: '/life/',    color: 'teal'   as const },
 	{ post: latestRecipe, label: 'Recipes', href: '/recipes/', color: 'amber'  as const },
 ].filter(item => item.post !== null);
 
 const categories = [
-	{ key: 'code',  label: 'Code',    href: '/code/',    color: 'indigo', posts: top3Code   },
+	{ key: 'tech',  label: 'Tech',    href: '/tech/',    color: 'indigo', posts: top3Tech   },
 	{ key: 'life',  label: 'Life',    href: '/life/',    color: 'teal',   posts: top3Life   },
 	{ key: 'food',  label: 'Recipes', href: '/recipes/', color: 'amber',  posts: top3Recipe },
 ] as const;
@@ -78,10 +78,10 @@ const categories = [
 				<em>Always eating.</em>
 			</h1>
 			<p class="hero-sub">
-				Code, cooking, and life from Chicago.
+				Tech, cooking, and life from Chicago.
 			</p>
 			<nav class="hero-nav" aria-label="Categories">
-				<a href="/code/"    class="hero-pill pill-indigo">Code</a>
+				<a href="/tech/"    class="hero-pill pill-indigo">Tech</a>
 				<a href="/life/"    class="hero-pill pill-teal">Life</a>
 				<a href="/recipes/" class="hero-pill pill-amber">Recipes</a>
 				<a href="/about"    class="hero-pill pill-neutral">About</a>

@@ -3,7 +3,7 @@ title: "Building a Music Agent CLI with pi-mono"
 pubDate: "2026-02-16"
 updatedDate: "2026-02-16"
 description: "How I used the pi-mono toolkit — the same engine behind OpenClaw — to build a free, terminal-based music friend that reads the beatbrain discover feed and recommends what to listen to."
-category: "code"
+category: tech
 tags: ["AI", "Agents", "pi-mono", "Music", "beatbrain", "CLI", "Temporal"]
 keyword: "pi-mono agent CLI"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPNjQCVyiuLMmCswXaUqr4zeCqPe6-mOO4DyAJoca_M-y4Ntcj5mGv86MlEucwBGb7XXgRrmpSkqni8jvTl19pRpa6MgtRvjmvSJmOmDDlvsE-64xEmZzl3eBHjByucTsY2Fz27PmZ11DcL8MWaCA8z2A=w2322-h1522-s-no-gm"

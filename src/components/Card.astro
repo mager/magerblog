@@ -11,12 +11,12 @@ const { post } = Astro.props;
 
 // Category config for styling
 const categoryConfig: Record<string, { color: string; label: string }> = {
-	code: { color: 'var(--status-purple)', label: 'code' },
+	tech: { color: 'var(--status-purple)', label: 'tech' },
 	life: { color: 'var(--status-green)', label: 'life' },
 	food: { color: 'var(--status-orange)', label: 'recipes' },
 };
 
-const config = categoryConfig[post.data.category || 'code'] || categoryConfig.code;
+const config = categoryConfig[post.data.category || 'tech'] || categoryConfig.tech;
 const hasImage = !!post.data.heroImage;
 const isDraft = !!post.data.draft;
 const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
@@ -90,7 +90,7 @@ const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 	}
 
 	/* Category-specific glow on hover */
-	.card[data-category="code"] { --glow-color: var(--status-purple); }
+	.card[data-category="tech"] { --glow-color: var(--status-purple); }
 	.card[data-category="life"] { --glow-color: var(--status-green); }
 	.card[data-category="food"] { --glow-color: var(--status-orange); }
 

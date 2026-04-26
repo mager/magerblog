@@ -1,7 +1,7 @@
 ---
 version: "alpha"
 name: "Magerblog"
-description: "Editorial personal site that mixes broadsheet warmth with category-specific subworlds for code, food, and life."
+description: "Editorial personal site that mixes broadsheet warmth with category-specific subworlds for tech, food, and life."
 colors:
   primary: "#1f1c17"
   secondary: "#6c6760"
@@ -10,7 +10,7 @@ colors:
   surface: "#f5f3f0"
   surface-strong: "#ffffff"
   border: "#ddd6cd"
-  accent-code: "#2f5e9e"
+  accent-tech: "#2f5e9e"
   accent-food: "#c76a3e"
   accent-life: "#7d8b3a"
   hero-start: "#f05a36"
@@ -97,7 +97,7 @@ components:
     textColor: "{colors.hero-start}"
     typography: "{typography.display-xl}"
   section-label:
-    textColor: "{colors.accent-code}"
+    textColor: "{colors.accent-tech}"
     typography: "{typography.label-ui}"
   feature-card:
     backgroundColor: "{colors.surface-strong}"
@@ -116,7 +116,7 @@ The homepage is the clearest expression of the system: a calm newspaper-like sca
 ## Colors
 The base palette stays almost entirely in paper, ink, and rule colors. Warm ivory backgrounds replace pure white so the site feels collected and lived-in. Dark ink is used heavily for headlines and long-form readability.
 
-Accent colors are categorical, not decorative. Blue belongs to code and information architecture. Terracotta belongs to food and warmth. Olive belongs to life and reflection. The wordmark gradient is the one intentionally loud moment and should read like a sunrise crossing the masthead.
+Accent colors are categorical, not decorative. Blue belongs to tech and information architecture. Terracotta belongs to food and warmth. Olive belongs to life and reflection. The wordmark gradient is the one intentionally loud moment and should read like a sunrise crossing the masthead.
 
 ## Typography
 Typography carries the personality. Fraunces and Source Serif 4 do most of the emotional work: sharp, literary, slightly luxurious, never sterile. Space Grotesk and JetBrains Mono step in for navigation, metadata, dates, and utility labels.

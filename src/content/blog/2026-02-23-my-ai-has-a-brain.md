@@ -2,7 +2,7 @@
 title: "My AI Has a Brain Now"
 pubDate: "2026-02-23"
 description: "The problem: Every session, my AI wakes up fresh. The worse problem: Even when AI tools do remember, they trap it in proprietary black boxes. So I built a brain that follows me across tools."
-category: "code"
+category: tech
 tags: ["AI", "OpenClaw", "brainpack", "mem0", "Claude Code"]
 keyword: "AI brain in the cloud"
 heroImage: ""

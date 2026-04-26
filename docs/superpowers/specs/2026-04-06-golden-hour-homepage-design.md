@@ -26,7 +26,7 @@ All changes are in `src/components/NewspaperHero.astro`.
 
 | Zone | Old | New |
 |------|-----|-----|
-| **Code** | `oklch(29% 0.18 260)` deep indigo | `oklch(32% 0.14 250)` warm navy |
+| **Tech** | `oklch(29% 0.18 260)` deep indigo | `oklch(32% 0.14 250)` warm navy |
 | **Food** | `oklch(50% 0.14 38)` terracotta | No change |
 | **Life** | `oklch(40% 0.12 148)` forest | `oklch(42% 0.10 90)` warm olive |
 

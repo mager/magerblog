@@ -3,7 +3,7 @@ title: "Loooom: I Built a Skill to Teach Claude to Hear Music"
 description: "I used Gemini to write a Loooom skill, installed it in Claude Code, and got a full audio analysis report on a 37-second piano recording of Espresso. Turns out AIs teaching AIs new senses is a surprisingly powerful pattern."
 pubDate: 2026-03-26
 draft: false
-category: "code"
+category: tech
 keyword: "AI audio analysis"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMxHSCBe_reyB_IDhxVpKeeg6m2Uf7N7sL8rJUYC2iOS8H8TgeHoZGgX26YrepJKhMTAkbtyH7BwbOyPBzINxPgt8XYv7oY3NuzSJbJHioEtR9TVhN8UmwOs1bKbe1T6fJd44v2XERAz8fN2X1N9DE77Q=w2322-h1522-s-no-gm"
 tags: ["loooom", "claude-code", "skills", "audio", "gemini", "music"]
