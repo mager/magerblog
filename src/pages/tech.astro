@@ -4,7 +4,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TechPostRow from '../components/tech/TechPostRow.astro';
 import SecretSearch from '../components/SecretSearch.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
@@ -16,8 +15,7 @@ const posts = allPosts
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
 const featuredPost = posts[0];
-const dispatchPosts = posts.slice(1, 7);
-const archivePosts = posts.slice(0);
+const issuePosts = posts.slice(1);
 const latestIssueDate = featuredPost?.data.updatedDate || featuredPost?.data.pubDate || new Date();
 
 const fullDate = new Intl.DateTimeFormat('en-US', {
@@ -25,6 +23,7 @@ const fullDate = new Intl.DateTimeFormat('en-US', {
 	month: 'long',
 	day: 'numeric',
 	year: 'numeric',
+	timeZone: 'UTC',
 }).format(latestIssueDate);
 
 const shortDate = (date: Date) =>
@@ -32,18 +31,8 @@ const shortDate = (date: Date) =>
 		month: 'short',
 		day: '2-digit',
 		year: 'numeric',
+		timeZone: 'UTC',
 	}).format(date);
-
-const tagCounts = new Map<string, number>();
-for (const post of posts) {
-	for (const tag of post.data.tags || []) {
-		tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-	}
-}
-
-const topTags = [...tagCounts.entries()]
-	.sort((a, b) => b[1] - a[1])
-	.slice(0, 12);
 
 const postYears = posts.map(post => post.data.pubDate.getFullYear());
 const firstYear = postYears.length ? Math.min(...postYears) : latestIssueDate.getFullYear();
@@ -51,7 +40,18 @@ const newestYear = postYears.length ? Math.max(...postYears) : latestIssueDate.g
 const issueNumber = String(posts.length).padStart(3, '0');
 const leadTags = (featuredPost?.data.tags || []).slice(0, 4);
 const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
-const deskNotes = posts.slice(0, 4);
+const aiNeedles = ['ai', 'agent', 'agents', 'llm', 'claude', 'codex', 'openai', 'openclaw', 'loooom', 'gpt', 'model', 'promptfoo', 'langgraph', 'mcp', 'autoresearch', 'deepagents', 'brainpack'];
+const isAiPost = (post) => {
+	const haystack = [
+		post.data.title,
+		post.data.description,
+		...(post.data.tags || []),
+	].join(' ').toLowerCase();
+
+	return aiNeedles.some(needle => haystack.includes(needle));
+};
+const aiPosts = posts.filter(isAiPost);
+const deskNotes = aiPosts.slice(0, 4);
 ---
 
 <!doctype html>
@@ -60,8 +60,23 @@ const deskNotes = posts.slice(0, 4);
 		<BaseHead title={`Tech - ${SITE_TITLE}`} description="Technical notes from mager.co on AI agents, developer tools, CLIs, personal software, and the workflows that compound." />
 		<style>
 			body {
-				background: oklch(97.5% 0.012 78);
-				color: oklch(15% 0.018 250);
+				background: oklch(91% 0.008 76);
+				color: oklch(18% 0.008 70);
+			}
+
+			:global(.site-header.header-light) {
+				background: color-mix(in oklch, oklch(91% 0.008 76) 86%, transparent);
+				border-bottom: 1px solid oklch(70% 0.006 76);
+				--header-text: oklch(18% 0.008 70);
+				--header-text-secondary: oklch(36% 0.006 70);
+				--header-text-muted: oklch(55% 0.005 70);
+				--header-logo-tld: oklch(18% 0.008 70);
+				--link-accent-indigo: oklch(18% 0.008 70);
+				--link-accent-teal: oklch(18% 0.008 70);
+				--link-accent-amber: oklch(18% 0.008 70);
+				--link-accent-neutral: oklch(18% 0.008 70);
+				--header-social-border: color-mix(in oklch, oklch(18% 0.008 70) 16%, transparent);
+				--header-hover-bg: color-mix(in oklch, oklch(18% 0.008 70) 6%, transparent);
 			}
 
 			main.tech-page {
@@ -69,28 +84,29 @@ const deskNotes = posts.slice(0, 4);
 				max-width: 100%;
 				margin: 0;
 				padding: 0;
-				--paper: oklch(97.5% 0.012 78);
-				--paper-quiet: oklch(94.5% 0.014 78);
-				--paper-warm: oklch(91.5% 0.035 73);
-				--ink: oklch(15% 0.018 250);
-				--ink-soft: oklch(36% 0.018 250);
-				--ink-muted: oklch(55% 0.014 250);
-				--rule: oklch(82% 0.014 78);
-				--rule-strong: oklch(66% 0.03 72);
-				--yc: oklch(63% 0.19 43);
-				--tech-blue: oklch(39% 0.15 253);
-				--signal: oklch(53% 0.13 148);
-				--violet: oklch(42% 0.13 292);
-				--surface: oklch(99% 0.01 78);
-				--surface-blue: oklch(95% 0.028 252);
+				--paper: oklch(91% 0.008 76);
+				--paper-quiet: oklch(86.5% 0.008 76);
+				--paper-warm: oklch(82% 0.007 76);
+				--ink: oklch(18% 0.008 70);
+				--ink-soft: oklch(32% 0.007 70);
+				--ink-muted: oklch(49% 0.006 70);
+				--rule: oklch(70% 0.006 76);
+				--rule-strong: oklch(44% 0.006 70);
+				--surface: oklch(94% 0.007 76);
+				--surface-dark: oklch(22% 0.007 70);
+				--surface-dark-quiet: oklch(29% 0.006 70);
+				--on-dark: oklch(90% 0.007 76);
+				--yc: var(--ink);
+				--tech-blue: var(--ink);
+				--surface-blue: var(--paper-quiet);
 				--font-display: 'Fraunces', Georgia, serif;
 				--font-body: 'Source Serif 4', Georgia, serif;
 				--font-ui: 'Space Grotesk', system-ui, sans-serif;
 				--font-mono: 'JetBrains Mono', monospace;
 				min-height: 100vh;
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--rule) 45%, transparent) 1px, transparent 1px),
-					linear-gradient(180deg, color-mix(in oklch, var(--yc) 11%, transparent), transparent 20rem),
+					linear-gradient(90deg, color-mix(in oklch, var(--rule) 36%, transparent) 1px, transparent 1px),
+					linear-gradient(180deg, color-mix(in oklch, var(--ink) 9%, transparent), transparent 24rem),
 					var(--paper);
 				background-size: 7.25rem 100%, auto, auto;
 			}
@@ -104,10 +120,7 @@ const deskNotes = posts.slice(0, 4);
 			.tech-kicker,
 			.dateline,
 			.lead-label,
-			.ticker-label,
 			.section-label,
-			.rail-label,
-			.beat-chip,
 			.story-meta,
 			.deck-item,
 			.archive-note,
@@ -132,7 +145,7 @@ const deskNotes = posts.slice(0, 4);
 			}
 
 			.dateline a:hover {
-				color: var(--yc);
+				color: var(--ink-soft);
 			}
 
 			.dateline-pack,
@@ -144,7 +157,7 @@ const deskNotes = posts.slice(0, 4);
 			}
 
 			.dateline-mark {
-				color: var(--yc);
+				color: var(--ink);
 				font-weight: 700;
 			}
 
@@ -162,31 +175,15 @@ const deskNotes = posts.slice(0, 4);
 				min-height: 27rem;
 				border: 1px solid var(--rule);
 				background:
-					linear-gradient(135deg, color-mix(in oklch, var(--yc) 17%, transparent), transparent 36%),
+					linear-gradient(135deg, color-mix(in oklch, var(--ink) 8%, transparent), transparent 38%),
 					linear-gradient(180deg, var(--surface), var(--paper-quiet));
 				padding: 1.25rem;
 				position: relative;
 				overflow: hidden;
 			}
 
-			.tech-hero::after {
-				content: '';
-				position: absolute;
-				right: 1.2rem;
-				bottom: 1.1rem;
-				width: 12rem;
-				height: 12rem;
-				border: 1px solid color-mix(in oklch, var(--tech-blue) 28%, transparent);
-				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--tech-blue) 18%, transparent) 1px, transparent 1px),
-					linear-gradient(180deg, color-mix(in oklch, var(--tech-blue) 18%, transparent) 1px, transparent 1px);
-				background-size: 1.2rem 1.2rem;
-				opacity: 0.55;
-				pointer-events: none;
-			}
-
 			.tech-kicker {
-				color: var(--tech-blue);
+				color: var(--ink-soft);
 				font-size: 0.8rem;
 				font-weight: 700;
 				position: relative;
@@ -224,8 +221,8 @@ const deskNotes = posts.slice(0, 4);
 				grid-template-rows: auto 1fr auto;
 				min-height: 27rem;
 				border: 1px solid var(--ink);
-				background: oklch(16% 0.018 250);
-				color: oklch(93% 0.016 78);
+				background: var(--surface-dark);
+				color: var(--on-dark);
 			}
 
 			.desk-card a {
@@ -239,10 +236,10 @@ const deskNotes = posts.slice(0, 4);
 				justify-content: space-between;
 				gap: 1rem;
 				padding: 0.85rem 1rem;
-				border-bottom: 1px solid oklch(34% 0.025 250);
+				border-bottom: 1px solid var(--surface-dark-quiet);
 				font-family: var(--font-mono);
 				font-size: 0.75rem;
-				color: oklch(79% 0.025 78);
+				color: oklch(78% 0.006 76);
 			}
 
 			.desk-list {
@@ -253,10 +250,9 @@ const deskNotes = posts.slice(0, 4);
 
 			.deck-item {
 				display: grid;
-				grid-template-columns: 2rem minmax(0, 1fr);
-				gap: 0.8rem;
+				grid-template-columns: minmax(0, 1fr);
 				padding: 1rem 0;
-				border-bottom: 1px solid oklch(29% 0.022 250);
+				border-bottom: 1px solid var(--surface-dark-quiet);
 				font-size: 0.78rem;
 				line-height: 1.45;
 			}
@@ -265,38 +261,33 @@ const deskNotes = posts.slice(0, 4);
 				border-bottom: none;
 			}
 
-			.deck-num {
-				color: var(--yc);
-				font-weight: 700;
-			}
-
 			.deck-title {
 				display: block;
 				font-family: var(--font-ui);
 				font-size: 1rem;
 				font-weight: 700;
 				line-height: 1.2;
-				color: oklch(97% 0.012 78);
+				color: oklch(94% 0.007 76);
 			}
 
 			.deck-meta {
 				display: block;
 				margin-top: 0.35rem;
-				color: oklch(70% 0.018 78);
+				color: oklch(69% 0.006 76);
 			}
 
 			.desk-foot {
 				padding: 0.9rem 1rem;
-				border-top: 1px solid oklch(34% 0.025 250);
+				border-top: 1px solid var(--surface-dark-quiet);
 				font-family: var(--font-body);
 				font-size: 1rem;
 				line-height: 1.45;
-				color: oklch(82% 0.018 78);
+				color: oklch(82% 0.006 76);
 			}
 
 			.lead-story {
 				display: grid;
-				grid-template-columns: 4.6rem minmax(0, 1fr) minmax(15rem, 0.34fr);
+				grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.34fr);
 				gap: 1.2rem;
 				align-items: stretch;
 				margin: 0 0 1.2rem;
@@ -309,29 +300,18 @@ const deskNotes = posts.slice(0, 4);
 
 			.lead-story:hover {
 				transform: translateY(-2px);
-				background: color-mix(in oklch, var(--yc) 8%, var(--surface));
-			}
-
-			.lead-rank {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-right: 1px solid var(--ink);
-				font-family: var(--font-mono);
-				font-size: 1.05rem;
-				font-weight: 700;
-				color: var(--yc);
+				background: color-mix(in oklch, var(--ink) 4%, var(--surface));
 			}
 
 			.lead-body {
-				padding: 1.1rem 0;
+				padding: 1.1rem 0 1.1rem 1.1rem;
 			}
 
 			.lead-label,
 			.story-meta,
 			.archive-note {
 				font-size: 0.76rem;
-				color: var(--tech-blue);
+				color: var(--ink-soft);
 			}
 
 			.lead-body h2 {
@@ -370,33 +350,22 @@ const deskNotes = posts.slice(0, 4);
 			}
 
 			.tag-stack span,
-			.beat-chip {
+			.archive-note {
 				display: inline-flex;
 				align-items: center;
 				border: 1px solid var(--rule-strong);
-				background: color-mix(in oklch, var(--surface-blue) 72%, var(--paper));
-				color: var(--tech-blue);
+				background: var(--paper-quiet);
+				color: var(--ink-soft);
 				padding: 0.36rem 0.48rem;
 				font-size: 0.72rem;
 				line-height: 1;
 			}
 
-			.dispatch-layout {
-				display: grid;
-				grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
-				gap: 1.2rem;
-				align-items: start;
-			}
-
-			.dispatch-board,
-			.rail-block,
 			.archive-board {
 				border: 1px solid var(--rule);
 				background: color-mix(in oklch, var(--surface) 82%, var(--paper));
 			}
 
-			.board-head,
-			.rail-head,
 			.archive-head {
 				display: flex;
 				align-items: end;
@@ -406,17 +375,14 @@ const deskNotes = posts.slice(0, 4);
 				border-bottom: 1px solid var(--rule);
 			}
 
-			.section-label,
-			.rail-label {
+			.section-label {
 				display: block;
 				margin-bottom: 0.35rem;
 				font-size: 0.75rem;
-				color: var(--yc);
+				color: var(--ink-soft);
 				font-weight: 700;
 			}
 
-			.board-head h2,
-			.rail-head h2,
 			.archive-head h2 {
 				margin: 0;
 				font-family: var(--font-ui);
@@ -426,7 +392,6 @@ const deskNotes = posts.slice(0, 4);
 				color: var(--ink);
 			}
 
-			.board-head p,
 			.archive-head p {
 				max-width: 52ch;
 				margin: 0.45rem 0 0;
@@ -436,64 +401,10 @@ const deskNotes = posts.slice(0, 4);
 				color: var(--ink-soft);
 			}
 
-			.dispatch-list,
 			.archive-list {
 				list-style: none;
 				margin: 0;
 				padding: 0 1rem;
-			}
-
-			.side-rail {
-				display: grid;
-				gap: 1.2rem;
-				position: sticky;
-				top: 4.6rem;
-			}
-
-			.rail-block {
-				padding-bottom: 1rem;
-			}
-
-			.beat-cloud {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-				padding: 1rem;
-			}
-
-			.beat-chip strong {
-				color: var(--ink);
-				margin-right: 0.35rem;
-			}
-
-			.ledger {
-				display: grid;
-				gap: 0;
-				padding: 0.2rem 1rem 0.4rem;
-			}
-
-			.ledger-row {
-				display: grid;
-				grid-template-columns: minmax(6.5rem, 0.8fr) minmax(0, 1fr);
-				gap: 0.8rem;
-				padding: 0.8rem 0;
-				border-bottom: 1px solid var(--rule);
-				font-family: var(--font-mono);
-				font-size: 0.78rem;
-				line-height: 1.35;
-			}
-
-			.ledger-row:last-child {
-				border-bottom: none;
-			}
-
-			.ledger-key {
-				color: var(--ink-muted);
-			}
-
-			.ledger-value {
-				color: var(--ink);
-				font-weight: 700;
 			}
 
 			.archive-board {
@@ -509,15 +420,6 @@ const deskNotes = posts.slice(0, 4);
 				gap: 0.5rem;
 				flex-wrap: wrap;
 				justify-content: flex-end;
-			}
-
-			.archive-note {
-				display: inline-flex;
-				align-items: center;
-				border: 1px solid var(--rule);
-				padding: 0.4rem 0.5rem;
-				background: var(--paper-quiet);
-				white-space: nowrap;
 			}
 
 			.empty-state {
@@ -539,14 +441,8 @@ const deskNotes = posts.slice(0, 4);
 			}
 
 			@media (max-width: 1100px) {
-				.hero-board,
-				.dispatch-layout {
+				.hero-board {
 					grid-template-columns: 1fr;
-				}
-
-				.side-rail {
-					position: static;
-					grid-template-columns: 1fr 1fr;
 				}
 
 				.hero-type h1 {
@@ -583,13 +479,6 @@ const deskNotes = posts.slice(0, 4);
 					padding: 1rem;
 				}
 
-				.tech-hero::after {
-					width: 7rem;
-					height: 7rem;
-					right: 0.8rem;
-					bottom: 0.8rem;
-				}
-
 				.hero-type h1 {
 					font-size: 3.8rem;
 					line-height: 0.9;
@@ -605,20 +494,12 @@ const deskNotes = posts.slice(0, 4);
 				}
 
 				.deck-item {
-					grid-template-columns: 1.7rem minmax(0, 1fr);
 					padding: 0.85rem 0;
 				}
 
 				.lead-story {
 					grid-template-columns: 1fr;
 					gap: 0;
-				}
-
-				.lead-rank {
-					justify-content: flex-start;
-					border-right: none;
-					border-bottom: 1px solid var(--ink);
-					padding: 0.75rem 0.9rem;
 				}
 
 				.lead-body {
@@ -639,18 +520,11 @@ const deskNotes = posts.slice(0, 4);
 					border-top: 1px solid var(--rule);
 				}
 
-				.side-rail {
-					grid-template-columns: 1fr;
-				}
-
-				.board-head,
-				.rail-head,
 				.archive-head {
 					align-items: flex-start;
 					flex-direction: column;
 				}
 
-				.dispatch-list,
 				.archive-list {
 					padding: 0 0.85rem;
 				}
@@ -659,10 +533,6 @@ const deskNotes = posts.slice(0, 4);
 					justify-content: flex-start;
 				}
 
-				.ledger-row {
-					grid-template-columns: 1fr;
-					gap: 0.15rem;
-				}
 			}
 		</style>
 	</head>
@@ -679,42 +549,40 @@ const deskNotes = posts.slice(0, 4);
 					<div class="dateline-right">
 						<span>{fullDate}</span>
 						<span class="dateline-mark">issue {issueNumber}</span>
-						<span>Y29 builder desk</span>
+						<span>evening edition</span>
 					</div>
 				</div>
 
 				<div class="hero-board">
 					<section class="tech-hero" aria-labelledby="tech-title">
-						<p class="tech-kicker">Founder notes, agent systems, useful machinery</p>
+						<p class="tech-kicker">Issue {issueNumber}</p>
 						<div class="hero-type">
 							<h1 id="tech-title">Tech</h1>
-							<p>Notes from the workbench: AI agents, CLIs, personal software, and small systems that make the next thing easier to ship.</p>
+							<p>Technical notes from mager.co: agents, CLIs, personal software, and the small systems I keep coming back to.</p>
 						</div>
 					</section>
 
-					<aside class="desk-card" aria-label="Current tech desk">
+					<aside class="desk-card" aria-label="AI dispatch">
 						<div class="desk-top">
 							<span>mager dispatch</span>
-							<span>{posts.length} notes</span>
+							<span>{aiPosts.length} AI notes</span>
 						</div>
-						<ol class="desk-list">
-							{deskNotes.map((post, index) => (
+						<ul class="desk-list">
+							{deskNotes.map((post) => (
 								<li class="deck-item">
-									<span class="deck-num">{String(index + 1).padStart(2, '0')}</span>
 									<a href={`/blog/${post.id}/`}>
 										<span class="deck-title">{post.data.title}</span>
 										<span class="deck-meta">{shortDate(post.data.pubDate)}</span>
 									</a>
 								</li>
 							))}
-						</ol>
-						<p class="desk-foot">HN-readable density, personal-site warmth, and enough machine-room texture to feel like this was built by someone who actually ships.</p>
+						</ul>
+						<p class="desk-foot">A tight drawer for the AI notes: agents, tools, model swaps, eval loops, and the parts of the stack that keep changing.</p>
 					</aside>
 				</div>
 
 				{featuredPost && (
 					<a href={leadHref} class="lead-story">
-						<span class="lead-rank">01</span>
 						<div class="lead-body">
 							<span class="lead-label">Lead story</span>
 							<h2>{featuredPost.data.title}</h2>
@@ -729,77 +597,23 @@ const deskNotes = posts.slice(0, 4);
 					</a>
 				)}
 
-				<div class="dispatch-layout">
-					<section class="dispatch-board" aria-labelledby="latest-dispatches">
-						<header class="board-head">
-							<div>
-								<span class="section-label">Latest</span>
-								<h2 id="latest-dispatches">Fresh dispatches</h2>
-								<p>Short paths into the newest build notes, ordered for scanning first and reading second.</p>
-							</div>
-						</header>
-						<ol class="dispatch-list">
-							{dispatchPosts.length > 0
-								? dispatchPosts.map((post, index) => <TechPostRow post={post} index={index + 1} />)
-								: <p class="empty-state">No additional tech posts yet.</p>}
-						</ol>
-					</section>
-
-					<aside class="side-rail">
-						<section class="rail-block" aria-labelledby="beats-heading">
-							<header class="rail-head">
-								<div>
-									<span class="rail-label">Beats</span>
-									<h2 id="beats-heading">What keeps showing up</h2>
-								</div>
-							</header>
-							<div class="beat-cloud">
-								{topTags.map(([tag, count]) => <span class="beat-chip"><strong>{count}</strong>{tag}</span>)}
-							</div>
-						</section>
-
-						<section class="rail-block" aria-labelledby="ledger-heading">
-							<header class="rail-head">
-								<div>
-									<span class="rail-label">Ledger</span>
-									<h2 id="ledger-heading">Archive shape</h2>
-								</div>
-							</header>
-							<div class="ledger">
-								<div class="ledger-row">
-									<span class="ledger-key">coverage</span>
-									<span class="ledger-value">{firstYear} to {newestYear}</span>
-								</div>
-								<div class="ledger-row">
-									<span class="ledger-key">current issue</span>
-									<span class="ledger-value">{issueNumber}</span>
-								</div>
-								<div class="ledger-row">
-									<span class="ledger-key">format</span>
-									<span class="ledger-value">field notes, tutorials, build logs</span>
-								</div>
-							</div>
-						</section>
-					</aside>
-				</div>
-
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
 						<div>
-							<span class="section-label">Archive</span>
-							<h2 id="archive-heading">Every tech note</h2>
-							<p>The full index stays deliberately plain: title, date, tags, description. No mystery meat, no hunting.</p>
+							<span class="section-label">Latest</span>
+							<h2 id="archive-heading">Issue notes</h2>
+							<p>Newest first, with the lead story pulled above the fold. Each published tech post advances the issue number.</p>
 						</div>
 						<div class="archive-actions">
 							<span class="archive-note">sorted newest first</span>
-							<span class="archive-note"><FormattedDate date={latestIssueDate} /></span>
+							<span class="archive-note">{firstYear} to {newestYear}</span>
 						</div>
 					</header>
-					<ol class="archive-list">
-						{archivePosts.length > 0
-							? archivePosts.map((post, index) => <TechPostRow post={post} index={index} />)
+					<ul class="archive-list">
+						{issuePosts.length > 0
+							? issuePosts.map((post) => <TechPostRow post={post} />)
 							: <p class="empty-state">No tech posts yet.</p>}
-					</ol>
+					</ul>
 				</section>
 			</div>
 		</main>

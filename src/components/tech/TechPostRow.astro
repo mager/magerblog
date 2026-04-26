@@ -3,23 +3,20 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
-	index?: number;
 }
 
-const { post, index = 0 } = Astro.props;
+const { post } = Astro.props;
 
 const isDraft = !!post.data.draft;
 const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 const d = post.data.updatedDate || post.data.pubDate;
-const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 const tags = (post.data.tags || []).slice(0, 3);
-const idxStr = String(index + 1).padStart(2, '0');
 const dek = post.data.description || tags.join(' / ') || 'field note from the build queue';
 ---
 
 <li class={`tech-row-wrap ${isDraft ? 'draft' : ''}`}>
 	<a href={`/blog/${post.id}/`} class="tech-row">
-		<span class="row-index">{idxStr}</span>
 		<span class="row-date">{dateStr}</span>
 		<span class="row-body">
 			<span class="row-title">{displayTitle}</span>
@@ -44,8 +41,8 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 	.tech-row {
 		display: grid;
-		grid-template-columns: 3.2rem 7.6rem minmax(0, 1fr) minmax(8rem, auto);
-		gap: 1rem;
+		grid-template-columns: 7.7rem minmax(0, 1fr) minmax(8rem, auto);
+		gap: 1.15rem;
 		align-items: start;
 		padding: 1rem 0;
 		color: inherit;
@@ -56,10 +53,9 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 	.tech-row:hover {
 		transform: translateX(3px);
-		background: color-mix(in oklch, var(--yc, oklch(63% 0.19 43)) 7%, transparent);
+		background: color-mix(in oklch, var(--ink, oklch(18% 0.008 70)) 4%, transparent);
 	}
 
-	.row-index,
 	.row-date,
 	.row-dek,
 	.tag,
@@ -67,15 +63,8 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		font-family: var(--font-mono, 'JetBrains Mono', monospace);
 	}
 
-	.row-index {
-		color: var(--yc, oklch(63% 0.19 43));
-		font-size: 0.78rem;
-		font-weight: 700;
-		padding-top: 0.18rem;
-	}
-
 	.row-date {
-		color: var(--ink-muted, oklch(55% 0.014 250));
+		color: var(--ink-muted, oklch(48% 0.006 70));
 		font-size: 0.74rem;
 		padding-top: 0.18rem;
 		white-space: nowrap;
@@ -92,12 +81,12 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		font-size: 1.12rem;
 		font-weight: 700;
 		line-height: 1.18;
-		color: var(--ink, oklch(15% 0.018 250));
+		color: var(--ink, oklch(18% 0.008 70));
 	}
 
 	.row-dek {
 		display: -webkit-box;
-		color: var(--ink-soft, oklch(36% 0.018 250));
+		color: var(--ink-soft, oklch(34% 0.007 70));
 		font-size: 0.78rem;
 		line-height: 1.45;
 		overflow: hidden;
@@ -115,15 +104,15 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 	.tag {
 		border: 1px solid var(--rule-strong, oklch(66% 0.03 72));
-		background: color-mix(in oklch, var(--surface-blue, oklch(95% 0.028 252)) 72%, var(--paper, oklch(97.5% 0.012 78)));
-		color: var(--tech-blue, oklch(39% 0.15 253));
+		background: var(--paper-quiet, oklch(90% 0.008 78));
+		color: var(--ink-soft, oklch(34% 0.007 70));
 		font-size: 0.68rem;
 		line-height: 1;
 		padding: 0.34rem 0.44rem;
 	}
 
 	.row-arrow {
-		color: var(--yc, oklch(63% 0.19 43));
+		color: var(--ink, oklch(18% 0.008 70));
 		font-size: 0.96rem;
 		opacity: 0;
 		transform: translateX(-4px);
@@ -137,22 +126,22 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 	@media (max-width: 840px) {
 		.tech-row {
-			grid-template-columns: 2.5rem minmax(0, 1fr);
+			grid-template-columns: 1fr;
 			gap: 0.7rem;
 			padding: 0.95rem 0;
 		}
 
 		.row-date {
-			grid-column: 2;
+			grid-column: 1;
 			grid-row: 1;
 		}
 
 		.row-body {
-			grid-column: 2;
+			grid-column: 1;
 		}
 
 		.row-tags {
-			grid-column: 2;
+			grid-column: 1;
 			justify-content: flex-start;
 		}
 
@@ -163,11 +152,10 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 	@media (max-width: 560px) {
 		.tech-row {
-			grid-template-columns: 2.1rem minmax(0, 1fr);
+			grid-template-columns: 1fr;
 			gap: 0.55rem;
 		}
 
-		.row-index,
 		.row-date {
 			font-size: 0.68rem;
 		}
