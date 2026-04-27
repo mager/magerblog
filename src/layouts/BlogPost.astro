@@ -898,9 +898,8 @@ const categoryBadge = getCategoryBadge(category);
 			body[data-category="tech"] .prose .code-panel {
 				--code-preview-max: min(54vh, 25rem);
 				--code-expanded-max: min(78vh, 56rem);
-				width: min(100vw - 2rem, 128ch);
-				margin: 2.25rem 50%;
-				transform: translateX(-50%);
+				width: min(100%, 108ch);
+				margin: 2rem auto;
 				border: 1px solid rgba(163, 113, 247, 0.62);
 				border-radius: 16px;
 				background:
@@ -912,6 +911,13 @@ const categoryBadge = getCategoryBadge(category);
 					0 0 44px rgba(163, 113, 247, 0.12);
 				overflow: hidden;
 				position: relative;
+			}
+
+			body[data-category="tech"] .prose .code-panel.is-short {
+				width: fit-content;
+				min-width: min(100%, 30rem);
+				max-width: 100%;
+				margin: 1.75rem auto;
 			}
 
 			body[data-category="tech"] .prose .code-panel-toolbar {
@@ -1029,6 +1035,10 @@ const categoryBadge = getCategoryBadge(category);
 				scrollbar-color: rgba(163, 113, 247, 0.65) rgba(255, 255, 255, 0.06);
 			}
 
+			body[data-category="tech"] .prose .code-panel.is-short pre {
+				padding: 1rem 1.5rem;
+			}
+
 			body[data-category="tech"] .prose .code-panel pre::before {
 				content: none;
 				display: none;
@@ -1104,9 +1114,15 @@ const categoryBadge = getCategoryBadge(category);
 			@media (max-width: 720px) {
 				body[data-category="tech"] .prose .code-panel {
 					--code-preview-max: min(56vh, 26rem);
-					width: calc(100vw - 1rem);
-					margin: 1.5rem 50%;
+					width: calc(100% - 1rem);
+					margin: 1.5rem auto;
 					border-radius: 12px;
+				}
+
+				body[data-category="tech"] .prose .code-panel.is-short {
+					width: fit-content;
+					min-width: min(calc(100% - 1rem), 24rem);
+					max-width: calc(100% - 1rem);
 				}
 
 				body[data-category="tech"] .prose .code-panel-toolbar {
