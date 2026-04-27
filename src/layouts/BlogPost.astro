@@ -1337,7 +1337,6 @@ const categoryBadge = getCategoryBadge(category);
 					const rawText = code?.innerText || pre.innerText || '';
 					const lineCount = Math.max(1, rawText.replace(/\r?\n$/, '').split(/\r\n|\r|\n/).length);
 					const language = getLanguage(pre, code);
-					const label = pre.dataset.label;
 					const panel = document.createElement('section');
 					const toolbar = document.createElement('div');
 					const meta = document.createElement('div');
@@ -1358,7 +1357,7 @@ const categoryBadge = getCategoryBadge(category);
 					lights.setAttribute('aria-hidden', 'true');
 					lights.innerHTML = '<span></span><span></span><span></span>';
 					title.className = 'code-panel-title';
-					title.textContent = `${label ? `${label} · ` : ''}${language} · ${lineCount} ${lineCount === 1 ? 'line' : 'lines'}`;
+					title.textContent = `${language} · ${lineCount} ${lineCount === 1 ? 'line' : 'lines'}`;
 
 					actions.className = 'code-panel-actions';
 					copyBtn.className = 'code-panel-btn';
