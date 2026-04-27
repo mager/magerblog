@@ -7,6 +7,14 @@ draft: false
 tags: [design, design-systems, ai, frontend]
 ---
 
+import MarkdownCodeBlock from '../../components/MarkdownCodeBlock.astro';
+import magerblogDesign from '../../data/design-md/magerblog.md?raw';
+import kotsuDesign from '../../data/design-md/kotsu.md?raw';
+import loooomDesign from '../../data/design-md/loooom.md?raw';
+import prxpsDesign from '../../data/design-md/prxps.md?raw';
+import beatbrainDesign from '../../data/design-md/beatbrain-v2.md?raw';
+import impeccableDesign from '../../data/design-md/impeccable.md?raw';
+
 I recently learned about [`DESIGN.md`](https://github.com/google-labs-code/design.md) and got immediately interested in the premise.
 
 Not just design tokens. Not just a component library. The bigger idea: that design taste might be portable if you are willing to describe it concretely.
@@ -46,7 +54,7 @@ Colors, type scales, spacing systems, radii, shadows, interaction states, layout
 
 A minimal example looks something like this:
 
-```md
+```markdown
 ---
 product: kotsu
 mood: calm, studious, tactile
@@ -190,7 +198,7 @@ If you want to try this, the move is simple: pick a site you already shipped and
 
 Ask an agent something like:
 
-```md
+```markdown
 Analyze this site like a design archaeologist and write a DESIGN.md for it.
 
 I do not just want tokens. I want the visual system, product mood, typography philosophy, contrast philosophy, spacing rhythm, interaction style, and the atmosphere the product is trying to create.
@@ -209,17 +217,30 @@ That prompt alone gets you somewhere useful. The better part is what happens aft
 
 ## My reverse-engineered design systems
 
-I wanted to end this post with the actual files.
+I wanted to end this post with the actual files, inline instead of hidden behind links.
 
-### Public `DESIGN.md` links
+These are long enough that they are better treated as artifacts than excerpts. The code panels below are Markdown blocks, so they collapse, expand, copy, and fullscreen like the rest of the code on this site.
 
-- [Kotsu `DESIGN.md`](https://github.com/mager/kotsu/blob/main/DESIGN.md)
+### magerblog `DESIGN.md`
 
-### Products I reverse engineered
+<MarkdownCodeBlock code={magerblogDesign} label="magerblog DESIGN.md" />
 
-- [magerblog](https://www.mager.co/)
-- [Kotsu](https://www.kotsu.app/)
-- [Loooom](https://www.loooom.xyz/)
-- [prxps](https://www.prxps.com/)
+### Kotsu `DESIGN.md`
 
-I will add the other direct `DESIGN.md` links here as I publish them.
+<MarkdownCodeBlock code={kotsuDesign} label="Kotsu DESIGN.md" />
+
+### Loooom `DESIGN.md`
+
+<MarkdownCodeBlock code={loooomDesign} label="Loooom DESIGN.md" />
+
+### prxps `DESIGN.md`
+
+<MarkdownCodeBlock code={prxpsDesign} label="prxps DESIGN.md" />
+
+### Beatbrain `DESIGN.md`
+
+<MarkdownCodeBlock code={beatbrainDesign} label="Beatbrain DESIGN.md" />
+
+### Impeccable `DESIGN.md`
+
+<MarkdownCodeBlock code={impeccableDesign} label="Impeccable DESIGN.md" />
