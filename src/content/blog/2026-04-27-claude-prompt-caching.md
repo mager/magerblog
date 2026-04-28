@@ -197,7 +197,15 @@ So if your tool list changes, your cache picture changes.
 
 If you have a stable agent harness, keep its tool surface stable when possible.
 
-### 4. Changing thinking settings
+### 4. Switching models mid-session
+
+I would also treat model switches as a cache boundary.
+
+Even if your prompt content is materially the same, you should not assume a cached prefix from Sonnet will carry cleanly into Opus, or vice versa. Anthropic documents prompt caching per model family and pricing is model-specific, so the safe mental model is simple: switching models means reassessing your cache situation from scratch.
+
+In practice, if you jump models midstream, I would assume you are starting a new cache lane.
+
+### 5. Changing thinking settings
 
 Anthropic also documents that changing extended thinking settings affects message blocks.
 
@@ -205,13 +213,13 @@ So if you enable or disable thinking, or change the thinking budget, do not assu
 
 That can be a hidden source of churn.
 
-### 5. Constantly attaching new images or files
+### 6. Constantly attaching new images or files
 
 Adding or removing images changes message blocks. Same basic idea for other large attachments.
 
 If you are repeatedly sending slightly different payloads, do not expect the same cache efficiency as a text-only session with a stable prefix.
 
-### 6. Rewriting the brief instead of extending it
+### 7. Rewriting the brief instead of extending it
 
 There is a difference between:
 
@@ -300,6 +308,7 @@ If costs feel off, look at:
 
 - changing system prompts
 - changing tool definitions
+- switching models
 - different attachments
 - new thinking settings
 - huge tool outputs
