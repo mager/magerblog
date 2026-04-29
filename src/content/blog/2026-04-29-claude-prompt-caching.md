@@ -1,9 +1,9 @@
 ---
 title: "Claude: How prompt caching actually works"
-description: "A practical explainer for developers who want to spend fewer tokens with Claude: what gets cached, what does not, why stable prefixes matter, and how to avoid the common cache-killers in long sessions."
-pubDate: 2026-04-27
+description: "A practical explainer for both developers and everyday Claude users: what prompt caching is, what gets reused, what breaks it, and how to make long sessions cheaper and faster."
+pubDate: 2026-04-29
 category: code
-draft: true
+draft: false
 tags: [claude, anthropic, prompt-caching, ai, llms, developer-tools]
 ---
 
@@ -17,7 +17,7 @@ Prompt caching is not about Claude vaguely remembering your whole conversation. 
 
 Once I started thinking about it that way, a lot of workflow decisions got clearer.
 
-If you use Claude a lot — especially Claude Code, long API sessions, or any agent workflow with big context — this is worth understanding. It affects cost, latency, and how you should structure instructions.
+If you use Claude a lot — in the app, in Claude Code, through the API, or inside some agent workflow — this is worth understanding. It affects cost, latency, and how you should structure instructions.
 
 ## The core idea
 
@@ -41,9 +41,9 @@ So when caching helps, it helps because a large front section of your request di
 
 ## What this means in normal human terms
 
-If you are chatting with Claude and each turn keeps the same setup — same tool definitions, same system instructions, same early conversation history, same big background doc — then Claude can often reuse that prefix.
+If you keep the setup of a conversation stable — same instructions, same attached context, same general thread — Claude can often reuse more of what came before.
 
-If you keep rewriting the setup, changing tool definitions, pasting slightly different versions of the same context, or moving things around, you make cache reuse much less likely.
+If you keep rewriting the setup, changing tools, pasting slightly different versions of the same context, or moving things around, you make cache reuse much less likely.
 
 That is the big idea.
 
@@ -65,6 +65,24 @@ Where:
 Good Claude workflows keep the prefix stable and only grow the tail.
 
 Bad Claude workflows keep mutating the prefix.
+
+## If you never touch the API
+
+This still matters.
+
+You do not need to be building an agent harness or wiring up `cache_control` manually to benefit from the idea.
+
+If you use Claude like a normal person, prompt caching still gives you a useful way to think about why some long chats feel efficient and others feel bloated.
+
+For regular users, the practical version looks like this:
+
+- keep one thread focused on one job
+- avoid re-explaining the whole project every few messages
+- upload big reference material once instead of repeatedly
+- add the next instruction as a delta instead of rewriting the brief
+- start a fresh chat when the thread has drifted too far
+
+Even if you never see the underlying token accounting, those habits usually produce better results.
 
 ## What is usually cached
 
@@ -125,6 +143,35 @@ If instead I keep doing things like this:
 then I keep forcing more of the prompt back into the uncached bucket.
 
 That is the difference between a session that gets cheaper over time and a session that keeps paying first-turn prices on too much of its context.
+
+## A non-developer example
+
+Say you are using Claude to plan a trip to Japan.
+
+You paste in your dates, cities, budget, dietary constraints, and a list of places you already know you want to visit.
+
+That setup is expensive the first time because Claude has to process all of it.
+
+After that, the good move is to keep extending the same thread with asks like:
+
+- "Now turn this into a 7-day itinerary"
+- "Now optimize it for less train time"
+- "Now make a rainy-day version"
+- "Now give me a packing list"
+
+That preserves the setup as the stable prefix.
+
+The worse move is to start over every time with a rewritten version of the same travel brief.
+
+Same idea if you are using Claude for:
+
+- meal planning
+- studying from a long document
+- comparing job options
+- drafting a wedding speech
+- working through a contract
+
+The more stable the shared background stays, the more reuse you can get.
 
 ## Automatic caching vs explicit breakpoints
 
@@ -201,7 +248,7 @@ If you have a stable agent harness, keep its tool surface stable when possible.
 
 I would also treat model switches as a cache boundary.
 
-Even if your prompt content is materially the same, you should not assume a cached prefix from Sonnet will carry cleanly into Opus, or vice versa. Anthropic documents prompt caching per model family and pricing is model-specific, so the safe mental model is simple: switching models means reassessing your cache situation from scratch.
+Even if your prompt content is materially the same, you should not assume a cached prefix from Sonnet will carry cleanly into Opus, or vice versa. Anthropic documents prompt caching per model and model-specific pricing, so the safe mental model is simple: switching models means reassessing your cache situation from scratch.
 
 In practice, if you jump models midstream, I would assume you are starting a new cache lane.
 
@@ -253,7 +300,7 @@ So yes, I do think prompt caching is part of why `CLAUDE.md` feels disproportion
 
 Again: not because the file itself gets magical treatment, but because durable context beats chat churn.
 
-## The part most developers miss
+## The part most people miss
 
 A cached session can still be expensive.
 
@@ -376,4 +423,4 @@ That is a much more useful way to work.
 
 ### Notes
 
-I wrote this using Anthropic's prompt caching docs as the reference point, especially the parts covering automatic caching, explicit cache breakpoints, cached prefix order (`tools`, `system`, `messages`), cache lifetimes, and the documented ways images, tool definitions, and thinking settings can affect cache validity.
+I fact-checked this against Anthropic's prompt caching docs, including the sections on automatic caching, explicit cache breakpoints, cached prefix order (`tools`, `system`, `messages`), default 5-minute lifetime, optional 1-hour lifetime, and the documented ways images, tool definitions, and thinking settings can affect cache validity and cost.
