@@ -15,7 +15,7 @@ const posts = allPosts
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
 const featuredPost = posts[0];
-const issuePosts = posts.slice(1);
+const archivePosts = posts.slice(1);
 const latestIssueDate = featuredPost?.data.updatedDate || featuredPost?.data.pubDate || new Date();
 
 const fullDate = new Intl.DateTimeFormat('en-US', {
@@ -37,10 +37,9 @@ const shortDate = (date: Date) =>
 const postYears = posts.map(post => post.data.pubDate.getFullYear());
 const firstYear = postYears.length ? Math.min(...postYears) : latestIssueDate.getFullYear();
 const newestYear = postYears.length ? Math.max(...postYears) : latestIssueDate.getFullYear();
-const issueNumber = String(posts.length).padStart(3, '0');
 const leadTags = (featuredPost?.data.tags || []).slice(0, 4);
 const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
-const aiNeedles = ['ai', 'agent', 'agents', 'llm', 'claude', 'codex', 'openai', 'openclaw', 'loooom', 'gpt', 'model', 'promptfoo', 'langgraph', 'mcp', 'autoresearch', 'deepagents', 'brainpack'];
+const aiNeedles = ['ai', 'agent', 'agents', 'llm', 'claude', 'codex', 'openai', 'openclaw', 'loooom', 'gpt', 'model', 'promptfoo', 'langgraph', 'mcp', 'autoresearch', 'deepagents', 'brainpack', 'memory', 'eval'];
 const isAiPost = (post) => {
 	const haystack = [
 		post.data.title,
@@ -51,7 +50,34 @@ const isAiPost = (post) => {
 	return aiNeedles.some(needle => haystack.includes(needle));
 };
 const aiPosts = posts.filter(isAiPost);
-const deskNotes = aiPosts.slice(0, 4);
+
+const drawerDefs = [
+	{ key: 'agents', label: 'agents', hint: 'fleets, roles, orchestration', needles: ['agent', 'agents', 'openclaw', 'hermes', 'deepagents', 'langgraph', 'channels'] },
+	{ key: 'tools', label: 'tools', hint: 'mcp, cli, plugins, sdk', needles: ['tool', 'tools', 'mcp', 'cli', 'plugin', 'plugins', 'sdk', 'server'] },
+	{ key: 'models', label: 'model swaps', hint: 'claude, codex, openai, llms', needles: ['model', 'models', 'claude', 'codex', 'openai', 'gpt', 'llm', 'llms'] },
+	{ key: 'evals', label: 'eval loops', hint: 'benchmarks, validation, judges', needles: ['eval', 'evals', 'promptfoo', 'benchmark', 'validation', 'validate', 'judge'] },
+	{ key: 'memory', label: 'memory', hint: 'context, brains, recall', needles: ['memory', 'brain', 'context', 'mem0', 'me.md', 'openviking'] },
+];
+
+const drawerBuckets = drawerDefs
+	.map((bucket) => {
+		const bucketPosts = aiPosts.filter((post) => {
+			const haystack = [
+				post.data.title,
+				post.data.description,
+				...(post.data.tags || []),
+			].join(' ').toLowerCase();
+
+			return bucket.needles.some(needle => haystack.includes(needle));
+		});
+
+		return {
+			...bucket,
+			count: bucketPosts.length,
+			latest: bucketPosts[0],
+		};
+	})
+	.filter(bucket => bucket.count > 0);
 ---
 
 <!doctype html>
@@ -93,22 +119,23 @@ const deskNotes = aiPosts.slice(0, 4);
 				--rule: oklch(70% 0.006 76);
 				--rule-strong: oklch(44% 0.006 70);
 				--surface: oklch(94% 0.007 76);
-				--surface-dark: oklch(22% 0.007 70);
-				--surface-dark-quiet: oklch(29% 0.006 70);
+				--surface-dark: oklch(18% 0.01 70);
+				--surface-dark-quiet: oklch(27% 0.008 70);
+				--surface-dark-soft: oklch(23% 0.012 70);
 				--on-dark: oklch(90% 0.007 76);
-				--yc: var(--ink);
-				--tech-blue: var(--ink);
-				--surface-blue: var(--paper-quiet);
+				--terminal-green: oklch(83% 0.14 150);
+				--terminal-cyan: oklch(79% 0.09 215);
 				--font-display: 'Fraunces', Georgia, serif;
 				--font-body: 'Source Serif 4', Georgia, serif;
 				--font-ui: 'Space Grotesk', system-ui, sans-serif;
 				--font-mono: 'JetBrains Mono', monospace;
 				min-height: 100vh;
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--rule) 36%, transparent) 1px, transparent 1px),
-					linear-gradient(180deg, color-mix(in oklch, var(--ink) 9%, transparent), transparent 24rem),
+					linear-gradient(90deg, color-mix(in oklch, var(--rule) 30%, transparent) 1px, transparent 1px),
+					radial-gradient(circle at top, color-mix(in oklch, var(--terminal-cyan) 10%, transparent), transparent 34%),
+					linear-gradient(180deg, color-mix(in oklch, var(--ink) 8%, transparent), transparent 24rem),
 					var(--paper);
-				background-size: 7.25rem 100%, auto, auto;
+				background-size: 7.25rem 100%, auto, auto, auto;
 			}
 
 			.tech-shell {
@@ -122,9 +149,14 @@ const deskNotes = aiPosts.slice(0, 4);
 			.lead-label,
 			.section-label,
 			.story-meta,
-			.deck-item,
 			.archive-note,
-			.empty-state {
+			.empty-state,
+			.hero-chip,
+			.drawer-chip,
+			.drawer-stat-label,
+			.drawer-hint,
+			.prompt-line,
+			.prompt-copy {
 				font-family: var(--font-mono);
 			}
 
@@ -133,7 +165,7 @@ const deskNotes = aiPosts.slice(0, 4);
 				align-items: center;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 0.9rem 0 1.1rem;
+				padding: 0.95rem 0 1.15rem;
 				border-bottom: 1px solid var(--rule);
 				font-size: 0.78rem;
 				color: var(--ink-soft);
@@ -163,7 +195,7 @@ const deskNotes = aiPosts.slice(0, 4);
 
 			.hero-board {
 				display: grid;
-				grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 0.85fr);
+				grid-template-columns: minmax(0, 1.08fr) minmax(24rem, 0.92fr);
 				gap: 1.2rem;
 				padding: 1.6rem 0 1.2rem;
 				border-bottom: 1px solid var(--rule);
@@ -171,15 +203,27 @@ const deskNotes = aiPosts.slice(0, 4);
 
 			.tech-hero {
 				display: grid;
-				grid-template-rows: auto 1fr;
-				min-height: 27rem;
+				grid-template-rows: auto 1fr auto;
+				min-height: 28rem;
 				border: 1px solid var(--rule);
 				background:
-					linear-gradient(135deg, color-mix(in oklch, var(--ink) 8%, transparent), transparent 38%),
+					linear-gradient(135deg, color-mix(in oklch, var(--terminal-cyan) 12%, transparent), transparent 38%),
 					linear-gradient(180deg, var(--surface), var(--paper-quiet));
 				padding: 1.25rem;
 				position: relative;
 				overflow: hidden;
+			}
+
+			.tech-hero::after {
+				content: '';
+				position: absolute;
+				inset: auto -12% -22% auto;
+				width: 22rem;
+				height: 22rem;
+				border-radius: 50%;
+				background: radial-gradient(circle, color-mix(in oklch, var(--terminal-green) 20%, transparent), transparent 66%);
+				opacity: 0.45;
+				pointer-events: none;
 			}
 
 			.tech-kicker {
@@ -197,40 +241,85 @@ const deskNotes = aiPosts.slice(0, 4);
 				max-width: 68rem;
 			}
 
+			.hero-chip-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-bottom: 0.9rem;
+			}
+
+			.hero-chip {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				padding: 0.34rem 0.55rem;
+				border: 1px solid color-mix(in oklch, var(--rule-strong) 70%, transparent);
+				background: color-mix(in oklch, var(--surface) 88%, transparent);
+				font-size: 0.7rem;
+				color: var(--ink-soft);
+			}
+
 			.hero-type h1 {
 				margin: 0;
 				font-family: var(--font-display);
-				font-size: 7rem;
-				line-height: 0.86;
+				font-size: 6.5rem;
+				line-height: 0.88;
 				letter-spacing: 0;
 				color: var(--ink);
 				font-variation-settings: 'opsz' 144, 'wght' 900;
 			}
 
 			.hero-type p {
-				max-width: 54rem;
-				margin: 1.1rem 0 0;
+				max-width: 52rem;
+				margin: 1rem 0 0;
 				font-family: var(--font-body);
-				font-size: 1.35rem;
-				line-height: 1.45;
+				font-size: 1.28rem;
+				line-height: 1.5;
 				color: var(--ink-soft);
 			}
 
-			.desk-card {
-				display: grid;
-				grid-template-rows: auto 1fr auto;
-				min-height: 27rem;
-				border: 1px solid var(--ink);
-				background: var(--surface-dark);
-				color: var(--on-dark);
+			.hero-foot {
+				position: relative;
+				z-index: 1;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 1.2rem;
 			}
 
-			.desk-card a {
+			.prompt-line,
+			.prompt-copy {
+				display: block;
+			}
+
+			.prompt-line {
+				font-size: 0.74rem;
+				color: var(--ink-soft);
+			}
+
+			.prompt-copy {
+				font-size: 0.95rem;
+				color: var(--ink);
+			}
+
+			.drawer-card {
+				display: grid;
+				grid-template-rows: auto 1fr auto;
+				min-height: 28rem;
+				border: 1px solid color-mix(in oklch, var(--terminal-green) 18%, var(--ink));
+				background:
+					linear-gradient(180deg, color-mix(in oklch, var(--terminal-cyan) 5%, transparent), transparent 26%),
+					var(--surface-dark);
+				color: var(--on-dark);
+				box-shadow: 0 22px 48px color-mix(in oklch, var(--surface-dark) 65%, transparent);
+			}
+
+			.drawer-card a {
 				color: inherit;
 				text-decoration: none;
 			}
 
-			.desk-top {
+			.drawer-top {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
@@ -242,52 +331,92 @@ const deskNotes = aiPosts.slice(0, 4);
 				color: oklch(78% 0.006 76);
 			}
 
-			.desk-list {
-				list-style: none;
-				margin: 0;
-				padding: 0.2rem 1rem 0;
+			.drawer-chip-row {
+				display: flex;
+				gap: 0.45rem;
+				flex-wrap: wrap;
 			}
 
-			.deck-item {
+			.drawer-chip {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.28rem 0.5rem;
+				border: 1px solid color-mix(in oklch, var(--terminal-green) 26%, transparent);
+				background: color-mix(in oklch, var(--terminal-green) 10%, transparent);
+				color: var(--terminal-green);
+				font-size: 0.69rem;
+			}
+
+			.drawer-grid {
 				display: grid;
-				grid-template-columns: minmax(0, 1fr);
-				padding: 1rem 0;
-				border-bottom: 1px solid var(--surface-dark-quiet);
-				font-size: 0.78rem;
-				line-height: 1.45;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 0.75rem;
+				padding: 1rem;
 			}
 
-			.deck-item:last-child {
-				border-bottom: none;
+			.drawer-stat {
+				display: grid;
+				gap: 0.45rem;
+				padding: 0.8rem;
+				border: 1px solid color-mix(in oklch, var(--on-dark) 10%, transparent);
+				background: color-mix(in oklch, white 2%, transparent);
 			}
 
-			.deck-title {
-				display: block;
+			.drawer-stat:hover {
+				background: color-mix(in oklch, var(--terminal-cyan) 8%, transparent);
+			}
+
+			.drawer-stat-top {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 0.75rem;
+			}
+
+			.drawer-stat-label {
+				font-size: 0.72rem;
+				color: oklch(72% 0.01 76);
+				text-transform: uppercase;
+			}
+
+			.drawer-stat-count {
 				font-family: var(--font-ui);
-				font-size: 1rem;
+				font-size: 1.35rem;
 				font-weight: 700;
-				line-height: 1.2;
+				line-height: 1;
+				color: var(--on-dark);
+			}
+
+			.drawer-hint {
+				font-size: 0.69rem;
+				line-height: 1.35;
+				color: oklch(63% 0.008 76);
+			}
+
+			.drawer-latest {
+				font-family: var(--font-ui);
+				font-size: 0.92rem;
+				font-weight: 600;
+				line-height: 1.25;
 				color: oklch(94% 0.007 76);
 			}
 
-			.deck-meta {
-				display: block;
-				margin-top: 0.35rem;
-				color: oklch(69% 0.006 76);
+			.drawer-foot {
+				padding: 0.95rem 1rem 1rem;
+				border-top: 1px solid var(--surface-dark-quiet);
 			}
 
-			.desk-foot {
-				padding: 0.9rem 1rem;
-				border-top: 1px solid var(--surface-dark-quiet);
-				font-family: var(--font-body);
-				font-size: 1rem;
-				line-height: 1.45;
-				color: oklch(82% 0.006 76);
+			.drawer-foot .prompt-line {
+				color: oklch(67% 0.008 76);
+			}
+
+			.drawer-foot .prompt-copy {
+				color: oklch(90% 0.007 76);
 			}
 
 			.lead-story {
 				display: grid;
-				grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.34fr);
+				grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.34fr);
 				gap: 1.2rem;
 				align-items: stretch;
 				margin: 0 0 1.2rem;
@@ -300,7 +429,7 @@ const deskNotes = aiPosts.slice(0, 4);
 
 			.lead-story:hover {
 				transform: translateY(-2px);
-				background: color-mix(in oklch, var(--ink) 4%, var(--surface));
+				background: color-mix(in oklch, var(--terminal-cyan) 10%, var(--surface));
 			}
 
 			.lead-body {
@@ -340,7 +469,7 @@ const deskNotes = aiPosts.slice(0, 4);
 				gap: 1rem;
 				padding: 1rem;
 				border-left: 1px solid var(--rule);
-				background: var(--paper-quiet);
+				background: linear-gradient(180deg, var(--paper-quiet), color-mix(in oklch, var(--terminal-cyan) 6%, var(--paper-quiet)));
 			}
 
 			.tag-stack {
@@ -362,13 +491,14 @@ const deskNotes = aiPosts.slice(0, 4);
 			}
 
 			.archive-board {
+				margin-top: 1.2rem;
 				border: 1px solid var(--rule);
 				background: color-mix(in oklch, var(--surface) 82%, var(--paper));
 			}
 
 			.archive-head {
 				display: flex;
-				align-items: end;
+				align-items: start;
 				justify-content: space-between;
 				gap: 1rem;
 				padding: 1rem 1rem 0.9rem;
@@ -407,14 +537,6 @@ const deskNotes = aiPosts.slice(0, 4);
 				padding: 0 1rem;
 			}
 
-			.archive-board {
-				margin-top: 1.2rem;
-			}
-
-			.archive-head {
-				align-items: start;
-			}
-
 			.archive-actions {
 				display: flex;
 				gap: 0.5rem;
@@ -430,7 +552,8 @@ const deskNotes = aiPosts.slice(0, 4);
 
 			@media (prefers-reduced-motion: reduce) {
 				.lead-story,
-				:global(.tech-row) {
+				:global(.tech-row),
+				.drawer-stat {
 					transition: none;
 				}
 
@@ -446,13 +569,13 @@ const deskNotes = aiPosts.slice(0, 4);
 				}
 
 				.hero-type h1 {
-					font-size: 5.6rem;
+					font-size: 5.5rem;
 				}
 			}
 
 			@media (max-width: 760px) {
 				main.tech-page {
-					background-size: 4.5rem 100%, auto, auto;
+					background-size: 4.5rem 100%, auto, auto, auto;
 				}
 
 				.tech-shell {
@@ -471,7 +594,7 @@ const deskNotes = aiPosts.slice(0, 4);
 				}
 
 				.tech-hero,
-				.desk-card {
+				.drawer-card {
 					min-height: 0;
 				}
 
@@ -489,12 +612,8 @@ const deskNotes = aiPosts.slice(0, 4);
 					line-height: 1.5;
 				}
 
-				.desk-list {
-					padding: 0 0.85rem;
-				}
-
-				.deck-item {
-					padding: 0.85rem 0;
+				.drawer-grid {
+					grid-template-columns: 1fr;
 				}
 
 				.lead-story {
@@ -532,7 +651,6 @@ const deskNotes = aiPosts.slice(0, 4);
 				.archive-actions {
 					justify-content: flex-start;
 				}
-
 			}
 		</style>
 	</head>
@@ -548,43 +666,63 @@ const deskNotes = aiPosts.slice(0, 4);
 					</div>
 					<div class="dateline-right">
 						<span>{fullDate}</span>
-						<span class="dateline-mark">issue {issueNumber}</span>
-						<span>evening edition</span>
+						<span class="dateline-mark">{posts.length} posts</span>
+						<span>{firstYear}—{newestYear}</span>
 					</div>
 				</div>
 
 				<div class="hero-board">
 					<section class="tech-hero" aria-labelledby="tech-title">
-						<p class="tech-kicker">Issue {issueNumber}</p>
+						<p class="tech-kicker">field log / always changing</p>
 						<div class="hero-type">
+							<div class="hero-chip-row">
+								<span class="hero-chip">agents</span>
+								<span class="hero-chip">tools</span>
+								<span class="hero-chip">model swaps</span>
+								<span class="hero-chip">eval loops</span>
+							</div>
 							<h1 id="tech-title">Tech</h1>
-							<p>Technical notes from mager.co: agents, CLIs, personal software, and the small systems I keep coming back to.</p>
+							<p>Technical notes from mager.co: terminal-native agents, personal software, weird little systems, and the stack edits that keep compounding.</p>
+						</div>
+						<div class="hero-foot" aria-label="tech shell prompt">
+							<div>
+								<span class="prompt-line">~/Code/magerblog $ ls tech/</span>
+								<span class="prompt-copy">dispatches, build log, AI drawer, experiments</span>
+							</div>
 						</div>
 					</section>
 
-					<aside class="desk-card" aria-label="AI dispatch">
-						<div class="desk-top">
-							<span>mager dispatch</span>
-							<span>{aiPosts.length} AI notes</span>
+					<aside class="drawer-card" aria-label="AI drawer">
+						<div class="drawer-top">
+							<span>AI drawer</span>
+							<div class="drawer-chip-row">
+								<span class="drawer-chip">{aiPosts.length} notes</span>
+								<span class="drawer-chip">live stack</span>
+							</div>
 						</div>
-						<ul class="desk-list">
-							{deskNotes.map((post) => (
-								<li class="deck-item">
-									<a href={`/blog/${post.id}/`}>
-										<span class="deck-title">{post.data.title}</span>
-										<span class="deck-meta">{shortDate(post.data.pubDate)}</span>
-									</a>
-								</li>
+						<div class="drawer-grid">
+							{drawerBuckets.map((bucket) => (
+								<a class="drawer-stat" href={bucket.latest ? `/blog/${bucket.latest.id}/` : '/tech'}>
+									<div class="drawer-stat-top">
+										<span class="drawer-stat-label">{bucket.label}</span>
+										<span class="drawer-stat-count">{bucket.count}</span>
+									</div>
+									<span class="drawer-hint">{bucket.hint}</span>
+									{bucket.latest && <span class="drawer-latest">{bucket.latest.data.title}</span>}
+								</a>
 							))}
-						</ul>
-						<p class="desk-foot">A tight drawer for the AI notes: agents, tools, model swaps, eval loops, and the parts of the stack that keep changing.</p>
+						</div>
+						<div class="drawer-foot">
+							<span class="prompt-line">drawer contents</span>
+							<span class="prompt-copy">A tighter place for the AI notes — without repeating the whole archive back at you.</span>
+						</div>
 					</aside>
 				</div>
 
 				{featuredPost && (
 					<a href={leadHref} class="lead-story">
 						<div class="lead-body">
-							<span class="lead-label">Lead story</span>
+							<span class="lead-label">latest dispatch</span>
 							<h2>{featuredPost.data.title}</h2>
 							<p>{featuredPost.data.description}</p>
 						</div>
@@ -600,18 +738,18 @@ const deskNotes = aiPosts.slice(0, 4);
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
 						<div>
-							<span class="section-label">Latest</span>
-							<h2 id="archive-heading">Issue notes</h2>
-							<p>Newest first, with the lead story pulled above the fold. Each published tech post advances the issue number.</p>
+							<span class="section-label">archive</span>
+							<h2 id="archive-heading">Build log</h2>
+							<p>Newest first. One lead story up top, then the rest of the tech archive below — cleaner, less fake-magazine issue baggage.</p>
 						</div>
 						<div class="archive-actions">
 							<span class="archive-note">sorted newest first</span>
-							<span class="archive-note">{firstYear} to {newestYear}</span>
+							<span class="archive-note">{archivePosts.length} rows</span>
 						</div>
 					</header>
 					<ul class="archive-list">
-						{issuePosts.length > 0
-							? issuePosts.map((post) => <TechPostRow post={post} />)
+						{archivePosts.length > 0
+							? archivePosts.map((post) => <TechPostRow post={post} />)
 							: <p class="empty-state">No tech posts yet.</p>}
 					</ul>
 				</section>
