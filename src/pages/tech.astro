@@ -39,6 +39,7 @@ const firstYear = postYears.length ? Math.min(...postYears) : latestIssueDate.ge
 const newestYear = postYears.length ? Math.max(...postYears) : latestIssueDate.getFullYear();
 const leadTags = (featuredPost?.data.tags || []).slice(0, 4);
 const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
+const hasFeaturedImage = !!featuredPost?.data.heroImage;
 const aiNeedles = ['ai', 'agent', 'agents', 'llm', 'claude', 'codex', 'openai', 'openclaw', 'loooom', 'gpt', 'model', 'promptfoo', 'langgraph', 'mcp', 'autoresearch', 'deepagents', 'brainpack', 'memory', 'eval'];
 const isAiPost = (post) => {
 	const haystack = [
@@ -195,21 +196,21 @@ const drawerBuckets = drawerDefs
 
 			.hero-board {
 				display: grid;
-				grid-template-columns: minmax(0, 1.08fr) minmax(24rem, 0.92fr);
+				grid-template-columns: minmax(0, 1.12fr) minmax(23rem, 0.88fr);
 				gap: 1.2rem;
-				padding: 1.6rem 0 1.2rem;
+				padding: 1.1rem 0 1.2rem;
 				border-bottom: 1px solid var(--rule);
 			}
 
 			.tech-hero {
 				display: grid;
-				grid-template-rows: auto 1fr auto;
-				min-height: 28rem;
+				grid-template-rows: auto auto auto;
+				gap: 1rem;
 				border: 1px solid var(--rule);
 				background:
 					linear-gradient(135deg, color-mix(in oklch, var(--terminal-cyan) 12%, transparent), transparent 38%),
 					linear-gradient(180deg, var(--surface), var(--paper-quiet));
-				padding: 1.25rem;
+				padding: 1.1rem;
 				position: relative;
 				overflow: hidden;
 			}
@@ -235,7 +236,6 @@ const drawerBuckets = drawerDefs
 			}
 
 			.hero-type {
-				align-self: end;
 				position: relative;
 				z-index: 1;
 				max-width: 68rem;
@@ -262,20 +262,57 @@ const drawerBuckets = drawerDefs
 			.hero-type h1 {
 				margin: 0;
 				font-family: var(--font-display);
-				font-size: 6.5rem;
+				font-size: clamp(3.8rem, 8vw, 6.5rem);
 				line-height: 0.88;
 				letter-spacing: 0;
 				color: var(--ink);
 				font-variation-settings: 'opsz' 144, 'wght' 900;
 			}
 
-			.hero-type p {
-				max-width: 52rem;
-				margin: 1rem 0 0;
-				font-family: var(--font-body);
-				font-size: 1.28rem;
-				line-height: 1.5;
+			.hero-lead {
+				display: grid;
+				gap: 0.55rem;
+				margin-top: 0.9rem;
+			}
+
+			.hero-lead a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			.hero-lead-title {
+				display: block;
+				font-family: var(--font-ui);
+				font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+				font-weight: 700;
+				line-height: 1.02;
+				color: var(--ink);
+			}
+
+			.hero-lead-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.55rem;
+				flex-wrap: wrap;
+				font-size: 0.72rem;
 				color: var(--ink-soft);
+			}
+
+			.hero-image-link {
+				display: block;
+				position: relative;
+				z-index: 1;
+				min-height: 15rem;
+				border: 1px solid color-mix(in oklch, var(--terminal-cyan) 30%, var(--rule));
+				overflow: hidden;
+				background: color-mix(in oklch, var(--paper-quiet) 82%, white 18%);
+			}
+
+			.hero-image-link img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
 			}
 
 			.hero-foot {
@@ -283,8 +320,10 @@ const drawerBuckets = drawerDefs
 				z-index: 1;
 				display: flex;
 				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
 				gap: 0.75rem;
-				margin-top: 1.2rem;
+				padding-top: 0.15rem;
 			}
 
 			.prompt-line,
@@ -414,51 +453,10 @@ const drawerBuckets = drawerDefs
 				color: oklch(90% 0.007 76);
 			}
 
-			.lead-story {
-				display: grid;
-				grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.34fr);
-				gap: 1.2rem;
-				align-items: stretch;
-				margin: 0 0 1.2rem;
-				border: 1px solid var(--ink);
-				background: var(--surface);
-				color: inherit;
-				text-decoration: none;
-				transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1);
-			}
-
-			.lead-story:hover {
-				transform: translateY(-2px);
-				background: color-mix(in oklch, var(--terminal-cyan) 10%, var(--surface));
-			}
-
-			.lead-body {
-				padding: 1.1rem 0 1.1rem 1.1rem;
-			}
-
 			.lead-label,
 			.story-meta,
 			.archive-note {
 				font-size: 0.76rem;
-				color: var(--ink-soft);
-			}
-
-			.lead-body h2 {
-				margin: 0.35rem 0 0;
-				max-width: 62rem;
-				font-family: var(--font-display);
-				font-size: 3rem;
-				line-height: 1;
-				letter-spacing: 0;
-				color: var(--ink);
-			}
-
-			.lead-body p {
-				max-width: 64ch;
-				margin: 0.75rem 0 0;
-				font-family: var(--font-body);
-				font-size: 1.12rem;
-				line-height: 1.55;
 				color: var(--ink-soft);
 			}
 
@@ -467,9 +465,6 @@ const drawerBuckets = drawerDefs
 				flex-direction: column;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 1rem;
-				border-left: 1px solid var(--rule);
-				background: linear-gradient(180deg, var(--paper-quiet), color-mix(in oklch, var(--terminal-cyan) 6%, var(--paper-quiet)));
 			}
 
 			.tag-stack {
@@ -523,12 +518,7 @@ const drawerBuckets = drawerDefs
 			}
 
 			.archive-head p {
-				max-width: 52ch;
-				margin: 0.45rem 0 0;
-				font-family: var(--font-body);
-				font-size: 0.98rem;
-				line-height: 1.45;
-				color: var(--ink-soft);
+				display: none;
 			}
 
 			.archive-list {
@@ -607,36 +597,16 @@ const drawerBuckets = drawerDefs
 					line-height: 0.9;
 				}
 
-				.hero-type p {
-					font-size: 1.08rem;
-					line-height: 1.5;
+				.hero-lead-title {
+					font-size: 1.45rem;
 				}
 
 				.drawer-grid {
 					grid-template-columns: 1fr;
 				}
 
-				.lead-story {
-					grid-template-columns: 1fr;
-					gap: 0;
-				}
-
-				.lead-body {
-					padding: 0.9rem;
-				}
-
-				.lead-body h2 {
-					font-size: 2rem;
-					line-height: 1.05;
-				}
-
-				.lead-body p {
-					font-size: 1rem;
-				}
-
-				.lead-meta {
-					border-left: none;
-					border-top: 1px solid var(--rule);
+				.hero-image-link {
+					min-height: 11rem;
 				}
 
 				.archive-head {
@@ -674,6 +644,11 @@ const drawerBuckets = drawerDefs
 				<div class="hero-board">
 					<section class="tech-hero" aria-labelledby="tech-title">
 						<p class="tech-kicker">field log / always changing</p>
+						{hasFeaturedImage && featuredPost && (
+							<a class="hero-image-link" href={leadHref} aria-label={`Open ${featuredPost.data.title}`}>
+								<img src={featuredPost.data.heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
+							</a>
+						)}
 						<div class="hero-type">
 							<div class="hero-chip-row">
 								<span class="hero-chip">agents</span>
@@ -682,12 +657,25 @@ const drawerBuckets = drawerDefs
 								<span class="hero-chip">eval loops</span>
 							</div>
 							<h1 id="tech-title">Tech</h1>
-							<p>Technical notes from mager.co: terminal-native agents, personal software, weird little systems, and the stack edits that keep compounding.</p>
+							{featuredPost && (
+								<div class="hero-lead">
+									<span class="lead-label">latest dispatch</span>
+									<a href={leadHref}>
+										<span class="hero-lead-title">{featuredPost.data.title}</span>
+									</a>
+									<div class="hero-lead-meta">
+										<span class="story-meta">{shortDate(featuredPost.data.pubDate)}</span>
+										{hasFeaturedImage && <span class="archive-note">hero image</span>}
+									</div>
+								</div>
+							)}
 						</div>
-						<div class="hero-foot" aria-label="tech shell prompt">
+						<div class="hero-foot" aria-label="tech section metadata">
+							<div class="tag-stack">
+								{leadTags.map(tag => <span>{tag}</span>)}
+							</div>
 							<div>
 								<span class="prompt-line">~/Code/magerblog $ ls tech/</span>
-								<span class="prompt-copy">dispatches, build log, AI drawer, experiments</span>
 							</div>
 						</div>
 					</section>
@@ -714,33 +702,15 @@ const drawerBuckets = drawerDefs
 						</div>
 						<div class="drawer-foot">
 							<span class="prompt-line">drawer contents</span>
-							<span class="prompt-copy">A tighter place for the AI notes — without repeating the whole archive back at you.</span>
 						</div>
 					</aside>
 				</div>
-
-				{featuredPost && (
-					<a href={leadHref} class="lead-story">
-						<div class="lead-body">
-							<span class="lead-label">latest dispatch</span>
-							<h2>{featuredPost.data.title}</h2>
-							<p>{featuredPost.data.description}</p>
-						</div>
-						<div class="lead-meta">
-							<span class="story-meta">{shortDate(featuredPost.data.pubDate)}</span>
-							<div class="tag-stack">
-								{leadTags.map(tag => <span>{tag}</span>)}
-							</div>
-						</div>
-					</a>
-				)}
 
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
 						<div>
 							<span class="section-label">archive</span>
 							<h2 id="archive-heading">Build log</h2>
-							<p>Newest first. One lead story up top, then the rest of the tech archive below — cleaner, less fake-magazine issue baggage.</p>
 						</div>
 						<div class="archive-actions">
 							<span class="archive-note">sorted newest first</span>

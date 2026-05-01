@@ -12,20 +12,25 @@ const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 const d = post.data.updatedDate || post.data.pubDate;
 const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 const tags = (post.data.tags || []).slice(0, 3);
-const dek = post.data.description || tags.join(' / ') || 'field note from the build queue';
+const hasImage = !!post.data.heroImage;
 ---
 
 <li class={`tech-row-wrap ${isDraft ? 'draft' : ''}`}>
-	<a href={`/blog/${post.id}/`} class="tech-row">
+	<a href={`/blog/${post.id}/`} class="tech-row" data-has-image={hasImage ? 'true' : 'false'}>
 		<span class="row-date">[{dateStr}]</span>
 		<span class="row-body">
 			<span class="row-title">{displayTitle}</span>
-			<span class="row-dek">{dek}</span>
 		</span>
 		<span class="row-tags">
+			{hasImage && <span class="image-flag">hero image</span>}
 			{tags.map(tag => <span class="tag">{tag}</span>)}
 			<span class="row-arrow" aria-hidden="true">↗</span>
 		</span>
+		{hasImage && (
+			<span class="row-thumb" aria-hidden="true">
+				<img src={post.data.heroImage} alt="" loading="lazy" decoding="async" />
+			</span>
+		)}
 	</a>
 </li>
 
@@ -58,9 +63,9 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 	}
 
 	.row-date,
-	.row-dek,
 	.tag,
-	.row-arrow {
+	.row-arrow,
+	.image-flag {
 		font-family: var(--font-mono, 'JetBrains Mono', monospace);
 	}
 
@@ -75,6 +80,7 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		display: grid;
 		gap: 0.32rem;
 		min-width: 0;
+		align-self: center;
 	}
 
 	.row-title {
@@ -85,16 +91,6 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		color: var(--ink, oklch(18% 0.008 70));
 	}
 
-	.row-dek {
-		display: -webkit-box;
-		color: var(--ink-soft, oklch(34% 0.007 70));
-		font-size: 0.78rem;
-		line-height: 1.45;
-		overflow: hidden;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-	}
-
 	.row-tags {
 		display: flex;
 		align-items: center;
@@ -103,7 +99,8 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		flex-wrap: wrap;
 	}
 
-	.tag {
+	.tag,
+	.image-flag {
 		border: 1px solid var(--rule-strong, oklch(66% 0.03 72));
 		background: color-mix(in oklch, var(--paper-quiet, oklch(90% 0.008 78)) 88%, white 12%);
 		color: var(--ink-soft, oklch(34% 0.007 70));
@@ -112,12 +109,37 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 		padding: 0.34rem 0.44rem;
 	}
 
+	.image-flag {
+		border-color: color-mix(in oklch, var(--terminal-cyan, oklch(79% 0.09 215)) 45%, var(--rule-strong, oklch(66% 0.03 72)));
+		background: color-mix(in oklch, var(--terminal-cyan, oklch(79% 0.09 215)) 13%, white 87%);
+		color: var(--ink, oklch(18% 0.008 70));
+	}
+
 	.row-arrow {
 		color: var(--ink, oklch(18% 0.008 70));
 		font-size: 0.96rem;
 		opacity: 0;
 		transform: translateX(-4px);
 		transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1), transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.row-thumb {
+		grid-column: 2 / 4;
+		display: block;
+		margin-top: 0.1rem;
+		width: clamp(10rem, 28vw, 16rem);
+		height: 8.5rem;
+		justify-self: end;
+		border: 1px solid color-mix(in oklch, var(--terminal-cyan, oklch(79% 0.09 215)) 28%, var(--rule, oklch(82% 0.014 78)));
+		overflow: hidden;
+		background: color-mix(in oklch, var(--paper-quiet, oklch(90% 0.008 78)) 84%, white 16%);
+	}
+
+	.row-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 
 	.tech-row:hover .row-arrow {
@@ -146,6 +168,13 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 			justify-content: flex-start;
 		}
 
+		.row-thumb {
+			grid-column: 1;
+			justify-self: start;
+			width: min(100%, 18rem);
+			height: 9rem;
+		}
+
 		.row-arrow {
 			display: none;
 		}
@@ -164,10 +193,6 @@ const dek = post.data.description || tags.join(' / ') || 'field note from the bu
 
 		.row-title {
 			font-size: 1rem;
-		}
-
-		.row-dek {
-			font-size: 0.74rem;
 		}
 	}
 </style>
