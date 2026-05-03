@@ -271,31 +271,178 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			/* Tech category: bold magazine title */
+			body[data-category="tech"] {
+				background:
+					radial-gradient(circle at 10% 10%, rgba(163, 113, 247, 0.16), transparent 28rem),
+					radial-gradient(circle at 90% 8%, rgba(88, 166, 255, 0.12), transparent 26rem),
+					linear-gradient(180deg, #05070c 0%, var(--editor-bg) 45%, #070a10 100%);
+			}
+
+			body[data-category="tech"] .hero {
+				background:
+					linear-gradient(115deg, rgba(5, 7, 12, 0.96) 0%, rgba(13, 17, 23, 0.68) 48%, rgba(5, 7, 12, 0.92) 100%),
+					radial-gradient(circle at 18% 24%, rgba(163, 113, 247, 0.28), transparent 24rem),
+					radial-gradient(circle at 84% 20%, rgba(88, 166, 255, 0.18), transparent 28rem),
+					var(--editor-bg);
+				isolation: isolate;
+			}
+
+			body[data-category="tech"] .hero::before,
+			body[data-category="tech"] .hero::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 3;
+			}
+
+			body[data-category="tech"] .hero::before {
+				background-image:
+					linear-gradient(rgba(88, 166, 255, 0.055) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(163, 113, 247, 0.05) 1px, transparent 1px);
+				background-size: 48px 48px;
+				mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
+			}
+
+			body[data-category="tech"] .hero::after {
+				background:
+					linear-gradient(90deg, transparent 0 7%, rgba(121, 192, 255, 0.12) 7% 7.08%, transparent 7.08% 100%),
+					linear-gradient(to bottom, transparent 0%, var(--editor-bg) 96%);
+			}
+
+			body[data-category="tech"] .title {
+				width: min(1360px, calc(100% - 4rem));
+				margin-inline: auto;
+				padding: clamp(5.25rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 4.5rem);
+				display: block;
+			}
+
+			body[data-category="tech"] .hero[data-has-image="true"] .title {
+				min-height: 76svh;
+				display: flex;
+				align-items: flex-end;
+			}
+
+			body[data-category="tech"] .title-main {
+				min-width: 0;
+			}
+
+			body[data-category="tech"] .tech-kicker {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				margin-bottom: 1rem;
+				padding: 0.42rem 0.72rem;
+				border: 1px solid rgba(121, 192, 255, 0.18);
+				border-radius: 8px;
+				background: rgba(5, 10, 18, 0.72);
+				color: rgba(205, 218, 232, 0.86);
+				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 32px rgba(88, 166, 255, 0.08);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+				line-height: 1;
+			}
+
+			body[data-category="tech"] .tech-kicker::before {
+				content: '';
+				width: 0.55rem;
+				height: 0.55rem;
+				border-radius: 999px;
+				background: var(--accent-green);
+				box-shadow: 0 0 16px rgba(80, 250, 123, 0.76);
+			}
+
 			body[data-category="tech"] .title h1 {
 				font-family: 'Barlow Condensed', sans-serif;
 				font-weight: 900;
-				font-size: clamp(3rem, 8vw, 6.5rem);
-				line-height: 0.95;
-				letter-spacing: -0.01em;
-				background: linear-gradient(
-					135deg,
-					#E6EDF3 0%,
-					#BC8CFF 40%,
-					#79C0FF 100%
-				);
+				font-size: clamp(3.5rem, 7vw, 7.4rem);
+				line-height: 0.94;
+				letter-spacing: -0.02em;
+				max-width: 15.5ch;
+				background: linear-gradient(135deg, #ffffff 0%, #e6edf3 24%, #bc8cff 58%, #79c0ff 100%);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 				background-clip: text;
 				text-shadow: none;
+				text-wrap: balance;
 			}
 
-			body[data-category="tech"] .title::before {
-				content: '> ';
-				color: rgba(163, 113, 247, 0.55);
+			body[data-category="tech"] .title-dek {
+				max-width: 76ch;
+				margin: 1.25rem 0 0;
+				color: rgba(205, 218, 232, 0.82);
 				font-family: 'JetBrains Mono', monospace;
-				font-size: clamp(1rem, 2vw, 1.4rem);
-				font-weight: 400;
-				opacity: 1;
+				font-size: clamp(1rem, 1.15vw, 1.12rem);
+				line-height: 1.7;
+				text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58);
+			}
+
+			body[data-category="tech"] .title-tags {
+				margin-top: 1.15rem;
+				max-width: 76ch;
+			}
+
+			body[data-category="tech"] .title-tags .tags {
+				justify-content: flex-start;
+			}
+
+			body[data-category="tech"] .tech-brief {
+				position: relative;
+				padding: 1rem;
+				border: 1px solid rgba(121, 192, 255, 0.18);
+				border-radius: 18px;
+				background:
+					linear-gradient(145deg, rgba(13, 17, 23, 0.86), rgba(1, 4, 9, 0.72)),
+					rgba(1, 4, 9, 0.72);
+				box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+				backdrop-filter: blur(16px);
+			}
+
+			body[data-category="tech"] .tech-brief::before {
+				content: '';
+				position: absolute;
+				inset: -1px;
+				border-radius: inherit;
+				padding: 1px;
+				background: linear-gradient(135deg, rgba(163, 113, 247, 0.58), rgba(88, 166, 255, 0.28), transparent 60%);
+				-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+				-webkit-mask-composite: xor;
+				mask-composite: exclude;
+				pointer-events: none;
+			}
+
+			body[data-category="tech"] .tech-brief-row {
+				display: grid;
+				grid-template-columns: 6.5rem 1fr;
+				gap: 0.8rem;
+				align-items: baseline;
+				padding: 0.86rem 0.9rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.78rem;
+				line-height: 1.45;
+			}
+
+			body[data-category="tech"] .tech-brief-row:last-child {
+				border-bottom: 0;
+			}
+
+			body[data-category="tech"] .tech-brief-label {
+				color: rgba(139, 148, 158, 0.86);
+				font-size: 0.68rem;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+
+			body[data-category="tech"] .tech-brief-value {
+				color: rgba(230, 237, 243, 0.92);
+			}
+
+			body[data-category="tech"] .tech-brief-value.accent {
+				color: var(--cyan);
 			}
 
 			body[data-category="tech"] .date::before {
@@ -847,10 +994,231 @@ const categoryBadge = getCategoryBadge(category);
 		}
 		.reading-time-badge:empty { display: none; }
 
-		/* ── Dot-grid background (tech posts only) ────────────── */
+		/* ── Article canvas (tech posts only) ─────────────────── */
 		body[data-category="tech"] .prose {
-			background-image: radial-gradient(rgba(163,113,247,0.07) 1px, transparent 1px);
-			background-size: 22px 22px;
+			max-width: min(86ch, calc(100% - 2rem));
+			margin-top: clamp(1.5rem, 4vw, 3.25rem);
+			margin-bottom: clamp(3rem, 7vw, 6rem);
+			padding: clamp(1.5rem, 3.4vw, 3.75rem);
+			border: 1px solid rgba(121, 192, 255, 0.12);
+			border-radius: 24px;
+			background:
+				radial-gradient(circle at top left, rgba(163,113,247,0.08), transparent 26rem),
+				linear-gradient(180deg, rgba(13, 17, 23, 0.76), rgba(8, 11, 18, 0.62)),
+				radial-gradient(rgba(163,113,247,0.055) 1px, transparent 1px);
+			background-size: auto, auto, 22px 22px;
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.025),
+				0 34px 110px rgba(0, 0, 0, 0.32);
+			position: relative;
+			font-family: 'JetBrains Mono', 'Fira Code', 'IBM Plex Mono', ui-monospace, monospace;
+			font-size: clamp(1.22rem, 1.28vw, 1.42rem);
+			line-height: 1.76;
+			font-weight: 500;
+			letter-spacing: -0.018em;
+			color: #dce6f2;
+			font-feature-settings: "liga" 1, "calt" 1;
+		}
+
+		body[data-category="tech"] .prose::before {
+			content: '';
+			position: absolute;
+			top: 1.8rem;
+			bottom: 1.8rem;
+			left: 0;
+			width: 2px;
+			background: linear-gradient(to bottom, transparent, rgba(163,113,247,0.8), rgba(88,166,255,0.72), transparent);
+			box-shadow: 0 0 28px rgba(88,166,255,0.34);
+		}
+
+		body[data-category="tech"] .prose > p:first-of-type {
+			margin-top: 0;
+			color: #eef6ff;
+			font-size: clamp(1.3rem, 1.65vw, 1.52rem);
+			line-height: 1.72;
+			font-weight: 500;
+			letter-spacing: -0.022em;
+		}
+
+		body[data-category="tech"] .prose p {
+			margin: 0 0 1.35rem;
+		}
+
+		body[data-category="tech"] .prose ul {
+			list-style: none;
+			margin: 1rem 0 1.55rem;
+			padding-left: 0;
+		}
+
+		body[data-category="tech"] .prose ul li {
+			position: relative;
+			margin-bottom: 0.72rem;
+			padding-left: 1.55rem;
+		}
+
+		body[data-category="tech"] .prose ul li::before {
+			content: '>';
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: var(--purple-bright);
+			font-weight: 800;
+			text-shadow: 0 0 14px rgba(163, 113, 247, 0.42);
+		}
+
+		body[data-category="tech"] .prose ol {
+			margin: 1rem 0 1.55rem;
+			padding-left: 1.65rem;
+		}
+
+		body[data-category="tech"] .prose li {
+			margin-bottom: 0.72rem;
+		}
+
+		body[data-category="tech"] .prose h2 {
+			padding-top: 0.35rem;
+			font-size: clamp(2.1rem, 4.4vw, 3.65rem);
+			line-height: 0.98;
+			letter-spacing: -0.045em;
+			text-wrap: balance;
+		}
+
+		body[data-category="tech"] .prose h2 + p {
+			margin-top: 1.1rem;
+		}
+
+		body[data-category="tech"] .prose h3 {
+			font-size: clamp(1.35rem, 2.35vw, 2rem);
+			line-height: 1.16;
+			letter-spacing: -0.032em;
+			color: #f0f6ff;
+		}
+
+		body[data-category="tech"] .prose strong {
+			color: #f4f8ff;
+		}
+
+		body[data-category="tech"] .article-footer {
+			max-width: min(92ch, calc(100% - 2rem));
+			padding-top: 0;
+		}
+
+		body[data-category="tech"] .tags-section,
+		body[data-category="tech"] .article-meta,
+		body[data-category="tech"] .post-navigation {
+			padding: 1.25rem;
+			border: 1px solid rgba(121, 192, 255, 0.12);
+			border-radius: 18px;
+			background: linear-gradient(145deg, rgba(13, 17, 23, 0.72), rgba(1, 4, 9, 0.44));
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		}
+
+		body[data-category="tech"] .article-meta {
+			margin-bottom: 1.5rem;
+		}
+
+		body[data-category="tech"] .tech-footer-terminal {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.95fr);
+			gap: 1rem;
+			margin-bottom: 2rem;
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		body[data-category="tech"] .tech-footer-panel {
+			border: 1px solid rgba(121, 192, 255, 0.14);
+			border-radius: 10px;
+			background:
+				linear-gradient(180deg, rgba(13, 17, 23, 0.68), rgba(1, 4, 9, 0.58)),
+				var(--terminal-black);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+			overflow: hidden;
+		}
+
+		body[data-category="tech"] .terminal-command {
+			padding: 0.72rem 0.9rem;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+			color: rgba(126, 231, 135, 0.92);
+			font-size: 0.74rem;
+			font-weight: 800;
+			letter-spacing: 0.02em;
+			background: rgba(255, 255, 255, 0.025);
+		}
+
+		body[data-category="tech"] .terminal-lines {
+			display: grid;
+			gap: 0.45rem;
+			padding: 0.9rem;
+		}
+
+		body[data-category="tech"] .terminal-lines div,
+		body[data-category="tech"] .terminal-related-link {
+			display: grid;
+			grid-template-columns: 6.25rem minmax(0, 1fr);
+			gap: 1rem;
+			align-items: baseline;
+			font-size: 0.84rem;
+			line-height: 1.55;
+		}
+
+		body[data-category="tech"] .terminal-lines span,
+		body[data-category="tech"] .terminal-related-direction,
+		body[data-category="tech"] .terminal-related-date {
+			color: rgba(139, 148, 158, 0.86);
+			font-size: 0.72rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		body[data-category="tech"] .terminal-lines strong {
+			min-width: 0;
+			color: rgba(230, 237, 243, 0.9);
+			font-weight: 600;
+		}
+
+		body[data-category="tech"] .terminal-tags {
+			grid-template-columns: 6.25rem minmax(0, 1fr);
+		}
+
+		body[data-category="tech"] .terminal-tags strong {
+			color: rgba(121, 192, 255, 0.88);
+		}
+
+		body[data-category="tech"] .terminal-related-list {
+			display: grid;
+			gap: 0;
+		}
+
+		body[data-category="tech"] .terminal-related-link {
+			grid-template-columns: 5.25rem minmax(0, 1fr) auto;
+			padding: 0.9rem;
+			color: inherit;
+			text-decoration: none;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			transition: background 0.2s ease, color 0.2s ease;
+		}
+
+		body[data-category="tech"] .terminal-related-link:last-child {
+			border-bottom: 0;
+		}
+
+		body[data-category="tech"] .terminal-related-link:hover {
+			background: rgba(88, 166, 255, 0.055);
+		}
+
+		body[data-category="tech"] .terminal-related-title {
+			min-width: 0;
+			color: rgba(230, 237, 243, 0.94);
+			font-size: 0.94rem;
+			font-weight: 700;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		body[data-category="tech"] .terminal-related-link:hover .terminal-related-title {
+			color: var(--cyan);
 		}
 
 		/* ── Heading prefix in prose (tech posts) ────────────── */
@@ -893,6 +1261,79 @@ const categoryBadge = getCategoryBadge(category);
 			padding: 0 0.5rem;
 			line-height: 1;
 		}
+
+			@media (max-width: 900px) {
+				body[data-category="tech"] .title {
+					width: min(100% - 2rem, 760px);
+					padding: 5.5rem 0 3.25rem;
+				}
+
+				body[data-category="tech"] .hero[data-has-image="true"] .title {
+					min-height: 78svh;
+				}
+
+				body[data-category="tech"] .tech-footer-terminal {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			@media (max-width: 720px) {
+				body[data-category="tech"] .title {
+					width: calc(100% - 1.5rem);
+					padding: 5rem 0 2.75rem;
+				}
+
+				body[data-category="tech"] .hero[data-has-image="false"] .title {
+					padding-top: 3.75rem;
+					padding-bottom: 2.25rem;
+				}
+
+				body[data-category="tech"] .title h1 {
+					font-size: clamp(3rem, 16vw, 4.75rem);
+					max-width: 9.8ch;
+				}
+
+				body[data-category="tech"] .title-dek {
+					font-size: 0.98rem;
+					line-height: 1.65;
+				}
+
+				body[data-category="tech"] .tech-kicker {
+					font-size: 0.66rem;
+					max-width: 100%;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+				body[data-category="tech"] .tech-brief {
+					display: none;
+				}
+
+				body[data-category="tech"] .prose {
+					max-width: calc(100% - 1rem);
+					border-radius: 18px;
+					padding: 1.25rem;
+					font-size: 1.09rem;
+					line-height: 1.74;
+					overflow-x: clip;
+				}
+
+				body[data-category="tech"] .prose::before {
+					top: 1.2rem;
+					bottom: 1.2rem;
+				}
+
+				body[data-category="tech"] .terminal-related-link,
+				body[data-category="tech"] .terminal-lines div {
+					grid-template-columns: 1fr;
+					gap: 0.25rem;
+				}
+
+				body[data-category="tech"] .terminal-related-date {
+					justify-self: start;
+				}
+			}
 		</style>
 		<style is:global>
 			body[data-category="tech"] .prose .code-panel {
@@ -1031,12 +1472,14 @@ const categoryBadge = getCategoryBadge(category);
 				background: rgba(0, 0, 0, 0.68);
 				box-shadow: none;
 				max-height: none;
-				padding: 1.15rem 1.35rem;
+				padding: 1.35rem 1.55rem;
+				font-size: 0.96rem;
+				line-height: 1.72;
 				scrollbar-color: rgba(163, 113, 247, 0.65) rgba(255, 255, 255, 0.06);
 			}
 
 			body[data-category="tech"] .prose .code-panel.is-short pre {
-				padding: 1rem 1.5rem;
+				padding: 1.15rem 1.55rem;
 			}
 
 			body[data-category="tech"] .prose .code-panel pre::before {
@@ -1177,13 +1620,20 @@ const categoryBadge = getCategoryBadge(category);
 					)}
 
 					<div class="title">
-						<div class="date">
-							<a href="https://www.mager.co" class="hero-home-link">← mager.co</a>
-							<span>/</span>
-							<FormattedDate date={updatedDate || pubDate} />
-							<span class="reading-time-badge" aria-label="Estimated reading time"></span>
+						<div class="title-main">
+							{category?.toLowerCase() === 'tech' && <div class="tech-kicker">~/mager.co/tech $ cat article.md</div>}
+							<div class="date">
+								<a href="https://www.mager.co" class="hero-home-link">← mager.co</a>
+								<span>/</span>
+								<FormattedDate date={updatedDate || pubDate} />
+								<span class="reading-time-badge" aria-label="Estimated reading time"></span>
+							</div>
+							<h1>{displayTitle}</h1>
+							{category?.toLowerCase() === 'tech' && description && <p class="title-dek">{description}</p>}
+							{category?.toLowerCase() === 'tech' && tags && tags.length > 0 && (
+								<div class="title-tags"><Tags tags={tags} /></div>
+							)}
 						</div>
-						<h1>{displayTitle}</h1>
 					</div>
 				</div>
 				<div class="prose">
@@ -1209,62 +1659,100 @@ const categoryBadge = getCategoryBadge(category);
 			</article>
 
 			<section class="article-footer">
-				{tags && tags.length > 0 && (
-					<div class="tags-section">
-						<h3>Tags</h3>
-						<Tags tags={tags} />
-					</div>
-				)}
-				<div class="article-meta">
-					<div class="meta-section">
-						<h3>Article Info</h3>
-						<div class="meta-grid">
-							{categoryBadge && (
-								<>
-									<div class="meta-item">
-										<span class="meta-label">Category:</span>
-										<span class="meta-value">{categoryBadge}</span>
-									</div>
-									<span class="meta-divider">|</span>
-								</>
-							)}
-							<div class="meta-item">
-								<span class="meta-label">Published:</span>
-								<span class="meta-value"><FormattedDate date={pubDate} /></span>
+				{category?.toLowerCase() === 'tech' ? (
+					<div class="tech-footer-terminal" aria-label="Article footer">
+						<div class="tech-footer-panel tech-footer-meta">
+							<div class="terminal-command">$ stat article.md</div>
+							<div class="terminal-lines">
+								{categoryBadge && <div><span>category</span><strong>{categoryBadge}</strong></div>}
+								<div><span>published</span><strong><FormattedDate date={pubDate} /></strong></div>
+								{updatedDate && <div><span>updated</span><strong><FormattedDate date={updatedDate} /></strong></div>}
+								{tags && tags.length > 0 && <div class="terminal-tags"><span>tags</span><strong>{tags.join(' / ')}</strong></div>}
 							</div>
-							{updatedDate && (
-								<>
-									<span class="meta-divider">|</span>
-									<div class="meta-item">
-										<span class="meta-label">Updated:</span>
-										<span class="meta-value"><FormattedDate date={updatedDate} /></span>
-									</div>
-								</>
-							)}
 						</div>
-					</div>
-				</div>
 
-				{(prevPost || nextPost) && (
-					<nav class="post-navigation">
-						<h3>More in {categoryBadge}</h3>
-						<div class="nav-links">
-							{prevPost && (
-								<a href={`/blog/${prevPost.id}`} class="nav-link prev">
-									<span class="nav-direction">← Previous</span>
-									<span class="nav-title">{prevPost.data.title}</span>
-									<span class="nav-date"><FormattedDate date={prevPost.data.pubDate} /></span>
-								</a>
-							)}
-							{nextPost && (
-								<a href={`/blog/${nextPost.id}`} class="nav-link next">
-									<span class="nav-direction">Next →</span>
-									<span class="nav-title">{nextPost.data.title}</span>
-									<span class="nav-date"><FormattedDate date={nextPost.data.pubDate} /></span>
-								</a>
-							)}
+						{(prevPost || nextPost) && (
+							<nav class="tech-footer-panel tech-footer-related" aria-label="More tech posts">
+								<div class="terminal-command">$ ls ../tech</div>
+								<div class="terminal-related-list">
+									{prevPost && (
+										<a href={`/blog/${prevPost.id}`} class="terminal-related-link">
+											<span class="terminal-related-direction">← previous</span>
+											<span class="terminal-related-title">{prevPost.data.title}</span>
+											<span class="terminal-related-date"><FormattedDate date={prevPost.data.pubDate} /></span>
+										</a>
+									)}
+									{nextPost && (
+										<a href={`/blog/${nextPost.id}`} class="terminal-related-link">
+											<span class="terminal-related-direction">next →</span>
+											<span class="terminal-related-title">{nextPost.data.title}</span>
+											<span class="terminal-related-date"><FormattedDate date={nextPost.data.pubDate} /></span>
+										</a>
+									)}
+								</div>
+							</nav>
+						)}
+					</div>
+				) : (
+					<>
+						{tags && tags.length > 0 && (
+							<div class="tags-section">
+								<h3>Tags</h3>
+								<Tags tags={tags} />
+							</div>
+						)}
+						<div class="article-meta">
+							<div class="meta-section">
+								<h3>Article Info</h3>
+								<div class="meta-grid">
+									{categoryBadge && (
+										<>
+											<div class="meta-item">
+												<span class="meta-label">Category:</span>
+												<span class="meta-value">{categoryBadge}</span>
+											</div>
+											<span class="meta-divider">|</span>
+										</>
+									)}
+									<div class="meta-item">
+										<span class="meta-label">Published:</span>
+										<span class="meta-value"><FormattedDate date={pubDate} /></span>
+									</div>
+									{updatedDate && (
+										<>
+											<span class="meta-divider">|</span>
+											<div class="meta-item">
+												<span class="meta-label">Updated:</span>
+												<span class="meta-value"><FormattedDate date={updatedDate} /></span>
+											</div>
+										</>
+									)}
+								</div>
+							</div>
 						</div>
-					</nav>
+
+						{(prevPost || nextPost) && (
+							<nav class="post-navigation">
+								<h3>More in {categoryBadge}</h3>
+								<div class="nav-links">
+									{prevPost && (
+										<a href={`/blog/${prevPost.id}`} class="nav-link prev">
+											<span class="nav-direction">← Previous</span>
+											<span class="nav-title">{prevPost.data.title}</span>
+											<span class="nav-date"><FormattedDate date={prevPost.data.pubDate} /></span>
+										</a>
+									)}
+									{nextPost && (
+										<a href={`/blog/${nextPost.id}`} class="nav-link next">
+											<span class="nav-direction">Next →</span>
+											<span class="nav-title">{nextPost.data.title}</span>
+											<span class="nav-date"><FormattedDate date={nextPost.data.pubDate} /></span>
+										</a>
+									)}
+								</div>
+							</nav>
+						)}
+					</>
 				)}
 			</section>
 		</main>
