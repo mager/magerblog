@@ -17,6 +17,7 @@ const posts = allPosts
 const featuredPost = posts[0];
 const archivePosts = posts.slice(1);
 const latestIssueDate = featuredPost?.data.updatedDate || featuredPost?.data.pubDate || new Date();
+const issueNumber = String(posts.length).padStart(3, '0');
 
 const fullDate = new Intl.DateTimeFormat('en-US', {
 	weekday: 'long',
@@ -40,45 +41,6 @@ const newestYear = postYears.length ? Math.max(...postYears) : latestIssueDate.g
 const leadTags = (featuredPost?.data.tags || []).slice(0, 4);
 const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 const hasFeaturedImage = !!featuredPost?.data.heroImage;
-const aiNeedles = ['ai', 'agent', 'agents', 'llm', 'claude', 'codex', 'openai', 'openclaw', 'loooom', 'gpt', 'model', 'promptfoo', 'langgraph', 'mcp', 'autoresearch', 'deepagents', 'brainpack', 'memory', 'eval'];
-const isAiPost = (post) => {
-	const haystack = [
-		post.data.title,
-		post.data.description,
-		...(post.data.tags || []),
-	].join(' ').toLowerCase();
-
-	return aiNeedles.some(needle => haystack.includes(needle));
-};
-const aiPosts = posts.filter(isAiPost);
-
-const drawerDefs = [
-	{ key: 'agents', label: 'agents', hint: 'fleets, roles, orchestration', needles: ['agent', 'agents', 'openclaw', 'hermes', 'deepagents', 'langgraph', 'channels'] },
-	{ key: 'tools', label: 'tools', hint: 'mcp, cli, plugins, sdk', needles: ['tool', 'tools', 'mcp', 'cli', 'plugin', 'plugins', 'sdk', 'server'] },
-	{ key: 'models', label: 'model swaps', hint: 'claude, codex, openai, llms', needles: ['model', 'models', 'claude', 'codex', 'openai', 'gpt', 'llm', 'llms'] },
-	{ key: 'evals', label: 'eval loops', hint: 'benchmarks, validation, judges', needles: ['eval', 'evals', 'promptfoo', 'benchmark', 'validation', 'validate', 'judge'] },
-	{ key: 'memory', label: 'memory', hint: 'context, brains, recall', needles: ['memory', 'brain', 'context', 'mem0', 'me.md', 'openviking'] },
-];
-
-const drawerBuckets = drawerDefs
-	.map((bucket) => {
-		const bucketPosts = aiPosts.filter((post) => {
-			const haystack = [
-				post.data.title,
-				post.data.description,
-				...(post.data.tags || []),
-			].join(' ').toLowerCase();
-
-			return bucket.needles.some(needle => haystack.includes(needle));
-		});
-
-		return {
-			...bucket,
-			count: bucketPosts.length,
-			latest: bucketPosts[0],
-		};
-	})
-	.filter(bucket => bucket.count > 0);
 ---
 
 <!doctype html>
@@ -92,7 +54,7 @@ const drawerBuckets = drawerDefs
 			}
 
 			:global(.site-header.header-light) {
-				background: color-mix(in oklch, oklch(91% 0.008 76) 86%, transparent);
+				background: color-mix(in oklch, oklch(91% 0.008 76) 88%, transparent);
 				border-bottom: 1px solid oklch(70% 0.006 76);
 				--header-text: oklch(18% 0.008 70);
 				--header-text-secondary: oklch(36% 0.006 70);
@@ -113,51 +75,39 @@ const drawerBuckets = drawerDefs
 				padding: 0;
 				--paper: oklch(91% 0.008 76);
 				--paper-quiet: oklch(86.5% 0.008 76);
-				--paper-warm: oklch(82% 0.007 76);
+				--paper-deep: oklch(80% 0.007 76);
 				--ink: oklch(18% 0.008 70);
 				--ink-soft: oklch(32% 0.007 70);
 				--ink-muted: oklch(49% 0.006 70);
-				--rule: oklch(70% 0.006 76);
-				--rule-strong: oklch(44% 0.006 70);
+				--rule: oklch(69% 0.006 76);
+				--rule-strong: oklch(43% 0.006 70);
 				--surface: oklch(94% 0.007 76);
-				--surface-dark: oklch(18% 0.01 70);
-				--surface-dark-quiet: oklch(27% 0.008 70);
-				--surface-dark-soft: oklch(23% 0.012 70);
-				--on-dark: oklch(90% 0.007 76);
-				--terminal-green: oklch(83% 0.14 150);
-				--terminal-cyan: oklch(79% 0.09 215);
+				--surface-strong: oklch(96% 0.006 76);
 				--font-display: 'Fraunces', Georgia, serif;
 				--font-body: 'Source Serif 4', Georgia, serif;
 				--font-ui: 'Space Grotesk', system-ui, sans-serif;
 				--font-mono: 'JetBrains Mono', monospace;
 				min-height: 100vh;
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--rule) 30%, transparent) 1px, transparent 1px),
-					radial-gradient(circle at top, color-mix(in oklch, var(--terminal-cyan) 10%, transparent), transparent 34%),
-					linear-gradient(180deg, color-mix(in oklch, var(--ink) 8%, transparent), transparent 24rem),
+					linear-gradient(90deg, color-mix(in oklch, var(--rule) 28%, transparent) 1px, transparent 1px),
+					linear-gradient(180deg, color-mix(in oklch, var(--ink) 7%, transparent), transparent 26rem),
 					var(--paper);
-				background-size: 7.25rem 100%, auto, auto, auto;
+				background-size: 7.25rem 100%, auto, auto;
 			}
 
 			.tech-shell {
-				width: min(1440px, 100%);
+				width: min(1360px, 100%);
 				margin: 0 auto;
 				padding: 1.2rem 1.5rem 4rem;
 			}
 
-			.tech-kicker,
 			.dateline,
-			.lead-label,
+			.tech-kicker,
 			.section-label,
 			.story-meta,
 			.archive-note,
 			.empty-state,
-			.hero-chip,
-			.drawer-chip,
-			.drawer-stat-label,
-			.drawer-hint,
-			.prompt-line,
-			.prompt-copy {
+			.issue-mark {
 				font-family: var(--font-mono);
 			}
 
@@ -182,7 +132,9 @@ const drawerBuckets = drawerDefs
 			}
 
 			.dateline-pack,
-			.dateline-right {
+			.dateline-right,
+			.lead-meta-line,
+			.archive-actions {
 				display: flex;
 				align-items: center;
 				gap: 0.7rem;
@@ -194,277 +146,135 @@ const drawerBuckets = drawerDefs
 				font-weight: 700;
 			}
 
-			.hero-board {
+			.tech-masthead {
 				display: grid;
-				grid-template-columns: minmax(0, 1.12fr) minmax(23rem, 0.88fr);
+				grid-template-columns: minmax(17rem, 0.78fr) minmax(0, 1.22fr);
 				gap: 1.2rem;
-				padding: 1.1rem 0 1.2rem;
-				border-bottom: 1px solid var(--rule);
+				padding: 1.2rem 0;
+				border-bottom: 2px solid var(--ink);
 			}
 
-			.tech-hero {
-				display: grid;
-				grid-template-rows: auto auto auto;
-				gap: 1rem;
+			.masthead-copy,
+			.lead-story {
 				border: 1px solid var(--rule);
-				background:
-					linear-gradient(135deg, color-mix(in oklch, var(--terminal-cyan) 12%, transparent), transparent 38%),
-					linear-gradient(180deg, var(--surface), var(--paper-quiet));
-				padding: 1.1rem;
-				position: relative;
-				overflow: hidden;
+				background: color-mix(in oklch, var(--surface) 86%, var(--paper));
 			}
 
-			.tech-hero::after {
-				content: '';
-				position: absolute;
-				inset: auto -12% -22% auto;
-				width: 22rem;
-				height: 22rem;
-				border-radius: 50%;
-				background: radial-gradient(circle, color-mix(in oklch, var(--terminal-green) 20%, transparent), transparent 66%);
-				opacity: 0.45;
-				pointer-events: none;
+			.masthead-copy {
+				display: grid;
+				align-content: space-between;
+				gap: 2rem;
+				min-height: 24rem;
+				padding: 1rem;
 			}
 
 			.tech-kicker {
-				color: var(--ink-soft);
-				font-size: 0.8rem;
+				margin: 0;
+				font-size: 0.78rem;
 				font-weight: 700;
-				position: relative;
-				z-index: 1;
-			}
-
-			.hero-type {
-				position: relative;
-				z-index: 1;
-				max-width: 68rem;
-			}
-
-			.hero-chip-row {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-				margin-bottom: 0.9rem;
-			}
-
-			.hero-chip {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.35rem;
-				padding: 0.34rem 0.55rem;
-				border: 1px solid color-mix(in oklch, var(--rule-strong) 70%, transparent);
-				background: color-mix(in oklch, var(--surface) 88%, transparent);
-				font-size: 0.7rem;
 				color: var(--ink-soft);
 			}
 
-			.hero-type h1 {
+			.masthead-copy h1 {
 				margin: 0;
 				font-family: var(--font-display);
-				font-size: clamp(3.8rem, 8vw, 6.5rem);
-				line-height: 0.88;
+				font-size: clamp(4rem, 11vw, 8.8rem);
+				line-height: 0.82;
 				letter-spacing: 0;
 				color: var(--ink);
 				font-variation-settings: 'opsz' 144, 'wght' 900;
 			}
 
-			.hero-lead {
-				display: grid;
-				gap: 0.55rem;
-				margin-top: 0.9rem;
-			}
-
-			.hero-lead a {
-				color: inherit;
-				text-decoration: none;
-			}
-
-			.hero-lead-title {
-				display: block;
-				font-family: var(--font-ui);
-				font-size: clamp(1.5rem, 2.7vw, 2.35rem);
-				font-weight: 700;
-				line-height: 1.02;
-				color: var(--ink);
-			}
-
-			.hero-lead-meta {
-				display: flex;
-				align-items: center;
-				gap: 0.55rem;
-				flex-wrap: wrap;
-				font-size: 0.72rem;
-				color: var(--ink-soft);
-			}
-
-			.hero-image-link {
-				display: block;
-				position: relative;
-				z-index: 1;
-				min-height: 15rem;
-				border: 1px solid color-mix(in oklch, var(--terminal-cyan) 30%, var(--rule));
-				overflow: hidden;
-				background: color-mix(in oklch, var(--paper-quiet) 82%, white 18%);
-			}
-
-			.hero-image-link img {
-				display: block;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-
-			.hero-foot {
-				position: relative;
-				z-index: 1;
-				display: flex;
-				flex-wrap: wrap;
-				align-items: center;
-				justify-content: space-between;
-				gap: 0.75rem;
-				padding-top: 0.15rem;
-			}
-
-			.prompt-line,
-			.prompt-copy {
-				display: block;
-			}
-
-			.prompt-line {
-				font-size: 0.74rem;
-				color: var(--ink-soft);
-			}
-
-			.prompt-copy {
-				font-size: 0.95rem;
-				color: var(--ink);
-			}
-
-			.drawer-card {
-				display: grid;
-				grid-template-rows: auto 1fr auto;
-				min-height: 28rem;
-				border: 1px solid color-mix(in oklch, var(--terminal-green) 18%, var(--ink));
-				background:
-					linear-gradient(180deg, color-mix(in oklch, var(--terminal-cyan) 5%, transparent), transparent 26%),
-					var(--surface-dark);
-				color: var(--on-dark);
-				box-shadow: 0 22px 48px color-mix(in oklch, var(--surface-dark) 65%, transparent);
-			}
-
-			.drawer-card a {
-				color: inherit;
-				text-decoration: none;
-			}
-
-			.drawer-top {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 1rem;
-				padding: 0.85rem 1rem;
-				border-bottom: 1px solid var(--surface-dark-quiet);
-				font-family: var(--font-mono);
-				font-size: 0.75rem;
-				color: oklch(78% 0.006 76);
-			}
-
-			.drawer-chip-row {
-				display: flex;
-				gap: 0.45rem;
-				flex-wrap: wrap;
-			}
-
-			.drawer-chip {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.28rem 0.5rem;
-				border: 1px solid color-mix(in oklch, var(--terminal-green) 26%, transparent);
-				background: color-mix(in oklch, var(--terminal-green) 10%, transparent);
-				color: var(--terminal-green);
-				font-size: 0.69rem;
-			}
-
-			.drawer-grid {
-				display: grid;
-				grid-template-columns: repeat(2, minmax(0, 1fr));
-				gap: 0.75rem;
-				padding: 1rem;
-			}
-
-			.drawer-stat {
-				display: grid;
-				gap: 0.45rem;
-				padding: 0.8rem;
-				border: 1px solid color-mix(in oklch, var(--on-dark) 10%, transparent);
-				background: color-mix(in oklch, white 2%, transparent);
-			}
-
-			.drawer-stat:hover {
-				background: color-mix(in oklch, var(--terminal-cyan) 8%, transparent);
-			}
-
-			.drawer-stat-top {
-				display: flex;
-				align-items: baseline;
-				justify-content: space-between;
-				gap: 0.75rem;
-			}
-
-			.drawer-stat-label {
-				font-size: 0.72rem;
-				color: oklch(72% 0.01 76);
-				text-transform: uppercase;
-			}
-
-			.drawer-stat-count {
-				font-family: var(--font-ui);
-				font-size: 1.35rem;
-				font-weight: 700;
-				line-height: 1;
-				color: var(--on-dark);
-			}
-
-			.drawer-hint {
-				font-size: 0.69rem;
+			.masthead-copy p {
+				max-width: 38rem;
+				margin: 0.9rem 0 0;
+				font-family: var(--font-body);
+				font-size: clamp(1.15rem, 2vw, 1.55rem);
 				line-height: 1.35;
-				color: oklch(63% 0.008 76);
+				color: var(--ink-soft);
 			}
 
-			.drawer-latest {
+			.issue-strip {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				border-top: 1px solid var(--rule);
+			}
+
+			.issue-mark {
+				display: grid;
+				gap: 0.2rem;
+				padding: 0.75rem 0.65rem 0 0;
+				font-size: 0.72rem;
+				color: var(--ink-muted);
+			}
+
+			.issue-mark strong {
 				font-family: var(--font-ui);
-				font-size: 0.92rem;
-				font-weight: 600;
-				line-height: 1.25;
-				color: oklch(94% 0.007 76);
+				font-size: 1.25rem;
+				line-height: 1;
+				color: var(--ink);
 			}
 
-			.drawer-foot {
-				padding: 0.95rem 1rem 1rem;
-				border-top: 1px solid var(--surface-dark-quiet);
+			.lead-story {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.36fr);
+				color: inherit;
+				text-decoration: none;
+				transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
-			.drawer-foot .prompt-line {
-				color: oklch(67% 0.008 76);
+			.lead-story:hover {
+				transform: translateY(-2px);
+				background: var(--surface-strong);
 			}
 
-			.drawer-foot .prompt-copy {
-				color: oklch(90% 0.007 76);
+			.lead-copy {
+				display: grid;
+				align-content: end;
+				padding: clamp(1rem, 3vw, 2rem);
 			}
 
-			.lead-label,
-			.story-meta,
-			.archive-note {
-				font-size: 0.76rem;
+			.section-label {
+				display: block;
+				margin-bottom: 0.45rem;
+				font-size: 0.75rem;
+				color: var(--ink-soft);
+				font-weight: 700;
+			}
+
+			.lead-copy h2 {
+				max-width: 58rem;
+				margin: 0;
+				font-family: var(--font-display);
+				font-size: clamp(2.4rem, 5vw, 4.8rem);
+				line-height: 0.96;
+				letter-spacing: 0;
+				color: var(--ink);
+				font-variation-settings: 'opsz' 120, 'wght' 860;
+			}
+
+			.lead-copy p {
+				max-width: 68ch;
+				margin: 0.95rem 0 0;
+				font-family: var(--font-body);
+				font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+				line-height: 1.5;
 				color: var(--ink-soft);
 			}
 
 			.lead-meta {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
+				display: grid;
+				align-content: space-between;
 				gap: 1rem;
+				padding: 1rem;
+				border-left: 1px solid var(--rule);
+				background: var(--paper-quiet);
+			}
+
+			.story-meta,
+			.archive-note {
+				font-size: 0.74rem;
+				color: var(--ink-soft);
 			}
 
 			.tag-stack {
@@ -478,11 +288,27 @@ const drawerBuckets = drawerDefs
 				display: inline-flex;
 				align-items: center;
 				border: 1px solid var(--rule-strong);
-				background: var(--paper-quiet);
+				background: color-mix(in oklch, var(--paper-quiet) 88%, var(--surface));
 				color: var(--ink-soft);
 				padding: 0.36rem 0.48rem;
 				font-size: 0.72rem;
 				line-height: 1;
+			}
+
+			.lead-image {
+				display: block;
+				aspect-ratio: 4 / 3;
+				border: 1px solid var(--rule);
+				overflow: hidden;
+				background: var(--paper-deep);
+			}
+
+			.lead-image img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				filter: grayscale(1) contrast(1.08);
 			}
 
 			.archive-board {
@@ -496,16 +322,8 @@ const drawerBuckets = drawerDefs
 				align-items: start;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 1rem 1rem 0.9rem;
+				padding: 1rem;
 				border-bottom: 1px solid var(--rule);
-			}
-
-			.section-label {
-				display: block;
-				margin-bottom: 0.35rem;
-				font-size: 0.75rem;
-				color: var(--ink-soft);
-				font-weight: 700;
 			}
 
 			.archive-head h2 {
@@ -518,7 +336,12 @@ const drawerBuckets = drawerDefs
 			}
 
 			.archive-head p {
-				display: none;
+				max-width: 56ch;
+				margin: 0.45rem 0 0;
+				font-family: var(--font-body);
+				font-size: 1rem;
+				line-height: 1.45;
+				color: var(--ink-soft);
 			}
 
 			.archive-list {
@@ -528,9 +351,6 @@ const drawerBuckets = drawerDefs
 			}
 
 			.archive-actions {
-				display: flex;
-				gap: 0.5rem;
-				flex-wrap: wrap;
 				justify-content: flex-end;
 			}
 
@@ -542,8 +362,7 @@ const drawerBuckets = drawerDefs
 
 			@media (prefers-reduced-motion: reduce) {
 				.lead-story,
-				:global(.tech-row),
-				.drawer-stat {
+				:global(.tech-row) {
 					transition: none;
 				}
 
@@ -553,65 +372,63 @@ const drawerBuckets = drawerDefs
 				}
 			}
 
-			@media (max-width: 1100px) {
-				.hero-board {
+			@media (max-width: 1040px) {
+				.tech-masthead,
+				.lead-story {
 					grid-template-columns: 1fr;
 				}
 
-				.hero-type h1 {
-					font-size: 5.5rem;
+				.masthead-copy {
+					min-height: 0;
+				}
+
+				.lead-meta {
+					border-left: none;
+					border-top: 1px solid var(--rule);
 				}
 			}
 
 			@media (max-width: 760px) {
 				main.tech-page {
-					background-size: 4.5rem 100%, auto, auto, auto;
+					background-size: 4.5rem 100%, auto, auto;
 				}
 
 				.tech-shell {
 					padding: 0.8rem 0.85rem 2.8rem;
 				}
 
-				.dateline {
+				.dateline,
+				.archive-head {
 					align-items: flex-start;
 					flex-direction: column;
+				}
+
+				.dateline {
 					gap: 0.45rem;
 					font-size: 0.72rem;
 				}
 
-				.hero-board {
+				.tech-masthead {
+					gap: 0.85rem;
 					padding-top: 0.9rem;
 				}
 
-				.tech-hero,
-				.drawer-card {
-					min-height: 0;
+				.masthead-copy {
+					padding: 0.9rem;
 				}
 
-				.tech-hero {
-					padding: 1rem;
-				}
-
-				.hero-type h1 {
-					font-size: 3.8rem;
-					line-height: 0.9;
-				}
-
-				.hero-lead-title {
-					font-size: 1.45rem;
-				}
-
-				.drawer-grid {
+				.issue-strip {
 					grid-template-columns: 1fr;
+					gap: 0.55rem;
+					padding-top: 0.75rem;
 				}
 
-				.hero-image-link {
-					min-height: 11rem;
+				.issue-mark {
+					padding: 0;
 				}
 
-				.archive-head {
-					align-items: flex-start;
-					flex-direction: column;
+				.lead-copy {
+					padding: 1rem;
 				}
 
 				.archive-list {
@@ -636,85 +453,60 @@ const drawerBuckets = drawerDefs
 					</div>
 					<div class="dateline-right">
 						<span>{fullDate}</span>
-						<span class="dateline-mark">{posts.length} posts</span>
-						<span>{firstYear}—{newestYear}</span>
+						<span class="dateline-mark">issue {issueNumber}</span>
+						<span>{firstYear} to {newestYear}</span>
 					</div>
 				</div>
 
-				<div class="hero-board">
-					<section class="tech-hero" aria-labelledby="tech-title">
-						<p class="tech-kicker">field log / always changing</p>
-						{hasFeaturedImage && featuredPost && (
-							<a class="hero-image-link" href={leadHref} aria-label={`Open ${featuredPost.data.title}`}>
-								<img src={featuredPost.data.heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
-							</a>
-						)}
-						<div class="hero-type">
-							<div class="hero-chip-row">
-								<span class="hero-chip">agents</span>
-								<span class="hero-chip">tools</span>
-								<span class="hero-chip">model swaps</span>
-								<span class="hero-chip">eval loops</span>
-							</div>
+				<div class="tech-masthead">
+					<section class="masthead-copy" aria-labelledby="tech-title">
+						<div>
+							<p class="tech-kicker">field notes from the workbench</p>
 							<h1 id="tech-title">Tech</h1>
-							{featuredPost && (
-								<div class="hero-lead">
-									<span class="lead-label">latest dispatch</span>
-									<a href={leadHref}>
-										<span class="hero-lead-title">{featuredPost.data.title}</span>
-									</a>
-									<div class="hero-lead-meta">
-										<span class="story-meta">{shortDate(featuredPost.data.pubDate)}</span>
-										{hasFeaturedImage && <span class="archive-note">hero image</span>}
-									</div>
-								</div>
-							)}
+							<p>Agent systems, dev tools, CLIs, and the small pieces of software that keep turning into bigger ideas.</p>
 						</div>
-						<div class="hero-foot" aria-label="tech section metadata">
-							<div class="tag-stack">
-								{leadTags.map(tag => <span>{tag}</span>)}
-							</div>
-							<div>
-								<span class="prompt-line">~/Code/magerblog $ ls tech/</span>
-							</div>
+						<div class="issue-strip" aria-label="Tech section summary">
+							<span class="issue-mark"><strong>{posts.length}</strong>posts</span>
+							<span class="issue-mark"><strong>{issueNumber}</strong>current issue</span>
+							<span class="issue-mark"><strong>{archivePosts.length}</strong>archive rows</span>
 						</div>
 					</section>
 
-					<aside class="drawer-card" aria-label="AI drawer">
-						<div class="drawer-top">
-							<span>AI drawer</span>
-							<div class="drawer-chip-row">
-								<span class="drawer-chip">{aiPosts.length} notes</span>
-								<span class="drawer-chip">live stack</span>
+					{featuredPost && (
+						<a href={leadHref} class="lead-story">
+							<div class="lead-copy">
+								<span class="section-label">Lead story</span>
+								<h2>{featuredPost.data.title}</h2>
+								<p>{featuredPost.data.description}</p>
 							</div>
-						</div>
-						<div class="drawer-grid">
-							{drawerBuckets.map((bucket) => (
-								<a class="drawer-stat" href={bucket.latest ? `/blog/${bucket.latest.id}/` : '/tech'}>
-									<div class="drawer-stat-top">
-										<span class="drawer-stat-label">{bucket.label}</span>
-										<span class="drawer-stat-count">{bucket.count}</span>
-									</div>
-									<span class="drawer-hint">{bucket.hint}</span>
-									{bucket.latest && <span class="drawer-latest">{bucket.latest.data.title}</span>}
-								</a>
-							))}
-						</div>
-						<div class="drawer-foot">
-							<span class="prompt-line">drawer contents</span>
-						</div>
-					</aside>
+							<div class="lead-meta">
+								<div class="lead-meta-line">
+									<span class="story-meta">{shortDate(featuredPost.data.pubDate)}</span>
+									<span class="archive-note">latest</span>
+								</div>
+								{hasFeaturedImage && (
+									<span class="lead-image" aria-hidden="true">
+										<img src={featuredPost.data.heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
+									</span>
+								)}
+								<div class="tag-stack">
+									{leadTags.map(tag => <span>{tag}</span>)}
+								</div>
+							</div>
+						</a>
+					)}
 				</div>
 
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
 						<div>
-							<span class="section-label">archive</span>
+							<span class="section-label">Archive</span>
 							<h2 id="archive-heading">Build log</h2>
+							<p>Newest first. Dates, titles, summaries, and tags stay visible so the index works even when you are just scanning.</p>
 						</div>
 						<div class="archive-actions">
-							<span class="archive-note">sorted newest first</span>
-							<span class="archive-note">{archivePosts.length} rows</span>
+							<span class="archive-note">newest first</span>
+							<span class="archive-note">{archivePosts.length} notes</span>
 						</div>
 					</header>
 					<ul class="archive-list">
