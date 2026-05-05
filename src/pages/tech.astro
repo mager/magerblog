@@ -35,10 +35,48 @@ const shortDate = (date: Date) =>
 		timeZone: 'UTC',
 	}).format(date);
 
+const tagHueMap = new Map([
+	['ai', 280],
+	['agents', 224],
+	['agent', 224],
+	['claude', 292],
+	['claude-code', 292],
+	['codex', 250],
+	['openai', 255],
+	['openclaw', 205],
+	['hermes', 34],
+	['developer-tools', 198],
+	['tools', 198],
+	['cli', 170],
+	['mcp', 154],
+	['llms', 318],
+	['evals', 18],
+	['promptfoo', 18],
+	['context', 84],
+	['memory', 84],
+	['loooom', 330],
+	['design', 28],
+	['frontend', 28],
+	['langgraph', 142],
+	['skills', 44],
+]);
+
+const fallbackHue = (value: string) =>
+	[...value].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 360;
+
+const getTagHue = (tag = '') => {
+	const key = tag.toLowerCase();
+	return tagHueMap.get(key) ?? fallbackHue(key || 'tech');
+};
+
 const postYears = posts.map(post => post.data.pubDate.getFullYear());
 const firstYear = postYears.length ? Math.min(...postYears) : latestIssueDate.getFullYear();
 const newestYear = postYears.length ? Math.max(...postYears) : latestIssueDate.getFullYear();
-const leadTags = (featuredPost?.data.tags || []).slice(0, 4);
+const leadTags = (featuredPost?.data.tags || []).slice(0, 5).map(tag => ({
+	name: tag,
+	hue: getTagHue(tag),
+}));
+const leadHue = leadTags[0]?.hue ?? 252;
 const leadHref = featuredPost ? `/blog/${featuredPost.id}/` : '#';
 const hasFeaturedImage = !!featuredPost?.data.heroImage;
 ---
@@ -49,23 +87,23 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 		<BaseHead title={`Tech - ${SITE_TITLE}`} description="Technical notes from mager.co on AI agents, developer tools, CLIs, personal software, and the workflows that compound." />
 		<style>
 			body {
-				background: oklch(91% 0.008 76);
-				color: oklch(18% 0.008 70);
+				background: oklch(95% 0.018 var(--lead-hue));
+				color: oklch(18% 0.018 var(--lead-hue));
 			}
 
 			:global(.site-header.header-light) {
-				background: color-mix(in oklch, oklch(91% 0.008 76) 88%, transparent);
-				border-bottom: 1px solid oklch(70% 0.006 76);
-				--header-text: oklch(18% 0.008 70);
-				--header-text-secondary: oklch(36% 0.006 70);
-				--header-text-muted: oklch(55% 0.005 70);
-				--header-logo-tld: oklch(18% 0.008 70);
-				--link-accent-indigo: oklch(18% 0.008 70);
-				--link-accent-teal: oklch(18% 0.008 70);
-				--link-accent-amber: oklch(18% 0.008 70);
-				--link-accent-neutral: oklch(18% 0.008 70);
-				--header-social-border: color-mix(in oklch, oklch(18% 0.008 70) 16%, transparent);
-				--header-hover-bg: color-mix(in oklch, oklch(18% 0.008 70) 6%, transparent);
+				background: color-mix(in oklch, oklch(95% 0.018 var(--lead-hue)) 86%, transparent);
+				border-bottom: 1px solid color-mix(in oklch, oklch(35% 0.09 var(--lead-hue)) 22%, transparent);
+				--header-text: oklch(18% 0.018 var(--lead-hue));
+				--header-text-secondary: oklch(36% 0.035 var(--lead-hue));
+				--header-text-muted: oklch(56% 0.04 var(--lead-hue));
+				--header-logo-tld: oklch(52% 0.18 var(--lead-hue));
+				--link-accent-indigo: oklch(52% 0.18 var(--lead-hue));
+				--link-accent-teal: oklch(56% 0.16 calc(var(--lead-hue) - 58));
+				--link-accent-amber: oklch(62% 0.17 calc(var(--lead-hue) + 86));
+				--link-accent-neutral: oklch(18% 0.018 var(--lead-hue));
+				--header-social-border: color-mix(in oklch, oklch(24% 0.06 var(--lead-hue)) 18%, transparent);
+				--header-hover-bg: color-mix(in oklch, oklch(60% 0.16 var(--lead-hue)) 10%, transparent);
 			}
 
 			main.tech-page {
@@ -73,41 +111,46 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				max-width: 100%;
 				margin: 0;
 				padding: 0;
-				--paper: oklch(91% 0.008 76);
-				--paper-quiet: oklch(86.5% 0.008 76);
-				--paper-deep: oklch(80% 0.007 76);
-				--ink: oklch(18% 0.008 70);
-				--ink-soft: oklch(32% 0.007 70);
-				--ink-muted: oklch(49% 0.006 70);
-				--rule: oklch(69% 0.006 76);
-				--rule-strong: oklch(43% 0.006 70);
-				--surface: oklch(94% 0.007 76);
-				--surface-strong: oklch(96% 0.006 76);
+				--paper: oklch(95% 0.018 var(--lead-hue));
+				--paper-quiet: oklch(91% 0.024 var(--lead-hue));
+				--ink: oklch(18% 0.018 var(--lead-hue));
+				--ink-soft: oklch(31% 0.04 var(--lead-hue));
+				--ink-muted: oklch(50% 0.046 var(--lead-hue));
+				--rule: color-mix(in oklch, var(--ink) 20%, transparent);
+				--rule-strong: color-mix(in oklch, var(--ink) 42%, transparent);
+				--surface: oklch(98% 0.012 var(--lead-hue));
+				--accent: oklch(60% 0.18 var(--lead-hue));
+				--accent-hot: oklch(70% 0.18 calc(var(--lead-hue) + 52));
+				--accent-cool: oklch(70% 0.16 calc(var(--lead-hue) - 48));
+				--hero-ink: oklch(97% 0.014 var(--lead-hue));
+				--hero-muted: oklch(86% 0.038 var(--lead-hue));
 				--font-display: 'Fraunces', Georgia, serif;
 				--font-body: 'Source Serif 4', Georgia, serif;
 				--font-ui: 'Space Grotesk', system-ui, sans-serif;
 				--font-mono: 'JetBrains Mono', monospace;
 				min-height: 100vh;
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--rule) 28%, transparent) 1px, transparent 1px),
-					linear-gradient(180deg, color-mix(in oklch, var(--ink) 7%, transparent), transparent 26rem),
+					linear-gradient(90deg, color-mix(in oklch, var(--accent) 12%, transparent) 1px, transparent 1px),
+					radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--accent-hot) 22%, transparent), transparent 32rem),
+					radial-gradient(circle at 88% 8%, color-mix(in oklch, var(--accent-cool) 24%, transparent), transparent 30rem),
 					var(--paper);
-				background-size: 7.25rem 100%, auto, auto;
+				background-size: 7.25rem 100%, auto, auto, auto;
 			}
 
 			.tech-shell {
 				width: min(1360px, 100%);
 				margin: 0 auto;
-				padding: 1.2rem 1.5rem 4rem;
+				padding: 1.15rem 1.5rem 4rem;
 			}
 
 			.dateline,
-			.tech-kicker,
-			.section-label,
+			.hero-kicker,
+			.hero-eyebrow,
 			.story-meta,
+			.tag-pill,
 			.archive-note,
-			.empty-state,
-			.issue-mark {
+			.section-label,
+			.empty-state {
 				font-family: var(--font-mono);
 			}
 
@@ -116,7 +159,7 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				align-items: center;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 0.95rem 0 1.15rem;
+				padding: 0.95rem 0 1.1rem;
 				border-bottom: 1px solid var(--rule);
 				font-size: 0.78rem;
 				color: var(--ink-soft);
@@ -128,191 +171,199 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			}
 
 			.dateline a:hover {
-				color: var(--ink-soft);
+				color: var(--accent);
 			}
 
 			.dateline-pack,
 			.dateline-right,
-			.lead-meta-line,
+			.hero-actions,
+			.hero-tags,
 			.archive-actions {
 				display: flex;
 				align-items: center;
-				gap: 0.7rem;
+				gap: 0.65rem;
 				flex-wrap: wrap;
 			}
 
 			.dateline-mark {
 				color: var(--ink);
-				font-weight: 700;
+				font-weight: 800;
 			}
 
-			.tech-masthead {
+			.hero-stage {
 				display: grid;
-				grid-template-columns: minmax(17rem, 0.78fr) minmax(0, 1.22fr);
-				gap: 1.2rem;
-				padding: 1.2rem 0;
-				border-bottom: 2px solid var(--ink);
+				grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.62fr);
+				gap: clamp(1rem, 2vw, 1.5rem);
+				min-height: clamp(34rem, calc(100svh - 9rem), 47rem);
+				margin-top: 1.15rem;
+				padding: clamp(1rem, 2.8vw, 2.35rem);
+				border: 1px solid color-mix(in oklch, var(--hero-ink) 24%, transparent);
+				background:
+					radial-gradient(circle at 12% 12%, color-mix(in oklch, var(--accent-hot) 46%, transparent), transparent 23rem),
+					radial-gradient(circle at 78% 18%, color-mix(in oklch, var(--accent-cool) 42%, transparent), transparent 26rem),
+					linear-gradient(135deg, oklch(27% 0.13 var(--lead-hue)), oklch(19% 0.08 calc(var(--lead-hue) + 34)) 62%, oklch(15% 0.055 calc(var(--lead-hue) - 22)));
+				color: var(--hero-ink);
+				overflow: hidden;
+				position: relative;
 			}
 
-			.masthead-copy,
-			.lead-story {
-				border: 1px solid var(--rule);
-				background: color-mix(in oklch, var(--surface) 86%, var(--paper));
+			.hero-stage::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background:
+					linear-gradient(90deg, color-mix(in oklch, var(--hero-ink) 10%, transparent) 1px, transparent 1px),
+					linear-gradient(180deg, color-mix(in oklch, var(--hero-ink) 9%, transparent) 1px, transparent 1px);
+				background-size: 5.8rem 5.8rem;
+				mask-image: linear-gradient(135deg, transparent 18%, black 52%, transparent 100%);
+				opacity: 0.42;
+				pointer-events: none;
 			}
 
-			.masthead-copy {
+			.hero-copy,
+			.hero-media {
+				position: relative;
+				z-index: 1;
+			}
+
+			.hero-copy {
 				display: grid;
 				align-content: space-between;
 				gap: 2rem;
-				min-height: 24rem;
-				padding: 1rem;
+				max-width: 62rem;
 			}
 
-			.tech-kicker {
-				margin: 0;
-				font-size: 0.78rem;
-				font-weight: 700;
-				color: var(--ink-soft);
-			}
-
-			.masthead-copy h1 {
-				margin: 0;
-				font-family: var(--font-display);
-				font-size: clamp(4rem, 11vw, 8.8rem);
-				line-height: 0.82;
-				letter-spacing: 0;
-				color: var(--ink);
-				font-variation-settings: 'opsz' 144, 'wght' 900;
-			}
-
-			.masthead-copy p {
-				max-width: 38rem;
-				margin: 0.9rem 0 0;
-				font-family: var(--font-body);
-				font-size: clamp(1.15rem, 2vw, 1.55rem);
-				line-height: 1.35;
-				color: var(--ink-soft);
-			}
-
-			.issue-strip {
-				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-				border-top: 1px solid var(--rule);
-			}
-
-			.issue-mark {
-				display: grid;
-				gap: 0.2rem;
-				padding: 0.75rem 0.65rem 0 0;
-				font-size: 0.72rem;
-				color: var(--ink-muted);
-			}
-
-			.issue-mark strong {
-				font-family: var(--font-ui);
-				font-size: 1.25rem;
-				line-height: 1;
-				color: var(--ink);
-			}
-
-			.lead-story {
-				display: grid;
-				grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.36fr);
-				color: inherit;
-				text-decoration: none;
-				transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1);
-			}
-
-			.lead-story:hover {
-				transform: translateY(-2px);
-				background: var(--surface-strong);
-			}
-
-			.lead-copy {
-				display: grid;
-				align-content: end;
-				padding: clamp(1rem, 3vw, 2rem);
-			}
-
-			.section-label {
-				display: block;
-				margin-bottom: 0.45rem;
-				font-size: 0.75rem;
-				color: var(--ink-soft);
-				font-weight: 700;
-			}
-
-			.lead-copy h2 {
-				max-width: 58rem;
-				margin: 0;
-				font-family: var(--font-display);
-				font-size: clamp(2.4rem, 5vw, 4.8rem);
-				line-height: 0.96;
-				letter-spacing: 0;
-				color: var(--ink);
-				font-variation-settings: 'opsz' 120, 'wght' 860;
-			}
-
-			.lead-copy p {
-				max-width: 68ch;
-				margin: 0.95rem 0 0;
-				font-family: var(--font-body);
-				font-size: clamp(1.05rem, 1.6vw, 1.28rem);
-				line-height: 1.5;
-				color: var(--ink-soft);
-			}
-
-			.lead-meta {
-				display: grid;
-				align-content: space-between;
-				gap: 1rem;
-				padding: 1rem;
-				border-left: 1px solid var(--rule);
-				background: var(--paper-quiet);
-			}
-
-			.story-meta,
-			.archive-note {
-				font-size: 0.74rem;
-				color: var(--ink-soft);
-			}
-
-			.tag-stack {
+			.hero-topline {
 				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
 				flex-wrap: wrap;
-				gap: 0.45rem;
 			}
 
-			.tag-stack span,
-			.archive-note {
+			.hero-kicker,
+			.hero-eyebrow {
+				margin: 0;
+				font-size: 0.76rem;
+				font-weight: 800;
+				color: var(--hero-muted);
+			}
+
+			.hero-brand {
+				display: grid;
+				gap: 0.7rem;
+			}
+
+			.hero-brand h1 {
+				margin: 0;
+				font-family: var(--font-ui);
+				font-size: clamp(1.15rem, 2vw, 1.8rem);
+				line-height: 1;
+				letter-spacing: 0;
+				color: var(--hero-muted);
+			}
+
+			.hero-title {
+				display: block;
+				max-width: 15ch;
+				font-family: var(--font-display);
+				font-size: clamp(3.15rem, 8.2vw, 7.4rem);
+				line-height: 0.88;
+				letter-spacing: 0;
+				font-variation-settings: 'opsz' 144, 'wght' 900;
+				color: var(--hero-ink);
+				text-wrap: balance;
+			}
+
+			.hero-description {
+				max-width: 63ch;
+				margin: 1.1rem 0 0;
+				font-family: var(--font-body);
+				font-size: clamp(1.12rem, 1.65vw, 1.45rem);
+				line-height: 1.48;
+				color: var(--hero-muted);
+			}
+
+			.hero-footer {
+				display: grid;
+				gap: 1rem;
+			}
+
+			.hero-actions a {
 				display: inline-flex;
 				align-items: center;
-				border: 1px solid var(--rule-strong);
-				background: color-mix(in oklch, var(--paper-quiet) 88%, var(--surface));
-				color: var(--ink-soft);
-				padding: 0.36rem 0.48rem;
+				min-height: 2.65rem;
+				padding: 0.65rem 0.9rem;
+				border: 1px solid color-mix(in oklch, var(--hero-ink) 62%, transparent);
+				background: color-mix(in oklch, var(--hero-ink) 12%, transparent);
+				color: var(--hero-ink);
+				font-family: var(--font-ui);
+				font-weight: 800;
+				line-height: 1;
+				text-decoration: none;
+			}
+
+			.hero-actions a:hover {
+				background: color-mix(in oklch, var(--hero-ink) 20%, transparent);
+			}
+
+			.story-meta {
+				color: var(--hero-muted);
+				font-size: 0.76rem;
+			}
+
+			.tag-pill {
+				display: inline-flex;
+				align-items: center;
+				border: 1px solid color-mix(in oklch, oklch(78% 0.15 var(--tag-hue)) 68%, transparent);
+				background: color-mix(in oklch, oklch(74% 0.18 var(--tag-hue)) 23%, transparent);
+				color: oklch(90% 0.08 var(--tag-hue));
+				padding: 0.4rem 0.52rem;
 				font-size: 0.72rem;
 				line-height: 1;
 			}
 
-			.lead-image {
-				display: block;
-				aspect-ratio: 4 / 3;
-				border: 1px solid var(--rule);
-				overflow: hidden;
-				background: var(--paper-deep);
+			.hero-media {
+				display: grid;
+				align-content: stretch;
+				gap: 1rem;
+				min-width: 0;
 			}
 
-			.lead-image img {
+			.hero-image {
+				display: block;
+				min-height: 0;
+				height: 100%;
+				border: 1px solid color-mix(in oklch, var(--hero-ink) 32%, transparent);
+				background: color-mix(in oklch, var(--accent) 18%, oklch(18% 0.06 var(--lead-hue)));
+				overflow: hidden;
+				box-shadow: 0 1.2rem 4rem color-mix(in oklch, oklch(8% 0.03 var(--lead-hue)) 48%, transparent);
+			}
+
+			.hero-image img {
 				display: block;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				filter: grayscale(1) contrast(1.08);
+			}
+
+			.hero-card {
+				display: grid;
+				gap: 0.45rem;
+				align-self: end;
+				padding: 0.85rem;
+				border: 1px solid color-mix(in oklch, var(--hero-ink) 20%, transparent);
+				background: color-mix(in oklch, oklch(14% 0.04 var(--lead-hue)) 72%, transparent);
+				color: var(--hero-muted);
+			}
+
+			.hero-card strong {
+				font-family: var(--font-ui);
+				color: var(--hero-ink);
 			}
 
 			.archive-board {
-				margin-top: 1.2rem;
+				margin-top: 1.25rem;
 				border: 1px solid var(--rule);
 				background: color-mix(in oklch, var(--surface) 82%, var(--paper));
 			}
@@ -326,22 +377,41 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				border-bottom: 1px solid var(--rule);
 			}
 
+			.section-label {
+				display: block;
+				margin-bottom: 0.35rem;
+				color: var(--accent);
+				font-size: 0.75rem;
+				font-weight: 800;
+			}
+
 			.archive-head h2 {
 				margin: 0;
 				font-family: var(--font-ui);
-				font-size: 1.15rem;
+				font-size: 1.2rem;
 				line-height: 1.1;
 				letter-spacing: 0;
 				color: var(--ink);
 			}
 
 			.archive-head p {
-				max-width: 56ch;
+				max-width: 58ch;
 				margin: 0.45rem 0 0;
 				font-family: var(--font-body);
 				font-size: 1rem;
 				line-height: 1.45;
 				color: var(--ink-soft);
+			}
+
+			.archive-note {
+				display: inline-flex;
+				align-items: center;
+				border: 1px solid color-mix(in oklch, var(--accent) 45%, var(--rule));
+				background: color-mix(in oklch, var(--accent) 11%, var(--paper));
+				color: var(--ink-soft);
+				padding: 0.38rem 0.5rem;
+				font-size: 0.72rem;
+				line-height: 1;
 			}
 
 			.archive-list {
@@ -361,36 +431,30 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			}
 
 			@media (prefers-reduced-motion: reduce) {
-				.lead-story,
 				:global(.tech-row) {
 					transition: none;
 				}
 
-				.lead-story:hover,
 				:global(.tech-row:hover) {
 					transform: none;
 				}
 			}
 
 			@media (max-width: 1040px) {
-				.tech-masthead,
-				.lead-story {
+				.hero-stage {
 					grid-template-columns: 1fr;
-				}
-
-				.masthead-copy {
 					min-height: 0;
 				}
 
-				.lead-meta {
-					border-left: none;
-					border-top: 1px solid var(--rule);
+				.hero-image {
+					aspect-ratio: 16 / 9;
+					height: auto;
 				}
 			}
 
 			@media (max-width: 760px) {
 				main.tech-page {
-					background-size: 4.5rem 100%, auto, auto;
+					background-size: 4.5rem 100%, auto, auto, auto;
 				}
 
 				.tech-shell {
@@ -408,27 +472,22 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 					font-size: 0.72rem;
 				}
 
-				.tech-masthead {
-					gap: 0.85rem;
-					padding-top: 0.9rem;
-				}
-
-				.masthead-copy {
-					padding: 0.9rem;
-				}
-
-				.issue-strip {
-					grid-template-columns: 1fr;
-					gap: 0.55rem;
-					padding-top: 0.75rem;
-				}
-
-				.issue-mark {
-					padding: 0;
-				}
-
-				.lead-copy {
+				.hero-stage {
+					margin-top: 0.85rem;
 					padding: 1rem;
+				}
+
+				.hero-topline {
+					align-items: flex-start;
+				}
+
+				.hero-title {
+					font-size: clamp(2.45rem, 14vw, 4rem);
+					max-width: 12ch;
+				}
+
+				.hero-description {
+					font-size: 1rem;
 				}
 
 				.archive-list {
@@ -441,9 +500,9 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			}
 		</style>
 	</head>
-	<body>
+	<body style={`--lead-hue: ${leadHue};`}>
 		<Header homepage={true} />
-		<main class="tech-page">
+		<main class="tech-page" style={`--lead-hue: ${leadHue};`}>
 			<div class="tech-shell">
 				<div class="dateline" aria-label="Tech page metadata">
 					<div class="dateline-pack">
@@ -458,51 +517,49 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 					</div>
 				</div>
 
-				<div class="tech-masthead">
-					<section class="masthead-copy" aria-labelledby="tech-title">
-						<div>
-							<p class="tech-kicker">field notes from the workbench</p>
-							<h1 id="tech-title">Tech</h1>
-							<p>Agent systems, dev tools, CLIs, and the small pieces of software that keep turning into bigger ideas.</p>
+				{featuredPost && (
+					<section class="hero-stage" aria-labelledby="tech-title">
+						<div class="hero-copy">
+							<div class="hero-topline">
+								<p class="hero-kicker">mager.co / tech</p>
+								<span class="hero-eyebrow">Lead story</span>
+							</div>
+							<div class="hero-brand">
+								<h1 id="tech-title">Tech</h1>
+								<span class="hero-title">{featuredPost.data.title}</span>
+								<p class="hero-description">{featuredPost.data.description}</p>
+							</div>
+							<div class="hero-footer">
+								<div class="hero-tags">
+									{leadTags.map(tag => <span class="tag-pill" style={`--tag-hue: ${tag.hue};`}>{tag.name}</span>)}
+								</div>
+								<div class="hero-actions">
+									<a href={leadHref}>Read the lead story</a>
+									<span class="story-meta">{shortDate(featuredPost.data.pubDate)} / {archivePosts.length} more notes</span>
+								</div>
+							</div>
 						</div>
-						<div class="issue-strip" aria-label="Tech section summary">
-							<span class="issue-mark"><strong>{posts.length}</strong>posts</span>
-							<span class="issue-mark"><strong>{issueNumber}</strong>current issue</span>
-							<span class="issue-mark"><strong>{archivePosts.length}</strong>archive rows</span>
+
+						<div class="hero-media">
+							{hasFeaturedImage && (
+								<a class="hero-image" href={leadHref} aria-label={`Open ${featuredPost.data.title}`}>
+									<img src={featuredPost.data.heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
+								</a>
+							)}
+							<div class="hero-card">
+								<strong>Current issue {issueNumber}</strong>
+								<span>Agent systems, dev tools, CLIs, and the software ideas I keep testing in public.</span>
+							</div>
 						</div>
 					</section>
-
-					{featuredPost && (
-						<a href={leadHref} class="lead-story">
-							<div class="lead-copy">
-								<span class="section-label">Lead story</span>
-								<h2>{featuredPost.data.title}</h2>
-								<p>{featuredPost.data.description}</p>
-							</div>
-							<div class="lead-meta">
-								<div class="lead-meta-line">
-									<span class="story-meta">{shortDate(featuredPost.data.pubDate)}</span>
-									<span class="archive-note">latest</span>
-								</div>
-								{hasFeaturedImage && (
-									<span class="lead-image" aria-hidden="true">
-										<img src={featuredPost.data.heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
-									</span>
-								)}
-								<div class="tag-stack">
-									{leadTags.map(tag => <span>{tag}</span>)}
-								</div>
-							</div>
-						</a>
-					)}
-				</div>
+				)}
 
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
 						<div>
 							<span class="section-label">Archive</span>
 							<h2 id="archive-heading">Build log</h2>
-							<p>Newest first. Dates, titles, summaries, and tags stay visible so the index works even when you are just scanning.</p>
+							<p>Newest first. Dates, titles, summaries, and tag colors stay visible so the index is fast to scan.</p>
 						</div>
 						<div class="archive-actions">
 							<span class="archive-note">newest first</span>

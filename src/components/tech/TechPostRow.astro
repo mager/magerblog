@@ -13,17 +13,53 @@ const d = post.data.updatedDate || post.data.pubDate;
 const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 const tags = (post.data.tags || []).slice(0, 3);
 const dek = post.data.description || tags.join(' / ') || 'field note';
+
+const tagHueMap = new Map([
+	['ai', 280],
+	['agents', 224],
+	['agent', 224],
+	['claude', 292],
+	['claude-code', 292],
+	['codex', 250],
+	['openai', 255],
+	['openclaw', 205],
+	['hermes', 34],
+	['developer-tools', 198],
+	['tools', 198],
+	['cli', 170],
+	['mcp', 154],
+	['llms', 318],
+	['evals', 18],
+	['promptfoo', 18],
+	['context', 84],
+	['memory', 84],
+	['loooom', 330],
+	['design', 28],
+	['frontend', 28],
+	['langgraph', 142],
+	['skills', 44],
+]);
+
+const fallbackHue = (value: string) =>
+	[...value].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 360;
+
+const getTagHue = (tag = '') => {
+	const key = tag.toLowerCase();
+	return tagHueMap.get(key) ?? fallbackHue(key || 'tech');
+};
+
+const rowHue = getTagHue(tags[0]);
 ---
 
 <li class={`tech-row-wrap ${isDraft ? 'draft' : ''}`}>
-	<a href={`/blog/${post.id}/`} class="tech-row">
+	<a href={`/blog/${post.id}/`} class="tech-row" style={`--row-hue: ${rowHue};`}>
 		<span class="row-date">{dateStr}</span>
 		<span class="row-body">
 			<span class="row-title">{displayTitle}</span>
 			<span class="row-dek">{dek}</span>
 		</span>
 		<span class="row-tags">
-			{tags.map(tag => <span class="tag">{tag}</span>)}
+			{tags.map(tag => <span class="tag" style={`--tag-hue: ${getTagHue(tag)};`}>{tag}</span>)}
 			<span class="row-arrow" aria-hidden="true">↗</span>
 		</span>
 	</a>
@@ -47,13 +83,16 @@ const dek = post.data.description || tags.join(' / ') || 'field note';
 		padding: 1.05rem 0;
 		color: inherit;
 		text-decoration: none;
-		border-bottom: 1px solid var(--rule, oklch(69% 0.006 76));
-		transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1);
+		border-bottom: 1px solid var(--rule, color-mix(in oklch, oklch(18% 0.018 260) 20%, transparent));
+		transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background 180ms cubic-bezier(0.22, 1, 0.36, 1), border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
 	.tech-row:hover {
 		transform: translateX(3px);
-		background: color-mix(in oklch, var(--ink, oklch(18% 0.008 70)) 4%, transparent);
+		background:
+			linear-gradient(90deg, color-mix(in oklch, oklch(72% 0.18 var(--row-hue)) 13%, transparent), transparent 52%),
+			color-mix(in oklch, var(--ink, oklch(18% 0.018 260)) 3%, transparent);
+		border-color: color-mix(in oklch, oklch(62% 0.16 var(--row-hue)) 52%, var(--rule, transparent));
 	}
 
 	.row-date,
@@ -64,7 +103,7 @@ const dek = post.data.description || tags.join(' / ') || 'field note';
 	}
 
 	.row-date {
-		color: var(--ink-muted, oklch(49% 0.006 70));
+		color: color-mix(in oklch, oklch(48% 0.1 var(--row-hue)) 64%, var(--ink-muted, oklch(49% 0.006 260)));
 		font-size: 0.74rem;
 		padding-top: 0.22rem;
 		white-space: nowrap;
@@ -81,13 +120,13 @@ const dek = post.data.description || tags.join(' / ') || 'field note';
 		font-size: clamp(1.05rem, 1.4vw, 1.28rem);
 		font-weight: 700;
 		line-height: 1.16;
-		color: var(--ink, oklch(18% 0.008 70));
+		color: var(--ink, oklch(18% 0.018 260));
 	}
 
 	.row-dek {
 		display: -webkit-box;
 		max-width: 78ch;
-		color: var(--ink-soft, oklch(32% 0.007 70));
+		color: var(--ink-soft, oklch(32% 0.04 260));
 		font-size: 0.82rem;
 		line-height: 1.5;
 		overflow: hidden;
@@ -104,16 +143,16 @@ const dek = post.data.description || tags.join(' / ') || 'field note';
 	}
 
 	.tag {
-		border: 1px solid var(--rule-strong, oklch(43% 0.006 70));
-		background: color-mix(in oklch, var(--paper-quiet, oklch(86.5% 0.008 76)) 88%, var(--surface, oklch(94% 0.007 76)));
-		color: var(--ink-soft, oklch(32% 0.007 70));
+		border: 1px solid color-mix(in oklch, oklch(58% 0.15 var(--tag-hue)) 68%, var(--rule-strong, oklch(43% 0.006 260)));
+		background: color-mix(in oklch, oklch(78% 0.17 var(--tag-hue)) 18%, var(--surface, oklch(94% 0.007 260)));
+		color: color-mix(in oklch, oklch(34% 0.12 var(--tag-hue)) 74%, var(--ink, oklch(18% 0.018 260)));
 		font-size: 0.68rem;
 		line-height: 1;
 		padding: 0.34rem 0.44rem;
 	}
 
 	.row-arrow {
-		color: var(--ink, oklch(18% 0.008 70));
+		color: oklch(45% 0.15 var(--row-hue));
 		font-size: 0.96rem;
 		opacity: 0;
 		transform: translateX(-4px);
