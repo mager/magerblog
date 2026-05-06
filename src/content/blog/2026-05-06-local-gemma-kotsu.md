@@ -1,16 +1,16 @@
 ---
 title: "Building a tiny local LLM starter for real projects"
-description: "I built a Go Bubble Tea starter that talks to any local OpenAI-compatible model server, then used it to wire Gemma 4 into Kotsu as a kanji-learning preprocessing tool."
+description: "I built a Go Bubble Tea starter for local model servers, used Gemma 4 through llama.cpp, and split the TUI into llocal."
 pubDate: 2026-05-06
 category: tech
-draft: true
+draft: false
 tags: [ai, llms, gemma, go, kotsu, local-first]
 keyword: "local LLM starter"
 ---
 
 I wanted a local model I could use on a plane.
 
-That was the excuse. The more interesting thing I ended up building was a tiny local LLM starter: a Go TUI that talks to any OpenAI-compatible model server running on my machine.
+That was the excuse. The more interesting thing I ended up building was a tiny local LLM starter: a Go TUI that talks to a model server running on my machine.
 
 Then it turned into something real: a way to use Gemma 4 to draft new kanji mnemonic data for Kotsu.
 
@@ -20,13 +20,17 @@ The shape is intentionally boring:
 Go Bubble Tea TUI
         |
         v
-http://127.0.0.1:8000/v1/chat/completions
+http://127.0.0.1:8080/v1/chat/completions
         |
         v
-whatever model server I am running today
+llama-server running Gemma
 ```
 
 That last line is the whole trick.
+
+The model is Gemma. The runtime is `llama-server`. The API shape is OpenAI-style: `POST /v1/chat/completions`.
+
+That phrase can sound like I am secretly using OpenAI. I am not. "OpenAI-compatible" just means the local server accepts requests in the same HTTP shape many chat clients already know how to send. It is like saying USB-C compatible. It names the connector, not the manufacturer.
 
 The TUI does not load weights. It does not know about safetensors, GGUF, Metal, CUDA, dtype choices, offloading, or which model format I am currently arguing with. It sends chat messages over HTTP and prints the response in a terminal interface I like.
 
@@ -39,9 +43,11 @@ That means I can swap the backend without rewriting the app:
 
 This is the small starter I wish I had reached for first.
 
+By the end of this experiment, the TUI had grown enough polish that I split it into its own repo: [llocal](https://github.com/mager/llocal). The extra `l` is for localhost. Also for plausible deniability.
+
 ## The starter
 
-The repo lives at:
+The original quickstart repo lives at:
 
 ```text
 ~/Code/local-llm-quickstart
@@ -51,10 +57,27 @@ The layout is deliberately plain:
 
 ```text
 cmd/local-llm/        # Go entrypoint
-internal/llm/         # OpenAI-compatible client
+internal/llm/         # local chat-completions client
 internal/tui/         # Bubble Tea interface
 scripts/              # optional model/runtime helpers
 Makefile
+README.md
+```
+
+The standalone TUI repo is now:
+
+```text
+~/Code/llocal
+```
+
+with the cleaner product-shaped layout:
+
+```text
+cmd/llocal/           # Go entrypoint
+internal/llm/         # local chat-completions client
+internal/tui/         # Bubble Tea + Glamour interface
+PRODUCT.md
+DESIGN.md
 README.md
 ```
 
@@ -62,7 +85,7 @@ I briefly considered TypeScript, then Go, then Elixir.
 
 Go won for this version because Bubble Tea is good, the HTTP client story is simple, and the end result can become one small binary. Elixir is still extremely tempting for a supervised local control plane someday, but for "talk to localhost from a terminal," Go is the calm move.
 
-The client boundary is tiny. The app sends a normal chat-completion request:
+The client boundary is tiny. The app sends a normal chat-completion request to the local server:
 
 ```text
 POST /v1/chat/completions
@@ -76,7 +99,7 @@ and includes:
   "messages": [
     { "role": "user", "content": "write a small go function" }
   ],
-  "max_tokens": 512,
+  "max_tokens": 4096,
   "temperature": 0.7,
   "stream": false
 }
@@ -84,15 +107,19 @@ and includes:
 
 That is enough to make the TUI portable across runtimes.
 
-The starter also has the little terminal affordances I want every time:
+The standalone TUI has the little terminal affordances I want every time:
 
 - `/help`
+- `/continue`
 - `/reset`
 - `/save transcript.md`
-- `/tokens 256`
+- `/tokens auto`
 - `/temp 0.4`
 - `/model`
 - `/quit`
+- Markdown rendering
+- scrolling
+- transcript saving
 
 It is not a model platform. It is a pocket client.
 
@@ -116,7 +143,7 @@ The cleaner split is:
 inference runtime
         |
         v
-local OpenAI-compatible HTTP server
+local server with an OpenAI-style chat endpoint
         |
         v
 apps, scripts, TUIs, preprocessors
@@ -293,10 +320,76 @@ That is not a failure of the app architecture. It is a runtime finding.
 
 The full-weight local path loads on my Mac, but it is not pleasant for interactive generation when it has to offload to disk. For batch preprocessing, maybe it can run overnight. For chat, I should probably use GGUF locally or move the full model to a GPU box.
 
+Then I tried the thing I should have tried first: the 5.34 GB GGUF.
+
+That changed the whole feel of the project.
+
+On my M4 Pro, `llama-server` loaded the quantized model with Metal, offloaded the layers to the GPU, and started listening on `127.0.0.1:8080`. A tiny prompt came back basically instantly:
+
+```text
+prompt eval time = 303.56 ms / 18 tokens
+eval time        = 198.07 ms / 11 tokens
+total time       = 501.63 ms / 29 tokens
+```
+
+The interesting number is not "it worked." The interesting number is that generation was around 55 tokens per second. That is the difference between "cool science project" and "I might actually use this in a terminal."
+
+The `llama-server` logs look noisy, but they are surprisingly readable once you know what to look for. Here is a trimmed version from a real request:
+
+```text
+srv  params_from_: Chat format: peg-gemma4
+slot get_availabl: id  3 | task -1 | selected slot by LRU
+srv  get_availabl: updating prompt cache
+slot launch_slot_: id  3 | task 0 | processing task
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 8192, task.n_tokens = 25
+slot print_timing: id  3 | task 0 |
+prompt eval time =   158.68 ms /    25 tokens (157.55 tokens per second)
+       eval time = 49824.73 ms /  2657 tokens ( 53.33 tokens per second)
+      total time = 49983.41 ms /  2682 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 2681, truncated = 0
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+```
+
+My translation:
+
+- `Chat format: peg-gemma4` means llama.cpp detected the Gemma 4 chat template and is formatting the conversation the way the model expects.
+- `selected slot by LRU` means the server picked an available inference slot. `llama-server` can juggle multiple concurrent requests; a slot is one lane of model work.
+- `updating prompt cache` means it is checking whether previous prompt state can be reused. That matters more in longer chats where the beginning of the conversation repeats.
+- `n_ctx_slot = 8192` means this request has an 8192-token context window available.
+- `task.n_tokens = 25` means my incoming prompt was tiny. That is just the input side.
+- `prompt eval time` is the time spent reading the prompt.
+- `eval time` is the time spent generating the answer. This is usually the number I care about for "how fast does it feel?"
+- `2657 tokens` generated in about `49.8s` is roughly `53 tokens/sec`, which is very usable for local generation on a laptop.
+- `truncated = 0` means the server did not cut the request off because of context pressure.
+- `POST /v1/chat/completions 200` means my TUI used the same OpenAI-style endpoint a cloud API would use, except the whole thing stayed on `127.0.0.1`.
+
+The logs look intense because llama.cpp is showing the machinery. But the story is simple: the prompt was small, generation was fast, the server completed cleanly, and the app boundary worked.
+
+I also learned a small UX lesson immediately. My TUI defaulted to `tokens=512`. For a simple hello, that is fine. For a big prompt like "give me a 22 day itinerary for Japan," the model did not break; it generated right up to the 512-token ceiling:
+
+```text
+eval time  = 9518.77 ms / 512 tokens
+total time = 9813.00 ms / 571 tokens
+```
+
+So token budget is part of the interface. At first I treated it like a config value I would manually tune. That was silly. The TUI can make a decent guess.
+
+The next pass made the terminal app more useful:
+
+- `tokens=auto` by default
+- bigger token budgets for prompts that look like itineraries, drafts, detailed plans, or code tasks
+- a visible warning when the server stops because it hit the token limit
+- scroll bindings for long answers
+- better contrast on the input placeholder
+- `Ctrl+C` and `Esc` working even while the model is thinking
+
+That is the kind of polish that turns "demo" into "tool." None of it is fancy. All of it matters when the model is printing a long answer into a terminal.
+
 The lesson is not "I downloaded the wrong model." The lesson is:
 
 ```text
 Downloaded successfully does not mean pleasant to run.
+Quantized does not mean toy.
 Keep the model boundary boring.
 Let the runtime be replaceable.
 Treat generated learning data as artifacts.
@@ -331,7 +424,7 @@ It is about 5.34 GB and is designed for llama.cpp-style local inference.
 ```bash
 cd ~/Code/local-llm-quickstart
 mkdir -p models
-hf download ggml-org/gemma-4-E4B-it-GGUF \
+~/LLM/.venv/bin/hf download ggml-org/gemma-4-E4B-it-GGUF \
   --include "gemma-4-E4B-it-Q4_K_M.gguf" \
   --local-dir models
 ```
@@ -342,7 +435,7 @@ Install llama.cpp:
 brew install llama.cpp
 ```
 
-Run the model as a local OpenAI-compatible server:
+Run the model as a local server with an OpenAI-style chat endpoint:
 
 ```bash
 llama-server \
@@ -352,16 +445,57 @@ llama-server \
   --ctx-size 8192
 ```
 
-Then point either client at it:
+The extra server process is the part that feels weird at first.
 
-```bash
-cd ~/Code/local-llm-quickstart
-LOCAL_LLM_ENDPOINT=http://127.0.0.1:8080 \
-LOCAL_LLM_MODEL=local \
-make run PORT=8080
+My TUI is not the model runtime. It is closer to a browser than a brain. It knows how to collect messages, render a terminal UI, save transcripts, estimate token budgets, and send an HTTP request. It does not know how to mmap a 5 GB model file, choose Metal kernels, allocate KV cache, tokenize Gemma's vocabulary, or run matrix multiplications on the GPU.
+
+That is what `llama-server` does.
+
+`llama-server` loads the GGUF file, keeps the model warm in memory, and exposes a local chat endpoint:
+
+```text
+http://127.0.0.1:8080/v1/chat/completions
 ```
 
-or:
+The nice thing about that boundary is that the client stays boring. Today it can talk to `llama-server`. Tomorrow it can talk to Transformers Serve, vLLM on a rented GPU, Ollama, or anything else that speaks the same basic API shape.
+
+So why does a Google model need a "llama" server?
+
+Because llama.cpp is not only for Meta's Llama models anymore. The name is historical. The project has become a very good local inference engine for many GGUF models, including Gemma. Google publishes Gemma weights and model code. The local runtime ecosystem decides how those weights get run on laptops, GPUs, CPUs, and weird little machines people love. In this case, the community GGUF path plus llama.cpp was the thing that made Gemma feel fast on my Mac.
+
+Could Google ship its own first-party local desktop server for Gemma? Sure. Maybe someday that becomes the obvious path. But for this experiment, llama.cpp already solved the hard local runtime problem: quantized weights, Metal acceleration, an HTTP server, and a familiar chat API. I do not need the runtime to have the same logo as the model. I need it to be fast, boring, and replaceable.
+
+Then point `llocal` at it:
+
+```bash
+cd ~/Code/llocal
+LLOCAL_ENDPOINT=http://127.0.0.1:8080 \
+LLOCAL_MODEL=local \
+make run
+```
+
+`llocal` starts in auto-token mode. For most prompts, I let it guess:
+
+```text
+tokens=auto
+```
+
+If I know I want a long answer, I can still pin the budget:
+
+```text
+/tokens 4096
+```
+
+And if the answer is longer than the viewport, I can scroll instead of losing the top of the response:
+
+```text
+PageUp / PageDown
+Ctrl+U / Ctrl+D
+Ctrl+G = top
+Ctrl+B = bottom
+```
+
+Or point the Kotsu generator at the same server:
 
 ```bash
 cd ~/Code/kotsu
@@ -371,6 +505,8 @@ npm run knacks:generate -- 明 --tokens 220 --temperature 0.2
 ```
 
 If that works, the cloud plan can wait.
+
+For me, it worked. The 5.34 GB GGUF path was the local interactive path.
 
 ### If cloud is still needed
 
@@ -452,27 +588,50 @@ Vertex AI would make sense if this became a durable service: recurring generatio
 
 Right now I have:
 
-- a tiny Go Bubble Tea local LLM starter
+- a tiny Go Bubble Tea local LLM starter, now published at [github.com/mager/local-llm-quickstart](https://github.com/mager/local-llm-quickstart)
+- a standalone version of the TUI, now published at [github.com/mager/llocal](https://github.com/mager/llocal)
 - a shared `~/LLM` model/runtime folder
 - the full Gemma 4 E4B IT weights
+- a 5.34 GB GGUF path that is fast enough to feel interactive on my M4 Pro
 - a Kotsu generator that writes strict JSON
 - a Svelte kanji panel that consumes generated Knacks
 
 What I do not have yet:
 
-- a fast full-weight local generation loop
 - reviewed generated Knacks for the whole kanji set
 - proof that the pitch accent cues are reliable enough to publish without human review
+- a reason to keep pushing the full-weight local path if GGUF is good enough for drafting
 
 That last point matters. The model can suggest pitch accent patterns. It should not be treated as an authority. Kotsu can use AI to draft learning material, but I still want review before turning that into educational content.
 
-My next experiment is probably:
+If you want to try the polished TUI:
 
-1. Try the GGUF path through llama.cpp for local iteration.
-2. Try vLLM on a rented GPU for the full safetensors model.
-3. Keep the Go starter as the client either way.
+```bash
+git clone https://github.com/mager/llocal.git
+cd llocal
+go install ./cmd/llocal
+```
 
-That is the part I like. The starter does not need to be rewritten when the runtime changes.
+Start a local server:
+
+```bash
+brew install llama.cpp
+llama-server \
+  -m /path/to/model.gguf \
+  --host 127.0.0.1 \
+  --port 8080 \
+  --ctx-size 8192
+```
+
+Then, in another terminal:
+
+```bash
+llocal
+```
+
+My next experiment is probably to use this same local server path for more Kotsu preprocessing, then only rent a GPU if I can prove the full model produces meaningfully better artifacts.
+
+That is the part I like. The client does not need to be rewritten when the runtime changes.
 
 Local AI is less magical when you can see the pipes.
 
