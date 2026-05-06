@@ -12,6 +12,8 @@ I wanted a local model I could use on a plane.
 
 That was the excuse. The more interesting thing I ended up building was a tiny local LLM starter: a Go TUI that talks to any OpenAI-compatible model server running on my machine.
 
+Then it turned into something real: a way to use Gemma 4 to draft new kanji mnemonic data for Kotsu.
+
 The shape is intentionally boring:
 
 ```text
@@ -127,6 +129,8 @@ That is what made the Kotsu experiment obvious.
 ## Kotsu as the first real use case
 
 Kotsu is my minimalist Japanese learning app. It already has kanji lesson pages with readings, meanings, composition links, and a visual study surface.
+
+![Kotsu kanji lesson view with large black Japanese characters on a paper-white interface](https://lh3.googleusercontent.com/pw/AP1GczM9Pj_lmgagWbw9whqvSL7tCmh7t8SfR2_-fjIjfR3iFsO4s1azcZwUIZC6rXFTVFi7ecVV3gJkOPz6bWKSY8g9RhFi-Lywi5SW2X8Xnt5684OfHjdE7J7UUp4FOe9B8Bq12cxJqgCri8ZSDa-q7uE1gg=w2322-h1522-s-no-gm)
 
 What I wanted next was a generated "Knack" for each kanji:
 
@@ -298,74 +302,151 @@ Let the runtime be replaceable.
 Treat generated learning data as artifacts.
 ```
 
-## The cloud version
+## The slimmer cloud version
 
-Cloud might be the boringly successful version of this.
+The first cloud plan I wrote down was too heavy.
 
-The nice thing about the HTTP boundary is that moving the model server to a GPU box does not change Kotsu or the TUI very much.
+For a one-time preprocessing job, I do not need Vertex AI, GKE, a public endpoint, or a polished deployment story. I need a temporary GPU, an SSH tunnel, and the discipline to shut it down.
 
-The local endpoint:
+The slimmer order of operations is:
+
+1. Try the 5.34 GB GGUF locally with llama.cpp.
+2. If that is good enough, stop there.
+3. If I need the full safetensors model, rent one GPU VM for a short batch run.
+4. Generate JSON, review it, commit it, delete the VM.
+
+That is it.
+
+### Step zero: try GGUF locally
+
+The practical local version is:
 
 ```text
-http://127.0.0.1:8000/v1/chat/completions
+ggml-org/gemma-4-E4B-it-GGUF
+gemma-4-E4B-it-Q4_K_M.gguf
 ```
 
-can become an SSH tunnel:
+It is about 5.34 GB and is designed for llama.cpp-style local inference.
 
 ```bash
-ssh -L 8000:127.0.0.1:8000 gpu-box
+cd ~/Code/local-llm-quickstart
+mkdir -p models
+hf download ggml-org/gemma-4-E4B-it-GGUF \
+  --include "gemma-4-E4B-it-Q4_K_M.gguf" \
+  --local-dir models
 ```
 
-or a private HTTPS endpoint:
-
-```text
-https://some-gemma-box.example.com/v1/chat/completions
-```
-
-The app code stays the same. The model moved.
-
-The cloud shape is:
-
-```text
-GPU VM
-  vLLM or transformers serve
-  google/gemma-4-E4B-it
-  OpenAI-compatible endpoint
-
-Laptop
-  Go TUI
-  Kotsu generator
-  SSH tunnel or HTTPS endpoint
-```
-
-The commands are roughly:
+Install llama.cpp:
 
 ```bash
-pip install -U vllm
+brew install llama.cpp
+```
+
+Run the model as a local OpenAI-compatible server:
+
+```bash
+llama-server \
+  -m ~/Code/local-llm-quickstart/models/gemma-4-E4B-it-Q4_K_M.gguf \
+  --host 127.0.0.1 \
+  --port 8080 \
+  --ctx-size 8192
+```
+
+Then point either client at it:
+
+```bash
+cd ~/Code/local-llm-quickstart
+LOCAL_LLM_ENDPOINT=http://127.0.0.1:8080 \
+LOCAL_LLM_MODEL=local \
+make run PORT=8080
+```
+
+or:
+
+```bash
+cd ~/Code/kotsu
+KOTSU_LLM_ENDPOINT=http://127.0.0.1:8080 \
+KOTSU_LLM_MODEL=local \
+npm run knacks:generate -- 明 --tokens 220 --temperature 0.2
+```
+
+If that works, the cloud plan can wait.
+
+### If cloud is still needed
+
+The slim GCP version is Compute Engine with a Deep Learning VM image. That avoids most of the driver ceremony because Google's Deep Learning VM images already include GPU-oriented ML tooling, and the GPU image families include NVIDIA driver/CUDA variants.
+
+I would use a G2 machine with one NVIDIA L4 first. It has 24 GB VRAM, which is a reasonable first try for Gemma 4 E4B inference. If it fails on memory, I would stop it and move up, not spend a day tuning flags.
+
+```bash
+gcloud config set project YOUR_PROJECT_ID
+gcloud services enable compute.googleapis.com
+
+ZONE=us-east4-c
+VM=gemma-e4b-once
+
+gcloud compute instances create "$VM" \
+  --zone="$ZONE" \
+  --machine-type=g2-standard-8 \
+  --boot-disk-size=200GB \
+  --image-family=pytorch-latest-gpu \
+  --image-project=deeplearning-platform-release \
+  --maintenance-policy=TERMINATE \
+  --provisioning-model=SPOT
+```
+
+SSH in:
+
+```bash
+gcloud compute ssh "$VM" --zone="$ZONE"
+```
+
+On the VM:
+
+```bash
+nvidia-smi
+python3 -m venv ~/vllm
+source ~/vllm/bin/activate
+pip install -U pip vllm
+export HF_TOKEN=hf_...
+
 vllm serve google/gemma-4-E4B-it \
   --host 127.0.0.1 \
-  --port 8000
+  --port 8000 \
+  --dtype bfloat16 \
+  --max-model-len 8192
 ```
 
-Then from my laptop:
+Leave that running. From the laptop, create the tunnel:
 
 ```bash
-ssh -L 8000:127.0.0.1:8000 gpu-box
+gcloud compute ssh "$VM" \
+  --zone="$ZONE" \
+  -- -L 8000:127.0.0.1:8000
+```
+
+Then run Kotsu locally against the cloud GPU:
+
+```bash
 cd ~/Code/kotsu
+KOTSU_LLM_ENDPOINT=http://127.0.0.1:8000 \
+KOTSU_LLM_MODEL=google/gemma-4-E4B-it \
 npm run knacks:generate -- --limit 5
 ```
 
-The checklist is small:
+When done:
 
-- pick a GPU box with enough VRAM
-- install `vllm` or the Transformers serving stack
-- authenticate to Hugging Face if needed
-- expose the OpenAI-compatible endpoint privately
-- run the TUI or Kotsu generator against it
-- review generated JSON before publishing it as course data
-- stop the GPU instance before it quietly eats money
+```bash
+gcloud compute instances delete "$VM" --zone="$ZONE"
+```
 
-This is probably easier than continuing to wrestle the full model locally. But the local attempt still mattered: it proved the starter boundary, downloaded the official weights, and gave me a concrete reason to keep runtimes swappable.
+No public endpoint. No Vertex. No container. No autoscaling. No architecture astronautics.
+
+Just one GPU box, one SSH tunnel, one batch job.
+
+### When Vertex would make sense
+
+Vertex AI would make sense if this became a durable service: recurring generation jobs, team access, IAM, model registry, monitoring, or an endpoint that stays alive. For this experiment, it is more infrastructure than the problem deserves.
 
 ## Where this leaves me
 
