@@ -6,6 +6,7 @@ category: tech
 draft: false
 tags: [ai, llms, gemma, go, kotsu, local-first]
 keyword: "local LLM starter"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczP6qce3QH-xEz2RlHflHnHoxLFaga-7LDSGn5euIg1uGuenacaoyByX4_j8275vgNQaYPR6UpUvpRe7Dq0Gp9l9SDnMUo-N97oZ8J_64TUBFRhMDMa7JmP1YXdYS21G7qJLw4ijaEHn9aFPJe7v8CpLJA=w2322-h1522-s-no-gm"
 ---
 
 I wanted a local model I could use on a plane.
@@ -44,6 +45,10 @@ That means I can swap the backend without rewriting the app:
 This is the small starter I wish I had reached for first.
 
 By the end of this experiment, the TUI had grown enough polish that I split it into its own repo: [llocal](https://github.com/mager/llocal). The extra `l` is for localhost. Also for plausible deniability.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNUraSsqez2y8uUb-B87tDMwq-VJOjtdZS8CtyUrenSmKAjgb72J1jTz2aANfBLj3Sof_E_GCF6CtAz9nHBoJ-0lFkWf0G9QdIMONuVYfOtFU6R6lcrL6jEKTWwoc6SV0yj-fdKNu3zta20BWYguPRjqw=w2322-h1522-s-no-gm)
+
+![](https://lh3.googleusercontent.com/pw/AP1GczP6qce3QH-xEz2RlHflHnHoxLFaga-7LDSGn5euIg1uGuenacaoyByX4_j8275vgNQaYPR6UpUvpRe7Dq0Gp9l9SDnMUo-N97oZ8J_64TUBFRhMDMa7JmP1YXdYS21G7qJLw4ijaEHn9aFPJe7v8CpLJA=w2322-h1522-s-no-gm)
 
 ## The starter
 
