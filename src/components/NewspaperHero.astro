@@ -253,17 +253,26 @@ const topLife = lifePosts.slice(0, 2);
    TOKENS
 ══════════════════════════════════════════════════ */
 .home {
-	--paper:       oklch(98.5% 0.008 80);
+	--paper:       oklch(98.8% 0.012 112);
 	--ink:         oklch(11%   0.015 250);
 	--ink-mid:     oklch(42%   0.010 250);
 	--ink-light:   oklch(62%   0.008 250);
-	--rule:        oklch(88%   0.006 80);
-	--rule-dark:   oklch(78%   0.008 80);
+	--rule:        oklch(89%   0.010 112);
+	--rule-dark:   oklch(79%   0.012 112);
+
+	/* Seasonal accents */
+	--spring-coral: oklch(66% 0.18 28);
+	--spring-sakura: oklch(77% 0.12 354);
+	--spring-sun: oklch(86% 0.15 96);
+	--spring-leaf: oklch(62% 0.16 145);
+	--spring-sky: oklch(64% 0.14 225);
+	--spring-iris: oklch(57% 0.14 285);
+	--trip-accent: oklch(56% 0.18 18);
 
 	/* Category accents */
-	--tech-accent: oklch(32%  0.14  250);  /* warm navy */
-	--food-accent: oklch(50%  0.14  38);   /* terracotta  */
-	--life-accent: oklch(42%  0.10  90);   /* warm olive   */
+	--tech-accent: oklch(45%  0.15  235);  /* clear sky blue */
+	--food-accent: oklch(58%  0.17  31);   /* ripe coral */
+	--life-accent: oklch(50%  0.14  145);  /* new leaf */
 
 	/* Type */
 	--font-display: 'Fraunces', Georgia, serif;
@@ -288,12 +297,12 @@ const topLife = lifePosts.slice(0, 2);
 	background:
 		repeating-linear-gradient(
 			90deg,
-			oklch(44% 0.07 40 / 0.028) 0 1px,
+			oklch(64% 0.14 225 / 0.026) 0 1px,
 			transparent 1px 92px
 		),
 		repeating-linear-gradient(
 			0deg,
-			oklch(70% 0.05 80 / 0.035) 0 1px,
+			oklch(62% 0.16 145 / 0.032) 0 1px,
 			transparent 1px 68px
 		);
 }
@@ -376,8 +385,9 @@ const topLife = lifePosts.slice(0, 2);
 	padding: 0.65rem 2.5rem;
 	border-bottom: 1px solid var(--rule);
 	background:
-		linear-gradient(90deg, oklch(93% 0.028 52 / 0.78), transparent 58%),
-		oklch(98.2% 0.01 80 / 0.86);
+		linear-gradient(90deg, oklch(94% 0.055 354 / 0.72), transparent 54%),
+		linear-gradient(120deg, oklch(95% 0.045 145 / 0.42), transparent 70%),
+		oklch(98.6% 0.014 112 / 0.9);
 	font-family: var(--font-mono);
 	font-size: 0.68rem;
 	color: var(--ink-mid);
@@ -385,7 +395,7 @@ const topLife = lifePosts.slice(0, 2);
 }
 
 .travel-kicker {
-	color: oklch(44% 0.16 31);
+	color: var(--trip-accent);
 	font-family: var(--font-ui);
 	font-weight: 700;
 	letter-spacing: 0.14em;
@@ -408,11 +418,11 @@ const topLife = lifePosts.slice(0, 2);
 }
 
 .travel-feature:hover {
-	color: oklch(44% 0.16 31);
+	color: var(--trip-accent);
 }
 
 .travel-feature-label {
-	color: oklch(44% 0.16 31);
+	color: var(--trip-accent);
 	font-family: var(--font-ui);
 	font-size: 0.58rem;
 	font-weight: 700;
@@ -429,7 +439,7 @@ const topLife = lifePosts.slice(0, 2);
 }
 
 .travel-feature:hover .travel-feature-title {
-	color: oklch(44% 0.16 31);
+	color: var(--trip-accent);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
@@ -453,8 +463,8 @@ const topLife = lifePosts.slice(0, 2);
 	right: clamp(1.25rem, 4vw, 4rem);
 	z-index: 0;
 	writing-mode: vertical-rl;
-	border: 1px solid oklch(44% 0.16 31 / 0.24);
-	color: oklch(44% 0.16 31 / 0.18);
+	border: 1px solid oklch(56% 0.18 18 / 0.22);
+	color: oklch(56% 0.18 18 / 0.16);
 	padding: 0.55rem 0.38rem;
 	font-family: var(--font-ui);
 	font-size: clamp(2.2rem, 6vw, 5.75rem);
@@ -470,8 +480,9 @@ const topLife = lifePosts.slice(0, 2);
 	z-index: 0;
 	pointer-events: none;
 	background:
-		linear-gradient(110deg, transparent 0 62%, oklch(62% 0.14 35 / 0.07) 62% 62.35%, transparent 62.35%),
-		linear-gradient(110deg, transparent 0 71%, oklch(61% 0.12 75 / 0.08) 71% 71.35%, transparent 71.35%);
+		linear-gradient(110deg, transparent 0 62%, oklch(77% 0.12 354 / 0.08) 62% 62.35%, transparent 62.35%),
+		linear-gradient(110deg, transparent 0 71%, oklch(64% 0.14 225 / 0.07) 71% 71.35%, transparent 71.35%),
+		linear-gradient(110deg, transparent 0 78%, oklch(62% 0.16 145 / 0.06) 78% 78.25%, transparent 78.25%);
 }
 
 .hero-type {
@@ -498,26 +509,26 @@ const topLife = lifePosts.slice(0, 2);
 	color: var(--ink);
 }
 
-/* ☀️ Golden hour — warm spring/summer tones (high saturation) */
-.easter-m { color: #e05a30; } /* burnt coral */
-.easter-a { color: #d4880a; } /* rich amber */
-.easter-g { color: #c9a800; } /* deep gold */
-.easter-e { color: #d06c1f; } /* tangerine */
-.easter-r { color: #c4513e; } /* warm terracotta */
+/* Late spring into summer: bloom, sun, leaf, clear water */
+.easter-m { color: var(--spring-coral); }
+.easter-a { color: var(--spring-sakura); }
+.easter-g { color: var(--spring-sun); }
+.easter-e { color: var(--spring-leaf); }
+.easter-r { color: var(--spring-sky); }
 
 .name-co {
-	color: #b8860b; /* dark goldenrod */
+	color: var(--spring-iris);
 }
 
-/* Warm shimmer — subtle brightness pulse after ink-reveal finishes */
-@keyframes goldenShimmer {
+/* Light shimmer: a small brightness pulse after ink-reveal finishes */
+@keyframes seasonalShimmer {
 	0%, 100% { filter: brightness(1); }
-	50%      { filter: brightness(1.3); }
+	50%      { filter: brightness(1.16) saturate(1.08); }
 }
 
 .name-mager,
 .name-co {
-	animation: goldenShimmer 3.5s 1.5s ease-in-out infinite;
+	animation: seasonalShimmer 3.5s 1.5s ease-in-out infinite;
 }
 
 .hero-meta {
@@ -550,8 +561,8 @@ const topLife = lifePosts.slice(0, 2);
 	place-items: center;
 	width: 2.55rem;
 	height: 2.55rem;
-	border: 1px solid oklch(44% 0.16 31 / 0.34);
-	color: oklch(44% 0.16 31);
+	border: 1px solid oklch(56% 0.18 18 / 0.34);
+	color: var(--trip-accent);
 	font-family: var(--font-ui);
 	font-size: 0.95rem;
 	font-weight: 700;
@@ -655,9 +666,9 @@ const topLife = lifePosts.slice(0, 2);
 	display: inline-block;
 	margin: 0.1rem 0 0.55rem;
 	padding: 0.24rem 0.42rem;
-	border: 1px solid oklch(44% 0.16 31 / 0.24);
-	background: oklch(96% 0.018 50 / 0.66);
-	color: oklch(44% 0.16 31);
+	border: 1px solid oklch(56% 0.18 18 / 0.24);
+	background: oklch(96.5% 0.03 354 / 0.64);
+	color: var(--trip-accent);
 	font-family: var(--font-mono);
 	font-size: 0.62rem;
 	line-height: 1;
@@ -748,7 +759,7 @@ const topLife = lifePosts.slice(0, 2);
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	background: oklch(95% 0.012 50);
+	background: oklch(96% 0.018 112);
 	border: 1px dashed var(--rule-dark);
 }
 
@@ -936,7 +947,7 @@ const topLife = lifePosts.slice(0, 2);
 	width: 320px;
 	height: 320px;
 	border-radius: 50%;
-	background: radial-gradient(circle, oklch(68% 0.14 65 / 0.12) 0%, transparent 70%);
+	background: radial-gradient(circle, oklch(70% 0.14 145 / 0.11) 0%, transparent 70%);
 	pointer-events: none;
 	z-index: 9999;
 	transform: translate(-50%, -50%);
