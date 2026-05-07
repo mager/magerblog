@@ -42,7 +42,10 @@ const topLife = lifePosts.slice(0, 2);
 	<div class="travel-bar" aria-label="Current travel note">
 		<span class="travel-kicker" lang="ja">日本滞在</span>
 		<span class="travel-copy">Japan dispatch, May 6-May 30. Small tools, better meals, sharper noticing.</span>
-		<a href="/blog/2026-03-21-kotsu-the-knack-of-japanese/" class="travel-link">kotsu notes →</a>
+		<a href="/blog/2026-03-21-kotsu-the-knack-of-japanese/" class="travel-feature">
+			<span class="travel-feature-label">Featured note</span>
+			<span class="travel-feature-title">Kotsu: The Knack of Japanese →</span>
+		</a>
 	</div>
 
 	<!-- ── HERO ── -->
@@ -393,7 +396,10 @@ const topLife = lifePosts.slice(0, 2);
 	min-width: 0;
 }
 
-.travel-link {
+.travel-feature {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.48rem;
 	margin-left: auto;
 	color: var(--ink-light);
 	text-decoration: none;
@@ -401,8 +407,32 @@ const topLife = lifePosts.slice(0, 2);
 	transition: color 0.15s ease;
 }
 
-.travel-link:hover {
+.travel-feature:hover {
 	color: oklch(44% 0.16 31);
+}
+
+.travel-feature-label {
+	color: oklch(44% 0.16 31);
+	font-family: var(--font-ui);
+	font-size: 0.58rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.travel-feature-title {
+	color: var(--ink-mid);
+	font-family: var(--font-body);
+	font-size: 0.78rem;
+	font-style: italic;
+	letter-spacing: 0;
+}
+
+.travel-feature:hover .travel-feature-title {
+	color: oklch(44% 0.16 31);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1px;
 }
 
 
@@ -972,8 +1002,9 @@ const topLife = lifePosts.slice(0, 2);
 		padding: 0.65rem 1.25rem;
 	}
 
-	.travel-link {
+	.travel-feature {
 		margin-left: 0;
+		white-space: normal;
 	}
 
 	.hero {
