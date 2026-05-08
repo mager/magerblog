@@ -1,11 +1,21 @@
 ---
-title: "Build your own OpenClaw with Claude"
-description: "Anthropic shipped the two primitives I'd been hand-rolling in OpenClaw — the advisor tool for tiered intelligence and Claude Code channels for mobile reachability. Together they're an afternoon project: a principal agent backed by a stronger consultant, reachable from your phone. Here's the harness, called conseiller, and how I'd assemble the rest."
+title: "I was building my own OpenClaw with Claude. Then Anthropic shipped one."
+description: "I'd drafted a post about building your own agent harness with the new advisor tool plus channels — the principal-agent pattern as an afternoon project. Then Code w/ Claude happened on May 6 and Anthropic shipped Claude Managed Agents, Multi-agent Orchestration, Dreams, Routines, and Remote Agents — most of OpenClaw, official, in one keynote. Here's the post, rewritten."
 pubDate: 2026-05-08
 category: tech
 draft: true
-tags: [claude, anthropic, agents, advisor-tool, channels, openclaw, conseiller, opus, sonnet, harness]
+tags: [claude, anthropic, agents, advisor-tool, channels, openclaw, conseiller, claude-managed-agents, opus, sonnet, harness]
 ---
+
+I had this post mostly drafted.
+
+The original argument was that Anthropic doesn't ship an OpenClaw — no always-on agent daemon with persistent memory and multi-agent routing — but they had just shipped two of the primitives I'd been hand-rolling: the advisor tool (`advisor-tool-2026-03-01`) and Claude Code channels. Stack those together, I was going to argue, and you have most of OpenClaw in an afternoon.
+
+Then on May 6, Code w/ Claude happened, and Anthropic shipped most of the rest of OpenClaw in one keynote.
+
+I'm going to keep writing the post anyway. Not because the argument is wrong — the assembled stack is real and the advisor tool genuinely is the missing tiering primitive — but because the news changes who should care about which part. So this is the rewritten version, with the announcements folded in honestly. I built a tiny harness called **conseiller** ([github.com/mager/conseiller](https://github.com/mager/conseiller)) — French for *advisor* — before the keynote landed; that's still the worked example. But the picture around it changed.
+
+## Why I was writing this in the first place
 
 I spent the last month on GPT Pro.
 
@@ -13,35 +23,17 @@ It wasn't bad. I want to say that clearly before anything else, because I don't 
 
 So I'm coming back. But not to the same setup I left.
 
-Here's what I noticed coming back: Anthropic still doesn't ship an OpenClaw. There's no always-on agent daemon with persistent memory and multi-platform routing in their product lineup. What they have is Claude Code (a session-scoped CLI), the Agent SDK (for building), MCP (for plugins), and skills, hooks, and subagents (for behavior). All the **pieces** are there. The assembled product isn't.
+Two things had been bothering me about my own harness, OpenClaw — the always-on agent daemon I built because nobody was shipping the assembled product. The first was that I had no clean primitive for tiered intelligence. I either paid top-tier rates for everything or accepted second-tier reasoning everywhere. The second was that mobile reachability through Telegram and Discord worked, but I was the one maintaining the bot infrastructure.
 
-But two of those pieces shipped recently and they're the two I had been hand-rolling.
+Both gaps had been closing.
 
-- **The advisor tool**, in beta as `advisor-tool-2026-03-01`. A fast executor model can consult a stronger advisor model mid-generation, get a plan, and continue. Tiered intelligence as a primitive.
-- **Claude Code channels**, in research preview. Telegram and Discord push messages into a running Claude Code session. Mobile reachability as a primitive.
-
-Stack those two together and you have most of what OpenClaw does, in an afternoon, with no daemon to maintain. So I built the harness piece — a tiny experiment called **conseiller** ([github.com/mager/conseiller](https://github.com/mager/conseiller)) — and I want to show what the assembled stack looks like.
-
-This is the post about building your own OpenClaw with Claude.
-
-## What OpenClaw is, briefly
-
-For the new readers: OpenClaw is the harness I've been writing in. It runs as a daemon, manages multiple specialized agents (magerbot for code, genny for life stuff), persists memory in files, runs cron jobs, and routes messages between Telegram, Discord, and the terminal. The model is a pluggable dependency — I've run it on Claude, on Codex, and most recently on GPT Pro.
-
-I built it because the things I wanted from an agent — always-on, reachable from my phone, multiple personalities for different concerns, persistent memory — didn't exist as a single product. They still don't, exactly. But the gap is closing fast.
-
-Two pieces of OpenClaw matter most for this post:
-
-1. **Tiered intelligence.** I want a fast model handling the bulk of the work and a stronger model deciding the load-bearing moments.
-2. **Mobile reachability.** I want to fire instructions from my phone and check on the agent later.
-
-Both are now shipped Anthropic primitives.
+OpenClaw, for the new readers, is the always-on harness I've been writing in — runs on a [Mac mini under Tailscale](https://mager.co/blog/2026-02-22-openclaw-mac-mini-tailscale) so I can reach it from my laptop or phone anywhere, manages multiple specialized agents, persists memory in files, and treats the model as a pluggable dependency. The model has been Claude, then Codex, then most recently GPT Pro.
 
 ## Piece one: the advisor tool
 
-The mechanic is unusually clean.
+The advisor tool, in beta as `advisor-tool-2026-03-01`, lets a fast executor model consult a stronger advisor model mid-generation. The mechanic is unusually clean.
 
-You declare the advisor as a tool on a normal Messages request. The executor model — the one in the top-level `model` field — decides when to call it. When it does, the server runs a separate inference on the advisor model with the full transcript, drops the advisor's thinking, and returns just the advice as a tool result. The executor keeps generating, now informed.
+You declare the advisor as a tool on a normal Messages request. The executor — the one in the top-level `model` field — decides when to call it. When it does, the server runs a separate inference on the advisor model with the full transcript, drops the advisor's thinking, and returns just the advice as a tool result. The executor keeps generating, now informed.
 
 ```ts
 const response = await client.beta.messages.create({
@@ -60,13 +52,7 @@ const response = await client.beta.messages.create({
 });
 ```
 
-A few things worth highlighting:
-
-- The executor and advisor must form a valid pair. Today that's Haiku 4.5, Sonnet 4.6, Opus 4.6, or Opus 4.7 as the executor, with Opus 4.7 as the advisor.
-- The `input` on the resulting `server_tool_use` block is always empty. The executor only signals **timing**. The server constructs the advisor's view from the full transcript automatically.
-- All of this happens in a single `/v1/messages` request. No orchestration layer to maintain.
-
-The billing model is the part that makes this economically interesting. Advisor calls are billed at the advisor model's rates. Executor calls at the executor's. They show up separately in `usage.iterations[]`. Anthropic estimates the advisor produces about 400 to 700 text tokens per call. That's the only place you pay Opus rates. Everything the executor generates — which on a coding task is the bulk of the tokens — is at Sonnet or Haiku rates.
+The cost shape is the point. Advisor calls are billed at the advisor model's rates; executor calls at the executor's. Anthropic estimates the advisor produces about 400 to 700 text tokens per call. That's the only place you pay Opus rates. Everything the executor generates — the bulk of the tokens on a coding task — is at Sonnet or Haiku rates.
 
 In conseiller I made the cost split visible on every run, because that's the whole point of the pattern:
 
@@ -79,105 +65,101 @@ advisor   in=823  out=531   cache_read=0
 
 You get the planning quality of Opus on the parts where planning matters, and the throughput cost of Sonnet on the parts where it doesn't.
 
-That's the lever. Most of an agent loop is mechanical. Reading files, running tests, parsing output, applying edits. A fraction of it is the part that decides whether the whole thing succeeds: the initial plan, the moment you realize the approach is wrong, the final check before declaring done. The advisor strategy maps the cost curve onto the value curve.
-
 ## Conseiller: the harness in 100 lines
 
-I wanted the smallest interesting wrapper around the pattern, not a framework. Three files:
+I wanted the smallest interesting wrapper around the pattern, not a framework. Three files: a system prompt module with the recommended timing/trust/conciseness blocks, a `Conseiller` class that owns the message history and the API call, and a CLI that runs it.
 
-- `src/prompts.ts` — the recommended advisor system prompt blocks (timing, trust, conciseness)
-- `src/conseiller.ts` — a `Conseiller` class that owns the message history and the `beta.messages.create` call
-- `src/index.ts` — a CLI you can point at any task
-
-The most important file is the prompts. Anthropic's own guidance on when to call the advisor is more thoughtful than I expected, and it's the part that's tempting to skip. The short version, which I've baked into the system prompt:
+The most important file is the prompts. Anthropic's own guidance on when to call the advisor is more thoughtful than I expected, and it's the part that's tempting to skip. The short version, baked into the system prompt:
 
 - **Call before substantive work.** Orientation isn't substantive. Writing, editing, and answering are.
 - **Call again when stuck.** Recurring errors, an approach that isn't converging.
 - **Call once before declaring done.** After the durable artifact is written, not before — if the session dies during the call, a saved file persists and an unwritten one doesn't.
 
-That last rule is the one I want to push hardest. The default failure mode of any agent loop is declaring success too early on the strength of a self-test that doesn't check the right thing. A pre-commit advisor call, after the file is written and the test has run, is exactly the place where a stronger model earns its rate.
+The other piece I think is undersold: don't silently switch when your own evidence contradicts the advisor. Surface the conflict in one more advisor call instead. That's a smarter loop than either "always defer" or "ignore on disagreement."
 
-The other piece of the prompt that I think is undersold: don't silently switch when your own evidence contradicts the advisor. Surface the conflict in one more advisor call instead. That's a smarter loop than either "always defer" or "ignore on disagreement," and it's hard to bolt on later if you don't bake it in from the start.
+The harness itself is about thirty lines of real logic. The interesting work is on the way back: walk `usage.iterations[]` and bucket entries by type. Top-level `usage.input_tokens` and `output_tokens` only reflect executor totals. To see what Opus actually cost you, you have to walk the iterations. That's a footgun if you're plumbing this into an existing cost-tracking layer.
 
-The harness itself is about thirty lines of real logic. The interesting work is on the way back: the response contains a mix of `text`, `server_tool_use`, and `advisor_tool_result` blocks, and to display anything meaningful about cost you have to walk `usage.iterations[]` and bucket by type:
+Repo: [github.com/mager/conseiller](https://github.com/mager/conseiller). MIT licensed, fewer than 200 lines of TypeScript. It's the principal-agent half of what I had been building, isolated and copyable.
 
-```ts
-for (const it of iterations) {
-  if (it.type === "advisor_message") {
-    out.advisorInputTokens += it.input_tokens;
-    out.advisorOutputTokens += it.output_tokens;
-  } else if (it.type === "message") {
-    out.executorInputTokens += it.input_tokens;
-    out.executorOutputTokens += it.output_tokens;
-  }
-}
-```
+## And then Code w/ Claude happened
 
-Top-level `usage.input_tokens` and `output_tokens` only reflect executor totals. To see what Opus actually cost you, you have to walk the iterations. That's a footgun if you're plumbing this into an existing cost-tracking layer; iterations is the source of truth, top-level is the executor view.
+Two days ago Anthropic ran [Code w/ Claude 2026](https://simonwillison.net/2026/May/6/code-w-claude-2026/) and shipped, in one keynote, most of the rest of OpenClaw.
 
-Repo: [github.com/mager/conseiller](https://github.com/mager/conseiller). MIT licensed, fewer than 200 lines of TypeScript, runs with `npm start -- "your task here"`. It's the principal-agent half of OpenClaw, isolated.
+Walking down Simon Willison's live notes, the announcements that overlap with what I'd been hand-rolling:
 
-## Piece two: Claude Code channels
+- **Claude Managed Agents** — a platform service for deploying agents that, in their words, bundles best practices and memory out of the box. This is the daemon and platform layer I'd been running on a Mac mini under tmux. Request access only for now.
+- **Multi-agent Orchestration**, public beta — explicitly described as creating "fleets of agents to solve complex tasks." The keynote demo had a Commander, a Detector, and a Navigator coordinating on a moon-landing drone scenario. That is, almost word-for-word, the principal-agent pattern this post was about.
+- **Dreams**, research preview — Claude inspects previous sessions overnight, identifies what it missed, and generates new memory artifacts. The example was a `descent-playbook.md` file written from analysis of past work. This is the cross-session memory layer I'd been building with daily `memory/YYYY-MM-DD.md` files.
+- **Claude Code Routines** — async automations described as "higher-order prompts" where you "wake up to PRs that are ready to merge." This is cron, with model-aware scheduling. Docs at `code.claude.com/docs/en/routines`.
+- **Remote Agents** — control your laptop from your phone. This is the missing piece beyond channels: not just messaging a session, but actually driving it remotely.
 
-[I wrote about channels back in March](https://mager.co/blog/2026-03-20-claude-code-channels) when Anthropic shipped them. Short version: a channel is an MCP server that pushes events into a running Claude Code session. Telegram and Discord today, more later. You install the plugin, configure your bot token, restart Claude Code with `--channels plugin:telegram@claude-plugins-official`, and pair from your phone.
+Plus channels, which already existed. So the official stack as of this week:
 
-Setup is four commands:
+| OpenClaw piece | Anthropic equivalent (May 2026) |
+| --- | --- |
+| Always-on daemon | Claude Managed Agents |
+| Multiple specialist agents | Multi-agent Orchestration |
+| Tiered intelligence | Advisor tool |
+| Cron / scheduled jobs | Claude Code Routines |
+| Persistent memory | Dreams + Claude Managed Agents memory |
+| Mobile reachability | Channels + Remote Agents |
+| Reusable behavior | Skills (already shipped) |
+| Tool extensibility | MCP (already shipped) |
 
-```bash
-/plugin install telegram@claude-plugins-official
-/telegram:configure YOUR_BOT_TOKEN
-claude --channels plugin:telegram@claude-plugins-official
-/telegram:access pair <code>
-```
+That's the whole map. Every row I had been writing code for is now an Anthropic product or feature. Some are research preview, some are public beta, some require requesting access — but they're shipped, they're documented, and they're going to keep getting better.
 
-That's the mobile reachability piece, shipped, free with a claude.ai login.
+## So is conseiller obsolete?
 
-In the original channels post I argued they don't fully replace OpenClaw because they're session-scoped — start a session, channel works; end it, channel stops. No daemon. That's still true. But it's a smaller gap than I was treating it as.
+No, but the answer matters less than you'd think.
 
-## Wiring them together
+The advisor tool is orthogonal to the rest of the stack. It works inside Claude Managed Agents. It works inside Multi-agent Orchestration. It works inside a vanilla Messages API call at three in the morning when you're hacking on something tiny. The pattern of pairing a fast executor with a stronger advisor doesn't go away when the harness gets nicer; it lives one layer down, inside whatever harness you pick.
 
-Here's the assembled stack.
+Conseiller is a worked example of that pattern at the smallest interesting scale. It's about a hundred lines of real logic, the system prompts are the part that matters, and the iterations-array bucketing teaches you how the cost actually works. None of those become wrong because Anthropic shipped Multi-agent Orchestration. They become *more* relevant, because the principal-agent pattern just got promoted from a thing I argue about on my blog to a thing Anthropic demos with a Commander, Detector, and Navigator.
 
-**A principal agent on the API**, running with the advisor tool. This is conseiller's job. Sonnet 4.6 as the executor, Opus 4.7 as the advisor, ephemeral cache on. The system prompt has the timing and trust blocks baked in. Most turns cost Sonnet rates; planning moments cost Opus rates; the cost shape matches the work shape.
+What conseiller doesn't replace, and never tried to, is the platform layer. Memory persistence, scheduled jobs, multi-agent routing across long-running processes, mobile control of a remote machine — those are infrastructure questions, and the answer used to be "build OpenClaw or live without them." Now the answer is "use Claude Managed Agents," at least for everyone who can request access and is comfortable with the platform-vs-self-hosted tradeoff.
 
-**Claude Code as the interactive surface**, running with channels enabled. This is where you actually sit and work. Channels route messages from Telegram into the session, and the session has filesystem access, git, your repo's context — everything Claude Code already does well.
+## Wait — does this work on my Pro subscription?
 
-**A bridge between the two**, which is the part you have to write. There are two clean shapes:
+This is the question I keep coming back to and I want to answer it honestly, because the answer matters more than the architecture diagram.
 
-- **Conseiller-as-tool.** Expose conseiller as a tool that Claude Code can call from inside a session. When the principal agent (Claude Code) hits a planning moment, it calls conseiller, which itself runs Sonnet+Opus and returns the plan. You get tiered intelligence without leaving the session.
-- **Conseiller-as-daemon.** Run conseiller as a long-lived process with its own Telegram bot. Claude Code is one client; your phone is another; they share memory through a file. This is closer to what OpenClaw actually does, and it's a few hundred more lines.
+The short version: **the advisor tool is API only.** It's a feature of `client.beta.messages.create`, billed per token at executor and advisor rates. Pro and Max credits are for the apps — claude.ai, the desktop app, Claude Code via OAuth — and they don't apply to direct API calls. So if you want the advisor tool, you're spending API credits, period.
 
-I'd start with the first. It's the smallest version that gets you something meaningfully better than vanilla Claude Code, and you keep using the channels you've already configured.
+That cuts both ways depending on what you're trying to do.
 
-The mental model: Claude Code is your hands, conseiller is your strategist, channels are your phone. The agent runs where it's best at running, the strategist gets called when it matters, and you can poke the whole thing from the grocery store.
+If you want the **OpenClaw shape on a Mac mini, on subscription credits**, today the cleanest path is Claude Code running in a tmux session, with channels enabled for Telegram or Discord, and Routines wired up for the cron piece. Tailscale gets you in from anywhere. That's most of what I had — always-on, mobile-reachable, scheduled — running on Pro/Max credits with no per-token metering. What it doesn't get you is the advisor tool, because Claude Code (as of now) doesn't expose advisor calls as a primitive you can wire from a routine or a session prompt.
 
-## What's still missing
+If you want **tiered intelligence specifically**, you're on the API. That's where conseiller lives. The cost shape is much better than running everything through Opus, but it's not free.
 
-I want to be honest about what this stack doesn't replace.
+If you want **both**, you have to bridge them. The shape I'm sketching: Claude Code on the Mac mini for the always-on session and the channels — that part stays on subscription. Conseiller (or any advisor-tool harness) gets called from inside Claude Code as a tool, only at the planning moments where you actually want Opus weighing in. You pay API rates only for the advisor calls, and only when they fire. Most of your day-to-day stays on the subscription.
 
-- **Persistent memory across sessions.** Claude Code has compaction and project files, but it doesn't have OpenClaw's daily memory file convention. You'd build that on top — a skill that writes `memory/YYYY-MM-DD.md` at session end and reads on session start.
-- **Multi-agent routing.** OpenClaw runs magerbot and genny side by side with different personalities. Claude Code is one session per terminal. You can run multiple sessions, but there's no shared identity layer.
-- **Cron.** Channels are reactive; they wait for messages. OpenClaw also runs scheduled jobs. The closest thing in the official stack is the scheduled-agents primitive in Claude Code, which is workable for some cases but lighter than a real cron daemon.
-- **Persistent process.** Channels die with the session. OpenClaw is always on. For now, you'd run Claude Code in a tmux session on a machine that stays awake — a Mac mini works fine.
+I haven't built that bridge yet. It's the next thing on the list. Done right, the bill is small — the advisor pattern was designed around minimizing how often the strong model talks.
 
-These are all things you can build on top, and the building blocks are designed to compose. The point of this post isn't that the official stack is feature-complete. The point is that the gap is now small enough that an afternoon of glue code closes it.
+The honest gap: **I want a world where Pro credits cover everything**, including the advisor tool, and I don't have that today. Maybe Claude Managed Agents will close it; the access form doesn't say. If you're at Anthropic and reading this — surfacing advisor as a primitive inside Claude Code, billed against subscription credits, would be the single change that turns this whole stack into something I'd recommend without caveats.
 
-## Should I open-source conseiller?
+## What I'm actually going to do
 
-It's already on GitHub. The bigger question is whether it should be a real project — packaged, documented, with a name and a logo — or just a reference repo that happens to work.
+Honest plan, written before I've used most of these:
 
-I think the latter. The whole argument is that this pattern is small enough that you should build your own. Conseiller is more useful as a worked example than as a dependency. The interesting parts are the system prompt blocks (taken straight from Anthropic's docs) and the iterations-array bucketing. Those are forty lines you can copy.
+1. **Keep running conseiller for solo experiments.** The advisor tool is the part I want under my fingers. A 100-line script I can modify is the right size for that.
+2. **Request access to Claude Managed Agents.** If it bundles memory and best practices and the pricing is reasonable, the daemon layer of OpenClaw is no longer my problem to maintain.
+3. **Try Multi-agent Orchestration the moment I can.** I want to see whether their primitive lines up with the principal-agent shape I've been arguing for, or whether it's a different decomposition.
+4. **Wire Routines into magerblog and beatbrain first.** The "wake up to PRs ready to merge" framing is exactly what I want for content drafts and source-health checks. Less about coding agents, more about ambient ones.
+5. **Watch Dreams.** Overnight memory generation is the hardest piece to evaluate from outside; the question is whether the artifacts it writes are actually load-bearing or just notes-shaped tokens. I'll know in a month.
 
-If anything in conseiller turns out to be load-bearing — a really good prompt variant, a clean way to handle multi-turn, a sane streaming wrapper — I'll factor it out. Until then it's a study, not a library.
+The OpenClaw repo isn't going anywhere. But the parts of it that matched what Anthropic just shipped are scaffolding now, not infrastructure. The parts that don't match — my specific personality layer, the way I've wired identity across magerbot and genny, the brainpack portability story — those still belong to me.
 
-## Why this matters
+## The real argument
 
-Anthropic might ship OpenClaw eventually. Honestly, given the trajectory — channels, the advisor tool, scheduled agents, Claude Agent SDK — they're heading toward something that could replace OpenClaw entirely. That's good. I'm rooting for it. The whole reason I built OpenClaw is because nobody was shipping the assembled product, and the closer the official stack gets to that, the less harness code I have to maintain.
+I want to be careful with the framing here, because the obvious viral take is "Anthropic ate my project," and that isn't honest.
 
-What changed in the last few months is that you don't need to wait for them to ship the assembled version. The pieces are sufficient. The advisor tool gives you tiered intelligence. Channels give you mobile reachability. Skills give you reusable behavior. Hooks give you automation. MCP gives you tool extensibility. None of these are the daemon. All of them, glued together, are most of one.
+The honest take is that OpenClaw was scaffolding for the answer Anthropic was always going to ship. That's not a complaint. It's the whole point of building scaffolding — you build it because the thing you need doesn't exist yet, you use it while you wait, and when the proper answer ships you migrate. The unhealthy version is when you fall in love with the scaffolding and resist the migration. The healthy version is when you took notes during the scaffolding phase about what actually matters, and you can carry those notes forward.
 
-Two years ago, building your own agent harness meant rewriting most of LangChain. A year ago it meant living inside someone else's framework. Today it means writing under 200 lines of TypeScript and configuring a Telegram bot.
+Here are the notes I'm carrying forward.
 
-That's the part worth coming back for.
+The model is a pluggable dependency. Memory belongs in files. Skills survive provider churn. Mobile reachability is the difference between an agent you actually use and one that lives in your terminal. And the principal-agent pattern — one principal stays in charge, specialists return text not control — is the architecture that holds whether you're using my hand-rolled harness or Anthropic's managed one.
 
-Conseiller is on GitHub at [github.com/mager/conseiller](https://github.com/mager/conseiller). Copy whatever's useful.
+The advisor tool is the cleanest expression of that last principle I've seen, and it's why conseiller is on GitHub even though Anthropic just shipped a much bigger version of the surrounding stack. The pattern is older than any of these tools. The tool just makes it cheap, fast, and clean enough to be the default.
+
+That's the part worth coming back for. Even more so now that the rest of the stack is shipping for real.
+
+Conseiller is on GitHub at [github.com/mager/conseiller](https://github.com/mager/conseiller). Copy whatever's useful. The Claude Managed Agents access form is at [claude.com/form/claude-managed-agents](https://claude.com/form/claude-managed-agents); I'm in the queue.
