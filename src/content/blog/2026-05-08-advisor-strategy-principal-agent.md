@@ -65,21 +65,21 @@ advisor   in=823  out=531   cache_read=0
 
 You get the planning quality of Opus on the parts where planning matters, and the throughput cost of Sonnet on the parts where it doesn't.
 
-## Conseiller: the harness in 100 lines
+## Conseiller in 100 lines
 
-I wanted the smallest interesting wrapper around the pattern, not a framework. Three files: a system prompt module with the recommended timing/trust/conciseness blocks, a `Conseiller` class that owns the message history and the API call, and a CLI that runs it.
+Three files: a system prompt module with the timing/trust/conciseness blocks, a `Conseiller` class that owns the message history and API call, and a CLI.
 
-The most important file is the prompts. Anthropic's own guidance on when to call the advisor is more thoughtful than I expected, and it's the part that's tempting to skip. The short version, baked into the system prompt:
+The prompts are the part that matters. Anthropic's own guidance on *when* to call the advisor is more thoughtful than I expected, baked into the system prompt:
 
-- **Call before substantive work.** Orientation isn't substantive. Writing, editing, and answering are.
+- **Call before substantive work.** Orientation isn't substantive; writing and answering are.
 - **Call again when stuck.** Recurring errors, an approach that isn't converging.
-- **Call once before declaring done.** After the durable artifact is written, not before — if the session dies during the call, a saved file persists and an unwritten one doesn't.
+- **Call once before declaring done.** After the durable artifact is written — if the session dies during the call, a saved file persists and an unwritten one doesn't.
 
-The other piece I think is undersold: don't silently switch when your own evidence contradicts the advisor. Surface the conflict in one more advisor call instead. That's a smarter loop than either "always defer" or "ignore on disagreement."
+One piece I think is undersold: don't silently switch when your own evidence contradicts the advisor. Surface the conflict in one more advisor call instead.
 
-The harness itself is about thirty lines of real logic. The interesting work is on the way back: walk `usage.iterations[]` and bucket entries by type. Top-level `usage.input_tokens` and `output_tokens` only reflect executor totals. To see what Opus actually cost you, you have to walk the iterations. That's a footgun if you're plumbing this into an existing cost-tracking layer.
+The harness itself is about thirty lines. The trick on the way back is walking `usage.iterations[]` and bucketing by type — top-level `usage.input_tokens` only reflects executor totals, so to see what Opus cost you, walk the iterations.
 
-Repo: [github.com/mager/conseiller](https://github.com/mager/conseiller). MIT licensed, fewer than 200 lines of TypeScript. It's the principal-agent half of what I had been building, isolated and copyable.
+Repo: [github.com/mager/conseiller](https://github.com/mager/conseiller). MIT, fewer than 200 lines of TypeScript.
 
 ## And then Code w/ Claude happened
 
@@ -108,58 +108,48 @@ Plus channels, which already existed. So the official stack as of this week:
 
 That's the whole map. Every row I had been writing code for is now an Anthropic product or feature. Some are research preview, some are public beta, some require requesting access — but they're shipped, they're documented, and they're going to keep getting better.
 
+## Wait — is Managed Agents the same as the advisor tool?
+
+Worth answering directly because they're easy to confuse.
+
+**The advisor tool is a model-pairing primitive.** It lives inside one agent's brain and shapes how that agent thinks — fast executor calls a stronger advisor at planning moments. Tactical. API-level.
+
+**Claude Managed Agents is a platform.** It hosts agents, gives them memory, manages their lifecycle. Strategic. Infrastructure-level.
+
+They're orthogonal. You'd use the advisor tool *inside* an agent that runs *on* Managed Agents. The advisor is about model intelligence; Managed Agents is about everything around the model — where it runs, what it remembers, how it gets reached. Different layers of the same stack.
+
+The principal-agent pattern shows up at both layers, which is the only reason they sound similar. Multi-agent Orchestration is the principal-agent pattern at the *agent* level (Commander coordinates Detector and Navigator). The advisor tool is the same pattern at the *model* level (Sonnet coordinates Opus). Same shape, different scope.
+
 ## So is conseiller obsolete?
 
 No, but the answer matters less than you'd think.
 
-The advisor tool is orthogonal to the rest of the stack. It works inside Claude Managed Agents. It works inside Multi-agent Orchestration. It works inside a vanilla Messages API call at three in the morning when you're hacking on something tiny. The pattern of pairing a fast executor with a stronger advisor doesn't go away when the harness gets nicer; it lives one layer down, inside whatever harness you pick.
+The advisor tool is orthogonal to the rest of the stack — it works inside Managed Agents, inside Multi-agent Orchestration, inside a vanilla Messages call at three in the morning. Conseiller is a worked example of the pattern at the smallest interesting scale. It doesn't replace the platform layer, and never tried to.
 
-Conseiller is a worked example of that pattern at the smallest interesting scale. It's about a hundred lines of real logic, the system prompts are the part that matters, and the iterations-array bucketing teaches you how the cost actually works. None of those become wrong because Anthropic shipped Multi-agent Orchestration. They become *more* relevant, because the principal-agent pattern just got promoted from a thing I argue about on my blog to a thing Anthropic demos with a Commander, Detector, and Navigator.
+## Wait — does this run on my Pro subscription?
 
-What conseiller doesn't replace, and never tried to, is the platform layer. Memory persistence, scheduled jobs, multi-agent routing across long-running processes, mobile control of a remote machine — those are infrastructure questions, and the answer used to be "build OpenClaw or live without them." Now the answer is "use Claude Managed Agents," at least for everyone who can request access and is comfortable with the platform-vs-self-hosted tradeoff.
+This is the question I keep coming back to.
 
-## Wait — does this work on my Pro subscription?
+**The advisor tool is API only.** It's a feature of `client.beta.messages.create`, billed per token. Pro and Max credits are for the apps — claude.ai, the desktop app, Claude Code via OAuth — and don't apply to direct API calls.
 
-This is the question I keep coming back to and I want to answer it honestly, because the answer matters more than the architecture diagram.
+So the tradeoff today: if you want the OpenClaw shape on a Mac mini on **subscription credits**, the path is Claude Code in tmux + channels for mobile + Routines for cron + Tailscale for reach. Always-on, no per-token metering, but no advisor tool — Claude Code doesn't surface it as a primitive yet. If you want **tiered intelligence**, you're on the API. That's where conseiller lives.
 
-The short version: **the advisor tool is API only.** It's a feature of `client.beta.messages.create`, billed per token at executor and advisor rates. Pro and Max credits are for the apps — claude.ai, the desktop app, Claude Code via OAuth — and they don't apply to direct API calls. So if you want the advisor tool, you're spending API credits, period.
+The bridge I'm sketching: Claude Code stays on the subscription, conseiller gets called as a tool from inside it only at planning moments. You pay API rates for the advisor calls and only those. Done right, the bill is small.
 
-That cuts both ways depending on what you're trying to do.
+The honest gap: I want Pro credits that cover everything, including advisor calls. Maybe Managed Agents will close it. If you're at Anthropic — surfacing advisor as a primitive inside Claude Code, billed against subscription, is the change that turns this stack into something I'd recommend without caveats.
 
-If you want the **OpenClaw shape on a Mac mini, on subscription credits**, today the cleanest path is Claude Code running in a tmux session, with channels enabled for Telegram or Discord, and Routines wired up for the cron piece. Tailscale gets you in from anywhere. That's most of what I had — always-on, mobile-reachable, scheduled — running on Pro/Max credits with no per-token metering. What it doesn't get you is the advisor tool, because Claude Code (as of now) doesn't expose advisor calls as a primitive you can wire from a routine or a session prompt.
+## What I'm doing next
 
-If you want **tiered intelligence specifically**, you're on the API. That's where conseiller lives. The cost shape is much better than running everything through Opus, but it's not free.
-
-If you want **both**, you have to bridge them. The shape I'm sketching: Claude Code on the Mac mini for the always-on session and the channels — that part stays on subscription. Conseiller (or any advisor-tool harness) gets called from inside Claude Code as a tool, only at the planning moments where you actually want Opus weighing in. You pay API rates only for the advisor calls, and only when they fire. Most of your day-to-day stays on the subscription.
-
-I haven't built that bridge yet. It's the next thing on the list. Done right, the bill is small — the advisor pattern was designed around minimizing how often the strong model talks.
-
-The honest gap: **I want a world where Pro credits cover everything**, including the advisor tool, and I don't have that today. Maybe Claude Managed Agents will close it; the access form doesn't say. If you're at Anthropic and reading this — surfacing advisor as a primitive inside Claude Code, billed against subscription credits, would be the single change that turns this whole stack into something I'd recommend without caveats.
-
-## What I'm actually going to do
-
-Honest plan, written before I've used most of these:
-
-1. **Keep running conseiller for solo experiments.** The advisor tool is the part I want under my fingers. A 100-line script I can modify is the right size for that.
-2. **Request access to Claude Managed Agents.** If it bundles memory and best practices and the pricing is reasonable, the daemon layer of OpenClaw is no longer my problem to maintain.
-3. **Try Multi-agent Orchestration the moment I can.** I want to see whether their primitive lines up with the principal-agent shape I've been arguing for, or whether it's a different decomposition.
-4. **Wire Routines into magerblog and beatbrain first.** The "wake up to PRs ready to merge" framing is exactly what I want for content drafts and source-health checks. Less about coding agents, more about ambient ones.
-5. **Watch Dreams.** Overnight memory generation is the hardest piece to evaluate from outside; the question is whether the artifacts it writes are actually load-bearing or just notes-shaped tokens. I'll know in a month.
-
-The OpenClaw repo isn't going anywhere. But the parts of it that matched what Anthropic just shipped are scaffolding now, not infrastructure. The parts that don't match — my specific personality layer, the way I've wired identity across magerbot and genny, the brainpack portability story — those still belong to me.
+Keeping conseiller for solo experiments — a 100-line script I can modify is the right size for the advisor tool. Requesting access to Managed Agents and Dreams. Wiring Routines into magerblog and beatbrain first, where "wake up to PRs ready to merge" is exactly what I want. The OpenClaw repo isn't going anywhere, but the parts that match what Anthropic just shipped are scaffolding now, not infrastructure.
 
 ## The real argument
 
-I want to be careful with the framing here, because the obvious viral take is "Anthropic ate my project," and that isn't honest.
+The obvious viral take is "Anthropic ate my project," and that isn't honest. OpenClaw was scaffolding for the answer Anthropic was always going to ship. The whole point of scaffolding is that you build it because the thing you need doesn't exist yet, use it while you wait, and migrate when the proper answer arrives.
 
-The honest take is that OpenClaw was scaffolding for the answer Anthropic was always going to ship. That's not a complaint. It's the whole point of building scaffolding — you build it because the thing you need doesn't exist yet, you use it while you wait, and when the proper answer ships you migrate. The unhealthy version is when you fall in love with the scaffolding and resist the migration. The healthy version is when you took notes during the scaffolding phase about what actually matters, and you can carry those notes forward.
-
-Here are the notes I'm carrying forward.
-
-The model is a pluggable dependency. Memory belongs in files. Skills survive provider churn. Mobile reachability is the difference between an agent you actually use and one that lives in your terminal. And the principal-agent pattern — one principal stays in charge, specialists return text not control — is the architecture that holds whether you're using my hand-rolled harness or Anthropic's managed one.
+Here are the notes I'm carrying forward. Model is a pluggable dependency. Memory belongs in files. Skills survive provider churn. Mobile reachability is the difference between an agent you actually use and one that lives in your terminal. And the principal-agent pattern — one principal stays in charge, specialists return text not control — is the architecture that holds at every layer, whether you're hand-rolling it or running on Managed Agents.
 
 The advisor tool is the cleanest expression of that last principle I've seen, and it's why conseiller is on GitHub even though Anthropic just shipped a much bigger version of the surrounding stack. The pattern is older than any of these tools. The tool just makes it cheap, fast, and clean enough to be the default.
 
-That's the part worth coming back for. Even more so now that the rest of the stack is shipping for real.
+That's the part worth coming back for.
 
-Conseiller is on GitHub at [github.com/mager/conseiller](https://github.com/mager/conseiller). Copy whatever's useful. The Claude Managed Agents access form is at [claude.com/form/claude-managed-agents](https://claude.com/form/claude-managed-agents); I'm in the queue.
+Conseiller is at [github.com/mager/conseiller](https://github.com/mager/conseiller). Managed Agents access form is at [claude.com/form/claude-managed-agents](https://claude.com/form/claude-managed-agents); I'm in the queue.
