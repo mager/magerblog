@@ -1,9 +1,9 @@
 ---
-title: "Conseiller and Claude's new agent stack"
+title: "Claude: Anthropic just shipped most of OpenClaw"
 description: "I built a 200-line harness called conseiller to test Anthropic's new advisor tool — a fast executor model that consults a stronger model mid-generation. Two days later Anthropic shipped Claude Managed Agents, Multi-agent Orchestration, Dreams, Routines, and Remote Agents. Here's both halves: what I built and what they shipped, and how the pieces fit together into something a lot like OpenClaw."
 pubDate: 2026-05-08
 category: tech
-draft: true
+draft: false
 tags: [claude, anthropic, agents, advisor-tool, channels, openclaw, conseiller, claude-managed-agents, opus, sonnet]
 ---
 
