@@ -1,37 +1,44 @@
 /* ============================================
    LIFE THEME
-   Forest floor editorial aesthetic
-   Moss • Bark • Paper • Vine
+   Enchanted forest editorial aesthetic
+   Canopy • Moss • Bark • Paper • Vine
    ============================================ */
 
 html[data-life] {
-  --lf-bg: #f6f0e6;
-  --lf-bg-alt: #efe5d6;
-  --lf-bg-card: rgba(255, 251, 245, 0.8);
-  --lf-bg-surface: rgba(244, 236, 223, 0.76);
-  --lf-text: #1d281d;
-  --lf-text-secondary: #455341;
-  --lf-text-muted: #6b7464;
-  --lf-green: #58734b;
-  --lf-green-light: #739167;
-  --lf-green-bright: #2f4a2d;
-  --lf-green-subtle: rgba(88, 115, 75, 0.1);
-  --lf-green-glow: rgba(88, 115, 75, 0.18);
-  --lf-accent: #9a6a47;
-  --lf-accent-light: #ba8761;
-  --lf-border: rgba(77, 92, 68, 0.16);
-  --lf-border-green: rgba(88, 115, 75, 0.32);
-  --lf-shadow: 0 18px 40px rgba(66, 53, 37, 0.08);
-  --lf-shadow-lg: 0 26px 70px rgba(66, 53, 37, 0.14);
-  --lf-shadow-card: 0 14px 32px rgba(57, 46, 32, 0.08), 0 0 0 1px rgba(88, 115, 75, 0.08);
-  --lf-overlay-start: rgba(22, 29, 20, 0.04);
-  --lf-overlay-end: rgba(22, 29, 20, 0.58);
-  --lf-nav-bg: rgba(246, 240, 230, 0.84);
-  --lf-nav-border: rgba(77, 92, 68, 0.12);
-  --lf-badge-bg: rgba(88, 115, 75, 0.09);
-  --lf-badge-border: rgba(88, 115, 75, 0.16);
-  --lf-divider: rgba(88, 115, 75, 0.16);
-  --lf-paper-grain: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.65) 0 1px, transparent 1px 100%), radial-gradient(circle at 80% 30%, rgba(120, 95, 60, 0.06) 0 1px, transparent 1px 100%), radial-gradient(circle at 40% 70%, rgba(88, 115, 75, 0.08) 0 1px, transparent 1px 100%);
+  --lf-bg: #f4ede1;
+  --lf-bg-alt: #e9ddca;
+  --lf-bg-deep: #d8ccb7;
+  --lf-bg-card: rgba(255, 251, 244, 0.78);
+  --lf-bg-surface: rgba(246, 239, 229, 0.76);
+  --lf-text: #1e281d;
+  --lf-text-secondary: #445042;
+  --lf-text-muted: #6b7265;
+  --lf-green: #5e7650;
+  --lf-green-light: #7d956b;
+  --lf-green-bright: #31462e;
+  --lf-green-deep: #243222;
+  --lf-green-subtle: rgba(94, 118, 80, 0.1);
+  --lf-green-glow: rgba(94, 118, 80, 0.2);
+  --lf-accent: #a06c47;
+  --lf-accent-light: #c38a62;
+  --lf-accent-soft: rgba(160, 108, 71, 0.12);
+  --lf-border: rgba(83, 95, 72, 0.15);
+  --lf-border-strong: rgba(83, 95, 72, 0.26);
+  --lf-shadow: 0 18px 42px rgba(68, 52, 33, 0.08);
+  --lf-shadow-lg: 0 30px 78px rgba(57, 42, 26, 0.14);
+  --lf-shadow-card: 0 18px 34px rgba(57, 46, 32, 0.08), 0 0 0 1px rgba(94, 118, 80, 0.08);
+  --lf-overlay-start: rgba(24, 31, 22, 0.04);
+  --lf-overlay-end: rgba(24, 31, 22, 0.62);
+  --lf-nav-bg: rgba(244, 237, 225, 0.82);
+  --lf-nav-border: rgba(83, 95, 72, 0.12);
+  --lf-badge-bg: rgba(94, 118, 80, 0.08);
+  --lf-badge-border: rgba(94, 118, 80, 0.16);
+  --lf-divider: rgba(94, 118, 80, 0.16);
+  --lf-paper-grain:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 76% 24%, rgba(112, 87, 58, 0.06) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 38% 72%, rgba(94, 118, 80, 0.08) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 64% 88%, rgba(160, 108, 71, 0.05) 0 1px, transparent 1px 100%);
 }
 
 html[data-life] {
@@ -42,10 +49,11 @@ html[data-life] body {
   font-family: 'Newsreader', Georgia, serif;
   background:
     var(--lf-paper-grain),
-    radial-gradient(circle at top left, rgba(125, 155, 102, 0.14), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(154, 106, 71, 0.1), transparent 28%),
-    linear-gradient(180deg, #f8f4ec 0%, var(--lf-bg) 48%, #eee5d8 100%);
-  background-size: 180px 180px, auto, auto, auto;
+    radial-gradient(circle at top left, rgba(138, 166, 109, 0.14), transparent 26%),
+    radial-gradient(circle at 100% 0%, rgba(160, 108, 71, 0.12), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(94, 118, 80, 0.08), transparent 30%),
+    linear-gradient(180deg, #f8f2e9 0%, var(--lf-bg) 42%, #ede1cf 100%);
+  background-size: 180px 180px, auto, auto, auto, auto;
   color: var(--lf-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,7 +84,7 @@ html[data-life] h4,
 html[data-life] h5,
 html[data-life] h6 {
   color: var(--lf-text);
-  line-height: 1.05;
+  line-height: 1.04;
   margin: 0 0 0.5rem;
 }
 
@@ -84,7 +92,7 @@ html[data-life] h1,
 html[data-life] h2,
 html[data-life] h3 {
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 html[data-life] h4,
@@ -107,7 +115,7 @@ html[data-life] a:hover {
 }
 
 html[data-life] ::selection {
-  background: rgba(154, 106, 71, 0.18);
+  background: rgba(160, 108, 71, 0.18);
   color: var(--lf-text);
 }
 
@@ -116,18 +124,18 @@ html[data-life] ::-webkit-scrollbar {
 }
 
 html[data-life] ::-webkit-scrollbar-track {
-  background: rgba(88, 115, 75, 0.04);
+  background: rgba(94, 118, 80, 0.04);
 }
 
 html[data-life] ::-webkit-scrollbar-thumb {
-  background: rgba(88, 115, 75, 0.26);
+  background: rgba(94, 118, 80, 0.26);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 html[data-life] ::-webkit-scrollbar-thumb:hover {
-  background: rgba(88, 115, 75, 0.5);
+  background: rgba(94, 118, 80, 0.5);
   background-clip: padding-box;
 }
 
@@ -150,6 +158,16 @@ html[data-life] ::-webkit-scrollbar-thumb:hover {
 @keyframes lf-sway {
   0%, 100% { transform: rotate(-2deg) translateY(0); }
   50% { transform: rotate(2deg) translateY(4px); }
+}
+
+@keyframes lf-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 10px, 0); }
+}
+
+@keyframes lf-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
 }
 
 html[data-life] :focus-visible {
@@ -184,6 +202,16 @@ html[data-life] blockquote {
 html[data-life] hr {
   border: none;
   border-top: 1px solid var(--lf-divider);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-life],
+  html[data-life] * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @media (max-width: 720px) {

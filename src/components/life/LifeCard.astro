@@ -26,7 +26,8 @@ const { title, description, heroImage, tags } = post.data;
       </div>
     )}
     <div class="card-image-overlay"></div>
-    <div class="card-stamp">life</div>
+    <div class="card-image-motes"></div>
+    <div class="card-stamp">field note</div>
   </div>
 
   <div class="card-content">
@@ -44,7 +45,7 @@ const { title, description, heroImage, tags } = post.data;
 
     <div class="card-footer">
       <span class="card-read-more">
-        Read the note <span class="read-arrow">↗</span>
+        Follow the trail <span class="read-arrow">↗</span>
       </span>
     </div>
   </div>
@@ -55,41 +56,62 @@ const { title, description, heroImage, tags } = post.data;
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.66), rgba(247, 239, 227, 0.9));
-    border-radius: 1.5rem;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.7), rgba(244, 235, 222, 0.92)),
+      linear-gradient(135deg, rgba(94, 118, 80, 0.04), rgba(160, 108, 71, 0.06));
+    border-radius: 1.7rem;
     overflow: hidden;
     text-decoration: none !important;
     color: inherit;
-    border: 1px solid rgba(88, 115, 75, 0.14);
+    border: 1px solid rgba(94, 118, 80, 0.14);
     position: relative;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
     box-shadow: var(--lf-shadow-card);
-    animation: lf-fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-    backdrop-filter: blur(10px);
+    animation: lf-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    backdrop-filter: blur(12px);
+    isolation: isolate;
+  }
+
+  .life-card::before,
+  .life-card::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
   }
 
   .life-card::before {
-    content: '';
-    position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(154, 106, 71, 0.2), rgba(88, 115, 75, 0.08), rgba(255,255,255,0.4));
+    background: linear-gradient(135deg, rgba(160, 108, 71, 0.24), rgba(94, 118, 80, 0.1), rgba(255,255,255,0.45));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.75;
+    z-index: 3;
+  }
+
+  .life-card::after {
+    width: 7rem;
+    height: 7rem;
+    right: -2rem;
+    bottom: -2.2rem;
+    border-radius: 58% 42% 65% 35%;
+    border: 1px solid rgba(94, 118, 80, 0.12);
+    opacity: 0.8;
+    transform: rotate(18deg);
   }
 
   .life-card:hover {
-    transform: translateY(-8px) rotate(-0.3deg);
+    transform: translateY(-10px) rotate(-0.35deg);
     box-shadow: var(--lf-shadow-lg);
-    border-color: rgba(88, 115, 75, 0.24);
+    border-color: rgba(94, 118, 80, 0.25);
   }
 
   .life-card.featured {
     grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
   }
 
   .card-image {
@@ -97,33 +119,50 @@ const { title, description, heroImage, tags } = post.data;
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(93, 116, 76, 0.14), rgba(154, 106, 71, 0.16));
+    background:
+      radial-gradient(circle at 24% 22%, rgba(255,255,255,0.26), transparent 20%),
+      linear-gradient(135deg, rgba(93, 116, 76, 0.16), rgba(154, 106, 71, 0.18));
   }
 
   .life-card.featured .card-image {
-    aspect-ratio: 2.2 / 1;
+    aspect-ratio: auto;
+    min-height: 100%;
   }
 
   .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
     border-radius: 0;
-    filter: saturate(0.92) sepia(0.12) contrast(0.96);
+    filter: saturate(0.94) sepia(0.14) contrast(0.97);
   }
 
   .life-card:hover .card-image img {
-    transform: scale(1.05);
-    filter: saturate(1) sepia(0.08) contrast(1);
+    transform: scale(1.06);
+    filter: saturate(1.04) sepia(0.08) contrast(1.01);
   }
 
   .card-image-overlay {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to top, rgba(28, 31, 22, 0.36) 0%, rgba(28, 31, 22, 0.04) 55%, rgba(255,255,255,0.04) 100%),
+      linear-gradient(to top, rgba(26, 30, 21, 0.45) 0%, rgba(26, 30, 21, 0.12) 38%, rgba(255,255,255,0.03) 100%),
       linear-gradient(to right, rgba(255,255,255,0.06), transparent 24%);
+    pointer-events: none;
+  }
+
+  .card-image-motes {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 22%, rgba(255,255,255,0.3) 0 1px, transparent 2px),
+      radial-gradient(circle at 74% 28%, rgba(255,255,255,0.22) 0 1px, transparent 2px),
+      radial-gradient(circle at 48% 76%, rgba(255,255,255,0.18) 0 1px, transparent 2px),
+      radial-gradient(circle at 82% 72%, rgba(255,255,255,0.16) 0 1px, transparent 2px);
+    opacity: 0.8;
+    mix-blend-mode: screen;
+    animation: lf-drift 10s ease-in-out infinite;
     pointer-events: none;
   }
 
@@ -131,16 +170,17 @@ const { title, description, heroImage, tags } = post.data;
     position: absolute;
     right: 1rem;
     bottom: 1rem;
-    padding: 0.38rem 0.7rem;
+    padding: 0.42rem 0.78rem;
     border-radius: 999px;
-    background: rgba(246, 240, 230, 0.78);
-    border: 1px solid rgba(88, 115, 75, 0.16);
+    background: rgba(246, 240, 230, 0.82);
+    border: 1px solid rgba(94, 118, 80, 0.16);
     color: var(--lf-green-bright);
     font-family: 'Azeret Mono', monospace;
     font-size: 0.58rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     box-shadow: 0 10px 22px rgba(57, 46, 32, 0.08);
+    z-index: 2;
   }
 
   .card-placeholder {
@@ -150,25 +190,29 @@ const { title, description, heroImage, tags } = post.data;
     align-items: center;
     justify-content: center;
     background:
-      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 20%),
-      linear-gradient(135deg, rgba(87, 112, 72, 0.22), rgba(154, 106, 71, 0.16));
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.36), transparent 20%),
+      linear-gradient(135deg, rgba(87, 112, 72, 0.24), rgba(154, 106, 71, 0.18));
   }
 
   .placeholder-icon {
-    font-size: 3.2rem;
+    font-size: 3.4rem;
     color: rgba(47, 74, 45, 0.48);
+    animation: lf-float 6s ease-in-out infinite;
   }
 
   .card-content {
-    padding: 1.35rem 1.35rem 1.45rem;
+    padding: 1.45rem 1.45rem 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.72rem;
+    gap: 0.76rem;
     flex: 1;
+    position: relative;
+    z-index: 1;
   }
 
   .life-card.featured .card-content {
-    padding: 1.6rem 1.7rem 1.75rem;
+    padding: 2rem 1.9rem 2rem;
+    justify-content: center;
   }
 
   .card-meta {
@@ -192,26 +236,26 @@ const { title, description, heroImage, tags } = post.data;
 
   .card-tag {
     color: var(--lf-green-bright);
-    background: rgba(88, 115, 75, 0.08);
-    border: 1px solid rgba(88, 115, 75, 0.12);
-    padding: 0.26rem 0.56rem;
+    background: rgba(94, 118, 80, 0.08);
+    border: 1px solid rgba(94, 118, 80, 0.12);
+    padding: 0.28rem 0.58rem;
     border-radius: 999px;
   }
 
   .card-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.95rem;
+    font-size: 2rem;
     font-weight: 600;
-    line-height: 1.02;
+    line-height: 0.98;
     color: var(--lf-text);
     margin: 0;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.045em;
     transition: color 0.25s ease;
     text-wrap: balance;
   }
 
   .life-card:not(.featured) .card-title {
-    font-size: 1.58rem;
+    font-size: 1.62rem;
   }
 
   .life-card:hover .card-title {
@@ -230,15 +274,16 @@ const { title, description, heroImage, tags } = post.data;
   }
 
   .life-card.featured .card-description {
-    max-width: 58ch;
-    font-size: 1.05rem;
+    max-width: 34rem;
+    font-size: 1.08rem;
+    -webkit-line-clamp: 4;
   }
 
   .card-footer {
     display: flex;
     align-items: center;
     margin-top: auto;
-    padding-top: 0.65rem;
+    padding-top: 0.72rem;
   }
 
   .card-read-more {
@@ -248,7 +293,7 @@ const { title, description, heroImage, tags } = post.data;
     color: var(--lf-accent);
     font-family: 'Azeret Mono', monospace;
     font-size: 0.68rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
@@ -261,6 +306,17 @@ const { title, description, heroImage, tags } = post.data;
     transform: translate(3px, -3px);
   }
 
+  @media (max-width: 900px) {
+    .life-card.featured {
+      grid-template-columns: 1fr;
+    }
+
+    .life-card.featured .card-image {
+      aspect-ratio: 16 / 10;
+      min-height: auto;
+    }
+  }
+
   @media (max-width: 720px) {
     .card-content,
     .life-card.featured .card-content {
@@ -269,21 +325,17 @@ const { title, description, heroImage, tags } = post.data;
 
     .card-title,
     .life-card:not(.featured) .card-title {
-      font-size: 1.42rem;
+      font-size: 1.46rem;
     }
 
     .life-card.featured .card-title {
-      font-size: 1.7rem;
+      font-size: 1.82rem;
     }
 
     .card-description,
     .life-card.featured .card-description {
       font-size: 0.94rem;
       -webkit-line-clamp: 3;
-    }
-
-    .life-card.featured .card-image {
-      aspect-ratio: 16 / 10;
     }
   }
 </style>
