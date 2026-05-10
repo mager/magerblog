@@ -22,11 +22,11 @@ const { title, description, heroImage, tags } = post.data;
       <img src={heroImage} alt={title} loading="lazy" />
     ) : (
       <div class="card-placeholder">
-        <span class="placeholder-icon">&#x1F306;</span>
+        <span class="placeholder-icon">❦</span>
       </div>
     )}
     <div class="card-image-overlay"></div>
-    <div class="card-scanline"></div>
+    <div class="card-stamp">life</div>
   </div>
 
   <div class="card-content">
@@ -44,7 +44,7 @@ const { title, description, heroImage, tags } = post.data;
 
     <div class="card-footer">
       <span class="card-read-more">
-        <span class="read-arrow">&#x2192;</span> Read more
+        Read the note <span class="read-arrow">↗</span>
       </span>
     </div>
   </div>
@@ -54,101 +54,93 @@ const { title, description, heroImage, tags } = post.data;
   .life-card {
     display: flex;
     flex-direction: column;
-    background: var(--lf-bg-card);
-    border-radius: 12px;
+    min-height: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.66), rgba(247, 239, 227, 0.9));
+    border-radius: 1.5rem;
     overflow: hidden;
     text-decoration: none !important;
     color: inherit;
-    border: 1px solid var(--lf-border);
+    border: 1px solid rgba(88, 115, 75, 0.14);
     position: relative;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: var(--lf-shadow);
-    animation: lf-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+    box-shadow: var(--lf-shadow-card);
+    animation: lf-fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    backdrop-filter: blur(10px);
   }
 
   .life-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--lf-green), var(--lf-accent), var(--lf-green-bright));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 2;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(154, 106, 71, 0.2), rgba(88, 115, 75, 0.08), rgba(255,255,255,0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.6;
   }
 
   .life-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--lf-shadow-lg), 0 0 30px rgba(63, 185, 80, 0.08);
-    border-color: var(--lf-border-green);
-  }
-
-  .life-card:hover::before {
-    opacity: 1;
+    transform: translateY(-8px) rotate(-0.3deg);
+    box-shadow: var(--lf-shadow-lg);
+    border-color: rgba(88, 115, 75, 0.24);
   }
 
   .life-card.featured {
     grid-column: 1 / -1;
   }
 
-  /* ── Image ── */
   .card-image {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
+    background: linear-gradient(135deg, rgba(93, 116, 76, 0.14), rgba(154, 106, 71, 0.16));
   }
 
   .life-card.featured .card-image {
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 2.2 / 1;
   }
 
   .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
     border-radius: 0;
-    filter: saturate(0.9) brightness(0.95);
+    filter: saturate(0.92) sepia(0.12) contrast(0.96);
   }
 
   .life-card:hover .card-image img {
-    transform: scale(1.06);
-    filter: saturate(1.1) brightness(1.05);
+    transform: scale(1.05);
+    filter: saturate(1) sepia(0.08) contrast(1);
   }
 
   .card-image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      var(--lf-overlay-end) 0%,
-      rgba(6, 13, 6, 0.2) 40%,
-      transparent 70%
-    );
+    background:
+      linear-gradient(to top, rgba(28, 31, 22, 0.36) 0%, rgba(28, 31, 22, 0.04) 55%, rgba(255,255,255,0.04) 100%),
+      linear-gradient(to right, rgba(255,255,255,0.06), transparent 24%);
     pointer-events: none;
-    transition: opacity 0.4s ease;
   }
 
-  .card-scanline {
+  .card-stamp {
     position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(63, 185, 80, 0.02) 2px,
-      rgba(63, 185, 80, 0.02) 4px
-    );
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .life-card:hover .card-scanline {
-    opacity: 1;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.38rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(246, 240, 230, 0.78);
+    border: 1px solid rgba(88, 115, 75, 0.16);
+    color: var(--lf-green-bright);
+    font-family: 'Azeret Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 22px rgba(57, 46, 32, 0.08);
   }
 
   .card-placeholder {
@@ -157,63 +149,69 @@ const { title, description, heroImage, tags } = post.data;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--lf-bg-surface) 0%, var(--lf-bg) 100%);
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 20%),
+      linear-gradient(135deg, rgba(87, 112, 72, 0.22), rgba(154, 106, 71, 0.16));
   }
 
   .placeholder-icon {
-    font-size: 3rem;
-    opacity: 0.3;
-    filter: grayscale(0.5);
+    font-size: 3.2rem;
+    color: rgba(47, 74, 45, 0.48);
   }
 
-  /* ── Content ── */
   .card-content {
-    padding: 1.5rem;
+    padding: 1.35rem 1.35rem 1.45rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.72rem;
     flex: 1;
+  }
+
+  .life-card.featured .card-content {
+    padding: 1.6rem 1.7rem 1.75rem;
   }
 
   .card-meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .card-date,
+  .card-tag {
+    font-family: 'Azeret Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
   }
 
   .card-date {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.7rem;
     color: var(--lf-text-muted);
-    letter-spacing: 0.04em;
   }
 
   .card-tag {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--lf-green);
-    background: var(--lf-badge-bg);
-    border: 1px solid var(--lf-badge-border);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    color: var(--lf-green-bright);
+    background: rgba(88, 115, 75, 0.08);
+    border: 1px solid rgba(88, 115, 75, 0.12);
+    padding: 0.26rem 0.56rem;
+    border-radius: 999px;
   }
 
   .card-title {
-    font-family: 'Space Grotesk', -apple-system, sans-serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.2;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.95rem;
+    font-weight: 600;
+    line-height: 1.02;
     color: var(--lf-text);
     margin: 0;
-    letter-spacing: -0.02em;
-    transition: color 0.3s ease;
+    letter-spacing: -0.04em;
+    transition: color 0.25s ease;
+    text-wrap: balance;
   }
 
-  .life-card.featured .card-title {
-    font-size: 2rem;
+  .life-card:not(.featured) .card-title {
+    font-size: 1.58rem;
   }
 
   .life-card:hover .card-title {
@@ -221,77 +219,71 @@ const { title, description, heroImage, tags } = post.data;
   }
 
   .card-description {
-    font-family: 'JetBrains Mono', -apple-system, sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.98rem;
     color: var(--lf-text-secondary);
-    line-height: 1.6;
+    line-height: 1.72;
     margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   .life-card.featured .card-description {
-    -webkit-line-clamp: 3;
-    font-size: 0.95rem;
+    max-width: 58ch;
+    font-size: 1.05rem;
   }
 
-  /* ── Footer ── */
   .card-footer {
     display: flex;
     align-items: center;
     margin-top: auto;
-    padding-top: 0.75rem;
+    padding-top: 0.65rem;
   }
 
   .card-read-more {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--lf-text-muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    transition: color 0.3s ease;
+    gap: 0.45rem;
+    color: var(--lf-accent);
+    font-family: 'Azeret Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .read-arrow {
-    transition: transform 0.3s ease;
     display: inline-block;
-  }
-
-  .life-card:hover .card-read-more {
-    color: var(--lf-green);
+    transition: transform 0.25s ease;
   }
 
   .life-card:hover .read-arrow {
-    transform: translateX(4px);
+    transform: translate(3px, -3px);
   }
 
-  /* ── Responsive ── */
   @media (max-width: 720px) {
-    .card-content {
-      padding: 1.25rem;
+    .card-content,
+    .life-card.featured .card-content {
+      padding: 1.15rem 1.15rem 1.2rem;
     }
 
-    .card-title {
-      font-size: 1.15rem;
+    .card-title,
+    .life-card:not(.featured) .card-title {
+      font-size: 1.42rem;
     }
 
     .life-card.featured .card-title {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
+    }
+
+    .card-description,
+    .life-card.featured .card-description {
+      font-size: 0.94rem;
+      -webkit-line-clamp: 3;
     }
 
     .life-card.featured .card-image {
       aspect-ratio: 16 / 10;
-    }
-
-    .card-description {
-      font-size: 0.8rem;
-      -webkit-line-clamp: 2;
     }
   }
 </style>

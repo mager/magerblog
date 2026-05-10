@@ -21,228 +21,405 @@ const rest = posts.slice(1);
     <BaseHead title={`Life — ${SITE_TITLE}`} description="Chicago exploration and personal adventures" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
     <style>
-      /* ── Hero Section ── */
-      .life-hero {
+      .life-shell {
         position: relative;
-        padding: 10rem 2rem 6rem;
-        text-align: center;
-        overflow: hidden;
-        background: var(--lf-bg);
+        isolation: isolate;
       }
 
-      /* Ambient orbs */
-      .life-hero::before,
-      .life-hero::after {
+      .life-shell::before,
+      .life-shell::after {
         content: '';
         position: absolute;
-        border-radius: 50%;
-        filter: blur(120px);
+        inset: 0;
         pointer-events: none;
+        z-index: -1;
+      }
+
+      .life-shell::before {
+        background:
+          radial-gradient(circle at 8% 22%, rgba(95, 128, 76, 0.18), transparent 18%),
+          radial-gradient(circle at 88% 14%, rgba(154, 106, 71, 0.16), transparent 16%),
+          radial-gradient(circle at 50% 100%, rgba(95, 128, 76, 0.12), transparent 28%);
+      }
+
+      .life-shell::after {
+        background-image:
+          linear-gradient(to right, rgba(95, 128, 76, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(95, 128, 76, 0.05) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 80%);
+      }
+
+      .life-hero {
+        position: relative;
+        padding: 8rem 2rem 3rem;
+        overflow: hidden;
       }
 
       .life-hero::before {
-        width: 600px;
-        height: 600px;
-        background: rgba(63, 185, 80, 0.08);
-        top: -250px;
-        right: -150px;
-      }
-
-      .life-hero::after {
-        width: 400px;
-        height: 400px;
-        background: rgba(88, 166, 255, 0.06);
-        bottom: -150px;
-        left: -100px;
+        content: '';
+        position: absolute;
+        left: clamp(1rem, 4vw, 3rem);
+        top: 5.5rem;
+        bottom: 2rem;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(88, 115, 75, 0.45), transparent);
+        opacity: 0.8;
       }
 
       .hero-inner {
         position: relative;
-        z-index: 1;
-        max-width: 800px;
+        max-width: 1180px;
         margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+        gap: 3rem;
+        align-items: end;
       }
 
-      .hero-eyebrow {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.25em;
+      .hero-copy {
+        position: relative;
+        padding-left: clamp(1rem, 3vw, 2rem);
+      }
+
+      .hero-copy::before {
+        content: '';
+        position: absolute;
+        inset: auto auto 0 0;
+        width: 120px;
+        height: 120px;
+        border-left: 1px solid rgba(88, 115, 75, 0.14);
+        border-bottom: 1px solid rgba(88, 115, 75, 0.14);
+        border-bottom-left-radius: 2rem;
+      }
+
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.4rem;
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--lf-green);
-        margin-bottom: 1.5rem;
-        animation: lf-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        animation: lf-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
       }
 
-      .hero-eyebrow::before {
-        content: '> ';
-        opacity: 0.5;
+      .hero-kicker::before {
+        content: '';
+        width: 2.5rem;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.6;
       }
 
       .hero-title {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-weight: 700;
-        font-size: clamp(4rem, 12vw, 8rem);
-        letter-spacing: -0.04em;
-        line-height: 0.95;
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        font-size: clamp(4.8rem, 14vw, 9rem);
+        letter-spacing: -0.06em;
+        line-height: 0.86;
         color: var(--lf-text);
-        margin: 0 0 1.5rem;
-        animation: lf-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        margin: 0;
+        animation: lf-fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
       }
 
-      .hero-title .green-dot {
-        color: var(--lf-green-bright);
-        text-shadow: 0 0 20px rgba(63, 185, 80, 0.4);
+      .hero-title .ink {
+        position: relative;
+        display: inline-block;
+      }
+
+      .hero-title .ink::after {
+        content: '';
+        position: absolute;
+        left: 0.1em;
+        right: 0.1em;
+        bottom: 0.12em;
+        height: 0.2em;
+        background: rgba(154, 106, 71, 0.18);
+        z-index: -1;
+        border-radius: 999px;
+        transform: rotate(-1.5deg);
       }
 
       .hero-subtitle {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.95rem;
-        color: var(--lf-text-secondary);
+        max-width: 36rem;
+        margin: 1.5rem 0 0;
+        font-size: 1.18rem;
         line-height: 1.7;
-        max-width: 500px;
-        margin: 0 auto 2.5rem;
-        animation: lf-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+        color: var(--lf-text-secondary);
+        animation: lf-fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
       }
 
-      /* Location badge */
-      .hero-location {
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 2rem;
+        animation: lf-fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both;
+      }
+
+      .hero-chip {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.7rem;
-        letter-spacing: 0.1em;
+        gap: 0.55rem;
+        padding: 0.65rem 1rem;
+        border-radius: 999px;
+        background: rgba(255, 251, 245, 0.72);
+        border: 1px solid rgba(88, 115, 75, 0.14);
+        box-shadow: 0 10px 24px rgba(73, 59, 41, 0.05);
+        color: var(--lf-text-secondary);
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--lf-text-muted);
-        background: var(--lf-bg-surface);
-        border: 1px solid var(--lf-border);
-        padding: 0.5rem 1rem;
-        border-radius: 100px;
-        animation: lf-fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
       }
 
-      .hero-location .pulse {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
+      .hero-chip .seed {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 999px;
         background: var(--lf-green);
-        box-shadow: 0 0 8px var(--lf-green-glow);
-        animation: lf-glow 2s ease-in-out infinite;
+        box-shadow: 0 0 0 6px rgba(88, 115, 75, 0.08);
+        animation: lf-glow 2.8s ease-in-out infinite;
       }
 
-      /* ── Post Grid ── */
+      .hero-aside {
+        align-self: stretch;
+        display: flex;
+      }
+
+      .field-note {
+        width: 100%;
+        padding: 1.5rem;
+        border-radius: 1.6rem;
+        background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(246, 238, 227, 0.78));
+        border: 1px solid rgba(88, 115, 75, 0.12);
+        box-shadow: var(--lf-shadow);
+        position: relative;
+        overflow: hidden;
+        animation: lf-fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+      }
+
+      .field-note::before {
+        content: '';
+        position: absolute;
+        inset: auto -1.2rem -1.8rem auto;
+        width: 10rem;
+        height: 10rem;
+        border: 1px solid rgba(88, 115, 75, 0.18);
+        border-radius: 60% 40% 55% 45%;
+        transform: rotate(18deg);
+      }
+
+      .field-note::after {
+        content: '❦';
+        position: absolute;
+        right: 1rem;
+        top: 0.8rem;
+        font-size: 2.1rem;
+        color: rgba(88, 115, 75, 0.18);
+        animation: lf-sway 7s ease-in-out infinite;
+      }
+
+      .field-note-label {
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--lf-accent);
+        margin-bottom: 0.9rem;
+      }
+
+      .field-note p {
+        margin: 0;
+        font-size: 1.02rem;
+        color: var(--lf-text-secondary);
+      }
+
+      .field-note p + p {
+        margin-top: 1rem;
+      }
+
       .life-grid-section {
-        max-width: 1200px;
+        max-width: 1180px;
         margin: 0 auto;
-        padding: 3rem 2rem 6rem;
+        padding: 1rem 2rem 6rem;
+      }
+
+      .section-heading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0 0 1.35rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(88, 115, 75, 0.16);
       }
 
       .section-label {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--lf-text-muted);
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--lf-border);
         display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        animation: lf-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+        flex-direction: column;
+        gap: 0.45rem;
       }
 
-      .section-label .count {
+      .section-label span {
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
         color: var(--lf-green);
-        font-weight: 700;
+      }
+
+      .section-label strong {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-count {
+        padding: 0.65rem 1rem;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.56);
+        border: 1px solid rgba(88, 115, 75, 0.12);
+        color: var(--lf-text-secondary);
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .life-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.7rem;
       }
 
-      /* Featured card spans full width */
       .life-grid > :first-child {
         grid-column: 1 / -1;
       }
 
-      /* ── Footer ── */
       .life-footer {
-        padding: 3rem 2rem;
-        background: var(--lf-bg-alt);
-        border-top: 1px solid var(--lf-border);
-        text-align: center;
+        padding: 0 2rem 4rem;
+      }
+
+      .footer-panel {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 1.6rem 1.75rem;
+        border-radius: 1.6rem;
+        background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(240, 230, 215, 0.72));
+        border: 1px solid rgba(88, 115, 75, 0.12);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer-copyblock {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
       }
 
       .footer-brand {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--lf-green);
-        letter-spacing: 0.15em;
-        margin-bottom: 0.5rem;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.9rem;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        color: var(--lf-text);
       }
 
-      .footer-tagline {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.8rem;
+      .footer-tagline,
+      .footer-copy {
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
         color: var(--lf-text-muted);
       }
 
       .footer-links {
         display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
       .footer-link {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.75rem;
-        color: var(--lf-text-muted) !important;
-        text-decoration: none !important;
-        transition: color 0.2s ease !important;
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--lf-green-bright) !important;
       }
 
       .footer-link:hover {
-        color: var(--lf-green) !important;
+        color: var(--lf-accent) !important;
       }
 
-      .footer-copy {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      .footer-copy a {
+        color: inherit !important;
+      }
+
+      kbd {
+        font-family: 'Azeret Mono', monospace;
         font-size: 0.65rem;
-        color: var(--lf-text-muted);
-        margin-top: 1.5rem;
-        opacity: 0.5;
+        padding: 0.12rem 0.4rem;
+        background: rgba(255,255,255,0.78);
+        border: 1px solid rgba(88, 115, 75, 0.12);
+        border-radius: 0.45rem;
+        box-shadow: inset 0 -2px 0 rgba(88, 115, 75, 0.08);
       }
 
-      /* ── Mobile ── */
+      @media (max-width: 900px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-aside {
+          max-width: 36rem;
+        }
+      }
+
       @media (max-width: 720px) {
         .life-hero {
-          padding: 6rem 1.5rem 4rem;
+          padding: 6.5rem 1.25rem 2rem;
+        }
+
+        .hero-copy {
+          padding-left: 0.85rem;
         }
 
         .hero-title {
-          letter-spacing: -0.03em;
+          font-size: clamp(4rem, 20vw, 5.6rem);
         }
 
         .hero-subtitle {
-          font-size: 0.85rem;
+          font-size: 1.04rem;
         }
 
-        .life-grid-section {
-          padding: 2rem 1.25rem 4rem;
+        .life-grid-section,
+        .life-footer {
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+        }
+
+        .section-heading {
+          align-items: start;
         }
 
         .life-grid {
           grid-template-columns: 1fr;
-          gap: 1.5rem;
+        }
+
+        .footer-panel {
+          padding: 1.35rem 1.2rem;
         }
       }
     </style>
@@ -251,47 +428,64 @@ const rest = posts.slice(1);
   <body>
     <Header />
 
-    <!-- Hero -->
-    <section class="life-hero">
-      <div class="hero-inner">
-        <p class="hero-eyebrow">from the city</p>
-        <h1 class="hero-title">LIFE<span class="green-dot">.</span></h1>
-        <p class="hero-subtitle">
-          Adventures, explorations & stories from
-          Chicago and beyond.
-        </p>
-        <div class="hero-location">
-          <span class="pulse"></span>
-          Chicago, IL
+    <div class="life-shell">
+      <section class="life-hero">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="hero-kicker">life in the understory</p>
+            <h1 class="hero-title"><span class="ink">Life</span></h1>
+            <p class="hero-subtitle">
+              Notes from Chicago, travel, cooking-adjacent detours, and the kind of days worth pressing into a journal.
+            </p>
+            <div class="hero-meta">
+              <div class="hero-chip"><span class="seed"></span> Chicago, IL</div>
+              <div class="hero-chip">Forest earth vine tree energy</div>
+            </div>
+          </div>
+
+          <aside class="hero-aside">
+            <div class="field-note">
+              <div class="field-note-label">Field note</div>
+              <p>I wanted this section to feel less like a category archive and more like a shelf of pressed leaves, travel scraps, and personal artifacts.</p>
+              <p>Warm paper. Mossy greens. A little bark and vine in the edges.</p>
+            </div>
+          </aside>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Post Grid -->
-    <main class="life-grid-section">
-      <div class="section-label">
-        All posts <span class="count">{posts.length}</span>
-      </div>
-      <div class="life-grid" id="life-grid">
-        {featured && (
-          <LifeCard post={featured} featured={true} index={0} />
-        )}
-        {rest.map((post, i) => (
-          <LifeCard post={post} index={i + 1} />
-        ))}
-      </div>
-    </main>
+      <main class="life-grid-section">
+        <div class="section-heading">
+          <div class="section-label">
+            <span>Collected posts</span>
+            <strong>Stories, experiments, and snapshots</strong>
+          </div>
+          <div class="section-count">{posts.length} entries</div>
+        </div>
 
-    <!-- Footer -->
-    <footer class="life-footer">
-      <div class="footer-brand">LIFE</div>
-      <p class="footer-tagline">Stories from Chicago and beyond</p>
-      <div class="footer-links">
-        <a href="/" class="footer-link">mager.co</a>
-        <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
-      </div>
-      <p class="footer-copy">&copy; {new Date().getFullYear()} · Built with <a href="https://astro.build" target="_blank" class="footer-link" style="display:inline">Astro</a> · Press <kbd style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.1rem 0.35rem;background:var(--lf-bg-surface);border:1px solid var(--lf-border);border-radius:3px">/</kbd> to search</p>
-    </footer>
+        <div class="life-grid" id="life-grid">
+          {featured && (
+            <LifeCard post={featured} featured={true} index={0} />
+          )}
+          {rest.map((post, i) => (
+            <LifeCard post={post} index={i + 1} />
+          ))}
+        </div>
+      </main>
+
+      <footer class="life-footer">
+        <div class="footer-panel">
+          <div class="footer-copyblock">
+            <div class="footer-brand">Life</div>
+            <p class="footer-tagline">Stories from Chicago and beyond</p>
+            <p class="footer-copy">Built with <a href="https://astro.build" target="_blank">Astro</a> · press <kbd>/</kbd> to search</p>
+          </div>
+          <div class="footer-links">
+            <a href="/" class="footer-link">mager.co</a>
+            <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
+          </div>
+        </div>
+      </footer>
+    </div>
 
     <SecretSearch posts={allPosts} />
   </body>

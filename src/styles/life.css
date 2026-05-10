@@ -1,43 +1,51 @@
 /* ============================================
    LIFE THEME
-   Urban exploration aesthetic
-   Deep Greens • Neon • City Nights • Discovery
+   Forest floor editorial aesthetic
+   Moss • Bark • Paper • Vine
    ============================================ */
 
-/* ── Dark Mode (Default) ── */
 html[data-life] {
-  --lf-bg: #060D06;
-  --lf-bg-alt: #0C150C;
-  --lf-bg-card: #101A10;
-  --lf-bg-surface: #0A120A;
-  --lf-text: #E0F0E0;
-  --lf-text-secondary: #90B090;
-  --lf-text-muted: #4A6A4A;
-  --lf-green: #3FB950;
-  --lf-green-light: #56D364;
-  --lf-green-bright: #7EE787;
-  --lf-green-subtle: rgba(63, 185, 80, 0.06);
-  --lf-green-glow: rgba(63, 185, 80, 0.12);
-  --lf-accent: #58A6FF;
-  --lf-accent-light: #79C0FF;
-  --lf-border: #1A2A1A;
-  --lf-border-green: rgba(63, 185, 80, 0.2);
-  --lf-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  --lf-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --lf-shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(63, 185, 80, 0.06);
-  --lf-overlay-start: rgba(6, 13, 6, 0.0);
-  --lf-overlay-end: rgba(6, 13, 6, 0.8);
-  --lf-nav-bg: rgba(6, 13, 6, 0.94);
-  --lf-nav-border: rgba(26, 42, 26, 0.8);
-  --lf-badge-bg: rgba(63, 185, 80, 0.1);
-  --lf-badge-border: rgba(63, 185, 80, 0.2);
-  --lf-divider: #1A2A1A;
+  --lf-bg: #f6f0e6;
+  --lf-bg-alt: #efe5d6;
+  --lf-bg-card: rgba(255, 251, 245, 0.8);
+  --lf-bg-surface: rgba(244, 236, 223, 0.76);
+  --lf-text: #1d281d;
+  --lf-text-secondary: #455341;
+  --lf-text-muted: #6b7464;
+  --lf-green: #58734b;
+  --lf-green-light: #739167;
+  --lf-green-bright: #2f4a2d;
+  --lf-green-subtle: rgba(88, 115, 75, 0.1);
+  --lf-green-glow: rgba(88, 115, 75, 0.18);
+  --lf-accent: #9a6a47;
+  --lf-accent-light: #ba8761;
+  --lf-border: rgba(77, 92, 68, 0.16);
+  --lf-border-green: rgba(88, 115, 75, 0.32);
+  --lf-shadow: 0 18px 40px rgba(66, 53, 37, 0.08);
+  --lf-shadow-lg: 0 26px 70px rgba(66, 53, 37, 0.14);
+  --lf-shadow-card: 0 14px 32px rgba(57, 46, 32, 0.08), 0 0 0 1px rgba(88, 115, 75, 0.08);
+  --lf-overlay-start: rgba(22, 29, 20, 0.04);
+  --lf-overlay-end: rgba(22, 29, 20, 0.58);
+  --lf-nav-bg: rgba(246, 240, 230, 0.84);
+  --lf-nav-border: rgba(77, 92, 68, 0.12);
+  --lf-badge-bg: rgba(88, 115, 75, 0.09);
+  --lf-badge-border: rgba(88, 115, 75, 0.16);
+  --lf-divider: rgba(88, 115, 75, 0.16);
+  --lf-paper-grain: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.65) 0 1px, transparent 1px 100%), radial-gradient(circle at 80% 30%, rgba(120, 95, 60, 0.06) 0 1px, transparent 1px 100%), radial-gradient(circle at 40% 70%, rgba(88, 115, 75, 0.08) 0 1px, transparent 1px 100%);
 }
 
-/* ── Base Reset for Life Pages ── */
+html[data-life] {
+  scroll-behavior: smooth;
+}
+
 html[data-life] body {
-  font-family: 'Space Grotesk', 'JetBrains Mono', -apple-system, sans-serif;
-  background: var(--lf-bg);
+  font-family: 'Newsreader', Georgia, serif;
+  background:
+    var(--lf-paper-grain),
+    radial-gradient(circle at top left, rgba(125, 155, 102, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(154, 106, 71, 0.1), transparent 28%),
+    linear-gradient(180deg, #f8f4ec 0%, var(--lf-bg) 48%, #eee5d8 100%);
+  background-size: 180px 180px, auto, auto, auto;
   color: var(--lf-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,67 +69,68 @@ html[data-life] main {
   padding: 0;
 }
 
-/* ── Typography ── */
+html[data-life] h1,
+html[data-life] h2,
+html[data-life] h3,
+html[data-life] h4,
+html[data-life] h5,
+html[data-life] h6 {
+  color: var(--lf-text);
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+}
+
 html[data-life] h1,
 html[data-life] h2,
 html[data-life] h3 {
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  color: var(--lf-text);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
   letter-spacing: -0.03em;
-  line-height: 1.1;
 }
 
 html[data-life] h4,
 html[data-life] h5,
 html[data-life] h6 {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  color: var(--lf-text);
-  letter-spacing: 0.06em;
+  font-family: 'Azeret Mono', 'JetBrains Mono', monospace;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
 }
 
-/* ── Links ── */
 html[data-life] a {
-  color: var(--lf-green);
+  color: var(--lf-green-bright);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 html[data-life] a:hover {
-  color: var(--lf-green-bright);
+  color: var(--lf-accent);
 }
 
-/* ── Selection ── */
 html[data-life] ::selection {
-  background: rgba(63, 185, 80, 0.25);
+  background: rgba(154, 106, 71, 0.18);
   color: var(--lf-text);
 }
 
-/* ── Scrollbar ── */
 html[data-life] ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 html[data-life] ::-webkit-scrollbar-track {
-  background: var(--lf-bg);
+  background: rgba(88, 115, 75, 0.04);
 }
 
 html[data-life] ::-webkit-scrollbar-thumb {
-  background: var(--lf-border);
-  border-radius: 3px;
+  background: rgba(88, 115, 75, 0.26);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 html[data-life] ::-webkit-scrollbar-thumb:hover {
-  background: var(--lf-green);
+  background: rgba(88, 115, 75, 0.5);
+  background-clip: padding-box;
 }
 
-/* ── Smooth Scroll ── */
-html[data-life] {
-  scroll-behavior: smooth;
-}
-
-/* ── Animations ── */
 @keyframes lf-fadeUp {
   from {
     opacity: 0;
@@ -134,68 +143,44 @@ html[data-life] {
 }
 
 @keyframes lf-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
 }
 
-@keyframes lf-scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+@keyframes lf-sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(4px); }
 }
 
-/* ── Focus Styles ── */
 html[data-life] :focus-visible {
-  outline: 2px solid var(--lf-green);
-  outline-offset: 2px;
+  outline: 2px solid var(--lf-accent);
+  outline-offset: 4px;
 }
 
-/* ── Image defaults ── */
 html[data-life] img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-/* ── Override global heading font ── */
-html[data-life] h1,
-html[data-life] h2,
-html[data-life] h3,
-html[data-life] h4,
-html[data-life] h5,
-html[data-life] h6 {
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  line-height: 1.15;
-  margin: 0 0 0.5rem;
-}
-
-html[data-life] h4,
-html[data-life] h5,
-html[data-life] h6 {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-}
-
-/* Override global code styling — inline only */
 html[data-life] code:not(pre code) {
-  background: var(--lf-bg-surface);
+  background: rgba(255,255,255,0.6);
   border: 1px solid var(--lf-border);
-  color: var(--lf-green);
+  color: var(--lf-green-bright);
 }
 
-/* Code block base */
 html[data-life] pre {
   border-radius: 14px;
   overflow: hidden;
 }
 
-/* Override global blockquote */
 html[data-life] blockquote {
   border-left: 3px solid var(--lf-green);
-  background: var(--lf-bg-surface);
+  background: rgba(255,255,255,0.5);
   color: var(--lf-text-secondary);
   font-style: italic;
 }
 
-/* Override global hr */
 html[data-life] hr {
   border: none;
   border-top: 1px solid var(--lf-divider);
@@ -203,7 +188,7 @@ html[data-life] hr {
 
 @media (max-width: 720px) {
   html[data-life] body {
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.8;
   }
 }
