@@ -2,8 +2,8 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Card from '../components/Card.astro';
 import SecretSearch from '../components/SecretSearch.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 
@@ -11,67 +11,515 @@ const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const posts = (await getCollection('blog'))
 	.filter(post => post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categoryMeta: Record<string, { label: string; tone: string }> = {
+	tech: { label: 'tech', tone: 'violet' },
+	life: { label: 'life', tone: 'sage' },
+	food: { label: 'food', tone: 'amber' },
+};
+
+const featured = posts[0];
+const rest = posts.slice(1);
+const categoryCounts = Object.entries(
+	posts.reduce((acc, post) => {
+		const key = post.data.category || 'tech';
+		acc[key] = (acc[key] || 0) + 1;
+		return acc;
+	}, {} as Record<string, number>)
+);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={`Drafts - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
 		<style>
+			:root {
+				--draft-bg: #f8f3ea;
+				--draft-paper: rgba(255, 251, 245, 0.88);
+				--draft-paper-strong: rgba(255, 248, 240, 0.96);
+				--draft-ink: #261d15;
+				--draft-muted: #6f6356;
+				--draft-line: rgba(82, 62, 37, 0.12);
+				--draft-line-strong: rgba(82, 62, 37, 0.22);
+				--draft-shadow: 0 24px 60px rgba(64, 42, 22, 0.08);
+				--tone-violet: #7252d6;
+				--tone-sage: #5c7b54;
+				--tone-amber: #b06d1d;
+			}
+
+			body {
+				background:
+					radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 28%),
+					radial-gradient(circle at 85% 12%, rgba(227, 202, 168, 0.22), transparent 18%),
+					linear-gradient(180deg, #fcf8f2 0%, var(--draft-bg) 100%);
+				color: var(--draft-ink);
+			}
+
 			main {
-				/* Use a wider container for the blog grid */
-				width: 1200px;
-			}
-			.page-header {
-				text-align: center;
-				margin-bottom: 2rem;
-				position: relative;
-				padding: 2rem 0;
-			}
-			@keyframes blink {
-				0%, 100% { opacity: 1; }
-				50% { opacity: 0; }
-			}
-			.page-header h1 {
-				font-size: 2.8em;
-				margin-bottom: 0.5rem;
-				color: var(--text-primary);
-				position: relative;
-				display: inline-block;
-				font-weight: 800;
-				letter-spacing: -0.03em;
+				width: min(1260px, calc(100% - 2.5rem));
+				max-width: 1260px;
+				padding: 6.25rem 0 5rem;
 			}
 
-			.page-header h1::after {
-				content: '█';
-				color: var(--status-amber);
-				animation: blink 1s infinite;
-				margin-left: 0.25rem;
+			a {
+				color: inherit;
 			}
-			.page-header p {
-				font-size: 1.15rem;
-				color: var(--text-secondary);
-				font-family: 'JetBrains Mono', monospace;
+
+			.drafts-shell {
+				position: relative;
+				isolation: isolate;
 			}
-			.blog-grid {
+
+			.drafts-shell::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image:
+					linear-gradient(to right, rgba(130, 106, 75, 0.045) 1px, transparent 1px),
+					linear-gradient(to bottom, rgba(130, 106, 75, 0.045) 1px, transparent 1px);
+				background-size: 96px 96px;
+				mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 88%);
+				pointer-events: none;
+				z-index: -1;
+			}
+
+			.hero {
 				display: grid;
-				/* Adjust the minmax value to control card size and how many fit per row */
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 2rem;
+				grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+				gap: 1.5rem;
+				align-items: stretch;
+				margin-bottom: 2.2rem;
 			}
 
-			@media (max-width: 1200px) {
-				.blog-grid {
-					grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			.hero-card,
+			.hero-notes,
+			.feature-card,
+			.draft-card,
+			.empty-state {
+				background: var(--draft-paper);
+				border: 1px solid var(--draft-line);
+				box-shadow: var(--draft-shadow);
+				backdrop-filter: blur(14px);
+			}
+
+			.hero-card {
+				position: relative;
+				padding: 2rem 2rem 2.15rem;
+				border-radius: 2rem;
+				overflow: hidden;
+			}
+
+			.hero-card::before {
+				content: '';
+				position: absolute;
+				left: 1.25rem;
+				top: 1.25rem;
+				bottom: 1.25rem;
+				width: 4px;
+				border-radius: 999px;
+				background: linear-gradient(180deg, var(--tone-sage), rgba(114, 82, 214, 0.7), rgba(176, 109, 29, 0.8));
+			}
+
+			.hero-inner {
+				padding-left: 1.15rem;
+			}
+
+			.kicker,
+			.note-label,
+			.stat-label,
+			.card-meta,
+			.card-status,
+			.card-link,
+			.empty-kicker {
+				font-family: 'Azeret Mono', monospace;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+			}
+
+			.kicker {
+				font-size: 0.7rem;
+				color: var(--tone-sage);
+				margin: 0 0 1rem;
+			}
+
+			.hero-title {
+				margin: 0;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(3.4rem, 9vw, 5.8rem);
+				line-height: 0.9;
+				letter-spacing: -0.06em;
+				color: var(--draft-ink);
+			}
+
+			.hero-copy {
+				max-width: 42rem;
+				margin: 1rem 0 0;
+				font-family: 'Newsreader', serif;
+				font-size: 1.16rem;
+				line-height: 1.72;
+				color: var(--draft-muted);
+			}
+
+			.hero-stats {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.8rem;
+				margin-top: 1.45rem;
+			}
+
+			.stat-pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				padding: 0.7rem 0.95rem;
+				border-radius: 999px;
+				background: rgba(255,255,255,0.72);
+				border: 1px solid rgba(82, 62, 37, 0.12);
+			}
+
+			.stat-dot {
+				width: 0.52rem;
+				height: 0.52rem;
+				border-radius: 999px;
+				background: var(--tone-sage);
+				box-shadow: 0 0 0 6px rgba(92, 123, 84, 0.12);
+			}
+
+			.stat-label {
+				font-size: 0.64rem;
+				color: var(--draft-muted);
+			}
+
+			.hero-notes {
+				border-radius: 1.7rem;
+				padding: 1.4rem 1.4rem 1.5rem;
+				background: linear-gradient(180deg, rgba(255, 251, 245, 0.95), rgba(247, 240, 231, 0.9));
+			}
+
+			.note-label {
+				font-size: 0.66rem;
+				color: var(--tone-amber);
+			}
+
+			.note-title {
+				margin: 0.75rem 0 0.4rem;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 2rem;
+				line-height: 0.96;
+			}
+
+			.note-copy {
+				margin: 0;
+				font-family: 'Newsreader', serif;
+				font-size: 1rem;
+				line-height: 1.72;
+				color: var(--draft-muted);
+			}
+
+			.note-list {
+				list-style: none;
+				padding: 0;
+				margin: 1rem 0 0;
+				display: grid;
+				gap: 0.8rem;
+			}
+
+			.note-list li {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 0.75rem;
+				align-items: start;
+				padding-top: 0.8rem;
+				border-top: 1px solid rgba(82, 62, 37, 0.08);
+			}
+
+			.note-index {
+				font-family: 'Azeret Mono', monospace;
+				font-size: 0.68rem;
+				color: var(--tone-sage);
+				padding-top: 0.15rem;
+			}
+
+			.note-list strong {
+				display: block;
+				font-size: 0.98rem;
+				color: var(--draft-ink);
+				margin-bottom: 0.15rem;
+			}
+
+			.note-list span {
+				font-size: 0.94rem;
+				line-height: 1.6;
+				color: var(--draft-muted);
+			}
+
+			.feature-card {
+				display: grid;
+				grid-template-columns: minmax(0, 1.05fr) minmax(16rem, 0.95fr);
+				gap: 1rem;
+				padding: 1.25rem;
+				border-radius: 1.8rem;
+				margin-bottom: 1.6rem;
+			}
+
+			.feature-art {
+				min-height: 17rem;
+				border-radius: 1.35rem;
+				background:
+					radial-gradient(circle at 20% 18%, rgba(255,255,255,0.5), transparent 20%),
+					radial-gradient(circle at 78% 22%, rgba(255,255,255,0.24), transparent 18%),
+					linear-gradient(135deg, rgba(92, 123, 84, 0.28), rgba(114, 82, 214, 0.2), rgba(176, 109, 29, 0.24));
+				border: 1px solid rgba(82, 62, 37, 0.08);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.feature-art::before {
+				content: 'draft';
+				position: absolute;
+				top: 1rem;
+				left: 1rem;
+				padding: 0.45rem 0.7rem;
+				border-radius: 999px;
+				background: rgba(255,255,255,0.72);
+				border: 1px solid rgba(82, 62, 37, 0.12);
+				font-family: 'Azeret Mono', monospace;
+				font-size: 0.58rem;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--draft-ink);
+			}
+
+			.feature-art::after {
+				content: 'Notebook cover';
+				position: absolute;
+				right: 1rem;
+				bottom: 1rem;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.3rem;
+				color: rgba(38, 29, 21, 0.7);
+			}
+
+			.feature-copy {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 0.45rem 0.25rem;
+			}
+
+			.card-meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+				font-size: 0.64rem;
+				color: var(--draft-muted);
+			}
+
+			.card-status {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				padding: 0.34rem 0.58rem;
+				border-radius: 999px;
+				background: rgba(255,255,255,0.68);
+				border: 1px solid rgba(82, 62, 37, 0.09);
+			}
+
+			.card-status[data-tone='violet'] { color: var(--tone-violet); }
+			.card-status[data-tone='sage'] { color: var(--tone-sage); }
+			.card-status[data-tone='amber'] { color: var(--tone-amber); }
+
+			.card-title {
+				margin: 0.8rem 0 0.65rem;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(2.2rem, 4vw, 3.25rem);
+				line-height: 0.94;
+				letter-spacing: -0.05em;
+				text-wrap: balance;
+			}
+
+			.card-description {
+				margin: 0;
+				font-family: 'Newsreader', serif;
+				font-size: 1.08rem;
+				line-height: 1.72;
+				color: var(--draft-muted);
+			}
+
+			.card-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.45rem;
+				margin-top: 1.2rem;
+				font-size: 0.66rem;
+				color: var(--tone-sage);
+			}
+
+			.grid-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: end;
+				gap: 1rem;
+				margin-bottom: 1.2rem;
+			}
+
+			.grid-copy h2 {
+				margin: 0;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(2rem, 4vw, 3rem);
+				line-height: 0.94;
+				letter-spacing: -0.05em;
+			}
+
+			.grid-copy p {
+				margin: 0.45rem 0 0;
+				max-width: 40rem;
+				font-family: 'Newsreader', serif;
+				font-size: 1rem;
+				line-height: 1.7;
+				color: var(--draft-muted);
+			}
+
+			.count-pill {
+				padding: 0.72rem 0.95rem;
+				border-radius: 999px;
+				background: rgba(255,255,255,0.68);
+				border: 1px solid rgba(82, 62, 37, 0.12);
+				font-family: 'Azeret Mono', monospace;
+				font-size: 0.64rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--draft-muted);
+			}
+
+			.draft-grid {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 1.15rem;
+			}
+
+			.draft-card {
+				display: flex;
+				flex-direction: column;
+				gap: 0.8rem;
+				padding: 1.3rem;
+				border-radius: 1.5rem;
+				text-decoration: none;
+				transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+			}
+
+			.draft-card:hover {
+				transform: translateY(-4px) rotate(-0.2deg);
+				border-color: var(--draft-line-strong);
+				box-shadow: 0 22px 44px rgba(64, 42, 22, 0.12);
+			}
+
+			.draft-card h3 {
+				margin: 0;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.8rem;
+				line-height: 0.98;
+				letter-spacing: -0.04em;
+			}
+
+			.draft-card p {
+				margin: 0;
+				font-family: 'Newsreader', serif;
+				font-size: 0.98rem;
+				line-height: 1.68;
+				color: var(--draft-muted);
+			}
+
+			.draft-card footer {
+				margin-top: auto;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 0.75rem;
+				padding-top: 0.35rem;
+			}
+
+			.empty-state {
+				padding: 2rem;
+				border-radius: 1.8rem;
+				text-align: center;
+			}
+
+			.empty-kicker {
+				font-size: 0.68rem;
+				color: var(--tone-amber);
+			}
+
+			.empty-state h2 {
+				margin: 0.9rem 0 0.5rem;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 2.4rem;
+			}
+
+			.empty-state p {
+				margin: 0;
+				font-family: 'Newsreader', serif;
+				color: var(--draft-muted);
+				line-height: 1.7;
+			}
+
+			@media (max-width: 1080px) {
+				.hero,
+				.feature-card {
+					grid-template-columns: 1fr;
+				}
+
+				.draft-grid {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
 				}
 			}
 
 			@media (max-width: 720px) {
-				.page-header h1 {
-					font-size: 1.5em;
+				main {
+					width: min(100% - 1.2rem, 1260px);
+					padding-top: 5.4rem;
 				}
-				.page-header p {
-					font-size: 1rem;
+
+				.hero-card,
+				.hero-notes,
+				.feature-card,
+				.draft-card,
+				.empty-state {
+					border-radius: 1.35rem;
+				}
+
+				.hero-card,
+				.hero-notes,
+				.feature-card,
+				.empty-state {
+					padding: 1.2rem;
+				}
+
+				.hero-title {
+					font-size: clamp(2.8rem, 14vw, 4.4rem);
+				}
+
+				.hero-copy,
+				.card-description,
+				.grid-copy p,
+				.note-copy,
+				.note-list span,
+				.draft-card p {
+					font-size: 0.96rem;
+				}
+
+				.draft-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.grid-header,
+				.draft-card footer {
+					flex-direction: column;
+					align-items: flex-start;
 				}
 			}
 		</style>
@@ -79,21 +527,105 @@ const posts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main>
-			<section>
-				<div class="page-header">
-					<h1>$ ls -la ~/drafts</h1>
-					<p>Work in progress</p>
-				</div>
-				<div class="blog-grid">
-					{
-						posts.map((post) => (
-							<Card {post} />
-						))
-					}
-				</div>
-			</section>
+			<div class="drafts-shell">
+				<section class="hero">
+					<div class="hero-card">
+						<div class="hero-inner">
+							<p class="kicker">studio notebook</p>
+							<h1 class="hero-title">Drafts</h1>
+							<p class="hero-copy">
+								The unfinished shelf. Travel notes, technical angles, recipe sketches, and half-finished ideas that still have some heat in them.
+							</p>
+							<div class="hero-stats">
+								<div class="stat-pill"><span class="stat-dot"></span><span class="stat-label">{posts.length} active drafts</span></div>
+								<div class="stat-pill"><span class="stat-dot"></span><span class="stat-label">{categoryCounts.length} sections in play</span></div>
+								<div class="stat-pill"><span class="stat-dot"></span><span class="stat-label">written before polished</span></div>
+							</div>
+						</div>
+					</div>
+
+					<aside class="hero-notes">
+						<div class="note-label">what belongs here</div>
+						<h2 class="note-title">Loose pages, not leftovers</h2>
+						<p class="note-copy">This page should feel closer to a writing desk than a terminal window: active ideas, clearer signals, and enough structure to pick the next thing worth finishing.</p>
+						<ul class="note-list">
+							<li>
+								<div class="note-index">01</div>
+								<div><strong>Newest draft up top</strong><span>The lead card highlights the freshest thing on deck.</span></div>
+							</li>
+							<li>
+								<div class="note-index">02</div>
+								<div><strong>Category color still matters</strong><span>Life, tech, and food keep their own subtle tone without turning the page into another taxonomy screen.</span></div>
+							</li>
+							<li>
+								<div class="note-index">03</div>
+								<div><strong>Designed for momentum</strong><span>Every card is optimized for “I should finish this next,” not “I should manage this better.”</span></div>
+							</li>
+						</ul>
+					</aside>
+				</section>
+
+				{featured ? (
+					<>
+						<a href={`/blog/${featured.id}/`} class="feature-card">
+							<div class="feature-art"></div>
+							<div class="feature-copy">
+								<div class="card-meta">
+									<span class="card-status" data-tone={categoryMeta[featured.data.category || 'tech']?.tone || 'violet'}>
+										{categoryMeta[featured.data.category || 'tech']?.label || 'tech'}
+									</span>
+									<span><FormattedDate date={featured.data.pubDate} /></span>
+								</div>
+								<h2 class="card-title">{featured.data.title}</h2>
+								<p class="card-description">{featured.data.description}</p>
+								<div class="card-link">Open draft ↗</div>
+							</div>
+						</a>
+
+						<section>
+							<div class="grid-header">
+								<div class="grid-copy">
+									<h2>Everything else in the stack</h2>
+									<p>Older drafts stay visible, but the layout keeps them light enough to scan in one pass.</p>
+								</div>
+								<div class="count-pill">{rest.length} more drafts</div>
+							</div>
+
+							{rest.length > 0 ? (
+								<div class="draft-grid">
+									{rest.map((post) => {
+										const meta = categoryMeta[post.data.category || 'tech'] || categoryMeta.tech;
+										return (
+											<a href={`/blog/${post.id}/`} class="draft-card">
+												<div class="card-meta">
+													<span class="card-status" data-tone={meta.tone}>{meta.label}</span>
+													<span><FormattedDate date={post.data.pubDate} /></span>
+												</div>
+												<h3>{post.data.title}</h3>
+												<p>{post.data.description}</p>
+												<footer>
+													<span class="card-link">Reopen ↗</span>
+													<span class="card-meta">draft</span>
+												</footer>
+											</a>
+										);
+									})}
+								</div>
+							) : (
+								<div class="count-pill">No older drafts right now</div>
+							)}
+						</section>
+					</>
+				) : (
+					<div class="empty-state">
+						<div class="empty-kicker">clean desk</div>
+						<h2>No drafts right now</h2>
+						<p>When a new post starts as a sketch instead of a finished piece, it’ll land here first.</p>
+					</div>
+				)}
+			</div>
 		</main>
 		<Footer />
-	<SecretSearch posts={allPosts} />
+		<SecretSearch posts={allPosts} />
 	</body>
 </html>
