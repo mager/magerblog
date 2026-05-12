@@ -20,6 +20,8 @@ Luckily, we found tickets through Japan World Tours.
 
 That ended up being great, because we didn’t just get seats. We also got a guide, a smoother entrance, and a much better understanding of what we were watching.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczMDVXpsMu1y-zBtpd3UjGtOj5oxuMllICRIWHExet4rAM5vMUuWDYZV5ecNbBtMtTwPreaFK-65ZlSijpJwpfLRH09tHUCp9CUOsIQ2l_LDB95OewcP=w1600)
+
 ## Kaz made the whole thing easier to appreciate
 
 Our guide, Kaz, spent about 30 minutes with the group before we went in and walked us through the rules of sumo, the major techniques, the structure of the tournament, and some of the wrestlers to watch.
@@ -30,7 +32,9 @@ She also guided us into the venue, which was genuinely helpful. We knew exactly 
 
 ## The gift box was great
 
-The tour came with a gift box too, which made the whole thing even more fun. Ours had chicken skewers, an Asahi Extra Dry, snacks, a tumbler, a towel, and other sumo memorabilia.
+The tour came with a gift box too, which made the whole thing even more fun. Ours had chicken skewers, meatballs, a huge bento box with sushi, vegetables, and other delicacies, plus an Asahi Extra Dry, a tumbler, a towel, and other sumo memorabilia.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczO8Fr36DjJa8-CWcEFoTS7q8zL191DNznAS7KrxxH6MwI1_1ck91SDbFReGdMVRdm5WECX3MYLu3N1o1P3S1_7kcnU8KK0nCcPsNwG4aJtPMpX-c0uz=w1600)
 
 It gave the whole afternoon a more festive feel right away.
 
@@ -46,9 +50,9 @@ I love details like that. It’s such a specific example of how tradition runs t
 
 ## Nick helped fill in the gaps
 
-We also met someone on the tour named Nick who knew a ton about sumo.
+We also met someone on the tour named Nick, who was visiting from the States and planning to go to every sumo match in the tournament.
 
-Once the matches got going, he helped us understand more about the wrestlers, the storylines, and who was worth paying attention to. That made it even better, because we went from casually watching to actually having people to root for.
+He was part of our tour group and sat next to us, giving us play-by-play throughout the event. Once the matches got going, he helped us understand more about the wrestlers, the storylines, and who was worth paying attention to. That made it even better, because we went from casually watching to actually having people to root for.
 
 By the end of the event, my wife and I walked out as Enho fans from the Juryo group.
 
@@ -56,9 +60,19 @@ By the end of the event, my wife and I walked out as Enho fans from the Juryo gr
 
 The matches themselves are obviously impressive. These are huge, explosive athletes doing something incredibly technical in very short bursts.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600)
+
 But my favorite part was the tradition around it all.
 
 The bowing. The salt throws. The pacing before the collision. The ceremony around each match.
+
+![](https://lh3.googleusercontent.com/pw/AP1GczPsrn9XUWgj-Q2tRVawxDp9cmXfFkAd0EIv9PxFBvVuAV4CyD7NCmDjkNy3buyK57iZUa5TEg_ygHt-YAp79U5oLFcY42Ubb0biTI-iFfRYN3kGz3ml=w1600)
+
+![](https://lh3.googleusercontent.com/pw/AP1GczNk3FQ7fwbR4h0UQHGsFN3LY6JR6QvX0ScWUHDPDmp-UNMKR6SyOz5DWnqXfEfYHPIl4WpQ1IuavOdpV5hfo3Euj8TKzGwgEjAC5QOclehVVY_exK96=w1600)
+
+<video controls playsinline preload="metadata" poster="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w1600">
+  <source src="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w600-h315-k-no-m18" type="video/mp4" />
+</video>
 
 It makes the whole event feel bigger than just a sporting event. Even without understanding every layer of it, you can feel how much history is packed into the ritual.
 
