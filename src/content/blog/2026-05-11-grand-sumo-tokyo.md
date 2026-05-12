@@ -68,7 +68,9 @@ The bowing. The salt throws. The pacing before the collision. The ceremony aroun
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczPsrn9XUWgj-Q2tRVawxDp9cmXfFkAd0EIv9PxFBvVuAV4CyD7NCmDjkNy3buyK57iZUa5TEg_ygHt-YAp79U5oLFcY42Ubb0biTI-iFfRYN3kGz3ml=w1600)
 
-![](https://lh3.googleusercontent.com/pw/AP1GczNk3FQ7fwbR4h0UQHGsFN3LY6JR6QvX0ScWUHDPDmp-UNMKR6SyOz5DWnqXfEfYHPIl4WpQ1IuavOdpV5hfo3Euj8TKzGwgEjAC5QOclehVVY_exK96=w1600)
+<figure style="max-width: 520px; margin: 2rem auto;">
+  <img src="https://lh3.googleusercontent.com/pw/AP1GczNk3FQ7fwbR4h0UQHGsFN3LY6JR6QvX0ScWUHDPDmp-UNMKR6SyOz5DWnqXfEfYHPIl4WpQ1IuavOdpV5hfo3Euj8TKzGwgEjAC5QOclehVVY_exK96=w1200" alt="Sumo wrestler stomping before a bout" />
+</figure>
 
 <video controls playsinline preload="metadata" poster="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w1600">
   <source src="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w600-h315-k-no-m18" type="video/mp4" />
