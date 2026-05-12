@@ -6,6 +6,7 @@ category: "life"
 draft: true
 tags: ["Japan", "Tokyo", "Sumo", "Travel"]
 keyword: "Tokyo sumo"
+heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600"
 ---
 
 We went to our first grand sumo tournament in Tokyo this week, and it has easily been one of the best parts of the trip so far.
@@ -20,6 +21,8 @@ Luckily, we found tickets through Japan World Tours.
 
 That ended up being great, because we didn’t just get seats. We also got a guide, a smoother entrance, and a much better understanding of what we were watching.
 
+![](https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600)
+
 ![](https://lh3.googleusercontent.com/pw/AP1GczMDVXpsMu1y-zBtpd3UjGtOj5oxuMllICRIWHExet4rAM5vMUuWDYZV5ecNbBtMtTwPreaFK-65ZlSijpJwpfLRH09tHUCp9CUOsIQ2l_LDB95OewcP=w1600)
 
 ## Kaz made the whole thing easier to appreciate
@@ -32,7 +35,7 @@ She also guided us into the venue, which was genuinely helpful. We knew exactly 
 
 ## The gift box was great
 
-The tour came with a gift box too, which made the whole thing even more fun. Ours had chicken skewers, meatballs, a huge bento box with sushi, vegetables, and other delicacies, plus an Asahi Extra Dry, a tumbler, a towel, and other sumo memorabilia.
+The tour came with a gift box too, which made the whole thing even more fun. Ours had chicken skewers, meatballs, a huge bento box with vegetables and other delicacies, plus an Asahi Extra Dry, a tumbler, a towel, and other sumo memorabilia.
 
 ![](https://lh3.googleusercontent.com/pw/AP1GczO8Fr36DjJa8-CWcEFoTS7q8zL191DNznAS7KrxxH6MwI1_1ck91SDbFReGdMVRdm5WECX3MYLu3N1o1P3S1_7kcnU8KK0nCcPsNwG4aJtPMpX-c0uz=w1600)
 
@@ -60,8 +63,6 @@ By the end of the event, my wife and I walked out as Enho fans from the Juryo gr
 
 The matches themselves are obviously impressive. These are huge, explosive athletes doing something incredibly technical in very short bursts.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600)
-
 But my favorite part was the tradition around it all.
 
 The bowing. The salt throws. The pacing before the collision. The ceremony around each match.
@@ -72,13 +73,9 @@ The bowing. The salt throws. The pacing before the collision. The ceremony aroun
   <img src="https://lh3.googleusercontent.com/pw/AP1GczNk3FQ7fwbR4h0UQHGsFN3LY6JR6QvX0ScWUHDPDmp-UNMKR6SyOz5DWnqXfEfYHPIl4WpQ1IuavOdpV5hfo3Euj8TKzGwgEjAC5QOclehVVY_exK96=w1200" alt="Sumo wrestler stomping before a bout" />
 </figure>
 
-<video controls playsinline preload="metadata" poster="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w1600">
-  <source src="https://lh3.googleusercontent.com/pw/AP1GczNu1LHwwOlt-U5f_qsH2y2e0vWTBB2jtHH3LPSSkPtkKKn3mambPyrK1TeJRCnfgMdXtcyhIn4psMXDnJmNNLW54mDsU3cfJ_HRLa-T3hymsGoU1VbQ=w600-h315-k-no-m18" type="video/mp4" />
-</video>
-
 It makes the whole event feel bigger than just a sporting event. Even without understanding every layer of it, you can feel how much history is packed into the ritual.
 
-## A minor bummer, but a great ending
+## Yokozuna out
 
 The Yokozuna Hoshoryu was injured, so we didn’t get to see his entrance, which was a minor bummer.
 

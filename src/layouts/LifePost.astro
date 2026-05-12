@@ -57,10 +57,8 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       }
 
       .life-post-intro {
-        display: grid;
-        grid-template-columns: minmax(0, 720px) minmax(0, 320px);
-        gap: 2rem;
-        align-items: start;
+        max-width: 780px;
+        display: block;
       }
 
       .intro-copy {
@@ -127,22 +125,6 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         height: 0.48rem;
         border-radius: 999px;
         background: var(--post-accent);
-      }
-
-      .intro-note {
-        padding: 1.1rem 1.15rem;
-        border-radius: 1.3rem;
-        background: var(--post-surface);
-        border: 1px solid var(--post-border);
-        box-shadow: var(--post-shadow);
-      }
-
-      .intro-note p {
-        margin: 0.55rem 0 0;
-        font-family: 'Newsreader', serif;
-        font-size: 1rem;
-        line-height: 1.65;
-        color: var(--post-text-soft);
       }
 
       .hero-figure {
@@ -423,7 +405,6 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       }
 
       @media (max-width: 900px) {
-        .life-post-intro,
         .nav-grid,
         .life-footer {
           grid-template-columns: 1fr;
@@ -483,11 +464,6 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
               <span class="meta-pill">Chicago and beyond</span>
             </div>
           </div>
-
-          <aside class="intro-note">
-            <div class="eyebrow">Reading mode</div>
-            <p>Cleaner typography, calmer color, and a little less visual theater. The writing should carry this page, not fight it.</p>
-          </aside>
         </section>
 
         {heroImage && (
