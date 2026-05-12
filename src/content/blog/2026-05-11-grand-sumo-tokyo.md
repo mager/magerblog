@@ -1,6 +1,6 @@
 ---
 title: "Sumo: My First Grand Tournament in Tokyo"
-description: "We missed the original ticket sale, got rescued by a tour, and spent an afternoon learning why sumo feels less like a sport and more like a living ritual."
+description: "We missed the original ticket sale, got rescued by a tour, and spent an afternoon learning how much more fun sumo is when someone helps you understand what you're watching."
 pubDate: "2026-05-11"
 category: "life"
 draft: true
@@ -8,80 +8,74 @@ tags: ["Japan", "Tokyo", "Sumo", "Travel"]
 keyword: "Tokyo sumo"
 ---
 
-I didn't expect sumo to become the highlight of our trip.
+We went to our first grand sumo tournament in Tokyo this week, and it has easily been one of the best parts of the trip so far.
 
-I thought it would be one of those things you do in Japan because you should do it at least once — culturally important, visually interesting, probably memorable. Instead, it turned into the part of the trip I know we'll still be talking about long after we get home.
+I was already excited for it going in. Sumo felt like one of those experiences that would be memorable no matter what. What made it especially good was how much context we had once we got there.
 
-## We almost blew it before the trip even started
+## We almost missed it
 
-The tickets went on sale while we were back home, and I missed the window because of bad timezone planning on my part. That's the cleanest version of the story. I knew when it was happening, but I didn't account for the time difference carefully enough, and by the time I looked again, the straightforward path was gone.
+The tickets went on sale while we were still back home, and I blew the timing because of bad timezone planning on my part. I knew when they were supposed to go on sale, but I didn’t account for the time difference carefully enough, and by the time I checked again, the straightforward option was gone.
 
-That should have been the end of it.
+Luckily, we found tickets through Japan World Tours.
 
-Instead, we got lucky. We found tickets through Japan World Tours, and that changed the experience in a way I didn't expect. We didn't just get seats. We got context.
+That ended up being great, because we didn’t just get seats. We also got a guide, a smoother entrance, and a much better understanding of what we were watching.
 
-## Kaz turned the whole thing from spectacle into story
+## Kaz made the whole thing easier to appreciate
 
-Our guide, Kaz, spent about 30 minutes with the group before we entered and walked us through the structure of sumo in a way that made everything easier to appreciate once the matches started.
+Our guide, Kaz, spent about 30 minutes with the group before we went in and walked us through the rules of sumo, the major techniques, the structure of the tournament, and some of the wrestlers to watch.
 
-She explained the rules, the rituals, the winning techniques, and the basic shape of the tournament. She previewed wrestlers to watch. She explained what mattered and what looked important but wasn't. She also guided us into the venue so we weren't doing the usual tourist shuffle of staring at signs and trying to guess whether we were about to walk into the wrong entrance.
+She also explained the rituals and the pacing, which helped a lot once the matches started. Instead of spending the first chunk of the event trying to decode everything, we had enough of a framework to actually follow along.
 
-That pregame explanation changed everything. Instead of spending the first hour trying to decode what I was seeing, I got to pay attention immediately.
+She also guided us into the venue, which was genuinely helpful. We knew exactly where to go and didn’t have to do the confused tourist wandering routine.
 
-## The gift box was absurdly fun
+## The gift box was great
 
-The tour also came with a gift box, which made the whole afternoon feel even more festive than it already did. Ours had chicken skewers, an Asahi Extra Dry, snacks, and sumo memorabilia.
+The tour came with a gift box too, which made the whole thing even more fun. Ours had chicken skewers, an Asahi Extra Dry, snacks, a tumbler, a towel, and other sumo memorabilia.
 
-There was something great about opening that box and realizing this wasn't going to be a sterile "guided experience." It felt celebratory. A little over the top in the best way.
+It gave the whole afternoon a more festive feel right away.
 
-## The chicken-only detail is perfect
+## I loved the chicken detail
 
-One of my favorite things we learned was the food rule: inside the venue, the meat is chicken.
+One of my favorite things we learned was that the meat sold there is chicken.
 
 No pork. No beef.
 
-The reason, as it was explained to us, is that chickens stand on two feet, just like sumo wrestlers do. Cows and pigs stand on four, which doesn't fit the spirit of the sport. I love details like that because they tell you exactly what kind of tradition you're looking at. It's not just arbitrary pageantry. The symbolism runs all the way down to the concession stand.
+The reason, as it was explained to us, is that chickens stand on two feet, just like sumo wrestlers do. Cows and pigs stand on four, so they don’t fit the symbolism of the sport.
 
-That detail alone would have made the day memorable for me.
+I love details like that. It’s such a specific example of how tradition runs through everything, all the way down to the food.
 
-## We got lucky twice
+## Nick helped fill in the gaps
 
-The second stroke of luck was meeting Nick on the tour.
+We also met someone on the tour named Nick who knew a ton about sumo.
 
-Nick knew a ton about sumo, and once the matches started he helped fill in the gaps between the formal explanation and the live experience. Who was rising. Who had a story. Which names carried weight. Which wrestlers were fun to root for even if you were walking in as a complete beginner.
+Once the matches got going, he helped us understand more about the wrestlers, the storylines, and who was worth paying attention to. That made it even better, because we went from casually watching to actually having people to root for.
 
-By the end of the event, my wife and I had fully adopted Enho from the Juryo group as our guy.
+By the end of the event, my wife and I walked out as Enho fans from the Juryo group.
 
-That's one of the pleasures of live sports when someone knowledgeable is nearby: you skip past the generic appreciation stage and get right into allegiance.
+## The traditions were my favorite part
 
-## The rituals were the point
+The matches themselves are obviously impressive. These are huge, explosive athletes doing something incredibly technical in very short bursts.
 
-The athletic part is obviously impressive. These are huge, explosive people doing something brutally technical in a matter of seconds.
+But my favorite part was the tradition around it all.
 
-But what stayed with me just as much were the traditions around the matches.
+The bowing. The salt throws. The pacing before the collision. The ceremony around each match.
 
-The bowing. The salt throws. The deliberate pacing before the collision. The way the ceremony makes the arena feel older than the building itself.
+It makes the whole event feel bigger than just a sporting event. Even without understanding every layer of it, you can feel how much history is packed into the ritual.
 
-Even when I didn't fully understand every layer of what I was watching, I could feel that this was not just a sport trying to entertain me. It was a preserved ritual that happened to let spectators in.
+## A minor bummer, but a great ending
 
-That difference matters.
+The Yokozuna Hoshoryu was injured, so we didn’t get to see his entrance, which was a minor bummer.
 
-## One missing entrance, one great ending
+But we did get to see the bow twirling at the end, which was awesome.
 
-The Yokozuna Hoshoryu was injured, so we didn't get to see his entrance, which was a real disappointment. Once you understand the hierarchy a little, you want to see the full shape of the event, and that includes the entrances.
+That felt like a perfect final note for the day: formal, practiced, and completely specific to sumo.
 
-But we did get to see the bow twirling at the end, which ruled.
+## We’re following the rest of the tournament now
 
-It had the same feeling as the rest of the afternoon: formal, practiced, oddly graceful, and completely specific to this world.
+By the time we left, we were fully in.
 
-## We are absolutely following the rest of the tournament
-
-When we walked out, we were all the way in.
-
-Not in the vague, post-tourist way where you say, "that was cool," and never think about it again. I mean actually invested. Checking results. Wanting to know who won. Curious how the bracket develops over the next 13 days.
+We’re already checking results, paying attention to upcoming matches, and planning to follow the rest of the tournament over the next 13 days.
 
 So far, it has been the best part of the trip.
 
-That's the thing I keep coming back to: the event was great, but the real surprise was how quickly it converted us from curious outsiders into people who now care how tomorrow's matches go.
-
-I'll add photos later, because there are a few I definitely want in here. But even without them, this one was worth writing down now while the feeling is still fresh.
+I’ll add photos later, because I definitely want them in this post, but I wanted to get the core of the day written down while it was still fresh.

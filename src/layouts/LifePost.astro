@@ -11,10 +11,9 @@ type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 const {
   title, description, pubDate, updatedDate, heroImage,
-  category, tags, postId, draft
+  tags, postId
 } = Astro.props;
 
-// Get related posts for navigation
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const lifePosts = allPosts
   .filter(post => post.data.category === 'life')
@@ -30,676 +29,520 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
     <BaseHead title={title} description={description} image={heroImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
     <style>
-      /* ── Hero ── */
-      .life-hero {
-        position: relative;
-        min-height: 85vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        overflow: hidden;
-        background: var(--lf-bg-alt);
-      }
-
-      .hero-image-wrapper {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-
-      .hero-image-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 0;
-        transition: transform 8s ease;
-      }
-
-      .life-hero:hover .hero-image-wrapper img {
-        transform: scale(1.03);
-      }
-
-      .hero-gradient {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
+      .life-post-page {
+        --post-bg: #f7f3ec;
+        --post-surface: rgba(255, 252, 248, 0.82);
+        --post-surface-strong: rgba(255, 253, 250, 0.96);
+        --post-border: rgba(64, 52, 39, 0.12);
+        --post-border-strong: rgba(64, 52, 39, 0.18);
+        --post-text: #1f1a16;
+        --post-text-soft: #5d554d;
+        --post-text-muted: #80776e;
+        --post-accent: #58677d;
+        --post-accent-soft: rgba(88, 103, 125, 0.12);
+        --post-shadow: 0 22px 50px rgba(66, 48, 30, 0.08);
+        min-height: 100vh;
         background:
-          linear-gradient(to top, var(--lf-bg) 0%, transparent 40%),
-          linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%);
-        pointer-events: none;
+          radial-gradient(circle at top left, rgba(255,255,255,0.72), transparent 24%),
+          linear-gradient(180deg, #f9f5ef 0%, var(--post-bg) 100%);
+        color: var(--post-text);
       }
 
-      .hero-content {
-        position: relative;
-        z-index: 3;
-        max-width: 900px;
-        padding: 0 3rem 4rem;
-        animation: lf-fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-      }
-
-      .hero-date {
-        display: inline-block;
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--lf-green);
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--lf-border-green);
-        padding: 0.35rem 1rem;
-        border-radius: 100px;
-        margin-bottom: 1.25rem;
-      }
-
-      .hero-title {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-weight: 700;
-        font-size: clamp(3rem, 8vw, 5rem);
-        line-height: 1.05;
-        letter-spacing: -0.03em;
-        color: #FFFFFF;
-        margin: 0 0 1.25rem;
-        text-shadow:
-          0 2px 8px rgba(0, 0, 0, 0.5),
-          0 8px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      .hero-description {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.15rem;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.85);
-        margin: 0;
-        max-width: 600px;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-      }
-
-      /* ── No-image hero ── */
-      .life-hero.no-image {
-        min-height: auto;
-        padding-top: 5rem;
-        background: var(--lf-bg);
-      }
-
-      .life-hero.no-image .hero-content {
-        padding: 3rem 3rem 2.5rem;
-      }
-
-      .life-hero.no-image .hero-title {
-        color: var(--lf-text);
-        text-shadow: none;
-      }
-
-      .life-hero.no-image .hero-description {
-        color: var(--lf-text-secondary);
-        text-shadow: none;
-      }
-
-      /* ── Content ── */
-      .life-content {
-        max-width: 800px;
-        width: 100%;
+      .life-post-shell {
+        width: min(100%, 1180px);
         margin: 0 auto;
-        padding: 4rem 2rem 2rem;
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.175rem;
-        line-height: 1.9;
-        color: var(--lf-text);
-        overflow-x: hidden;
-        box-sizing: border-box;
+        padding: 3.75rem 1.4rem 5rem;
+      }
+
+      .life-post-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 720px) minmax(0, 320px);
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .intro-copy {
+        padding-top: 0.8rem;
+      }
+
+      .intro-meta,
+      .tag,
+      .nav-label,
+      .footer-link,
+      .eyebrow,
+      .updated-label {
+        font-family: 'IBM Plex Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 1rem;
+        font-size: 0.64rem;
+        color: var(--post-accent);
+      }
+
+      .post-title {
+        margin: 0;
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(3.1rem, 7vw, 5.4rem);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        text-wrap: balance;
+      }
+
+      .post-description {
+        max-width: 42rem;
+        margin: 1rem 0 0;
+        font-family: 'Newsreader', serif;
+        font-size: 1.24rem;
+        line-height: 1.65;
+        color: var(--post-text-soft);
+      }
+
+      .intro-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.35rem;
+        font-size: 0.67rem;
+        color: var(--post-text-muted);
+      }
+
+      .meta-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.62rem 0.84rem;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.68);
+        border: 1px solid var(--post-border);
+      }
+
+      .meta-dot {
+        width: 0.48rem;
+        height: 0.48rem;
+        border-radius: 999px;
+        background: var(--post-accent);
+      }
+
+      .intro-note {
+        padding: 1.1rem 1.15rem;
+        border-radius: 1.3rem;
+        background: var(--post-surface);
+        border: 1px solid var(--post-border);
+        box-shadow: var(--post-shadow);
+      }
+
+      .intro-note p {
+        margin: 0.55rem 0 0;
+        font-family: 'Newsreader', serif;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--post-text-soft);
+      }
+
+      .hero-figure {
+        margin: 2.4rem 0 0;
+        border-radius: 1.8rem;
+        overflow: hidden;
+        background: var(--post-surface-strong);
+        border: 1px solid var(--post-border);
+        box-shadow: var(--post-shadow);
+      }
+
+      .hero-figure img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .hero-caption {
+        padding: 0.85rem 1rem 0.95rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.64rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--post-text-muted);
+        border-top: 1px solid var(--post-border);
+        background: rgba(255,255,255,0.54);
+      }
+
+      .life-content {
+        max-width: 740px;
+        margin: 3rem auto 0;
+        padding: 0;
+        font-family: 'Newsreader', serif;
+        font-size: 1.28rem;
+        line-height: 1.8;
+        color: var(--post-text);
       }
 
       .life-content :global(p) {
-        margin-bottom: 1.75rem;
+        margin: 0 0 1.55rem;
       }
 
       .life-content :global(h2) {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--lf-text);
-        margin: 3rem 0 1.25rem;
-        letter-spacing: -0.02em;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid var(--lf-divider);
+        margin: 3.1rem 0 1rem;
+        font-family: 'Instrument Serif', serif;
+        font-size: 2.35rem;
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        color: var(--post-text);
       }
 
       .life-content :global(h3) {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--lf-text);
-        margin: 2.5rem 0 1rem;
-        letter-spacing: -0.01em;
+        margin: 2.3rem 0 0.85rem;
+        font-family: 'Instrument Serif', serif;
+        font-size: 1.7rem;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
       }
 
       .life-content :global(h4) {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
+        margin: 2rem 0 0.7rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--lf-green);
-        margin: 2rem 0 0.75rem;
+        color: var(--post-accent);
       }
 
       .life-content :global(a) {
-        color: var(--lf-green);
+        color: var(--post-text);
         text-decoration: underline;
-        text-decoration-color: var(--lf-border-green);
-        text-underline-offset: 3px;
-        transition: all 0.2s ease;
+        text-decoration-color: rgba(88, 103, 125, 0.34);
+        text-underline-offset: 0.16em;
+        text-decoration-thickness: 1px;
       }
 
       .life-content :global(a:hover) {
-        color: var(--lf-green-bright);
-        text-decoration-color: var(--lf-green);
+        text-decoration-color: var(--post-accent);
       }
 
       .life-content :global(strong) {
-        color: var(--lf-text);
         font-weight: 600;
+        color: var(--post-text);
       }
 
       .life-content :global(ul),
       .life-content :global(ol) {
-        padding-left: 1.5em;
-        margin-bottom: 1.75rem;
+        margin: 0 0 1.65rem;
+        padding-left: 1.3em;
       }
 
       .life-content :global(li) {
-        margin-bottom: 0.5rem;
-        color: var(--lf-text);
-      }
-
-      .life-content :global(li::marker) {
-        color: var(--lf-green);
+        margin-bottom: 0.45rem;
       }
 
       .life-content :global(blockquote) {
-        border-left: 3px solid var(--lf-green);
-        background: var(--lf-bg-surface);
-        padding: 1rem 1.5rem;
-        margin: 2rem 0;
-        border-radius: 0 8px 8px 0;
-        font-style: italic;
-        color: var(--lf-text-secondary);
+        margin: 2.1rem 0;
+        padding: 1.1rem 1.25rem;
+        border-left: 3px solid var(--post-accent);
+        background: var(--post-accent-soft);
+        border-radius: 0 14px 14px 0;
+        color: var(--post-text-soft);
       }
 
       .life-content :global(hr) {
-        border: none;
-        border-top: 1px solid var(--lf-divider);
         margin: 3rem 0;
+        border: 0;
+        border-top: 1px solid var(--post-border-strong);
       }
 
-      /* ── Images ── */
       .life-content :global(img) {
         width: 100%;
-        max-width: 100%;
         height: auto;
-        margin: 2rem 0;
-        border-radius: 12px;
-        border: 1px solid var(--lf-border);
-        box-shadow: var(--lf-shadow);
-        transition: all 0.4s ease;
         display: block;
+        margin: 2rem 0;
+        border-radius: 1rem;
+        border: 1px solid var(--post-border);
+        box-shadow: var(--post-shadow);
       }
 
-      .life-content :global(img:hover) {
-        border-color: var(--lf-border-green);
-        box-shadow: var(--lf-shadow-lg);
-        transform: scale(1.01);
-      }
-
-      /* ── Embeds ── */
       .life-content :global(iframe) {
         width: 100%;
-        border-radius: 12px;
-        border: 1px solid var(--lf-border);
         margin: 2rem 0;
+        border-radius: 1rem;
+        border: 1px solid var(--post-border);
       }
 
-      .life-content :global(.twitter-tweet) {
-        margin: 2rem auto !important;
+      .life-content :global(code:not(pre code)) {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.83em;
+        padding: 0.16em 0.42em;
+        border-radius: 0.4rem;
+        color: #33455f;
+        background: rgba(88, 103, 125, 0.08);
+        border: 1px solid rgba(88, 103, 125, 0.16);
       }
 
-      /* ── Code Blocks ── */
-      .life-content :global(.astro-code),
-      .life-content :global(pre) {
-        position: relative;
-        margin: 2.5rem 0 !important;
-        padding: 0 !important;
-        border-radius: 14px !important;
-        border: 1px solid rgba(63, 185, 80, 0.28) !important;
-        background: #070F07 !important;
-        overflow: hidden !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        box-shadow:
-          0 6px 32px rgba(0, 0, 0, 0.55),
-          0 0 0 1px rgba(63, 185, 80, 0.06),
-          inset 0 1px 0 rgba(63, 185, 80, 0.1) !important;
+      .life-content :global(pre),
+      .life-content :global(.astro-code) {
+        margin: 2.25rem 0 !important;
+        padding: 1.2rem 1.3rem !important;
+        border-radius: 1rem !important;
+        border: 1px solid rgba(28, 34, 43, 0.12) !important;
+        background: #faf7f2 !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+        overflow-x: auto;
       }
 
-      /* Terminal header — macOS traffic lights */
-      .life-content :global(.astro-code)::before,
-      .life-content :global(pre)::before {
-        content: '';
-        display: block;
-        height: 2.75rem;
-        background-color: rgba(63, 185, 80, 0.05);
-        background-image:
-          radial-gradient(circle, #FF5F57 5.5px, transparent 5.5px),
-          radial-gradient(circle, #FEBC2E 5.5px, transparent 5.5px),
-          radial-gradient(circle, #28C840 5.5px, transparent 5.5px);
-        background-repeat: no-repeat;
-        background-size: 11px 11px;
-        background-position: 14px center, 32px center, 50px center;
-        border-bottom: 1px solid rgba(63, 185, 80, 0.14);
-        flex-shrink: 0;
+      .life-content :global(pre > code) {
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-size: 0.88rem !important;
+        line-height: 1.7 !important;
+        white-space: pre !important;
       }
 
-      /* Language label in top-right */
-      .life-content :global(.astro-code[data-language])::after,
-      .life-content :global(pre[data-language])::after {
-        content: attr(data-language);
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 2.75rem;
-        padding: 0 1rem;
+      .post-tags {
+        max-width: 740px;
+        margin: 2.75rem auto 0;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--post-border);
         display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
         align-items: center;
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.65rem;
-        font-weight: 600;
+      }
+
+      .tag-label {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.66rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--lf-text-muted);
+        color: var(--post-text-muted);
       }
 
-      /* Code content area */
-      .life-content :global(pre > code) {
-        all: unset;
-        display: block;
-        padding: 1.5rem 1.75rem !important;
-        font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
-        font-size: 0.92rem !important;
-        line-height: 1.75 !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        max-width: 100% !important;
-        white-space: pre !important;
-        word-break: normal !important;
-        word-wrap: normal !important;
-      }
-
-      /* Individual highlighted lines */
-      .life-content :global(.astro-code .line) {
-        display: inline-block;
-        min-width: 100%;
-      }
-
-      /* ── Inline Code ── */
-      .life-content :global(code:not(pre code)) {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.855em;
-        color: var(--lf-green-bright);
-        background: rgba(63, 185, 80, 0.1);
-        border: 1px solid rgba(63, 185, 80, 0.24);
-        border-radius: 5px;
-        padding: 0.15em 0.48em;
-        white-space: nowrap;
-        vertical-align: baseline;
-        position: relative;
-        top: -0.05em;
-      }
-
-      /* ── Tags ── */
-      .life-tags {
-        max-width: 800px;
-        margin: 3rem auto 0;
-        padding: 2rem 2rem 0;
-        border-top: 1px solid var(--lf-divider);
-        display: flex;
+      .tag {
+        display: inline-flex;
         align-items: center;
-        gap: 0.75rem;
-        flex-wrap: wrap;
+        padding: 0.46rem 0.72rem;
+        border-radius: 999px;
+        font-size: 0.67rem;
+        color: var(--post-accent);
+        background: rgba(88, 103, 125, 0.08);
+        border: 1px solid rgba(88, 103, 125, 0.12);
       }
 
-      .life-tags .tag-label {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--lf-text-muted);
-      }
-
-      .life-tags .tag {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.72rem;
-        font-weight: 500;
-        color: var(--lf-green);
-        background: var(--lf-badge-bg);
-        border: 1px solid var(--lf-badge-border);
-        padding: 0.25rem 0.65rem;
-        border-radius: 100px;
-        text-decoration: none;
-      }
-
-      /* ── Navigation ── */
-      .life-navigation {
-        max-width: 800px;
+      .post-nav {
+        max-width: 980px;
         margin: 4rem auto 0;
-        padding: 3rem 2rem;
-        border-top: 1px solid var(--lf-divider);
+        padding-top: 1.6rem;
+        border-top: 1px solid var(--post-border);
       }
 
       .nav-header {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.15em;
+        margin-bottom: 1rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--lf-green);
-        margin-bottom: 1.5rem;
+        color: var(--post-text-muted);
       }
 
       .nav-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
       }
 
       .nav-card {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-        padding: 1.5rem;
-        background: var(--lf-bg-card);
-        border: 1px solid var(--lf-border);
-        border-radius: 12px;
-        text-decoration: none !important;
-        transition: all 0.3s ease;
-        box-shadow: var(--lf-shadow-card);
+        gap: 0.45rem;
+        padding: 1.15rem 1.2rem;
+        border-radius: 1rem;
+        background: var(--post-surface);
+        border: 1px solid var(--post-border);
+        box-shadow: var(--post-shadow);
+        text-decoration: none;
+        transition: transform 0.2s ease, border-color 0.2s ease;
       }
 
       .nav-card:hover {
-        border-color: var(--lf-border-green);
-        transform: translateY(-3px);
-        box-shadow: var(--lf-shadow-lg);
+        transform: translateY(-2px);
+        border-color: var(--post-border-strong);
       }
 
-      .nav-direction {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--lf-green);
+      .nav-label {
+        font-size: 0.64rem;
+        color: var(--post-accent);
       }
 
-      .nav-card-title {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--lf-text);
-        line-height: 1.3;
+      .nav-title {
+        font-family: 'Instrument Serif', serif;
+        font-size: 1.4rem;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        color: var(--post-text);
       }
 
-      .nav-card-date {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.75rem;
-        color: var(--lf-text-muted);
+      .nav-date {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        color: var(--post-text-muted);
       }
 
-      /* ── Footer ── */
       .life-footer {
-        margin-top: 4rem;
-        padding: 3rem 2rem;
-        background: var(--lf-bg-alt);
-        border-top: 1px solid var(--lf-border);
-        text-align: center;
+        max-width: 980px;
+        margin: 4rem auto 0;
+        padding: 1.6rem 0 0;
+        border-top: 1px solid var(--post-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
       }
 
-      .footer-brand {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--lf-green);
-        letter-spacing: 0.2em;
-        margin-bottom: 0.5rem;
-      }
-
-      .footer-tagline {
-        font-family: 'Space Grotesk', -apple-system, sans-serif;
-        font-size: 0.85rem;
-        color: var(--lf-text-muted);
-        font-style: italic;
+      .footer-copy {
+        font-family: 'Newsreader', serif;
+        font-size: 1rem;
+        color: var(--post-text-soft);
       }
 
       .footer-links {
         display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
       .footer-link {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.8rem;
-        color: var(--lf-text-muted) !important;
+        font-size: 0.66rem;
+        color: var(--post-text-muted) !important;
         text-decoration: none !important;
-        transition: color 0.2s ease !important;
       }
 
       .footer-link:hover {
-        color: var(--lf-green) !important;
+        color: var(--post-accent) !important;
       }
 
-      .footer-copy {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.72rem;
-        color: var(--lf-text-muted);
-        margin-top: 1.5rem;
-        opacity: 0.6;
-      }
-
-      /* ── Keyboard Hints ── */
-      .keyboard-hints {
-        position: fixed;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        display: flex;
-        gap: 0.75rem;
-        z-index: 50;
-        opacity: 0.5;
-        transition: opacity 0.2s ease;
-      }
-
-      .keyboard-hints:hover {
-        opacity: 1;
-      }
-
-      .kbd-hint {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.65rem;
-        color: var(--lf-text-muted);
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-
-      .kbd {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 20px;
-        height: 20px;
-        padding: 0 4px;
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.6rem;
-        font-weight: 600;
-        color: var(--lf-text-muted);
-        background: var(--lf-bg-surface);
-        border: 1px solid var(--lf-border);
-        border-radius: 4px;
-        box-shadow: 0 1px 0 var(--lf-border);
-      }
-
-      /* ── Mobile ── */
       @media (max-width: 900px) {
-        .life-hero {
-          min-height: 70vh;
+        .life-post-intro,
+        .nav-grid,
+        .life-footer {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+          align-items: flex-start;
         }
 
-        .hero-content {
-          padding: 0 1.5rem 3rem;
+        .life-post-shell {
+          padding-top: 2.8rem;
         }
 
-        .hero-title {
-          font-size: clamp(2.5rem, 10vw, 3.5rem);
+        .post-title {
+          font-size: clamp(2.6rem, 12vw, 4rem);
         }
 
         .life-content {
-          padding: 2.5rem 1.25rem 1.5rem;
-          font-size: 1.075rem;
-          line-height: 1.85;
+          font-size: 1.18rem;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .life-post-shell {
+          padding-left: 1rem;
+          padding-right: 1rem;
+          padding-bottom: 3.2rem;
         }
 
-        .life-content :global(pre > code) {
-          padding: 1.25rem 1.25rem !important;
-          font-size: 0.85rem !important;
+        .post-description,
+        .life-content {
+          font-size: 1.08rem;
         }
 
-        .life-content :global(.astro-code)::before,
-        .life-content :global(pre)::before {
-          height: 2.5rem;
-          background-position: 12px center, 28px center, 44px center;
+        .life-content :global(h2) {
+          font-size: 1.95rem;
         }
 
-        .life-content :global(.astro-code[data-language])::after,
-        .life-content :global(pre[data-language])::after {
-          height: 2.5rem;
-        }
-
-        .life-navigation {
-          padding: 2rem 1.25rem;
-        }
-
-        .nav-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .life-tags {
-          padding: 1.5rem 1.25rem 0;
-        }
-
-        .keyboard-hints {
-          display: none;
+        .life-content :global(h3) {
+          font-size: 1.45rem;
         }
       }
     </style>
   </head>
 
   <body>
-    <Header />
+    <div class="life-post-page">
+      <Header homepage={true} />
 
-    <!-- Hero -->
-    <header class:list={["life-hero", { "no-image": !heroImage }]}>
-      {heroImage && (
-        <div class="hero-image-wrapper">
-          <img src={heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
-        </div>
-      )}
-      {heroImage && <div class="hero-gradient"></div>}
+      <main class="life-post-shell">
+        <section class="life-post-intro">
+          <div class="intro-copy">
+            <div class="eyebrow">Life</div>
+            <h1 class="post-title">{title}</h1>
+            <p class="post-description">{description}</p>
+            <div class="intro-meta">
+              <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
+              {updatedDate && <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>}
+              <span class="meta-pill">Chicago and beyond</span>
+            </div>
+          </div>
 
-      <div class="hero-content">
-        <span class="hero-date">
-          <FormattedDate date={updatedDate || pubDate} />
-        </span>
-        <h1 class="hero-title">{title}</h1>
-        <p class="hero-description">{description}</p>
-      </div>
-    </header>
+          <aside class="intro-note">
+            <div class="eyebrow">Reading mode</div>
+            <p>Cleaner typography, calmer color, and a little less visual theater. The writing should carry this page, not fight it.</p>
+          </aside>
+        </section>
 
-    <!-- Content -->
-    <article class="life-content">
-      <slot />
-    </article>
+        {heroImage && (
+          <figure class="hero-figure">
+            <img src={heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
+            <figcaption class="hero-caption">Field photo</figcaption>
+          </figure>
+        )}
 
-    <!-- Tags -->
-    {tags && tags.length > 0 && (
-      <div class="life-tags">
-        <span class="tag-label">Tags</span>
-        {tags.map(tag => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    )}
+        <article class="life-content">
+          <slot />
+        </article>
 
-    <!-- Navigation -->
-    {(prevPost || nextPost) && (
-      <nav class="life-navigation">
-        <div class="nav-header">More from Life</div>
-        <div class="nav-grid">
-          {prevPost && (
-            <a href={`/blog/${prevPost.id}/`} class="nav-card">
-              <span class="nav-direction">&larr; Previous</span>
-              <span class="nav-card-title">{prevPost.data.title}</span>
-              <span class="nav-card-date"><FormattedDate date={prevPost.data.pubDate} /></span>
-            </a>
-          )}
-          {nextPost && (
-            <a href={`/blog/${nextPost.id}/`} class="nav-card">
-              <span class="nav-direction">Next &rarr;</span>
-              <span class="nav-card-title">{nextPost.data.title}</span>
-              <span class="nav-card-date"><FormattedDate date={nextPost.data.pubDate} /></span>
-            </a>
-          )}
-        </div>
-      </nav>
-    )}
+        {tags && tags.length > 0 && (
+          <div class="post-tags">
+            <span class="tag-label">Tags</span>
+            {tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
 
-    <!-- Keyboard Hints (desktop only) -->
-    <div class="keyboard-hints">
-      <span class="kbd-hint"><span class="kbd">J</span><span class="kbd">K</span> nav</span>
+        {(prevPost || nextPost) && (
+          <nav class="post-nav">
+            <div class="nav-header">More from life</div>
+            <div class="nav-grid">
+              {prevPost && (
+                <a href={`/blog/${prevPost.id}/`} class="nav-card">
+                  <span class="nav-label">Previous</span>
+                  <span class="nav-title">{prevPost.data.title}</span>
+                  <span class="nav-date"><FormattedDate date={prevPost.data.pubDate} /></span>
+                </a>
+              )}
+              {nextPost && (
+                <a href={`/blog/${nextPost.id}/`} class="nav-card">
+                  <span class="nav-label">Next</span>
+                  <span class="nav-title">{nextPost.data.title}</span>
+                  <span class="nav-date"><FormattedDate date={nextPost.data.pubDate} /></span>
+                </a>
+              )}
+            </div>
+          </nav>
+        )}
+
+        <footer class="life-footer">
+          <div class="footer-copy">Stories from Chicago and beyond.</div>
+          <div class="footer-links">
+            <a href="/life" class="footer-link">All life posts</a>
+            <a href="/" class="footer-link">mager.co</a>
+            <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
+          </div>
+        </footer>
+      </main>
+
+      <SecretSearch posts={allPosts} />
     </div>
-
-    <!-- Footer -->
-    <footer class="life-footer">
-      <div class="footer-brand">LIFE</div>
-      <p class="footer-tagline">Stories from Chicago & beyond</p>
-      <div class="footer-links">
-        <a href="/life" class="footer-link">All Posts</a>
-        <a href="/" class="footer-link">mager.co</a>
-        <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
-      </div>
-      <p class="footer-copy">&copy; {new Date().getFullYear()} &middot; Built with <a href="https://astro.build" target="_blank" class="footer-link" style="display:inline">Astro</a></p>
-    </footer>
-
-    <!-- Keyboard Shortcuts -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        document.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-          const prev = document.querySelector('.nav-card:first-child') as HTMLAnchorElement;
-          const next = document.querySelector('.nav-card:last-child') as HTMLAnchorElement;
-
-          switch(e.key) {
-            case 'j': if (next?.href) window.location.href = next.href; break;
-            case 'k': if (prev?.href) window.location.href = prev.href; break;
-          }
-        });
-      });
-    </script>
-
-    <SecretSearch posts={allPosts} />
   </body>
 </html>
