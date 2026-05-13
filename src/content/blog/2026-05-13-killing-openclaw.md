@@ -7,15 +7,11 @@ draft: true
 tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, principal-agent]
 ---
 
-I love OpenClaw. I hate that I can't run it on my Claude Pro subscription.
+I love OpenClaw. I hate that it runs on Codex instead of my Claude Pro subscription.
 
-The harness is OpenAI-OAuth-only — the daemon needs an Anthropic API account to talk to Claude, and I'm not paying for that on top of GPT Pro on top of Claude Pro. So OpenClaw has been running on Codex this whole time, and my actual Claude Pro account has been sitting idle on my laptop, watching its sibling do all the work.
+On vacation I noticed: `claude --channels plugin:telegram@claude-plugins-official` plus one `CLAUDE.md` *is* OpenClaw. Same shape — always-on session, Telegram reach, brainpack, principal-agent pattern — minus the daemon, the API bill, the second LLM provider.
 
-It bugged me. Not enough to fix it, until I sat down on vacation, opened Claude Code on the laptop, and noticed something: `claude --channels plugin:telegram@claude-plugins-official`, plus one `CLAUDE.md`, plus my Pro subscription, *is* OpenClaw. Same shape — always-on session, Telegram reach, brainpack with personality, principal-agent pattern for sub-tasks — minus the daemon I was babysitting, minus the API account I'd refused to set up, minus the whole second LLM provider.
-
-So today I'm killing OpenClaw. From a hotel in Tokyo. SSH'd into the Mac mini in Chicago. While Claude Code drives the whole port.
-
-This post is what I actually did, what's running now, and what I'm deleting when I get back to Chicago.
+So I killed it. From a hotel in Tokyo. Here's what I did.
 
 ## The setup
 
