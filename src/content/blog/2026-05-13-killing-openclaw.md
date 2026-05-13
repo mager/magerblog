@@ -9,19 +9,19 @@ tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, princ
 
 I love OpenClaw. I hate that it runs on Codex instead of my Claude Pro subscription.
 
-On vacation I noticed: `claude --channels plugin:telegram@claude-plugins-official` plus one `CLAUDE.md` *is* OpenClaw. Same shape — always-on session, Telegram reach, brainpack, principal-agent pattern — minus the daemon, the API bill, the second LLM provider.
+On vacation I noticed: Claude channels plus one `CLAUDE.md` *is* OpenClaw. Same shape — always-on session, Telegram reach, brainpack, principal-agent pattern — minus the daemon, the API bill, the second LLM provider.
 
 So I killed it. From a hotel in Tokyo. Here's what I did.
 
 ## The setup
 
-OpenClaw was Codex-shaped. It ran as a daemon on a Mac mini under Tailscale, polled Telegram via two bots (`default` and `genny`), kept a brain at `~/.openclaw/workspace/` (SOUL.md, IDENTITY.md, USER.md, MEMORY.md, AGENTS.md, etc.), and used OAuth-to-Codex for inference. The whole thing worked, but it was infrastructure I was babysitting — backup files named `openclaw.json.clobbered.2026-04-11T13-24-46-956Z` are not the sign of a healthy daemon.
+OpenClaw was Codex-shaped. It ran as a daemon on a Mac mini under Tailscale, polled Telegram via two bots (`default` and `genny`), kept a brain at `~/.openclaw/workspace/` (SOUL.md, IDENTITY.md, USER.md, MEMORY.md, AGENTS.md, etc.), and used OAuth-to-Codex for inference. The whole thing worked — but I didn't want Codex. I wanted Claude.
 
 What I wanted: the same shape, but Claude-native, on my Pro subscription, with the brain in a place Claude Code already knows how to find.
 
 What worked: three native primitives, in this order.
 
-## 1. `claude --channels plugin:telegram@claude-plugins-official`
+## 1. Claude channels
 
 The Telegram plugin is a Claude Code plugin from the official marketplace. The MCP server runs on Bun and provides `reply` / `react` / `edit_message` tools to the assistant. The setup inside `claude`:
 
