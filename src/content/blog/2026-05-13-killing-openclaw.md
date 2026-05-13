@@ -1,9 +1,9 @@
 ---
-title: "Claude Code is the better OpenClaw"
+title: "Killing OpenClaw for a native Claude Code setup"
 description: "I love OpenClaw. I hate that it doesn't run on my Claude Pro subscription. Turns out Claude Code, with the Telegram channels plugin and one CLAUDE.md, is the same harness — minus the daemon, the API bill, and the second LLM provider. Here's the actual recipe, ported from a hotel in Tokyo to a Mac mini in Chicago in forty minutes."
-pubDate: 2026-05-13
+pubDate: 2026-05-14
 category: tech
-draft: true
+draft: false
 tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, principal-agent]
 ---
 
