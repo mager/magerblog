@@ -11,6 +11,12 @@ const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const posts = (await getCollection('blog'))
 	.filter(post => post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categoryColor: Record<string, string> = {
+	tech: 'var(--purple)',
+	life: 'var(--green)',
+	food: 'var(--orange)',
+};
 ---
 
 <!doctype html>
@@ -19,16 +25,47 @@ const posts = (await getCollection('blog'))
 		<BaseHead title={`Drafts - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			main {
-				width: min(720px, calc(100% - 2rem));
+				width: min(780px, calc(100% - 2rem));
 				margin: 0 auto;
 				padding: 5rem 0 4rem;
 			}
 
-			h1 {
-				margin: 0 0 2rem;
-				font-size: 1rem;
+			.head {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 1rem;
+				margin: 0 0 2.5rem;
+				padding-bottom: 1rem;
+				border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+			}
+
+			.title {
+				margin: 0;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
 				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.18em;
 				color: var(--text-muted);
+			}
+
+			.title::before {
+				content: '~/';
+				color: var(--cyan);
+				margin-right: 0.25rem;
+			}
+
+			.count {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
+				letter-spacing: 0.12em;
+				color: var(--text-muted);
+			}
+
+			.count b {
+				color: var(--yellow);
+				font-weight: 500;
 			}
 
 			ul {
@@ -38,45 +75,122 @@ const posts = (await getCollection('blog'))
 			}
 
 			li {
-				padding: 0.5rem 0;
-				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+				position: relative;
+			}
+
+			li + li {
+				border-top: 1px solid rgba(255, 255, 255, 0.04);
 			}
 
 			a {
+				display: grid;
+				grid-template-columns: 6rem auto 1fr;
+				gap: 1rem;
+				align-items: baseline;
+				padding: 0.9rem 0.25rem 0.9rem 1rem;
 				color: var(--text-primary);
 				text-decoration: none;
+				transition: background 0.15s ease, padding 0.2s ease, color 0.15s ease;
+				border-left: 2px solid transparent;
 			}
 
 			a:hover {
-				color: var(--cyan);
+				background: rgba(255, 255, 255, 0.02);
+				padding-left: 1.25rem;
+				border-left-color: var(--cat-color, var(--cyan));
+			}
+
+			a:hover .arrow {
+				opacity: 1;
+				transform: translateX(0);
 			}
 
 			.date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
 				color: var(--text-muted);
-				font-size: 0.85rem;
-				margin-right: 0.75rem;
+				letter-spacing: 0.05em;
+			}
+
+			.cat {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: var(--cat-color, var(--cyan));
+				padding: 0.15rem 0.45rem;
+				border: 1px solid currentColor;
+				border-radius: 3px;
+				opacity: 0.7;
+			}
+
+			.label {
+				font-size: 1rem;
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+			}
+
+			.arrow {
+				color: var(--cat-color, var(--cyan));
+				opacity: 0;
+				transform: translateX(-4px);
+				transition: opacity 0.2s ease, transform 0.2s ease;
+				font-family: 'JetBrains Mono', monospace;
 			}
 
 			.empty {
+				font-family: 'JetBrains Mono', monospace;
 				color: var(--text-muted);
+				font-size: 0.9rem;
+				padding: 2rem 0;
+				text-align: center;
+				opacity: 0.6;
+			}
+
+			.empty::before {
+				content: '// ';
+				color: var(--green);
+			}
+
+			@media (max-width: 560px) {
+				a {
+					grid-template-columns: 1fr;
+					gap: 0.4rem;
+				}
+				.label {
+					font-size: 0.95rem;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header homepage={true} />
 		<main>
-			<h1>drafts ({posts.length})</h1>
+			<div class="head">
+				<h1 class="title">drafts</h1>
+				<span class="count"><b>{posts.length}</b> in progress</span>
+			</div>
 			{posts.length > 0 ? (
 				<ul>
-					{posts.map((post) => (
-						<li>
-							<span class="date"><FormattedDate date={post.data.pubDate} /></span>
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-						</li>
-					))}
+					{posts.map((post) => {
+						const color = categoryColor[post.data.category || 'tech'] || 'var(--cyan)';
+						return (
+							<li>
+								<a href={`/blog/${post.id}/`} style={`--cat-color: ${color}`}>
+									<span class="date"><FormattedDate date={post.data.pubDate} /></span>
+									<span class="cat">{post.data.category || 'tech'}</span>
+									<span class="label">
+										{post.data.title}
+										<span class="arrow">→</span>
+									</span>
+								</a>
+							</li>
+						);
+					})}
 				</ul>
 			) : (
-				<p class="empty">none</p>
+				<p class="empty">nothing cooking</p>
 			)}
 		</main>
 		<Footer />
