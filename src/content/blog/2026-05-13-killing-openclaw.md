@@ -37,7 +37,15 @@ That writes the token to `~/.claude/channels/telegram/.env` with `chmod 600`. Th
 claude --channels plugin:telegram@claude-plugins-official
 ```
 
-Without `--channels`, the MCP server is up and the plugin's tools are registered, but there's no socket pushing inbound DMs into the running session. Your bot shows the typing indicator (server received the message), then goes silent (session never sees it). The flag is what wires inbound. Once it's on, Claude Code prints:
+Without `--channels`, the MCP server is up and the plugin's tools are registered, but there's no socket pushing inbound DMs into the running session. Your bot shows the typing indicator (server received the message), then goes silent (session never sees it). The flag is what wires inbound.
+
+One more flag the always-on shape needs: `--dangerously-skip-permissions`. Without it, every tool call from a DM blocks on a permission prompt that nobody is sitting at the mini to accept. The session is up but it can't *do* anything. With it, the session just runs. The name is loud on purpose — you're trading the interactive safety rail for an autonomous loop, so the allowlist above is what's actually keeping you safe. My full launch line on the mini is:
+
+```
+claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-official
+```
+
+Once it's on, Claude Code prints:
 
 > Listening for channel messages from: plugin:telegram@claude-plugins-official  
 > Experimental · inbound messages will be pushed into this session, this carries prompt injection risks.
@@ -116,6 +124,21 @@ The advisor-tool integration (conseiller) doesn't fit this stack — that lives 
 - The Mac mini under Tailscale. Same hardware, same network, same Telegram bot pattern.
 - The principal-agent pattern. Native Claude Code has the `Agent` tool; subagent definitions live in `~/.claude/agents/`. The always-on session is the principal, and I can dispatch a "draft a post about X" or "check the scraper" subagent when I want without rebuilding the harness.
 - The Telegram reach. From a hotel room in Tokyo I can ping a Mac mini in Chicago and get work done. That's the actual feature.
+
+## When the mini reboots
+
+Power blip, macOS update, anything that takes the box down — the tmux session dies with it and the always-on layer goes quiet. Recovery is four lines from any SSH client:
+
+```bash
+ssh macmini
+export PATH=/opt/homebrew/bin:$HOME/.local/bin:$PATH
+tmux new -s oc2 -c ~/Code
+claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-official
+```
+
+The `PATH` export matters — fresh shells on macOS don't include Homebrew's bin or `~/.local/bin` by default, so `tmux`, `bun`, and `claude` all come back "command not found" without it. After that, the banner reads `Sonnet 4.6 · Claude Pro · Mager` and Telegram DMs start landing in the new session immediately. The brain auto-loads from `~/.claude/CLAUDE.md`, so there's nothing to reattach.
+
+A real launchd plist that starts this on boot is the obvious next step, and the reason I haven't written one yet is that a reboot is the *one* moment I want to look at the session by hand — confirm Pro is still logged in, confirm the channel is listening, confirm the bot's first DM round-trips. Two minutes of manual ceremony beats waking up to a silent mini and not knowing which layer fell over.
 
 ## The session lifetime thing worth calling out
 
