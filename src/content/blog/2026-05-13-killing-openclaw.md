@@ -55,6 +55,10 @@ That second line is real, and it's why the next two commands matter:
 
 Pairing captures your numeric Telegram ID into `~/.claude/channels/telegram/access.json`. Switching to `allowlist` means strangers DM'ing your bot get nothing — no pairing reply, no inference. Only IDs you've explicitly approved talk to the session.
 
+![Telegram chat with the newly-paired Claude bot returning the pair code from the Mac mini](https://lh3.googleusercontent.com/pw/AP1GczOo16tlAfgAnkF5mcKAzk3T8I0Q5t_1zD3VuA72owJrhiKzynx6ixvEQawemUi90gto0J8ZN3wDJ3x-FMlm9psgNVEhr4JNm4Czg9nIU_nN9HhiKZSuM78uGbZfJNpl62LR1Wgeq-sLGpzN6pTiBEuKXQ=w700-h1522-s-no-gm)
+
+*The eureka moment: the bot's first reply, with the pair code, on my phone in Tokyo, from the Mac mini in Chicago.*
+
 That's the entire Telegram layer. No Tailscale glue, no custom long-poller, no `default-update-offset.json`. The plugin handles all of it.
 
 ## 2. `~/.claude/CLAUDE.md` with `@`-imports
