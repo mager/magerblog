@@ -3,7 +3,6 @@ title: "Sumo: My First Grand Tournament in Tokyo"
 description: "We missed the original ticket sale, got rescued by a tour, and spent an afternoon learning how much more fun sumo is when someone helps you understand what you're watching."
 pubDate: "2026-05-11"
 category: "life"
-draft: true
 tags: ["Japan", "Tokyo", "Sumo", "Travel"]
 keyword: "Tokyo sumo"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600"
