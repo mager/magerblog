@@ -3,6 +3,7 @@ title: "Zed: The AI editor everyone is talking about — what's actually real"
 description: "Everyone on my timeline is switching to Zed. Before I install it and wreck my workflow, I did the research. Here's what's hype and what's measurable."
 pubDate: 2026-05-17
 category: tech
+draft: true
 tags: [zed, ai, editor, cursor, claude-code, tools]
 ---
 
