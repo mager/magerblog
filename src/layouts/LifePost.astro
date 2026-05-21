@@ -31,6 +31,7 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
     <style>
+      /* ─── Page shell ──────────────────────────────── */
       .life-post-page {
         --post-bg: #f7f3ec;
         --post-surface: rgba(255, 252, 248, 0.82);
@@ -44,129 +45,244 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         --post-accent-soft: rgba(88, 103, 125, 0.12);
         --post-shadow: 0 22px 50px rgba(66, 48, 30, 0.08);
         min-height: 100vh;
-        background:
-          radial-gradient(circle at top left, rgba(255,255,255,0.72), transparent 24%),
-          linear-gradient(180deg, #f9f5ef 0%, var(--post-bg) 100%);
+        background: linear-gradient(180deg, #f9f5ef 0%, var(--post-bg) 100%);
         color: var(--post-text);
       }
 
-      .life-post-shell {
+      /* ─── Cinematic Hero ──────────────────────────── */
+      .life-hero {
+        position: relative;
+        width: 100%;
+        min-height: 90vh;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      /* Parallax image wrapper — oversized to allow movement */
+      .life-hero-parallax {
+        position: absolute;
+        inset: -12% 0;
+        z-index: 0;
+      }
+
+      .life-hero-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 30%;
+        animation: heroEnter 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      @keyframes heroEnter {
+        from { transform: scale(1.07); }
+        to   { transform: scale(1); }
+      }
+
+      /* CSS scroll-driven parallax */
+      @supports (animation-timeline: scroll()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .life-hero-parallax {
+            animation: heroParallax linear both;
+            animation-timeline: scroll(root);
+            animation-range: 0 100vh;
+          }
+          @keyframes heroParallax {
+            from { transform: translateY(0); }
+            to   { transform: translateY(18%); }
+          }
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .life-hero-img { animation: none; }
+      }
+
+      /* Multi-layer gradient — readable from bottom, airy at top */
+      .life-hero-gradient {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+          linear-gradient(to top,
+            rgba(10, 8, 6, 0.84) 0%,
+            rgba(10, 8, 6, 0.55) 28%,
+            rgba(10, 8, 6, 0.18) 55%,
+            transparent 100%
+          ),
+          linear-gradient(to bottom,
+            rgba(0,0,0,0.28) 0%,
+            transparent 20%
+          );
+      }
+
+      /* No hero fallback — warm gradient atmosphere */
+      .life-hero--no-image {
+        min-height: 70vh;
+        background:
+          radial-gradient(ellipse at 20% 80%, rgba(88, 103, 125, 0.22) 0%, transparent 60%),
+          radial-gradient(ellipse at 80% 20%, rgba(180, 155, 120, 0.18) 0%, transparent 50%),
+          linear-gradient(160deg, #2c2419 0%, #1a1310 100%);
+      }
+
+      /* Content overlaid on hero — anchored to bottom */
+      .life-hero-content {
+        position: relative;
+        z-index: 2;
         width: min(100%, 1180px);
         margin: 0 auto;
-        padding: 3.75rem 1.4rem 5rem;
+        padding: 0 1.4rem 4rem;
+        animation: heroContentRise 0.9s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
 
-      .life-post-intro {
-        max-width: 780px;
-        display: block;
+      @keyframes heroContentRise {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
-      .intro-copy {
-        padding-top: 0.8rem;
-      }
-
-      .intro-meta,
-      .tag,
-      .nav-label,
-      .footer-link,
-      .eyebrow,
-      .updated-label {
-        font-family: 'IBM Plex Mono', monospace;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
+      @media (prefers-reduced-motion: reduce) {
+        .life-hero-content { animation: none; }
       }
 
       .eyebrow {
-        display: inline-block;
-        margin-bottom: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.1rem;
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.64rem;
-        color: var(--post-accent);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 1.6rem;
+        height: 1px;
+        background: rgba(255,255,255,0.4);
       }
 
       .post-title {
         margin: 0;
         font-family: 'Instrument Serif', serif;
-        font-size: clamp(3.3rem, 7.4vw, 5.7rem);
-        line-height: 0.92;
+        font-size: clamp(3.4rem, 7.8vw, 6.4rem);
+        line-height: 0.9;
         letter-spacing: -0.055em;
+        color: #fff;
         text-wrap: balance;
+        max-width: 18ch;
       }
 
       .post-description {
-        max-width: 42rem;
-        margin: 1rem 0 0;
+        max-width: 44rem;
+        margin: 1.1rem 0 0;
         font-family: 'Newsreader', serif;
         font-size: 1.3rem;
         line-height: 1.65;
-        color: var(--post-text-soft);
+        color: rgba(255, 255, 255, 0.72);
       }
 
       .intro-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-top: 1.35rem;
-        font-size: 0.67rem;
-        color: var(--post-text-muted);
+        gap: 0.65rem;
+        margin-top: 1.5rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.66rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
       }
 
       .meta-pill {
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        padding: 0.62rem 0.84rem;
+        padding: 0.62rem 0.9rem;
         border-radius: 999px;
-        background: rgba(255,255,255,0.68);
-        border: 1px solid var(--post-border);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: rgba(255, 255, 255, 0.82);
       }
 
       .meta-dot {
-        width: 0.48rem;
-        height: 0.48rem;
+        width: 0.44rem;
+        height: 0.44rem;
         border-radius: 999px;
-        background: var(--post-accent);
+        background: rgba(255, 255, 255, 0.6);
       }
 
-      .hero-figure {
-        margin: 2.4rem 0 0;
-        border-radius: 1.8rem;
-        overflow: hidden;
-        background: var(--post-surface-strong);
-        border: 1px solid var(--post-border);
-        box-shadow: var(--post-shadow);
-      }
-
-      .hero-figure img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-      }
-
-      .hero-caption {
-        padding: 0.85rem 1rem 0.95rem;
+      .updated-label {
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.64rem;
-        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--post-text-muted);
-        border-top: 1px solid var(--post-border);
-        background: rgba(255,255,255,0.54);
+        letter-spacing: 0.1em;
+        color: rgba(255,255,255,0.5);
+        font-size: 0.6rem;
       }
 
+      /* Scroll hint */
+      .life-hero-scroll {
+        position: absolute;
+        bottom: 1.8rem;
+        right: 2rem;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.58rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.35);
+        animation: scrollHintFade 0.8s 1.2s ease both;
+      }
+
+      @keyframes scrollHintFade {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .life-hero-scroll-arrow {
+        width: 1px;
+        height: 2.4rem;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+        animation: scrollArrowPulse 2s 1.5s ease-in-out infinite;
+      }
+
+      @keyframes scrollArrowPulse {
+        0%, 100% { opacity: 0.3; transform: scaleY(1); }
+        50%       { opacity: 0.7; transform: scaleY(1.15); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .life-hero-scroll,
+        .life-hero-scroll-arrow { animation: none; }
+      }
+
+      /* ─── Post body shell ─────────────────────────── */
+      .life-post-shell {
+        width: min(100%, 1180px);
+        margin: 0 auto;
+        padding: 4rem 1.4rem 5rem;
+      }
+
+      /* ─── Article ─────────────────────────────────── */
       .life-content {
         max-width: 740px;
-        margin: 3rem auto 0;
-        padding: 0;
+        margin: 0 auto;
         font-family: 'Newsreader', serif;
         font-size: 1.34rem;
         line-height: 1.82;
         color: var(--post-text);
       }
 
-      .life-content :global(p) {
-        margin: 0 0 1.6rem;
-      }
+      .life-content :global(p)  { margin: 0 0 1.6rem; }
 
       .life-content :global(h2) {
         margin: 3.1rem 0 1rem;
@@ -203,9 +319,7 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         text-decoration-thickness: 1px;
       }
 
-      .life-content :global(a:hover) {
-        text-decoration-color: var(--post-accent);
-      }
+      .life-content :global(a:hover) { text-decoration-color: var(--post-accent); }
 
       .life-content :global(strong) {
         font-weight: 600;
@@ -218,9 +332,7 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         padding-left: 1.3em;
       }
 
-      .life-content :global(li) {
-        margin-bottom: 0.45rem;
-      }
+      .life-content :global(li) { margin-bottom: 0.45rem; }
 
       .life-content :global(blockquote) {
         margin: 2.1rem 0;
@@ -282,6 +394,7 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         white-space: pre !important;
       }
 
+      /* ─── Tags ────────────────────────────────────── */
       .post-tags {
         max-width: 740px;
         margin: 2.75rem auto 0;
@@ -306,12 +419,16 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         align-items: center;
         padding: 0.46rem 0.72rem;
         border-radius: 999px;
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.67rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
         color: var(--post-accent);
         background: rgba(88, 103, 125, 0.08);
         border: 1px solid rgba(88, 103, 125, 0.12);
       }
 
+      /* ─── Post nav ────────────────────────────────── */
       .post-nav {
         max-width: 980px;
         margin: 4rem auto 0;
@@ -353,7 +470,10 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       }
 
       .nav-label {
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.64rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
         color: var(--post-accent);
       }
 
@@ -371,21 +491,16 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         color: var(--post-text-muted);
       }
 
+      /* ─── Footer ──────────────────────────────────── */
       .life-footer {
         max-width: 980px;
         margin: 4rem auto 0;
         padding: 1.6rem 0 0;
         border-top: 1px solid var(--post-border);
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         gap: 1rem;
-      }
-
-      .footer-copy {
-        font-family: 'Newsreader', serif;
-        font-size: 1rem;
-        color: var(--post-text-soft);
       }
 
       .footer-links {
@@ -395,55 +510,39 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
       }
 
       .footer-link {
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.66rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
         color: var(--post-text-muted) !important;
         text-decoration: none !important;
+        transition: color 0.15s ease;
       }
 
-      .footer-link:hover {
-        color: var(--post-accent) !important;
-      }
+      .footer-link:hover { color: var(--post-accent) !important; }
 
+      /* ─── Responsive ──────────────────────────────── */
       @media (max-width: 900px) {
-        .nav-grid,
-        .life-footer {
-          grid-template-columns: 1fr;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .life-post-shell {
-          padding-top: 2.8rem;
-        }
-
-        .post-title {
-          font-size: clamp(2.8rem, 12vw, 4.2rem);
-        }
-
-        .life-content {
-          font-size: 1.22rem;
-        }
+        .life-hero { min-height: 80vh; }
+        .nav-grid { grid-template-columns: 1fr; }
+        .life-footer { flex-direction: column; align-items: flex-start; }
       }
 
       @media (max-width: 720px) {
-        .life-post-shell {
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-bottom: 3.2rem;
-        }
+        .life-hero { min-height: 100svh; }
+        .life-hero-content { padding: 0 1rem 3.2rem; }
+
+        .post-title { font-size: clamp(2.8rem, 12vw, 4.2rem); }
 
         .post-description,
-        .life-content {
-          font-size: 1.12rem;
-        }
+        .life-content { font-size: 1.12rem; }
 
-        .life-content :global(h2) {
-          font-size: 2.08rem;
-        }
+        .life-content :global(h2) { font-size: 2.08rem; }
+        .life-content :global(h3) { font-size: 1.56rem; }
 
-        .life-content :global(h3) {
-          font-size: 1.56rem;
-        }
+        .life-post-shell { padding-left: 1rem; padding-right: 1rem; padding-bottom: 3.2rem; }
+
+        .life-hero-scroll { display: none; }
       }
     </style>
   </head>
@@ -452,27 +551,53 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
     <div class="life-post-page">
       <Header homepage={true} />
 
-      <main class="life-post-shell">
-        <section class="life-post-intro">
-          <div class="intro-copy">
+      {heroImage ? (
+        <div class="life-hero">
+          <div class="life-hero-parallax">
+            <img
+              class="life-hero-img"
+              src={heroImage}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="life-hero-gradient" />
+          <div class="life-hero-content">
             <div class="eyebrow">Life</div>
             <h1 class="post-title">{title}</h1>
             <p class="post-description">{description}</p>
             <div class="intro-meta">
               <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
-              {updatedDate && <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>}
-              <span class="meta-pill">Chicago and beyond</span>
+              {updatedDate && (
+                <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
+              )}
             </div>
           </div>
-        </section>
+          <div class="life-hero-scroll" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="life-hero-scroll-arrow"></div>
+          </div>
+        </div>
+      ) : (
+        <div class="life-hero life-hero--no-image">
+          <div class="life-hero-gradient" />
+          <div class="life-hero-content">
+            <div class="eyebrow">Life</div>
+            <h1 class="post-title">{title}</h1>
+            <p class="post-description">{description}</p>
+            <div class="intro-meta">
+              <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
+              {updatedDate && (
+                <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
-        {heroImage && (
-          <figure class="hero-figure">
-            <img src={heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
-            <figcaption class="hero-caption">Field photo</figcaption>
-          </figure>
-        )}
-
+      <main class="life-post-shell">
         <article class="life-content">
           <slot />
         </article>
@@ -509,7 +634,6 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         )}
 
         <footer class="life-footer">
-          <div class="footer-copy">Stories from Chicago and beyond.</div>
           <div class="footer-links">
             <a href="/life" class="footer-link">All life posts</a>
             <a href="/" class="footer-link">mager.co</a>
