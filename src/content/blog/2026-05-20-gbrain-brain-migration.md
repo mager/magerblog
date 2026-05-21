@@ -3,7 +3,7 @@ title: "gbrain: Migrating My AI Brain From Flat Files to Semantic Memory"
 description: "How I moved magerbot's brain from @-imported markdown files into gbrain's Postgres-native semantic memory layer — what broke, what the gotcha was, and why the context model is fundamentally better."
 pubDate: 2026-05-20
 category: tech
-draft: true
+draft: false
 tags: [gbrain, ai, memory, claude-code, magerbot]
 ---
 
