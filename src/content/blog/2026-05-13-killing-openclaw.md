@@ -2,6 +2,7 @@
 title: "Killing OpenClaw for a native Claude Code setup"
 description: "I love OpenClaw. I hate that it doesn't run on my Claude Pro subscription. Turns out Claude Code, with the Telegram channels plugin and one CLAUDE.md, is the same harness — minus the daemon, the API bill, and the second LLM provider. Here's the actual recipe, ported from a hotel in Tokyo to a Mac mini in Chicago in forty minutes."
 pubDate: 2026-05-14
+updatedDate: 2026-05-21
 category: tech
 draft: false
 tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, principal-agent]
@@ -139,6 +140,28 @@ claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-
 The `PATH` export matters — fresh shells on macOS don't include Homebrew's bin or `~/.local/bin` by default, so `tmux`, `bun`, and `claude` all come back "command not found" without it. After that, the banner reads `Sonnet 4.6 · Claude Pro · Mager` and Telegram DMs start landing in the new session immediately. The brain auto-loads from `~/.claude/CLAUDE.md`, so there's nothing to reattach.
 
 A real launchd plist that starts this on boot is the obvious next step, and the reason I haven't written one yet is that a reboot is the *one* moment I want to look at the session by hand — confirm Pro is still logged in, confirm the channel is listening, confirm the bot's first DM round-trips. Two minutes of manual ceremony beats waking up to a silent mini and not knowing which layer fell over.
+
+## When the bot goes quiet (silent MCP crash)
+
+Update from a week later: I tried to DM the bot and got nothing back. Not the "typing indicator and silence" failure mode from setup — full silence, single checkmark, no response. SSH'd in and the situation was:
+
+- `tmux` session still up.
+- `claude` process still alive at the prompt.
+- `bun` (the Telegram MCP server) **not in the process list anymore**.
+
+Inside `claude`, `/mcp` showed it plainly:
+
+```
+plugin:telegram:telegram · ✘ failed
+```
+
+The Telegram channel plugin doesn't auto-restart its MCP server when it dies, and Claude Code doesn't surface the failure in the main pane — the session looks alive from the outside, but inbound DMs have nowhere to land. The one-line healthcheck from outside the session:
+
+```bash
+ssh macmini "export PATH=/opt/homebrew/bin:\$PATH; ps -ef | grep '[c]laude-plugins-official/telegram' | head"
+```
+
+No output = MCP is dead = `/exit` and relaunch with the same flags. The fix is a restart; the lesson is that "process is alive" isn't the same as "agent is reachable." Eventually I'll wire a launchd healthcheck that grep's for the bun child process every few minutes and restarts the parent if it's missing. For now I'm letting the bot's own silence be the signal.
 
 ## The session lifetime thing worth calling out
 
