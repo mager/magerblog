@@ -92,27 +92,26 @@ Or stay in `~/Code/gbrain` for the whole migration and reference brain files by 
 
 ### 4. Update CLAUDE.md
 
-The old CLAUDE.md had seven `@`-imports. The new version removes them and documents the gbrain query interface instead:
+The old CLAUDE.md had seven `@`-imports. The new version removes all of them and replaces them with a documented query interface:
 
 ```markdown
-## Memory — gbrain (primary) + flat files (reference)
+## Memory — gbrain (primary)
 
-**gbrain** is the semantic memory layer. Installed at `~/Code/gbrain/`, registered
-as an MCP server. Database at `~/.gbrain/brain.pglite`. Query it for context on
-past decisions, project history, and preferences.
+**gbrain** is the semantic memory layer and single source of truth.
+Installed at `~/Code/gbrain/`, registered as an MCP server.
+Database at `~/.gbrain/brain.pglite`.
 
-**Flat files** remain the structured source of truth for identity and soul:
-
-@~/Code/brain/IDENTITY.md
-@~/Code/brain/SOUL.md
-@~/Code/brain/USER.md
+### Core pages (always relevant)
+- `identity` — who magerbot is, role, philosophy
+- `soul` — operating principles, design philosophy, voice
+- `user` — Mager's profile, preferences, tech stack
+- `memory/index` — long-term memory index (start here for context)
 ```
 
-I kept three files as `@`-imports: IDENTITY, SOUL, and USER. These are short, stable, and load-bearing — they define who the session is, not what it knows. Everything else is in gbrain.
-
-Querying the brain mid-session:
+Nothing loads unconditionally anymore. The session knows the page slugs and fetches what it needs:
 
 ```bash
+bun run src/cli.ts get identity
 bun run src/cli.ts query "prxps predictions bug"
 bun run src/cli.ts get memory/2026-03-07-memd-portable-human-context
 ```
@@ -127,7 +126,7 @@ One thing the migration clarified: the `~/Code/brain/skills/` directory was redu
 
 The old brain had markdown files for each sub-project — magerblog, kotsu, prxps, loooom — written as context to be injected when the topic came up. Useful at the time. But Claude Code has a proper native equivalent: agents defined in `~/.claude/agents/` with a frontmatter `description` field. The session auto-invokes the right agent when the conversation touches the relevant project.
 
-The skills directory and the agents directory described the same things. The agents directory was already the canonical version. I deleted the skills files.
+The skills directory and the agents directory described the same things. The agents directory was already the canonical version. The brain skills are still on disk — but they're deprecated in practice. The agents in `~/.claude/agents/` are what the session actually uses.
 
 ---
 
