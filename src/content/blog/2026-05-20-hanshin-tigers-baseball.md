@@ -19,7 +19,7 @@ When the Hanshin franchise was preparing for its inaugural season in 1936, the n
 
 ## Getting the tickets
 
-We found tickets on viagogo for the game on May 20th. They shipped to our hotel and were waiting at the front desk when we checked in, which felt almost too easy.
+We found tickets on viagogo for the game on May 20th. They shipped to our hotel and were waiting in our room when we checked in, which felt almost too easy.
 
 ![Our Hanshin Tigers tickets](https://lh3.googleusercontent.com/pw/AP1GczN9RhwYxFooegcPmzah9U0yu_aYXpVW1KluaD1wHb9rqFP5wjKSVIXZ2LkNR9f_c7GqMAvm7F85cR_j6WUQJ8N598ar67HozBVHJOgi50eFhXbLZKCK4DAYR-WcEJ8UBb9McHYQkk2cl59JVjezZL-UJQ=w2030-h1522-s-no-gm)
 
@@ -36,6 +36,10 @@ Koshien Stadium has the same reputation Wrigley does back home — the old ballp
 ![Ivy growing on the exterior of Koshien Stadium](https://lh3.googleusercontent.com/pw/AP1GczOvec_wIWFkSxM9n9KY-Oz23nPSmzWCp33yNEqNGn75Fkv3aqdEzx1qy6_si3bdBkc1w9ntQV5HSI6NyTxe-c4WQwqV_Rz1ptUZGoRlF0UAbq753KZxTn8MRWftRo1Z7x10vrvY04cpagPY2v002uUfdg=w2030-h1522-s-no-gm)
 
 The forecast was rain, and we came prepared with ponchos, but we only got a few light showers. Good luck for an outdoor game.
+
+![Kristine and me at the game](https://lh3.googleusercontent.com/pw/AP1GczMNG0QIMDJq7XwxJNWvfwLKRv_mv6Sf-ou_IV489p0Usa2mr7OMbqOZM1wV34QJKMkwggJzqTVZBoYDrm8jzsTiynatdNE6u1OjF9QX4OfFYs8w0r_JOicgfpUm3KiXHDGLEspgJ5aoocMcikTYHxkPgw=w2030-h1522-s-no-gm)
+
+One bit of fan gear I loved: small cap ornaments of the team mascot holding a flag. People clip them onto their hats to make them a little more fun. We need these in the States.
 
 ## What Japanese baseball gets right
 
