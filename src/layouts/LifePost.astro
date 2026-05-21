@@ -11,17 +11,23 @@ type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 const {
   title, description, pubDate, updatedDate, heroImage,
-  tags, postId
+  tags, postId, locale, translationKey
 } = Astro.props;
 
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const lifePosts = allPosts
-  .filter(post => post.data.category === 'life')
+  .filter(post => post.data.category === 'life' && !post.data.locale)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const currentIndex = lifePosts.findIndex(post => post.id === postId);
 const prevPost = currentIndex < lifePosts.length - 1 ? lifePosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
+
+// Find translation counterpart
+const currentLocale = locale ?? 'en';
+const translation = translationKey
+  ? allPosts.find(p => p.data.translationKey === translationKey && (p.data.locale ?? 'en') !== currentLocale)
+  : null;
 ---
 
 <html lang="en" data-life>
@@ -225,6 +231,52 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
         height: 0.44rem;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.6);
+      }
+
+      .lang-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+
+      .lang-toggle a,
+      .lang-toggle span {
+        padding: 0.6rem 0.9rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.64rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        line-height: 1;
+        transition: background 0.15s ease;
+      }
+
+      .lang-toggle .lang-active {
+        background: rgba(255, 255, 255, 0.9);
+        color: #1a1410;
+      }
+
+      .lang-toggle a {
+        color: rgba(255, 255, 255, 0.65);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .lang-toggle a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .lang-divider {
+        width: 1px;
+        height: 1.2rem;
+        background: rgba(255, 255, 255, 0.18);
+        flex-shrink: 0;
       }
 
       .updated-label {
@@ -583,6 +635,23 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
               {updatedDate && (
                 <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
               )}
+              {translation && (
+                <div class="lang-toggle" title="Read in another language">
+                  {currentLocale === 'en' ? (
+                    <>
+                      <span class="lang-active">EN</span>
+                      <div class="lang-divider" />
+                      <a href={`/blog/${translation.id}/`}>日本語</a>
+                    </>
+                  ) : (
+                    <>
+                      <a href={`/blog/${translation.id}/`}>EN</a>
+                      <div class="lang-divider" />
+                      <span class="lang-active">日本語</span>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <div class="life-hero-scroll" aria-hidden="true">
@@ -601,6 +670,23 @@ const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
               <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
               {updatedDate && (
                 <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
+              )}
+              {translation && (
+                <div class="lang-toggle" title="Read in another language">
+                  {currentLocale === 'en' ? (
+                    <>
+                      <span class="lang-active">EN</span>
+                      <div class="lang-divider" />
+                      <a href={`/blog/${translation.id}/`}>日本語</a>
+                    </>
+                  ) : (
+                    <>
+                      <a href={`/blog/${translation.id}/`}>EN</a>
+                      <div class="lang-divider" />
+                      <span class="lang-active">日本語</span>
+                    </>
+                  )}
+                </div>
               )}
             </div>
           </div>

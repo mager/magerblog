@@ -6,6 +6,7 @@ category: "life"
 tags: ["Japan", "Tokyo", "Sumo", "Travel"]
 keyword: "Tokyo sumo"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPZeJaG55Bs2YeSZbZhKl1rXTFXBiPjiDpYuJTglgoER60pcwr5hqpesn6_0QyBN48fg6fFjD_HVM2LyurWa_g32MEdc480vmMoWpeK5d7ivZoMdUFH=w1600"
+translationKey: "grand-sumo-tokyo"
 ---
 
 We went to our first grand sumo tournament in Tokyo this week, and it has easily been one of the best parts of the trip so far.

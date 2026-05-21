@@ -20,6 +20,8 @@ const blog = defineCollection({
 		keyword: z.string().optional(), // Short 1-2 word phrase for hero cycling (e.g., "green curry", "Sicily", "AI agents")
 		recipeLayout: z.enum(['default', 'compact']).optional(), // Compact layout shows images alongside text on desktop
 		subcategory: z.string().optional(), // Recipe subcategory for filtering (soup, casserole, meat, pasta, comfort, etc.)
+		locale: z.string().optional(), // 'en' or 'ja' — omit for English default
+		translationKey: z.string().optional(), // Shared key linking EN and JA versions of the same post
 	}),
 });
 

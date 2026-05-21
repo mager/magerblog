@@ -7,6 +7,7 @@ tags: ["Japan", "Osaka", "Baseball", "Travel"]
 keyword: "Japanese baseball"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPWfYEX6XtGqgSZAsG0sTC4dOVU_i7MzCdTHuTOtSfe15wiVWvzRXuP0dgcI1htm6z9c2iYy6y6eg9oghO31n6C6_GodYQ1Z-gw3JJ0tL3x6M-_vZSw4UUzxvFx7xryZ9_9zucBTHBl-1m4WP9k46uhlQ=w2030-h1522-s-no-gm"
 draft: false
+translationKey: "hanshin-tigers-baseball"
 ---
 
 My wife and I are spending three weeks in Japan for my sabbatical. Alongside [our first grand sumo tournament](/blog/2026-05-11-grand-sumo-tokyo), the other live event we really wanted to see was a baseball game. We caught one on our second day in Osaka, and it turned into one of the best nights of the trip.
