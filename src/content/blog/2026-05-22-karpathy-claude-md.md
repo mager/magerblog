@@ -1,60 +1,48 @@
 ---
-title: "CLAUDE.md: What Karpathy figured out that most devs still haven't read"
-description: "A 65-line file distilled from Karpathy's observations about agentic coding hit 220K GitHub stars. Here's why the four rules inside are right, and why his move to Anthropic this week makes them matter even more."
+title: "Karpathy: The four rules I arrived at the hard way, written down"
+description: "Karpathy's CLAUDE.md hit 220K GitHub stars this week. I already had most of these rules in my own setup — not because I copied them, but because you hit the same walls eventually."
 pubDate: 2026-05-22
 category: tech
 draft: true
 tags: ["claude-code", "ai", "karpathy", "llm", "productivity"]
 ---
 
-A 65-line file is sitting at 220K combined GitHub stars and hit #1 on Trending. It's not a framework, not a library, not a new model. It's a constraint document for an AI coding agent — and the reason it spread is that most developers have experienced exactly what it's trying to fix.
+I've been running Claude Code as my primary coding environment for months. My CLAUDE.md has gone through a lot of iterations — most of them after something went wrong.
 
-The file is [CLAUDE.md by multica-ai](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), distilled by developer Forrest Chang from Andrej Karpathy's X thread on January 26, 2026. Karpathy had spent weeks doing intensive agentic coding with Claude Code and came out with a precise diagnosis of the failure mode: models "make wrong assumptions on your behalf and barrel ahead without checking. They don't manage their own confusion, don't ask for clarification, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
+So when Karpathy posted his observations on X in January about what breaks in agentic coding, and developer Forrest Chang turned them into a [CLAUDE.md file](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) that's now sitting at 220K combined GitHub stars, my reaction wasn't "interesting" — it was "yeah, obviously."
 
-Community benchmarks put the accuracy improvement from having this file in place at ~65% → ~94%. I don't know exactly how those numbers were measured, but the directional claim rings true.
-
----
-
-## The four rules
-
-Karpathy described going from 80% manual code with autocomplete to 80% agent-generated code with targeted edits — in a matter of weeks. That shift in mode is what makes the rules matter. When the agent is doing most of the work, its defaults become your defaults.
-
-**1. Think before coding.** State assumptions explicitly. Ask when something is unclear. Never guess. This sounds like a platitude until you've watched an agent confidently build the wrong thing for 20 minutes because you were ambiguous about a schema and it filled in the gap silently.
-
-**2. Simplicity first.** Write the minimum code that solves the problem. No unrequested abstractions, no speculative generalization. Agents love to extrapolate scope — a request for one endpoint becomes a full API layer because it seemed like "what you probably wanted." This rule kills that pattern at the root.
-
-**3. Surgical changes.** Don't touch code unrelated to the request. Every changed line should trace back to what was asked. Agents have a tendency to clean up, refactor, or "improve" things they pass through. This creates untraceable diffs and breaks things you weren't thinking about.
-
-**4. Goal-driven execution.** Turn vague instructions into verifiable success criteria before writing a line. A task that can't be verified can't be finished — it can only be abandoned when you get tired of iterating.
-
-None of these rules are AI-specific. They're engineering hygiene. The embarrassing part — and I mean this honestly — is that they need to be written down at all.
+I mean that as a compliment.
 
 ---
 
-## Why it works
+The four rules in the file:
 
-The CLAUDE.md isn't a prompt. It's a constraint document. The distinction matters.
+**Think before coding.** State assumptions. Ask when unclear. Never guess. I hit this one within the first week of using agents seriously. You write a vague instruction, the agent fills in the blanks confidently, and twenty minutes later you have something technically impressive that's completely wrong.
 
-A prompt tries to elicit a behavior by describing what you want. A constraint document sets a boundary the system operates within. Code review checklists work the same way: externalizing a standard makes it enforceable. The reviewer's job isn't to remember every quality criterion — it's to check against the list. CLAUDE.md gives the agent a list to check against before it decides to barrel ahead.
+**Simplicity first.** Write the minimum code that solves the problem. No abstractions nobody asked for. Agents love to extrapolate scope. One function becomes a utility module because it "seemed like what you'd want next." The CLAUDE.md rule makes the boundary explicit: if I didn't ask for it, don't build it.
 
-Agents default to improvisation. Nothing in their training says "stop and ask." The CLAUDE.md interrupts that default by making the alternative explicit: "if you're not sure, say so." That's a behavioral override, not a prompt.
+**Surgical changes.** Don't touch code unrelated to the request. Every changed line traces back to what was asked. This one took me the longest to codify. Agents have a light-touch refactoring instinct — they tidy, rename, restructure things they pass through. Individually harmless. In aggregate, untrackable.
 
----
-
-## Why this week matters
-
-Anthropic announced on May 19 that Karpathy joined their pre-training team. His words: "I think the next few years at the frontier of LLMs will be especially formative."
-
-Karpathy is one of those rare figures who is genuinely canonical in AI. He taught the internet deep learning through Stanford 231n and the makemore/nanoGPT YouTube series. A meaningful fraction of the people building AI systems today learned the fundamentals from him. His research instincts are exceptional, and he's spent the last two years thinking carefully about where the human-AI interface breaks down — which is exactly what the CLAUDE.md diagnosis is about.
-
-Having that lens on the pre-training side at Anthropic — not just the product or alignment side, but the raw model — is significant. The failure modes he described in January aren't just prompt engineering problems. They're baked into how models learn to respond. Pre-training is where you'd address them at the source.
+**Goal-driven execution.** Turn vague instructions into verifiable success criteria before starting. This is the one I still slip on. "Clean up this component" is not a task. "Make the component pass these three tests without changing its props interface" is a task.
 
 ---
 
-## Where I landed
+What struck me reading Karpathy's thread is how he framed the underlying problem: models "make wrong assumptions on your behalf and barrel ahead without checking. They don't manage their own confusion, don't ask for clarification, don't surface inconsistencies."
 
-These four rules are already in my CLAUDE.md. I didn't copy them from Karpathy's version — I arrived at most of them through the same friction he described. But reading his thread crystallized why they matter at a systems level, not just as preferences.
+That's not a prompt engineering problem. That's a defaults problem. The agent's default is to proceed, to fill gaps, to produce output. The CLAUDE.md is a constraint document — not a prompt asking for better behavior, but a rule set that interrupts the default before it runs.
 
-The agentic coding shift Karpathy described — from autocomplete to agent-generated — changes what discipline means. With autocomplete, your judgment is the gating factor. With agents, the agent's defaults are. CLAUDE.md is how you set those defaults before the session starts.
+It's the same reason code review checklists work. The reviewer doesn't need to remember every quality criterion — they check the list. This gives the agent a list to check against.
 
-If you're using Claude Code and you haven't read the file, read it. It's 65 lines.
+---
+
+Karpathy joined Anthropic this week. Pre-training team. He put it plainly: "I think the next few years at the frontier of LLMs will be especially formative."
+
+This matters more than it sounds. Karpathy is the person who taught a generation of engineers how neural networks actually work — through Stanford 231n, through makemore, through nanoGPT on YouTube. He's not a commentator on AI. He's been inside it at OpenAI and Tesla, and he's spent the last two years watching the human-agent interface in practice.
+
+The failure modes he diagnosed in January aren't just things you patch with better prompts. They're tendencies that come from training. Having that lens on the pre-training side at Anthropic — where the model's core behavior gets shaped — is a different kind of intervention than anything you'd put in a CLAUDE.md.
+
+Anthropic got a good one. I'm a little obsessed with how this plays out.
+
+---
+
+The 65-line file is worth ten minutes of your time if you're doing any serious agentic coding. Not because it's novel — if you've been at it for a while, you've probably arrived at most of it yourself. But seeing it articulated cleanly is useful. Sometimes you need someone to write down the thing you already know before you actually follow it.
