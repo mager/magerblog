@@ -244,45 +244,42 @@ const translation = translationKey
         display: inline-flex;
         align-items: center;
         gap: 0;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        overflow: hidden;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.25);
       }
 
       .lang-toggle a,
       .lang-toggle span {
-        padding: 0.6rem 0.9rem;
+        padding: 0.48rem 0.82rem;
         font-family: 'IBM Plex Mono', monospace;
         font-size: 0.64rem;
-        font-weight: 500;
-        letter-spacing: 0.12em;
+        font-weight: 700;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         text-decoration: none;
         line-height: 1;
-        transition: background 0.15s ease;
+        transition: background 0.1s ease, color 0.1s ease;
       }
 
       .lang-toggle .lang-active {
-        background: rgba(255, 255, 255, 0.9);
-        color: #1a1410;
+        background: #FFFFFF;
+        color: #0C2340;
       }
 
       .lang-toggle a {
-        color: rgba(255, 255, 255, 0.65);
-        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(0, 0, 0, 0.35);
       }
 
       .lang-toggle a:hover {
         background: rgba(255, 255, 255, 0.15);
-        color: rgba(255, 255, 255, 0.9);
+        color: #FFFFFF;
       }
 
       .lang-divider {
-        width: 1px;
-        height: 1.2rem;
-        background: rgba(255, 255, 255, 0.18);
+        width: 2px;
+        align-self: stretch;
+        background: rgba(255, 255, 255, 0.7);
         flex-shrink: 0;
       }
 
