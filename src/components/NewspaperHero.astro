@@ -42,18 +42,9 @@ const topLife = lifePosts.slice(0, 2);
 	<div class="travel-bar" aria-label="Current travel note">
 		<span class="travel-kicker" lang="ja">日本滞在</span>
 		<div class="travel-features">
-			<a href="/blog/2026-05-20-hanshin-tigers-baseball/" class="travel-feature">
-				<span class="travel-feature-label">Latest</span>
-				<span class="travel-feature-title">Hanshin Tigers in Osaka →</span>
-			</a>
-			<a href="/blog/2026-05-11-grand-sumo-tokyo/" class="travel-feature">
-				<span class="travel-feature-label">Recent</span>
-				<span class="travel-feature-title">Grand Sumo in Tokyo →</span>
-			</a>
-			<a href="/blog/2026-03-21-kotsu-the-knack-for-japanese/" class="travel-feature">
-				<span class="travel-feature-label">Featured</span>
-				<span class="travel-feature-title">Kotsu: The Knack for Japanese →</span>
-			</a>
+			<a href="/blog/2026-05-20-hanshin-tigers-baseball/" class="travel-feature">Hanshin Tigers in Osaka →</a>
+			<a href="/blog/2026-05-11-grand-sumo-tokyo/" class="travel-feature">Grand Sumo in Tokyo →</a>
+			<a href="/blog/2026-03-21-kotsu-the-knack-for-japanese/" class="travel-feature">Kotsu: The Knack for Japanese →</a>
 		</div>
 	</div>
 
@@ -415,16 +406,16 @@ const topLife = lifePosts.slice(0, 2);
 	display: flex;
 	align-items: center;
 	gap: 0;
-	margin-left: auto;
+	margin-left: 1.5rem;
 	flex-wrap: wrap;
 }
 
 .travel-feature {
-	display: inline-flex;
-	align-items: baseline;
-	gap: 0.48rem;
 	padding: 0 0.85rem;
-	color: var(--ink-light);
+	color: var(--ink-mid);
+	font-family: var(--font-body);
+	font-size: 0.78rem;
+	font-style: italic;
 	text-decoration: none;
 	white-space: nowrap;
 	transition: color 0.15s ease;
@@ -436,27 +427,6 @@ const topLife = lifePosts.slice(0, 2);
 }
 
 .travel-feature:hover {
-	color: var(--trip-accent);
-}
-
-.travel-feature-label {
-	color: var(--trip-accent);
-	font-family: var(--font-ui);
-	font-size: 0.58rem;
-	font-weight: 700;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-}
-
-.travel-feature-title {
-	color: var(--ink-mid);
-	font-family: var(--font-body);
-	font-size: 0.78rem;
-	font-style: italic;
-	letter-spacing: 0;
-}
-
-.travel-feature:hover .travel-feature-title {
 	color: var(--trip-accent);
 	text-decoration: underline;
 	text-underline-offset: 3px;
@@ -1035,6 +1005,7 @@ const topLife = lifePosts.slice(0, 2);
 	.travel-features {
 		margin-left: 0;
 		flex-direction: column;
+		align-items: flex-start;
 		gap: 0.35rem;
 	}
 
@@ -1042,10 +1013,6 @@ const topLife = lifePosts.slice(0, 2);
 		border-left: none;
 		padding: 0;
 		white-space: normal;
-	}
-
-	.travel-feature-label {
-		min-width: 4.8rem;
 	}
 
 	.hero {
