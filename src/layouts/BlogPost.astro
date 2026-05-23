@@ -77,11 +77,6 @@ const categoryBadge = getCategoryBadge(category);
 				from { opacity: 0.25; transform: translateY(12px); }
 				to   { opacity: 1;    transform: translateY(0); }
 			}
-			@keyframes footerEnter {
-				from { opacity: 0; transform: translateY(14px); }
-				to   { opacity: 1; transform: translateY(0); }
-			}
-
 			/* ── Typing kicker cursor ───────────────────────────── */
 			.kicker-cursor {
 				display: inline-block;
@@ -1422,11 +1417,6 @@ const categoryBadge = getCategoryBadge(category);
 			/* ── Prose card entrance ────────────────────────────── */
 			body[data-category="tech"] .prose {
 				animation: proseEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
-			}
-
-			/* ── Footer panels entrance ─────────────────────────── */
-			body[data-category="tech"] .tech-footer-terminal {
-				animation: footerEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
 			}
 
 			/* ── Scroll-driven H2/H3 reveals ────────────────────── */
