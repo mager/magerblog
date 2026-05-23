@@ -61,7 +61,7 @@ const topLife = lifePosts.slice(0, 2);
 	<section class="hero">
 		<div class="hero-type">
 			<h1 class="hero-name">
-				<span class="name-mager"><span class="easter-m">m</span><span class="easter-a">a</span><span class="easter-g">g</span><span class="easter-e">e</span><span class="easter-r">r</span></span><span class="name-co">.co</span>
+				<span class="name-mager"><span class="easter-m">m</span><span class="easter-a">a</span><span class="easter-g">g</span><span class="easter-e">e</span><span class="easter-r">r</span></span><span class="name-co"><span class="easter-dot">.</span><span class="easter-c">c</span><span class="easter-o">o</span></span>
 			</h1>
 			<div class="hero-meta">
 				<p class="hero-tagline">Always learning. Always eating. Chicago, currently Japan.</p>
@@ -274,6 +274,8 @@ const topLife = lifePosts.slice(0, 2);
 	--spring-leaf: oklch(62% 0.16 145);
 	--spring-sky: oklch(64% 0.14 225);
 	--spring-iris: oklch(57% 0.14 285);
+	--spring-plum: oklch(54% 0.17 320);
+	--spring-ember: oklch(68% 0.19 42);
 	--trip-accent: oklch(56% 0.18 18);
 
 	/* Category accents */
@@ -532,9 +534,9 @@ const topLife = lifePosts.slice(0, 2);
 .easter-e { color: var(--spring-leaf); }
 .easter-r { color: var(--spring-sky); }
 
-.name-co {
-	color: var(--spring-iris);
-}
+.easter-dot { color: var(--spring-iris); }
+.easter-c   { color: var(--spring-plum); }
+.easter-o   { color: var(--spring-ember); }
 
 /* Light shimmer: a small brightness pulse after ink-reveal finishes */
 @keyframes seasonalShimmer {
@@ -546,6 +548,7 @@ const topLife = lifePosts.slice(0, 2);
 .name-co {
 	animation: seasonalShimmer 3.5s 1.5s ease-in-out infinite;
 }
+.name-co { color: inherit; }
 
 .hero-meta {
 	padding-bottom: 0.5rem;
