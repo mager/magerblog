@@ -19,55 +19,32 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
 
 <html lang="en" data-life>
   <head>
-    <BaseHead title={`Life — ${SITE_TITLE}`} description="Chicago exploration and personal adventures" />
+    <BaseHead title={`Life — ${SITE_TITLE}`} description="Travel, seasons, and the things worth keeping" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
     <style>
+      /* ── Shell ───────────────────────────────────────────── */
       .life-shell {
         position: relative;
         isolation: isolate;
       }
 
-      .life-shell::before,
-      .life-shell::after {
+      .life-shell::before {
         content: '';
         position: absolute;
         inset: 0;
         pointer-events: none;
         z-index: -1;
-      }
-
-      .life-shell::before {
         background:
-          radial-gradient(circle at 8% 14%, rgba(95, 128, 76, 0.18), transparent 18%),
-          radial-gradient(circle at 92% 10%, rgba(160, 108, 71, 0.14), transparent 18%),
-          radial-gradient(circle at 50% 48%, rgba(95, 128, 76, 0.08), transparent 30%);
+          radial-gradient(circle at 6% 8%, rgba(6, 182, 212, 0.14), transparent 20%),
+          radial-gradient(circle at 94% 6%, rgba(249, 115, 22, 0.12), transparent 18%);
       }
 
-      .life-shell::after {
-        background-image:
-          linear-gradient(to right, rgba(95, 128, 76, 0.04) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(95, 128, 76, 0.04) 1px, transparent 1px);
-        background-size: 88px 88px;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.32), transparent 84%);
-      }
-
+      /* ── Hero ────────────────────────────────────────────── */
       .life-hero {
         position: relative;
-        padding: 7.3rem 1.5rem 1.8rem;
-      }
-
-      .life-hero::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 14rem;
-        pointer-events: none;
-        background: radial-gradient(circle at 20% 0%, rgba(250, 242, 228, 0.85), transparent 38%);
-        filter: blur(12px);
+        padding: 7.3rem 1.5rem 2.4rem;
       }
 
       .hero-inner {
@@ -75,106 +52,133 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         z-index: 1;
         max-width: 1240px;
         margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: center;
       }
 
       .hero-copy {
         max-width: 44rem;
-        padding-left: 1.1rem;
-        position: relative;
-      }
-
-      .hero-copy::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0.2rem;
-        bottom: 0.2rem;
-        width: 1px;
-        background: linear-gradient(to bottom, transparent, rgba(94, 118, 80, 0.42), transparent);
-      }
-
-      .hero-kicker,
-      .section-kicker {
-        font-family: 'Azeret Mono', monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--lf-green);
       }
 
       .hero-kicker {
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--lf-teal-dark);
         display: inline-flex;
         align-items: center;
-        gap: 0.75rem;
-        margin: 0 0 1.15rem;
-        animation: lf-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+        gap: 0.6rem;
+        margin: 0 0 1.2rem;
+        padding: 0.45rem 0.8rem;
+        border: 2px solid var(--lf-pixel);
+        box-shadow: var(--lf-shadow-sm);
+        background: var(--lf-sky);
+        animation: lf-fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
       }
 
-      .hero-kicker::before {
-        content: '';
-        width: 2.2rem;
-        height: 1px;
-        background: currentColor;
-        opacity: 0.7;
+      .hero-kicker-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--lf-coral);
+        animation: lf-glow 2.4s ease-in-out infinite;
+        flex-shrink: 0;
       }
 
       .hero-title {
         margin: 0;
         font-family: 'Cormorant Garamond', serif;
-        font-weight: 600;
-        font-size: clamp(4rem, 12vw, 7.2rem);
+        font-weight: 700;
+        font-size: clamp(4.5rem, 13vw, 8rem);
         letter-spacing: -0.06em;
-        line-height: 0.88;
+        line-height: 0.86;
         color: var(--lf-text);
-        animation: lf-fadeUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+        animation: lf-fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
       }
 
       .hero-subtitle {
         max-width: 38rem;
-        margin: 1.15rem 0 0;
-        font-size: 1.12rem;
+        margin: 1.2rem 0 0;
+        font-size: 1.1rem;
         line-height: 1.72;
         color: var(--lf-text-secondary);
-        animation: lf-fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        animation: lf-fadeUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
       }
 
       .hero-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 0.72rem;
-        margin-top: 1.5rem;
-        animation: lf-fadeUp 0.84s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+        margin-top: 1.6rem;
+        animation: lf-fadeUp 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
       }
 
+      /* 8-bit pixel chip / button style */
       .hero-chip {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.62rem 0.92rem;
-        border-radius: 999px;
-        background: rgba(255, 251, 245, 0.68);
-        border: 1px solid rgba(94, 118, 80, 0.12);
-        box-shadow: 0 8px 18px rgba(73, 59, 41, 0.04);
-        color: var(--lf-text-secondary);
+        padding: 0.55rem 0.9rem;
+        border-radius: 0;
+        background: var(--lf-sand);
+        border: 2px solid var(--lf-pixel);
+        box-shadow: 3px 3px 0 var(--lf-pixel);
+        color: var(--lf-pixel);
         font-family: 'Azeret Mono', monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.08em;
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
+        transition: transform 0.1s, box-shadow 0.1s;
+      }
+
+      .hero-chip:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 var(--lf-pixel);
       }
 
       .hero-chip .seed {
-        width: 0.5rem;
-        height: 0.5rem;
-        border-radius: 999px;
-        background: var(--lf-green);
-        box-shadow: 0 0 0 6px rgba(94, 118, 80, 0.08);
-        animation: lf-glow 2.8s ease-in-out infinite;
+        width: 6px;
+        height: 6px;
+        background: var(--lf-coral);
+        flex-shrink: 0;
+        animation: lf-glow 2.4s ease-in-out infinite;
       }
 
+      .hero-chip.chip-teal {
+        background: var(--lf-sky);
+      }
+
+      .hero-chip.chip-coral {
+        background: var(--lf-coral);
+        color: var(--lf-white);
+      }
+
+      /* ── Pixel scene canvas ──────────────────────────────── */
+      .pixel-scene-wrap {
+        width: 100%;
+        line-height: 0;
+        position: relative;
+        /* static fallback gradient */
+        background: linear-gradient(to bottom, #BAE6FD 0%, #06B6D4 100%);
+      }
+
+      #life-pixel-scene {
+        display: block;
+        width: 100%;
+        height: 120px;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      /* ── Grid section ────────────────────────────────────── */
       .life-grid-section {
         max-width: 1240px;
         margin: 0 auto;
-        padding: 1.2rem 1.5rem 6rem;
+        padding: 2rem 1.5rem 6rem;
       }
 
       .section-heading {
@@ -185,7 +189,7 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         gap: 1rem;
         padding: 0 0 1.35rem;
         margin-bottom: 2rem;
-        border-bottom: 1px solid rgba(94, 118, 80, 0.16);
+        border-bottom: 2px solid var(--lf-pixel);
       }
 
       .section-copy {
@@ -194,9 +198,18 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         gap: 0.45rem;
       }
 
+      .section-kicker {
+        font-family: 'Azeret Mono', monospace;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--lf-teal-dark);
+      }
+
       .section-copy strong {
         font-family: 'Cormorant Garamond', serif;
-        font-weight: 600;
+        font-weight: 700;
         font-size: clamp(2.2rem, 5vw, 3.25rem);
         letter-spacing: -0.045em;
         line-height: 0.95;
@@ -210,13 +223,15 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
       }
 
       .section-count {
-        padding: 0.72rem 1rem;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.58);
-        border: 1px solid rgba(94, 118, 80, 0.12);
-        color: var(--lf-text-secondary);
+        padding: 0.6rem 1rem;
+        border-radius: 0;
+        background: var(--lf-ocean);
+        border: 2px solid var(--lf-pixel);
+        box-shadow: var(--lf-shadow-sm);
+        color: var(--lf-white);
         font-family: 'Azeret Mono', monospace;
         font-size: 0.7rem;
+        font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
@@ -231,17 +246,19 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         grid-column: 1 / -1;
       }
 
+      /* ── Footer ──────────────────────────────────────────── */
       .life-footer {
-        padding: 0 1.5rem 4.5rem;
+        padding: 0 1.5rem 5rem;
       }
 
       .footer-panel {
         max-width: 1240px;
         margin: 0 auto;
         padding: 1.7rem 1.8rem;
-        border-radius: 1.8rem;
-        background: linear-gradient(180deg, rgba(255,255,255,0.52), rgba(238, 228, 213, 0.74));
-        border: 1px solid rgba(94, 118, 80, 0.12);
+        border-radius: 0;
+        background: var(--lf-sky);
+        border: 2px solid var(--lf-pixel);
+        box-shadow: var(--lf-shadow);
         display: flex;
         flex-wrap: wrap;
         gap: 1rem 2rem;
@@ -252,13 +269,13 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
       .footer-copyblock {
         display: flex;
         flex-direction: column;
-        gap: 0.35rem;
+        gap: 0.4rem;
       }
 
       .footer-brand {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 2rem;
-        font-weight: 600;
+        font-size: 2.2rem;
+        font-weight: 700;
         letter-spacing: -0.04em;
         color: var(--lf-text);
       }
@@ -267,6 +284,7 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
       .footer-copy {
         font-family: 'Azeret Mono', monospace;
         font-size: 0.68rem;
+        font-weight: 600;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--lf-text-muted);
@@ -275,64 +293,64 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
       .footer-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.75rem;
       }
 
       .footer-link {
         font-family: 'Azeret Mono', monospace;
         font-size: 0.72rem;
+        font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--lf-green-bright) !important;
+        color: var(--lf-white) !important;
+        background: var(--lf-coral);
+        border: 2px solid var(--lf-pixel);
+        box-shadow: var(--lf-shadow-sm);
+        padding: 0.5rem 0.9rem;
+        transition: transform 0.1s, box-shadow 0.1s;
       }
 
       .footer-link:hover {
-        color: var(--lf-accent) !important;
-      }
-
-      .footer-copy a {
-        color: inherit !important;
+        color: var(--lf-white) !important;
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 var(--lf-pixel);
       }
 
       kbd {
         font-family: 'Azeret Mono', monospace;
         font-size: 0.65rem;
         padding: 0.12rem 0.4rem;
-        background: rgba(255,255,255,0.78);
-        border: 1px solid rgba(94, 118, 80, 0.12);
-        border-radius: 0.45rem;
-        box-shadow: inset 0 -2px 0 rgba(94, 118, 80, 0.08);
+        background: var(--lf-white);
+        border: 1px solid var(--lf-pixel);
+        border-radius: 0;
+        box-shadow: 2px 2px 0 var(--lf-pixel);
       }
 
+      /* ── Responsive ──────────────────────────────────────── */
       @media (max-width: 960px) {
         .life-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-inner {
           grid-template-columns: 1fr;
         }
       }
 
       @media (max-width: 720px) {
         .life-hero {
-          padding: 6.1rem 1.15rem 1.2rem;
+          padding: 6.1rem 1.15rem 1.6rem;
         }
-
-        .hero-copy {
-          padding-left: 0.9rem;
-        }
-
         .hero-title {
-          font-size: clamp(3.6rem, 18vw, 5.2rem);
+          font-size: clamp(3.8rem, 18vw, 5.5rem);
         }
-
         .hero-subtitle {
           font-size: 1rem;
         }
-
         .life-grid-section,
         .life-footer {
           padding-left: 1.15rem;
           padding-right: 1.15rem;
         }
-
         .footer-panel {
           padding: 1.35rem 1.2rem;
         }
@@ -347,26 +365,34 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
       <section class="life-hero">
         <div class="hero-inner">
           <div class="hero-copy">
-            <p class="hero-kicker">life archive</p>
+            <p class="hero-kicker">
+              <span class="hero-kicker-dot"></span>
+              life archive
+            </p>
             <h1 class="hero-title">Life</h1>
             <p class="hero-subtitle">
-              Stories from Chicago and beyond — travel, personal history, small seasons, and the things I wanted to keep.
+              Stories from the road and the quiet in-between — travel, seasons, and the things worth keeping.
             </p>
             <div class="hero-meta">
-              <div class="hero-chip"><span class="seed"></span> Chicago, IL</div>
-              <div class="hero-chip">since 2008</div>
-              <div class="hero-chip">edition {latestYear}</div>
+              <div class="hero-chip"><span class="seed"></span> On the road</div>
+              <div class="hero-chip chip-teal">since 2008</div>
+              <div class="hero-chip chip-coral">edition {latestYear}</div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- Pixel wave scene -->
+      <div class="pixel-scene-wrap">
+        <canvas id="life-pixel-scene" aria-hidden="true"></canvas>
+      </div>
 
       <main class="life-grid-section">
         <div class="section-heading">
           <div class="section-copy">
             <span class="section-kicker">Collected posts</span>
             <strong>Stories, snapshots, and side trails</strong>
-            <p>Everything in this section is part diary, part artifact — a record of places, eras, experiments, and whatever felt worth keeping.</p>
+            <p>Part diary, part artifact — a record of places, eras, and whatever felt worth keeping.</p>
           </div>
           <div class="section-count">{posts.length} entries</div>
         </div>
@@ -385,8 +411,8 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         <div class="footer-panel">
           <div class="footer-copyblock">
             <div class="footer-brand">Life</div>
-            <p class="footer-tagline">Stories from Chicago and beyond</p>
-            <p class="footer-copy">Built with <a href="https://astro.build" target="_blank">Astro</a> · press <kbd>/</kbd> to search</p>
+            <p class="footer-tagline">Travel, seasons, things worth keeping</p>
+            <p class="footer-copy">Built with Astro · press <kbd>/</kbd> to search</p>
           </div>
           <div class="footer-links">
             <a href="/" class="footer-link">mager.co</a>
@@ -397,5 +423,114 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
     </div>
 
     <SecretSearch posts={allPosts} />
+
+    <script>
+      const canvas = document.querySelector('#life-pixel-scene') as HTMLCanvasElement | null;
+      const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (canvas && !noMotion) {
+        const ctx = canvas.getContext('2d')!;
+        const PX = 4;
+        let W = 0, H = 0, t = 0, rafId = 0, running = false;
+
+        function resize() {
+          W = canvas!.offsetWidth;
+          H = canvas!.offsetHeight;
+          canvas!.width = W;
+          canvas!.height = H;
+        }
+
+        function px(x: number, y: number, w: number, h: number, color: string) {
+          ctx.fillStyle = color;
+          ctx.fillRect(x * PX, y * PX, w * PX, h * PX);
+        }
+
+        const sunShape = [
+          [0,1,1,1,1,1,1,0],
+          [1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1],
+          [0,1,1,1,1,1,1,0],
+        ];
+
+        const cloudShape = [
+          [0,0,0,1,1,1,0,0,0,0,0,0],
+          [0,0,1,1,1,1,1,1,0,0,0,0],
+          [0,1,1,1,1,1,1,1,1,1,0,0],
+          [1,1,1,1,1,1,1,1,1,1,1,1],
+          [1,1,1,1,1,1,1,1,1,1,1,1],
+        ];
+
+        function drawScene() {
+          const cols = Math.ceil(W / PX);
+          const rows = Math.ceil(H / PX);
+
+          // Sky
+          ctx.fillStyle = '#BAE6FD';
+          ctx.fillRect(0, 0, W, H);
+
+          // Sun — upper right
+          const sunCol = Math.floor(cols * 0.82) - 4;
+          const sunRow = 2;
+          sunShape.forEach((row, dy) => {
+            row.forEach((on, dx) => {
+              if (on) px(sunCol + dx, sunRow + dy, 1, 1, '#FBBF24');
+            });
+          });
+
+          // Cloud — left-center
+          const cloudCol = Math.floor(cols * 0.18);
+          const cloudRow = 3;
+          cloudShape.forEach((row, dy) => {
+            row.forEach((on, dx) => {
+              if (on) px(cloudCol + dx, cloudRow + dy, 1, 1, '#FFFFFF');
+            });
+          });
+
+          // Waves — bottom 45% of canvas
+          for (let x = 0; x < cols; x++) {
+            const w1y = Math.floor(rows * 0.54 + Math.sin(x * 0.32 + t) * 2.4);
+            const w2y = Math.floor(rows * 0.7  + Math.sin(x * 0.25 + t * 1.1 + 5) * 2.0);
+            const w3y = Math.floor(rows * 0.84 + Math.sin(x * 0.2  + t * 0.8 + 2) * 1.6);
+
+            for (let y = w1y; y < rows; y++) {
+              let color: string;
+              if (y < w2y) color = '#06B6D4';
+              else if (y < w3y) color = '#34D399';
+              else color = '#0891B2';
+              px(x, y, 1, 1, color);
+            }
+
+            // foam tops
+            px(x, w1y, 1, 1, '#FFFFFF');
+            px(x, w2y, 1, 1, '#A7F3D0');
+          }
+
+          t += 0.038;
+        }
+
+        function loop() {
+          if (!running) return;
+          drawScene();
+          rafId = requestAnimationFrame(loop);
+        }
+
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+
+        const io = new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) {
+            if (!running) { running = true; loop(); }
+          } else {
+            running = false;
+            cancelAnimationFrame(rafId);
+          }
+        });
+        io.observe(canvas);
+      }
+    </script>
   </body>
 </html>
