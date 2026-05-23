@@ -9,7 +9,7 @@ import '../styles/life.css';
 
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const posts = allPosts
-  .filter(post => post.data.category === 'life')
+  .filter(post => post.data.category === 'life' && !post.data.locale)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const featured = posts[0];
