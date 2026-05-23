@@ -45,6 +45,82 @@ const categoryBadge = getCategoryBadge(category);
 		<BaseHead title={displayTitle} description={description} image={heroImage} />
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
 		<style>
+			/* ── Typed custom property for animatable gradient ──── */
+			@property --grad-angle {
+				syntax: '<angle>';
+				initial-value: 135deg;
+				inherits: false;
+			}
+
+			/* ── Keyframes ─────────────────────────────────────── */
+			@keyframes cursorBlink {
+				0%, 100% { opacity: 1; }
+				50% { opacity: 0; }
+			}
+			@keyframes techTitleEnter {
+				from { opacity: 0; transform: translateY(32px); }
+				to   { opacity: 1; transform: translateY(0); }
+			}
+			@keyframes proseEnter {
+				from { opacity: 0; transform: translateY(18px); }
+				to   { opacity: 1; transform: translateY(0); }
+			}
+			@keyframes titleGradShift {
+				from { --grad-angle: 115deg; }
+				to   { --grad-angle: 168deg; }
+			}
+			@keyframes dotPulse {
+				0%, 100% { box-shadow: 0 0 10px rgba(80,250,123,0.55); }
+				50%       { box-shadow: 0 0 28px rgba(80,250,123,1), 0 0 52px rgba(80,250,123,0.38); }
+			}
+			@keyframes h2Reveal {
+				from { opacity: 0.25; transform: translateY(12px); }
+				to   { opacity: 1;    transform: translateY(0); }
+			}
+			@keyframes footerEnter {
+				from { opacity: 0; transform: translateY(14px); }
+				to   { opacity: 1; transform: translateY(0); }
+			}
+
+			/* ── Typing kicker cursor ───────────────────────────── */
+			.kicker-cursor {
+				display: inline-block;
+				font-weight: 400;
+				color: var(--accent-green);
+				animation: cursorBlink 0.72s step-end infinite;
+				margin-left: 1px;
+			}
+
+			/* ── Canvas particle field ──────────────────────────── */
+			#tech-particles {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* ── Cursor glow orb ────────────────────────────────── */
+			.tech-cursor-glow {
+				position: absolute;
+				width: 58rem;
+				height: 58rem;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(163,113,247,0.13) 0%, rgba(88,166,255,0.06) 40%, transparent 70%);
+				left: 50%;
+				top: 35%;
+				transform: translate(-50%, -50%);
+				pointer-events: none;
+				transition: left 0.28s ease, top 0.28s ease;
+				z-index: 1;
+				display: none;
+			}
+
+			body[data-category="tech"] .tech-cursor-glow {
+				display: block;
+			}
+
 			main {
 				width: 100%;
 				max-width: 100%;
@@ -352,6 +428,7 @@ const categoryBadge = getCategoryBadge(category);
 				border-radius: 999px;
 				background: var(--accent-green);
 				box-shadow: 0 0 16px rgba(80, 250, 123, 0.76);
+				animation: dotPulse 2.2s ease-in-out infinite;
 			}
 
 			body[data-category="tech"] .title h1 {
@@ -361,12 +438,14 @@ const categoryBadge = getCategoryBadge(category);
 				line-height: 0.94;
 				letter-spacing: -0.02em;
 				max-width: 15.5ch;
-				background: linear-gradient(135deg, #ffffff 0%, #e6edf3 24%, #bc8cff 58%, #79c0ff 100%);
+				--grad-angle: 135deg;
+				background: linear-gradient(var(--grad-angle), #ffffff 0%, #e6edf3 24%, #bc8cff 58%, #79c0ff 100%);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 				background-clip: text;
 				text-shadow: none;
 				text-wrap: balance;
+				animation: titleGradShift 14s ease-in-out infinite alternate;
 			}
 
 			body[data-category="tech"] .title-dek {
@@ -1334,6 +1413,61 @@ const categoryBadge = getCategoryBadge(category);
 					justify-self: start;
 				}
 			}
+
+			/* ── Title entrance (spring-physics) ────────────────── */
+			body[data-category="tech"] .title-main {
+				animation: techTitleEnter 0.9s cubic-bezier(0.34, 1.42, 0.64, 1) 0.08s both;
+			}
+
+			/* ── Prose card entrance ────────────────────────────── */
+			body[data-category="tech"] .prose {
+				animation: proseEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+			}
+
+			/* ── Footer panels entrance ─────────────────────────── */
+			body[data-category="tech"] .tech-footer-terminal {
+				animation: footerEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+			}
+
+			/* ── Scroll-driven H2/H3 reveals ────────────────────── */
+			@supports (animation-timeline: view()) {
+				body[data-category="tech"] .prose h2 {
+					animation: h2Reveal linear both;
+					animation-timeline: view();
+					animation-range: entry 0% entry 30%;
+				}
+				body[data-category="tech"] .prose h3 {
+					animation: h2Reveal linear both;
+					animation-timeline: view();
+					animation-range: entry 0% entry 22%;
+				}
+			}
+
+			/* ── Progress bar glow ──────────────────────────────── */
+			body[data-category="tech"] .reading-progress-fill {
+				box-shadow: 0 0 10px rgba(163, 113, 247, 0.9), 0 0 22px rgba(88, 166, 255, 0.5);
+			}
+
+			/* ── prefers-reduced-motion: cut all motion ─────────── */
+			@media (prefers-reduced-motion: reduce) {
+				body[data-category="tech"] .title-main,
+				body[data-category="tech"] .prose,
+				body[data-category="tech"] .tech-footer-terminal,
+				body[data-category="tech"] .title h1 {
+					animation: none;
+				}
+				body[data-category="tech"] .tech-kicker::before {
+					animation: none;
+				}
+				body[data-category="tech"] .prose h2,
+				body[data-category="tech"] .prose h3 {
+					animation: none;
+				}
+				.tech-cursor-glow,
+				#tech-particles {
+					display: none !important;
+				}
+			}
 		</style>
 		<style is:global>
 			body[data-category="tech"] .prose .code-panel {
@@ -1554,6 +1688,28 @@ const categoryBadge = getCategoryBadge(category);
 				overflow: hidden;
 			}
 
+			/* ── Scanline hover on code panels ──────────────────── */
+			body[data-category="tech"] .prose .code-panel::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: repeating-linear-gradient(
+					to bottom,
+					transparent 0px,
+					transparent 3px,
+					rgba(0,0,0,0.055) 3px,
+					rgba(0,0,0,0.055) 4px
+				);
+				pointer-events: none;
+				opacity: 0;
+				transition: opacity 0.45s ease;
+				z-index: 4;
+				border-radius: inherit;
+			}
+			body[data-category="tech"] .prose .code-panel:hover::before {
+				opacity: 1;
+			}
+
 			@media (max-width: 720px) {
 				body[data-category="tech"] .prose .code-panel {
 					--code-preview-max: min(56vh, 26rem);
@@ -1613,6 +1769,8 @@ const categoryBadge = getCategoryBadge(category);
 		<main>
 			<article class={draft ? 'draft' : ''}>
 				<div class="hero" data-has-image={heroImage ? "true" : "false"}>
+					{category?.toLowerCase() === 'tech' && <canvas id="tech-particles" aria-hidden="true"></canvas>}
+					{category?.toLowerCase() === 'tech' && <div class="tech-cursor-glow" aria-hidden="true"></div>}
 					{heroImage && (
 						<div class="hero-image">
 							<img src={heroImage} alt="" loading="eager" decoding="async" fetchpriority="high" />
@@ -1929,6 +2087,116 @@ const categoryBadge = getCategoryBadge(category);
 				document.addEventListener('keydown', event => {
 					if (event.key === 'Escape') closeFullscreenFallback();
 				});
+			}
+
+			// ── Skip all motion effects if reduced-motion ────────
+			const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			// ── Canvas particle field (tech hero) ────────────────
+			if (!noMotion && document.body.dataset.category === 'tech') {
+				const canvas = document.querySelector('#tech-particles') as HTMLCanvasElement | null;
+				if (canvas) {
+					const ctx = canvas.getContext('2d')!;
+					const colors = [
+						'rgba(163,113,247,',
+						'rgba(88,166,255,',
+						'rgba(121,192,255,',
+						'rgba(200,150,255,'
+					];
+
+					let W = 0, H = 0, rafId = 0, active = false;
+
+					type Particle = { x: number; y: number; vx: number; vy: number; r: number; color: string; a: number; da: number };
+					const particles: Particle[] = [];
+
+					function resize() {
+						W = canvas!.offsetWidth;
+						H = canvas!.offsetHeight;
+						canvas!.width = W;
+						canvas!.height = H;
+					}
+
+					function makeParticle(): Particle {
+						return {
+							x: Math.random() * W,
+							y: Math.random() * H,
+							vx: (Math.random() - 0.5) * 0.28,
+							vy: (Math.random() - 0.5) * 0.28,
+							r: Math.random() * 1.6 + 0.4,
+							color: colors[Math.floor(Math.random() * colors.length)],
+							a: Math.random() * 0.45 + 0.08,
+							da: (Math.random() - 0.5) * 0.003
+						};
+					}
+
+					function draw() {
+						ctx.clearRect(0, 0, W, H);
+						for (const p of particles) {
+							p.x += p.vx;
+							p.y += p.vy;
+							p.a = Math.max(0.05, Math.min(0.6, p.a + p.da));
+							if (p.a <= 0.05 || p.a >= 0.6) p.da *= -1;
+							if (p.x < -8) p.x = W + 8;
+							if (p.x > W + 8) p.x = -8;
+							if (p.y < -8) p.y = H + 8;
+							if (p.y > H + 8) p.y = -8;
+							ctx.beginPath();
+							ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+							ctx.fillStyle = p.color + p.a.toFixed(2) + ')';
+							ctx.fill();
+						}
+						rafId = requestAnimationFrame(draw);
+					}
+
+					resize();
+					window.addEventListener('resize', resize, { passive: true });
+					for (let i = 0; i < 72; i++) particles.push(makeParticle());
+
+					const io = new IntersectionObserver(entries => {
+						if (entries[0].isIntersecting) {
+							if (!active) { active = true; draw(); }
+						} else {
+							active = false;
+							cancelAnimationFrame(rafId);
+						}
+					});
+					io.observe(canvas);
+				}
+			}
+
+			// ── Typing kicker animation ──────────────────────────
+			if (!noMotion && document.body.dataset.category === 'tech') {
+				const kicker = document.querySelector('.tech-kicker') as HTMLElement | null;
+				if (kicker) {
+					const full = (kicker.textContent || '').trim();
+					kicker.textContent = '';
+					const cursor = document.createElement('span');
+					cursor.className = 'kicker-cursor';
+					cursor.setAttribute('aria-hidden', 'true');
+					cursor.textContent = '▋';
+					kicker.appendChild(cursor);
+					let i = 0;
+					function typeNext() {
+						if (i < full.length) {
+							kicker!.insertBefore(document.createTextNode(full[i++]), cursor);
+							setTimeout(typeNext, 28 + Math.random() * 22);
+						}
+					}
+					setTimeout(typeNext, 500);
+				}
+			}
+
+			// ── Cursor glow tracking ─────────────────────────────
+			if (!noMotion && document.body.dataset.category === 'tech') {
+				const hero = document.querySelector('.hero') as HTMLElement | null;
+				const glow = document.querySelector('.tech-cursor-glow') as HTMLElement | null;
+				if (hero && glow) {
+					hero.addEventListener('mousemove', (e) => {
+						const rect = hero.getBoundingClientRect();
+						glow.style.left = (e.clientX - rect.left) + 'px';
+						glow.style.top  = (e.clientY - rect.top) + 'px';
+					}, { passive: true });
+				}
 			}
 		</script>
 		<SecretSearch posts={allPosts} />
