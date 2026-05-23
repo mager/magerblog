@@ -47,7 +47,7 @@ const topLife = lifePosts.slice(0, 2);
 				<span class="travel-feature-title">Hanshin Tigers in Osaka →</span>
 			</a>
 			<a href="/blog/2026-05-11-grand-sumo-tokyo/" class="travel-feature">
-				<span class="travel-feature-label">Field note</span>
+				<span class="travel-feature-label">Recent</span>
 				<span class="travel-feature-title">Grand Sumo in Tokyo →</span>
 			</a>
 			<a href="/blog/2026-03-21-kotsu-the-knack-for-japanese/" class="travel-feature">
@@ -93,7 +93,7 @@ const topLife = lifePosts.slice(0, 2);
 									<p class="post-desc">{post.data.description}</p>
 								)}
 								{i === 0 && post.data.title.toLowerCase().includes('kotsu') && (
-									<span class="post-note" lang="ja">こつ field note</span>
+									<span class="post-note" lang="ja">こつ</span>
 								)}
 								<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
 							</div>
@@ -1039,6 +1039,10 @@ const topLife = lifePosts.slice(0, 2);
 		border-left: none;
 		padding: 0;
 		white-space: normal;
+	}
+
+	.travel-feature-label {
+		min-width: 4.8rem;
 	}
 
 	.hero {

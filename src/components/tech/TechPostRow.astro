@@ -12,7 +12,7 @@ const displayTitle = isDraft ? `[DRAFT] ${post.data.title}` : post.data.title;
 const d = post.data.updatedDate || post.data.pubDate;
 const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 const tags = (post.data.tags || []).slice(0, 3);
-const dek = post.data.description || tags.join(' / ') || 'field note';
+const dek = post.data.description || tags.join(' / ') || '';
 
 const tagHueMap = new Map([
 	['ai', 280],
