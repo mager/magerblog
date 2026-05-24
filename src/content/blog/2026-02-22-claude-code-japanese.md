@@ -1,5 +1,5 @@
 ---
-title: "Claude Code: My Sensei"
+title: "My Sensei"
 pubDate: "2026-02-22"
 description: "I'm going to Japan in 2 months. Instead of paying for another app, I built a Japanese learning plugin for Claude Code and used it to learn conversational Japanese for free — using Claude Pro I already pay for."
 category: "life"

@@ -1,5 +1,5 @@
 ---
-title: "Claude Code: How to Write, Eval, and Iterate on a Skill"
+title: "How to Write, Eval, and Iterate on a Skill"
 pubDate: 2026-03-08
 author: "mager"
 category: tech

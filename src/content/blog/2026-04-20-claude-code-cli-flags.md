@@ -1,5 +1,5 @@
 ---
-title: "Claude Code: 10 CLI flags you probably aren't using"
+title: "10 CLI flags you probably aren't using"
 description: "A practical tour of Claude Code flags that are easy to miss but genuinely useful once you move past the default interactive loop."
 pubDate: 2026-04-20
 category: tech
