@@ -1,6 +1,6 @@
 ---
 title: "Claude Code: What Karpathy's CLAUDE.md taught me about my own setup"
-description: "Karpathy's four rules for agentic coding are worth internalizing — not because they're surprising, but because having them written down actually changes how you work."
+description: "Karpathy's four rules for agentic coding are worth reading — having them written down in a shared format is a useful starting point for anyone building with Claude Code."
 pubDate: 2026-05-22
 category: tech
 draft: true
@@ -9,13 +9,13 @@ tags: ["claude-code", "ai", "karpathy", "llm", "productivity"]
 
 I've been iterating on my Claude Code harness for months. My [CLAUDE.md](https://github.com/mager/magerblog/blob/main/CLAUDE.md) has gone through a lot of versions — most of them driven by something going wrong.
 
-So when Karpathy posted his observations on X about what breaks in agentic coding, and developer Forrest Chang turned them into a [CLAUDE.md file](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) that's now at 220K combined GitHub stars, I found it genuinely useful. Not because it's novel — some of it I'd already landed on myself — but because seeing it articulated that cleanly helped me audit what I actually had in my own setup.
+So when Karpathy posted his observations on X about what breaks in agentic coding, and developer Forrest Chang turned them into a [CLAUDE.md file](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) that's now at 220K combined GitHub stars, I found it genuinely useful — seeing it articulated that clearly was a good prompt to audit what I actually had in my own setup, and where I had gaps.
 
 ---
 
 The four rules in the file:
 
-**Think before coding.** State assumptions. Ask when unclear. Never guess. This one I hit within the first week of using agents seriously. You write a vague instruction, the agent fills in the blanks confidently, and twenty minutes later you have something technically impressive that's completely wrong.
+**Think before coding.** State assumptions. Ask when unclear. Never guess. This is one most people run into early. You write a vague instruction, the agent fills in the blanks confidently, and twenty minutes later you have something technically impressive that's completely wrong.
 
 **Simplicity first.** Write the minimum code that solves the problem — no abstractions nobody asked for. Agents tend to extrapolate scope. One function becomes a utility module because it "seemed like what you'd want next." The explicit rule keeps the boundary clear.
 
