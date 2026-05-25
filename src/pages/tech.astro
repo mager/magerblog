@@ -85,25 +85,37 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 <html lang="en">
 	<head>
 		<BaseHead title={`Tech - ${SITE_TITLE}`} description="Technical notes from mager.co on AI agents, developer tools, CLIs, personal software, and the workflows that compound." />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap" rel="stylesheet" />
 		<style>
-			body {
-				background: oklch(95% 0.018 var(--lead-hue));
-				color: oklch(18% 0.018 var(--lead-hue));
+			/* ── Dark-terminal token system ─────────────────────── */
+			:root {
+				--font-display: 'Fraunces', Georgia, serif;
+				--font-ui:      'Space Grotesk', system-ui, sans-serif;
+				--font-mono:    'JetBrains Mono', 'Fira Code', monospace;
 			}
 
-			:global(.site-header.header-light) {
-				background: color-mix(in oklch, oklch(95% 0.018 var(--lead-hue)) 86%, transparent);
-				border-bottom: 1px solid color-mix(in oklch, oklch(35% 0.09 var(--lead-hue)) 22%, transparent);
-				--header-text: oklch(18% 0.018 var(--lead-hue));
-				--header-text-secondary: oklch(36% 0.035 var(--lead-hue));
-				--header-text-muted: oklch(56% 0.04 var(--lead-hue));
-				--header-logo-tld: oklch(52% 0.18 var(--lead-hue));
-				--link-accent-indigo: oklch(52% 0.18 var(--lead-hue));
-				--link-accent-teal: oklch(56% 0.16 calc(var(--lead-hue) - 58));
-				--link-accent-amber: oklch(62% 0.17 calc(var(--lead-hue) + 86));
-				--link-accent-neutral: oklch(18% 0.018 var(--lead-hue));
-				--header-social-border: color-mix(in oklch, oklch(24% 0.06 var(--lead-hue)) 18%, transparent);
-				--header-hover-bg: color-mix(in oklch, oklch(60% 0.16 var(--lead-hue)) 10%, transparent);
+			body {
+				/* Ground everything in the site's dark editor bg */
+				background: oklch(10% 0.022 var(--lead-hue));
+				color: oklch(88% 0.022 var(--lead-hue));
+			}
+
+			/* Header override — keep it dark on the dark page */
+			:global(.site-header) {
+				background: color-mix(in oklch, oklch(9% 0.02 var(--lead-hue)) 92%, transparent) !important;
+				border-bottom: 1px solid color-mix(in oklch, oklch(60% 0.18 var(--lead-hue)) 18%, transparent) !important;
+				--header-text: oklch(88% 0.022 var(--lead-hue)) !important;
+				--header-text-secondary: oklch(62% 0.035 var(--lead-hue)) !important;
+				--header-text-muted: oklch(48% 0.04 var(--lead-hue)) !important;
+				--header-logo-tld: oklch(72% 0.2 var(--lead-hue)) !important;
+				--link-accent-indigo: oklch(72% 0.2 var(--lead-hue)) !important;
+				--link-accent-teal: oklch(72% 0.18 calc(var(--lead-hue) - 58)) !important;
+				--link-accent-amber: oklch(76% 0.17 calc(var(--lead-hue) + 86)) !important;
+				--link-accent-neutral: oklch(88% 0.018 var(--lead-hue)) !important;
+				--header-social-border: color-mix(in oklch, oklch(60% 0.16 var(--lead-hue)) 18%, transparent) !important;
+				--header-hover-bg: color-mix(in oklch, oklch(60% 0.16 var(--lead-hue)) 12%, transparent) !important;
 			}
 
 			main.tech-page {
@@ -111,112 +123,148 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				max-width: 100%;
 				margin: 0;
 				padding: 0;
-				--paper: oklch(95% 0.018 var(--lead-hue));
-				--paper-quiet: oklch(91% 0.024 var(--lead-hue));
-				--ink: oklch(18% 0.018 var(--lead-hue));
-				--ink-soft: oklch(31% 0.04 var(--lead-hue));
-				--ink-muted: oklch(50% 0.046 var(--lead-hue));
-				--rule: color-mix(in oklch, var(--ink) 20%, transparent);
-				--rule-strong: color-mix(in oklch, var(--ink) 42%, transparent);
-				--surface: oklch(98% 0.012 var(--lead-hue));
-				--accent: oklch(60% 0.18 var(--lead-hue));
-				--accent-hot: oklch(70% 0.18 calc(var(--lead-hue) + 52));
-				--accent-cool: oklch(70% 0.16 calc(var(--lead-hue) - 48));
-				--hero-ink: oklch(97% 0.014 var(--lead-hue));
-				--hero-muted: oklch(86% 0.038 var(--lead-hue));
-				--font-display: 'Fraunces', Georgia, serif;
-				--font-body: 'Source Serif 4', Georgia, serif;
-				--font-ui: 'Space Grotesk', system-ui, sans-serif;
-				--font-mono: 'JetBrains Mono', monospace;
+
+				/* Dark token set */
+				--bg:           oklch(10% 0.022 var(--lead-hue));
+				--bg-raise:     oklch(13% 0.028 var(--lead-hue));
+				--bg-lift:      oklch(16% 0.032 var(--lead-hue));
+				--border:       color-mix(in oklch, oklch(60% 0.18 var(--lead-hue)) 16%, transparent);
+				--border-mid:   color-mix(in oklch, oklch(60% 0.18 var(--lead-hue)) 28%, transparent);
+				--border-hot:   color-mix(in oklch, oklch(70% 0.2  var(--lead-hue)) 55%, transparent);
+				--ink:          oklch(94% 0.014 var(--lead-hue));
+				--ink-soft:     oklch(70% 0.028 var(--lead-hue));
+				--ink-muted:    oklch(46% 0.032 var(--lead-hue));
+				--accent:       oklch(72% 0.22 var(--lead-hue));
+				--accent-glow:  color-mix(in oklch, oklch(72% 0.22 var(--lead-hue)) 35%, transparent);
+				--accent-hot:   oklch(78% 0.2  calc(var(--lead-hue) + 48));
+				--accent-cool:  oklch(72% 0.18 calc(var(--lead-hue) - 52));
+
 				min-height: 100vh;
+				/* Subtle scanline texture layered on dark base */
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--accent) 12%, transparent) 1px, transparent 1px),
-					radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--accent-hot) 22%, transparent), transparent 32rem),
-					radial-gradient(circle at 88% 8%, color-mix(in oklch, var(--accent-cool) 24%, transparent), transparent 30rem),
-					var(--paper);
-				background-size: 7.25rem 100%, auto, auto, auto;
+					linear-gradient(
+						180deg,
+						transparent 0px,
+						color-mix(in oklch, oklch(100% 0 0) 2.5%, transparent) 1px,
+						transparent 2px
+					),
+					radial-gradient(ellipse 70% 55% at 18% 0%, color-mix(in oklch, var(--accent-hot) 18%, transparent), transparent 52%),
+					radial-gradient(ellipse 60% 45% at 86% 4%, color-mix(in oklch, var(--accent-cool) 14%, transparent), transparent 48%),
+					var(--bg);
+				background-size: 100% 3px, auto, auto, auto;
 			}
 
 			.tech-shell {
-				width: min(1360px, 100%);
+				width: min(1380px, 100%);
 				margin: 0 auto;
-				padding: 1.15rem 1.5rem 4rem;
+				padding: 1.1rem 1.5rem 5rem;
 			}
 
+			/* ── Fonts ────────────────────────────────────────────── */
 			.dateline,
 			.hero-kicker,
 			.hero-eyebrow,
+			.hero-prompt,
 			.story-meta,
 			.tag-pill,
 			.archive-note,
 			.section-label,
+			.log-count,
 			.empty-state {
 				font-family: var(--font-mono);
 			}
 
+			/* ── Dateline bar ─────────────────────────────────────── */
 			.dateline {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 0.95rem 0 1.1rem;
-				border-bottom: 1px solid var(--rule);
-				font-size: 0.78rem;
-				color: var(--ink-soft);
+				padding: 0.85rem 0 1rem;
+				border-bottom: 1px solid var(--border);
+				font-size: 0.74rem;
+				color: var(--ink-muted);
+				letter-spacing: 0.01em;
 			}
 
 			.dateline a {
-				color: var(--ink);
+				color: var(--ink-soft);
 				text-decoration: none;
 			}
 
-			.dateline a:hover {
-				color: var(--accent);
-			}
+			.dateline a:hover { color: var(--accent); }
 
 			.dateline-pack,
-			.dateline-right,
-			.hero-actions,
-			.hero-tags,
-			.archive-actions {
+			.dateline-right {
 				display: flex;
 				align-items: center;
-				gap: 0.65rem;
+				gap: 0.6rem;
 				flex-wrap: wrap;
 			}
 
 			.dateline-mark {
-				color: var(--ink);
-				font-weight: 800;
+				color: var(--accent);
+				font-weight: 700;
 			}
 
+			.status-dot {
+				display: inline-block;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--accent);
+				box-shadow: 0 0 8px var(--accent-glow);
+				animation: dotPulse 2.8s ease-in-out infinite;
+				flex-shrink: 0;
+			}
+
+			/* ── Hero stage ───────────────────────────────────────── */
 			.hero-stage {
 				display: grid;
-				grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.62fr);
-				gap: clamp(1rem, 2vw, 1.5rem);
-				min-height: clamp(34rem, calc(100svh - 9rem), 47rem);
-				margin-top: 1.15rem;
-				padding: clamp(1rem, 2.8vw, 2.35rem);
-				border: 1px solid color-mix(in oklch, var(--hero-ink) 24%, transparent);
-				background:
-					radial-gradient(circle at 12% 12%, color-mix(in oklch, var(--accent-hot) 46%, transparent), transparent 23rem),
-					radial-gradient(circle at 78% 18%, color-mix(in oklch, var(--accent-cool) 42%, transparent), transparent 26rem),
-					linear-gradient(135deg, oklch(27% 0.13 var(--lead-hue)), oklch(19% 0.08 calc(var(--lead-hue) + 34)) 62%, oklch(15% 0.055 calc(var(--lead-hue) - 22)));
-				color: var(--hero-ink);
-				overflow: hidden;
+				grid-template-columns: minmax(0, 1.12fr) minmax(17rem, 0.58fr);
+				gap: clamp(1rem, 2vw, 1.75rem);
+				min-height: clamp(32rem, calc(100svh - 8rem), 50rem);
+				margin-top: 1.1rem;
+				padding: clamp(1.25rem, 3vw, 2.5rem);
+				border: 1px solid var(--border-mid);
 				position: relative;
+				overflow: hidden;
+				background:
+					/* Scanline grid */
+					linear-gradient(90deg, var(--border) 1px, transparent 1px),
+					linear-gradient(180deg, var(--border) 1px, transparent 1px),
+					/* Radial glow pools */
+					radial-gradient(ellipse 55% 60% at 10% 10%, color-mix(in oklch, var(--accent-hot) 28%, transparent), transparent 55%),
+					radial-gradient(ellipse 50% 50% at 88% 14%, color-mix(in oklch, var(--accent-cool) 22%, transparent), transparent 50%),
+					/* Dark base */
+					linear-gradient(145deg, oklch(14% 0.04 var(--lead-hue)), oklch(10% 0.025 calc(var(--lead-hue) + 30)) 55%, oklch(8% 0.018 calc(var(--lead-hue) - 20)));
+				background-size: 6rem 6rem, 6rem 6rem, auto, auto, auto;
+				/* Glowing border on the left edge */
+				box-shadow:
+					inset 3px 0 0 0 var(--accent-glow),
+					0 0 80px color-mix(in oklch, var(--accent) 8%, transparent),
+					0 2px 0 0 var(--border-mid);
 			}
 
+			/* Corner decoration — terminal prompt top-left */
+			.hero-stage::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--accent), var(--accent-cool) 60%, transparent);
+				opacity: 0.7;
+			}
+
+			/* Vignette — fade grid toward edges */
 			.hero-stage::after {
 				content: '';
 				position: absolute;
 				inset: 0;
 				background:
-					linear-gradient(90deg, color-mix(in oklch, var(--hero-ink) 10%, transparent) 1px, transparent 1px),
-					linear-gradient(180deg, color-mix(in oklch, var(--hero-ink) 9%, transparent) 1px, transparent 1px);
-				background-size: 5.8rem 5.8rem;
-				mask-image: linear-gradient(135deg, transparent 18%, black 52%, transparent 100%);
-				opacity: 0.42;
+					radial-gradient(ellipse 70% 80% at 38% 55%, transparent 40%, oklch(9% 0.02 var(--lead-hue)) 100%);
 				pointer-events: none;
 			}
 
@@ -229,104 +277,154 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			.hero-copy {
 				display: grid;
 				align-content: space-between;
-				gap: 2rem;
-				max-width: 62rem;
+				gap: 1.5rem;
 			}
 
-			.hero-topline {
+			/* Prompt line at the top */
+			.hero-prompt {
 				display: flex;
 				align-items: center;
-				justify-content: space-between;
-				gap: 1rem;
-				flex-wrap: wrap;
+				gap: 0.5rem;
+				font-size: 0.72rem;
+				color: var(--ink-muted);
 			}
 
-			.hero-kicker,
+			.hero-prompt .prompt-sym {
+				color: var(--accent);
+				font-weight: 700;
+			}
+
+			.hero-prompt .prompt-cursor {
+				display: inline-block;
+				width: 8px;
+				height: 1em;
+				background: var(--accent);
+				opacity: 0.85;
+				animation: cursorBlink 1.1s step-end infinite;
+				vertical-align: text-bottom;
+				margin-left: 1px;
+			}
+
+			.hero-brand { display: grid; gap: 0.9rem; }
+
 			.hero-eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
 				margin: 0;
-				font-size: 0.76rem;
-				font-weight: 800;
-				color: var(--hero-muted);
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: var(--accent);
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
 			}
 
-			.hero-brand {
-				display: grid;
-				gap: 0.7rem;
-			}
-
-			.hero-brand h1 {
-				margin: 0;
-				font-family: var(--font-ui);
-				font-size: clamp(1.15rem, 2vw, 1.8rem);
-				line-height: 1;
-				letter-spacing: 0;
-				color: var(--hero-muted);
+			.hero-eyebrow::before {
+				content: '//';
+				color: var(--ink-muted);
+				font-weight: 400;
 			}
 
 			.hero-title {
 				display: block;
-				max-width: 15ch;
 				font-family: var(--font-display);
-				font-size: clamp(3.15rem, 8.2vw, 7.4rem);
-				line-height: 0.88;
-				letter-spacing: 0;
+				font-size: clamp(3.4rem, 9vw, 8rem);
+				line-height: 0.86;
 				font-variation-settings: 'opsz' 144, 'wght' 900;
-				color: var(--hero-ink);
+				/* Gradient text — accent color to near-white */
+				background: linear-gradient(
+					140deg,
+					var(--accent) 0%,
+					var(--ink) 42%,
+					oklch(98% 0.008 var(--lead-hue)) 100%
+				);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 				text-wrap: balance;
+				max-width: 14ch;
+				letter-spacing: -0.01em;
 			}
 
 			.hero-description {
-				max-width: 63ch;
-				margin: 1.1rem 0 0;
-				font-family: var(--font-body);
-				font-size: clamp(1.12rem, 1.65vw, 1.45rem);
-				line-height: 1.48;
-				color: var(--hero-muted);
-			}
-
-			.hero-footer {
-				display: grid;
-				gap: 1rem;
-			}
-
-			.hero-actions a {
-				display: inline-flex;
-				align-items: center;
-				min-height: 2.65rem;
-				padding: 0.65rem 0.9rem;
-				border: 1px solid color-mix(in oklch, var(--hero-ink) 62%, transparent);
-				background: color-mix(in oklch, var(--hero-ink) 12%, transparent);
-				color: var(--hero-ink);
+				max-width: 60ch;
+				margin: 0.6rem 0 0;
 				font-family: var(--font-ui);
-				font-weight: 800;
-				line-height: 1;
-				text-decoration: none;
+				font-size: clamp(1rem, 1.5vw, 1.3rem);
+				line-height: 1.5;
+				color: var(--ink-soft);
+				font-weight: 400;
 			}
 
-			.hero-actions a:hover {
-				background: color-mix(in oklch, var(--hero-ink) 20%, transparent);
-			}
+			.hero-footer { display: grid; gap: 1.1rem; }
 
-			.story-meta {
-				color: var(--hero-muted);
-				font-size: 0.76rem;
+			/* Tags */
+			.hero-tags {
+				display: flex;
+				align-items: center;
+				gap: 0.45rem;
+				flex-wrap: wrap;
 			}
 
 			.tag-pill {
 				display: inline-flex;
 				align-items: center;
-				border: 1px solid color-mix(in oklch, oklch(78% 0.15 var(--tag-hue)) 68%, transparent);
-				background: color-mix(in oklch, oklch(74% 0.18 var(--tag-hue)) 23%, transparent);
-				color: oklch(90% 0.08 var(--tag-hue));
-				padding: 0.4rem 0.52rem;
-				font-size: 0.72rem;
+				border: 1px solid color-mix(in oklch, oklch(72% 0.2 var(--tag-hue)) 48%, transparent);
+				background: color-mix(in oklch, oklch(65% 0.2 var(--tag-hue)) 14%, transparent);
+				color: oklch(80% 0.14 var(--tag-hue));
+				padding: 0.32rem 0.56rem;
+				font-size: 0.68rem;
+				font-weight: 500;
 				line-height: 1;
+				letter-spacing: 0.04em;
+				box-shadow: inset 0 0 10px color-mix(in oklch, oklch(72% 0.2 var(--tag-hue)) 8%, transparent);
 			}
 
+			/* Actions row */
+			.hero-actions {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				flex-wrap: wrap;
+			}
+
+			.hero-cta {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				min-height: 2.6rem;
+				padding: 0.6rem 1.1rem;
+				border: 1px solid var(--border-hot);
+				background: color-mix(in oklch, var(--accent) 14%, transparent);
+				color: var(--accent);
+				font-family: var(--font-mono);
+				font-size: 0.78rem;
+				font-weight: 700;
+				line-height: 1;
+				text-decoration: none;
+				letter-spacing: 0.03em;
+				transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+			}
+
+			.hero-cta:hover {
+				background: color-mix(in oklch, var(--accent) 24%, transparent);
+				box-shadow: 0 0 20px var(--accent-glow);
+				border-color: var(--accent);
+			}
+
+			.hero-cta .cta-arrow { font-size: 1em; }
+
+			.story-meta {
+				font-size: 0.72rem;
+				color: var(--ink-muted);
+				align-self: center;
+			}
+
+			/* ── Right column: image + meta card ─────────────────── */
 			.hero-media {
 				display: grid;
 				align-content: stretch;
-				gap: 1rem;
+				gap: 0.85rem;
 				min-width: 0;
 			}
 
@@ -334,10 +432,12 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				display: block;
 				min-height: 0;
 				height: 100%;
-				border: 1px solid color-mix(in oklch, var(--hero-ink) 32%, transparent);
-				background: color-mix(in oklch, var(--accent) 18%, oklch(18% 0.06 var(--lead-hue)));
+				border: 1px solid var(--border-mid);
+				background: oklch(14% 0.032 var(--lead-hue));
 				overflow: hidden;
-				box-shadow: 0 1.2rem 4rem color-mix(in oklch, oklch(8% 0.03 var(--lead-hue)) 48%, transparent);
+				box-shadow:
+					0 0 40px color-mix(in oklch, var(--accent) 12%, transparent),
+					inset 0 0 0 1px var(--border);
 			}
 
 			.hero-image img {
@@ -345,27 +445,73 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+				filter: brightness(0.88) contrast(1.05);
+				transition: filter 220ms ease;
 			}
 
+			.hero-image:hover img { filter: brightness(0.96) contrast(1.02); }
+
+			/* Meta card — terminal window style */
 			.hero-card {
 				display: grid;
-				gap: 0.45rem;
-				align-self: end;
+				gap: 0;
+				border: 1px solid var(--border-mid);
+				background: oklch(12% 0.03 var(--lead-hue));
+				overflow: hidden;
+			}
+
+			.hero-card-titlebar {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem 0.75rem;
+				border-bottom: 1px solid var(--border);
+				background: oklch(14% 0.032 var(--lead-hue));
+			}
+
+			.titlebar-dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 50%;
+				background: oklch(55% 0.18 var(--lead-hue));
+				opacity: 0.7;
+			}
+
+			.titlebar-dot:nth-child(2) { background: oklch(72% 0.16 calc(var(--lead-hue) + 48)); }
+			.titlebar-dot:nth-child(3) { background: oklch(70% 0.16 calc(var(--lead-hue) - 52)); }
+
+			.titlebar-label {
+				margin-left: auto;
+				font-family: var(--font-mono);
+				font-size: 0.66rem;
+				color: var(--ink-muted);
+			}
+
+			.hero-card-body {
 				padding: 0.85rem;
-				border: 1px solid color-mix(in oklch, var(--hero-ink) 20%, transparent);
-				background: color-mix(in oklch, oklch(14% 0.04 var(--lead-hue)) 72%, transparent);
-				color: var(--hero-muted);
+				display: grid;
+				gap: 0.35rem;
 			}
 
-			.hero-card strong {
+			.hero-card-body strong {
+				font-family: var(--font-mono);
+				font-size: 0.76rem;
+				color: var(--accent);
+				font-weight: 700;
+			}
+
+			.hero-card-body span {
 				font-family: var(--font-ui);
-				color: var(--hero-ink);
+				font-size: 0.84rem;
+				color: var(--ink-soft);
+				line-height: 1.45;
 			}
 
+			/* ── Archive board ────────────────────────────────────── */
 			.archive-board {
-				margin-top: 1.25rem;
-				border: 1px solid var(--rule);
-				background: color-mix(in oklch, var(--surface) 82%, var(--paper));
+				margin-top: 1.1rem;
+				border: 1px solid var(--border);
+				background: oklch(11.5% 0.026 var(--lead-hue));
 			}
 
 			.archive-head {
@@ -373,73 +519,98 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				align-items: start;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 1rem;
-				border-bottom: 1px solid var(--rule);
+				padding: 1.1rem 1.25rem;
+				border-bottom: 1px solid var(--border);
+				background: oklch(13% 0.03 var(--lead-hue));
 			}
 
+			.archive-head-left { display: grid; gap: 0.2rem; }
+
 			.section-label {
-				display: block;
-				margin-bottom: 0.35rem;
+				font-size: 0.68rem;
+				font-weight: 700;
 				color: var(--accent);
-				font-size: 0.75rem;
-				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
 			}
+
+			.section-label::before { content: '// '; color: var(--ink-muted); }
 
 			.archive-head h2 {
 				margin: 0;
 				font-family: var(--font-ui);
-				font-size: 1.2rem;
+				font-size: 1.05rem;
+				font-weight: 700;
 				line-height: 1.1;
-				letter-spacing: 0;
 				color: var(--ink);
 			}
 
 			.archive-head p {
-				max-width: 58ch;
-				margin: 0.45rem 0 0;
-				font-family: var(--font-body);
-				font-size: 1rem;
-				line-height: 1.45;
-				color: var(--ink-soft);
+				margin: 0.3rem 0 0;
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				line-height: 1.5;
+				color: var(--ink-muted);
+				max-width: 56ch;
+			}
+
+			.archive-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				flex-wrap: wrap;
 			}
 
 			.archive-note {
 				display: inline-flex;
 				align-items: center;
-				border: 1px solid color-mix(in oklch, var(--accent) 45%, var(--rule));
-				background: color-mix(in oklch, var(--accent) 11%, var(--paper));
-				color: var(--ink-soft);
-				padding: 0.38rem 0.5rem;
-				font-size: 0.72rem;
+				border: 1px solid var(--border);
+				background: color-mix(in oklch, var(--accent) 8%, transparent);
+				color: var(--ink-muted);
+				padding: 0.3rem 0.55rem;
+				font-size: 0.66rem;
+				font-weight: 500;
 				line-height: 1;
+				letter-spacing: 0.04em;
 			}
 
+			.log-count {
+				font-size: 0.66rem;
+				color: var(--accent);
+				font-weight: 700;
+			}
+
+			/* Archive list */
 			.archive-list {
 				list-style: none;
 				margin: 0;
-				padding: 0 1rem;
-			}
-
-			.archive-actions {
-				justify-content: flex-end;
+				padding: 0 1.25rem;
 			}
 
 			.empty-state {
 				margin: 0;
-				padding: 1rem 0;
+				padding: 1.25rem 0;
+				font-size: 0.78rem;
 				color: var(--ink-muted);
 			}
 
-			@media (prefers-reduced-motion: reduce) {
-				:global(.tech-row) {
-					transition: none;
-				}
-
-				:global(.tech-row:hover) {
-					transform: none;
-				}
+			/* ── Animations ───────────────────────────────────────── */
+			@keyframes dotPulse {
+				0%, 100% { box-shadow: 0 0 6px var(--accent-glow); }
+				50%       { box-shadow: 0 0 18px var(--accent-glow), 0 0 36px color-mix(in oklch, var(--accent) 15%, transparent); }
 			}
 
+			@keyframes cursorBlink {
+				0%, 100% { opacity: 0.85; }
+				50%       { opacity: 0; }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.status-dot { animation: none; }
+				.hero-prompt .prompt-cursor { animation: none; }
+			}
+
+			/* ── Responsive ───────────────────────────────────────── */
 			@media (max-width: 1040px) {
 				.hero-stage {
 					grid-template-columns: 1fr;
@@ -450,53 +621,36 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 					aspect-ratio: 16 / 9;
 					height: auto;
 				}
+
+				.hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
 			}
 
 			@media (max-width: 760px) {
-				main.tech-page {
-					background-size: 4.5rem 100%, auto, auto, auto;
-				}
-
-				.tech-shell {
-					padding: 0.8rem 0.85rem 2.8rem;
-				}
-
-				.dateline,
-				.archive-head {
-					align-items: flex-start;
-					flex-direction: column;
-				}
+				.tech-shell { padding: 0.75rem 0.9rem 3rem; }
 
 				.dateline {
-					gap: 0.45rem;
-					font-size: 0.72rem;
+					align-items: flex-start;
+					flex-direction: column;
+					gap: 0.35rem;
+					font-size: 0.7rem;
 				}
 
 				.hero-stage {
-					margin-top: 0.85rem;
-					padding: 1rem;
+					margin-top: 0.75rem;
+					padding: 1.1rem;
+					/* Simplify bg on mobile for perf */
+					background-size: 5rem 5rem, 5rem 5rem, auto, auto, auto;
 				}
 
-				.hero-topline {
+				.hero-title { font-size: clamp(2.6rem, 16vw, 4rem); max-width: 11ch; }
+				.hero-description { font-size: 0.95rem; }
+
+				.archive-head {
+					flex-direction: column;
 					align-items: flex-start;
 				}
 
-				.hero-title {
-					font-size: clamp(2.45rem, 14vw, 4rem);
-					max-width: 12ch;
-				}
-
-				.hero-description {
-					font-size: 1rem;
-				}
-
-				.archive-list {
-					padding: 0 0.85rem;
-				}
-
-				.archive-actions {
-					justify-content: flex-start;
-				}
+				.archive-list { padding: 0 0.9rem; }
 			}
 		</style>
 	</head>
@@ -504,38 +658,52 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 		<Header homepage={true} />
 		<main class="tech-page" style={`--lead-hue: ${leadHue};`}>
 			<div class="tech-shell">
+
+				<!-- Dateline -->
 				<div class="dateline" aria-label="Tech page metadata">
 					<div class="dateline-pack">
+						<span class="status-dot" aria-hidden="true"></span>
 						<a href="/">mager.co</a>
 						<span class="dateline-mark">/</span>
 						<span>tech</span>
 					</div>
 					<div class="dateline-right">
 						<span>{fullDate}</span>
-						<span class="dateline-mark">issue {issueNumber}</span>
-						<span>{firstYear} to {newestYear}</span>
+						<span class="dateline-mark">·</span>
+						<span>issue {issueNumber}</span>
+						<span class="dateline-mark">·</span>
+						<span>{firstYear}–{newestYear}</span>
 					</div>
 				</div>
 
+				<!-- Hero: featured post -->
 				{featuredPost && (
-					<section class="hero-stage" aria-labelledby="tech-title">
+					<section class="hero-stage" aria-labelledby="tech-hero-title">
 						<div class="hero-copy">
-							<div class="hero-topline">
-								<p class="hero-kicker">mager.co / tech</p>
-								<span class="hero-eyebrow">Lead story</span>
+							<!-- Terminal prompt line -->
+							<div class="hero-prompt" aria-hidden="true">
+								<span class="prompt-sym">$</span>
+								<span>cat lead-story.md</span>
+								<span class="prompt-cursor"></span>
 							</div>
+
 							<div class="hero-brand">
-								<h1 id="tech-title">Tech</h1>
-								<span class="hero-title">{featuredPost.data.title}</span>
+								<p class="hero-eyebrow">Lead story</p>
+								<span class="hero-title" id="tech-hero-title">{featuredPost.data.title}</span>
 								<p class="hero-description">{featuredPost.data.description}</p>
 							</div>
+
 							<div class="hero-footer">
 								<div class="hero-tags">
-									{leadTags.map(tag => <span class="tag-pill" style={`--tag-hue: ${tag.hue};`}>{tag.name}</span>)}
+									{leadTags.map(tag => (
+										<span class="tag-pill" style={`--tag-hue: ${tag.hue};`}>{tag.name}</span>
+									))}
 								</div>
 								<div class="hero-actions">
-									<a href={leadHref}>Read the lead story</a>
-									<span class="story-meta">{shortDate(featuredPost.data.pubDate)} / {archivePosts.length} more notes</span>
+									<a href={leadHref} class="hero-cta">
+										Read post <span class="cta-arrow" aria-hidden="true">↗</span>
+									</a>
+									<span class="story-meta">{shortDate(featuredPost.data.pubDate)} · {archivePosts.length} more in log</span>
 								</div>
 							</div>
 						</div>
@@ -547,31 +715,41 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 								</a>
 							)}
 							<div class="hero-card">
-								<strong>Current issue {issueNumber}</strong>
-								<span>Agent systems, dev tools, CLIs, and the software ideas I keep testing in public.</span>
+								<div class="hero-card-titlebar" aria-hidden="true">
+									<span class="titlebar-dot"></span>
+									<span class="titlebar-dot"></span>
+									<span class="titlebar-dot"></span>
+									<span class="titlebar-label">tech.log — issue {issueNumber}</span>
+								</div>
+								<div class="hero-card-body">
+									<strong>// build log</strong>
+									<span>Agent systems, dev tools, CLIs, and the software ideas I keep testing in public.</span>
+								</div>
 							</div>
 						</div>
 					</section>
 				)}
 
+				<!-- Archive board -->
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
-						<div>
+						<div class="archive-head-left">
 							<span class="section-label">Archive</span>
 							<h2 id="archive-heading">Build log</h2>
-							<p>Newest first. Dates, titles, summaries, and tag colors stay visible so the index is fast to scan.</p>
+							<p>Dates, titles, summaries — sorted newest first. Tags are color-coded by topic.</p>
 						</div>
-						<div class="archive-actions">
+						<div class="archive-meta">
 							<span class="archive-note">newest first</span>
-							<span class="archive-note">{archivePosts.length} notes</span>
+							<span class="archive-note log-count">{archivePosts.length} entries</span>
 						</div>
 					</header>
 					<ul class="archive-list">
 						{archivePosts.length > 0
 							? archivePosts.map((post) => <TechPostRow post={post} />)
-							: <p class="empty-state">No tech posts yet.</p>}
+							: <p class="empty-state">// no additional entries yet</p>}
 					</ul>
 				</section>
+
 			</div>
 		</main>
 		<Footer homepage={true} />
