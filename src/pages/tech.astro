@@ -331,12 +331,11 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				font-size: clamp(3.4rem, 9vw, 8rem);
 				line-height: 0.86;
 				font-variation-settings: 'opsz' 144, 'wght' 900;
-				/* Gradient text — accent color to near-white */
+				/* Gradient text — tight accent to white */
 				background: linear-gradient(
-					140deg,
-					var(--accent) 0%,
-					var(--ink) 42%,
-					oklch(98% 0.008 var(--lead-hue)) 100%
+					120deg,
+					oklch(94% 0.06 var(--lead-hue)) 0%,
+					oklch(99% 0.008 0) 55%
 				);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
@@ -349,10 +348,10 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			.hero-description {
 				max-width: 60ch;
 				margin: 0.6rem 0 0;
-				font-family: var(--font-ui);
-				font-size: clamp(1rem, 1.5vw, 1.3rem);
-				line-height: 1.5;
-				color: var(--ink-soft);
+				font-family: var(--font-mono);
+				font-size: clamp(0.82rem, 1.2vw, 1rem);
+				line-height: 1.65;
+				color: oklch(72% 0.04 var(--lead-hue));
 				font-weight: 400;
 			}
 
@@ -516,49 +515,20 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 
 			.archive-head {
 				display: flex;
-				align-items: start;
+				align-items: center;
 				justify-content: space-between;
 				gap: 1rem;
-				padding: 1.1rem 1.25rem;
+				padding: 0.65rem 1.25rem;
 				border-bottom: 1px solid var(--border);
 				background: oklch(13% 0.03 var(--lead-hue));
 			}
 
-			.archive-head-left { display: grid; gap: 0.2rem; }
-
 			.section-label {
-				font-size: 0.68rem;
-				font-weight: 700;
-				color: var(--accent);
-				text-transform: uppercase;
-				letter-spacing: 0.12em;
-			}
-
-			.section-label::before { content: '// '; color: var(--ink-muted); }
-
-			.archive-head h2 {
-				margin: 0;
-				font-family: var(--font-ui);
-				font-size: 1.05rem;
-				font-weight: 700;
-				line-height: 1.1;
-				color: var(--ink);
-			}
-
-			.archive-head p {
-				margin: 0.3rem 0 0;
 				font-family: var(--font-mono);
 				font-size: 0.72rem;
-				line-height: 1.5;
+				font-weight: 600;
 				color: var(--ink-muted);
-				max-width: 56ch;
-			}
-
-			.archive-meta {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				flex-wrap: wrap;
+				letter-spacing: 0.04em;
 			}
 
 			.archive-note {
@@ -722,8 +692,8 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 									<span class="titlebar-label">tech.log — issue {issueNumber}</span>
 								</div>
 								<div class="hero-card-body">
-									<strong>// build log</strong>
-									<span>Agent systems, dev tools, CLIs, and the software ideas I keep testing in public.</span>
+									<strong>mager.co/tech</strong>
+									<span>AI agents, dev tools, and the software ideas worth writing down.</span>
 								</div>
 							</div>
 						</div>
@@ -733,15 +703,8 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				<!-- Archive board -->
 				<section class="archive-board" aria-labelledby="archive-heading">
 					<header class="archive-head">
-						<div class="archive-head-left">
-							<span class="section-label">Archive</span>
-							<h2 id="archive-heading">Build log</h2>
-							<p>Dates, titles, summaries — sorted newest first. Tags are color-coded by topic.</p>
-						</div>
-						<div class="archive-meta">
-							<span class="archive-note">newest first</span>
-							<span class="archive-note log-count">{archivePosts.length} entries</span>
-						</div>
+						<span class="section-label" id="archive-heading">// posts</span>
+						<span class="archive-note log-count">{archivePosts.length}</span>
 					</header>
 					<ul class="archive-list">
 						{archivePosts.length > 0
