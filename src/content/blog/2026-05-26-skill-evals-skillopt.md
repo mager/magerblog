@@ -74,3 +74,17 @@ SkillOpt works because its benchmark tasks have correct answers. The gate can be
 The promptfoo post noted that LLM judges correlate with human judgment about 70–80% of the time. That's useful for coarse filtering, not reliable enough to drive an unsupervised optimization loop. You'd be optimizing against a noisy proxy, and the skill file would learn to satisfy the grader rather than improve the actual outcome.
 
 The gap between "we have a proper optimization framework for skill files" and "we can apply it to open-ended work" is almost entirely a verification problem. Whoever builds a reliable verifier for open-ended tasks will make everything else in this space move faster. That's where the constraint actually lives.
+
+## What this means if you're building with agents now
+
+Whether you're a startup with five skills or a larger organization with hundreds, a few things follow directly from SkillOpt and the surrounding evidence.
+
+**Start measuring at the skill level, not the system level.** Aggregate accuracy across a skill corpus is a vanity metric. A 90% pass rate across 20 skills can mask two skills running at 30%. Those two skills are where your users hit walls. Instrument per-skill, set per-skill baselines, and alert on per-skill regression. The corpus average will tell you almost nothing useful.
+
+**Separate slow-state from fast-state immediately — and assign ownership.** At team scale, the slow-state skills (reasoning patterns, domain knowledge, voice guidelines) are organizational assets. They should have reviewers and change control, not be editable by anyone who wants to tweak a prompt. The 22-point SpreadsheetBench drop from removing the protected-section invariant isn't just a technical result — it's an argument for treating your core skill files like schema: changes need review, tests need to pass, rollback needs to be possible.
+
+**Build your verifier before you build your optimizer.** The temptation is to start self-improving loops early. Don't. Without a reliable grader for your domain, you'll optimize against a noisy proxy and the skill files will get worse in ways that are hard to detect until a user notices. For procedural tasks — structured data extraction, code generation, form completion — automated graders are achievable now. For judgment-heavy tasks, invest in a human calibration pipeline first: 50–100 labeled examples, a rubric, spot-check your LLM judge against human scores. Once your grader has >85% agreement with humans on your specific task, you can start running optimization loops against it.
+
+**Treat skill portability as a forcing function for quality.** If a skill only works in one harness, it's probably leaking harness-specific assumptions into the text. A skill that works across Claude Code, direct API, and whatever your internal tooling is tends to be more clearly written and more reliably activated. Run your most important skills against at least two different runtimes. The divergence is usually diagnostic.
+
+For startups: 5–15 tightly scoped skills with per-skill evals and explicit slow/fast separation will outperform a single sprawling system prompt. For larger teams: the org design question is who owns the slow-state skills and what the change process looks like — that's usually where skill quality silently degrades, not from bad intent but from accumulated small edits that no one reviewed end-to-end. Either way, the investment is in the verifier and the measurement system, not the optimization loop. The loop is easy once those exist.
