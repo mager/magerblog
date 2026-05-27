@@ -15,7 +15,30 @@ The distinction matters more than it sounds.
 
 ## Skill files as trainable parameters
 
-SkillOpt frames markdown skill files the way ML practitioners frame model weights: as parameters that can be improved through an iterative update loop with a proper optimization objective. The paper is one of the first to formalize this. You propose an edit, evaluate it on a held-out set, and only accept it if it strictly improves the metric. Ties are rejected. The loop terminates when no further improvement is found.
+SkillOpt frames markdown skill files the way ML practitioners frame model weights: as parameters that can be improved through an iterative update loop with a proper optimization objective. The paper is one of the first to formalize this. The loop looks roughly like this:
+
+```python
+best_skill = load("skill.md")
+best_score = evaluate(best_skill, held_out_set)
+
+for epoch in range(max_epochs):
+    # Optimizer model proposes bounded edits (4–8 add/delete/replace ops)
+    candidate = propose_edits(best_skill, trajectories, budget=8)
+    score = evaluate(candidate, held_out_set)
+
+    if score > best_score:          # strict improvement only — ties rejected
+        best_skill = candidate
+        best_score = score
+    else:
+        rejected_buffer.append(candidate)   # feed back for contrast
+
+    if no_improvement_for(n=3):
+        break
+
+save(best_skill, "best_skill.md")
+```
+
+The validation gate is the whole mechanism. The rejected edit buffer feeds back into the next proposal step so the optimizer model learns what didn't work — it's not just hill climbing, it has contrast to reason about.
 
 End-to-end, their best-performing skills landed with 1–4 accepted edits total across the entire optimization run. If your self-improving agent is accepting most of what it proposes, you're not optimizing — you're just appending.
 
