@@ -1,0 +1,28 @@
+---
+title: "What gbrain's May tells us about agent memory"
+description: "Garry Tan's gbrain added multi-client MCP, hit v0.40.6, and kept articulating a thesis worth taking seriously: compounding knowledge systems as personal moat."
+pubDate: 2026-05-27
+category: tech
+draft: true
+tags: ["ai", "agents", "memory", "gbrain", "garry-tan"]
+---
+
+I've been on sabbatical and mostly ignoring the AI news cycle, but one signal I keep returning to is Garry Tan's public work on gbrain. Not because it's the only thing happening in agent memory, but because Tan is building in the open, shipping regularly, and actually articulating what he's trying to do. That combination makes it a useful read on where serious practitioners are going.
+
+gbrain launched April 10, 2026 and pulled 5,400 stars in the first 24 hours. The pitch is in the tagline: "the brain layer your AI agent has been missing." What that means in practice is a markdown-first, Postgres-backed knowledge layer that ingests meetings, emails, tweets, and notes, then auto-extracts a typed knowledge graph — people, companies, relationships, dates — without any LLM calls for the graph extraction itself. That last part is worth pausing on. The knowledge graph is built from structured parsing, not from asking a model to interpret your data. That's a meaningful design choice: it's faster, more deterministic, and cheaper to run at scale.
+
+The retrieval layer uses hybrid search — vector embeddings, BM25 keyword matching, and Reciprocal Rank Fusion to merge results from both. The benchmark number is 97.6% top-five accuracy on LongMemEval, which is an evaluation suite specifically designed for long-term memory systems. Tan's own production numbers are concrete if hard to independently verify: 146,646 pages ingested, 24,585 people tracked, 5,339 companies, 66 cron jobs running autonomously. The system exposes 74 tools through an MCP server, which means it integrates directly with Claude Code, Cursor, and Windsurf without any custom glue code.
+
+The most interesting technical development from May is PR #1399: multi-client MCP via socket multiplexer and stdio proxy. Before this, each agent process that wanted to connect to gbrain needed its own instance. Now multiple agents can share a single gbrain instance simultaneously. PR #1408 followed immediately with a concurrency fix — `pg_advisory_lock` acquire and release on the same backend connection via `pool.reserve()` — which is exactly the kind of locking correctness issue you'd expect to surface once multiple clients start hitting the same data layer at the same time.
+
+This is a natural next step for anyone running gbrain in a real agentic setup. If you have a coding agent, a research agent, and a scheduling agent all running in parallel — which is increasingly just what "using AI" looks like for people building in this space — you want them reading from and writing to a shared knowledge layer, not three separate ones. The multi-client architecture makes that possible without duplicating state or running separate databases per agent.
+
+The companion repo, gstack, adds another dimension. It's a collection of 23 opinionated skill files — CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and others — currently at 89.7K stars. The organizing philosophy is described in `docs/ethos/THIN_HARNESS_FAT_SKILLS.md` and Tan summarizes it as "fat skill fat code thin harness." The argument is that the harness (the agent orchestration layer) should be as thin as possible, and that the real work — the durable, reusable value — lives in the skill files. If you've seen the SkillOpt work that's been circulating, this connects directly: the skill file as the unit of optimization, not the model and not the system prompt.
+
+What I find genuinely compelling about the gbrain + gstack combination is that it's an attempt to build something that compounds. Your knowledge base gets richer over time. Your skill files get more refined. The agents that run against both get more effective. That's a different model than using a hosted AI product that resets its context every session and never learns your domain. Whether it plays out as described depends heavily on how well the ingestion pipeline handles noisy real-world data and whether the retrieval quality holds up as the knowledge base grows into the hundreds of thousands of entries.
+
+Tan's framing on X has been consistent: "compounding AI systems" as a personal moat, process power as something anyone can build for themselves. He claims his 2026 coding pace is roughly 810x his 2013 baseline, measured in logical lines per day. I don't know how to independently verify that figure — the methodology matters enormously for a claim like that — but I also don't think the specific number is the point. The underlying idea is more defensible: if you build systems that learn from everything you do and accumulate structured knowledge over time, the compounding effect is real even if it's hard to put a precise multiplier on.
+
+The open question I keep returning to: how fragile is this in practice? Ingesting your email, meetings, and tweets into a personal knowledge graph that 74 MCP tools can query is powerful if the retrieval is good and the graph stays coherent. It's expensive to debug if it isn't. The LongMemEval benchmark is encouraging, but benchmarks and production systems diverge in ways that are usually invisible until they aren't. The gbrain-evals repo suggests Tan is taking this seriously. How it holds up at scale across diverse data sources is still something to watch.
+
+v0.40.6.0 dropped May 23. The development pace is fast, the architecture decisions are deliberate, and the thesis is coherent. That's enough to keep paying attention.
