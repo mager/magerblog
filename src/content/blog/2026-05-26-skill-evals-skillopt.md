@@ -1,0 +1,50 @@
+---
+title: "Skill evals: what's changed since promptfoo"
+description: "The SkillOpt paper treats markdown skill files as trainable parameters. Here's what that means for anyone building agent harnesses in 2026."
+pubDate: 2026-05-26
+category: tech
+draft: true
+tags: ["ai", "agents", "skills", "evals", "skillopt"]
+---
+
+Back in February, I wrote about [promptfoo](/blog/2026-02-23-promptfoo-llm-validation) — specifically, how to validate what your LLM *outputs*. You give it inputs, you assert things about the response, and you run that in CI. It's essentially unit testing for prompts, and it works.
+
+That post was about evaluating outputs. The [SkillOpt paper](https://arxiv.org/abs/2605.23904) from Microsoft Research is about something different: optimizing the skill file itself as the object under test. Instead of "is this response correct," the question becomes "is this SKILL.md producing better task outcomes than the previous version — and can we prove it rigorously enough to accept the change."
+
+The distinction matters more than it sounds.
+
+## Skill files as trainable parameters
+
+SkillOpt frames markdown skill files the way ML practitioners frame model weights: as parameters that can be improved through an iterative update loop with a proper optimization objective. The paper is one of the first to formalize this. You propose an edit, evaluate it on a held-out set, and only accept it if it strictly improves the metric. Ties are rejected. The loop terminates when no further improvement is found.
+
+End-to-end, their best-performing skills landed with 1–4 accepted edits total across the entire optimization run. If your self-improving agent is accepting most of what it proposes, you're not optimizing — you're just appending.
+
+Two structural constraints explain most of the paper's results. First: **bounded edit size**. 4–8 edits per step is the sweet spot. Remove the budget and performance collapses. This is the textual analog of a learning rate — large edits introduce too much variance to attribute improvement reliably. Cap the diff size. Second: **protected sections**. Fast-state content (task-specific state like session logs or bookmarks) must be separated from slow-state content (voice guidelines, reasoning patterns, accumulated lessons). SkillOpt adds a structural invariant that fast edits cannot overwrite slow sections. Removing that mechanism cost 22 points on SpreadsheetBench in their ablations.
+
+The median final skill file across their experiments was around 920 tokens. Skills don't need to be long. They need to be high-signal. Most skill files I've seen — including early versions of my own — are longer than they should be, because length feels like effort. It isn't.
+
+## Portability is the underappreciated finding
+
+The paper runs across three execution harnesses — direct chat, Codex, and Claude Code — and tests seven different target models. A skill optimized in one harness transfers to another without retraining. The procedural knowledge is in the text, not the runtime.
+
+The headline numbers for GPT-5.5: +23.5 points in direct chat, +24.8 inside Codex, +19.1 inside Claude Code, all relative to no-skill baselines. SkillOpt is best or tied across all 52 evaluated (model, benchmark, harness) cells. The deployed artifact is a `best_skill.md` file — 300 to 2,000 tokens, no model changes required.
+
+This suggests the harness matters less than the skill. The practical implication: a smaller, cheaper model with a well-optimized skill file can approximate the behavior of a larger model on procedural tasks. Fully inspectable, portable across runtimes, zero inference-time overhead. For teams asking "how do we adapt a frontier model for our domain without fine-tuning," this is the answer for most procedural work.
+
+## Two practical observations from the field
+
+Murat Can Koylan, who maintains the [Agent Skills for Context Engineering repo](https://github.com/muratcankoylan/agent-skills-for-context-engineering), published observations from [v2.3.0](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/releases/tag/v2.3.0) that match what the paper finds, measured across GPT-5.5, Claude Opus 4.7, Gemini 3.1 Pro, and Composer-2 via the Cursor AI SDK.
+
+**Descriptions and bodies are separate surfaces.** The router only reads the description when deciding which skill to invoke. The agent only reads the body once a skill is activated. They can quietly disagree with each other, and aggregate accuracy metrics won't catch it — only end-to-end task tests will.
+
+**Aggregate accuracy is the wrong unit.** Rewriting three skill descriptions in one pass moved the corpus average roughly 1 percentage point. Individual skill accuracy moved 23–25 points. The aggregate metric was hiding nearly all the signal. Per-skill effect size is where the action is.
+
+Both observations reinforce the paper's framing: treat skill files as parameters with measurable effect sizes, not documentation you rewrite by feel.
+
+## The unresolved problem
+
+SkillOpt works because its benchmark tasks have correct answers. The gate can be automated. But the tasks where optimized skill files would deliver the most practical value — writing, design, strategy, planning — are exactly the tasks where "better" is contested and auto-graders fail.
+
+The promptfoo post noted that LLM judges correlate with human judgment about 70–80% of the time. That's useful for coarse filtering, not reliable enough to drive an unsupervised optimization loop. You'd be optimizing against a noisy proxy, and the skill file would learn to satisfy the grader rather than improve the actual outcome.
+
+The gap between "we have a proper optimization framework for skill files" and "we can apply it to open-ended work" is almost entirely a verification problem. Whoever builds a reliable verifier for open-ended tasks will make everything else in this space move faster. That's where the constraint actually lives.
