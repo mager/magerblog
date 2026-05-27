@@ -3,7 +3,7 @@ title: "Skill evals: what's changed since promptfoo"
 description: "The SkillOpt paper treats markdown skill files as trainable parameters. Here's what that means for anyone building agent harnesses in 2026."
 pubDate: 2026-05-26
 category: tech
-draft: true
+draft: false
 tags: ["ai", "agents", "skills", "evals", "skillopt"]
 ---
 
