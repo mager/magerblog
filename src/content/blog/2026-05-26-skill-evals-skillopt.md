@@ -15,7 +15,7 @@ The distinction matters more than it sounds.
 
 ## Skill files as trainable parameters
 
-SkillOpt frames markdown skill files the way ML practitioners frame model weights: as parameters that can be improved through an iterative update loop with a proper optimization objective. The paper is one of the first to formalize this. The loop looks roughly like this:
+The [SkillOpt paper](https://arxiv.org/abs/2605.23904) frames markdown skill files the way ML practitioners frame model weights: as parameters that can be improved through an iterative update loop with a proper optimization objective. The loop looks roughly like this:
 
 ```python
 best_skill = load("skill.md")
@@ -42,7 +42,10 @@ The validation gate is the whole mechanism. The rejected edit buffer feeds back 
 
 End-to-end, their best-performing skills landed with 1–4 accepted edits total across the entire optimization run. If your self-improving agent is accepting most of what it proposes, you're not optimizing — you're just appending.
 
-Two structural constraints explain most of the paper's results. First: **bounded edit size**. 4–8 edits per step is the sweet spot. Remove the budget and performance collapses. This is the textual analog of a learning rate — large edits introduce too much variance to attribute improvement reliably. Cap the diff size. Second: **protected sections**. Fast-state content (task-specific state like session logs or bookmarks) must be separated from slow-state content (voice guidelines, reasoning patterns, accumulated lessons). SkillOpt adds a structural invariant that fast edits cannot overwrite slow sections. Removing that mechanism cost 22 points on SpreadsheetBench in their ablations.
+Two structural constraints explain most of the paper's results:
+
+- **Bounded edit size.** 4–8 edits per step is the sweet spot. Remove the budget and performance collapses. This is the textual analog of a learning rate — large edits introduce too much variance to attribute improvement reliably. Cap the diff size.
+- **Protected sections.** Fast-state content (task-specific state like session logs or bookmarks) must be separated from slow-state content (voice guidelines, reasoning patterns, accumulated lessons). SkillOpt adds a structural invariant that fast edits cannot overwrite slow sections. Removing that mechanism cost 22 points on SpreadsheetBench in their ablations.
 
 The median final skill file across their experiments was around 920 tokens. Skills don't need to be long. They need to be high-signal. Most skill files I've seen — including early versions of my own — are longer than they should be, because length feels like effort. It isn't.
 
