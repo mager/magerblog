@@ -1,6 +1,6 @@
 ---
-title: "Skill evals: what's changed since promptfoo"
-description: "The SkillOpt paper treats markdown skill files as trainable parameters. Here's what that means for anyone building agent harnesses in 2026."
+title: "SkillOpt: gradient descent for your SKILL.md"
+description: "Microsoft's SkillOpt is the first paper to treat agent skill files as trainable parameters — propose an edit, evaluate on held-out examples, accept only on strict improvement. Here's what it found and what it means for teams building with agents."
 pubDate: 2026-05-27
 category: tech
 draft: false
