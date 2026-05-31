@@ -8,7 +8,9 @@ cookTime: 10
 heroImage: ""
 ---
 
-I ate a version of this at a tiny place in Tokyo and couldn't stop thinking about it. The menu called it *wafū* spaghetti — Japanese-style — and it was almost aggressively simple: butter, soy sauce, a little parmesan, and a scatter of green onion. That's it. No cream, no garlic, no tomato. It had no business being that good.
+Confession: I never actually ate this. It was on the menu at the Kimpton Shinjuku and I kept meaning to order it — *wafū* spaghetti, Japanese-style, almost aggressively simple. Butter, soy sauce, a little parmesan, a scatter of green onion. That's it. No cream, no garlic, no tomato. I walked past it every morning and never pulled the trigger.
+
+Then later in the trip we saw Japanese popcorn seasoned with butter and soy, and the combination lodged itself in my brain. I flew home today, and now I can't stop thinking about that spaghetti I never ordered. So I'm making it from memory and a craving — which is honestly the best reason to cook anything.
 
 The whole thing leans on one trick borrowed from real Italian pasta technique — finishing the noodles in the sauce with a splash of starchy pasta water — and one flavor swap that makes it unmistakably Japanese: soy sauce instead of salt. The soy does double duty. It seasons, and it brings a savory depth that butter and parm alone can't.
 
