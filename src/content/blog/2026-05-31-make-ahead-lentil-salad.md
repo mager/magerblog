@@ -1,6 +1,6 @@
 ---
 title: "Make-Ahead Lentil Salad: Bon Appétit Delivers Again"
-description: "Black beluga lentils dressed in cumin-infused oil with Castelvetrano olives, feta, and kale — better the next day, holds up all week."
+description: "Green lentils dressed in cumin-infused oil with Castelvetrano olives, feta, and kale — better the next day, holds up all week."
 pubDate: "2026-05-31"
 category: "food"
 tags: ["lentils", "salad", "make-ahead", "vegetarian", "bon appétit", "kale"]
@@ -19,7 +19,7 @@ Credit goes entirely to BA. I'm just here to evangelize it.
 
 Serves 4.
 
-- 1½ cups black beluga or French green lentils
+- 1½ cups green lentils
 - 1 large bunch Tuscan kale, stems removed, leaves torn or chopped
 - 3 scallions, white and green parts separated, thinly sliced
 - 4 garlic cloves, smashed and peeled
@@ -51,7 +51,7 @@ Crumble the feta over the top. Serve warm, at room temperature, or cold. As prom
 
 ## Notes
 
-- Black beluga lentils hold their shape the best and look striking. French green (Puy) lentils are a close second. Avoid red or yellow lentils — they'll turn to mush.
+- Green lentils hold their shape well and stay al dente — that's what you want here. Cook them just until tender; they shouldn't turn to mush.
 - Fish out the lemon peel strips before serving if you want, but I leave them in. They're soft by that point and anyone who gets one is getting a good bite.
 - The almonds add crunch. Toast them first if you have five minutes — it's worth it.
 - This keeps well in the fridge for 4–5 days. Add a splash of olive oil when you pull it out if it looks dry.
