@@ -1,6 +1,6 @@
 ---
 title: "Japanese Butter Soy Spaghetti"
-description: "A five-ingredient Japanese-style spaghetti — butter, soy sauce, and parmesan tossed with hot pasta and finished with green onion. The wafu pasta I kept ordering in Tokyo, made at home in ten minutes."
+description: "A five-ingredient Japanese-style spaghetti — butter, tamari, and parmesan tossed with hot pasta and finished with green onion. The wafu pasta I kept eyeing in Tokyo, made at home in ten minutes."
 pubDate: 2026-05-30
 category: "food"
 prepTime: 5
@@ -12,7 +12,7 @@ Confession: I never actually ate this. It was on the menu at the Kimpton Shinjuk
 
 Then later in the trip we saw Japanese popcorn seasoned with butter and soy, and the combination lodged itself in my brain. I flew home today, and now I can't stop thinking about that spaghetti I never ordered. So I'm making it from memory and a craving — which is honestly the best reason to cook anything.
 
-The whole thing leans on one trick borrowed from real Italian pasta technique — finishing the noodles in the sauce with a splash of starchy pasta water — and one flavor swap that makes it unmistakably Japanese: soy sauce instead of salt. The soy does double duty. It seasons, and it brings a savory depth that butter and parm alone can't.
+The whole thing leans on one trick borrowed from real Italian pasta technique — finishing the noodles in the sauce with a splash of starchy pasta water — and one flavor swap that makes it unmistakably Japanese: tamari instead of salt. I use tamari (regular soy sauce works fine as a backup), and it does double duty. It seasons, and it brings a rounder, less sharply salty savory depth that butter and parm alone can't.
 
 It comes together faster than the water takes to boil twice. Oishii.
 
@@ -22,19 +22,19 @@ Serves 2.
 
 - 200g spaghetti (about half a pound)
 - 3 tablespoons butter
-- 2 tablespoons soy sauce
+- 2 tablespoons tamari (or soy sauce)
 - 1/3 cup grated parmesan, plus more to finish
 - 2 green onions, thinly sliced
 - Black pepper
 - A splash of reserved pasta water
 
-That's the whole list. The quality of each one matters more than usual when there are only five of them — use real butter, a soy sauce you actually like the taste of, and parmesan you grate yourself.
+That's the whole list. The quality of each one matters more than usual when there are only five of them — use real butter, a tamari (or soy sauce) you actually like the taste of, and parmesan you grate yourself.
 
 ## The Method
 
 Boil the spaghetti in well-salted water until just shy of al dente — a minute less than the box says, since it'll keep cooking in the pan. **Before you drain it, scoop out about half a cup of the pasta water.** This is the part people skip, and it's the part that makes the sauce a sauce instead of a slick.
 
-While the pasta cooks, melt the butter in a wide pan over low heat. You don't want it to brown — just melt and get foamy. Add the soy sauce and let it bubble together for a few seconds. It'll smell incredible the moment they meet.
+While the pasta cooks, melt the butter in a wide pan over low heat. You don't want it to brown — just melt and get foamy. Add the tamari and let it bubble together for a few seconds. It'll smell incredible the moment they meet.
 
 Pull the pasta straight from the pot into the pan with tongs (a little extra water clinging to it is fine). Turn the heat to medium and toss. Add the parmesan and a splash of the reserved pasta water, then keep tossing until the cheese melts and the sauce goes glossy and coats every strand. If it looks dry, add a little more water; if it's loose, let it cook down for another few seconds.
 
@@ -48,6 +48,6 @@ Eat it immediately, while it's hot and glossy. This is not a dish that waits for
 
 ## Notes
 
-- **Soy sauce strength varies a lot.** Start with less than you think, taste, and add more. You can always add; you can't take it back.
+- **Tamari is a touch less salty and rounder than soy sauce — and it's wheat-free, so this stays gluten-free if your pasta is.** Either way, strength varies a lot by brand. Start with less than you think, taste, and add more. You can always add; you can't take it back.
 - A pinch of dashi powder or a small knob of butter swapped for browned butter both push it further into umami territory if you want to experiment — but the plain version is the one I keep coming back to.
 - Some shops top it with a sheet of nori cut into thin strips, or a soft egg yolk on top. Both are excellent. Neither is necessary.
