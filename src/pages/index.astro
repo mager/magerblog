@@ -30,6 +30,20 @@ const recipePosts = allPosts
 	.filter(post => post.data.category === 'food')
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
+// "The Japan trip" feature: the trip dispatches are life posts tagged both
+// Japan + Travel (Sumo, Hanshin Tigers). Kotsu is the companion tech post.
+// To retire the feature later, remove those tags or the posts.
+const japanPosts = lifePosts
+	.filter(post => post.data.tags?.includes('Japan') && post.data.tags?.includes('Travel'))
+	.slice(0, 2);
+const kotsuPost = techPosts.find(post => post.id.includes('kotsu') || post.data.title.toLowerCase().includes('kotsu'));
+
+// Anything featured in the Japan band is pulled out of the category zones below
+// so no post is linked twice on the page.
+const featuredIds = new Set([...japanPosts.map(p => p.id), ...(kotsuPost ? [kotsuPost.id] : [])]);
+const techForZone = techPosts.filter(post => !featuredIds.has(post.id));
+const lifeForZone = lifePosts.filter(post => !featuredIds.has(post.id));
+
 // OG image: use first available hero image across categories
 const ogImage =
 	techPosts.find(p => p.data.heroImage)?.data.heroImage ||
@@ -63,9 +77,11 @@ const ogImage =
 	<body>
 		<main>
 			<NewspaperHero
-				techPosts={techPosts}
-				lifePosts={lifePosts}
+				techPosts={techForZone}
+				lifePosts={lifeForZone}
 				recipePosts={recipePosts}
+				japanPosts={japanPosts}
+				kotsuPost={kotsuPost}
 			/>
 		</main>
 		<Footer homepage={true} />
