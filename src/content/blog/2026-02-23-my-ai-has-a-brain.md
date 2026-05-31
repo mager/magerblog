@@ -6,7 +6,7 @@ category: tech
 tags: ["AI", "OpenClaw", "brainpack", "mem0", "Claude Code"]
 keyword: "AI brain in the cloud"
 heroImage: ""
-draft: false
+draft: true
 ---
 
 **The problem:** Every session, my AI wakes up fresh. No memory of yesterday's decisions, no context on my preferences, no clue that I hate cilantro or that my wife knits. It's Groundhog Day with better autocomplete.
