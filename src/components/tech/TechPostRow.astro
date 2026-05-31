@@ -13,46 +13,10 @@ const d = post.data.updatedDate || post.data.pubDate;
 const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 const tags = (post.data.tags || []).slice(0, 3);
 const dek = post.data.description || tags.join(' / ') || '';
-
-const tagHueMap = new Map([
-	['ai', 280],
-	['agents', 224],
-	['agent', 224],
-	['claude', 292],
-	['claude-code', 292],
-	['codex', 250],
-	['openai', 255],
-	['openclaw', 205],
-	['hermes', 34],
-	['developer-tools', 198],
-	['tools', 198],
-	['cli', 170],
-	['mcp', 154],
-	['llms', 318],
-	['evals', 18],
-	['promptfoo', 18],
-	['context', 84],
-	['memory', 84],
-	['loooom', 330],
-	['design', 28],
-	['frontend', 28],
-	['langgraph', 142],
-	['skills', 44],
-]);
-
-const fallbackHue = (value: string) =>
-	[...value].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 360;
-
-const getTagHue = (tag = '') => {
-	const key = tag.toLowerCase();
-	return tagHueMap.get(key) ?? fallbackHue(key || 'tech');
-};
-
-const rowHue = getTagHue(tags[0]);
 ---
 
 <li class={`tech-row-wrap ${isDraft ? 'draft' : ''}`}>
-	<a href={`/blog/${post.id}/`} class="tech-row" style={`--row-hue: ${rowHue};`}>
+	<a href={`/blog/${post.id}/`} class="tech-row">
 		<span class="row-date">{dateStr}</span>
 		<span class="row-body">
 			<span class="row-title">{displayTitle}</span>
@@ -60,142 +24,103 @@ const rowHue = getTagHue(tags[0]);
 		</span>
 		<span class="row-tags">
 			{tags.map(tag => (
-				<span class="tag" style={`--tag-hue: ${getTagHue(tag)};`}>{tag}</span>
+				<span class="tag">{tag}</span>
 			))}
-			<span class="row-arrow" aria-hidden="true">↗</span>
+			<span class="row-arrow" aria-hidden="true">→</span>
 		</span>
 	</a>
 </li>
 
 <style>
-	/* ── Row wrapper ──────────────────────────────────────────── */
+	/* Light editorial row — inherits tokens from .tech-page, with fallbacks */
 	.tech-row-wrap {
 		margin: 0;
 		padding: 0;
-		/* Left accent bar — invisible by default */
-		position: relative;
-	}
-
-	.tech-row-wrap::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		width: 2px;
-		background: oklch(72% 0.22 var(--row-hue, 252));
-		opacity: 0;
-		transform: scaleY(0.4);
-		transform-origin: center;
-		transition: opacity 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.tech-row-wrap:hover::before {
-		opacity: 0.75;
-		transform: scaleY(1);
 	}
 
 	.tech-row-wrap.draft { opacity: 0.55; }
 
-	/* ── Row link ────────────────────────────────────────────── */
 	.tech-row {
 		display: grid;
-		grid-template-columns: 8rem minmax(0, 1fr) minmax(9rem, auto);
+		grid-template-columns: 7rem minmax(0, 1fr) minmax(8rem, auto);
 		gap: 1.1rem;
 		align-items: start;
-		padding: 1rem 0 1rem 0.85rem;
+		padding: 1.1rem 0;
 		color: inherit;
 		text-decoration: none;
-		border-bottom: 1px solid
-			color-mix(in oklch, oklch(60% 0.18 var(--row-hue)) 12%, oklch(100% 0 0 / 0.07));
-		transition:
-			background 180ms ease,
-			border-color 180ms ease;
+		border-bottom: 1px solid var(--rule, #ddd6cd);
 	}
 
-	.tech-row:hover {
-		background:
-			linear-gradient(
-				90deg,
-				color-mix(in oklch, oklch(72% 0.22 var(--row-hue)) 9%, transparent) 0%,
-				transparent 60%
-			);
-		border-color:
-			color-mix(in oklch, oklch(72% 0.22 var(--row-hue)) 38%, oklch(100% 0 0 / 0.06));
-	}
-
-	/* ── Date column ─────────────────────────────────────────── */
 	.row-date {
 		font-family: var(--font-mono, 'JetBrains Mono', monospace);
 		font-size: 0.72rem;
-		color: oklch(48% 0.1 var(--row-hue, 252));
-		padding-top: 0.2rem;
+		color: var(--ink-light, #8d867d);
+		padding-top: 0.4rem;
 		white-space: nowrap;
 		letter-spacing: 0.01em;
 	}
 
-	/* ── Body column ─────────────────────────────────────────── */
 	.row-body {
 		display: grid;
-		gap: 0.32rem;
+		gap: 0.3rem;
 		min-width: 0;
 	}
 
 	.row-title {
-		font-family: var(--font-ui, 'Space Grotesk', system-ui, sans-serif);
-		font-size: clamp(1rem, 1.35vw, 1.2rem);
-		font-weight: 700;
-		line-height: 1.18;
-		/* Bright on dark — context vars provided by tech.astro */
-		color: oklch(92% 0.016 var(--row-hue, 252));
-		transition: color 160ms ease;
+		font-family: var(--font-display, Georgia, serif);
+		font-variation-settings: 'opsz' 36, 'wght' 700;
+		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+		line-height: 1.2;
+		color: var(--ink, #1f1c17);
 	}
 
 	.tech-row:hover .row-title {
-		color: oklch(96% 0.008 0);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		text-decoration-thickness: 1px;
 	}
 
 	.row-dek {
-		font-family: var(--font-mono, 'JetBrains Mono', monospace);
+		font-family: var(--font-body, Georgia, serif);
 		display: -webkit-box;
-		max-width: 80ch;
-		font-size: 0.76rem;
-		line-height: 1.55;
-		color: oklch(52% 0.028 var(--row-hue, 252));
+		max-width: 75ch;
+		font-size: 0.9rem;
+		line-height: 1.5;
+		color: var(--ink-mid, #6c6760);
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 	}
 
-	/* ── Tags column ─────────────────────────────────────────── */
 	.row-tags {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
 		gap: 0.38rem;
 		flex-wrap: wrap;
-		padding-top: 0.12rem;
+		padding-top: 0.4rem;
 	}
 
 	.tag {
 		font-family: var(--font-mono, 'JetBrains Mono', monospace);
-		border: 1px solid color-mix(in oklch, oklch(65% 0.18 var(--tag-hue)) 40%, transparent);
-		background: color-mix(in oklch, oklch(65% 0.2 var(--tag-hue)) 11%, transparent);
-		color: oklch(72% 0.14 var(--tag-hue));
-		font-size: 0.64rem;
+		border: 1px solid var(--rule, #ddd6cd);
+		background: var(--surface, #f5f3f0);
+		color: var(--ink-light, #8d867d);
+		border-radius: 999px;
+		font-size: 0.62rem;
 		line-height: 1;
-		padding: 0.3rem 0.44rem;
+		padding: 0.26rem 0.5rem;
 		letter-spacing: 0.03em;
 		white-space: nowrap;
 	}
 
-	/* ── Arrow ───────────────────────────────────────────────── */
 	.row-arrow {
+		align-self: center;
 		font-family: var(--font-mono, 'JetBrains Mono', monospace);
-		color: oklch(62% 0.2 var(--row-hue, 252));
-		font-size: 0.92rem;
+		color: var(--accent, #2f5e9e);
+		font-size: 0.9rem;
 		opacity: 0;
-		transform: translate(-5px, 2px);
+		transform: translateX(-4px);
 		transition:
 			opacity 160ms ease,
 			transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -203,32 +128,27 @@ const rowHue = getTagHue(tags[0]);
 
 	.tech-row:hover .row-arrow {
 		opacity: 1;
-		transform: translate(0, 0);
+		transform: translateX(0);
 	}
 
 	/* ── Responsive ──────────────────────────────────────────── */
 	@media (max-width: 840px) {
 		.tech-row {
 			grid-template-columns: 1fr;
-			gap: 0.55rem;
-			padding: 0.9rem 0 0.9rem 0.75rem;
+			gap: 0.5rem;
+			padding: 0.95rem 0;
 		}
 
-		.row-tags { justify-content: flex-start; }
+		.row-tags { justify-content: flex-start; padding-top: 0.15rem; }
 		.row-arrow { display: none; }
 	}
 
 	@media (max-width: 560px) {
-		.tech-row { gap: 0.4rem; }
 		.row-date { font-size: 0.66rem; }
-		.row-title { font-size: 1rem; }
-		.row-dek { font-size: 0.72rem; }
+		.row-dek { font-size: 0.85rem; }
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.tech-row-wrap::before,
-		.tech-row,
 		.row-arrow { transition: none; }
-		.tech-row:hover { background: none; }
 	}
 </style>
