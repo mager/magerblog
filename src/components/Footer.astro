@@ -4,286 +4,324 @@ interface Props {
 }
 
 const { homepage = false } = Astro.props;
-const today = new Date();
+const year = new Date().getFullYear();
 ---
 
 <footer class:list={[{ "footer-light": homepage }]}>
-	<div class="footer-content">
-		<div class="sites-section">
-			<p class="sites-label">Also building</p>
-			<div class="sites-grid">
-				<a href="https://loooom.xyz" target="_blank" rel="noopener" class="site-card">
-					<span class="site-name">Loooom</span>
-					<span class="site-desc">Claude Code plugin marketplace + ME.md</span>
+	<div class="footer-inner">
+
+		<!-- Top rule with accent -->
+		<div class="footer-rule" aria-hidden="true"></div>
+
+		<div class="footer-body">
+
+			<!-- Left: Wordmark + tagline -->
+			<div class="footer-brand">
+				<a href="/" class="wordmark" aria-label="mager.co home">
+					<span class="wm-prompt">▸</span><span class="wm-name">mager</span><span class="wm-tld">.co</span>
 				</a>
-				<a href="https://prxps.xyz" target="_blank" rel="noopener" class="site-card">
-					<span class="site-name">prxps</span>
-					<span class="site-desc">AI-powered sports predictions</span>
-				</a>
-				<a href="https://kotsu.org" target="_blank" rel="noopener" class="site-card">
-					<span class="site-name">kotsu</span>
-					<span class="site-desc" lang="ja">漢字を学ぶ</span>
-				</a>
+				<p class="tagline">Builder. Chicago.</p>
+				<p class="copy">&copy; {year}</p>
 			</div>
+
+			<!-- Center: Nav -->
+			<nav class="footer-nav" aria-label="Footer navigation">
+				<p class="col-label">Navigate</p>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/tech">Tech</a></li>
+					<li><a href="/life">Life</a></li>
+					<li><a href="/cooking">Cooking</a></li>
+					<li><a href="/about">About</a></li>
+				</ul>
+			</nav>
+
+			<!-- Right: Building -->
+			<div class="footer-projects">
+				<p class="col-label">Also building</p>
+				<ul>
+					<li>
+						<a href="https://loooom.xyz" target="_blank" rel="noopener">
+							<span class="proj-name">Loooom</span>
+							<span class="proj-desc">Claude Code plugins</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://prxps.xyz" target="_blank" rel="noopener">
+							<span class="proj-name">prxps</span>
+							<span class="proj-desc">Sports predictions</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://kotsu.org" target="_blank" rel="noopener">
+							<span class="proj-name">kotsu</span>
+							<span class="proj-desc" lang="ja">漢字を学ぶ</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Far right: Socials -->
+			<div class="footer-social">
+				<p class="col-label">Elsewhere</p>
+				<ul>
+					<li>
+						<a href="https://x.com/mager" target="_blank" rel="noopener" aria-label="Follow @mager on X">
+							<svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+							<span>X / Twitter</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/mager" target="_blank" rel="noopener" aria-label="mager on GitHub">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+							<span>GitHub</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
 		</div>
 
-		<div class="footer-meta">
-			<div class="footer-branding">
-				<span class="brand-text">mager.co</span>
-				<p class="copyright">&copy; {today.getFullYear()}</p>
-			</div>
-
-			<div class="footer-nav-social">
-				<div class="footer-links">
-					<a href="/" class="footer-link">Home</a>
-					<a href="/tech" class="footer-link">Tech</a>
-					<a href="/life" class="footer-link">Life</a>
-					<a href="/cooking" class="footer-link">Cooking</a>
-				</div>
-
-				<div class="social-links">
-					<a href="https://x.com/mager" target="_blank" rel="noopener" class="social-link">
-						<span class="sr-only">Follow @mager on X</span>
-						<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
-							<path
-								fill="currentColor"
-								d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-							></path>
-						</svg>
-					</a>
-				</div>
-			</div>
+		<!-- Bottom strip -->
+		<div class="footer-strip">
+			<span class="built-line">
+				Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a> &amp; <a href="https://x.com/magerbot" target="_blank" rel="noopener">@magerbot</a>
+			</span>
 		</div>
 
-		<p class="built-line">
-			Built with <a href="https://claude.ai/code" target="_blank" rel="noopener" class="built-link">Claude</a> and <a href="https://x.com/magerbot" target="_blank" rel="noopener" class="built-link">@magerbot</a>
-		</p>
 	</div>
 </footer>
 
 <style>
-	/* ─── Dark default (blog posts) ───────────────────────── */
+	/* ─── Tokens ─────────────────────────────────────────────── */
 	footer {
-		padding: 2rem 2rem 2.5rem;
-		background: var(--terminal-bg-dark, #010409);
-		color: var(--text-primary, #e6edf3);
-		text-align: center;
-		border-top: 1px solid var(--terminal-border, #30363d);
-		position: relative;
+		--ft-bg:            var(--terminal-bg-dark, #010409);
+		--ft-border:        var(--terminal-border, #30363d);
+		--ft-brand:         var(--text-primary, #e6edf3);
+		--ft-text:          var(--text-secondary, #8b949e);
+		--ft-muted:         var(--text-muted, #484f58);
+		--ft-accent:        var(--status-purple, #a371f7);
+		--ft-accent-hover:  var(--cyan, #79c0ff);
+		--ft-rule-from:     var(--status-purple, #a371f7);
+		--ft-rule-to:       var(--status-cyan, #58a6ff);
 
-		--ft-brand: var(--text-primary, #e6edf3);
-		--ft-text: var(--text-secondary, #8b949e);
-		--ft-muted: var(--text-muted, #484f58);
-		--ft-link: var(--status-purple, #a371f7);
-		--ft-link-hover: var(--status-cyan, #58a6ff);
-		--ft-separator: var(--terminal-border, #30363d);
-		--ft-social-bg: rgba(48, 54, 61, 0.3);
-		--ft-social-hover-bg: rgba(163, 113, 247, 0.1);
+		background: var(--ft-bg);
+		color: var(--ft-text);
+		padding: 0 2rem 2rem;
 	}
 
-	/* ─── Light mode for homepage ─────────────────────────── */
+	/* ─── Light / homepage override ─────────────────────────── */
 	.footer-light {
-		background: #f5f3f0;
-		border-top: 1px solid rgba(26, 26, 46, 0.06);
-
-		--ft-brand: #1a1a2e;
-		--ft-text: #6b7280;
-		--ft-muted: #9ca3af;
-		--ft-link: #6366f1;
-		--ft-link-hover: #0d9488;
-		--ft-separator: rgba(26, 26, 46, 0.1);
-		--ft-social-bg: rgba(26, 26, 46, 0.04);
-		--ft-social-hover-bg: rgba(99, 102, 241, 0.08);
+		--ft-bg:            #f5f3f0;
+		--ft-border:        rgba(26, 26, 46, 0.08);
+		--ft-brand:         #1a1a2e;
+		--ft-text:          #6b7280;
+		--ft-muted:         #9ca3af;
+		--ft-accent:        #6366f1;
+		--ft-accent-hover:  #0d9488;
+		--ft-rule-from:     #6366f1;
+		--ft-rule-to:       #0d9488;
 	}
 
-	.footer-content {
-		position: relative;
-		z-index: 1;
+	/* ─── Rule ───────────────────────────────────────────────── */
+	.footer-rule {
+		height: 1px;
+		background: linear-gradient(90deg, var(--ft-rule-from), var(--ft-rule-to), transparent);
+		margin-bottom: 2.5rem;
+	}
+
+	/* ─── Inner wrapper ──────────────────────────────────────── */
+	.footer-inner {
 		max-width: 880px;
 		margin: 0 auto;
 	}
 
-	.footer-meta {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 1.5rem;
-		margin-bottom: 0.85rem;
-		text-align: left;
+	/* ─── Body: 4-col grid ───────────────────────────────────── */
+	.footer-body {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr 1fr 1fr;
+		gap: 2rem;
+		align-items: start;
+		margin-bottom: 2.5rem;
 	}
 
-	.footer-branding {
-		display: flex;
+	/* ─── Brand column ───────────────────────────────────────── */
+	.wordmark {
+		display: inline-flex;
 		align-items: baseline;
-		gap: 0.75rem;
-		flex-wrap: wrap;
+		gap: 0;
+		text-decoration: none;
+		margin-bottom: 0.6rem;
 	}
 
-	.footer-nav-social {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 1rem;
-		flex-wrap: wrap;
+	.wm-prompt {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--ft-accent);
+		margin-right: 0.3em;
+		transition: transform 0.2s ease;
+		display: inline-block;
 	}
+	.wordmark:hover .wm-prompt { transform: translateX(3px); }
 
-	.brand-text {
+	.wm-name {
 		font-family: 'Syne', sans-serif;
 		font-weight: 800;
-		font-size: 1.2rem;
+		font-size: 1.5rem;
+		letter-spacing: -0.03em;
 		color: var(--ft-brand);
-		letter-spacing: -0.02em;
+		line-height: 1;
+		transition: color 0.2s ease;
+	}
+	.wordmark:hover .wm-name { color: var(--ft-accent); }
+
+	.wm-tld {
+		font-family: 'JetBrains Mono', monospace;
+		font-weight: 400;
+		font-size: 1.1rem;
+		color: var(--ft-text);
+		line-height: 1;
+		transition: color 0.2s ease;
+	}
+	.wordmark:hover .wm-tld { color: var(--ft-accent-hover); }
+
+	.tagline {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.68rem;
+		color: var(--ft-muted);
+		margin: 0.4rem 0 0.2rem;
+		letter-spacing: 0.04em;
 	}
 
-	.copyright {
-		font-size: 0.76rem;
+	.copy {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.65rem;
 		color: var(--ft-muted);
 		margin: 0;
-		font-family: 'JetBrains Mono', monospace;
+		opacity: 0.6;
 	}
 
-	.footer-links {
+	/* ─── Column label ───────────────────────────────────────── */
+	.col-label {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ft-muted);
+		margin: 0 0 0.85rem;
+	}
+
+	/* ─── Lists ──────────────────────────────────────────────── */
+	.footer-nav ul,
+	.footer-projects ul,
+	.footer-social ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
 		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 1rem;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	/* ─── Nav links ──────────────────────────────────────────── */
+	.footer-nav a {
 		font-family: 'Space Grotesk', sans-serif;
 		font-size: 0.82rem;
 		font-weight: 500;
-		flex-wrap: wrap;
-	}
-
-	.footer-link {
 		color: var(--ft-text);
 		text-decoration: none;
-		transition: color 0.2s ease;
+		transition: color 0.15s ease;
+		display: inline-block;
 	}
-	.footer-link:hover {
-		color: var(--ft-link);
-	}
+	.footer-nav a:hover { color: var(--ft-accent); }
 
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 0.5rem;
-	}
-
-	.social-link {
+	/* ─── Project links ──────────────────────────────────────── */
+	.footer-projects a {
 		text-decoration: none;
-		color: var(--ft-muted);
-		transition: all 0.2s ease;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.45rem;
-		border-radius: 999px;
-		background: var(--ft-social-bg);
-		border: 1px solid transparent;
-	}
-	.social-link:hover {
-		color: var(--ft-link);
-		background: var(--ft-social-hover-bg);
-		border-color: var(--ft-link);
-		transform: translateY(-2px);
-	}
-
-	.built-line {
-		font-size: 0.72rem;
-		color: var(--ft-muted);
-		font-family: 'JetBrains Mono', monospace;
-		margin: 0;
-	}
-
-	.built-link {
-		color: var(--ft-link);
-		text-decoration: none;
-		transition: color 0.2s ease;
-		border-bottom: 1px solid transparent;
-	}
-	.built-link:hover {
-		color: var(--ft-link-hover);
-		border-bottom-color: var(--ft-link-hover);
-	}
-
-	/* ─── Sites section ─────────────────────────────── */
-	.sites-section {
-		margin-bottom: 1.5rem;
-		padding-bottom: 1.25rem;
-		border-bottom: 1px solid var(--ft-separator);
-	}
-
-	.sites-label {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.65rem;
-		font-weight: 600;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--ft-muted);
-		margin: 0 0 1rem;
-	}
-
-	.sites-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 0.75rem;
-	}
-
-	.site-card {
 		display: flex;
 		flex-direction: column;
-		gap: 0.2rem;
-		padding: 0.9rem;
-		border-radius: 10px;
-		border: 1px solid var(--ft-separator);
-		background: var(--ft-social-bg);
-		text-decoration: none;
-		transition: all 0.2s ease;
-		text-align: left;
+		gap: 0.05rem;
+		transition: opacity 0.15s ease;
 	}
+	.footer-projects a:hover { opacity: 0.85; }
+	.footer-projects a:hover .proj-name { color: var(--ft-accent); }
 
-	.site-card:hover {
-		border-color: var(--ft-link);
-		background: var(--ft-social-hover-bg);
-		transform: translateY(-2px);
-	}
-
-	.site-name {
+	.proj-name {
 		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.85rem;
-		font-weight: 700;
+		font-size: 0.82rem;
+		font-weight: 600;
 		color: var(--ft-brand);
+		transition: color 0.15s ease;
 	}
 
-	.site-desc {
-		font-family: 'Atkinson Hyperlegible', sans-serif;
-		font-size: 0.72rem;
-		color: var(--ft-text);
+	.proj-desc {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.65rem;
+		color: var(--ft-muted);
 		line-height: 1.4;
 	}
 
+	/* ─── Social links ───────────────────────────────────────── */
+	.footer-social a {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.82rem;
+		font-weight: 500;
+		color: var(--ft-text);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+	.footer-social a:hover { color: var(--ft-accent); }
+	.footer-social svg { flex-shrink: 0; opacity: 0.7; }
+
+	/* ─── Bottom strip ───────────────────────────────────────── */
+	.footer-strip {
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--ft-border);
+		display: flex;
+		justify-content: center;
+	}
+
+	.built-line {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.65rem;
+		color: var(--ft-muted);
+		letter-spacing: 0.02em;
+	}
+
+	.built-line a {
+		color: var(--ft-accent);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+	.built-line a:hover { color: var(--ft-accent-hover); }
+
+	/* ─── Responsive ─────────────────────────────────────────── */
 	@media (max-width: 720px) {
-		.footer-meta {
-			flex-direction: column;
-			align-items: flex-start;
-			text-align: left;
+		footer { padding: 0 1rem 2rem; }
+
+		.footer-body {
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem 1rem;
 		}
 
-		.footer-nav-social {
-			justify-content: flex-start;
-		}
-
-		.sites-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.site-card {
-			padding: 0.875rem;
+		.footer-brand {
+			grid-column: 1 / -1;
 		}
 	}
 
-	@media (max-width: 720px) {
-		footer {
-			padding: 1.5rem 1rem 2rem;
+	@media (max-width: 480px) {
+		.footer-body {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
 		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.wm-prompt { transition: none; }
 	}
 </style>
