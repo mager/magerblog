@@ -381,7 +381,11 @@ const breadcrumbSchema = {
       .chip[aria-pressed='true'] .chip-count { opacity: 0.8; }
 
       /* ── The index ── */
-      .pass-index {
+      /* `main.pass-index` + the html prefix beats cooking.css's
+         `html[data-cooking] main { padding: 0 }`, which otherwise
+         flattens the grid to the viewport edges. */
+      html[data-cooking][data-kitchen] main.pass-index {
+        width: 100%;
         max-width: var(--k-maxw);
         margin: 0 auto;
         padding: clamp(2rem, 5vw, 3.5rem) var(--k-pad) clamp(4rem, 8vw, 7rem);
