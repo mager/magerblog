@@ -12,324 +12,585 @@ const recipes = allPosts
   .filter(post => post.data.category === 'food')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const featured = recipes[0];
-const rest = recipes.slice(1);
+// Hero = most recent recipe that actually has a photo to glow under the lamp.
+const featured = recipes.find(r => r.data.heroImage) ?? recipes[0];
+const grid = recipes.filter(r => r !== featured);
 
-// Build collection schema for recipes
+// Filters derive from the real kitchen, not invented categories.
+const counts = new Map<string, number>();
+for (const r of grid) {
+  const s = r.data.subcategory || 'other';
+  counts.set(s, (counts.get(s) || 0) + 1);
+}
+const order = ['soup', 'meat', 'comfort', 'pasta', 'casserole'];
+const filters = [
+  { key: 'all', label: 'All', count: grid.length },
+  ...order
+    .filter(k => (counts.get(k) || 0) >= 2)
+    .map(k => ({ key: k, label: k[0].toUpperCase() + k.slice(1), count: counts.get(k) || 0 })),
+];
+
+// Ledger stats.
+const soupCount = recipes.filter(r => r.data.subcategory === 'soup').length;
+const startYear = Math.min(...recipes.map(r => r.data.pubDate.getFullYear()));
+
+// Editorial rhythm: a couple of wide tiles break the grid monotony.
+const wideAt = new Set([0, 7]);
+
 const siteUrl = 'https://mager.co';
 const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Cooking — Recipes from the Mager Kitchen',
-  description: 'A collection of homemade recipes including soups, meatballs, pasta dishes, and comfort food classics. Step-by-step instructions with photos.',
+  description: 'Soups, braises, pasta, and comfort food from a home kitchen in Chicago. Step-by-step recipes with photos.',
   url: `${siteUrl}/cooking`,
   image: featured?.data.heroImage,
-  author: {
-    '@type': 'Person',
-    name: 'Mager'
-  },
+  author: { '@type': 'Person', name: 'Mager' },
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: recipes.map((recipe, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       url: `${siteUrl}/blog/${recipe.id}`,
-      name: recipe.data.title
-    }))
-  }
+      name: recipe.data.title,
+    })),
+  },
 };
-
-// Breadcrumb schema
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: siteUrl
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Cooking',
-      item: `${siteUrl}/cooking`
-    }
-  ]
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Cooking', item: `${siteUrl}/cooking` },
+  ],
 };
 ---
 
-<html lang="en" data-cooking>
+<html lang="en" data-cooking data-kitchen>
   <head>
-    <BaseHead title={`Cooking — ${SITE_TITLE}`} description="Homemade recipes from a Chicago kitchen. Soups, meatballs, comfort food, and weeknight dinners with step-by-step instructions and photos." keywords="recipes, cooking, soup, meatballs, comfort food, homemade, dinner, easy recipes" />
+    <BaseHead
+      title={`Cooking — ${SITE_TITLE}`}
+      description="Soups, braises, and weeknight dinners from a home kitchen in Chicago. Step-by-step recipes with photos."
+      keywords="recipes, cooking, soup, braise, comfort food, homemade, dinner, dutch oven, chicago kitchen"
+    />
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-    <style>
-      /* ── Page Header ── */
-      .cooking-header {
-        background: var(--ck-bg);
-        text-align: center;
-        padding: 4rem 2rem 0;
-        border-bottom: 1px solid var(--ck-border);
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style is:global>
+      /* ============================================================
+         COOKING — "The Pass"
+         Warm, low-lit home kitchen. Espresso ground, terracotta heat,
+         dish photos glowing like plates under a lamp.
+         Scoped to [data-kitchen] so recipe detail pages are untouched.
+         ============================================================ */
+      html[data-cooking][data-kitchen] {
+        --k-bg: oklch(0.185 0.021 52);
+        --k-bg-2: oklch(0.232 0.025 51);
+        --k-bg-3: oklch(0.275 0.028 50);
+        --k-ink: oklch(0.955 0.012 78);
+        --k-ink-2: oklch(0.805 0.02 68);
+        --k-ink-3: oklch(0.665 0.024 62);
+        --k-line: oklch(0.33 0.024 52);
+        --k-terra: oklch(0.70 0.145 47);
+        --k-terra-2: oklch(0.775 0.155 50);
+        --k-ember: oklch(0.70 0.18 36);
+        --k-saffron: oklch(0.84 0.135 80);
+
+        --k-maxw: 1240px;
+        --k-pad: clamp(1.25rem, 5vw, 3.5rem);
+
+        background: var(--k-bg);
+        color-scheme: dark;
+        scroll-behavior: smooth;
       }
 
-      .header-inner {
-        max-width: 700px;
-        margin: 0 auto 2rem;
+      html[data-cooking][data-kitchen] body {
+        background: var(--k-bg);
+        color: var(--k-ink);
+        font-family: 'Spectral', Georgia, 'Times New Roman', serif;
+        line-height: 1.7;
+        margin: 0;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      .header-eyebrow {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--ck-text-muted);
-        margin-bottom: 0.75rem;
-      }
-
-      .header-title {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 900;
-        font-size: clamp(3rem, 10vw, 5rem);
-        letter-spacing: -0.02em;
-        line-height: 1.0;
-        color: var(--ck-text);
-        margin: 0 0 0.75rem;
-      }
-
-      .header-subtitle {
-        font-family: Georgia, serif;
-        font-size: 1rem;
-        font-style: italic;
-        color: var(--ck-text-muted);
-        line-height: 1.6;
+      html[data-cooking][data-kitchen] h1,
+      html[data-cooking][data-kitchen] h2,
+      html[data-cooking][data-kitchen] h3 {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        color: var(--k-ink);
         margin: 0;
       }
 
-      /* ── Filter Bar ── */
-      .filter-section {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 2rem 1rem;
+      html[data-cooking][data-kitchen] ::selection {
+        background: color-mix(in oklch, var(--k-ember) 45%, transparent);
+        color: var(--k-ink);
       }
+      html[data-cooking][data-kitchen] ::-webkit-scrollbar { width: 9px; }
+      html[data-cooking][data-kitchen] ::-webkit-scrollbar-track { background: var(--k-bg); }
+      html[data-cooking][data-kitchen] ::-webkit-scrollbar-thumb {
+        background: var(--k-line); border-radius: 99px;
+      }
+      html[data-cooking][data-kitchen] ::-webkit-scrollbar-thumb:hover { background: var(--k-terra); }
 
-      .filter-bar {
+      /* ── Ambient atmosphere ── */
+      .kitchen-atmos {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .kitchen-glow {
+        position: absolute;
+        inset: -20%;
+        background: radial-gradient(
+          42rem 42rem at var(--mx, 50%) var(--my, 18%),
+          color-mix(in oklch, var(--k-ember) 60%, transparent) 0%,
+          color-mix(in oklch, var(--k-terra) 28%, transparent) 26%,
+          transparent 58%
+        );
+        opacity: 0.32;
+        mix-blend-mode: screen;
+        transition: opacity 0.8s ease;
+        filter: blur(8px);
+      }
+      .kitchen-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+      }
+      .kitchen-shell { position: relative; z-index: 1; }
+
+      /* ── Masthead ── */
+      .pass-mast {
+        max-width: var(--k-maxw);
+        margin: 0 auto;
+        padding: clamp(2.5rem, 7vw, 5rem) var(--k-pad) clamp(1.5rem, 4vw, 2.5rem);
+      }
+      .pass-kicker {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--k-terra-2);
+        margin: 0 0 0.9rem;
+      }
+      .pass-title {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-weight: 800;
+        font-size: clamp(3.4rem, 13vw, 7rem);
+        line-height: 0.9;
+        letter-spacing: -0.035em;
+        margin: 0;
+        text-wrap: balance;
+      }
+      .pass-title em {
+        font-family: 'Spectral', serif;
+        font-style: italic;
+        font-weight: 500;
+        color: var(--k-saffron);
+        letter-spacing: -0.01em;
+      }
+      .pass-lede {
+        max-width: 46ch;
+        margin: 1.4rem 0 0;
+        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+        line-height: 1.55;
+        color: var(--k-ink-2);
+        text-wrap: pretty;
+      }
+      .pass-ledger {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.6rem;
+        margin-top: 1.6rem;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--k-ink-3);
+      }
+      .pass-ledger b { color: var(--k-ink); font-weight: 700; }
+      .pass-ledger .dot { color: var(--k-terra); }
+
+      /* ── Featured / the latest plate ── */
+      .pass-feature {
+        max-width: var(--k-maxw);
+        margin: clamp(1rem, 3vw, 2rem) auto 0;
+        padding: 0 var(--k-pad);
+      }
+      .feature-card {
+        position: relative;
+        display: block;
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: clamp(22rem, 56vw, 34rem);
+        text-decoration: none !important;
+        color: var(--k-ink);
+        border: 1px solid var(--k-line);
+        isolation: isolate;
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.85), 0 0 90px -50px var(--k-ember);
+      }
+      .feature-card:focus-visible { outline: 2px solid var(--k-saffron); outline-offset: 4px; }
+      .feature-card img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+        filter: saturate(1.06) contrast(1.03) brightness(0.92);
+        transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .feature-card:hover img { transform: scale(1.04); }
+      .feature-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(60deg, color-mix(in oklch, var(--k-bg) 88%, transparent) 0%, color-mix(in oklch, var(--k-bg) 30%, transparent) 52%, transparent 78%),
+          linear-gradient(0deg, color-mix(in oklch, var(--k-bg) 72%, transparent) 0%, transparent 45%);
+      }
+      .feature-inner {
+        position: relative;
+        max-width: 40rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: inherit;
+        height: 100%;
+      }
+      .feature-eyebrow {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--k-saffron);
+        margin: 0 0 0.7rem;
+      }
+      .feature-title {
+        font-family: 'Spectral', serif;
+        font-weight: 700;
+        font-size: clamp(2rem, 5.5vw, 3.4rem);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 0;
+        text-wrap: balance;
+      }
+      .feature-desc {
+        margin: 1rem 0 0;
+        max-width: 42ch;
+        font-size: clamp(1rem, 1.8vw, 1.15rem);
+        font-style: italic;
+        color: var(--k-ink);
+        line-height: 1.5;
+      }
+      .feature-foot {
         display: flex;
         align-items: center;
-        gap: 0;
-        flex-wrap: wrap;
-        border-bottom: 1px solid var(--ck-border);
-        padding-bottom: 0;
-      }
-
-      .filter-btn {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.75rem;
+        gap: 1.1rem;
+        margin-top: 1.5rem;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.82rem;
         font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--ck-text-muted);
-        background: none;
-        border: none;
-        border-bottom: 2px solid transparent;
-        padding: 0.6rem 1rem;
-        margin-bottom: -1px;
-        cursor: pointer;
-        transition: color 0.2s ease, border-color 0.2s ease;
-        white-space: nowrap;
       }
-
-      .filter-btn:hover {
-        color: var(--ck-text);
+      .feature-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--k-bg);
+        background: var(--k-saffron);
+        padding: 0.6rem 1.1rem;
+        border-radius: 999px;
+        letter-spacing: 0.02em;
+        transition: gap 0.3s ease, background 0.3s ease;
       }
+      .feature-card:hover .feature-cta { gap: 0.8rem; background: color-mix(in oklch, var(--k-saffron) 80%, white); }
+      .feature-time { color: var(--k-ink-2); }
 
-      .filter-btn.active {
-        color: var(--ck-text);
-        border-bottom-color: var(--ck-gold);
+      /* ── Filter rail ── */
+      .pass-filters {
+        position: sticky;
+        top: 56px; /* sit just below the global 56px site header */
+        z-index: 20;
+        margin-top: clamp(2.5rem, 6vw, 4rem);
+        background: color-mix(in oklch, var(--k-bg) 82%, transparent);
+        backdrop-filter: blur(12px) saturate(1.2);
+        -webkit-backdrop-filter: blur(12px) saturate(1.2);
+        border-top: 1px solid var(--k-line);
+        border-bottom: 1px solid var(--k-line);
       }
-
-      .filter-count {
-        font-size: 0.6rem;
-        opacity: 0.5;
-        margin-left: 0.2rem;
-      }
-
-      /* ── Recipe Grid ── */
-      .recipe-grid-section {
-        max-width: 1200px;
+      .pass-filters-inner {
+        max-width: var(--k-maxw);
         margin: 0 auto;
-        padding: 2.5rem 2rem 5rem;
+        padding: 0.85rem var(--k-pad);
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
       }
+      .pass-filters-inner::-webkit-scrollbar { display: none; }
+      .chip {
+        flex: 0 0 auto;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: var(--k-ink-2);
+        background: transparent;
+        border: 1px solid var(--k-line);
+        border-radius: 999px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      }
+      .chip:hover { color: var(--k-ink); border-color: color-mix(in oklch, var(--k-terra) 50%, var(--k-line)); }
+      .chip[aria-pressed='true'] {
+        color: var(--k-bg);
+        background: var(--k-terra);
+        border-color: var(--k-terra);
+      }
+      .chip-count {
+        font-size: 0.72em;
+        opacity: 0.65;
+        margin-left: 0.35rem;
+        font-variant-numeric: tabular-nums;
+      }
+      .chip[aria-pressed='true'] .chip-count { opacity: 0.8; }
 
-      .recipe-grid {
+      /* ── The index ── */
+      .pass-index {
+        max-width: var(--k-maxw);
+        margin: 0 auto;
+        padding: clamp(2rem, 5vw, 3.5rem) var(--k-pad) clamp(4rem, 8vw, 7rem);
+      }
+      .pass-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        grid-auto-flow: row dense;
+        gap: clamp(1.1rem, 2.2vw, 1.8rem);
       }
+      .pass-grid > .dish--wide { grid-column: span 2; }
 
-      .recipe-grid > .featured {
+      .pass-empty {
         grid-column: 1 / -1;
-      }
-
-      .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
-        grid-column: 1 / -1;
-      }
-
-      .empty-state p {
-        font-family: Georgia, serif;
-        color: var(--ck-text-muted);
+        padding: 4rem 1rem;
         font-style: italic;
-        font-size: 1.1rem;
+        color: var(--k-ink-3);
       }
 
       /* ── Footer ── */
-      .cooking-footer {
-        padding: 2.5rem 2rem;
-        border-top: 1px solid var(--ck-border);
-        text-align: center;
+      .pass-foot {
+        max-width: var(--k-maxw);
+        margin: 0 auto;
+        padding: 2.5rem var(--k-pad) 4rem;
+        border-top: 1px solid var(--k-line);
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 0.82rem;
+        color: var(--k-ink-3);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .pass-foot a { color: var(--k-ink-2); text-decoration: none; }
+      .pass-foot a:hover { color: var(--k-terra-2); }
+
+      /* ── View Transitions: the filter reflow ── */
+      @media (prefers-reduced-motion: no-preference) {
+        ::view-transition-group(*) {
+          animation-duration: 0.42s;
+          animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        }
       }
 
-      .footer-text {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.8rem;
-        color: var(--ck-text-muted);
-        margin: 0;
+      @media (prefers-reduced-motion: reduce) {
+        html[data-cooking][data-kitchen] { scroll-behavior: auto; }
+        .feature-card, .feature-card img { transition: none; }
+        .kitchen-glow { display: none; }
       }
 
-      .footer-text a {
-        color: var(--ck-text-muted);
-        text-decoration: none;
-      }
-
-      .footer-text a:hover {
-        color: var(--ck-gold);
-      }
-
-      /* ── Mobile ── */
       @media (max-width: 720px) {
-        .cooking-header {
-          padding: 3rem 1.5rem 0;
-        }
-
-        .filter-section {
-          padding: 1.5rem 1.25rem 0.5rem;
-          overflow-x: auto;
-        }
-
-        .filter-bar {
-          flex-wrap: nowrap;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-        }
-
-        .filter-bar::-webkit-scrollbar {
-          display: none;
-        }
-
-        .recipe-grid-section {
-          padding: 2rem 1.25rem 4rem;
-        }
-
-        .recipe-grid {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
+        .pass-grid > .dish--wide { grid-column: span 1; }
       }
     </style>
   </head>
 
   <body>
-    <Header />
+    <div class="kitchen-atmos" aria-hidden="true">
+      <div class="kitchen-glow" id="kitchenGlow"></div>
+      <div class="kitchen-grain"></div>
+    </div>
 
-    <!-- Page Header -->
-    <section class="cooking-header">
-      <div class="header-inner">
-        <p class="header-eyebrow">From the Mager Kitchen</p>
-        <h1 class="header-title">Cooking</h1>
-        <p class="header-subtitle">Recipes, experiments &amp; stories from a Chicago kitchen</p>
-      </div>
+    <div class="kitchen-shell">
+      <Header />
 
-      <!-- Filter tabs sit at the bottom of the header -->
-      <div class="filter-section" style="padding-bottom:0; max-width:1200px; margin:0 auto;">
-        <div class="filter-bar">
-          <button class="filter-btn active" data-filter="all">All<span class="filter-count">{recipes.length}</span></button>
-          <button class="filter-btn" data-filter="soup">Soup</button>
-          <button class="filter-btn" data-filter="casserole">Casserole</button>
-          <button class="filter-btn" data-filter="chicken">Chicken</button>
-          <button class="filter-btn" data-filter="meat">Meat</button>
-          <button class="filter-btn" data-filter="pasta">Pasta</button>
-          <button class="filter-btn" data-filter="comfort">Comfort Food</button>
+      <!-- Masthead -->
+      <header class="pass-mast">
+        <p class="pass-kicker">From a Chicago kitchen</p>
+        <h1 class="pass-title">Cooking<em>.</em></h1>
+        <p class="pass-lede">
+          Mostly soups and slow braises, plus the pasta, casseroles, and weeknight
+          dinners that actually get made. Real recipes, real photos, kept here so I
+          can find them again.
+        </p>
+        <div class="pass-ledger">
+          <span><b>{recipes.length}</b> recipes</span>
+          <span class="dot">·</span>
+          <span><b>{soupCount}</b> of them soups</span>
+          <span class="dot">·</span>
+          <span>cooking in public since <b>{startYear}</b></span>
         </div>
-      </div>
-    </section>
+      </header>
 
-    <!-- Recipe Grid -->
-    <main class="recipe-grid-section">
-      <div class="recipe-grid" id="recipe-grid">
-        {featured && (
-          <RecipeCard post={featured} featured={true} index={0} />
-        )}
-        {rest.map((post, i) => (
-          <RecipeCard post={post} index={i + 1} />
-        ))}
-        {recipes.length === 0 && (
-          <div class="empty-state">
-            <p>No recipes yet. Check back soon.</p>
-          </div>
-        )}
-      </div>
-    </main>
+      <!-- The latest plate -->
+      {featured && (
+        <section class="pass-feature">
+          <a class="feature-card" href={`/blog/${featured.id}/`}>
+            {featured.data.heroImage && (
+              <img src={featured.data.heroImage} alt={`${featured.data.title} — the latest recipe`} fetchpriority="high" />
+            )}
+            <div class="feature-inner">
+              <p class="feature-eyebrow">Latest from the pass</p>
+              <h2 class="feature-title">{featured.data.title}</h2>
+              {featured.data.description && <p class="feature-desc">{featured.data.description}</p>}
+              <div class="feature-foot">
+                <span class="feature-cta">
+                  Read the recipe
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+                {(featured.data.prepTime || featured.data.cookTime) && (
+                  <span class="feature-time">{(featured.data.prepTime || 0) + (featured.data.cookTime || 0)} min</span>
+                )}
+              </div>
+            </div>
+          </a>
+        </section>
+      )}
 
-    <!-- Footer -->
-    <footer class="cooking-footer">
-      <p class="footer-text">
-        <a href="/">mager.co</a> · Cooking · Chicago
-      </p>
-    </footer>
+      <!-- Filter rail -->
+      <nav class="pass-filters" aria-label="Filter recipes by type">
+        <div class="pass-filters-inner" id="filterRail">
+          {filters.map((f, i) => (
+            <button class="chip" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {f.label}<span class="chip-count">{f.count}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
 
-    <!-- Theme restore -->
+      <!-- Index -->
+      <main class="pass-index">
+        <div class="pass-grid" id="recipeGrid">
+          {grid.map((post, i) => (
+            <RecipeCard post={post} index={i} wide={wideAt.has(i)} />
+          ))}
+          {grid.length === 0 && <p class="pass-empty">No recipes yet. Check back soon.</p>}
+        </div>
+      </main>
+
+      <footer class="pass-foot">
+        <span><a href="/">mager.co</a> · Cooking</span>
+        <span>Chicago · since {startYear}</span>
+      </footer>
+    </div>
+
+    <!-- Ambient ember glow follows the cursor -->
     <script is:inline>
-      (function() {
-        const saved = localStorage.getItem('cooking-theme');
-        if (saved === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
+      (function () {
+        const glow = document.getElementById('kitchenGlow');
+        if (!glow) return;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const coarse = window.matchMedia('(pointer: coarse)').matches;
+        if (reduce || coarse) return;
+        let tx = 50, ty = 18, cx = 50, cy = 18, raf = 0;
+        function loop() {
+          cx += (tx - cx) * 0.08;
+          cy += (ty - cy) * 0.08;
+          glow.style.setProperty('--mx', cx.toFixed(2) + '%');
+          glow.style.setProperty('--my', cy.toFixed(2) + '%');
+          raf = Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1 ? requestAnimationFrame(loop) : 0;
         }
+        window.addEventListener('pointermove', function (e) {
+          tx = (e.clientX / window.innerWidth) * 100;
+          ty = (e.clientY / window.innerHeight) * 100;
+          if (!raf) raf = requestAnimationFrame(loop);
+        }, { passive: true });
       })();
     </script>
 
-    <!-- Category Filter Logic -->
-    <script>
-      const buttons = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('.recipe-card');
-
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const filter = (btn as HTMLElement).dataset.filter;
-
-          buttons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-
-          cards.forEach(card => {
-            const el = card as HTMLElement;
-            const sub = el.dataset.subcategory;
-            if (filter === 'all') {
-              el.style.display = '';
-            } else if (sub === filter) {
-              el.style.display = '';
-            } else {
-              el.style.display = 'none';
+    <!-- Staggered scroll reveal (arms only when JS + motion allowed) -->
+    <script is:inline>
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (!('IntersectionObserver' in window)) return;
+        const cards = document.querySelectorAll('#recipeGrid .dish');
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              en.target.classList.add('shown');
+              io.unobserve(en.target);
             }
           });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+        cards.forEach(function (c) {
+          c.classList.add('reveal');
+          io.observe(c);
         });
-      });
+      })();
+    </script>
+
+    <!-- Filter reflow via the View Transitions API -->
+    <script is:inline>
+      (function () {
+        const rail = document.getElementById('filterRail');
+        const grid = document.getElementById('recipeGrid');
+        if (!rail || !grid) return;
+        const chips = Array.from(rail.querySelectorAll('.chip'));
+        const cards = Array.from(grid.querySelectorAll('.dish'));
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function apply(filter) {
+          cards.forEach(function (c) {
+            const match = filter === 'all' || c.getAttribute('data-sub') === filter;
+            c.hidden = !match;
+          });
+        }
+
+        rail.addEventListener('click', function (e) {
+          const btn = e.target.closest('.chip');
+          if (!btn) return;
+          const filter = btn.getAttribute('data-filter');
+          chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === btn)); });
+
+          if (reduce || !document.startViewTransition) {
+            apply(filter);
+            return;
+          }
+          document.startViewTransition(function () { apply(filter); });
+        });
+      })();
     </script>
 
     <SecretSearch posts={allPosts} />
