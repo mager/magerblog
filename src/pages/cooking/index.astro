@@ -103,7 +103,7 @@ const breadcrumbSchema = {
         --k-saffron: oklch(0.84 0.135 80);
 
         --k-maxw: 1240px;
-        --k-pad: clamp(1.25rem, 5vw, 3.5rem);
+        --k-pad: clamp(1.5rem, 6vw, 4rem);
 
         background: var(--k-bg);
         color-scheme: dark;
@@ -268,7 +268,9 @@ const breadcrumbSchema = {
       }
       .feature-inner {
         position: relative;
+        width: 100%;
         max-width: 40rem;
+        min-width: 0;
         padding: clamp(1.5rem, 4vw, 3rem);
         display: flex;
         flex-direction: column;
@@ -288,11 +290,13 @@ const breadcrumbSchema = {
       .feature-title {
         font-family: 'Spectral', serif;
         font-weight: 700;
-        font-size: clamp(2rem, 5.5vw, 3.4rem);
-        line-height: 1.02;
+        font-size: clamp(1.9rem, 6vw, 3.4rem);
+        line-height: 1.04;
         letter-spacing: -0.02em;
         margin: 0;
+        max-width: 100%;
         text-wrap: balance;
+        overflow-wrap: break-word;
       }
       .feature-desc {
         margin: 1rem 0 0;
