@@ -1,8 +1,8 @@
 ---
 title: "Killing OpenClaw for a native Claude Code setup"
 description: "I love OpenClaw. I hate that it doesn't run on my Claude Pro subscription. Turns out Claude Code, with the Telegram channels plugin and one CLAUDE.md, is the same harness — minus the daemon, the API bill, and the second LLM provider. Here's the actual recipe, ported from a hotel in Tokyo to a Mac mini in Chicago in forty minutes."
-pubDate: 2026-05-14
-updatedDate: 2026-05-21
+pubDate: 2026-06-02
+updatedDate: 2026-06-02
 category: tech
 draft: false
 tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, principal-agent]
@@ -66,17 +66,21 @@ Pairing captures your numeric Telegram ID into `~/.claude/channels/telegram/acce
 
 That's the entire Telegram layer. No Tailscale glue, no custom long-poller, no `default-update-offset.json`. The plugin handles all of it.
 
-## 2. `~/.claude/CLAUDE.md` with `@`-imports
+## 2. `~/.claude/CLAUDE.md` as the always-on brain
 
-OpenClaw kept its brain at `~/.openclaw/workspace/`. Claude Code reads `CLAUDE.md` from three places automatically: `~/.claude/CLAUDE.md` (user-global, every session), `<cwd>/CLAUDE.md` and every parent up to home (auto-discovered), and `.claude/CLAUDE.md` in the repo. The `@path/to/file.md` syntax inlines a file's contents at session start.
+OpenClaw kept its brain at `~/.openclaw/workspace/`. Claude Code reads `CLAUDE.md` from three places automatically: `~/.claude/CLAUDE.md` (user-global, every session), `<cwd>/CLAUDE.md` and every parent up to home (auto-discovered), and `.claude/CLAUDE.md` in the repo.
 
-So the port was: copy the brain to a location that isn't OpenClaw-shaped, then write one `CLAUDE.md` that pulls it in. I moved `~/.openclaw/workspace/` to `~/Code/brain/` (preserving the git history — the brain was already a repo, now living at [github.com/mager/brain](https://github.com/mager/brain), private), then wrote this in `~/.claude/CLAUDE.md` on the mini:
+So the port was: write one `~/.claude/CLAUDE.md` that tells the session who it is, how DMs arrive, and where memory lives. The initial version used `@path/to/file.md` syntax to inline flat markdown files at session start — a dead-simple way to load identity, soul, and memory from `~/Code/brain/`. That worked well until the brain grew beyond what flat files handle cleanly.
+
+Since then the brain has migrated to [gbrain](https://github.com/garrytan/gbrain) — an open-source semantic memory layer that runs as an MCP server and stores everything in a local PGLite database. The `~/.claude/CLAUDE.md` no longer needs `@`-imports; instead it tells the session how to use the MCP tools (`mcp__gbrain__search`, `mcp__gbrain__get_page`, `mcp__gbrain__put_page`) and which core pages to consult. The brain is now queryable, writable by the agent, and hybrid-searchable — things flat files never were.
+
+The current `~/.claude/CLAUDE.md` looks roughly like this:
 
 ```markdown
 # Mager brain — loaded into every Claude Code session on this machine
 
 ## How DMs reach you
-Inbound: Telegram DM → channels MCP → pushed into this session as a prompt.
+Inbound: Telegram DM → channels MCP server → pushed into this session as a prompt.
 Outbound: call the `reply` tool on the `telegram` MCP server.
 
 ## Principal-agent pattern
@@ -84,24 +88,13 @@ This session is the principal. For narrow sub-tasks, dispatch a subagent via
 the Agent tool. Definitions live in ~/.claude/agents/. Subagents return text,
 not control.
 
-## Brain
-@~/Code/brain/IDENTITY.md
-@~/Code/brain/SOUL.md
-@~/Code/brain/USER.md
-@~/Code/brain/BRAINPACK.md
-@~/Code/brain/AGENTS.md
-@~/Code/brain/TOOLS.md
-@~/Code/brain/HEARTBEAT.md
-@~/Code/brain/WATCHLIST.md
-@~/Code/brain/MEMORY.md
-
-Memory entries (~/Code/brain/memory/YYYY-MM-DD*.md) are NOT auto-imported.
-Read them on demand when a topic surfaces.
+## Memory — gbrain (single source of truth)
+gbrain is the semantic memory layer. Installed at ~/Code/gbrain/, registered
+as an MCP server. Prefer gbrain MCP tools over shelling out.
+Core pages: identity, soul, user, tools, heartbeat, watchlist, memory/index.
 ```
 
-User-global location means every session on that machine starts with my brain loaded — regardless of which repo I `cd` into. No wrapper script, no shadow copy, no daemon to keep alive. Claude Code's existing file discovery does the work that OpenClaw was doing with a custom workspace.
-
-The brain repo at github.com/mager/brain is private, and honestly I'm not sure it needs to be a repo at all. With one Mac mini and one laptop, plain markdown files in `~/Code/brain/` are enough. The repo gives me version history and a path to portability if I ever add a second machine. For now it's belt-and-suspenders.
+User-global location means every session on that machine starts with this context loaded — regardless of which repo I `cd` into. No wrapper script, no shadow copy. Claude Code's existing file discovery does the work.
 
 ## 3. Claude Pro, not API
 
@@ -121,25 +114,25 @@ The advisor-tool integration (conseiller) doesn't fit this stack — that lives 
 
 ## What I'm keeping
 
-- The brain. Same files I curated for OpenClaw — SOUL, IDENTITY, USER, MEMORY, AGENTS, the daily memory entries. They didn't need to change. They just needed a CLAUDE.md to point at them.
+- The brain. Migrated from flat files at `~/Code/brain/` to [gbrain](https://github.com/garrytan/gbrain) — an open-source semantic memory layer that runs as a local MCP server. Same knowledge, now queryable and agent-writable instead of append-only markdown.
 - The Mac mini under Tailscale. Same hardware, same network, same Telegram bot pattern.
 - The principal-agent pattern. Native Claude Code has the `Agent` tool; subagent definitions live in `~/.claude/agents/`. The always-on session is the principal, and I can dispatch a "draft a post about X" or "check the scraper" subagent when I want without rebuilding the harness.
 - The Telegram reach. From a hotel room in Tokyo I can ping a Mac mini in Chicago and get work done. That's the actual feature.
 
 ## When the mini reboots
 
-Power blip, macOS update, anything that takes the box down — the tmux session dies with it and the always-on layer goes quiet. Recovery is four lines from any SSH client:
+Power blip, macOS update, anything that takes the box down — the tmux session dies with it and the always-on layer goes quiet. The channels plugin ships a supervisor script at `~/.claude/channels/telegram/run.sh` that handles model selection and auto-restart; recovery is two lines from any SSH client:
 
 ```bash
 ssh macmini
-export PATH=/opt/homebrew/bin:$HOME/.local/bin:$PATH
-tmux new -s oc2 -c ~/Code
-claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-official
+tmux new-session -d -s tg 'bash ~/.claude/channels/telegram/run.sh'
 ```
 
-The `PATH` export matters — fresh shells on macOS don't include Homebrew's bin or `~/.local/bin` by default, so `tmux`, `bun`, and `claude` all come back "command not found" without it. After that, the banner reads `Sonnet 4.6 · Claude Pro · Mager` and Telegram DMs start landing in the new session immediately. The brain auto-loads from `~/.claude/CLAUDE.md`, so there's nothing to reattach.
+The supervisor reads `~/.claude/channels/telegram/model.state` for the model slug and relaunches `claude --dangerously-skip-permissions --model $MODEL --channels plugin:telegram@claude-plugins-official` in a loop, so if Claude exits cleanly it comes back up without intervention. After relaunch, DMs start landing immediately — the brain auto-loads from `~/.claude/CLAUDE.md` and gbrain connects over MCP, so there's nothing to reattach.
 
-A real launchd plist that starts this on boot is the obvious next step, and the reason I haven't written one yet is that a reboot is the *one* moment I want to look at the session by hand — confirm Pro is still logged in, confirm the channel is listening, confirm the bot's first DM round-trips. Two minutes of manual ceremony beats waking up to a silent mini and not knowing which layer fell over.
+The `PATH` matters here — put Homebrew and `~/.local/bin` on the path before running tmux or you'll get "command not found" on `bun` and `claude`. I source my shell profile in the ssh invocation or export PATH inline.
+
+A launchd plist that starts the run.sh on boot is the obvious next step; I haven't written one yet because a reboot is the one moment I want to look at the session by hand — confirm Pro is still logged in, confirm the channel is listening, confirm the first DM round-trips. Two minutes of manual ceremony beats waking up to a silent mini.
 
 ## When the bot goes quiet (silent MCP crash)
 
@@ -203,16 +196,12 @@ The thing that made it forty minutes instead of three days: I didn't write any c
 
 OpenClaw was scaffolding. The scaffolding came down. The brain stayed up.
 
-## What's next, and a small ask
+## What this turned into
 
-The Claude-native stack I'm running today is the subscription path: `claude --channels` + `CLAUDE.md` + `Agent` subagents. That's enough to retire OpenClaw and the GPT Pro account.
+A note from a few weeks later: after writing this I got the itch to go further and built a custom harness called plexus — roughly 250 lines of TypeScript wrapping the Claude Agent SDK, with per-message model routing and gbrain wired in over MCP. The idea was total ownership.
 
-The pieces that would make this the *full* shape from the advisor-strategy post are still gated behind request-access forms:
+What I found: plexus routed everything through the Anthropic API, not the Pro subscription. Every Telegram message was a per-token bill. The whole reason I killed OpenClaw was to stay on the subscription. Plexus quietly broke that.
 
-- **[Claude Managed Agents](https://claude.com/form/claude-managed-agents)** — so I can retire the tmux babysitting too. Right now `tmux new-session -d -s oc2` is the daemon. Managed Agents would be the daemon.
-- **[Dreams](https://claude.com/form/claude-managed-agents)** — overnight reflection that writes new memory artifacts from past sessions. The brain at `~/Code/brain/memory/` currently accumulates by hand. Dreams is the loop that would curate it.
-- **Routines** — scheduled async automations. Wire one to "wake up to PRs ready to merge on magerblog" and the iteration shape gets a lot tighter.
-- **Multi-agent Orchestration** — the principal-agent pattern at the agent layer, not just the model layer. Public beta now; I haven't wired it in yet.
-- **Remote Agents** — drive a session from my phone, not just message it. Channels are messaging; Remote Agents are control.
+So I deleted it. The setup described in this post is still the right one: `claude --channels` on Pro, `~/.claude/CLAUDE.md` for context, gbrain for memory, `Agent` subagents for narrow tasks. No custom code. The channels plugin handles Telegram. The subscription handles billing. The brain handles memory.
 
-If anyone at Anthropic reads this and feels generous: I would put any of those into production this week. The brain is portable, the harness is small, the substrate is already there.
+Sometimes the simplest thing you can build is nothing.
