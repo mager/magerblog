@@ -36,6 +36,7 @@ const notes = defineCollection({
 		link: z.string().url().optional(), // link-blog: the URL this note points at
 		linkText: z.string().optional(), // display label for `link` (defaults to the host)
 		tags: z.array(z.string()).optional(),
+		category: z.enum(['tech', 'food', 'life']).optional(), // surfaces the note on that category page
 		draft: z.boolean().optional(),
 	}),
 });

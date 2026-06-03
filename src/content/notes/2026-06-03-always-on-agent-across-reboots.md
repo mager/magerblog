@@ -2,6 +2,7 @@
 title: "Keeping an always-on agent alive across reboots"
 pubDate: "2026-06-03"
 tags: ["agents", "macOS", "harness"]
+category: tech
 ---
 
 I run a Claude Code agent on a Mac mini in Chicago that I reach over Telegram. The
