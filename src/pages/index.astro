@@ -6,55 +6,22 @@ import NewspaperHero from '../components/NewspaperHero.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// Get all non-draft posts. The homepage is the English front page, so drop
-// Japanese translations (locale: 'ja') — they live on their own post pages and
-// share a translationKey with the English version. This prevents the same post
-// showing up twice (e.g. the sumo / Hanshin Tigers EN + JA pairs).
-const allPosts = (await getCollection('blog'))
+// The homepage is one reverse-chronological feed of posts + notes. Drop drafts
+// and Japanese translations (locale: 'ja') — they live on their own post pages
+// and share a translationKey with the English version, so the EN copy already
+// represents them in the stream.
+const posts = (await getCollection('blog'))
 	.filter(post => !post.data.draft)
-	.filter(post => post.data.locale !== 'ja');
+	.filter(post => post.data.locale !== 'ja')
+	.sort((a, b) => (b.data.updatedDate || b.data.pubDate).valueOf() - (a.data.updatedDate || a.data.pubDate).valueOf());
 
-// Helper to get the most recent date (updatedDate or pubDate)
-const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).valueOf();
-
-// Get posts from each category, sorted by date (newest first)
-const techPosts = allPosts
-	.filter(post => post.data.category === 'tech')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
-
-const lifePosts = allPosts
-	.filter(post => post.data.category === 'life')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
-
-const recipePosts = allPosts
-	.filter(post => post.data.category === 'food')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
-
-// Short-form notes for the "In Brief" band, newest first.
+// Short-form notes, newest first; the component interleaves them with posts.
 const notes = (await getCollection('notes'))
 	.filter(note => !note.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// "The Japan trip" feature: the trip dispatches are life posts tagged both
-// Japan + Travel (Sumo, Hanshin Tigers). Kotsu is the companion tech post.
-// To retire the feature later, remove those tags or the posts.
-const japanPosts = lifePosts
-	.filter(post => post.data.tags?.includes('Japan') && post.data.tags?.includes('Travel'))
-	.slice(0, 2);
-const kotsuPost = techPosts.find(post => post.id.includes('kotsu') || post.data.title.toLowerCase().includes('kotsu'));
-
-// Anything featured in the Japan band is pulled out of the category zones below
-// so no post is linked twice on the page.
-const featuredIds = new Set([...japanPosts.map(p => p.id), ...(kotsuPost ? [kotsuPost.id] : [])]);
-const techForZone = techPosts.filter(post => !featuredIds.has(post.id));
-const lifeForZone = lifePosts.filter(post => !featuredIds.has(post.id));
-
-// OG image: use first available hero image across categories
-const ogImage =
-	techPosts.find(p => p.data.heroImage)?.data.heroImage ||
-	lifePosts.find(p => p.data.heroImage)?.data.heroImage ||
-	recipePosts.find(p => p.data.heroImage)?.data.heroImage ||
-	'/blog-placeholder-1.jpg';
+// OG image: first available hero image in the feed.
+const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-placeholder-1.jpg';
 ---
 
 <!doctype html>
@@ -81,16 +48,9 @@ const ogImage =
 	</head>
 	<body>
 		<main>
-			<NewspaperHero
-				techPosts={techForZone}
-				lifePosts={lifeForZone}
-				recipePosts={recipePosts}
-				japanPosts={japanPosts}
-				kotsuPost={kotsuPost}
-				notes={notes}
-			/>
+			<NewspaperHero posts={posts} notes={notes} />
 		</main>
 		<Footer homepage={true} />
-		<SecretSearch posts={allPosts} />
+		<SecretSearch posts={posts} />
 	</body>
 </html>
