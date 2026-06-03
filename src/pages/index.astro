@@ -30,6 +30,11 @@ const recipePosts = allPosts
 	.filter(post => post.data.category === 'food')
 	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
 
+// Short-form notes for the "In Brief" band, newest first.
+const notes = (await getCollection('notes'))
+	.filter(note => !note.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
 // "The Japan trip" feature: the trip dispatches are life posts tagged both
 // Japan + Travel (Sumo, Hanshin Tigers). Kotsu is the companion tech post.
 // To retire the feature later, remove those tags or the posts.
@@ -82,6 +87,7 @@ const ogImage =
 				recipePosts={recipePosts}
 				japanPosts={japanPosts}
 				kotsuPost={kotsuPost}
+				notes={notes}
 			/>
 		</main>
 		<Footer homepage={true} />

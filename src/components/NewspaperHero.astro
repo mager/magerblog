@@ -8,14 +8,30 @@ interface Props {
 	recipePosts: CollectionEntry<'blog'>[];
 	japanPosts?: CollectionEntry<'blog'>[];
 	kotsuPost?: CollectionEntry<'blog'>;
+	notes?: CollectionEntry<'notes'>[];
 }
 
-const { techPosts, lifePosts, recipePosts, japanPosts = [], kotsuPost } = Astro.props;
+const { techPosts, lifePosts, recipePosts, japanPosts = [], kotsuPost, notes = [] } = Astro.props;
 
 const topTech = techPosts.slice(0, 10);
 const topFood = recipePosts.slice(0, 4);
 const topLife = lifePosts.slice(0, 2);
 const topJapan = japanPosts.slice(0, 2);
+const topNotes = notes.slice(0, 6);
+
+// Notes can be untitled — fall back to the link label, then host, then a stub.
+const noteLabel = (note: CollectionEntry<'notes'>) => {
+	if (note.data.title) return note.data.title;
+	if (note.data.linkText) return note.data.linkText;
+	if (note.data.link) {
+		try {
+			return new URL(note.data.link).host.replace(/^www\./, '');
+		} catch {
+			return note.data.link;
+		}
+	}
+	return 'Note';
+};
 ---
 
 <div class="home">
@@ -26,6 +42,7 @@ const topJapan = japanPosts.slice(0, 2);
 			<a href="/tech/">Tech</a>
 			<a href="/cooking/">Food</a>
 			<a href="/life/">Life</a>
+			<a href="/notes/">Notes</a>
 			<a href="/about">About</a>
 		</nav>
 		<div class="topbar-social">
@@ -184,6 +201,26 @@ const topJapan = japanPosts.slice(0, 2);
 		</section>
 
 	</div><!-- /zones -->
+
+	<!-- ── IN BRIEF (notes) ── -->
+	{topNotes.length > 0 && (
+		<section class="briefs" aria-label="Notes">
+			<header class="briefs-head">
+				<span class="zone-label">In Brief</span>
+				<a href="/notes/" class="zone-more">All notes →</a>
+			</header>
+			<ul class="briefs-list">
+				{topNotes.map(note => (
+					<li class="brief">
+						<a href={`/notes/${note.id}/`} class="brief-link">
+							<span class="post-date"><FormattedDate date={note.data.pubDate} /></span>
+							<span class="brief-title">{noteLabel(note)}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	)}
 
 </div><!-- /home -->
 
@@ -773,6 +810,57 @@ const topJapan = japanPosts.slice(0, 2);
 
 .zone-more:hover {
 	color: var(--ink);
+}
+
+
+/* ── In Brief (notes band) ── */
+.briefs {
+	padding: 2rem 2.5rem 2.75rem;
+	border-top: 1px solid var(--rule);
+}
+
+.briefs-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 1.4rem;
+	padding-bottom: 0.6rem;
+	border-bottom: 2px solid var(--life-accent);
+	color: var(--life-accent);
+}
+
+.briefs-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1rem 2.5rem;
+}
+
+.brief {
+	border-top: 1px solid var(--rule);
+	padding-top: 0.7rem;
+}
+
+.brief-link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	text-decoration: none;
+}
+
+.brief-title {
+	font-family: var(--font-display);
+	font-variation-settings: 'opsz' 24, 'wght' 600;
+	font-size: 0.98rem;
+	line-height: 1.25;
+	color: var(--ink);
+	transition: color 0.15s ease;
+}
+
+.brief-link:hover .brief-title {
+	color: var(--life-accent);
 }
 
 
