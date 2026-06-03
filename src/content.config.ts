@@ -25,4 +25,19 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+// Short-form micro-posts — Simon Willison-style "notes": a quick thought, a
+// link with commentary, or a TIL. Title is optional on purpose; the whole
+// note is meant to be read inline on /notes without a click-through.
+const notes = defineCollection({
+	loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string().optional(),
+		pubDate: z.coerce.date(),
+		link: z.string().url().optional(), // link-blog: the URL this note points at
+		linkText: z.string().optional(), // display label for `link` (defaults to the host)
+		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
+	}),
+});
+
+export const collections = { blog, notes };

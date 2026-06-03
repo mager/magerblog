@@ -1,0 +1,112 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const notes = await getCollection('notes');
+	return notes.map((note) => ({ params: { slug: note.id }, props: note }));
+}
+type Props = CollectionEntry<'notes'>;
+
+const note = Astro.props;
+const { Content } = await render(note);
+const { title, pubDate, link, linkText, tags } = note.data;
+
+const hostOf = (url: string) => {
+	try {
+		return new URL(url).host.replace(/^www\./, '');
+	} catch {
+		return url;
+	}
+};
+
+// Derive a description for SEO/social from the title or the linked host.
+const description = title
+	? title
+	: link
+		? `A note linking to ${hostOf(link)}`
+		: 'A short note.';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${title ?? 'Note'} - ${SITE_TITLE}`} description={description} />
+		<style>
+			main { width: 680px; max-width: 100%; }
+			.back {
+				display: inline-block;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
+				color: var(--text-muted, #6e7681);
+				text-decoration: none;
+				margin: 1rem 0 2rem;
+			}
+			.back:hover { color: var(--accent-green); }
+			.note-meta {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--text-muted, #6e7681);
+				margin-bottom: 0.6rem;
+			}
+			.note-title {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1.6rem;
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				color: var(--text-primary);
+				margin: 0 0 0.75rem;
+				line-height: 1.25;
+			}
+			.linkout {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.95rem;
+				color: var(--accent, #58a6ff);
+				text-decoration: none;
+				margin-bottom: 1rem;
+				word-break: break-word;
+			}
+			.linkout:hover { text-decoration: underline; }
+			.linkout::before { content: '→'; opacity: 0.7; }
+			.note-body { color: var(--text-primary); line-height: 1.7; font-size: 1.05rem; }
+			.note-body :global(pre) {
+				border: 1px solid var(--terminal-border, #30363d);
+				border-radius: 8px;
+				padding: 1rem;
+				overflow-x: auto;
+				font-size: 0.9rem;
+			}
+			.note-body :global(code) { font-family: 'JetBrains Mono', monospace; }
+			.tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+			.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted, #6e7681); }
+			.tag::before { content: '#'; opacity: 0.6; }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<a class="back" href="/notes">$ cd ~/notes</a>
+				<div class="note-meta"><FormattedDate date={pubDate} /></div>
+				{title && <h1 class="note-title">{title}</h1>}
+				{link && (
+					<a class="linkout" href={link} target="_blank" rel="noopener">
+						{linkText ?? hostOf(link)}
+					</a>
+				)}
+				<div class="note-body"><Content /></div>
+				{tags && tags.length > 0 && (
+					<div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>
+				)}
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
