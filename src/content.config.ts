@@ -41,4 +41,21 @@ const notes = defineCollection({
 	}),
 });
 
-export const collections = { blog, notes };
+// Photo posts — Simon Willison-style "sightings", here called "seen". Each post
+// is essentially a title, a location, and a photo (an external Google Photos /
+// lh3.googleusercontent.com URL, same as heroImage — no upload pipeline). Body,
+// alt text, and tags are optional.
+const seen = defineCollection({
+	loader: glob({ base: './src/content/seen', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		location: z.string(),
+		photo: z.string().url(), // external image URL (lh3.googleusercontent.com)
+		pubDate: z.coerce.date(),
+		alt: z.string().optional(), // accessible description of the photo
+		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
+	}),
+});
+
+export const collections = { blog, notes, seen };

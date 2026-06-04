@@ -6,19 +6,23 @@ import FormattedDate from './FormattedDate.astro';
 interface Props {
 	posts: CollectionEntry<'blog'>[];
 	notes?: CollectionEntry<'notes'>[];
+	seen?: CollectionEntry<'seen'>[];
 }
 
-const { posts, notes = [] } = Astro.props;
+const { posts, notes = [], seen = [] } = Astro.props;
 
-// One reverse-chronological stream interleaving long-form posts and short notes
-// — the homepage as a personal feed rather than a categorized front page.
+// One reverse-chronological stream interleaving long-form posts, short notes,
+// and "seen" photo posts — the homepage as a personal feed rather than a
+// categorized front page.
 type FeedItem =
 	| { kind: 'post'; date: Date; entry: CollectionEntry<'blog'> }
-	| { kind: 'note'; date: Date; entry: CollectionEntry<'notes'> };
+	| { kind: 'note'; date: Date; entry: CollectionEntry<'notes'> }
+	| { kind: 'seen'; date: Date; entry: CollectionEntry<'seen'> };
 
 const feed: FeedItem[] = [
 	...posts.map((entry): FeedItem => ({ kind: 'post', entry, date: entry.data.updatedDate || entry.data.pubDate })),
 	...notes.map((entry): FeedItem => ({ kind: 'note', entry, date: entry.data.pubDate })),
+	...seen.map((entry): FeedItem => ({ kind: 'seen', entry, date: entry.data.pubDate })),
 ].sort((a, b) => b.date.valueOf() - a.date.valueOf());
 
 // Show a recent window on the homepage; the rest lives in the archives.
@@ -57,6 +61,7 @@ const hostOf = (url: string) => {
 			<a href="/cooking/">Food</a>
 			<a href="/life/">Life</a>
 			<a href="/notes/">Notes</a>
+			<a href="/seen/">Seen</a>
 			<a href="/about">About</a>
 		</nav>
 		<div class="topbar-social">
@@ -91,63 +96,91 @@ const hostOf = (url: string) => {
 			<h2 class="feed-title">Latest</h2>
 			<div class="feed-links">
 				<a href="/notes/">Notes</a>
+				<a href="/seen/">Seen</a>
 				<a href="/rss.xml">RSS</a>
 			</div>
 		</header>
 
-		{visible.map((item) => item.kind === 'post' ? (
-			<article class:list={['entry', 'entry--post', `entry--${item.entry.data.category ?? 'tech'}`]}>
-				<div class="entry-rail">
-					<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-					{item.entry.data.category && CATEGORY[item.entry.data.category] && (
-						<a class="entry-kind" href={CATEGORY[item.entry.data.category].href}>{CATEGORY[item.entry.data.category].label}</a>
-					)}
-				</div>
-				<div class="entry-main">
-					<div class="entry-text">
-						<a class="entry-headline" href={`/blog/${item.entry.id}/`}>
-							<h3>{item.entry.data.title}</h3>
-						</a>
-						{item.entry.data.description && (
-							<p class="entry-dek">{item.entry.data.description}</p>
-						)}
-						<a class="entry-more" href={`/blog/${item.entry.id}/`}>Read post →</a>
-					</div>
-					{item.entry.data.heroImage && (
-						<a class="entry-thumb" href={`/blog/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
-							<img src={item.entry.data.heroImage} alt="" loading="lazy" />
-						</a>
-					)}
-				</div>
-			</article>
-		) : (
-			<article class="entry entry--note">
-				<div class="entry-rail">
-					<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-					<a class="entry-kind entry-kind--note" href="/notes/">Note</a>
-				</div>
-				<div class="entry-main">
-					<div class="entry-text">
-						{item.entry.data.title && (
-							<a class="entry-headline" href={`/notes/${item.entry.id}/`}><h3>{item.entry.data.title}</h3></a>
-						)}
-						{item.entry.data.link && (
-							<a class="entry-linkout" href={item.entry.data.link} target="_blank" rel="noopener">
-								{item.entry.data.linkText ?? hostOf(item.entry.data.link)}
-							</a>
-						)}
-						<div class="entry-note-body">
-							{(() => { const C = noteContent.get(item.entry.id)!; return <C />; })()}
+		{visible.map((item) => {
+			if (item.kind === 'post') {
+				return (
+					<article class:list={['entry', 'entry--post', `entry--${item.entry.data.category ?? 'tech'}`]}>
+						<div class="entry-rail">
+							<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
+							{item.entry.data.category && CATEGORY[item.entry.data.category] && (
+								<a class="entry-kind" href={CATEGORY[item.entry.data.category].href}>{CATEGORY[item.entry.data.category].label}</a>
+							)}
 						</div>
-						{item.entry.data.tags && item.entry.data.tags.length > 0 && (
-							<div class="entry-tags">
-								{item.entry.data.tags.map((t) => <span class="entry-tag">{t}</span>)}
+						<div class="entry-main">
+							<div class="entry-text">
+								<a class="entry-headline" href={`/blog/${item.entry.id}/`}>
+									<h3>{item.entry.data.title}</h3>
+								</a>
+								{item.entry.data.description && (
+									<p class="entry-dek">{item.entry.data.description}</p>
+								)}
+								<a class="entry-more" href={`/blog/${item.entry.id}/`}>Read post →</a>
 							</div>
-						)}
+							{item.entry.data.heroImage && (
+								<a class="entry-thumb" href={`/blog/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
+									<img src={item.entry.data.heroImage} alt="" loading="lazy" />
+								</a>
+							)}
+						</div>
+					</article>
+				);
+			}
+			if (item.kind === 'seen') {
+				return (
+					<article class="entry entry--seen">
+						<div class="entry-rail">
+							<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
+							<a class="entry-kind entry-kind--seen" href="/seen/">Seen</a>
+						</div>
+						<div class="entry-main">
+							<div class="entry-text">
+								<a class="entry-headline" href={`/seen/${item.entry.id}/`}>
+									<h3>{item.entry.data.title}</h3>
+								</a>
+								<span class="entry-seen-location">📍 {item.entry.data.location}</span>
+								<a class="entry-more" href={`/seen/${item.entry.id}/`}>View photo →</a>
+							</div>
+							<a class="entry-thumb" href={`/seen/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
+								<img src={item.entry.data.photo} alt="" loading="lazy" />
+							</a>
+						</div>
+					</article>
+				);
+			}
+			return (
+				<article class="entry entry--note">
+					<div class="entry-rail">
+						<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
+						<a class="entry-kind entry-kind--note" href="/notes/">Note</a>
 					</div>
-				</div>
-			</article>
-		))}
+					<div class="entry-main">
+						<div class="entry-text">
+							{item.entry.data.title && (
+								<a class="entry-headline" href={`/notes/${item.entry.id}/`}><h3>{item.entry.data.title}</h3></a>
+							)}
+							{item.entry.data.link && (
+								<a class="entry-linkout" href={item.entry.data.link} target="_blank" rel="noopener">
+									{item.entry.data.linkText ?? hostOf(item.entry.data.link)}
+								</a>
+							)}
+							<div class="entry-note-body">
+								{(() => { const C = noteContent.get(item.entry.id)!; return <C />; })()}
+							</div>
+							{item.entry.data.tags && item.entry.data.tags.length > 0 && (
+								<div class="entry-tags">
+									{item.entry.data.tags.map((t) => <span class="entry-tag">{t}</span>)}
+								</div>
+							)}
+						</div>
+					</div>
+				</article>
+			);
+		})}
 
 		{hasMore && (
 			<a class="feed-archive" href="/blog/">
@@ -274,6 +307,7 @@ const hostOf = (url: string) => {
 	--food-accent: oklch(58%  0.17  33);   /* ripe coral */
 	--life-accent: oklch(52%  0.15  150);  /* park green */
 	--note-accent: oklch(50%  0.14  290);  /* margin-note violet */
+	--seen-accent: oklch(55%  0.13  210);  /* sky / shutter blue */
 
 	/* Type */
 	--font-display: 'Fraunces', Georgia, serif;
@@ -545,6 +579,7 @@ const hostOf = (url: string) => {
 .entry--food { --accent: var(--food-accent); }
 .entry--life { --accent: var(--life-accent); }
 .entry--note { --accent: var(--note-accent); }
+.entry--seen { --accent: var(--seen-accent); }
 
 /* ── Dateline rail ── */
 .entry-rail {
@@ -633,6 +668,17 @@ const hostOf = (url: string) => {
 	transition: color 0.2s ease;
 }
 .entry-more:hover { color: var(--accent); }
+
+/* ── Seen entries: location line under the headline ── */
+.entry-seen-location {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	font-family: var(--font-mono);
+	font-size: 0.82rem;
+	color: var(--ink-mid);
+	margin: 0 0 0.7rem;
+}
 
 /* ── Post thumbnail ── */
 .entry-thumb {

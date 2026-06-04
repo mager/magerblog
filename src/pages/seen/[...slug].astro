@@ -1,0 +1,101 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const seen = await getCollection('seen');
+	return seen.map((entry) => ({ params: { slug: entry.id }, props: entry }));
+}
+type Props = CollectionEntry<'seen'>;
+
+const entry = Astro.props;
+const { Content } = await render(entry);
+const { title, location, photo, pubDate, alt, tags } = entry.data;
+
+const description = `${title} — ${location}`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} - ${SITE_TITLE}`} description={description} image={photo} />
+		<style>
+			main { width: 760px; max-width: 100%; }
+			.back {
+				display: inline-block;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
+				color: var(--text-muted, #6e7681);
+				text-decoration: none;
+				margin: 1rem 0 1.5rem;
+			}
+			.back:hover { color: var(--accent-green); }
+			.seen-photo {
+				display: block;
+				width: 100%;
+				border-radius: 12px;
+				border: 1px solid var(--terminal-border, #30363d);
+				margin-bottom: 1.5rem;
+			}
+			.seen-meta {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--text-muted, #6e7681);
+				margin-bottom: 0.6rem;
+			}
+			.seen-title {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1.6rem;
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				color: var(--text-primary);
+				margin: 0 0 0.5rem;
+				line-height: 1.25;
+			}
+			.seen-location {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.95rem;
+				color: var(--text-secondary, #8b949e);
+				margin-bottom: 1.25rem;
+			}
+			.seen-body { color: var(--text-primary); line-height: 1.7; font-size: 1.05rem; }
+			.seen-body :global(p) { margin: 0 0 0.9rem; }
+			.seen-body :global(p:last-child) { margin-bottom: 0; }
+			.seen-body :global(pre) {
+				border: 1px solid var(--terminal-border, #30363d);
+				border-radius: 8px;
+				padding: 1rem;
+				overflow-x: auto;
+				font-size: 0.9rem;
+			}
+			.seen-body :global(code) { font-family: 'JetBrains Mono', monospace; }
+			.tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+			.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted, #6e7681); }
+			.tag::before { content: '#'; opacity: 0.6; }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<a class="back" href="/seen">$ cd ~/seen</a>
+				<img class="seen-photo" src={photo} alt={alt ?? title} loading="eager" />
+				<div class="seen-meta"><FormattedDate date={pubDate} /></div>
+				<h1 class="seen-title">{title}</h1>
+				<div class="seen-location">📍 {location}</div>
+				<div class="seen-body"><Content /></div>
+				{tags && tags.length > 0 && (
+					<div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>
+				)}
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

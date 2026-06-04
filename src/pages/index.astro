@@ -20,6 +20,11 @@ const notes = (await getCollection('notes'))
 	.filter(note => !note.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+// "Seen" photo posts, newest first; also interleaved into the stream.
+const seen = (await getCollection('seen'))
+	.filter(s => !s.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
 // OG image: first available hero image in the feed.
 const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-placeholder-1.jpg';
 ---
@@ -48,7 +53,7 @@ const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-plac
 	</head>
 	<body>
 		<main>
-			<NewspaperHero posts={posts} notes={notes} />
+			<NewspaperHero posts={posts} notes={notes} seen={seen} />
 		</main>
 		<Footer homepage={true} />
 		<SecretSearch posts={posts} />

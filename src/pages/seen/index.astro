@@ -1,0 +1,149 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+
+const DESCRIPTION = 'Seen — a photo, a place, a title. Things worth a second look.';
+
+const seen = (await getCollection('seen'))
+	.filter((s) => !s.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Seen - ${SITE_TITLE}`} description={DESCRIPTION} />
+		<style>
+			main {
+				width: 1000px;
+				max-width: 100%;
+			}
+			.page-header {
+				margin: 1rem 0 2.5rem;
+			}
+			.page-header h1 {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 2rem;
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				color: var(--text-primary);
+				margin: 0 0 0.4rem;
+			}
+			.page-header h1::after {
+				content: '█';
+				color: var(--accent-green);
+				animation: blink 1s steps(1) infinite;
+				margin-left: 0.25rem;
+			}
+			@keyframes blink { 50% { opacity: 0; } }
+			.page-header p {
+				font-family: 'JetBrains Mono', monospace;
+				color: var(--text-secondary, #8b949e);
+				font-size: 0.95rem;
+				margin: 0;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+				gap: 1.5rem;
+			}
+			.tile {
+				display: block;
+				text-decoration: none;
+				border: 1px solid var(--terminal-border, #30363d);
+				border-radius: 12px;
+				overflow: hidden;
+				background: var(--terminal-bg, transparent);
+				transition: transform 0.2s ease, border-color 0.2s ease;
+			}
+			.tile:hover {
+				transform: translateY(-3px);
+				border-color: var(--accent-green);
+			}
+			.tile-photo {
+				display: block;
+				width: 100%;
+				aspect-ratio: 4 / 3;
+				object-fit: cover;
+			}
+			.tile-body { padding: 0.85rem 1rem 1rem; }
+			.tile-meta {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.72rem;
+				color: var(--text-muted, #6e7681);
+				margin-bottom: 0.35rem;
+			}
+			.tile-title {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1rem;
+				font-weight: 700;
+				color: var(--text-primary);
+				margin: 0 0 0.35rem;
+				line-height: 1.3;
+			}
+			.tile-location {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.3rem;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.78rem;
+				color: var(--text-secondary, #8b949e);
+			}
+			.feed-link {
+				display: inline-block;
+				margin-top: 2.5rem;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
+				color: var(--text-muted, #6e7681);
+				text-decoration: none;
+			}
+			.feed-link:hover { color: var(--accent-green); }
+			.empty { color: var(--text-muted, #6e7681); font-family: 'JetBrains Mono', monospace; }
+			@media (max-width: 720px) {
+				.page-header h1 { font-size: 1.5rem; }
+				.grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<div class="page-header">
+					<h1>$ ls ~/seen</h1>
+					<p>A photo, a place, a title. Things worth a second look.</p>
+				</div>
+
+				{seen.length === 0 && <p class="empty">Nothing seen yet.</p>}
+
+				<div class="grid">
+					{seen.map((entry) => {
+						const slug = `/seen/${entry.id}/`;
+						return (
+							<a class="tile" href={slug}>
+								<img
+									class="tile-photo"
+									src={entry.data.photo}
+									alt={entry.data.alt ?? entry.data.title}
+									loading="lazy"
+								/>
+								<div class="tile-body">
+									<div class="tile-meta"><FormattedDate date={entry.data.pubDate} /></div>
+									<h2 class="tile-title">{entry.data.title}</h2>
+									<span class="tile-location">📍 {entry.data.location}</span>
+								</div>
+							</a>
+						);
+					})}
+				</div>
+
+				<a class="feed-link" href="/seen/rss.xml">$ curl ~/seen/rss.xml</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
