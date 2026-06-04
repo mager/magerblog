@@ -27,7 +27,7 @@ I add one thing the purists don't: a knob of good grass-fed butter. It isn't tra
 
 - 1/2 lb (8 oz) linguine
 - 4 oz Pecorino Romano, freshly grated as fine as you can — this is the star, buy a real wedge
-- 2 tbsp New Zealand grass-fed butter (or the best unsalted butter you have)
+- 3 tbsp New Zealand grass-fed butter (or the best unsalted butter you have)
 - 2 tsp whole black peppercorns, freshly cracked — and don't be shy
 - Reserved starchy pasta water (you'll use about 1 cup; keep more)
 - Kosher salt for the pasta water
