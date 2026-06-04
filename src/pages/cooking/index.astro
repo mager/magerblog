@@ -12,17 +12,17 @@ const recipes = allPosts
   .filter(post => post.data.category === 'food')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Hero = most recent recipe that actually has a photo to glow under the lamp.
+// Featured = most recent recipe that actually has a photo.
 const featured = recipes.find(r => r.data.heroImage) ?? recipes[0];
 const grid = recipes.filter(r => r !== featured);
 
-// Filters derive from the real kitchen, not invented categories.
+// Categories derive from the real kitchen, not invented buckets.
 const counts = new Map<string, number>();
 for (const r of grid) {
   const s = r.data.subcategory || 'other';
   counts.set(s, (counts.get(s) || 0) + 1);
 }
-const order = ['soup', 'meat', 'comfort', 'pasta', 'casserole'];
+const order = ['soup', 'meat', 'comfort', 'pasta', 'casserole', 'side', 'salad'];
 const filters = [
   { key: 'all', label: 'All', count: grid.length },
   ...order
@@ -33,9 +33,7 @@ const filters = [
 // Ledger stats.
 const soupCount = recipes.filter(r => r.data.subcategory === 'soup').length;
 const startYear = Math.min(...recipes.map(r => r.data.pubDate.getFullYear()));
-
-// Editorial rhythm: a couple of wide tiles break the grid monotony.
-const wideAt = new Set([0, 7]);
+const featTime = (featured?.data.prepTime || 0) + (featured?.data.cookTime || 0);
 
 const siteUrl = 'https://mager.co';
 const collectionSchema = {
@@ -66,7 +64,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<html lang="en" data-cooking data-kitchen>
+<html lang="en" data-cooking>
   <head>
     <BaseHead
       title={`Cooking — ${SITE_TITLE}`}
@@ -75,514 +73,406 @@ const breadcrumbSchema = {
     />
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap"
       rel="stylesheet"
     />
 
     <style is:global>
       /* ============================================================
-         COOKING — "The Pass"
-         Warm, low-lit home kitchen. Espresso ground, terracotta heat,
-         dish photos glowing like plates under a lamp.
-         Scoped to [data-kitchen] so recipe detail pages are untouched.
+         COOKING — landing page
+         Editorial, Cook's-Illustrated-inspired: classic serif display,
+         cream/white ground, a single warm accent, generous whitespace,
+         hairline rules, and a clean recipe grid as the hero.
+         Uses the shared --ck-* theme so it matches the recipe pages.
          ============================================================ */
-      html[data-cooking][data-kitchen] {
-        --k-bg: oklch(0.185 0.021 52);
-        --k-bg-2: oklch(0.232 0.025 51);
-        --k-bg-3: oklch(0.275 0.028 50);
-        --k-ink: oklch(0.955 0.012 78);
-        --k-ink-2: oklch(0.805 0.02 68);
-        --k-ink-3: oklch(0.665 0.024 62);
-        --k-line: oklch(0.33 0.024 52);
-        --k-terra: oklch(0.70 0.145 47);
-        --k-terra-2: oklch(0.775 0.155 50);
-        --k-ember: oklch(0.70 0.18 36);
-        --k-saffron: oklch(0.84 0.135 80);
-
-        --k-maxw: 1240px;
-        --k-pad: clamp(1.5rem, 6vw, 4rem);
-
-        background: var(--k-bg);
-        color-scheme: dark;
-        scroll-behavior: smooth;
+      html[data-cooking] {
+        --kx-maxw: 1180px;
+        --kx-pad: clamp(1.25rem, 5vw, 3.5rem);
       }
 
-      html[data-cooking][data-kitchen] body {
-        background: var(--k-bg);
-        color: var(--k-ink);
-        font-family: 'Spectral', Georgia, 'Times New Roman', serif;
-        line-height: 1.7;
-        margin: 0;
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+      html[data-cooking] body {
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
       }
 
-      html[data-cooking][data-kitchen] h1,
-      html[data-cooking][data-kitchen] h2,
-      html[data-cooking][data-kitchen] h3 {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        color: var(--k-ink);
-        margin: 0;
-      }
+      /* Page shell ---------------------------------------------------- */
+      .ci-shell { position: relative; z-index: 1; }
 
-      html[data-cooking][data-kitchen] ::selection {
-        background: color-mix(in oklch, var(--k-ember) 45%, transparent);
-        color: var(--k-ink);
-      }
-      html[data-cooking][data-kitchen] ::-webkit-scrollbar { width: 9px; }
-      html[data-cooking][data-kitchen] ::-webkit-scrollbar-track { background: var(--k-bg); }
-      html[data-cooking][data-kitchen] ::-webkit-scrollbar-thumb {
-        background: var(--k-line); border-radius: 99px;
-      }
-      html[data-cooking][data-kitchen] ::-webkit-scrollbar-thumb:hover { background: var(--k-terra); }
-
-      /* ── Ambient atmosphere ── */
-      .kitchen-atmos {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-      }
-      .kitchen-glow {
-        position: absolute;
-        inset: -20%;
-        background: radial-gradient(
-          42rem 42rem at var(--mx, 50%) var(--my, 18%),
-          color-mix(in oklch, var(--k-ember) 60%, transparent) 0%,
-          color-mix(in oklch, var(--k-terra) 28%, transparent) 26%,
-          transparent 58%
-        );
-        opacity: 0.32;
-        mix-blend-mode: screen;
-        transition: opacity 0.8s ease;
-        filter: blur(8px);
-      }
-      .kitchen-grain {
-        position: absolute;
-        inset: 0;
-        opacity: 0.05;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        mix-blend-mode: overlay;
-      }
-      .kitchen-shell { position: relative; z-index: 1; }
-
-      /* ── Masthead ── */
-      .pass-mast {
-        max-width: var(--k-maxw);
+      .ci-wrap {
+        max-width: var(--kx-maxw);
         margin: 0 auto;
-        padding: clamp(2.5rem, 7vw, 5rem) var(--k-pad) clamp(1.5rem, 4vw, 2.5rem);
+        padding: 0 var(--kx-pad);
       }
-      .pass-kicker {
-        font-family: 'Bricolage Grotesque', sans-serif;
+
+      /* Masthead ------------------------------------------------------ */
+      .ci-mast {
+        max-width: var(--kx-maxw);
+        margin: 0 auto;
+        padding: clamp(2.75rem, 7vw, 5rem) var(--kx-pad) clamp(1.75rem, 4vw, 2.75rem);
+        text-align: center;
+      }
+      .ci-kicker {
+        font-family: 'DM Sans', -apple-system, sans-serif;
         font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.26em;
+        font-weight: 600;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: var(--k-terra-2);
-        margin: 0 0 0.9rem;
+        color: var(--ck-gold);
+        margin: 0 0 1.1rem;
       }
-      .pass-title {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-weight: 800;
-        font-size: clamp(3.4rem, 13vw, 7rem);
-        line-height: 0.9;
-        letter-spacing: -0.035em;
+      .ci-title {
+        font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(3.2rem, 11vw, 6rem);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
         margin: 0;
         text-wrap: balance;
+        font-variation-settings: 'opsz' 144, 'SOFT' 0;
       }
-      .pass-title em {
-        font-family: 'Spectral', serif;
+      .ci-title em {
         font-style: italic;
-        font-weight: 500;
-        color: var(--k-saffron);
-        letter-spacing: -0.01em;
+        color: var(--ck-gold);
       }
-      .pass-lede {
-        max-width: 46ch;
-        margin: 1.4rem 0 0;
-        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-        line-height: 1.55;
-        color: var(--k-ink-2);
+      .ci-lede {
+        max-width: 48ch;
+        margin: 1.35rem auto 0;
+        font-size: clamp(1.05rem, 2vw, 1.22rem);
+        line-height: 1.62;
+        color: var(--ck-text-secondary);
         text-wrap: pretty;
       }
-      .pass-ledger {
+      .ci-ledger {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem 1.6rem;
-        margin-top: 1.6rem;
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 0.82rem;
-        font-weight: 600;
+        justify-content: center;
+        gap: 0.4rem 1rem;
+        margin-top: 1.5rem;
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.8rem;
         letter-spacing: 0.02em;
-        color: var(--k-ink-3);
+        color: var(--ck-text-muted);
       }
-      .pass-ledger b { color: var(--k-ink); font-weight: 700; }
-      .pass-ledger .dot { color: var(--k-terra); }
+      .ci-ledger b { color: var(--ck-text); font-weight: 600; }
+      .ci-ledger .dot { color: var(--ck-gold); opacity: 0.6; }
 
-      /* ── Featured / the latest plate ── */
-      .pass-feature {
-        max-width: var(--k-maxw);
-        margin: clamp(1rem, 3vw, 2rem) auto 0;
-        padding: 0 var(--k-pad);
+      /* Rule with a centered ornament -------------------------------- */
+      .ci-rule {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.9rem;
+        max-width: var(--kx-maxw);
+        margin: clamp(2rem, 5vw, 3rem) auto;
+        padding: 0 var(--kx-pad);
+        color: var(--ck-gold);
+      }
+      .ci-rule::before,
+      .ci-rule::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--ck-divider);
+      }
+      .ci-rule svg { flex: 0 0 auto; opacity: 0.85; }
+
+      /* Featured recipe ---------------------------------------------- */
+      .ci-feature {
+        max-width: var(--kx-maxw);
+        margin: 0 auto;
+        padding: 0 var(--kx-pad);
       }
       .feature-card {
-        position: relative;
-        display: block;
-        border-radius: 20px;
-        overflow: hidden;
-        min-height: clamp(22rem, 56vw, 34rem);
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        align-items: stretch;
+        gap: clamp(1.5rem, 4vw, 3rem);
         text-decoration: none !important;
-        color: var(--k-ink);
-        border: 1px solid var(--k-line);
-        isolation: isolate;
-        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        color: var(--ck-text);
       }
-      .feature-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.85), 0 0 90px -50px var(--k-ember);
+      .feature-figure {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid var(--ck-img-border);
+        border-radius: 4px;
+        aspect-ratio: 3 / 2;
+        background: var(--ck-bg-surface);
       }
-      .feature-card:focus-visible { outline: 2px solid var(--k-saffron); outline-offset: 4px; }
-      .feature-card img {
-        position: absolute;
-        inset: 0;
+      .feature-figure img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        z-index: -2;
-        filter: saturate(1.06) contrast(1.03) brightness(0.92);
-        transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        display: block;
+        border-radius: 0;
+        transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .feature-card:hover img { transform: scale(1.04); }
-      .feature-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background:
-          linear-gradient(60deg, color-mix(in oklch, var(--k-bg) 88%, transparent) 0%, color-mix(in oklch, var(--k-bg) 30%, transparent) 52%, transparent 78%),
-          linear-gradient(0deg, color-mix(in oklch, var(--k-bg) 72%, transparent) 0%, transparent 45%);
+      .feature-card:hover .feature-figure img,
+      .feature-card:focus-visible .feature-figure img {
+        transform: scale(1.03);
       }
-      .feature-inner {
-        position: relative;
-        width: 100%;
-        max-width: 40rem;
-        min-width: 0;
-        padding: clamp(1.5rem, 4vw, 3rem);
+      .feature-text {
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        min-height: inherit;
-        height: 100%;
+        justify-content: center;
+        max-width: 38ch;
       }
       .feature-eyebrow {
-        font-family: 'Bricolage Grotesque', sans-serif;
+        font-family: 'DM Sans', -apple-system, sans-serif;
         font-size: 0.7rem;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--k-saffron);
-        margin: 0 0 0.7rem;
+        color: var(--ck-gold);
+        margin: 0 0 0.85rem;
       }
       .feature-title {
-        font-family: 'Spectral', serif;
-        font-weight: 700;
-        font-size: clamp(1.9rem, 6vw, 3.4rem);
-        line-height: 1.04;
-        letter-spacing: -0.02em;
+        font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4.5vw, 3.1rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
         margin: 0;
-        max-width: 100%;
         text-wrap: balance;
-        overflow-wrap: break-word;
+        font-variation-settings: 'opsz' 144;
       }
       .feature-desc {
         margin: 1rem 0 0;
-        max-width: 42ch;
-        font-size: clamp(1rem, 1.8vw, 1.15rem);
-        font-style: italic;
-        color: var(--k-ink);
-        line-height: 1.5;
+        font-size: clamp(1rem, 1.6vw, 1.12rem);
+        line-height: 1.55;
+        color: var(--ck-text-secondary);
+        text-wrap: pretty;
       }
       .feature-foot {
         display: flex;
         align-items: center;
         gap: 1.1rem;
-        margin-top: 1.5rem;
-        font-family: 'Bricolage Grotesque', sans-serif;
+        margin-top: 1.4rem;
+        font-family: 'DM Sans', -apple-system, sans-serif;
         font-size: 0.82rem;
         font-weight: 600;
+        letter-spacing: 0.02em;
       }
       .feature-cta {
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        color: var(--k-bg);
-        background: var(--k-saffron);
-        padding: 0.6rem 1.1rem;
-        border-radius: 999px;
-        letter-spacing: 0.02em;
-        transition: gap 0.3s ease, background 0.3s ease;
+        color: var(--ck-gold);
+        transition: gap 0.3s ease;
       }
-      .feature-card:hover .feature-cta { gap: 0.8rem; background: color-mix(in oklch, var(--k-saffron) 80%, white); }
-      .feature-time { color: var(--k-ink-2); }
+      .feature-card:hover .feature-cta { gap: 0.75rem; }
+      .feature-time { color: var(--ck-text-muted); }
+      .feature-time::before {
+        content: '·';
+        margin-right: 1rem;
+        color: var(--ck-text-muted);
+        opacity: 0.7;
+      }
 
-      /* ── Filter rail ── */
-      .pass-filters {
-        position: sticky;
-        top: 56px; /* sit just below the global 56px site header */
-        z-index: 20;
-        margin-top: clamp(2.5rem, 6vw, 4rem);
-        background: color-mix(in oklch, var(--k-bg) 82%, transparent);
-        backdrop-filter: blur(12px) saturate(1.2);
-        -webkit-backdrop-filter: blur(12px) saturate(1.2);
-        border-top: 1px solid var(--k-line);
-        border-bottom: 1px solid var(--k-line);
-      }
-      .pass-filters-inner {
-        max-width: var(--k-maxw);
-        margin: 0 auto;
-        padding: 0.85rem var(--k-pad);
+      /* Index header + category row ---------------------------------- */
+      .ci-index-head {
+        max-width: var(--kx-maxw);
+        margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+        padding: 0 var(--kx-pad);
         display: flex;
-        gap: 0.5rem;
-        overflow-x: auto;
-        scrollbar-width: none;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+        border-bottom: 1px solid var(--ck-divider);
+        padding-bottom: 1.1rem;
       }
-      .pass-filters-inner::-webkit-scrollbar { display: none; }
-      .chip {
-        flex: 0 0 auto;
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 0.82rem;
+      .ci-index-title {
+        font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
         font-weight: 600;
-        letter-spacing: 0.01em;
-        color: var(--k-ink-2);
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.01em;
+        margin: 0;
+        font-variation-settings: 'opsz' 144;
+      }
+      .ci-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.4rem;
+      }
+      .chip {
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--ck-text-secondary);
         background: transparent;
-        border: 1px solid var(--k-line);
+        border: none;
         border-radius: 999px;
-        padding: 0.5rem 1rem;
+        padding: 0.38rem 0.85rem;
         cursor: pointer;
         white-space: nowrap;
-        transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        transition: color 0.2s ease, background 0.2s ease;
       }
-      .chip:hover { color: var(--k-ink); border-color: color-mix(in oklch, var(--k-terra) 50%, var(--k-line)); }
+      .chip:hover { color: var(--ck-text); background: var(--ck-bg-surface); }
       .chip[aria-pressed='true'] {
-        color: var(--k-bg);
-        background: var(--k-terra);
-        border-color: var(--k-terra);
+        color: var(--ck-bg);
+        background: var(--ck-gold);
+        font-weight: 600;
       }
       .chip-count {
-        font-size: 0.72em;
-        opacity: 0.65;
-        margin-left: 0.35rem;
+        font-size: 0.82em;
+        opacity: 0.55;
+        margin-left: 0.3rem;
         font-variant-numeric: tabular-nums;
       }
-      .chip[aria-pressed='true'] .chip-count { opacity: 0.8; }
+      .chip[aria-pressed='true'] .chip-count { opacity: 0.75; }
 
-      /* ── The index ── */
-      /* `main.pass-index` + the html prefix beats cooking.css's
-         `html[data-cooking] main { padding: 0 }`, which otherwise
-         flattens the grid to the viewport edges. */
-      html[data-cooking][data-kitchen] main.pass-index {
+      /* The grid ------------------------------------------------------ */
+      html[data-cooking] main.ci-index {
         width: 100%;
-        max-width: var(--k-maxw);
+        max-width: var(--kx-maxw);
         margin: 0 auto;
-        padding: clamp(2rem, 5vw, 3.5rem) var(--k-pad) clamp(4rem, 8vw, 7rem);
+        padding: clamp(2rem, 4vw, 3rem) var(--kx-pad) clamp(4rem, 8vw, 6.5rem);
       }
-      .pass-grid {
+      .ci-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-        grid-auto-flow: row dense;
-        gap: clamp(1.1rem, 2.2vw, 1.8rem);
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: clamp(2rem, 4vw, 3rem) clamp(1.75rem, 3vw, 2.5rem);
       }
-      .pass-grid > .dish--wide { grid-column: span 2; }
-
-      .pass-empty {
+      .ci-empty {
         grid-column: 1 / -1;
         text-align: center;
         padding: 4rem 1rem;
         font-style: italic;
-        color: var(--k-ink-3);
+        color: var(--ck-text-muted);
       }
 
-      /* ── Footer ── */
-      .pass-foot {
-        max-width: var(--k-maxw);
+      /* Footer -------------------------------------------------------- */
+      .ci-foot {
+        max-width: var(--kx-maxw);
         margin: 0 auto;
-        padding: 2.5rem var(--k-pad) 4rem;
-        border-top: 1px solid var(--k-line);
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 0.82rem;
-        color: var(--k-ink-3);
+        padding: 2.25rem var(--kx-pad) 4rem;
+        border-top: 1px solid var(--ck-divider);
+        font-family: 'DM Sans', -apple-system, sans-serif;
+        font-size: 0.8rem;
+        color: var(--ck-text-muted);
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 0.5rem;
       }
-      .pass-foot a { color: var(--k-ink-2); text-decoration: none; }
-      .pass-foot a:hover { color: var(--k-terra-2); }
+      .ci-foot a { color: var(--ck-text-secondary); text-decoration: none; }
+      .ci-foot a:hover { color: var(--ck-gold); }
 
-      /* ── View Transitions: the filter reflow ── */
-      @media (prefers-reduced-motion: no-preference) {
-        ::view-transition-group(*) {
-          animation-duration: 0.42s;
-          animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-        }
+      /* Responsive ---------------------------------------------------- */
+      @media (max-width: 760px) {
+        .feature-card { grid-template-columns: 1fr; gap: 1.25rem; }
+        .feature-text { max-width: none; }
+        .ci-index-head { padding-bottom: 1rem; }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html[data-cooking][data-kitchen] { scroll-behavior: auto; }
-        .feature-card, .feature-card img { transition: none; }
-        .kitchen-glow { display: none; }
-      }
-
-      @media (max-width: 720px) {
-        .pass-grid > .dish--wide { grid-column: span 1; }
+        html[data-cooking] { scroll-behavior: auto; }
+        .feature-figure img { transition: none; }
+        .feature-card:hover .feature-figure img { transform: none; }
       }
     </style>
   </head>
 
   <body>
-    <div class="kitchen-atmos" aria-hidden="true">
-      <div class="kitchen-glow" id="kitchenGlow"></div>
-      <div class="kitchen-grain"></div>
-    </div>
-
-    <div class="kitchen-shell">
-      <Header />
+    <div class="ci-shell">
+      <Header homepage={true} />
 
       <!-- Masthead -->
-      <header class="pass-mast">
-        <p class="pass-kicker">From a Chicago kitchen</p>
-        <h1 class="pass-title">Cooking<em>.</em></h1>
-        <p class="pass-lede">
-          Mostly soups and slow braises, plus the pasta, casseroles, and weeknight
-          dinners that actually get made. Real recipes, real photos, kept here so I
-          can find them again.
+      <header class="ci-mast">
+        <p class="ci-kicker">From a Chicago kitchen</p>
+        <h1 class="ci-title">Cooking</h1>
+        <p class="ci-lede">
+          Mostly soups and slow braises, with the pasta, casseroles, and weeknight
+          dinners that actually get made. Real recipes, real photos &mdash; written down
+          so I can find them again.
         </p>
-        <div class="pass-ledger">
+        <div class="ci-ledger">
           <span><b>{recipes.length}</b> recipes</span>
-          <span class="dot">·</span>
+          <span class="dot">&middot;</span>
           <span><b>{soupCount}</b> of them soups</span>
-          <span class="dot">·</span>
+          <span class="dot">&middot;</span>
           <span>cooking in public since <b>{startYear}</b></span>
         </div>
       </header>
 
-      <!-- The latest plate -->
+      <!-- Ornamental rule -->
+      <div class="ci-rule" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11h18M5 11V8a7 7 0 0 1 14 0v3M4 11l1.2 6.5a2 2 0 0 0 2 1.5h9.6a2 2 0 0 0 2-1.5L20 11" />
+        </svg>
+      </div>
+
+      <!-- Featured recipe -->
       {featured && (
-        <section class="pass-feature">
+        <section class="ci-feature">
           <a class="feature-card" href={`/blog/${featured.id}/`}>
-            {featured.data.heroImage && (
-              <img src={featured.data.heroImage} alt={`${featured.data.title} — the latest recipe`} fetchpriority="high" />
-            )}
-            <div class="feature-inner">
-              <p class="feature-eyebrow">Latest from the pass</p>
+            <figure class="feature-figure">
+              {featured.data.heroImage && (
+                <img src={featured.data.heroImage} alt={`${featured.data.title} — the latest recipe`} fetchpriority="high" />
+              )}
+            </figure>
+            <div class="feature-text">
+              <p class="feature-eyebrow">Latest recipe</p>
               <h2 class="feature-title">{featured.data.title}</h2>
               {featured.data.description && <p class="feature-desc">{featured.data.description}</p>}
               <div class="feature-foot">
                 <span class="feature-cta">
                   Read the recipe
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </span>
-                {(featured.data.prepTime || featured.data.cookTime) && (
-                  <span class="feature-time">{(featured.data.prepTime || 0) + (featured.data.cookTime || 0)} min</span>
-                )}
+                {featTime > 0 && <span class="feature-time">{featTime} min</span>}
               </div>
             </div>
           </a>
         </section>
       )}
 
-      <!-- Filter rail -->
-      <nav class="pass-filters" aria-label="Filter recipes by type">
-        <div class="pass-filters-inner" id="filterRail">
+      <!-- Index header + category filters -->
+      <div class="ci-index-head">
+        <h2 class="ci-index-title">The recipe box</h2>
+        <nav class="ci-filters" id="filterRail" aria-label="Filter recipes by type">
           {filters.map((f, i) => (
             <button class="chip" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
               {f.label}<span class="chip-count">{f.count}</span>
             </button>
           ))}
-        </div>
-      </nav>
+        </nav>
+      </div>
 
-      <!-- Index -->
-      <main class="pass-index">
-        <div class="pass-grid" id="recipeGrid">
-          {grid.map((post, i) => (
-            <RecipeCard post={post} index={i} wide={wideAt.has(i)} />
+      <!-- Grid -->
+      <main class="ci-index">
+        <div class="ci-grid" id="recipeGrid">
+          {grid.map((post) => (
+            <RecipeCard post={post} />
           ))}
-          {grid.length === 0 && <p class="pass-empty">No recipes yet. Check back soon.</p>}
+          {grid.length === 0 && <p class="ci-empty">No recipes yet. Check back soon.</p>}
         </div>
       </main>
 
-      <footer class="pass-foot">
-        <span><a href="/">mager.co</a> · Cooking</span>
-        <span>Chicago · since {startYear}</span>
+      <footer class="ci-foot">
+        <span><a href="/">mager.co</a> &middot; Cooking</span>
+        <span>Chicago &middot; since {startYear}</span>
       </footer>
     </div>
 
-    <!-- Ambient ember glow follows the cursor -->
-    <script is:inline>
-      (function () {
-        const glow = document.getElementById('kitchenGlow');
-        if (!glow) return;
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const coarse = window.matchMedia('(pointer: coarse)').matches;
-        if (reduce || coarse) return;
-        let tx = 50, ty = 18, cx = 50, cy = 18, raf = 0;
-        function loop() {
-          cx += (tx - cx) * 0.08;
-          cy += (ty - cy) * 0.08;
-          glow.style.setProperty('--mx', cx.toFixed(2) + '%');
-          glow.style.setProperty('--my', cy.toFixed(2) + '%');
-          raf = Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1 ? requestAnimationFrame(loop) : 0;
-        }
-        window.addEventListener('pointermove', function (e) {
-          tx = (e.clientX / window.innerWidth) * 100;
-          ty = (e.clientY / window.innerHeight) * 100;
-          if (!raf) raf = requestAnimationFrame(loop);
-        }, { passive: true });
-      })();
-    </script>
-
-    <!-- Staggered scroll reveal (arms only when JS + motion allowed) -->
-    <script is:inline>
-      (function () {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        if (!('IntersectionObserver' in window)) return;
-        const cards = document.querySelectorAll('#recipeGrid .dish');
-        const io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) {
-            if (en.isIntersecting) {
-              en.target.classList.add('shown');
-              io.unobserve(en.target);
-            }
-          });
-        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-        cards.forEach(function (c) {
-          c.classList.add('reveal');
-          io.observe(c);
-        });
-      })();
-    </script>
-
-    <!-- Filter reflow via the View Transitions API -->
+    <!-- Category filter (graceful: works without View Transitions) -->
     <script is:inline>
       (function () {
         const rail = document.getElementById('filterRail');
         const grid = document.getElementById('recipeGrid');
         if (!rail || !grid) return;
         const chips = Array.from(rail.querySelectorAll('.chip'));
-        const cards = Array.from(grid.querySelectorAll('.dish'));
+        const cards = Array.from(grid.querySelectorAll('.recipe'));
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function apply(filter) {
           cards.forEach(function (c) {
-            const match = filter === 'all' || c.getAttribute('data-sub') === filter;
-            c.hidden = !match;
+            const sub = c.getAttribute('data-sub') || 'other';
+            c.hidden = !(filter === 'all' || sub === filter);
           });
         }
 
@@ -591,11 +481,7 @@ const breadcrumbSchema = {
           if (!btn) return;
           const filter = btn.getAttribute('data-filter');
           chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === btn)); });
-
-          if (reduce || !document.startViewTransition) {
-            apply(filter);
-            return;
-          }
+          if (reduce || !document.startViewTransition) { apply(filter); return; }
           document.startViewTransition(function () { apply(filter); });
         });
       })();
