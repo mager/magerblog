@@ -212,15 +212,16 @@ img {
 	border-radius: 8px;
 }
 
-/* Code styling */
+/* Code styling — inline code reads as gently-emphasized text, not a button */
 code {
-	padding: 2px 6px;
-	background: var(--terminal-bg-dark);
-	border: 1px solid var(--terminal-border);
+	padding: 0.1em 0.34em;
+	background: rgba(110, 118, 129, 0.14);
+	border: 0;
 	border-radius: 4px;
 	font-family: 'JetBrains Mono', 'Fira Code', monospace;
-	font-size: 0.9em;
-	color: var(--cyan);
+	font-size: 0.88em;
+	color: var(--text-primary);
+	word-break: break-word;
 }
 
 pre {
