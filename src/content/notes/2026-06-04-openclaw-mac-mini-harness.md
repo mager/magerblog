@@ -14,30 +14,51 @@ that you can text like a person, and that you fully own. We'll use **OpenClaw**
 (a private tunnel so your phone can reach the Mac mini safely). Take it one step
 at a time — there's no rush, and you can stop and call me whenever.
 
-### 1. Install Node
+(And if you're reading this and you're *not* my dad — if you're somebody else's
+dad, or just someone setting up your first harness — hi, welcome. This works the
+same for you.)
 
-OpenClaw runs on Node. Go to [nodejs.org](https://nodejs.org) and download the
-recommended version (Node 24). If you already have Homebrew, you can instead run:
+### 1. Install Homebrew
+
+Homebrew is a tool that lets you install other tools from the Terminal — think of
+it as an App Store for command-line software. Open the **Terminal** app
+(press Cmd-Space, type "Terminal", hit Return) and paste this in:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+It'll ask for your Mac password (you won't see anything as you type it — that's
+normal) and take a few minutes. When it finishes, it prints two extra commands to
+"add Homebrew to your PATH" — copy and paste **those two lines** too, so your Mac
+can find `brew` from now on.
+
+### 2. Install Node
+
+OpenClaw runs on Node (the engine it's built on). Now that Homebrew is set up:
 
 ```
 brew install node
 ```
 
-### 2. Install OpenClaw
+(You could also download it from [nodejs.org](https://nodejs.org) — get Node 24 —
+but the command above is easier now that you have Homebrew.)
 
-Open the Terminal app and run:
+### 3. Install OpenClaw
+
+Still in Terminal, run:
 
 ```
 npm install -g openclaw@latest
 ```
 
-### 3. Get a free Gemini key
+### 4. Get a free Gemini key
 
 Go to [aistudio.google.com](https://aistudio.google.com), sign in with your
 Google account, and create an API key. Copy it somewhere safe. OpenClaw reads it
 from an environment variable called `GEMINI_API_KEY`.
 
-### 4. Run the guided setup
+### 5. Run the guided setup
 
 This is the friendly part — OpenClaw walks you through everything:
 
@@ -57,24 +78,41 @@ openclaw start --detach
 openclaw models list --provider google
 ```
 
-### 5. Reach it from anywhere with Tailscale
+### 6. Reach it from anywhere with Tailscale
 
-Tailscale builds a private network between your devices, so your phone can talk
-to the Mac mini securely from anywhere — without opening anything to the public
-internet or exposing it to strangers.
+Tailscale builds a private network — called a **tailnet** — that quietly links
+your own devices together.
+
+Here's the tailnet in plain terms: think of it like a private group chat, but for
+your *devices* instead of people. Once your Mac mini and your phone are both
+signed in, they can talk to each other directly and securely no matter where you
+are — your phone at a coffee shop, the Mac mini back home — as if they were
+sitting side by side on the same home WiFi. Nothing gets exposed to the public
+internet; only your own signed-in devices can see each other. That's what lets
+you text your assistant from anywhere without leaving the Mac mini open to
+strangers.
 
 1. On the Mac mini, install Tailscale from [tailscale.com](https://tailscale.com)
-   or the Mac App Store, and sign in. That creates your private network.
+   or the Mac App Store, and sign in. That creates your tailnet.
 2. On your phone, install the Tailscale app and sign in with the **same**
-   account. Now both devices are on the same private network.
+   account. Now both devices are on the same tailnet.
 3. Optional: turn on **Tailscale SSH** so you (or I) can log in to the Mac mini
    remotely to check on it.
 
-### 6. Keep the Mac mini awake
+### 7. Keep the Mac mini up all the time
 
-An always-on assistant needs an always-on computer. In **System Settings →
-Lock Screen / Energy**, set the Mac mini to never sleep. This one's easy to
-forget and it'll quietly take your assistant offline if you miss it.
+An always-on assistant needs an always-on computer, and there are two parts to
+that:
+
+- **Don't let it sleep.** In **System Settings → Lock Screen** (and
+  **Battery / Energy**), set the Mac mini to never sleep, so it's always awake and
+  reachable. This one's easy to forget, and it'll quietly take your assistant
+  offline if you miss it.
+- **Bring it back after a reboot or crash.** If the power blips or the Mac
+  restarts, you'll want the assistant to come back on its own. I wrote up exactly
+  how I keep mine alive through reboots, crashes, and updates here:
+  [Keeping an always-on agent alive across reboots](https://mager.co/notes/2026-06-03-always-on-agent-across-reboots/).
+  It's a touch more technical — call me and we'll set it up together.
 
 That's it — you can now text your own assistant from your phone, wherever you
 are. If anything looks confusing or a command doesn't work, take a screenshot
