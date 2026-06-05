@@ -93,12 +93,12 @@ open -e ~/.zshrc
 ```
 
 That opens your shell's settings file in TextEdit. Paste these two lines at the
-bottom (swap in the assistant's account name and the Mac mini's Tailscale name
-from step 1):
+bottom — they're already filled in with this mini's account and Tailscale name
+(`magerbot@Mac`); if you named yours differently, swap that part to match:
 
 ```
-alias macmini='ssh dad@dads-mac-mini'
-alias macminidash='ssh -N -L 18789:localhost:18789 dad@dads-mac-mini'
+alias macmini='ssh magerbot@Mac'
+alias macminidash='ssh -N -L 18789:localhost:18789 magerbot@Mac'
 ```
 
 Save, close, and run `source ~/.zshrc` (or just open a fresh Terminal window) so
