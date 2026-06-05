@@ -1,9 +1,10 @@
 ---
-title: "Setting up an always-on AI assistant on a Mac mini"
-pubDate: "2026-06-04"
-tags: ["ai", "openclaw", "tailscale", "mac"]
+title: "An OpenClaw setup for Dad"
+description: "A plain-English, step-by-step walkthrough for setting up your own always-on AI assistant on a Mac mini — OpenClaw for the assistant, Google Gemini for the brain, and Tailscale so you can reach it from anywhere. Written for a first-timer."
+pubDate: 2026-06-04
 category: tech
 draft: true
+tags: ["ai", "openclaw", "tailscale", "mac", "gemini", "harness"]
 ---
 
 Hi Dad. This is a walkthrough for building your own AI assistant that lives on
