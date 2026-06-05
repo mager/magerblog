@@ -74,21 +74,27 @@ Save, then run `source ~/.zshrc` (or open a new Terminal window). Now:
 
 ### 3. Install OpenClaw (on the mini)
 
-First grab a free Gemini key: in your browser, go to
-[aistudio.google.com](https://aistudio.google.com), sign in, and create an API
-key. Keep it handy.
-
-Now type `macmini` to hop onto the mini and run OpenClaw's installer:
+Type `macmini` to hop onto the mini and run OpenClaw's installer:
 
 ```
 curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
 That one command installs everything it needs and launches the guided setup. When
-it asks for a provider, choose **Gemini**, paste your key, and set the model to
-`google/gemini-3.1-pro-preview`. It also installs a background service so the
-assistant keeps running on its own, and lets you connect a channel (like Telegram)
-so you can text it.
+it asks for a provider, choose **Gemini** — and when it asks how to connect, pick
+**Sign in with Google**. That's the easy path: no API keys to create or copy, just
+your normal Google login in the browser. (If asked for a model, go with
+`google/gemini-3.1-pro-preview`.)
+
+If onboarding doesn't offer the Google sign-in, do it afterward with this — it
+opens a browser to log in:
+
+```
+openclaw models auth login --provider google-gemini-cli --set-default
+```
+
+The installer also sets up a background service so the assistant keeps running on
+its own, and lets you connect a channel (like Telegram) so you can text it.
 
 When it's done, confirm it's alive:
 
@@ -131,6 +137,7 @@ source ~/.zshrc  # reload aliases
 ```
 tailscale up --ssh                          # turn on Tailscale SSH
 curl -fsSL https://openclaw.ai/install.sh | bash   # install OpenClaw (+ onboarding)
+openclaw models auth login --provider google-gemini-cli --set-default   # sign into Gemini with Google
 ```
 
 **On the mini — day to day:**
