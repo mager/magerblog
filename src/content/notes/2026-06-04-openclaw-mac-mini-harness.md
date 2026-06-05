@@ -11,8 +11,8 @@ the Mac mini and answers you from your phone, anywhere you are. It's the
 open-source cousin of the setup I run in Chicago: an assistant that's always on,
 that you can text like a person, and that you fully own. We'll use **OpenClaw**
 (the assistant), **Google Gemini** (its brain, free to start), and **Tailscale**
-(a private tunnel so your phone can reach the Mac mini safely). Take it one step
-at a time — there's no rush, and you can stop and call me whenever.
+(a private tunnel so your phone and laptop can reach the Mac mini safely). Take it
+one step at a time — there's no rush, and you can stop and call me whenever.
 
 (And if you're reading this and you're *not* my dad — if you're somebody else's
 dad, or just someone setting up your first harness — hi, welcome. This works the
@@ -34,93 +34,46 @@ but no key to the rest of the house.
 So if anything ever misbehaves, it's contained. You can log back into your own
 account and everything is exactly as you left it — and if you ever want to start
 over, you can delete the assistant's account entirely without touching a single
-one of your own files. Do all the steps below **while logged into that new
-account.**
+one of your own files. **Everything we do on the Mac mini, we do while logged
+into that new account.**
 
-### 1. Install Homebrew
+### The order matters: networking first, then the assistant
 
-Homebrew is a tool that lets you install other tools from the Terminal — think of
-it as an App Store for command-line software. Open the **Terminal** app
-(press Cmd-Space, type "Terminal", hit Return) and paste this in:
+We'll set up **Tailscale** first. Once it's on, your MacBook can reach the Mac
+mini over SSH, and you can do the rest of the setup from the comfort of your
+laptop instead of hunched over the mini. Then we install and onboard OpenClaw
+**on the mini itself**, because that's where the assistant lives.
 
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-It'll ask for your Mac password (you won't see anything as you type it — that's
-normal) and take a few minutes. When it finishes, it prints two extra commands to
-"add Homebrew to your PATH" — copy and paste **those two lines** too, so your Mac
-can find `brew` from now on.
-
-### 2. Install Node
-
-OpenClaw runs on Node (the engine it's built on). Now that Homebrew is set up:
-
-```
-brew install node
-```
-
-(You could also download it from [nodejs.org](https://nodejs.org) — get Node 24 —
-but the command above is easier now that you have Homebrew.)
-
-### 3. Install OpenClaw
-
-Still in Terminal, run:
-
-```
-npm install -g openclaw@latest
-```
-
-### 4. Get a free Gemini key
-
-Go to [aistudio.google.com](https://aistudio.google.com), sign in with your
-Google account, and create an API key. Copy it somewhere safe. OpenClaw reads it
-from an environment variable called `GEMINI_API_KEY`.
-
-### 5. Run the guided setup
-
-This is the friendly part — OpenClaw walks you through everything:
-
-```
-openclaw onboard
-```
-
-When it asks for a provider, choose **Gemini** and paste your API key. It'll set
-up the workspace, let you connect a messaging channel (like Telegram, so you can
-text your assistant), and install a background service so it keeps running on its
-own. Set the default model to `google/gemini-3.1-pro-preview`.
-
-Then start it up and confirm everything's wired:
-
-```
-openclaw start --detach
-openclaw models list --provider google
-```
-
-### 6. Reach it from anywhere with Tailscale
+### 1. Set up Tailscale (do this at the Mac mini)
 
 Tailscale builds a private network — called a **tailnet** — that quietly links
 your own devices together.
 
 Here's the tailnet in plain terms: think of it like a private group chat, but for
-your *devices* instead of people. Once your Mac mini and your phone are both
-signed in, they can talk to each other directly and securely no matter where you
-are — your phone at a coffee shop, the Mac mini back home — as if they were
-sitting side by side on the same home WiFi. Nothing gets exposed to the public
-internet; only your own signed-in devices can see each other. That's what lets
-you text your assistant from anywhere without leaving the Mac mini open to
-strangers.
+your *devices* instead of people. Once your Mac mini, your phone, and your MacBook
+are all signed in, they can talk to each other directly and securely no matter
+where you are — your phone at a coffee shop, the Mac mini back home — as if they
+were sitting side by side on the same home WiFi. Nothing gets exposed to the
+public internet; only your own signed-in devices can see each other.
 
-1. On the Mac mini, install Tailscale from [tailscale.com](https://tailscale.com)
-   or the Mac App Store, and sign in. That creates your tailnet.
-2. On your phone, install the Tailscale app and sign in with the **same**
-   account. Now both devices are on the same tailnet.
-3. Turn on **Tailscale SSH** — this is the bit that makes the next step easy. On
-   the Mac mini, run `tailscale up --ssh` (or flip it on from the Tailscale menu
-   bar icon). It lets your other devices log into the mini without you having to
-   fuss with passwords or keys — Tailscale handles that part for you.
+Sitting at the Mac mini (logged into the assistant's account):
 
-### 7. Log into the Mac mini from your MacBook
+1. Install Tailscale from [tailscale.com](https://tailscale.com) or the Mac App
+   Store, and sign in. That creates your tailnet. Give this machine an easy name
+   when asked (something like `dads-mac-mini`).
+2. On your **phone** and your **MacBook**, install the Tailscale app and sign in
+   with the **same** account. Now all three devices are on the same tailnet.
+3. Turn on **Tailscale SSH** so your MacBook can log into the mini without
+   passwords or keys — Tailscale handles that for you. In the mini's Terminal run:
+
+   ```
+   tailscale up --ssh
+   ```
+
+   (If Terminal says `tailscale` isn't found, don't worry — call me and we'll
+   enable it together; it's a one-time toggle.)
+
+### 2. Set up your MacBook to reach the mini
 
 You'll want to check on the assistant now and then — read its logs, restart it,
 or open its control panel — without walking over to the Mac mini. That's what
@@ -140,7 +93,8 @@ open -e ~/.zshrc
 ```
 
 That opens your shell's settings file in TextEdit. Paste these two lines at the
-bottom (swap in the assistant's account name and your Mac mini's Tailscale name):
+bottom (swap in the assistant's account name and the Mac mini's Tailscale name
+from step 1):
 
 ```
 alias mini='ssh dad@dads-mac-mini'
@@ -150,22 +104,92 @@ alias minidash='ssh -N -L 18789:localhost:18789 dad@dads-mac-mini'
 Save, close, and run `source ~/.zshrc` (or just open a fresh Terminal window) so
 the nicknames load. Now:
 
-- Type **`mini`** to drop into a Terminal on the Mac mini. You're now "on" the
-  mini — you can run things like `openclaw start --detach` or check that it's
-  alive. Type `exit` to leave.
+- Type **`mini`** to drop into a Terminal *on the Mac mini* — right from your
+  MacBook. You're now "on" the mini, in the assistant's account. This is where
+  you'll run the rest of the setup. Type `exit` to leave.
 - Type **`minidash`** to open a secure **tunnel** to the assistant's control
-  panel. A tunnel quietly pipes one private page from the mini over to your
-  MacBook: while `minidash` is running, open
-  [http://localhost:18789](http://localhost:18789) in your MacBook's browser and
-  you'll see OpenClaw's dashboard — its chat, settings, and logs. (If it asks you
-  to sign in, run `openclaw dashboard` on the mini to get a one-click link.) This
-  dashboard is admin-only and should never be put on the public internet, which is
-  exactly why we reach it through the private tunnel instead. Press Ctrl-C to close
-  the tunnel when you're done.
+  panel (we'll use this after OpenClaw is installed). A tunnel quietly pipes one
+  private page from the mini over to your MacBook: while `minidash` is running,
+  open [http://localhost:18789](http://localhost:18789) in your MacBook's browser
+  and you'll see OpenClaw's dashboard — its chat, settings, and logs. (If it asks
+  you to sign in, run `openclaw dashboard` on the mini to get a one-click link.)
+  This dashboard is admin-only and should never be put on the public internet,
+  which is exactly why we reach it through the private tunnel instead. Press Ctrl-C
+  to close the tunnel when you're done.
+
+From here on, type **`mini`** on your MacBook to hop onto the Mac mini, and run
+every command below in that session. (You can also just sit at the mini if you
+prefer — either way, these commands run *on the mini*, since that's where the
+assistant lives.)
+
+### 3. Install Homebrew (on the mini)
+
+Homebrew is a tool that lets you install other tools from the Terminal — think of
+it as an App Store for command-line software. In your `mini` session, paste this
+in:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+It'll ask for the account's password (you won't see anything as you type it —
+that's normal) and take a few minutes. When it finishes, it prints two extra
+commands to "add Homebrew to your PATH" — copy and paste **those two lines** too,
+so the mini can find `brew` from now on.
+
+### 4. Install Node
+
+OpenClaw runs on Node (the engine it's built on). Now that Homebrew is set up:
+
+```
+brew install node
+```
+
+(You could also download it from [nodejs.org](https://nodejs.org) — get Node 24 —
+but the command above is easier now that you have Homebrew.)
+
+### 5. Install OpenClaw
+
+Still in your `mini` session, run:
+
+```
+npm install -g openclaw@latest
+```
+
+### 6. Get a free Gemini key
+
+In your MacBook's browser, go to
+[aistudio.google.com](https://aistudio.google.com), sign in with your Google
+account, and create an API key. Copy it — you'll paste it into the setup in the
+next step. OpenClaw reads it from an environment variable called `GEMINI_API_KEY`.
+
+### 7. Run the guided setup (on the mini)
+
+This is the friendly part — OpenClaw walks you through everything. In your `mini`
+session run:
+
+```
+openclaw onboard
+```
+
+When it asks for a provider, choose **Gemini** and paste your API key. It'll set
+up the workspace, let you connect a messaging channel (like Telegram, so you can
+text your assistant), and install a background service so it keeps running on its
+own. Set the default model to `google/gemini-3.1-pro-preview`.
+
+Then start it up and confirm everything's wired:
+
+```
+openclaw start --detach
+openclaw models list --provider google
+```
+
+Now try the `minidash` tunnel from step 2 to peek at the dashboard, and text your
+assistant on whatever channel you connected. It's alive.
 
 ### 8. Keep the Mac mini up all the time
 
-An always-on assistant needs an always-on computer, and there are two parts to
+An always-on assistant needs an always-on computer, and there are three parts to
 that:
 
 - **Don't let it sleep.** In **System Settings → Lock Screen** (and
