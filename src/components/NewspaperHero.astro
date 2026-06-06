@@ -291,6 +291,12 @@ const hostOf = (url: string) => {
 	--rule:        oklch(89%   0.010 112);
 	--rule-dark:   oklch(79%   0.012 112);
 
+	/* Inline code on the paper surface: dark ink text on a subtle neutral
+	   tint. Overrides the dark-surface defaults from global.css so code in
+	   note bodies (rendered inline in the feed) is readable, not washed out. */
+	--code-bg: oklch(22% 0.012 250 / 0.08);
+	--code-fg: oklch(28% 0.020 250);
+
 	/* Seasonal accents — Summer in Chicago · Lakefront */
 	--summer-lake:   oklch(46% 0.13 245);  /* deep Lake Michigan blue */
 	--summer-teal:   oklch(58% 0.12 205);  /* shallow water */

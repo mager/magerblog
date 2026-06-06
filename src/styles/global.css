@@ -56,6 +56,14 @@ html {
 	--text-secondary: #8B949E;
 	--text-muted: #484F58;
 
+	/* Inline code — theme-adaptive.
+	   Defaults target dark surfaces (the global background): a quiet neutral
+	   tint with a light, readable foreground. Light surfaces (the newspaper
+	   home feed, etc.) override --code-fg / --code-bg locally so the text is
+	   dark-on-light with adequate contrast. Keeps the calm, borderless look. */
+	--code-bg: rgba(110, 118, 129, 0.14);
+	--code-fg: #c9d4e0;
+
 	/* Main theme colors */
 	--accent: #58A6FF;
 	--accent-purple: #A371F7;
@@ -215,12 +223,12 @@ img {
 /* Code styling — inline code reads as gently-emphasized text, not a button */
 code {
 	padding: 0.1em 0.34em;
-	background: rgba(110, 118, 129, 0.14);
+	background: var(--code-bg);
 	border: 0;
 	border-radius: 4px;
 	font-family: 'JetBrains Mono', 'Fira Code', monospace;
 	font-size: 0.88em;
-	color: var(--text-primary);
+	color: var(--code-fg);
 	word-break: break-word;
 }
 
