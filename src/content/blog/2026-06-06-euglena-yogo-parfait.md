@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Yogo Parfait: the euglena snack I ate in Okinawa, rebuilt at home"
+title: "Euglena Yogo Parfait"
 description: "A snack from Ishigaki built on euglena — a single-celled organism that's part plant, part animal, packed with vitamins, minerals, and omega-3s — plus a dead-simple yogo parfait to get the same hit at home."
 pubDate: "2026-06-06"
 category: "food"
