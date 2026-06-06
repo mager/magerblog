@@ -12,7 +12,7 @@ cookTime: 0
 draft: true
 ---
 
-I picked up a bag of euglena powder on Ishigaki, the southern Okinawan island, and bought it almost entirely on a whim. I didn't really know what euglena was when I grabbed it. I do now, and it turns out to be one of the strangest, most over-qualified things I've ever eaten.
+My first run-in with euglena was at the hotel I stayed at on Ishigaki, the southern Okinawan island. They served euglena biscuits, and that small detail hooked me — I couldn't stop wondering what this stuff actually was. So later, when I spotted a bag of euglena powder for sale, I grabbed it, already curious. The more I dug in, the stranger it got: it turns out to be one of the most over-qualified things I've ever eaten.
 
 The hook was the package itself: printed right on it is a recipe that tells you to stir the powder into yogurt. That's it — euglena and yogurt. So I brought the powder home and ran with the idea. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever jazz you feel like layering on top.
 
