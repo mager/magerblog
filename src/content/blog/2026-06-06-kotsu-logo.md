@@ -17,6 +17,8 @@ I designed the whole thing in conversation with Claude. The actual pixels came f
 
 The first mark was a brushy, confident stroke — genuinely nice to look at. The problem was that it read as a Latin letter "R." It had the *style* of Japanese calligraphy but none of the bones. It was a Western logo wearing a costume.
 
+![Round 1: a brushy stroke that reads as a Latin "R"](/images/blog/2026-06-06-kotsu-logo/round-1-latin-r.jpg)
+
 My wife Kristine looked at it and didn't like it. She couldn't articulate why at first, but she was right: it wasn't Japanese, it just looked the part. That's the kind of note that's easy to argue with and almost always correct. I scrapped it.
 
 ## Round 2: stop decorating, start constructing
