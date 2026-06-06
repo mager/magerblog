@@ -129,11 +129,15 @@ const categoryBadge = getCategoryBadge(category);
 				top: 0;
 				left: 0;
 				right: 0;
+				/* Fully opaque (matches the mobile bottom nav) so article text
+				   never bleeds through the bar while scrolling. */
 				background: var(--editor-bg);
 				border-bottom: 1px solid var(--terminal-border);
 				z-index: 1000;
 				transform: translateY(-100%);
 				transition: transform 0.3s ease;
+				/* Reduce Chrome scroll-linked repaint jank. */
+				will-change: transform;
 			}
 
 			.sticky-header.visible {
@@ -1006,8 +1010,17 @@ const categoryBadge = getCategoryBadge(category);
 				font-size: 0.7rem;
 			}
 
+			.sticky-header {
+				/* Push the opaque fill up under the notch/status bar so there is
+				   no transparent gap above the bar where content can peek through. */
+				padding-top: env(safe-area-inset-top, 0);
+			}
+
 			.sticky-content {
-				padding: 0.6rem 1rem;
+				/* Fixed integer height avoids the fractional-pixel seam at the
+				   bar's bottom edge where a half-clipped text line was showing. */
+				height: 56px;
+				padding: 0 1rem;
 				gap: 0.5rem;
 				grid-template-columns: auto 1fr auto;
 			}
