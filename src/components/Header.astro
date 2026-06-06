@@ -13,7 +13,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 <header class:list={["site-header", { "header-light": homepage }]}>
 	<nav>
 		<a href="https://www.mager.co" class="logo" aria-label="Main mager.co home">
-			<span class="logo-prompt" aria-hidden="true">▸</span><span class="logo-name">mager</span><span class="logo-tld">.co</span><span class="logo-cursor" aria-hidden="true"></span>
+			<span class="logo-prompt" aria-hidden="true">▸</span><span class="logo-name"><span aria-hidden="true">m</span><span aria-hidden="true">a</span><span aria-hidden="true">g</span><span aria-hidden="true">e</span><span aria-hidden="true">r</span><span class="sr-only">mager</span></span><span class="logo-tld">.co</span><span class="logo-cursor" aria-hidden="true"></span>
 		</a>
 		<div class="nav-right">
 			<div class="internal-links">
@@ -75,6 +75,14 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--link-accent-neutral: var(--text-primary, #e6edf3);
 		--header-social-border: rgba(48, 54, 61, 0.5);
 		--header-hover-bg: rgba(255, 255, 255, 0.05);
+
+		/* Pride rainbow — tuned bright for the dark background */
+		--pride-red: #ff5c5c;
+		--pride-orange: #ffa657;
+		--pride-yellow: #f2cc60;
+		--pride-green: #56d364;
+		--pride-blue: #79c0ff;
+		--pride-violet: #d2a8ff;
 	}
 
 	/* Light mode for homepage */
@@ -92,6 +100,14 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--link-accent-neutral: #1a1a2e;
 		--header-social-border: rgba(26, 26, 46, 0.1);
 		--header-hover-bg: rgba(26, 26, 46, 0.04);
+
+		/* Pride rainbow — deeper, saturated tones for the light cream background */
+		--pride-red: #e02424;
+		--pride-orange: #d97706;
+		--pride-yellow: #ca8a04;
+		--pride-green: #0d9488;
+		--pride-blue: #2563eb;
+		--pride-violet: #7c3aed;
 	}
 
 	nav {
@@ -128,26 +144,39 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		font-family: 'JetBrains Mono', monospace;
 		font-weight: 700;
 		font-size: 1.25rem;
-		color: var(--header-text);
 		letter-spacing: -0.03em;
 		line-height: 1;
-		transition: color 0.2s ease;
 	}
-	.logo:hover .logo-name {
-		color: var(--header-logo-tld);
+
+	/* Pride Month — rainbow wordmark.
+	   Each letter of "mager" gets a spectrum color (red→blue),
+	   and ".co" carries the violet, so the full wordmark spans
+	   the classic 6-color pride rainbow. */
+	.logo-name > span {
+		transition: filter 0.2s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+		display: inline-block;
+	}
+	.logo-name > span:nth-child(1) { color: var(--pride-red); }
+	.logo-name > span:nth-child(2) { color: var(--pride-orange); }
+	.logo-name > span:nth-child(3) { color: var(--pride-yellow); }
+	.logo-name > span:nth-child(4) { color: var(--pride-green); }
+	.logo-name > span:nth-child(5) { color: var(--pride-blue); }
+
+	.logo:hover .logo-name > span {
+		filter: brightness(1.15) saturate(1.2);
 	}
 
 	.logo-tld {
 		font-family: 'JetBrains Mono', monospace;
-		font-weight: 400;
+		font-weight: 700;
 		font-size: 1.25rem;
-		color: var(--header-text-secondary);
+		color: var(--pride-violet);
 		letter-spacing: -0.03em;
 		line-height: 1;
-		transition: color 0.2s ease;
+		transition: filter 0.2s ease;
 	}
 	.logo:hover .logo-tld {
-		color: var(--header-logo-tld);
+		filter: brightness(1.15) saturate(1.2);
 	}
 
 	.logo-cursor {
