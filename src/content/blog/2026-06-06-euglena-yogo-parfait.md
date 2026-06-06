@@ -14,11 +14,11 @@ draft: true
 
 My first run-in with euglena was at the hotel I stayed at on Ishigaki, the southern Okinawan island. They served euglena biscuits, and that small detail hooked me — I couldn't stop wondering what this stuff actually was. So later, when I spotted a bag of euglena powder for sale, I grabbed it, already curious. The more I dug in, the stranger it got: it turns out to be one of the most over-qualified things I've ever eaten.
 
-The hook was the package itself: printed right on it is a recipe that tells you to stir the powder into yogurt. That's it — euglena and yogurt. So I brought the powder home and ran with the idea. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever jazz you feel like layering on top.
+The hook was the package itself: printed right on it is a recipe that tells you to stir the powder into yogurt. That's it — euglena and yogurt. So I brought the powder home and ran with the idea. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever toppings you feel like layering on top.
 
 <div class="recipe-intro">
 
-Two things make this work: yogo (yogurt) and euglena powder whisked together until the base turns a vibrant green. Everything else is optional jazz — a drizzle of sweetness, some bright fruit, a bit of crunch. Five minutes, no cooking, and you can riff on the toppings however you want.
+Two things make this work: yogo (yogurt) and euglena powder whisked together until the base turns a vibrant green. Everything else is optional — a drizzle of sweetness, some bright fruit, a bit of crunch. Five minutes, no cooking, and you can riff on the toppings however you want.
 
 </div>
 
@@ -31,7 +31,7 @@ Two things make this work: yogo (yogurt) and euglena powder whisked together unt
 - 1 cup plain or vanilla Greek yogurt
 - 1 tsp euglena powder
 
-**The jazz (optional)**
+**Toppings (optional)**
 - Honey or maple syrup
 - Fresh blueberries or sliced strawberries
 - Granola or toasted almonds
@@ -42,7 +42,7 @@ Two things make this work: yogo (yogurt) and euglena powder whisked together unt
 
 **Make the base.** Whisk the euglena powder into the yogurt until it's a uniform green with no grey-green streaks at the bottom. That's the whole parfait if you want it to be.
 
-**Add the jazz.** Layer or pile on whatever you've got — a drizzle of honey or maple to cut the grassy, matcha-like bitterness, a handful of berries for brightness, granola or almonds for crunch. No fixed order, no fixed amounts. Improvise.
+**Add the toppings.** Layer or pile on whatever you've got — a drizzle of honey or maple to cut the grassy, matcha-like bitterness, a handful of berries for brightness, granola or almonds for crunch. No fixed order, no fixed amounts. Improvise.
 
 Between the yogurt's live cultures and the paramylon fiber from the euglena, it's a good thing to be feeding your gut first thing in the morning.
 
