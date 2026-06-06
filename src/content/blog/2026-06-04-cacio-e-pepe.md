@@ -2,14 +2,14 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Cacio e Pepe"
 description: "Three real ingredients — pecorino, pepper, pasta water — plus a knob of butter for insurance, tossed into a glossy sauce that never breaks."
-pubDate: "2026-06-04"
+pubDate: "2026-06-06"
 category: "food"
 subcategory: "pasta"
 tags: ["Pasta", "Cacio e Pepe", "Pecorino", "Italian", "Weeknight", "Vegetarian", "Quick"]
-heroImage: ""
+heroImage: https://lh3.googleusercontent.com/pw/AP1GczMXnudm2XjUjkec0fmixxvHO5BLNpsmIaz_v5FUktoj04gaQEcaxRaIasv9SScrlKHRX1av0nR4fc-2_d_eURa0XT9zbiPDl8D24X-STzyIu0qmYWNYHSKHFaU2I_GB1iuOhu-O9-zvTCugGKLY12qVSQ=w2030-h1522-s-no-gm
 prepTime: 5
 cookTime: 15
-draft: true
+draft: false
 ---
 
 <div class="recipe-intro">
@@ -63,3 +63,5 @@ Adjust and serve. The sauce should look creamy and cling to the linguine, not po
 
 </div>
 </div>
+
+![Cacio e Pepe](https://lh3.googleusercontent.com/pw/AP1GczMXnudm2XjUjkec0fmixxvHO5BLNpsmIaz_v5FUktoj04gaQEcaxRaIasv9SScrlKHRX1av0nR4fc-2_d_eURa0XT9zbiPDl8D24X-STzyIu0qmYWNYHSKHFaU2I_GB1iuOhu-O9-zvTCugGKLY12qVSQ=w2030-h1522-s-no-gm)
