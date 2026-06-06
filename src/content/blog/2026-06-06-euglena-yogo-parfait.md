@@ -1,10 +1,10 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "Euglena Yogo Parfait"
-description: "A snack from Ishigaki built on euglena — a single-celled organism that's part plant, part animal, packed with vitamins, minerals, and omega-3s — plus a dead-simple yogo parfait to get the same hit at home."
+description: "I picked up euglena powder on Ishigaki — a single-celled organism that's part plant, part animal, packed with vitamins, minerals, and omega-3s — and the package had a yogurt recipe on it. Here's my yogo parfait take, plus why euglena is amazing."
 pubDate: "2026-06-06"
 category: "food"
-tags: ["Japan", "Okinawa", "Ishigaki", "Snack", "Euglena", "Travel", "Recipe", "Yogurt"]
+tags: ["Japan", "Okinawa", "Ishigaki", "Euglena", "Travel", "Recipe", "Yogurt"]
 keyword: "euglena"
 heroImage: ""
 prepTime: 5
@@ -12,9 +12,9 @@ cookTime: 0
 draft: true
 ---
 
-I picked up a bag of euglena yogurt snacks on Ishigaki, the southern Okinawan island, and bought it almost entirely because of the ingredient list: euglena and yogurt. That's the whole thing. I didn't really know what euglena was when I grabbed it. I do now, and it turns out to be one of the strangest, most over-qualified things I've ever eaten.
+I picked up a bag of euglena powder on Ishigaki, the southern Okinawan island, and bought it almost entirely on a whim. I didn't really know what euglena was when I grabbed it. I do now, and it turns out to be one of the strangest, most over-qualified things I've ever eaten.
 
-A bag of freeze-dried bites is hard to restock once you've left Ishigaki, so I rebuilt the idea at home with raw euglena powder, which is sold online and folds into yogurt without any fuss. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever jazz you feel like layering on top.
+The hook was the package itself: printed right on it is a recipe that tells you to stir the powder into yogurt. That's it — euglena and yogurt. So I brought the powder home and ran with the idea. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever jazz you feel like layering on top.
 
 <div class="recipe-intro">
 
@@ -72,12 +72,12 @@ That breadth is the whole reason it's sold as a superfood here. A single cell th
 
 A note on the hype, because euglena marketing runs hot: you'll see claims that it contains "59 nutrients." That figure comes from companies selling the stuff, not from the encyclopedic record, so I'm not going to repeat it as fact. What's solidly established is the categories — minerals, vitamins, the omega-3 DHA, and paramylon — not a tidy headline number. The honest version is still impressive without the marketing gloss.
 
-There's a real industry behind it, too. Euglena Co. in Japan farms the organism at scale; it even opened a Yokohama refinery in 2018 that turns euglena's lipids into biodiesel and biojet fuel. The same cell that ends up in a yogurt snack is also being burned in engines. Seeing it dried into a crunchy convenience-store treat on Ishigaki felt like the logical endpoint of all that.
+There's a real industry behind it, too. Euglena Co. in Japan farms the organism at scale; it even opened a Yokohama refinery in 2018 that turns euglena's lipids into biodiesel and biojet fuel. The same cell that gets dried into a powder you stir into yogurt is also being burned in engines. Finding it bagged on a shelf on Ishigaki, with a yogurt recipe on the back, felt like the most domestic possible endpoint for all that.
 
-## Why a yogurt snack
+## Why yogurt
 
-The novelty is what got me. "Superfood algae" usually shows up as a powder you choke down or a murky green drink. Folding it into a sweet, freeze-dried yogurt bite is a much friendlier delivery system — the kind of thing you can eat on a beach without thinking about the fact that it's farmed pond life.
+The package answered that for me before I could ask. "Superfood algae" usually shows up as a powder you choke down or a murky green drink. The euglena bag skips the lecture and just prints a yogurt recipe on the side — stir it in, eat it for breakfast. It's a much friendlier delivery system than a shot of green sludge, and it's what gave me the parfait in the first place.
 
-**[Taste notes — Mager to fill in.]** *Placeholder so the post reads either way:* it's light and faintly tangy, more yogurt than algae, with no fishy or grassy taste sneaking through. If the euglena announces itself at all, it's subtle. Fill in your real impression here.
+**[Taste notes — Mager to fill in.]** *Placeholder so the post reads either way:* stirred into yogurt, the powder is mild — more yogurt than algae, faintly grassy, no real fishiness coming through. If the euglena announces itself at all, it's subtle. Fill in your real impression here.
 
-I have no idea if a single bag of this did anything for me. But as a souvenir of Ishigaki — a snack built on a single-celled organism that can't decide if it's a plant or an animal, sold without a hint of irony next to the chips — it's hard to beat.
+I have no idea if a teaspoon of this did anything for me. But as a souvenir of Ishigaki — a bag of single-celled organisms that can't decide if they're plant or animal, sold with a casual yogurt recipe like it's the most normal thing in the world — it's hard to beat.
