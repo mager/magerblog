@@ -12,35 +12,29 @@ I spent three weeks in Japan this spring — Tokyo, Osaka, Kyoto, Ishigaki, and 
 
 Here's what made the list.
 
-## 1. The Ryokan and the Kaiseki Dinner
+## 10. The Washlets
 
-A ryokan is a traditional Japanese inn, and staying in one is an experience that feels like it belongs to a different century. You sleep on a futon on tatami mats, wear a yukata robe to dinner, and the whole place operates at a gentler pace than anywhere else you've been all week.
+I have to start here because I've described Japan's heated toilet seats with bidet functions to more people since coming home than I've described almost anything else. The washlet is a toilet that sprays warm water at exactly the right pressure, heats the seat so you don't sit down on cold porcelain at 6am, and in some models makes a sound to mask noise. They are in every hotel, most restaurants, and many convenience stores.
 
-The kaiseki dinner is the centerpiece. It's a multi-course meal where every dish is small, seasonal, and considered — not in a precious way, but in a way that makes you realize someone thought carefully about each one. A single piece of grilled fish. A small bowl of tofu in dashi. Pickled vegetables arranged like they were placed by hand. Everything comes out at the right temperature, in the right order. I've eaten at places that cost three times as much and felt less cared for.
+Coming home to a regular toilet was a genuine loss. The gap between a washlet and an American toilet is larger than the gap between any two things I compared on this trip. Japan made a collective decision that the toilet should be warm and clean and gentle, and the rest of the world simply hasn't caught up.
 
-## 2. The Private Onsen
+## 9. TeamLab
 
-Most ryokan have both communal baths and private ones you can reserve for an hour. The private onsen is worth fighting for. You get a small wooden room with a deep stone or hinoki cedar tub, the water running continuously at exactly the temperature it wants to be, and total silence. There's no agenda. You just sit in a very hot bath and look at whatever small garden is outside the window.
+I was skeptical of TeamLab going in. Digital art installations with crowds of people taking photos sounded like the kind of thing that's better on Instagram than in person. It isn't. Standing in a room where the floor, walls, and ceiling are all projected with moving, reactive imagery — and the imagery responds to where you are and where you move — is a genuinely different experience from looking at a screen. The space between you and the art collapses.
 
-I thought about that tub for days afterward. There's something about hot water and no distractions that resets something.
+The installation we went to was TeamLab Planets in Toyosu, where part of the experience involves wading through shallow water in the dark while koi swim through reflections around your feet. That sounds gimmicky and I don't care — it was beautiful. I stood there longer than I meant to.
 
-## 3. Sitting at the Kamogawa
+## 8. Goshuin and the Shrine Stamps
 
-One evening in Kyoto we sat on the low stone steps that line the Kamogawa River, the one that runs through the middle of the city. It was warm, still light, and there were dozens of other people doing exactly the same thing — couples, groups of students, older folks with cans of something cold. Nobody was doing anything in particular. The river is narrow enough that you can hear the people across from you.
+A goshuin is a stamp you collect at shrines and temples — part ink seal, part calligraphed inscription, written by hand while you wait, on a specific book called a goshuincho that you carry with you and get stamped at each place you visit. They cost a few hundred yen apiece and are made in front of you in about two minutes by someone who has clearly done this thousands of times.
 
-I didn't expect river-sitting to be one of the better hours of the trip, but it was. Kyoto has a way of making stillness feel like the point rather than the pause between points.
+I didn't expect to care about this at all and ended up caring a lot. Each stamp is unique to that shrine, done by whoever is working that day, and the book becomes a record of everywhere you went. It's a physical souvenir that you made something of, rather than one that was made for you. By the end of the trip mine had a dozen stamps and I was annoyed there wasn't room for more.
 
-## 4. The Quaint Bars
+## 7. Snorkeling in Okinawa
 
-Some of the best bars I've ever been in are in Japan, and what makes them isn't the cocktail list — it's the use of space. A typical Tokyo or Osaka cocktail bar has room for maybe eight people. The bartender is close enough to talk to. He's chipping a single large block of ice with a pick, then hand-carving a sphere for your glass. The soda is fresh from a siphon. He weighs the spirits on a small scale before pouring. None of this is performance — it's just how the drink gets made here.
+The water around Okinawa and the Kerama Islands is genuinely clear — blue-green in the way that makes you feel like you're looking at an edited photo until you're actually in it. The coral is still alive. We snorkeled for hours one afternoon and I saw fish I didn't have names for in colors that don't appear in freshwater.
 
-There's no ambient music loud enough to interrupt a conversation, and nobody is trying to turn the table. You can sit for two hours over two drinks and feel completely welcome. I'd trade a dozen loud American bars for one of these.
-
-## 5. Sumo
-
-We caught a Grand Sumo tournament in Tokyo, and it was one of those sporting events that immediately recalibrates your sense of what live sports can be. The bouts themselves are short — most last under ten seconds — but the ritual surrounding each one is long and deliberate. The wrestlers circle each other, toss salt, crouch, rise, and crouch again. The crowd is quiet during the ceremony and loud at the exact right moment.
-
-The wrestlers are enormous and surprisingly fast, and the combination of size and technical skill is genuinely impressive. We sat in box seats on the floor level and were close enough to feel the impact when someone hit the clay. That's not something you get from watching it at home.
+What made it was the silence. You're floating, face down, watching everything move below you, and the surface world disappears. I don't snorkel often enough. Japan reminded me that the water there is worth the trip on its own.
 
 ## 6. The Food
 
@@ -54,29 +48,35 @@ In Okinawa specifically: taco rice, which is exactly what it sounds like and wor
 
 I came home having eaten natto (fermented soybeans, the texture of used glue, the flavor of blue cheese — not for everyone, definitely for me), sea grapes, euglena biscuits, ningyo sweets with red bean paste, and a KitKat in a flavor I couldn't identify from the packaging. Japan has more variety in its convenience stores than most countries have in their grocery stores.
 
-## 7. Snorkeling in Okinawa
+## 5. Sumo
 
-The water around Okinawa and the Kerama Islands is genuinely clear — blue-green in the way that makes you feel like you're looking at an edited photo until you're actually in it. The coral is still alive. We snorkeled for hours one afternoon and I saw fish I didn't have names for in colors that don't appear in freshwater.
+We caught a Grand Sumo tournament in Tokyo, and it was one of those sporting events that immediately recalibrates your sense of what live sports can be. The bouts themselves are short — most last under ten seconds — but the ritual surrounding each one is long and deliberate. The wrestlers circle each other, toss salt, crouch, rise, and crouch again. The crowd is quiet during the ceremony and loud at the exact right moment.
 
-What made it was the silence. You're floating, face down, watching everything move below you, and the surface world disappears. I don't snorkel often enough. Japan reminded me that the water there is worth the trip on its own.
+The wrestlers are enormous and surprisingly fast, and the combination of size and technical skill is genuinely impressive. We sat in box seats on the floor level and were close enough to feel the impact when someone hit the clay. That's not something you get from watching it at home.
 
-## 8. Goshuin and the Shrine Stamps
+## 4. The Quaint Bars
 
-A goshuin is a stamp you collect at shrines and temples — part ink seal, part calligraphed inscription, written by hand while you wait, on a specific book called a goshuincho that you carry with you and get stamped at each place you visit. They cost a few hundred yen apiece and are made in front of you in about two minutes by someone who has clearly done this thousands of times.
+Some of the best bars I've ever been in are in Japan, and what makes them isn't the cocktail list — it's the use of space. A typical Tokyo or Osaka cocktail bar has room for maybe eight people. The bartender is close enough to talk to. He's chipping a single large block of ice with a pick, then hand-carving a sphere for your glass. The soda is fresh from a siphon. He weighs the spirits on a small scale before pouring. None of this is performance — it's just how the drink gets made here.
 
-I didn't expect to care about this at all and ended up caring a lot. Each stamp is unique to that shrine, done by whoever is working that day, and the book becomes a record of everywhere you went. It's a physical souvenir that you made something of, rather than one that was made for you. By the end of the trip mine had a dozen stamps and I was annoyed there wasn't room for more.
+There's no ambient music loud enough to interrupt a conversation, and nobody is trying to turn the table. You can sit for two hours over two drinks and feel completely welcome. I'd trade a dozen loud American bars for one of these.
 
-## 9. TeamLab
+## 3. Sitting at the Kamogawa
 
-I was skeptical of TeamLab going in. Digital art installations with crowds of people taking photos sounded like the kind of thing that's better on Instagram than in person. It isn't. Standing in a room where the floor, walls, and ceiling are all projected with moving, reactive imagery — and the imagery responds to where you are and where you move — is a genuinely different experience from looking at a screen. The space between you and the art collapses.
+One evening in Kyoto we sat on the low stone steps that line the Kamogawa River, the one that runs through the middle of the city. It was warm, still light, and there were dozens of other people doing exactly the same thing — couples, groups of students, older folks with cans of something cold. Nobody was doing anything in particular. The river is narrow enough that you can hear the people across from you.
 
-The installation we went to was TeamLab Planets in Toyosu, where part of the experience involves wading through shallow water in the dark while koi swim through reflections around your feet. That sounds gimmicky and I don't care — it was beautiful. I stood there longer than I meant to.
+I didn't expect river-sitting to be one of the better hours of the trip, but it was. Kyoto has a way of making stillness feel like the point rather than the pause between points.
 
-## 10. The Washlets
+## 2. The Private Onsen
 
-I have to end here because I've described Japan's heated toilet seats with bidet functions to more people since coming home than I've described almost anything else. The washlet is a toilet that sprays warm water at exactly the right pressure, heats the seat so you don't sit down on cold porcelain at 6am, and in some models makes a sound to mask noise. They are in every hotel, most restaurants, and many convenience stores.
+Most ryokan have both communal baths and private ones you can reserve for an hour. The private onsen is worth fighting for. You get a small wooden room with a deep stone or hinoki cedar tub, the water running continuously at exactly the temperature it wants to be, and total silence. There's no agenda. You just sit in a very hot bath and look at whatever small garden is outside the window.
 
-Coming home to a regular toilet was a genuine loss. The gap between a washlet and an American toilet is larger than the gap between any two things I compared on this trip. Japan made a collective decision that the toilet should be warm and clean and gentle, and the rest of the world simply hasn't caught up.
+I thought about that tub for days afterward. There's something about hot water and no distractions that resets something.
+
+## 1. The Ryokan and the Kaiseki Dinner
+
+A ryokan is a traditional Japanese inn, and staying in one is an experience that feels like it belongs to a different century. You sleep on a futon on tatami mats, wear a yukata robe to dinner, and the whole place operates at a gentler pace than anywhere else you've been all week.
+
+The kaiseki dinner is the centerpiece. It's a multi-course meal where every dish is small, seasonal, and considered — not in a precious way, but in a way that makes you realize someone thought carefully about each one. A single piece of grilled fish. A small bowl of tofu in dashi. Pickled vegetables arranged like they were placed by hand. Everything comes out at the right temperature, in the right order. I've eaten at places that cost three times as much and felt less cared for.
 
 ---
 
