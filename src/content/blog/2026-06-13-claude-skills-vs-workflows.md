@@ -1,7 +1,7 @@
 ---
 title: "Claude Skills vs Workflows: when Claude decides vs when you do"
 description: "A Skill is reusable know-how Claude reaches for on its own. A Workflow is an explicit pipeline you wire up and control. Here's the difference, what you can build with each, and when to reach for which."
-pubDate: 2026-06-12
+pubDate: 2026-06-13
 category: tech
 tags: ["ai", "claude", "skills", "workflows", "automation", "agents"]
 keyword: "AI agents"
@@ -103,3 +103,13 @@ Here's the rule of thumb I'd give anyone starting out:
 And honestly, most of the time you want both. You build Skills for the capabilities — the things Claude should do consistently well — and you build Workflows for the processes that string those capabilities into something that runs on its own.
 
 Skills make Claude better at the work. Workflows make sure the work actually gets done, the same way, every time. Once that clicks, you stop thinking about Claude as a thing you chat with and start treating it as something you can build on.
+
+---
+
+## A runnable version of this
+
+If the distinction still feels abstract, I built the Workflow above as a small repo you can clone. It runs a draft through tone review → SEO audit → human approval → publish, composing two Skills along the way. The thing I'd point at: every step's result is handled in code. A verdict becomes a gate that can halt the run; a missing frontmatter field becomes a fix step with a bounded retry — rather than something you read out of a chat and act on by hand. That's where the control comes from.
+
+It runs offline in one command, so you don't need an API key to see it work, and the orchestration has unit tests — because once a decision lives in code, you can test it, which is half the reason to put it there.
+
+**→ [github.com/mager/claude-workflow-example](https://github.com/mager/claude-workflow-example)**
