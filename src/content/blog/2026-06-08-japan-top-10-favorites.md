@@ -3,7 +3,7 @@ title: "Japan: My Top 10 Favorite Things"
 description: "Three weeks in Japan — Okinawa, Kyoto, Osaka, Tokyo — and ten things I keep coming back to."
 pubDate: 2026-06-08
 category: life
-draft: true
+draft: false
 tags: ["Japan", "Okinawa", "Kyoto", "Travel", "Food"]
 keyword: "Japan travel favorites"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNLmA4hPbKg1-AqDan0mGHdSkxXYz9qPislVFvtTek1sjSEmBR0j4JTDPmQz-NNMpDaIHFGVWnwX2cLBbUFGU3cczTTtr7wQxBxKzf9z8PyQ=w2030-h1522-s-no-gm"
