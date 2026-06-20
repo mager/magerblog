@@ -3,7 +3,7 @@ title: "Eve: Vercel's framework for agents that actually ship"
 description: "Vercel launched an open-source agent framework at Ship London. The filesystem is the config, durable execution is built in, and deploy is just vercel deploy."
 pubDate: 2026-06-18
 category: tech
-draft: true
+draft: false
 tags: ["tech", "ai", "vercel", "agents", "typescript"]
 ---
 
