@@ -1,7 +1,7 @@
 ---
 title: "DM your agent with Claude Code Channels"
 description: "Claude Code's new channels feature lets you push messages from Telegram and Discord into a running session. Here's how it works, why mobile access changes everything, and how I'd wire it into my projects."
-pubDate: 2026-03-21T00:00:00Z
+pubDate: "2026-03-20"
 category: tech
 keyword: Claude in your DMs
 tags: [ai, claude-code, agents]
