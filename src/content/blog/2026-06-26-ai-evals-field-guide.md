@@ -3,7 +3,8 @@ title: "Evals: a plain-English map of the types worth knowing"
 description: "Everyone says 'evals' and means ten different things. Here's a quick tour of the main types — what each one checks, and when it's worth the cost."
 pubDate: 2026-06-26
 category: tech
-draft: true
+draft: false
+keyword: "evals"
 tags: ["ai", "evals", "agents", "testing", "llm-as-judge"]
 ---
 
@@ -135,5 +136,7 @@ You don't need all ten. For most projects the high-leverage path is short:
 4. **Turn every bug you fix into a regression case** so it stays fixed.
 
 Everything else on the list is something you reach for when a specific need shows up — you're shipping an agent and need outcome grading, you have no traffic and need synthetic data, you're publishing a leaderboard and need contamination resistance. The map is useful precisely so you can ignore most of it until you need it.
+
+If you'd rather run this path than reimplement it, I packaged the high-leverage rungs — error analysis, assertion scaffolding, a validated LLM judge, pass@k/pass^k, and synthetic data — into a small Claude Code plugin, [skill-evals](https://github.com/mager/skill-evals). I also wrote a [short note](/notes/2026-06-26-skill-evals/) on what came out of dogfooding it on this blog.
 
 Credit where it's due: the structure and most of the specifics here come from the [awesome-evals PATTERNS playbook](https://github.com/benchflow-ai/awesome-evals/blob/main/PATTERNS.md). If any of these sections made you want the real depth, that's where to go.
