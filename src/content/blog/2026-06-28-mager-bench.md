@@ -1,13 +1,13 @@
 ---
 title: "mager-bench: a personal coding model benchmark"
-description: "Instead of reading someone else's leaderboard, build a small set of tasks you actually care about and run them yourself every time a new model drops — the pelican test, but for code."
+description: "Instead of reading someone else's leaderboard, build a small set of tasks you actually care about and run them yourself every time a new model drops — Simon Willison's SVG pelican test, but for code."
 pubDate: 2026-06-28
 category: tech
 draft: true
 tags: ["tech", "ai", "benchmarks", "python", "claude"]
 ---
 
-Simon Willison has a benchmark he calls the pelican test: ask every new model to write a poem about a pelican riding a bicycle. It sounds trivial. The point isn't the pelican — it's that he runs the same prompt himself every time, and over enough models and months, the variation tells him something real about what changed. You don't need a giant eval suite to have opinions about models. You just need something consistent.
+Simon Willison has a benchmark he runs on every new model: ask it to draw a pelican riding a bicycle as an SVG. He compares the actual drawings side by side. It sounds absurd. The point isn't the pelican — it's that he runs the same prompt himself every time, and over enough models and months, the variation tells him something real about what changed and what got better. You don't need a giant eval suite to have opinions about models. You just need something consistent.
 
 [mager-bench](https://github.com/mager/mager-bench) is the coding equivalent. Five tasks I actually care about, run against any combination of models, scored on three dimensions. When a new model drops, I run `python bench.py` and immediately see where it stands.
 
