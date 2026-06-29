@@ -45,13 +45,6 @@ const categoryBadge = getCategoryBadge(category);
 		<BaseHead title={displayTitle} description={description} image={heroImage} />
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
 		<style>
-			/* ── Typed custom property for animatable gradient ──── */
-			@property --grad-angle {
-				syntax: '<angle>';
-				initial-value: 135deg;
-				inherits: false;
-			}
-
 			/* ── Keyframes ─────────────────────────────────────── */
 			@keyframes cursorBlink {
 				0%, 100% { opacity: 1; }
@@ -64,10 +57,6 @@ const categoryBadge = getCategoryBadge(category);
 			@keyframes proseEnter {
 				from { opacity: 0; transform: translateY(18px); }
 				to   { opacity: 1; transform: translateY(0); }
-			}
-			@keyframes titleGradShift {
-				from { --grad-angle: 115deg; }
-				to   { --grad-angle: 168deg; }
 			}
 			@keyframes dotPulse {
 				0%, 100% { box-shadow: 0 0 10px rgba(80,250,123,0.55); }
@@ -102,7 +91,7 @@ const categoryBadge = getCategoryBadge(category);
 				width: 58rem;
 				height: 58rem;
 				border-radius: 50%;
-				background: radial-gradient(circle, rgba(163,113,247,0.13) 0%, rgba(88,166,255,0.06) 40%, transparent 70%);
+				background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 60%);
 				left: 50%;
 				top: 35%;
 				transform: translate(-50%, -50%);
@@ -347,18 +336,11 @@ const categoryBadge = getCategoryBadge(category);
 
 			/* Tech category: bold magazine title */
 			body[data-category="tech"] {
-				background:
-					radial-gradient(circle at 10% 10%, rgba(163, 113, 247, 0.16), transparent 28rem),
-					radial-gradient(circle at 90% 8%, rgba(88, 166, 255, 0.12), transparent 26rem),
-					linear-gradient(180deg, #05070c 0%, var(--editor-bg) 45%, #070a10 100%);
+				background: #08080a;
 			}
 
 			body[data-category="tech"] .hero {
-				background:
-					linear-gradient(115deg, rgba(5, 7, 12, 0.96) 0%, rgba(13, 17, 23, 0.68) 48%, rgba(5, 7, 12, 0.92) 100%),
-					radial-gradient(circle at 18% 24%, rgba(163, 113, 247, 0.28), transparent 24rem),
-					radial-gradient(circle at 84% 20%, rgba(88, 166, 255, 0.18), transparent 28rem),
-					var(--editor-bg);
+				background: #08080a;
 				isolation: isolate;
 			}
 
@@ -373,8 +355,8 @@ const categoryBadge = getCategoryBadge(category);
 
 			body[data-category="tech"] .hero::before {
 				background-image:
-					linear-gradient(rgba(88, 166, 255, 0.055) 1px, transparent 1px),
-					linear-gradient(90deg, rgba(163, 113, 247, 0.05) 1px, transparent 1px);
+					linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px);
 				background-size: 48px 48px;
 				mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
 			}
@@ -437,14 +419,12 @@ const categoryBadge = getCategoryBadge(category);
 				line-height: 0.94;
 				letter-spacing: -0.02em;
 				max-width: 15.5ch;
-				--grad-angle: 135deg;
-				background: linear-gradient(var(--grad-angle), #ffffff 0%, #e6edf3 24%, #bc8cff 58%, #79c0ff 100%);
+				background: linear-gradient(135deg, #ffffff 0%, #c8c8c8 100%);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 				background-clip: text;
 				text-shadow: none;
 				text-wrap: balance;
-				animation: titleGradShift 14s ease-in-out infinite alternate;
 			}
 
 			body[data-category="tech"] .title-dek {
@@ -484,7 +464,7 @@ const categoryBadge = getCategoryBadge(category);
 				inset: -1px;
 				border-radius: inherit;
 				padding: 1px;
-				background: linear-gradient(135deg, rgba(163, 113, 247, 0.58), rgba(88, 166, 255, 0.28), transparent 60%);
+				background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04), transparent 60%);
 				-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
 				-webkit-mask-composite: xor;
 				mask-composite: exclude;
@@ -531,7 +511,7 @@ const categoryBadge = getCategoryBadge(category);
 			/* No-image tech posts: minimal hero, direct entry */
 			body[data-category="tech"] .hero[data-has-image="false"] {
 				min-height: auto;
-				border-bottom: 1px solid rgba(163, 113, 247, 0.2);
+				border-bottom: 1px solid #1c1c20;
 			}
 
 			body[data-category="tech"] .hero[data-has-image="false"] .title {
@@ -596,9 +576,9 @@ const categoryBadge = getCategoryBadge(category);
 				transition: all 0.3s ease;
 			}
 
-			/* Tech category - Purple */
+			/* Tech category - Dark border */
 			body[data-category="tech"] .prose img {
-				border: 1px solid var(--purple);
+				border: 1px solid #2a2a30;
 			}
 
 			body[data-category="tech"] .prose img:hover {
@@ -631,7 +611,7 @@ const categoryBadge = getCategoryBadge(category);
 
 			/* Tech category: enhanced code blocks */
 			body[data-category="tech"] .prose pre {
-				border: 1px solid var(--purple);
+				border: 1px solid #1c1c20;
 				border-radius: 8px;
 				position: relative;
 				margin: 2rem 0;
@@ -648,8 +628,8 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			body[data-category="tech"] .prose blockquote {
-				border-left: 3px solid var(--purple);
-				background: rgba(163, 113, 247, 0.05);
+				border-left: 3px solid #2a2a30;
+				background: rgba(255, 255, 255, 0.02);
 				padding: 1rem 1.5rem;
 				margin: 1.5rem 0;
 				border-radius: 0 6px 6px 0;
@@ -677,8 +657,8 @@ const categoryBadge = getCategoryBadge(category);
 			}
 
 			body[data-category="tech"] .prose th {
-				background: rgba(163, 113, 247, 0.1);
-				color: var(--purple-bright);
+				background: #1a1a1f;
+				color: #888;
 				font-family: 'JetBrains Mono', monospace;
 				font-size: 0.85rem;
 				font-weight: 600;
@@ -920,7 +900,7 @@ const categoryBadge = getCategoryBadge(category);
 		}
 
 		.post-navigation h3 {
-			color: var(--purple);
+			color: #888;
 			font-family: 'JetBrains Mono', monospace;
 			font-size: 1.2rem;
 			margin-bottom: 1.5rem;
@@ -953,7 +933,7 @@ const categoryBadge = getCategoryBadge(category);
 		}
 
 		.nav-link.prev:hover {
-			border-color: var(--purple);
+			border-color: #2a2a30;
 		}
 
 		.nav-link.next:hover {
@@ -970,7 +950,7 @@ const categoryBadge = getCategoryBadge(category);
 		}
 
 		.nav-link.prev .nav-direction {
-			color: var(--purple);
+			color: #888;
 		}
 
 		.nav-link.next .nav-direction {
@@ -1060,7 +1040,7 @@ const categoryBadge = getCategoryBadge(category);
 		.reading-progress-fill {
 			height: 100%;
 			width: 0%;
-			background: linear-gradient(to right, #a371f7, #58a6ff);
+			background: var(--accent-green);
 			transition: width 80ms linear;
 			transform-origin: left;
 		}
@@ -1091,11 +1071,8 @@ const categoryBadge = getCategoryBadge(category);
 			padding: clamp(1.5rem, 3.4vw, 3.75rem);
 			border: 1px solid rgba(121, 192, 255, 0.12);
 			border-radius: 24px;
-			background:
-				radial-gradient(circle at top left, rgba(163,113,247,0.08), transparent 26rem),
-				linear-gradient(180deg, rgba(13, 17, 23, 0.76), rgba(8, 11, 18, 0.62)),
-				radial-gradient(rgba(163,113,247,0.055) 1px, transparent 1px);
-			background-size: auto, auto, 22px 22px;
+			background: linear-gradient(180deg, rgba(13, 17, 23, 0.76), rgba(8, 11, 18, 0.62));
+			background-size: auto;
 			box-shadow:
 				0 0 0 1px rgba(255, 255, 255, 0.025),
 				0 34px 110px rgba(0, 0, 0, 0.32);
@@ -1116,8 +1093,8 @@ const categoryBadge = getCategoryBadge(category);
 			bottom: 1.8rem;
 			left: 0;
 			width: 2px;
-			background: linear-gradient(to bottom, transparent, rgba(163,113,247,0.8), rgba(88,166,255,0.72), transparent);
-			box-shadow: 0 0 28px rgba(88,166,255,0.34);
+			background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08), rgba(255,255,255,0.08), transparent);
+			box-shadow: none;
 		}
 
 		body[data-category="tech"] .prose > p:first-of-type {
@@ -1150,9 +1127,9 @@ const categoryBadge = getCategoryBadge(category);
 			position: absolute;
 			left: 0;
 			top: 0;
-			color: var(--purple-bright);
+			color: var(--accent-green);
 			font-weight: 800;
-			text-shadow: 0 0 14px rgba(163, 113, 247, 0.42);
+			text-shadow: none;
 		}
 
 		body[data-category="tech"] .prose ol {
@@ -1316,7 +1293,7 @@ const categoryBadge = getCategoryBadge(category);
 		}
 		body[data-category="tech"] .prose h2::before {
 			content: '// ';
-			color: rgba(163,113,247,0.45);
+			color: rgba(255,255,255,0.2);
 			font-family: 'JetBrains Mono', monospace;
 			font-size: 0.8em;
 			font-weight: 400;
@@ -1330,11 +1307,11 @@ const categoryBadge = getCategoryBadge(category);
 			font-weight: 400;
 		}
 
-		/* ── HR glow for tech posts ───────────────────────────── */
+		/* ── HR for tech posts ────────────────────────────────── */
 		body[data-category="tech"] .prose hr {
 			border: none;
 			height: 1px;
-			background: linear-gradient(to right, transparent, rgba(163,113,247,0.5), rgba(88,166,255,0.5), transparent);
+			background: linear-gradient(to right, rgba(255,255,255,0.06), rgba(255,255,255,0.12), rgba(255,255,255,0.06));
 			margin: 3rem 0;
 			position: relative;
 		}
@@ -1345,7 +1322,7 @@ const categoryBadge = getCategoryBadge(category);
 			top: 50%;
 			transform: translate(-50%, -50%);
 			background: var(--editor-bg);
-			color: rgba(163,113,247,0.5);
+			color: rgba(255,255,255,0.15);
 			font-size: 0.7rem;
 			padding: 0 0.5rem;
 			line-height: 1;
@@ -1450,7 +1427,7 @@ const categoryBadge = getCategoryBadge(category);
 
 			/* ── Progress bar glow ──────────────────────────────── */
 			body[data-category="tech"] .reading-progress-fill {
-				box-shadow: 0 0 10px rgba(163, 113, 247, 0.9), 0 0 22px rgba(88, 166, 255, 0.5);
+				box-shadow: none;
 			}
 
 			/* ── prefers-reduced-motion: cut all motion ─────────── */
@@ -1575,7 +1552,7 @@ const categoryBadge = getCategoryBadge(category);
 	</head>
 
 	<body data-category={category?.toLowerCase() || undefined} data-recipe-layout={recipeLayout || undefined}>
-		<!-- Reading progress bar (tech posts get purple→blue, others get a neutral) -->
+		<!-- Reading progress bar (tech posts get green, food/life get their category color) -->
 		<div class="reading-progress" aria-hidden="true">
 			<div class="reading-progress-fill"></div>
 		</div>
@@ -1832,10 +1809,10 @@ const categoryBadge = getCategoryBadge(category);
 				if (canvas) {
 					const ctx = canvas.getContext('2d')!;
 					const colors = [
-						'rgba(163,113,247,',
-						'rgba(88,166,255,',
-						'rgba(121,192,255,',
-						'rgba(200,150,255,'
+						'rgba(255,255,255,',
+						'rgba(200,200,200,',
+						'rgba(180,180,180,',
+						'rgba(220,220,220,'
 					];
 
 					let W = 0, H = 0, rafId = 0, active = false;
