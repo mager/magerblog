@@ -76,13 +76,10 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-social-border: rgba(48, 54, 61, 0.5);
 		--header-hover-bg: rgba(255, 255, 255, 0.05);
 
-		/* Pride rainbow — tuned bright for the dark background */
-		--pride-red: #ff5c5c;
-		--pride-orange: #ffa657;
-		--pride-yellow: #f2cc60;
-		--pride-green: #56d364;
-		--pride-blue: #79c0ff;
-		--pride-violet: #d2a8ff;
+		/* 4th of July — tuned bright for the dark background */
+		--usa-red: #ff5c5c;
+		--usa-white: #ffffff;
+		--usa-blue: #79c0ff;
 	}
 
 	/* Light mode for homepage */
@@ -101,13 +98,10 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-social-border: rgba(26, 26, 46, 0.1);
 		--header-hover-bg: rgba(26, 26, 46, 0.04);
 
-		/* Pride rainbow — deeper, saturated tones for the light cream background */
-		--pride-red: #e02424;
-		--pride-orange: #d97706;
-		--pride-yellow: #ca8a04;
-		--pride-green: #0d9488;
-		--pride-blue: #2563eb;
-		--pride-violet: #7c3aed;
+		/* 4th of July — deeper tones for light background (slate used instead of pure white for contrast) */
+		--usa-red: #e02424;
+		--usa-white: #64748b; 
+		--usa-blue: #2563eb;
 	}
 
 	nav {
@@ -148,19 +142,18 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		line-height: 1;
 	}
 
-	/* Pride Month — rainbow wordmark.
-	   Each letter of "mager" gets a spectrum color (red→blue),
-	   and ".co" carries the violet, so the full wordmark spans
-	   the classic 6-color pride rainbow. */
+	/* 4th of July — Red, White, and Blue wordmark.
+	   Alternates red, white, blue across the letters of "mager" 
+	   and wraps up with a blue .co */
 	.logo-name > span {
 		transition: filter 0.2s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 		display: inline-block;
 	}
-	.logo-name > span:nth-child(1) { color: var(--pride-red); }
-	.logo-name > span:nth-child(2) { color: var(--pride-orange); }
-	.logo-name > span:nth-child(3) { color: var(--pride-yellow); }
-	.logo-name > span:nth-child(4) { color: var(--pride-green); }
-	.logo-name > span:nth-child(5) { color: var(--pride-blue); }
+	.logo-name > span:nth-child(1) { color: var(--usa-red); }
+	.logo-name > span:nth-child(2) { color: var(--usa-white); }
+	.logo-name > span:nth-child(3) { color: var(--usa-blue); }
+	.logo-name > span:nth-child(4) { color: var(--usa-red); }
+	.logo-name > span:nth-child(5) { color: var(--usa-white); }
 
 	.logo:hover .logo-name > span {
 		filter: brightness(1.15) saturate(1.2);
@@ -170,7 +163,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		font-family: 'JetBrains Mono', monospace;
 		font-weight: 700;
 		font-size: 1.25rem;
-		color: var(--pride-violet);
+		color: var(--usa-blue);
 		letter-spacing: -0.03em;
 		line-height: 1;
 		transition: filter 0.2s ease;

@@ -82,7 +82,7 @@ const hostOf = (url: string) => {
 	<section class="hero">
 		<div class="hero-type">
 			<h1 class="hero-name">
-				<span class="name-mager"><span class="easter-m">m</span><span class="easter-a">a</span><span class="easter-g">g</span><span class="easter-e">e</span><span class="easter-r">r</span></span><span class="name-co"><span class="easter-dot">.</span><span class="easter-c">c</span><span class="easter-o">o</span></span>
+				<span class="name-mager"><span class="easter-m" style="color: var(--usa-red);">m</span><span class="easter-a" style="color: var(--usa-white);">a</span><span class="easter-g" style="color: var(--usa-blue);">g</span><span class="easter-e" style="color: var(--usa-red);">e</span><span class="easter-r" style="color: var(--usa-white);">r</span></span><span class="name-co"><span class="easter-dot" style="color: var(--usa-blue);">.</span><span class="easter-c" style="color: var(--usa-red);">c</span><span class="easter-o" style="color: var(--usa-white);">o</span></span>
 			</h1>
 			<div class="hero-meta">
 				<p class="hero-tagline">Always learning. Always eating. Chicago.</p>
@@ -324,6 +324,11 @@ const hostOf = (url: string) => {
 	--life-accent: oklch(52%  0.15  150);  /* park green */
 	--note-accent: oklch(50%  0.14  290);  /* margin-note violet */
 	--seen-accent: oklch(55%  0.13  210);  /* sky / shutter blue */
+
+	/* 4th of July — tuned bright for the dark background */
+	--usa-red: #e02424;
+	--usa-white: #94a3b8; 
+	--usa-blue: #2563eb;
 
 	/* Type */
 	--font-display: 'Fraunces', Georgia, serif;
