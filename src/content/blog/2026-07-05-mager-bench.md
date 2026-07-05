@@ -1,9 +1,8 @@
 ---
 title: "mager-bench: a personal coding model benchmark"
 description: "Instead of reading someone else's leaderboard, build a small set of tasks you actually care about and run them yourself every time a new model drops — Simon Willison's SVG pelican test, but for code."
-pubDate: 2026-06-28
+pubDate: 2026-07-05
 category: tech
-draft: true
 tags: ["tech", "ai", "benchmarks", "python", "claude"]
 ---
 
@@ -70,9 +69,9 @@ Challenge(
         "Add inline comments explaining the algorithm logic. Include 3 test cases as examples in the docstring."
     ),
     rubric={
-        "correctness": "Is the binary search algorithm correct? Does it handle edge cases?",
-        "quality": "Is the loop clean? Correct handling of integer overflow for mid calculation?",
-        "documentation": "Does it have Args/Returns/Raises docstring? Are inline comments meaningful?",
+        "correctness": "Is the binary search algorithm correct? Does it handle edge cases (empty list, target not found, duplicates)?",
+        "quality": "Is the loop/recursion clean? Correct handling of integer overflow for mid calculation?",
+        "documentation": "Does it have Args/Returns/Raises docstring? Are inline comments meaningful (not just restating the code)? Are the 3 examples correct?",
     },
 ),
 ```
@@ -87,7 +86,7 @@ msg = client.messages.create(
 )
 ```
 
-Adding a new model is about four lines in `providers.py`. That's the design intent — when the next thing drops, the barrier to running it against the suite is as close to zero as possible.
+Adding a new model from a provider that's already wired up is one line in `providers.py`. That's the design intent — when the next thing drops, the barrier to running it against the suite is as close to zero as possible.
 
 ---
 
