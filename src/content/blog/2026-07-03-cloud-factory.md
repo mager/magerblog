@@ -3,7 +3,8 @@ title: "Warp: The Cloud Factory, Now Running"
 description: "In March I wrote the theory. Zach from Warp shipped the implementation. Here's how a working cloud factory maps to the architecture I laid out."
 pubDate: 2026-07-03
 category: tech
-draft: true
+draft: false
+heroImage: /images/blog/2026-07-03-cloud-factory/openrouter-dashboard.jpg
 tags: ["ai", "agents", "software-factory", "engineering", "warp"]
 ---
 
@@ -12,6 +13,10 @@ In March I wrote [my original post on software factories](/blog/2026-03-19-softw
 That post was theory. This one is about a working implementation.
 
 Zach from Warp shipped [cloud-factory-demo](https://github.com/warpdotdev-demos/cloud-factory-demo) — a complete, installable cloud factory that runs on GitHub Actions. MIT license. Six stages. Seven agent skills. You can install it into any repo in one shell command.
+
+![Zach presenting at AI Engineer World's Fair in San Francisco](/images/blog/2026-07-03-cloud-factory/zach-ai-engineer.jpg)
+
+Zach recently presented at AI Engineer World's Fair in SF, where this kind of end-to-end factory architecture was a recurring topic among teams moving past one-off coding agents toward something more systematic.
 
 ## Where It Sits on the Ladder
 
@@ -103,3 +108,7 @@ The duct tape phase is over for the core pattern. The architecture I described -
 What you still need to bring: a codebase the implementation agent can navigate, test coverage that makes the verification stage meaningful, and enough trust in your own specs to let the triage agent route issues without babysitting it. Those are engineering problems, not AI problems.
 
 The factory isn't theoretical anymore. The question is what you want it to build.
+
+![Warp cloud factory dashboard showing the six-stage pipeline](/images/blog/2026-07-03-cloud-factory/openrouter-dashboard.jpg)
+
+I'll be keeping an eye out for more examples of this factory pattern working well in production — teams that have moved past the install script and are running real issues through all six stages.
