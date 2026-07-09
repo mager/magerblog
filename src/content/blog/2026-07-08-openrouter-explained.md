@@ -3,7 +3,8 @@ title: "OpenRouter: The routing layer magerbot was missing"
 description: "OpenRouter lets you pick a different model for every step in a pipeline. Here's how to use Fable for planning and Sonnet for execution — with runnable TypeScript."
 pubDate: 2026-07-08
 category: tech
-draft: true
+draft: false
+heroImage: /images/blog/2026-07-08-openrouter-explained/openrouter-dashboard.jpg
 tags: ["ai", "openrouter", "agents", "magerbot", "typescript", "claude"]
 ---
 
@@ -12,6 +13,10 @@ magerbot — the always-on Claude Code session running on my Mac mini — uses a
 [OpenRouter](https://openrouter.ai) solves this in the simplest way possible: it gives you a single API endpoint that routes to any model from any provider. You pick the model per call. That's it. Which means you can write an orchestration layer that uses Fable for the "what should I do" decisions and Sonnet for the "do the thing" execution — with no vendor lock-in and a unified billing view.
 
 This post is about that pattern, with the actual code.
+
+![Zach presenting at AI Engineer World's Fair in San Francisco](/images/blog/2026-07-08-openrouter-explained/zach-ai-engineer.jpg)
+
+Zach recently presented at AI Engineer World's Fair in SF, where routing patterns like this came up as a recurring theme among teams building multi-step pipelines. That's the timely nudge to write this down properly.
 
 ---
 
@@ -343,3 +348,7 @@ npx tsx pipeline.ts
 OpenRouter's dashboard at [openrouter.ai/activity](https://openrouter.ai/activity) shows every call with model, token counts, and cost. After a few runs, the Fable vs. Sonnet cost split becomes concrete — which makes the routing decision easier to tune.
 
 The full code from this post is at [github.com/mager/openrouter-routing-pattern](https://github.com/mager/openrouter-routing-pattern).
+
+![OpenRouter activity dashboard showing per-model cost breakdown](/images/blog/2026-07-08-openrouter-explained/openrouter-dashboard.jpg)
+
+I'll be keeping an eye out for more examples of this factory pattern working well in production — particularly in agentic pipelines where the cost and latency tradeoffs become meaningful at scale.
