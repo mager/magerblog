@@ -69,13 +69,13 @@ There's also a practical signal: if you find yourself re-prompting the same mult
 
 The single-agent pattern has a ceiling: one context window, one thread of work, one set of tools. For tasks that are large, multi-domain, or genuinely parallel, a single Agent runs into limits.
 
-Subagents solve this. The model is simple: one **principal agent** who understands the high-level goal, and multiple **specialist sub-agents** who each own a domain. The principal delegates; the specialists execute and report back; the principal synthesizes.
+Subagents solve this. The model is simple: one **principal agent** who understands the high-level goal, and multiple **specialist subagents** who each own a domain. The principal delegates; the specialists execute and report back; the principal synthesizes.
 
-Concrete example: a research agent might have three sub-agents — one that handles web search, one that summarizes long documents, and one that fact-checks claims against trusted sources. The principal receives the task, fans the work out to the specialists, and assembles the result. None of the specialists need to know what the others are doing. Each one just gets a task and returns a result.
+Concrete example: a research agent might have three subagents — one that handles web search, one that summarizes long documents, and one that fact-checks claims against trusted sources. The principal receives the task, fans the work out to the specialists, and assembles the result. None of the specialists need to know what the others are doing. Each one just gets a task and returns a result.
 
-The sub-agents are narrow by design. Narrow means better at their domain, easier to test, and cheaper to run (they don't need the full context the principal holds). The principal's job is routing and synthesis, not execution.
+The subagents are narrow by design. Narrow means better at their domain, easier to test, and cheaper to run (they don't need the full context the principal holds). The principal's job is routing and synthesis, not execution.
 
-What makes this pattern powerful over time is that each piece can improve independently. A specialist sub-agent can be refined — better instructions, evals, memory — without touching the principal. The principal can get better at routing — knowing which sub-agent to trust for which kind of task — without touching the specialists. The system compounds.
+What makes this pattern powerful over time is that each piece can improve independently. A specialist subagent can be refined — better instructions, evals, memory — without touching the principal. The principal can get better at routing — knowing which subagent to trust for which kind of task — without touching the specialists. The system compounds.
 
 ---
 
@@ -99,7 +99,9 @@ The minimal version of a Skill is a markdown file. A name, a description of what
 
 The minimal version of an Agent is a Skill plus: a goal statement (not just a task), tool access (what external systems can it reach), and a completion condition (how does it know it's done). Add a trigger — a schedule, an event, a webhook — and it runs without you.
 
-The minimal setup for subagents is two files and a router. A principal Agent that reads the task and decides which sub-agent to call, and one or more specialist Agents that return structured results. You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
+The minimal setup for subagents is a markdown file with frontmatter. In Claude Code, a subagent is just that: a name, a description of what it's for, and optionally the tools and model it's allowed to use, followed by a system prompt in the body. Save it to `.claude/agents/` for a project or `~/.claude/agents/` to make it available everywhere, and it's live. Claude reads the description and matches it to a task on its own — the same model-invoked delegation Skills use. You don't have to wait for the automatic match, either. You can name the subagent directly in a prompt: "use my docs subagent and my review subagent to get this PR ready." The main session dispatches both by name, each one does its work in its own context window, and the main session reads back what they found and synthesizes the result. Neither subagent knows the other exists — they report to the principal, not to each other.
+
+You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
 
 [Claude's Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, [mager-bench](https://github.com/mager/mager-bench) and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
 
