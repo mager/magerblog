@@ -1,6 +1,6 @@
 ---
-title: "Claude: from Skills to Agents to Agent Teams"
-description: "A Skill is packaged know-how. An Agent is that know-how put to work autonomously. Agent teams are where the work scales past what any single context can hold."
+title: "Claude: from Skills to Agents to Subagents"
+description: "A Skill is packaged know-how. An Agent is that know-how put to work autonomously. Subagents are where the work scales past what any single context can hold."
 pubDate: 2026-07-10
 category: tech
 draft: false
@@ -11,7 +11,7 @@ Most developers using Claude have figured out that prompting works. What they ha
 
 I wrote about [Skills vs Workflows](/blog/2026-06-13-claude-skills-vs-workflows) earlier — that post is about the difference between packaged know-how and explicit pipelines. This one goes one level deeper: what it means to turn a Skill into an Agent, and what it means to run multiple Agents together.
 
-The progression I've landed on: single-chat prompting → Skills → Agents → Agent teams → Advisor model. Most people are stuck at step one. This post is for people ready for steps two and three.
+The progression I've landed on: single-chat prompting → Skills → Agents → Subagents → Advisor model. Most people are stuck at step one. This post is for people ready for steps two and three.
 
 ---
 
@@ -65,11 +65,11 @@ There's also a practical signal: if you find yourself re-prompting the same mult
 
 ---
 
-## Agent teams and the principal-agent model
+## Subagents and the principal-agent model
 
 The single-agent pattern has a ceiling: one context window, one thread of work, one set of tools. For tasks that are large, multi-domain, or genuinely parallel, a single Agent runs into limits.
 
-Agent teams solve this. The model is simple: one **principal agent** who understands the high-level goal, and multiple **specialist sub-agents** who each own a domain. The principal delegates; the specialists execute and report back; the principal synthesizes.
+Subagents solve this. The model is simple: one **principal agent** who understands the high-level goal, and multiple **specialist sub-agents** who each own a domain. The principal delegates; the specialists execute and report back; the principal synthesizes.
 
 Concrete example: a research agent might have three sub-agents — one that handles web search, one that summarizes long documents, and one that fact-checks claims against trusted sources. The principal receives the task, fans the work out to the specialists, and assembles the result. None of the specialists need to know what the others are doing. Each one just gets a task and returns a result.
 
@@ -81,7 +81,7 @@ What makes this pattern powerful over time is that each piece can improve indepe
 
 ## The advisor model
 
-The advisor model is the next step past a fixed agent team.
+The advisor model is the next step past a fixed roster of subagents.
 
 In a fixed team, you define the specialists upfront and they stay constant. In the advisor model, the principal agent maintains a **roster of specialists that evolve**. Each specialist develops domain expertise over time through memory, evals, and refined instructions. The principal gets better at knowing who to ask and when to trust the answer.
 
@@ -99,7 +99,7 @@ The minimal version of a Skill is a markdown file. A name, a description of what
 
 The minimal version of an Agent is a Skill plus: a goal statement (not just a task), tool access (what external systems can it reach), and a completion condition (how does it know it's done). Add a trigger — a schedule, an event, a webhook — and it runs without you.
 
-The minimal version of an agent team is two files and a router. A principal Agent that reads the task and decides which sub-agent to call, and one or more specialist Agents that return structured results. You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
+The minimal setup for subagents is two files and a router. A principal Agent that reads the task and decides which sub-agent to call, and one or more specialist Agents that return structured results. You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
 
 [Claude's Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, [mager-bench](https://github.com/mager/mager-bench) and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
 
@@ -115,6 +115,6 @@ Skills are where you stop re-explaining yourself. You teach Claude once, and it 
 
 Agents are where you stop babysitting the task. You define a goal, hand it off, and get a result — without managing the steps in between.
 
-Agent teams are where the work scales past what any single context can hold. The principal orchestrates; the specialists execute; the system gets better over time.
+Subagents are where the work scales past what any single context can hold. The principal orchestrates; the specialists execute; the system gets better over time.
 
 Most people are still at step one. The jump to Skills is smaller than it looks. The jump from Skills to Agents is mostly a mindset shift: from "what should Claude do here" to "what should Claude be responsible for finishing." Once that shift happens, the rest follows.
