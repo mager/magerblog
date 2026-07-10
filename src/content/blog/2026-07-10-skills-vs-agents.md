@@ -1,9 +1,9 @@
 ---
 title: "Claude: from Skills to Agents to Agent Teams"
 description: "A Skill is packaged know-how. An Agent is that know-how put to work autonomously. Agent teams are where the work scales past what any single context can hold."
-pubDate: 2026-06-30
+pubDate: 2026-07-10
 category: tech
-draft: true
+draft: false
 tags: ["tech", "ai", "claude", "agents", "skills", "workflows"]
 ---
 
@@ -101,7 +101,7 @@ The minimal version of an Agent is a Skill plus: a goal statement (not just a ta
 
 The minimal version of an agent team is two files and a router. A principal Agent that reads the task and decides which sub-agent to call, and one or more specialist Agents that return structured results. You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
 
-[Claude's Agents SDK](https://docs.anthropic.com/en/docs/agents) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, [mager-bench](https://github.com/mager/mager-bench) and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
+[Claude's Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, [mager-bench](https://github.com/mager/mager-bench) and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
 
 The complexity scales from one file to a directory of Agents without breaking the mental model. The concepts stay the same; only the number of moving parts grows.
 
