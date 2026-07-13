@@ -18,7 +18,13 @@ const year = new Date().getFullYear();
 			<!-- Left: Wordmark + tagline -->
 			<div class="footer-brand">
 				<a href="/" class="wordmark" aria-label="mager.co home">
-					<span class="wm-prompt">▸</span><span class="wm-name">mager</span><span class="wm-tld">.co</span>
+					{homepage ? (
+						<span class="wm-serif">mager.co</span>
+					) : (
+						<>
+							<span class="wm-prompt">▸</span><span class="wm-name">mager</span><span class="wm-tld">.co</span>
+						</>
+					)}
 				</a>
 				<p class="tagline">Builder. Chicago.</p>
 				<p class="copy">&copy; {year}</p>
@@ -112,15 +118,13 @@ const year = new Date().getFullYear();
 
 	/* ─── Light / homepage override ─────────────────────────── */
 	.footer-light {
-		--ft-bg:            #f5f3f0;
-		--ft-border:        rgba(26, 26, 46, 0.08);
-		--ft-brand:         #1a1a2e;
-		--ft-text:          #6b7280;
-		--ft-muted:         #9ca3af;
-		--ft-accent:        #6366f1;
-		--ft-accent-hover:  #0d9488;
-		--ft-rule-from:     #6366f1;
-		--ft-rule-to:       #0d9488;
+		--ft-bg:            oklch(96.8% 0.010 112);
+		--ft-border:        oklch(89% 0.010 112);
+		--ft-brand:         oklch(11% 0.015 250);
+		--ft-text:          oklch(42% 0.010 250);
+		--ft-muted:         oklch(62% 0.008 250);
+		--ft-accent:        oklch(45% 0.15 240);
+		--ft-accent-hover:  oklch(45% 0.15 240);
 	}
 
 	/* ─── Rule ───────────────────────────────────────────────── */
@@ -128,6 +132,15 @@ const year = new Date().getFullYear();
 		height: 1px;
 		background: linear-gradient(90deg, var(--ft-rule-from), var(--ft-rule-to), transparent);
 		margin-bottom: 2.5rem;
+	}
+
+	/* Homepage rule: swap indigo→teal for the three category accents */
+	.footer-light .footer-rule {
+		background: linear-gradient(90deg,
+			oklch(45% 0.15 240),   /* tech — lake blue */
+			oklch(58% 0.17 33),    /* food — ripe coral */
+			oklch(52% 0.15 150),   /* life — park green */
+			transparent);
 	}
 
 	/* ─── Inner wrapper ──────────────────────────────────────── */
@@ -185,6 +198,17 @@ const year = new Date().getFullYear();
 		transition: color 0.2s ease;
 	}
 	.wordmark:hover .wm-tld { color: var(--ft-accent-hover); }
+
+	/* ─── Homepage wordmark: masthead's serif voice ─────────── */
+	.wm-serif {
+		font-family: 'Fraunces', Georgia, serif;
+		font-variation-settings: 'opsz' 144, 'wght' 900;
+		font-style: italic;
+		font-size: 1.5rem;
+		letter-spacing: -0.03em;
+		line-height: 1;
+		color: var(--ft-brand);
+	}
 
 	.tagline {
 		font-family: 'JetBrains Mono', monospace;

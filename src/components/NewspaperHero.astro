@@ -86,6 +86,13 @@ const hostOf = (url: string) => {
 			</h1>
 			<div class="hero-meta">
 				<p class="hero-tagline">Always learning. Always eating. Chicago.</p>
+				<div class="hero-index">
+					<span class="hero-index-label">In this issue</span>
+					<a href="/tech/" class="hero-index-link hero-index-link--tech"><span class="hero-index-dot"></span>Tech — agents, evals &amp; tooling</a>
+					<a href="/cooking/" class="hero-index-link hero-index-link--food"><span class="hero-index-dot"></span>Food — the recipe box</a>
+					<a href="/life/" class="hero-index-link hero-index-link--life"><span class="hero-index-dot"></span>Life — Chicago &amp; travel</a>
+					<a href="/notes/" class="hero-index-link hero-index-link--note"><span class="hero-index-dot"></span>Notes &amp; Seen — the margins</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -101,16 +108,28 @@ const hostOf = (url: string) => {
 			</div>
 		</header>
 
-		{visible.map((item) => {
+		{visible.map((item, index) => {
 			if (item.kind === 'post') {
+				const isLead = index === 0;
+				const categoryKey = item.entry.data.category ?? 'tech';
+				const categoryInfo = CATEGORY[categoryKey] ?? CATEGORY.tech;
+				const wordCount = item.entry.body ? item.entry.body.trim().split(/\s+/).filter(Boolean).length : 0;
+				const readingMinutes = isLead && wordCount > 0 ? Math.max(1, Math.round(wordCount / 200)) : null;
 				return (
-					<article class:list={['entry', 'entry--post', `entry--${item.entry.data.category ?? 'tech'}`]}>
-						<div class="entry-rail">
-							<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-							{item.entry.data.category && CATEGORY[item.entry.data.category] && (
-								<a class="entry-kind" href={CATEGORY[item.entry.data.category].href}>{CATEGORY[item.entry.data.category].label}</a>
-							)}
-						</div>
+					<article class:list={['entry', 'entry--post', `entry--${categoryKey}`, { 'entry--lead': isLead }]}>
+						{isLead ? (
+							<div class="entry-rail entry-rail--lead">
+								<span class="entry-lead-badge">The Lead · {categoryInfo.label}</span>
+								<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
+							</div>
+						) : (
+							<div class="entry-rail">
+								<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
+								{item.entry.data.category && CATEGORY[item.entry.data.category] && (
+									<a class="entry-kind" href={CATEGORY[item.entry.data.category].href}>{CATEGORY[item.entry.data.category].label}</a>
+								)}
+							</div>
+						)}
 						<div class="entry-main">
 							<div class="entry-text">
 								<a class="entry-headline" href={`/blog/${item.entry.id}/`}>
@@ -119,7 +138,14 @@ const hostOf = (url: string) => {
 								{item.entry.data.description && (
 									<p class="entry-dek">{item.entry.data.description}</p>
 								)}
-								<a class="entry-more" href={`/blog/${item.entry.id}/`}>Read post →</a>
+								{isLead ? (
+									<div class="entry-lead-cta">
+										<a class="entry-lead-button" href={`/blog/${item.entry.id}/`}>Read the lead →</a>
+										{readingMinutes && <span class="entry-lead-readtime">{readingMinutes} min read</span>}
+									</div>
+								) : (
+									<a class="entry-more" href={`/blog/${item.entry.id}/`}>Read post →</a>
+								)}
 							</div>
 							{item.entry.data.heroImage && (
 								<a class="entry-thumb" href={`/blog/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
@@ -517,6 +543,49 @@ const hostOf = (url: string) => {
 	line-height: 1.4;
 }
 
+.hero-index {
+	border-top: 1px solid var(--rule-dark);
+	padding-top: 0.8rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.hero-index-label {
+	font-family: var(--font-mono);
+	font-size: 0.62rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--ink-light);
+}
+
+.hero-index-link {
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	font-family: var(--font-ui);
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--ink);
+	text-decoration: none;
+	transition: color 0.15s ease;
+}
+.hero-index-link:hover { color: var(--accent); }
+
+.hero-index-link--tech { --accent: var(--tech-accent); }
+.hero-index-link--food { --accent: var(--food-accent); }
+.hero-index-link--life { --accent: var(--life-accent); }
+.hero-index-link--note { --accent: var(--note-accent); }
+
+.hero-index-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--accent);
+	flex: none;
+}
+
 .hero-postcard {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -700,6 +769,75 @@ const hostOf = (url: string) => {
 	font-size: 0.82rem;
 	color: var(--ink-mid);
 	margin: 0 0 0.7rem;
+}
+
+/* ── Lead story: the newest post gets a bigger, standalone treatment ── */
+.entry--lead {
+	grid-template-columns: 1fr;
+	gap: 0;
+}
+
+.entry-rail--lead {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	padding-top: 0;
+}
+
+.entry-rail--lead .entry-date::before { display: none; }
+
+.entry-lead-badge {
+	font-family: var(--font-ui);
+	font-size: 0.64rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--accent);
+	border: 1px solid color-mix(in oklch, var(--accent) 35%, transparent);
+	border-radius: 999px;
+	padding: 0.3rem 0.65rem;
+}
+
+.entry--lead .entry-headline h3 {
+	font-size: clamp(2.2rem, 1.3rem + 3.2vw, 3.8rem);
+	line-height: 1.02;
+	letter-spacing: -0.03em;
+	margin: 0.85rem 0 0.9rem;
+}
+
+.entry--lead .entry-dek {
+	font-size: clamp(1.05rem, 1.4vw, 1.22rem);
+	line-height: 1.55;
+}
+
+.entry-lead-cta {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	flex-wrap: wrap;
+}
+
+.entry-lead-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.6rem 1.15rem;
+	border: 1px solid var(--ink);
+	border-radius: 999px;
+	font-family: var(--font-ui);
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--ink);
+	text-decoration: none;
+	transition: background 0.2s ease, color 0.2s ease;
+}
+.entry-lead-button:hover { background: var(--ink); color: var(--paper); }
+
+.entry-lead-readtime {
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	color: var(--ink-light);
 }
 
 /* ── Post thumbnail ── */
