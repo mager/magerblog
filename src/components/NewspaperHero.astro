@@ -807,6 +807,10 @@ const hostOf = (url: string) => {
 }
 
 .entry--lead .entry-dek {
+	/* Base .entry-dek caps at 64ch for readability, but that leaves the lead
+	   row's right side empty when there's no thumbnail to balance it.
+	   Run it the full column width at this larger size. */
+	max-width: none;
 	font-size: clamp(1.05rem, 1.4vw, 1.22rem);
 	line-height: 1.55;
 }

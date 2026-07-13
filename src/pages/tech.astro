@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TechPostRow from '../components/tech/TechPostRow.astro';
+import TechNoteRow from '../components/tech/TechNoteRow.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
@@ -25,8 +26,6 @@ const techNotes = (await getCollection('notes'))
 	.filter(note => !note.data.draft)
 	.filter(note => note.data.category === 'tech')
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const noteDateStr = (d: Date) =>
-	`${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 
 const latestIssueDate = featuredPost?.data.updatedDate || featuredPost?.data.pubDate || new Date();
 const issueNumber = String(posts.length).padStart(3, '0');
@@ -396,21 +395,7 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 							<span class="archive-count">{techNotes.length}</span>
 						</header>
 						<ul class="archive-list">
-							{techNotes.map((note) => (
-								<li class="tech-row-wrap">
-									<a href={`/notes/${note.id}/`} class="tech-row">
-										<span class="row-date">{noteDateStr(note.data.pubDate)}</span>
-										<span class="row-body">
-											<span class="row-title">{note.data.title ?? 'Note'}</span>
-											<span class="row-dek">{(note.data.tags ?? []).join(' / ')}</span>
-										</span>
-										<span class="row-tags">
-											{(note.data.tags ?? []).slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
-											<span class="row-arrow" aria-hidden="true">→</span>
-										</span>
-									</a>
-								</li>
-							))}
+							{techNotes.map((note) => <TechNoteRow note={note} />)}
 						</ul>
 					</section>
 				)}
