@@ -107,3 +107,9 @@ This isn't a published leaderboard. It's a personal tool. The goal is to have a 
 The pelican test works because Simon runs it himself. That's the whole thing. mager-bench is the same idea: a small set of opinions made executable.
 
 The repo is at [github.com/mager/mager-bench](https://github.com/mager/mager-bench) — v0.1, Python, MIT license.
+
+---
+
+## Live results
+
+I also put the results somewhere you don't need to clone anything to see: [mager-bench-web.vercel.app](https://mager-bench-web.vercel.app/). It reads the same JSON `bench.py` writes out, ranks models by average score, and breaks each one down by challenge and by correctness/quality/documentation. There's a JSON endpoint behind it too, if you'd rather pull the numbers than look at the table.
