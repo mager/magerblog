@@ -30,8 +30,9 @@ const FEED_LIMIT = 30;
 const visible = feed.slice(0, FEED_LIMIT);
 const hasMore = feed.length > FEED_LIMIT;
 
-// Notes show their full (short) body inline in the stream, Simon-style. render()
-// is async, so resolve every note's Content component up front.
+// Notes render as excerpts in the stream: only the first paragraph shows
+// (see .entry-note-body--excerpt), with a "Read note →" link to the full note.
+// render() is async, so resolve every note's Content component up front.
 const noteContent = new Map<string, Awaited<ReturnType<typeof render>>['Content']>();
 for (const note of notes) {
 	noteContent.set(note.id, (await render(note)).Content);
@@ -86,13 +87,6 @@ const hostOf = (url: string) => {
 			</h1>
 			<div class="hero-meta">
 				<p class="hero-tagline">Always learning. Always eating. Chicago.</p>
-				<div class="hero-index">
-					<span class="hero-index-label">In this issue</span>
-					<a href="/tech/" class="hero-index-link hero-index-link--tech"><span class="hero-index-dot"></span>Tech — agents, evals &amp; tooling</a>
-					<a href="/cooking/" class="hero-index-link hero-index-link--food"><span class="hero-index-dot"></span>Food — the recipe box</a>
-					<a href="/life/" class="hero-index-link hero-index-link--life"><span class="hero-index-dot"></span>Life — Chicago &amp; travel</a>
-					<a href="/notes/" class="hero-index-link hero-index-link--note"><span class="hero-index-dot"></span>Notes &amp; Seen — the margins</a>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -194,14 +188,10 @@ const hostOf = (url: string) => {
 									{item.entry.data.linkText ?? hostOf(item.entry.data.link)}
 								</a>
 							)}
-							<div class="entry-note-body">
+							<div class="entry-note-body entry-note-body--excerpt">
 								{(() => { const C = noteContent.get(item.entry.id)!; return <C />; })()}
 							</div>
-							{item.entry.data.tags && item.entry.data.tags.length > 0 && (
-								<div class="entry-tags">
-									{item.entry.data.tags.map((t) => <span class="entry-tag">{t}</span>)}
-								</div>
-							)}
+							<a class="entry-more" href={`/notes/${item.entry.id}/`}>Read note →</a>
 						</div>
 					</div>
 				</article>
@@ -539,51 +529,8 @@ const hostOf = (url: string) => {
 	font-size: 1.05rem;
 	font-style: italic;
 	color: var(--ink-mid);
-	margin: 0 0 0.6rem;
+	margin: 0;
 	line-height: 1.4;
-}
-
-.hero-index {
-	border-top: 1px solid var(--rule-dark);
-	padding-top: 0.8rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
-.hero-index-label {
-	font-family: var(--font-mono);
-	font-size: 0.62rem;
-	font-weight: 700;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
-	color: var(--ink-light);
-}
-
-.hero-index-link {
-	display: flex;
-	align-items: center;
-	gap: 0.55rem;
-	font-family: var(--font-ui);
-	font-size: 0.8rem;
-	font-weight: 600;
-	color: var(--ink);
-	text-decoration: none;
-	transition: color 0.15s ease;
-}
-.hero-index-link:hover { color: var(--accent); }
-
-.hero-index-link--tech { --accent: var(--tech-accent); }
-.hero-index-link--food { --accent: var(--food-accent); }
-.hero-index-link--life { --accent: var(--life-accent); }
-.hero-index-link--note { --accent: var(--note-accent); }
-
-.hero-index-dot {
-	width: 7px;
-	height: 7px;
-	border-radius: 50%;
-	background: var(--accent);
-	flex: none;
 }
 
 .hero-postcard {
@@ -623,7 +570,7 @@ const hostOf = (url: string) => {
    THE FEED — one chronological stream of posts + notes
 ══════════════════════════════════════════════════ */
 .feed {
-	max-width: 1080px;
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: clamp(2rem, 5vw, 3.75rem) clamp(1.25rem, 5vw, 2.5rem) clamp(4rem, 8vw, 6rem);
 }
@@ -807,10 +754,10 @@ const hostOf = (url: string) => {
 }
 
 .entry--lead .entry-dek {
-	/* Base .entry-dek caps at 64ch for readability, but that leaves the lead
-	   row's right side empty when there's no thumbnail to balance it.
-	   Run it the full column width at this larger size. */
-	max-width: none;
+	/* Wider than the base 64ch cap so the lead breathes, but still capped —
+	   at the 1200px container an uncapped line at this size pushes past
+	   100ch, which is too long to read comfortably. */
+	max-width: 72ch;
 	font-size: clamp(1.05rem, 1.4vw, 1.22rem);
 	line-height: 1.55;
 }
@@ -868,6 +815,9 @@ const hostOf = (url: string) => {
 	border: 1px solid color-mix(in oklch, var(--note-accent) 16%, var(--rule));
 	border-radius: 12px;
 	padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1.25rem, 2.4vw, 1.75rem);
+	/* Hug the 64ch body copy instead of stretching the tinted card across the
+	   full feed column, which left a large empty region on the right. */
+	max-width: 46rem;
 }
 
 .entry-linkout {
@@ -886,6 +836,9 @@ const hostOf = (url: string) => {
 .entry-linkout:hover::before { transform: translateX(3px); }
 
 .entry-note-body { font-family: var(--font-body); color: var(--ink); line-height: 1.62; }
+/* Excerpt mode: the stream shows only the note's opening block; the full body
+   lives on /notes/ and the note's own page, behind "Read note →". */
+.entry-note-body--excerpt > :global(*:not(:first-child)) { display: none; }
 .entry-note-body :global(p) { margin: 0 0 0.8rem; max-width: 64ch; }
 .entry-note-body :global(p:last-child) { margin-bottom: 0; }
 .entry-note-body :global(ul) { margin: 0 0 0.8rem; padding-left: 1.1rem; }
@@ -901,10 +854,6 @@ const hostOf = (url: string) => {
 }
 .entry-note-body :global(code) { font-family: var(--font-mono); }
 .entry-note-body :global(a) { color: var(--accent); }
-
-.entry-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
-.entry-tag { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-light); }
-.entry-tag::before { content: '#'; opacity: 0.55; }
 
 /* ── Archive link: closes the stream ── */
 .feed-archive {
