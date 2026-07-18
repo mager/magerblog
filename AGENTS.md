@@ -168,10 +168,29 @@ BlogPost layout includes prev/next navigation that:
 - **@vercel/analytics**: Vercel Analytics integration
 - **@astro-community/astro-embed-twitter**: Twitter embed support
 
+## Image Hosting (Vercel Blob)
+
+Blog images are hosted in the `magerblog-images` Vercel Blob store (public,
+free tier). Do NOT commit photos to the repo and do NOT use Google Photos
+links for new posts (older posts still have `lh3.googleusercontent.com`
+URLs — leave those alone).
+
+To add an image to a post, upload it first:
+
+```bash
+scripts/upload-photo.sh <image-file> <post-slug> [basename]
+# e.g. scripts/upload-photo.sh ~/photo.heic 2026-07-18-montrose-sunset hero
+```
+
+The script compresses to a max-1600px JPEG (~200-400KB), uploads to
+`blog/<post-slug>/<basename>.jpg`, and prints the public URL — use that URL
+as `heroImage` or in inline markdown images. Requires `.env.local` with
+`BLOB_READ_WRITE_TOKEN` (restore with `vercel env pull .env.local`).
+
 ## Notes
 
 - The site uses Astro 5's content loader API with `glob()` loader
 - All pages are statically generated at build time
-- Hero images are external URLs (Google Photos links in existing posts)
+- Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
 - The sticky header appears after scrolling 300px down the page
 - Terminal-style placeholders display when no hero image is provided
