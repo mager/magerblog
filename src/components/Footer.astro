@@ -90,6 +90,9 @@ const year = new Date().getFullYear();
 
 		<!-- Bottom strip -->
 		<div class="footer-strip">
+			<span class="bench-line">
+				How's Claude coding this week? <a href="https://bench.mager.co" target="_blank" rel="noopener">mager-bench</a> keeps score — 12 tasks, one of them is Doom.
+			</span>
 			<span class="built-line">
 				Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a> &amp; <a href="https://x.com/magerbot" target="_blank" rel="noopener">@magerbot</a>
 			</span>
@@ -307,9 +310,13 @@ const year = new Date().getFullYear();
 		padding-top: 1.25rem;
 		border-top: 1px solid var(--ft-border);
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.45rem;
+		text-align: center;
 	}
 
+	.bench-line,
 	.built-line {
 		font-family: 'JetBrains Mono', monospace;
 		font-size: 0.65rem;
@@ -317,11 +324,13 @@ const year = new Date().getFullYear();
 		letter-spacing: 0.02em;
 	}
 
+	.bench-line a,
 	.built-line a {
 		color: var(--ft-accent);
 		text-decoration: none;
 		transition: color 0.15s ease;
 	}
+	.bench-line a:hover,
 	.built-line a:hover { color: var(--ft-accent-hover); }
 
 	/* ─── Responsive ─────────────────────────────────────────── */

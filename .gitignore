@@ -35,3 +35,4 @@ pnpm-debug.log*
 .agents/skills/impeccable
 .gstack/
 .superpowers/
+.env*.local

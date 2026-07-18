@@ -1,13 +1,13 @@
 ---
 title: "mager-bench"
 pubDate: "2026-07-15"
-link: "https://mager-bench.mager.co"
-linkText: "mager-bench.mager.co"
+link: "https://bench.mager.co"
+linkText: "bench.mager.co"
 tags: ["AI", "Python", "Go", "Elixir", "benchmarks", "evals", "LLM"]
 category: tech
 ---
 
-[mager-bench](https://mager-bench.mager.co) expanded from 5 to 11 challenges. The four new ones cover territory the original set glossed over — testing discipline, debugging skill, async Python, and SQL fluency.
+[mager-bench](https://bench.mager.co) expanded from 5 to 11 challenges. The four new ones cover territory the original set glossed over — testing discipline, debugging skill, async Python, and SQL fluency.
 
 **test-writing** gives you a `parse_duration()` function and asks for a proper pytest suite using `@pytest.mark.parametrize` and `pytest.raises`. The interesting signal isn't whether models know pytest syntax — they all do — it's whether they parameterize across edge cases or just write three happy-path tests and call it done.
 

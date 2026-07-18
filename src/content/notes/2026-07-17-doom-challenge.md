@@ -1,8 +1,8 @@
 ---
 title: "mager-bench: the doom challenge"
 pubDate: "2026-07-17"
-link: "https://mager-bench.mager.co"
-linkText: "mager-bench.mager.co"
+link: "https://bench.mager.co"
+linkText: "bench.mager.co"
 tags: ["AI", "benchmarks", "evals", "LLM", "WebGL", "JavaScript", "Doom"]
 category: tech
 ---

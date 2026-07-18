@@ -112,4 +112,4 @@ The repo is at [github.com/mager/mager-bench](https://github.com/mager/mager-ben
 
 ## Live results
 
-I also put the results somewhere you don't need to clone anything to see: [mager-bench-web.vercel.app](https://mager-bench-web.vercel.app/). It reads the same JSON `bench.py` writes out, ranks models by average score, and breaks each one down by challenge and by correctness/quality/documentation. There's a JSON endpoint behind it too, if you'd rather pull the numbers than look at the table.
+I also put the results somewhere you don't need to clone anything to see: [bench.mager.co](https://bench.mager.co/). It reads the same JSON `bench.py` writes out, ranks models by average score, and breaks each one down by challenge and by correctness/quality/documentation. There's a JSON endpoint behind it too, if you'd rather pull the numbers than look at the table.
