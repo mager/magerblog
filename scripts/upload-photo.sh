@@ -27,6 +27,7 @@ trap 'rm -rf "$TMP"' EXIT
 sips -s format jpeg -s formatOptions 80 -Z 1600 "$SRC" --out "$TMP/$NAME.jpg" >/dev/null
 
 vercel blob put "$TMP/$NAME.jpg" \
+  --cwd "$REPO_DIR" \
   --pathname "blog/$SLUG/$NAME.jpg" \
   --allow-overwrite true \
   --rw-token "$TOKEN" 2>&1 | grep -o 'https://[^ ]*'
