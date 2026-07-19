@@ -2,6 +2,7 @@
 title: "Evals: a plain-English map of the types worth knowing"
 description: "Everyone says 'evals' and means ten different things. Here's a quick tour of the main types — what each one checks, and when it's worth the cost."
 pubDate: 2026-06-26
+updatedDate: 2026-07-19T12:00:00-05:00
 category: tech
 draft: false
 keyword: "evals"
@@ -36,6 +37,7 @@ Climb that ladder only when the cheaper rung can't catch the failure you actuall
 | CI gating / regression | Fixed bugs stay fixed | Low |
 | pass@k vs pass^k | Capability vs reliability | Free |
 | Synthetic data | Coverage before you have real traffic | Low |
+| Skill evals | Whether an attached skill actually lifts the agent | Moderate |
 | Verifiable rewards | Programmatic success that doubles as RL signal | Free-ish |
 | Contamination-resistant | Reasoning vs memorization | Low |
 
@@ -120,7 +122,17 @@ Before launch you have no production traces to build an eval set from. So genera
 
 Define your dimensions (features × scenarios × personas), then generate test cases *one at a time* across those combinations. Bulk "give me 50 examples" collapses into a few repetitive shapes. Ground every generated input in real system state — real IDs, real rows, real tool schemas — so the case is actually triggerable, then run it once to confirm it hits the scenario you intended. Throw away the ones that don't.
 
-## Two more worth knowing about
+## Skill evals: does the skill actually help?
+
+*Added July 19, 2026 — this type barely had a name when I first published this post. It has one now, and real numbers behind it.*
+
+Agent skills — the SKILL.md-style procedural docs you attach to Claude Code and its cousins — are prompts, and prompts rot. A skill eval treats the *skill* as the unit under test: run the same task set with the skill loaded and without, hold the model constant, and measure the lift. Everything else in this post grades the agent's output; this one grades an artifact you wrote.
+
+The reason it now deserves its own row is that the numbers came in, and they're spikier than the ecosystem's enthusiasm suggests. [SkillsBench](https://arxiv.org/abs/2602.12670) — 84 tasks across 11 domains, graded by deterministic verifiers so there's no judge variance — found curated skills lift average pass rate by about +16 points. The aggregate hides the interesting parts. Healthcare tasks jumped +52 points while software engineering gained +4.5, and 16 of the 84 tasks got *worse* with skills loaded. Two findings worth pinning to any skill repo: compact, focused skills beat comprehensive ones (+18.8 vs −2.9 points — exhaustive documentation is a liability, not a moat), and skills the model generated for itself were net *negative* (−1.3). You can't ask the agent to synthesize its own expertise and skip the curation step.
+
+There's also a gap between lab and field. A [follow-up benchmark](https://arxiv.org/abs/2604.04323) dropped agents into a pile of ~34,000 real community skills instead of hand-picking the right ones, and most of the benefit eroded: force-loading curated skills scored 55.4% on its hardest setting, while realistic retrieval from the noisy pile landed at 38.4% against a 35.4% no-skills baseline. Agents loaded every relevant skill in only about half their runs, and weaker models actively followed irrelevant skills off a cliff. The uncomfortable implication: your skill can be excellent and still lose to discovery. The name, description, and triggering metadata are part of the artifact under test.
+
+Tooling has caught up enough that there's no infrastructure excuse. Anthropic's skill-creator now [builds evals into the authoring loop](https://www.adwaitx.com/claude-agent-skills-skill-creator-evals/): you define test prompts and expected outcomes, benchmark mode tracks pass rate, token usage, and elapsed time, and a blind A/B comparator judges two skill versions without knowing which is which. Mechanically none of this is new — it's the same ladder as the rest of this post, assertions where you can and judges where you must. What's specific to skill evals is the paired structure (with/without, version A/version B) and the re-run cadence: a skill tuned against one model version can quietly stop paying rent after the next one, so the benchmark baseline is worth re-running on every model update, same as any regression set.
 
 **Verifiable rewards / RL rubrics.** If success can be expressed as a programmatic check over the final state — unit tests pass, DB diff matches — that same check can serve double duty: it's both your eval metric *and* a training reward signal. "An eval is just an RL environment" is the framing. The cleaner your verifier, the more reusable it is.
 
@@ -128,14 +140,14 @@ Define your dimensions (features × scenarios × personas), then generate test c
 
 ## Where to actually start
 
-You don't need all ten. For most projects the high-leverage path is short:
+You don't need all eleven. For most projects the high-leverage path is short:
 
 1. **Read 30–50 real traces** and name what's breaking.
 2. **Write a handful of code assertions** for the deterministic failures — they're free and they catch a surprising amount.
 3. **Add an LLM judge only where you genuinely need judgment**, and validate it on true-positive and true-negative rate before you trust it.
 4. **Turn every bug you fix into a regression case** so it stays fixed.
 
-Everything else on the list is something you reach for when a specific need shows up — you're shipping an agent and need outcome grading, you have no traffic and need synthetic data, you're publishing a leaderboard and need contamination resistance. The map is useful precisely so you can ignore most of it until you need it.
+Everything else on the list is something you reach for when a specific need shows up — you're shipping an agent and need outcome grading, you have no traffic and need synthetic data, you're publishing a leaderboard and need contamination resistance, you're maintaining a folder of skills and need to know they still earn their context window. The map is useful precisely so you can ignore most of it until you need it.
 
 If you'd rather run this path than reimplement it, I packaged the high-leverage rungs — error analysis, assertion scaffolding, a validated LLM judge, pass@k/pass^k, and synthetic data — into a small Claude Code plugin, [skill-evals](https://github.com/mager/skill-evals). I also wrote a [short note](/notes/2026-06-26-skill-evals/) on what came out of dogfooding it on this blog.
 
