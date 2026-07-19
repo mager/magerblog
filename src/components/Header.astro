@@ -12,7 +12,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 
 <header class:list={["site-header", { "header-light": homepage }]}>
 	<nav>
-		<a href="https://www.mager.co" class="logo" aria-label="Main mager.co home">
+		<a href="/" class="logo" aria-label="mager.co home">
 			<span class="logo-prompt" aria-hidden="true">▸</span><span class="logo-name"><span aria-hidden="true">m</span><span aria-hidden="true">a</span><span aria-hidden="true">g</span><span aria-hidden="true">e</span><span aria-hidden="true">r</span><span class="sr-only">mager</span></span><span class="logo-tld">.co</span><span class="logo-cursor" aria-hidden="true"></span>
 		</a>
 		<div class="nav-right">
@@ -24,11 +24,12 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 					<span>Home</span>
 				</a>
 				<HeaderLink href="/tech" style="--accent: var(--link-accent-indigo);">Tech</HeaderLink>
-				<HeaderLink href="/life" style="--accent: var(--link-accent-teal);">Life</HeaderLink>
 				<HeaderLink href="/cooking" style="--accent: var(--link-accent-amber);">Food</HeaderLink>
+				<HeaderLink href="/life" style="--accent: var(--link-accent-teal);">Life</HeaderLink>
 				<HeaderLink href="/notes" style="--accent: var(--accent-green);">Notes</HeaderLink>
 				<HeaderLink href="/seen" style="--accent: var(--link-accent-indigo);">Seen</HeaderLink>
 				<HeaderLink href="/about" style="--accent: var(--link-accent-neutral);">About</HeaderLink>
+				<HeaderLink href="https://bench.mager.co" class="bench-link" target="_blank" rel="noopener" style="--accent: var(--sunrise-start);">bench<span class="bench-arrow" aria-hidden="true">↗</span></HeaderLink>
 			</div>
 			<div class="social-links">
 				<a href="https://x.com/mager" target="_blank" class="social-link">
@@ -68,7 +69,6 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-text: var(--text-primary, #e6edf3);
 		--header-text-secondary: var(--text-secondary, #8b949e);
 		--header-text-muted: var(--text-muted, #484f58);
-		--header-logo-tld: var(--cyan, #79c0ff);
 		--link-accent-indigo: var(--cyan, #79c0ff);
 		--link-accent-teal: var(--accent-green, #3fb950);
 		--link-accent-amber: var(--orange, #ffa657);
@@ -76,10 +76,14 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-social-border: rgba(48, 54, 61, 0.5);
 		--header-hover-bg: rgba(255, 255, 255, 0.05);
 
-		/* 4th of July — tuned bright for the dark background */
-		--usa-red: #ff5c5c;
-		--usa-white: #ffffff;
-		--usa-blue: #79c0ff;
+		/* Wordmark sunrise (see DESIGN.md) — coral → gold, tuned bright
+		   so every letter reads on the dark editor background. */
+		--sunrise-start: #ff7a52;
+		--sunrise-l2: #fb8948;
+		--sunrise-l3: #f7973e;
+		--sunrise-l4: #f4a634;
+		--sunrise-l5: #f0b429;
+		--sunrise-end: #f7c948;
 	}
 
 	/* Light mode for homepage */
@@ -90,7 +94,6 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-text: #1a1a2e;
 		--header-text-secondary: #4b5563;
 		--header-text-muted: #9ca3af;
-		--header-logo-tld: #6366f1;
 		--link-accent-indigo: #6366f1;
 		--link-accent-teal: #0d9488;
 		--link-accent-amber: #d97706;
@@ -98,10 +101,14 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		--header-social-border: rgba(26, 26, 46, 0.1);
 		--header-hover-bg: rgba(26, 26, 46, 0.04);
 
-		/* 4th of July — deeper tones for light background (slate used instead of pure white for contrast) */
-		--usa-red: #e02424;
-		--usa-white: #64748b; 
-		--usa-blue: #2563eb;
+		/* Wordmark sunrise — the DESIGN.md paper-surface ramp
+		   (#f05a36 → #c49b00 → #b07a00), deeper for light backgrounds. */
+		--sunrise-start: #f05a36;
+		--sunrise-l2: #e56a29;
+		--sunrise-l3: #da7a1b;
+		--sunrise-l4: #cf8b0e;
+		--sunrise-l5: #c49b00;
+		--sunrise-end: #b07a00;
 	}
 
 	nav {
@@ -125,7 +132,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		font-family: 'JetBrains Mono', monospace;
 		font-weight: 700;
 		font-size: 1.1rem;
-		color: var(--header-logo-tld);
+		color: var(--sunrise-start);
 		margin-right: 0.35rem;
 		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 		display: inline-block;
@@ -142,18 +149,17 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		line-height: 1;
 	}
 
-	/* 4th of July — Red, White, and Blue wordmark.
-	   Alternates red, white, blue across the letters of "mager" 
-	   and wraps up with a blue .co */
+	/* Sunrise wordmark — coral → gold crossing the letters of "mager",
+	   settling into gold for ".co". Per-letter so it survives hover filters. */
 	.logo-name > span {
 		transition: filter 0.2s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 		display: inline-block;
 	}
-	.logo-name > span:nth-child(1) { color: var(--usa-red); }
-	.logo-name > span:nth-child(2) { color: var(--usa-white); }
-	.logo-name > span:nth-child(3) { color: var(--usa-blue); }
-	.logo-name > span:nth-child(4) { color: var(--usa-red); }
-	.logo-name > span:nth-child(5) { color: var(--usa-white); }
+	.logo-name > span:nth-child(1) { color: var(--sunrise-start); }
+	.logo-name > span:nth-child(2) { color: var(--sunrise-l2); }
+	.logo-name > span:nth-child(3) { color: var(--sunrise-l3); }
+	.logo-name > span:nth-child(4) { color: var(--sunrise-l4); }
+	.logo-name > span:nth-child(5) { color: var(--sunrise-l5); }
 
 	.logo:hover .logo-name > span {
 		filter: brightness(1.15) saturate(1.2);
@@ -163,7 +169,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		font-family: 'JetBrains Mono', monospace;
 		font-weight: 700;
 		font-size: 1.25rem;
-		color: var(--usa-blue);
+		color: var(--sunrise-end);
 		letter-spacing: -0.03em;
 		line-height: 1;
 		transition: filter 0.2s ease;
@@ -176,7 +182,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		display: inline-block;
 		width: 0.55em;
 		height: 1.1em;
-		background: var(--header-logo-tld);
+		background: var(--sunrise-start);
 		margin-left: 0.4em;
 		vertical-align: -0.15em;
 		border-radius: 2px;
@@ -230,6 +236,28 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 	:global(.internal-links) a.active {
 		color: var(--accent, var(--header-text));
 		background: color-mix(in srgb, var(--accent, var(--header-text)) 10%, transparent);
+	}
+
+	/* Bench is a tool, not a section — monospace, lowercase, arrow out. */
+	:global(.internal-links a.bench-link) {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.8rem;
+		text-transform: none;
+	}
+
+	:global(.bench-link .bench-arrow) {
+		display: inline-block;
+		font-size: 0.85em;
+		margin-left: 0.3em;
+		transition: transform 0.15s ease;
+	}
+
+	:global(.internal-links a.bench-link:hover) {
+		color: var(--accent, var(--header-text));
+	}
+
+	:global(.internal-links a.bench-link:hover .bench-arrow) {
+		transform: translate(2px, -2px);
 	}
 
 	.social-links {
@@ -343,6 +371,12 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 			text-transform: uppercase;
 			letter-spacing: 0.06em;
 			border-radius: 8px;
+		}
+
+		/* The bottom tab bar is for on-site navigation — seven tabs is already
+		   the ceiling. Bench (external) stays reachable via the footer plug. */
+		:global(.internal-links a.bench-link) {
+			display: none;
 		}
 	}
 

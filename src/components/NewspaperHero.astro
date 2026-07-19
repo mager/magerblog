@@ -57,13 +57,22 @@ const hostOf = (url: string) => {
 
 	<!-- ── TOPBAR ── -->
 	<div class="topbar">
-		<nav class="topbar-nav">
-			<a href="/tech/">Tech</a>
-			<a href="/cooking/">Food</a>
-			<a href="/life/">Life</a>
-			<a href="/notes/">Notes</a>
-			<a href="/seen/">Seen</a>
-			<a href="/about">About</a>
+		{feed[0] && (
+			<span class="topbar-stamp">
+				<span class="stamp-dot" aria-hidden="true"></span>
+				Latest edition · <FormattedDate date={feed[0].date} />
+			</span>
+		)}
+		<nav class="topbar-nav" aria-label="Site sections">
+			<a href="/tech/" style="--acc: var(--tech-accent);">Tech</a>
+			<a href="/cooking/" style="--acc: var(--food-accent);">Food</a>
+			<a href="/life/" style="--acc: var(--life-accent);">Life</a>
+			<span class="nav-rule" aria-hidden="true"></span>
+			<a href="/notes/" style="--acc: var(--note-accent);">Notes</a>
+			<a href="/seen/" style="--acc: var(--seen-accent);">Seen</a>
+			<a href="/about" style="--acc: var(--ink);">About</a>
+			<span class="nav-rule" aria-hidden="true"></span>
+			<a href="https://bench.mager.co" target="_blank" rel="noopener" class="topbar-bench">bench<span class="bench-arrow" aria-hidden="true">↗</span></a>
 		</nav>
 		<div class="topbar-social">
 			<a href="https://x.com/mager" target="_blank" class="topbar-social-link" aria-label="Follow @mager on X">
@@ -83,7 +92,8 @@ const hostOf = (url: string) => {
 	<section class="hero">
 		<div class="hero-type">
 			<h1 class="hero-name">
-				<span class="name-mager"><span class="easter-m" style="color: var(--usa-red);">m</span><span class="easter-a" style="color: var(--usa-white);">a</span><span class="easter-g" style="color: var(--usa-blue);">g</span><span class="easter-e" style="color: var(--usa-red);">e</span><span class="easter-r" style="color: var(--usa-white);">r</span></span><span class="name-co"><span class="easter-dot" style="color: var(--usa-blue);">.</span><span class="easter-c" style="color: var(--usa-red);">c</span><span class="easter-o" style="color: var(--usa-white);">o</span></span>
+				<span class="sr-only">mager.co</span>
+				<span class="hero-name-visual" aria-hidden="true"><span class="name-mager"><span class="g1">m</span><span class="g2">a</span><span class="g3">g</span><span class="g4">e</span><span class="g5">r</span></span><span class="name-co"><span class="g6">.</span><span class="g7">c</span><span class="g8">o</span></span></span>
 			</h1>
 			<div class="hero-meta">
 				<p class="hero-tagline">Always learning. Always eating. Chicago.</p>
@@ -213,7 +223,9 @@ const hostOf = (url: string) => {
 
 <script>
 	// ── Ink-reveal: split hero name into chars and stagger them ──
-	const heroName = document.querySelector('.hero-name') as HTMLElement | null;
+	// Target the visual span only — the sr-only text must stay intact and
+	// must not consume stagger delays.
+	const heroName = document.querySelector('.hero-name-visual') as HTMLElement | null;
 	if (heroName) {
 		let charIndex = 0;
 		const BASE_DELAY_MS = 80; // ms per char
@@ -313,26 +325,11 @@ const hostOf = (url: string) => {
 	--code-bg: oklch(22% 0.012 250 / 0.08);
 	--code-fg: oklch(28% 0.020 250);
 
-	/* Seasonal accents — Summer in Chicago · Lakefront */
-	--summer-lake:   oklch(46% 0.13 245);  /* deep Lake Michigan blue */
-	--summer-teal:   oklch(58% 0.12 205);  /* shallow water */
-	--summer-aqua:   oklch(72% 0.13 210);  /* sun on the water */
-	--summer-sun:    oklch(80% 0.13 90);   /* high summer sun */
-	--summer-leaf:   oklch(60% 0.15 150);  /* park green */
-	--summer-coral:  oklch(62% 0.17 33);   /* sunset over the lake */
-	--summer-flame:  oklch(58% 0.18 30);   /* deep sunset */
-	--summer-sunset: oklch(66% 0.17 45);   /* warm dusk */
-	--trip-accent:   oklch(60% 0.17 33);   /* warm trip memory */
-
-	/* Pride Month — classic 6-color rainbow (red→violet), tuned deep and
-	   saturated so every letter stays legible on the cream paper. The 8
-	   wordmark glyphs (m a g e r . c o) cycle through the spectrum and wrap. */
-	--pride-red:    oklch(58% 0.20 27);    /* red */
-	--pride-orange: oklch(67% 0.17 50);    /* orange */
-	--pride-yellow: oklch(72% 0.15 85);    /* gold (readable on cream) */
-	--pride-green:  oklch(58% 0.16 150);   /* green */
-	--pride-blue:   oklch(52% 0.15 250);   /* blue */
-	--pride-violet: oklch(50% 0.18 300);   /* violet */
+	/* Wordmark sunrise — the one intentionally loud moment (see DESIGN.md).
+	   Coral → gold → bronze, crossing the masthead like a sunrise. */
+	--sunrise-start: #f05a36;
+	--sunrise-mid:   #c49b00;
+	--sunrise-end:   #b07a00;
 
 	/* Category accents (identity — stable across seasons) */
 	--tech-accent: oklch(45%  0.15  240);  /* lake blue */
@@ -340,11 +337,6 @@ const hostOf = (url: string) => {
 	--life-accent: oklch(52%  0.15  150);  /* park green */
 	--note-accent: oklch(50%  0.14  290);  /* margin-note violet */
 	--seen-accent: oklch(55%  0.13  210);  /* sky / shutter blue */
-
-	/* 4th of July — tuned bright for the dark background */
-	--usa-red: #e02424;
-	--usa-white: #94a3b8; 
-	--usa-blue: #2563eb;
 
 	/* Type */
 	--font-display: 'Fraunces', Georgia, serif;
@@ -393,22 +385,44 @@ const hostOf = (url: string) => {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1rem 2.5rem;
+	gap: 1.5rem;
+	padding: 0.9rem 2.5rem;
 	border-bottom: 1px solid var(--rule);
 }
 
-.topbar-brand {
-	font-family: var(--font-display);
-	font-variation-settings: 'opsz' 12, 'wght' 700;
-	font-size: 1rem;
-	color: var(--ink);
-	text-decoration: none;
-	letter-spacing: -0.01em;
+/* Edition stamp — a quiet newspaper-style dateline derived from the newest
+   item in the feed (content date, not build date, so it never lies). */
+.topbar-stamp {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--font-mono);
+	font-size: 0.68rem;
+	font-weight: 500;
+	letter-spacing: 0.07em;
+	color: var(--ink-light);
+	white-space: nowrap;
+}
+
+.stamp-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--sunrise-start);
+	flex-shrink: 0;
 }
 
 .topbar-nav {
 	display: flex;
-	gap: 2rem;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+/* Thin rules split the nav into sections: content · indexes · elsewhere */
+.nav-rule {
+	width: 1px;
+	height: 0.9rem;
+	background: var(--rule-dark);
 }
 
 .topbar-nav a {
@@ -419,11 +433,34 @@ const hostOf = (url: string) => {
 	text-transform: uppercase;
 	color: var(--ink-mid);
 	text-decoration: none;
-	transition: color 0.15s ease;
+	padding-bottom: 2px;
+	box-shadow: inset 0 -2px 0 transparent;
+	transition: color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .topbar-nav a:hover {
-	color: var(--ink);
+	color: var(--acc, var(--ink));
+	box-shadow: inset 0 -2px 0 var(--acc, var(--ink));
+}
+
+/* Bench is a tool, not a section — monospace, lowercase, arrow out. */
+.topbar-nav a.topbar-bench {
+	font-family: var(--font-mono);
+	font-weight: 500;
+	text-transform: none;
+	letter-spacing: 0.02em;
+	--acc: var(--sunrise-start);
+}
+
+.bench-arrow {
+	display: inline-block;
+	font-size: 0.85em;
+	margin-left: 0.25em;
+	transition: transform 0.15s ease;
+}
+
+.topbar-bench:hover .bench-arrow {
+	transform: translate(2px, -2px);
 }
 
 .topbar-social {
@@ -490,21 +527,17 @@ const hostOf = (url: string) => {
 	margin: 0;
 }
 
-.name-mager {
-	color: var(--ink);
-}
-
-/* Pride Month · rainbow wordmark — red → blue across "mager", then violet
-   for the dot and the warm end of the spectrum wrapping back for "co". */
-.easter-m { color: var(--pride-red); }
-.easter-a { color: var(--pride-orange); }
-.easter-g { color: var(--pride-yellow); }
-.easter-e { color: var(--pride-green); }
-.easter-r { color: var(--pride-blue); }
-
-.easter-dot { color: var(--pride-violet); }
-.easter-c   { color: var(--pride-red); }
-.easter-o   { color: var(--pride-orange); }
+/* Sunrise wordmark — the DESIGN.md hero gradient (#f05a36 → #c49b00 →
+   #b07a00) sampled per glyph so it survives the char-split animation:
+   coral at dawn on the left, bronze gold by the "o". */
+.g1 { color: #f05a36; }
+.g2 { color: #e36d27; }
+.g3 { color: #d77f17; }
+.g4 { color: #ca9208; }
+.g5 { color: #c19600; }
+.g6 { color: #bb8d00; }
+.g7 { color: #b68300; }
+.g8 { color: #b07a00; }
 
 /* Light shimmer: a small brightness pulse after ink-reveal finishes */
 @keyframes seasonalShimmer {
@@ -516,7 +549,6 @@ const hostOf = (url: string) => {
 .name-co {
 	animation: seasonalShimmer 3.5s 1.5s ease-in-out infinite;
 }
-.name-co { color: inherit; }
 
 .hero-meta {
 	padding-bottom: 0.5rem;
@@ -532,39 +564,6 @@ const hostOf = (url: string) => {
 	margin: 0;
 	line-height: 1.4;
 }
-
-.hero-postcard {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	align-items: center;
-	gap: 0.75rem;
-	padding-top: 0.75rem;
-	border-top: 1px solid var(--rule);
-	max-width: 20rem;
-}
-
-.postcard-mark {
-	display: inline-grid;
-	place-items: center;
-	width: 2.55rem;
-	height: 2.55rem;
-	border: 1px solid oklch(60% 0.17 33 / 0.34);
-	color: var(--trip-accent);
-	font-family: var(--font-ui);
-	font-size: 0.95rem;
-	font-weight: 700;
-	line-height: 1;
-	transform: rotate(-3deg);
-}
-
-.postcard-copy {
-	font-family: var(--font-mono);
-	font-size: 0.66rem;
-	line-height: 1.45;
-	color: var(--ink-light);
-	letter-spacing: 0.03em;
-}
-
 
 /* ══════════════════════════════════════════════════
    THE FEED — one chronological stream of posts + notes
@@ -991,6 +990,14 @@ const hostOf = (url: string) => {
 		padding: 0.85rem 1.25rem;
 	}
 
+	.topbar-stamp {
+		display: none;
+	}
+
+	.topbar-nav {
+		gap: 1.1rem;
+	}
+
 	.hero {
 		padding: 2.5rem 1.25rem 2rem;
 	}
@@ -1008,7 +1015,14 @@ const hostOf = (url: string) => {
 
 @media (max-width: 520px) {
 	.topbar-nav {
-		gap: 1.25rem;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.65rem 1.1rem;
+		width: 100%;
+	}
+
+	.nav-rule {
+		display: none;
 	}
 
 	.topbar-social {
