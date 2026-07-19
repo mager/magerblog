@@ -1,10 +1,10 @@
 ---
 title: "mager-bench: free models, thinking-token bugs, and traces"
-description: "Llama 3.3 70B and Gemini 2.5 Flash join the leaderboard at $0 in API cost, two eval bugs caused by thinking models get fixed, and every bench run is now traced with Arize AX."
-pubDate: 2026-07-18
+pubDate: "2026-07-18"
+link: "https://bench.mager.co"
+linkText: "bench.mager.co"
 category: tech
-draft: false
-tags: ["tech", "ai", "benchmarks", "evals", "observability", "llama", "gemini"]
+tags: ["AI", "benchmarks", "evals", "observability", "Llama", "Gemini"]
 ---
 
 Quick update on [mager-bench](https://github.com/mager/mager-bench). Three things happened today: the leaderboard got its first free models, two real eval-engineering bugs surfaced and got fixed, and every run is now traced end to end.
