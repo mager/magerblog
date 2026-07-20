@@ -2,7 +2,7 @@
 title: "Skill Evals: grading the prompts you write, not just the outputs they produce"
 description: "Most evals talk is about grading model output. Skill evals grade a different thing — the SKILL.md artifact you wrote — with real numbers from SkillsBench to back it up."
 pubDate: 2026-06-26
-updatedDate: 2026-07-19T12:00:00-05:00
+updatedDate: 2026-07-20T12:00:00-05:00
 category: tech
 draft: false
 keyword: "skill evals"
@@ -64,6 +64,77 @@ The paired structure is the key distinction. You're not asking "is this output g
 Skills are. You can run the same task set with the skill in context and without it, in the same session, against the same model, and get a clean lift number. The cost is moderate — you're paying for two runs per task — but the signal is direct.
 
 The secondary thing skill evals surface: skill rot. A skill that scores +15 points against one model version might score −3 against the next. Abilities the skill was compensating for (or leaning on) shift. This isn't a theoretical concern; it's the reason re-running on model updates matters. Skills are living documents, not write-once artifacts.
+
+## Run it yourself
+
+The [skill-evals plugin](https://github.com/mager/skill-evals) has a `skill-lift` skill that handles this. Here's the full loop from scratch.
+
+**Step 1: Install the plugin**
+
+```bash
+claude --plugin-dir /path/to/skill-evals
+```
+
+Or just clone it and use the script directly — it's stdlib-only Python, no dependencies.
+
+**Step 2: Build your task set**
+
+Create a CSV with 10–30 tasks representative of what your skill is supposed to help with:
+
+```
+task_id,condition,success
+t01,without,pass
+t01,with,pass
+t02,without,fail
+t02,with,pass
+t03,without,pass
+t03,with,fail
+```
+
+Run each task against your agent twice — once with the skill loaded, once without. Score each run pass/fail using whatever grader fits: a unit test, a code assertion, or an LLM judge you've already validated. Record the results in the CSV above.
+
+**Step 3: Compute lift**
+
+```bash
+python3 skills/skill-lift/scripts/lift.py results.csv
+```
+
+Output:
+
+```
+Skill lift report — 3 tasks, 6 total run(s)
+============================================================
+Condition     Pass rate
+------------------------------------------------------------
+without         67%  (2/3)
+with            67%  (2/3)
+lift            +0pp
+
+Task breakdown:
+  t01           without=100%(1/1)    with=100%(1/1)    → no change
+  t02           without=0%(0/1)      with=100%(1/1)    → IMPROVED
+  t03           without=100%(1/1)    with=0%(0/1)      → BROKE
+
+Regressions (1 task(s) where 'with' performed WORSE):
+  t03
+  → Inspect skill instructions for rules that could mislead on these inputs.
+```
+
+The regression on t03 is the most important line. Something in the skill's instructions is causing the agent to perform *worse* on that input. Read the skill and ask: is there a rule that would mislead on t03 specifically? Is t03 in scope for the skill at all? That's where you start editing.
+
+**Step 4: Tighten the skill, re-run**
+
+Skill development is iterative. Edit the SKILL.md, re-run the same task set, compare lift. The paired structure means you're always comparing against a stable baseline — not against your memory of how it used to work.
+
+When you're comparing two versions of the same skill (instead of with/without):
+
+```bash
+python3 skills/skill-lift/scripts/lift.py results.csv --baseline v1 --treatment v2
+```
+
+**Step 5: Re-run after model updates**
+
+Set a reminder. After any model update that touches the capabilities your skill relies on, re-run the same benchmark. Treat it the same as a regression suite — the skill is a prompt artifact written against a specific model's behavior, and that behavior shifts.
 
 ---
 
