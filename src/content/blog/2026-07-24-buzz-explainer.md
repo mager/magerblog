@@ -1,7 +1,7 @@
 ---
 title: "Buzz: what it looks like when agents get equal standing"
 description: "Block's open-source Nostr workspace puts people and agents on the same cryptographic footing — and lands at the end of a long chain of thinking about where always-on agent infrastructure should actually live."
-pubDate: 2026-07-24
+pubDate: 2026-07-23
 category: tech
 draft: false
 tags: [ai, agents, open-source, nostr, collaboration]
