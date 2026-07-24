@@ -1,6 +1,6 @@
 ---
-title: "The Opus 5 moment: your context engineering needs a refactor"
-description: "Anthropic deleted 80% of Claude Code's system prompt for Opus 5 with no measurable loss. That's the signal. Here's what to do about it."
+title: "Unhobbling: the Opus 5 moment your context engineering needs to catch up to"
+description: "Anthropic deleted 80% of Claude Code's system prompt for Opus 5 with no measurable loss. They called it unhobbling. Here's what that means for your harness."
 pubDate: 2026-07-24
 category: tech
 draft: false
