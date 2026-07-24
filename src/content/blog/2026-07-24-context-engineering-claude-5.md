@@ -3,7 +3,7 @@ title: "The Opus 5 moment: your context engineering needs a refactor"
 description: "Anthropic deleted 80% of Claude Code's system prompt for Opus 5 with no measurable loss. That's the signal. Here's what to do about it."
 pubDate: 2026-07-24
 category: tech
-draft: true
+draft: false
 tags: [ai, agents, claude, claude-code, context-engineering]
 ---
 
