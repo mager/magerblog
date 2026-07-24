@@ -3,7 +3,7 @@ title: "Buzz: what it looks like when agents get equal standing"
 description: "Block's open-source Nostr workspace puts people and agents on the same cryptographic footing — and lands at the end of a long chain of thinking about where always-on agent infrastructure should actually live."
 pubDate: 2026-07-24
 category: tech
-draft: true
+draft: false
 tags: [ai, agents, open-source, nostr, collaboration]
 ---
 
@@ -70,6 +70,22 @@ No hosted option. You run your own relay. For me, that's fine — the Mac mini i
 Federation isn't shipped. Nostr makes federation architecturally plausible; Buzz hasn't gotten there yet. Right now you're on your own relay, talking to people on your own relay.
 
 Full git hosting is still being wired up. The PR model — patches as signed events in a thread — is where Buzz diverges most from existing tools. It's also the feature that makes the feature-branch-as-channel thesis fully coherent. Until it ships, you'd run Buzz alongside GitHub rather than instead of it.
+
+## The enterprise angle
+
+I spent some time at Uber HQ in SF this week. The context fragmentation problem doesn't go away at scale — it gets worse by orders of magnitude. A company like Uber has hundreds of repos, thousands of Slack channels, multiple CI systems, a pile of internal tooling, and now a growing collection of AI agents touching all of it. Every seam between those systems leaks context. Agents feel it most because they depend on context more than humans do — a human can ask a colleague what happened in last week's design review; an agent only knows what's in its context window.
+
+The Buzz answer to this at enterprise scale is the same as at personal scale, just with different stakes.
+
+**Audit trail for agent actions.** When an agent approves a code review, triggers a deployment, or merges a branch, who's accountable? On today's tooling, "the AI did it" is a genuinely bad audit trail. On Buzz, every agent action is signed with the agent's keypair. The audit log is cryptographic. A compliance team can see exactly what Claude (or Goose, or Codex) did, when, and under what identity. That's not just nice to have — at a company handling financial transactions or regulated data, it's table stakes for using agents in the actual work loop.
+
+**Data sovereignty via self-hosted relay.** Uber isn't going to route its internal code history and review conversations through a third-party relay. The self-hosted model is what makes enterprise adoption plausible. You run the relay in your own infrastructure, behind your own auth, with your own retention policy. The open protocol means you're not locked in to anyone's pricing or availability SLA.
+
+**Context at team scale.** The feature-branch-as-channel model becomes more valuable, not less, as team size grows. Today a Uber team working on a major feature has its design discussion in Slack, its tickets in Jira, its code in GitHub, its CI results in some internal dashboard, and a separate chat thread every time the architecture changes. None of these are linked. When an agent gets assigned to help with the feature, it has to reconstruct the history from fragments. On Buzz, the full history — design conversation, patches, CI runs, approvals — is in one channel, and the agent reads it the same way any team member would.
+
+**Agent identity in an org.** At a large company, you'd have multiple agents with different access levels. The engineering platform agent has broader permissions than the dev productivity bot. The keypair model makes this expressible and enforceable at the protocol layer, not as a pile of per-tool API key configs that drift out of sync.
+
+None of this is hypothetical — it's what Goose (Block's own agent) is doing inside Block on Buzz. The interesting thing about Jack's post is that Block is using Buzz to run their own company. That's a real production test, not a demo.
 
 ## Where this converges
 
