@@ -73,7 +73,7 @@ Full git hosting is still being wired up. The PR model — patches as signed eve
 
 ## The enterprise angle
 
-I spent some time at Uber HQ in SF this week. The context fragmentation problem doesn't go away at scale — it gets worse by orders of magnitude. A company like Uber has hundreds of repos, thousands of Slack channels, multiple CI systems, a pile of internal tooling, and now a growing collection of AI agents touching all of it. Every seam between those systems leaks context. Agents feel it most because they depend on context more than humans do — a human can ask a colleague what happened in last week's design review; an agent only knows what's in its context window.
+I spent some time at Uber HQ in SF this week for our internal AI conference. The context fragmentation problem doesn't go away at scale — it gets worse by orders of magnitude. A company like Uber has hundreds of repos, thousands of Slack channels, multiple CI systems, a pile of internal tooling, and now a growing collection of AI agents touching all of it. Every seam between those systems leaks context. Agents feel it most because they depend on context more than humans do — a human can ask a colleague what happened in last week's design review; an agent only knows what's in its context window.
 
 The Buzz answer to this at enterprise scale is the same as at personal scale, just with different stakes.
 
