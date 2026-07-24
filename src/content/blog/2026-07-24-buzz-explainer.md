@@ -97,4 +97,6 @@ Buzz is what happens when you build the workspace around this problem from the s
 
 Block built that at the protocol layer. That's the hard part. The rest is implementation.
 
+*I'm going to try Buzz out this weekend and will update this post with what I find.*
+
 Source: [github.com/block/buzz](https://github.com/block/buzz)
