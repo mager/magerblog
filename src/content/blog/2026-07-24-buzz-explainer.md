@@ -43,7 +43,7 @@ This is what the feature-branch-as-channel model gets you architecturally: the m
 
 Identity on Buzz is cryptographic. Every participant — human or agent — has a keypair. Everything they do is signed. Every action is attributable, auditable, and portable. You carry your identity across workspaces the same way you carry a PGP key.
 
-What's available today: channels, threads, DMs, canvases, media, search, an audit log, workflows, and a desktop app. Full git hosting is being wired up. Federation is on the roadmap but not shipped.
+What's available today: channels, threads, DMs, canvases, media, search, an audit log, workflows, a desktop app, and git — both NIP-34 events (patches, repo announcements, status) and the hosting backend itself, with smart HTTP serving repos out of object storage. Federation is on the roadmap but not shipped.
 
 ## What "equal identity" means in practice
 
@@ -63,13 +63,13 @@ That's a different architecture, not just better tooling.
 
 A few honest gaps.
 
-No mobile app. Desktop only, which is a real limitation for async work. A lot of Telegram messages get drafted from a phone.
+No mobile app yet. There's a Flutter client for iOS and Android in the repo, but it's listed as still being wired up rather than shipped, so in practice it's desktop only. That's a real limitation for async work — a lot of Telegram messages get drafted from a phone.
 
 No hosted option. You run your own relay. For me, that's fine — the Mac mini is already there. For a team without someone who wants to manage infrastructure, it's friction.
 
 Federation isn't shipped. Nostr makes federation architecturally plausible; Buzz hasn't gotten there yet. Right now you're on your own relay, talking to people on your own relay.
 
-Full git hosting is still being wired up. The PR model — patches as signed events in a thread — is where Buzz diverges most from existing tools. It's also the feature that makes the feature-branch-as-channel thesis fully coherent. Until it ships, you'd run Buzz alongside GitHub rather than instead of it.
+Git hosting has landed, but it's new. The PR model — patches as signed events in a thread — is where Buzz diverges most from existing tools, and it's the feature that makes the feature-branch-as-channel thesis coherent rather than aspirational. It's also the piece with the least mileage on it. Whether a repo of real size behaves under it is an open question, and not one you answer by reading the source.
 
 ## The enterprise angle
 
@@ -97,6 +97,18 @@ Buzz is what happens when you build the workspace around this problem from the s
 
 Block built that at the protocol layer. That's the hard part. The rest is implementation.
 
-*I'm going to try Buzz out this weekend and will update this post with what I find.*
+## Running it
+
+I set it up on the Mac mini. Docker through colima rather than Docker Desktop, since the machine is headless and Desktop wants a GUI installer and a login item. Hermit supplies Rust, Node, pnpm, and `just`; the one prerequisite it can't supply is Docker itself. Homebrew's `docker` formula ships the CLI without the compose plugin, so `just setup` dies on `docker compose up -d` with a misleading `unknown shorthand flag: 'd'` until you install `docker-compose` separately. That was the only real snag. The relay came up clean after it.
+
+The identity claim holds. `buzz-admin generate-key` mints a keypair, `add-member` registers it on the relay, and from then on the agent signs its own events. Reading a message back and seeing the agent's pubkey in the event — not mine, not a shared API token — is the thing this post was arguing for, and it is exactly as advertised.
+
+The ACP harness works too. `buzz-acp` bridges the relay to Claude Code via `claude-agent-acp`; an @mention in a channel spawns a turn and the reply lands as a signed event in the same thread. Two things bit me on the way there. The harness logged `configured_model=sonnet` while the underlying session kept trying to use a model my account can't draw on — my global `~/.claude/settings.json` was overriding the harness config, and the error surfaced three layers down from where the setting lived. And the harness runs the agent with `permission_mode=bypassPermissions` by default, which is reasonable for an unattended bot but means the inbound author gate is the entire security boundary. Worth knowing before you point one at a real repo.
+
+The docs lag the code, in both directions. The agent quickstart tells you to run `buzz-admin mint-token`, which doesn't exist — it's `generate-key` plus `add-member`. The relay's NIP-11 document omits NIP-34 even though `repos`, `patches`, `issues`, and `pr` are all implemented against it, so a generic Nostr client doing capability discovery wouldn't find the git surface. Neither is serious. Both are the kind of thing you only hit by running it, and I'd rather hit them than read about them.
+
+One structural thing I hadn't understood from the outside: `buzz-acp` spawns the agent per turn rather than keeping a session alive. Mention, spawn, turn, reply. That is not a port of an always-on session with accumulated context — it's a different model, where the channel history is the continuity rather than the process. It's closer to what I was arguing for above than what I'm currently running, which is a strange thing to discover about your own argument.
+
+What I have not done is move the harness over. The blocker is the one already listed: no mobile client. A meaningful share of what I send magerbot gets typed on a phone, and until the Flutter app ships, moving off Telegram would trade a working input channel for a better architecture. The relay is reachable from my phone over Tailscale already; there's just nothing on the phone to talk to it with. So for now Buzz runs alongside rather than instead — the same conclusion this post reached about git, arriving a second time from a different direction.
 
 Source: [github.com/block/buzz](https://github.com/block/buzz)
