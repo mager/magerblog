@@ -3,6 +3,7 @@ layout: "../../layouts/post-layout.astro"
 title: Hello World
 pubDate: "2020-02-22"
 category: tech
+keyword: "relaunch"
 tags: ["Gatsby", "Meta"]
 description: "mager.co is back after years away. Here's what I'm building, what I'm obsessing over, and why this time it sticks."
 heroImage: /images/blog/2020-02-22-hello-world/md.png

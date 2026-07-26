@@ -3,6 +3,7 @@ title: "Anthropic's Knowledge Work Plugins: The 10 Essential Tools for Modern Te
 pubDate: 2026-03-27
 description: "I tested Anthropic's official Claude plugins for knowledge workers. Here are the 10 that deliver the most value for PMs, engineers, sales teams, and operators."
 category: tech
+keyword: "Claude plugins"
 draft: false
 ---
 

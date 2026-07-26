@@ -3,6 +3,7 @@ title: "How I make tokens last longer"
 description: "A simple set of habits I use to keep long AI coding sessions from getting bloated: better one-shot prompts, matching model and thinking level to the job, understanding cache behavior, and using cheaper orchestrators when it makes sense."
 pubDate: 2026-04-26
 category: tech
+keyword: "saving tokens"
 draft: false
 tags: [ai, prompting, llms, productivity]
 ---

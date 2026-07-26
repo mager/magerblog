@@ -3,6 +3,7 @@ title: "Herb Vinaigrette Potato Salad: The Version That Absorbs"
 description: "Yukon Golds dressed while hot so the vinaigrette soaks in rather than sitting on top — done in 25 minutes, better after an hour of rest."
 pubDate: "2026-05-31"
 category: "food"
+keyword: "potato salad"
 tags: ["potato salad", "vinaigrette", "side dish", "summer", "no-mayo"]
 draft: true
 ---

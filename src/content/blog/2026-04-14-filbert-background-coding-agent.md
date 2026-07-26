@@ -3,6 +3,7 @@ title: "Filbert: A real pattern for background coding agents"
 description: "Phil Chen's Filbert write-up is interesting because it treats agents as infrastructure: a Slack-facing supervisor, async coding agents, thread-local memory on disk, and a self-improving prompt loop."
 pubDate: 2026-04-14
 category: tech
+keyword: "Filbert"
 draft: true
 ---
 

@@ -4,6 +4,7 @@ title: "Greek Chicken Casserole"
 pubDate: "2026-02-16"
 description: A dead-simple one-dish Greek chicken casserole with orzo, feta, spinach, broccoli, sautéed onion, and lemon. Minimal cleanup, maximum flavor.
 category: "food"
+keyword: "greek chicken"
 subcategory: "comfort"
 tags: ["Chicken", "Greek", "Casserole", "Weeknight Dinner"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMPcr2vOr4I92GMyor7Q21i6lP3YsuS3mDby5Nk6vXo2QqPlR7e-a_2HNs1iSe7VAW6dFcAa58t_6bfH4W7Gd52Xo3wZFuG5z_QL5A6xQyaOR83UXnx8c-PRbjWycdvLCVtQlMrqykJUsURajYkzazmgA=w2274-h1522-s-no-gm"

@@ -4,6 +4,7 @@ title: "Spaghettio Sausage Soup"
 pubDate: "2026-02-12"
 description: "Italian sausage, tiny sea shape pasta, crushed tomatoes, kale, and a Parmesan rind simmered into a brothy, deeply savory one-pot soup."
 category: "food"
+keyword: "spaghettio soup"
 subcategory: "soup"
 tags: ["Soup", "Pasta", "Italian Sausage", "Comfort Food", "Kale", "One-Pot", "Parmesan", "Weeknight"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNobaZyHvGZvWizCk67fMmP8KYdfeAZoD5fuyZcN9r8rrTaMTNy0UrouXhveMGloBr2-stLPWp3qn8WV_fFpgrJ0FAmJNNOU4Ics2JlOyNkK8vzqPF6Y7FhXIMlHIOt_GvRQi8Unrf8sdQQW7cCZk0xsg=w2030-h1522-s-no-gm"

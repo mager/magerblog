@@ -3,6 +3,7 @@ title: "Claude: from Skills to Agents to Subagents"
 description: "A Skill is packaged know-how. An Agent is that know-how put to work autonomously. Subagents are where the work scales past what any single context can hold."
 pubDate: 2026-07-10
 category: tech
+keyword: "AI agents"
 draft: false
 tags: ["tech", "ai", "claude", "agents", "skills", "workflows"]
 ---

@@ -4,6 +4,7 @@ description: "I love OpenClaw. I hate that it doesn't run on my Claude Pro subsc
 pubDate: 2026-06-02
 updatedDate: 2026-06-02
 category: tech
+keyword: "OpenClaw"
 draft: false
 tags: [claude, openclaw, claude-code, channels, telegram, mac-mini, brain, principal-agent]
 ---

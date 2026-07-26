@@ -3,6 +3,7 @@ title: "gbrain: We migrated our flat-file brain to a real memory system"
 description: "Garry Tan open-sourced gbrain — a self-wiring knowledge graph for AI agents. Here's what it is, why we moved to it, and exactly how we did the migration from flat markdown files."
 pubDate: 2026-05-18
 category: tech
+keyword: "gbrain"
 draft: true
 tags: ["ai", "claude", "memory", "gbrain", "garry-tan", "agents", "mcp", "gstack"]
 ---

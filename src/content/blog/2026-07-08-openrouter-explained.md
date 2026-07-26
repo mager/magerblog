@@ -3,6 +3,7 @@ title: "OpenRouter: The routing layer magerbot was missing"
 description: "OpenRouter lets you pick a different model for every step in a pipeline. Here's how to use Fable for planning and Sonnet for execution — with runnable TypeScript."
 pubDate: 2026-07-08
 category: tech
+keyword: "OpenRouter"
 draft: true
 tags: ["ai", "openrouter", "agents", "magerbot", "typescript", "claude"]
 ---

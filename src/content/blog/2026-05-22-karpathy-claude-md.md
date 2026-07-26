@@ -3,6 +3,7 @@ title: "What Karpathy's CLAUDE.md taught me about my own setup"
 description: "Karpathy's four rules for agentic coding are worth reading — having them written down in a shared format is a useful starting point for anyone building with Claude Code."
 pubDate: 2026-05-24
 category: tech
+keyword: "CLAUDE.md"
 draft: false
 tags: ["claude-code", "ai", "karpathy", "llm", "productivity"]
 ---

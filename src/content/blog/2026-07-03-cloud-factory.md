@@ -3,6 +3,7 @@ title: "Warp: The Cloud Factory, Now Running"
 description: "In March I wrote the theory. Zach from Warp shipped the implementation. Here's how a working cloud factory maps to the architecture I laid out."
 pubDate: 2026-07-03
 category: tech
+keyword: "cloud factory"
 draft: false
 heroImage: /images/blog/2026-07-03-cloud-factory/openrouter-dashboard.jpg
 tags: ["ai", "agents", "software-factory", "engineering", "warp"]

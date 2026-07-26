@@ -4,6 +4,7 @@ description: "mager.co is no longer just a blog. It's a corporation. Here's how 
 pubDate: "2026-03-14"
 draft: false
 category: tech
+keyword: "agency-agents"
 tags: [ai, agents, openclaw, mager-co, agency-agents]
 ---
 

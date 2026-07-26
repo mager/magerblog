@@ -3,6 +3,7 @@ title: "mager-bench: a personal coding model benchmark"
 description: "Instead of reading someone else's leaderboard, build a small set of tasks you actually care about and run them yourself every time a new model drops — Simon Willison's SVG pelican test, but for code."
 pubDate: 2026-07-05
 category: tech
+keyword: "mager-bench"
 tags: ["tech", "ai", "benchmarks", "python", "claude"]
 ---
 

@@ -3,6 +3,7 @@ title: "OpenHuman — an open-source agent harness that learns who you are"
 description: "OpenHuman is a desktop-first agentic assistant with persistent memory, 118+ OAuth integrations, and a token compression layer. Here's what it does and how it fits alongside an existing Claude Code harness."
 pubDate: 2026-05-26
 category: tech
+keyword: "OpenHuman"
 draft: false
 tags: ["ai", "agents", "memory", "openhuman", "harness"]
 ---

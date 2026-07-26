@@ -3,6 +3,7 @@ title: "Claude Is Unhobbled. Your Context Engineering Is Not."
 description: "Anthropic deleted 80% of Claude Code's system prompt for Opus 5 with no measurable loss. They called it unhobbling. Here's what that means for your harness."
 pubDate: 2026-07-24
 category: tech
+keyword: "context engineering"
 draft: false
 tags: [ai, agents, claude, claude-code, context-engineering]
 ---

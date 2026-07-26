@@ -4,6 +4,7 @@ title: "Perfectly Seared Tomahawk Steak"
 pubDate: "2025-09-13"
 description: "A foolproof recipe for a perfect medium-rare Tomahawk steak. Seasoned overnight with Holy Cow BBQ Rub, seared hot, and finished with indirect heat on the grill."
 category: "food"
+keyword: "tomahawk steak"
 subcategory: "meat"
 tags: ["Recipe", "Steak", "Grilling", "Tomahawk", "Beef", "Reverse-Sear", "Special-Occasion", "Date-Night"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczMDYas1_q7BbAnGKFAcKig5uD1Ud8rCYJL6EpEn1C3eNdfSHN5jVI-1FPrrEc9Q7rHveQRLBRJE-iGJ6c2BY2v2wKfsAzi46eCJ16hUhgLQtgdGj-PHWqoheuv-P8TIKDIMrJevcR-WE_T6OVtFCOVQyg=w3024-h1580-s-no-gm"

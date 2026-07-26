@@ -3,6 +3,7 @@ title: "Claude: How prompt caching actually works"
 description: "A practical explainer for both developers and everyday Claude users: what prompt caching is, what gets reused, what breaks it, and how to make long sessions cheaper and faster."
 pubDate: 2026-04-29
 category: tech
+keyword: "prompt caching"
 draft: false
 tags: [claude, anthropic, prompt-caching, ai, llms, developer-tools]
 ---

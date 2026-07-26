@@ -4,6 +4,7 @@ title: "Steakhouse Creamed Spinach"
 description: "A garlicky, spinach-forward creamed spinach that tastes like the steakhouse side dish — built on a light roux instead of a pint of heavy cream."
 pubDate: "2026-06-04"
 category: "food"
+keyword: "creamed spinach"
 subcategory: "side"
 tags: ["Spinach", "Side", "Steakhouse", "Garlic", "Vegetarian", "Comfort", "Healthy-ish"]
 heroImage: ""

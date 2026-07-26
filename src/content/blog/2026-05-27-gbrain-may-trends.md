@@ -3,6 +3,7 @@ title: "What gbrain's May tells us about agent memory"
 description: "Garry Tan's gbrain added multi-client MCP, hit v0.40.6, and kept articulating a thesis worth taking seriously: compounding knowledge systems as personal moat."
 pubDate: 2026-05-27
 category: tech
+keyword: "agent memory"
 draft: true
 tags: ["ai", "agents", "memory", "gbrain", "garry-tan"]
 ---

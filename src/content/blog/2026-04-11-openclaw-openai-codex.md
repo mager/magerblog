@@ -3,6 +3,7 @@ title: "OpenClaw: I Switched My Agent Stack from Claude to OpenAI Codex"
 description: "Anthropic shutting down OAuth-based Claude Code access forced my hand. Here's how I moved OpenClaw to OpenAI Codex, why Codex makes more sense inside a real agent harness than it did on its own, and why brainpack changes the switching cost."
 pubDate: 2026-04-11
 category: tech
+keyword: "OpenAI Codex"
 draft: false
 ---
 
