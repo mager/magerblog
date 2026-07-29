@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Cherry Tomato Sauce: The Fix for a Tomato Glut"
+title: "Cherry Tomato Sauce"
 description: "Blistered cherry tomatoes and garlic collapse into a full pasta sauce in twenty minutes — no peeling, no seeding, finished with butter and pasta water."
 pubDate: "2026-07-29"
 category: "food"
