@@ -40,21 +40,21 @@ It's a good problem to have in summer, when cherry tomatoes show up faster than 
 
 <div class="recipe-instructions">
 
-Get the pasta water going first. Bring a large pot of well-salted water to a boil — you'll want it ready by the time the sauce is close to done, and you need the starchy water it leaves behind either way.
+Bring a large pot of well-salted water to a boil. You'll need it for the pasta, and for the starchy water later.
 
-Blister the tomatoes. Heat the olive oil in a wide skillet over medium-high heat. Add the cherry tomatoes whole, along with the sliced garlic, a good pinch of kosher salt, and a few grinds of black pepper. Let them sit mostly undisturbed for a couple of minutes so they actually blister and char in spots rather than just steam — shake the pan occasionally instead of stirring constantly.
+Heat the olive oil in a wide skillet over medium-high. Add the tomatoes whole, the garlic, salt, and pepper. Leave them mostly undisturbed for a couple of minutes so they blister and char instead of steaming.
 
-Cook it down. Drop the heat to medium and keep cooking, stirring every so often, for 15 to 20 minutes. The tomatoes will start splitting and collapsing on their own; help the stubborn ones along with the back of a spoon. You're watching for the moment loose tomatoes turn into an actual sauce — thickened, glossy, no longer a pan of whole fruit in oil.
+Drop the heat to medium and cook 15 to 20 minutes, stirring occasionally and smashing stubborn tomatoes with the back of a spoon. It's done when it looks like a sauce, not a pan of tomatoes in oil.
 
-Drop the pasta in once the sauce is most of the way there, so it finishes cooking around the same time the sauce does. Cook it just shy of al dente — it'll pick up the last minute of cooking in the skillet.
+Cook the pasta while the sauce finishes, just shy of al dente.
 
-Mount the sauce with butter. Off the heat, or over the lowest flame, stir in the butter a tablespoon at a time until it melts into the sauce and turns glossy rather than pooling as fat on top. This is the same move that finishes a pan sauce for steak — it thickens and rounds out the acidity of the tomatoes.
+Off the heat, stir in the butter a tablespoon at a time until it melts in glossy, not greasy.
 
-Loosen with pasta water. Before you drain the pasta, scoop out about 1/4 cup of the starchy water and stir it into the sauce. It emulsifies with the butter and oil and gives you a sauce that clings instead of sitting in a puddle at the bottom of the bowl.
+Scoop out 1/4 cup pasta water before draining and stir it in — it binds the sauce and keeps it clingy instead of watery.
 
-Toss the pasta directly into the skillet — don't plate the pasta and spoon sauce over it, bring the pasta to the sauce. Toss for a minute so every strand gets coated and the starch in the pasta water finishes binding everything together.
+Toss the pasta straight into the skillet and stir for a minute until every strand is coated.
 
-Finish with basil. Tear the basil leaves over the top right before serving, not while the pan is still on the heat — you want it bright, not wilted. A little grated parmesan on top is optional but good.
+Tear the basil over the top right before serving.
 
 #### Notes and Tips
 
