@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Cherry Tomato Sauce: No Can, No Paste, Just a Skillet"
-description: "Blistered cherry tomatoes and garlic collapse into a full pasta sauce in twenty minutes — no can, no paste, finished with butter and a little pasta water."
+title: "Cherry Tomato Sauce: The Fix for a Tomato Glut"
+description: "Blistered cherry tomatoes and garlic collapse into a full pasta sauce in twenty minutes — no peeling, no seeding, finished with butter and pasta water."
 pubDate: "2026-07-29"
 category: "food"
 keyword: "cherry tomato sauce"
@@ -15,9 +15,7 @@ draft: false
 
 <div class="recipe-intro">
 
-Most red sauce starts with a can. This one starts with a pint of cherry tomatoes that are past the point of being good for anything else — a little soft, a little wrinkled, exactly the state farmers market tomatoes hit a day or two after you buy them. You don't peel them, seed them, or crush them by hand. You just blister them in a hot pan and let time and heat do the rest.
-
-It's a good problem to have in summer, when cherry tomatoes show up faster than you can eat them raw. The whole dish is maybe five ingredients and twenty minutes, most of which is unattended — the tomatoes do their thing in the pan while the pasta water comes up to a boil. No simmering a pot of sauce for an hour, no tomato paste to fry off, no crushed tomatoes from a can that taste like the can. Just the tomatoes, reduced.
+This is what to do with the cherry tomatoes piling up faster than you can eat them raw — a little soft, a little past their prime, exactly right for this. No peeling, seeding, or crushing by hand, just whole tomatoes blistered in a hot pan until they break down into sauce. Five ingredients, twenty minutes, most of it unattended.
 
 </div>
 
