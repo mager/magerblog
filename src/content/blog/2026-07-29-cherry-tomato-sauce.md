@@ -26,6 +26,7 @@ This is what to do with the cherry tomatoes piling up faster than you can eat th
 
 - 2 pints cherry tomatoes (about 4 cups), a mix of colors if you can find them
 - 4 garlic cloves, thinly sliced
+- 1 small hit Calabrian chiles, chopped (optional)
 - 1/4 cup olive oil, plus more to finish
 - Kosher salt and black pepper, to taste
 - 3 tbsp unsalted butter
@@ -40,7 +41,7 @@ This is what to do with the cherry tomatoes piling up faster than you can eat th
 
 Bring a large pot of well-salted water to a boil. You'll need it for the pasta, and for the starchy water later.
 
-Heat the olive oil in a wide skillet over medium-high. Add the tomatoes, then the garlic a minute or so later (sliced or smashed, not minced — minced garlic scorches over a 15-20 minute cook). Add salt and pepper, and leave everything mostly undisturbed for a couple of minutes so it blisters and chars instead of steaming.
+Heat the olive oil in a wide skillet over medium-high. Add the tomatoes, then the garlic a minute or so later (sliced or smashed, not minced — minced garlic scorches over a 15-20 minute cook). If you're using the Calabrian chiles, this is when they go in too. Add salt and pepper, and leave everything mostly undisturbed for a couple of minutes so it blisters and chars instead of steaming.
 
 Once the tomatoes start bursting and breaking down, ease the heat to medium and keep cooking, 15 to 20 minutes total, stirring occasionally and smashing stubborn ones with the back of a spoon. It'll go thick and jammy as it reduces — that's the point. You're concentrating it before loosening it back up at the end.
 
@@ -59,6 +60,7 @@ Tear the basil over the top right before serving.
 - Butter is doing real work here, not just flavor. It's the same mounting technique from a pan sauce, and it's what keeps this from tasting thin.
 - No pasta water on hand because you forgot to reserve it? A splash of hot tap water with a pinch of salt gets you most of the way there, but the starch from real pasta water is hard to fake.
 - This scales down fine for one — halve everything and use a smaller skillet so the tomatoes still have room to blister instead of steam.
+- If you know, you know: a small hit of chopped Calabrian chiles in with the garlic adds heat and funk without fighting the tomatoes. Not required, but it's how I actually make this.
 
 </div>
 </div>
