@@ -42,17 +42,15 @@ It's a good problem to have in summer, when cherry tomatoes show up faster than 
 
 Bring a large pot of well-salted water to a boil. You'll need it for the pasta, and for the starchy water later.
 
-Heat the olive oil in a wide skillet over medium-high. Add the tomatoes whole, the garlic, salt, and pepper. Leave them mostly undisturbed for a couple of minutes so they blister and char instead of steaming.
+Heat the olive oil in a wide skillet over medium-high. Add the tomatoes, then the garlic a minute or so later (sliced or smashed, not minced — minced garlic scorches over a 15-20 minute cook). Add salt and pepper, and leave everything mostly undisturbed for a couple of minutes so it blisters and chars instead of steaming.
 
-Drop the heat to medium and cook 15 to 20 minutes, stirring occasionally and smashing stubborn tomatoes with the back of a spoon. It's done when it looks like a sauce, not a pan of tomatoes in oil.
+Once the tomatoes start bursting and breaking down, ease the heat to medium and keep cooking, 15 to 20 minutes total, stirring occasionally and smashing stubborn ones with the back of a spoon. It'll go thick and jammy as it reduces — that's the point. You're concentrating it before loosening it back up at the end.
 
 Cook the pasta while the sauce finishes, just shy of al dente.
 
 Off the heat, stir in the butter a tablespoon at a time until it melts in glossy, not greasy.
 
-Scoop out 1/4 cup pasta water before draining and stir it in — it binds the sauce and keeps it clingy instead of watery.
-
-Toss the pasta straight into the skillet and stir for a minute until every strand is coated.
+Toss the pasta straight into the skillet. Add the reserved pasta water a splash at a time, stirring, until the sauce turns glossy and clings to the pasta — you may not need the full 1/4 cup.
 
 Tear the basil over the top right before serving.
 
