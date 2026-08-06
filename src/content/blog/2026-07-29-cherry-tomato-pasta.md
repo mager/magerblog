@@ -1,10 +1,10 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Cherry Tomato Sauce"
+title: "Cherry Tomato Pasta"
 description: "Blistered cherry tomatoes and garlic collapse into a full pasta sauce in twenty minutes — no peeling, no seeding, finished with butter and pasta water."
 pubDate: "2026-07-29"
 category: "food"
-keyword: "cherry tomato sauce"
+keyword: "cherry tomato pasta"
 subcategory: "pasta"
 tags: ["Cherry Tomatoes", "Pasta", "Summer", "Weeknight", "Vegetarian", "Quick"]
 heroImage: ""

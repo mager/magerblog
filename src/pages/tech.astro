@@ -27,6 +27,11 @@ const techNotes = (await getCollection('notes'))
 	.filter(note => note.data.category === 'tech')
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+// Field notes are a sidebar to the posts, not a peer of them — preview a few,
+// send the rest to /notes.
+const NOTES_PREVIEW = 4;
+const previewNotes = techNotes.slice(0, NOTES_PREVIEW);
+
 const latestIssueDate = featuredPost?.data.updatedDate || featuredPost?.data.pubDate || new Date();
 const issueNumber = String(posts.length).padStart(3, '0');
 
@@ -283,6 +288,20 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				color: var(--ink-light);
 			}
 
+			.archive-more {
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				color: var(--ink-light);
+				text-decoration: none;
+				white-space: nowrap;
+			}
+
+			.archive-more:hover {
+				color: var(--accent);
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
 			.archive-list {
 				list-style: none;
 				margin: 0;
@@ -392,10 +411,12 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 					<section class="archive field-notes" aria-labelledby="notes-heading">
 						<header class="archive-head">
 							<span class="archive-label" id="notes-heading">Field notes</span>
-							<span class="archive-count">{techNotes.length}</span>
+							{techNotes.length > NOTES_PREVIEW
+								? <a class="archive-more" href="/notes/">All {techNotes.length} &rarr;</a>
+								: <span class="archive-count">{techNotes.length}</span>}
 						</header>
 						<ul class="archive-list">
-							{techNotes.map((note) => <TechNoteRow note={note} />)}
+							{previewNotes.map((note) => <TechNoteRow note={note} />)}
 						</ul>
 					</section>
 				)}

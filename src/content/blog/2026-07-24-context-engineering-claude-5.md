@@ -8,7 +8,7 @@ draft: false
 tags: [ai, agents, claude, claude-code, context-engineering]
 ---
 
-Thariq from Anthropic published something this week that deserves more attention than it's getting. [The new rules of context engineering for Claude 5 models](https://x.com/trq212) documents what happened when Anthropic audited their own Claude Code system prompt for Opus 5 and Fable 5: they deleted over 80% of it with no measurable loss on coding evaluations.
+Thariq from Anthropic published something this week that deserves more attention than it's getting. [The new rules of context engineering for Claude 5 models](https://x.com/trq212/status/2080710971228918066) documents what happened when Anthropic audited their own Claude Code system prompt for Opus 5 and Fable 5: they deleted over 80% of it with no measurable loss on coding evaluations.
 
 That's not a small tweak. That's a signal that the way we've been talking to agents needs to change.
 
@@ -76,4 +76,4 @@ The agents and skills you've built are still valuable. The underlying work — f
 
 Thariq's post is the starting point. The field guide for Fable 5 has more detail on model-specific prompting. And `/doctor` is the fastest way to see what in your current setup no longer needs to be there.
 
-Source: [@trq212 on X](https://x.com/trq212)
+Source: [@trq212 on X](https://x.com/trq212/status/2080710971228918066)

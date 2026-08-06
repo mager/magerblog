@@ -12,6 +12,7 @@ export default defineConfig({
 		'/notes/2026-06-04-openclaw-mac-mini-harness': '/blog/2026-06-04-an-openclaw-setup-for-dad',
 		'/blog/2026-06-17-claude-voice-agent': '/blog/2026-06-25-claude-voice-agent',
 		'/blog/2026-07-18-mager-bench-free-models': '/notes/2026-07-18-mager-bench-free-models',
+		'/blog/2026-07-29-cherry-tomato-sauce': '/blog/2026-07-29-cherry-tomato-pasta',
 	},
 	markdown: {
 		smartypants: false,

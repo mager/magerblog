@@ -58,7 +58,7 @@ const dek = (note.body || '')
 		grid-template-columns: 7rem minmax(0, 1fr) minmax(8rem, auto);
 		gap: 1.1rem;
 		align-items: start;
-		padding: 1.1rem 0;
+		padding: 0.72rem 0;
 		color: inherit;
 		text-decoration: none;
 		border-bottom: 1px solid var(--rule, #ddd6cd);
@@ -81,9 +81,9 @@ const dek = (note.body || '')
 
 	.row-title {
 		font-family: var(--font-display, Georgia, serif);
-		font-variation-settings: 'opsz' 36, 'wght' 700;
-		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-		line-height: 1.2;
+		font-variation-settings: 'opsz' 24, 'wght' 600;
+		font-size: 1rem;
+		line-height: 1.25;
 		color: var(--ink, #1f1c17);
 	}
 
@@ -97,12 +97,12 @@ const dek = (note.body || '')
 		font-family: var(--font-body, Georgia, serif);
 		display: -webkit-box;
 		max-width: 75ch;
-		font-size: 0.9rem;
-		line-height: 1.5;
+		font-size: 0.85rem;
+		line-height: 1.45;
 		color: var(--ink-mid, #6c6760);
 		overflow: hidden;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 	}
 
 	.row-tags {
