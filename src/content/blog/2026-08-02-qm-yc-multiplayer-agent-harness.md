@@ -1,5 +1,5 @@
 ---
-title: "qm: YC ships the multiplayer version of the thing I run on a Mac mini"
+title: "qm: YC's multiplayer agent harness and the identity problem"
 description: "YC open-sourced qm, a multiplayer agent harness for startups. I run the single-player version — what's real, what's hard, and what enterprises should watch."
 pubDate: 2026-08-02
 category: tech
