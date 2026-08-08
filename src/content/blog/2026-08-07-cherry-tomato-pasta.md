@@ -2,12 +2,12 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Cherry Tomato Pasta"
 description: "Blistered cherry tomatoes and garlic collapse into a full pasta sauce in twenty minutes — no peeling, no seeding, finished with butter and pasta water."
-pubDate: "2026-07-29"
+pubDate: "2026-08-07"
 category: "food"
 keyword: "cherry tomato pasta"
 subcategory: "pasta"
 tags: ["Cherry Tomatoes", "Pasta", "Summer", "Weeknight", "Vegetarian", "Quick"]
-heroImage: ""
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-08-07-cherry-tomato-pasta/hero.jpg"
 prepTime: 10
 cookTime: 20
 draft: false
@@ -45,6 +45,8 @@ Heat the olive oil in a wide skillet over medium-high. Add the tomatoes, then th
 
 Once the tomatoes start bursting and breaking down, ease the heat to medium and keep cooking, 15 to 20 minutes total, stirring occasionally and smashing stubborn ones with the back of a spoon. It'll go thick and jammy as it reduces — that's the point. You're concentrating it before loosening it back up at the end.
 
+![Cherry tomatoes blistering in four stages, from whole and shiny to collapsed and jammy](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-08-07-cherry-tomato-pasta/blistering.jpg)
+
 Cook the pasta while the sauce finishes, just shy of al dente.
 
 Off the heat, stir in the butter a tablespoon at a time until it melts in glossy, not greasy.
@@ -63,4 +65,10 @@ Tear the basil over the top right before serving.
 - If you know, you know: a small hit of chopped Calabrian chiles in with the garlic adds heat and funk without fighting the tomatoes. Not required, but it's how I actually make this.
 
 </div>
+</div>
+
+<div class="recipe-gallery">
+
+![Cherry tomato pasta plated, with basil and parmesan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-08-07-cherry-tomato-pasta/plated.jpg)
+
 </div>
