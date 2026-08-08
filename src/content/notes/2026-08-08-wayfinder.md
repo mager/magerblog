@@ -7,7 +7,8 @@ category: tech
 
 I started a harness migration today that's too big for one agent session to hold —
 moving the always-on agent on the Mac mini from Claude Code to [OpenCode Go](https://opencode.ai/docs/go),
-with Buzz as the chat transport. Instead of charging at it, I'm using **wayfinder**,
+with Buzz as the chat transport. Instead of charging at it, I'm using
+[**wayfinder**](https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md),
 a planning method that turns the journey into a map of small decision-tickets on the
 issue tracker, resolved one at a time until the route is clear.
 
