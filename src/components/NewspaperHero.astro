@@ -51,6 +51,20 @@ const hostOf = (url: string) => {
 		return url;
 	}
 };
+
+const itemHref = (item: FeedItem) => {
+	if (item.kind === 'post') return `/blog/${item.entry.id}/`;
+	if (item.kind === 'seen') return `/seen/${item.entry.id}/`;
+	return `/notes/${item.entry.id}/`;
+};
+
+const itemTitle = (item: FeedItem) => {
+	if (item.kind === 'post' || item.kind === 'seen') return item.entry.data.title;
+	return item.entry.data.title || item.entry.data.linkText || 'Untitled note';
+};
+
+const latest = feed[0];
+const tickerItems = feed.slice(0, 8);
 ---
 
 <div class="home">
@@ -88,18 +102,64 @@ const hostOf = (url: string) => {
 		</div>
 	</div>
 
-	<!-- ── HERO ── -->
-	<section class="hero">
-		<div class="hero-type">
-			<h1 class="hero-name">
-				<span class="sr-only">mager.co</span>
-				<span class="hero-name-visual" aria-hidden="true"><span class="name-mager"><span class="g1">m</span><span class="g2">a</span><span class="g3">g</span><span class="g4">e</span><span class="g5">r</span></span><span class="name-co"><span class="g6">.</span><span class="g7">c</span><span class="g8">o</span></span></span>
-			</h1>
-			<div class="hero-meta">
-				<p class="hero-tagline">Always learning. Always eating. Chicago.</p>
+	<!-- ── CONTROL CENTER ── -->
+	<header class="control-center">
+		<div class="control-top">
+			<a class="control-brand" href="/" aria-label="mager.co home">
+				<span class="brand-prompt" aria-hidden="true">▸</span>
+				<span class="brand-wordmark"><span class="g1">m</span><span class="g2">a</span><span class="g3">g</span><span class="g4">e</span><span class="g5">r</span><span class="g6">.</span><span class="g7">c</span><span class="g8">o</span></span>
+				<span class="brand-cursor" aria-hidden="true"></span>
+			</a>
+			<p class="control-tagline">Always learning. Always eating. <span>Chicago, IL</span></p>
+			<nav class="control-nav" aria-label="Site sections">
+				<a href="/tech/" style="--acc: var(--tech-accent);">Tech</a>
+				<a href="/cooking/" style="--acc: var(--food-accent);">Food</a>
+				<a href="/life/" style="--acc: var(--life-accent);">Life</a>
+				<a href="/notes/" style="--acc: var(--note-accent);">Notes</a>
+				<a href="/seen/" style="--acc: var(--seen-accent);">Seen</a>
+				<a href="/about" style="--acc: var(--ink);">About</a>
+				<a href="https://bench.mager.co" target="_blank" rel="noopener" class="control-bench">bench<span aria-hidden="true">↗</span></a>
+			</nav>
+			<div class="control-social">
+				<a href="https://x.com/mager" target="_blank" rel="noopener" aria-label="Follow @mager on X">𝕏</a>
+				<a href="https://github.com/mager" target="_blank" rel="noopener" aria-label="mager on GitHub">GH</a>
 			</div>
 		</div>
-	</section>
+		<div class="control-instruments" aria-label="Site information">
+			<div class="instrument instrument-time">
+				<span class="instrument-label"><i class="status-dot" aria-hidden="true"></i>Local time</span>
+				<strong id="chi-clock">--:--:--</strong>
+				<span id="chi-date">Chicago, IL</span>
+			</div>
+			<div class="instrument instrument-weather" id="chi-weather">
+				<span class="instrument-label">Conditions</span>
+				<strong id="weather-temp">--°</strong>
+				<span id="weather-label">Chicago, IL</span>
+			</div>
+			{latest && (
+				<div class="instrument instrument-latest">
+					<span class="instrument-label">Latest dispatch · <FormattedDate date={latest.date} /></span>
+					<a href={itemHref(latest)}>{itemTitle(latest)}</a>
+				</div>
+			)}
+			<div class="instrument instrument-index">
+				<span class="instrument-label">Index</span>
+				<strong>{posts.length + notes.length + seen.length}<small> entries</small></strong>
+				<span><a href="/tech/">{posts.length} posts</a> · <a href="/notes/">{notes.length} notes</a> · <a href="/seen/">{seen.length} seen</a></span>
+			</div>
+		</div>
+	</header>
+
+	{tickerItems.length > 0 && (
+		<div class="dispatch-ticker" aria-label="Latest dispatches">
+			<span class="ticker-label">Dispatches</span>
+			<div class="ticker-track">
+				<div class="ticker-items">
+					{tickerItems.map((item) => <a href={itemHref(item)}>{itemTitle(item)} <span aria-hidden="true">↗</span></a>)}
+				</div>
+			</div>
+		</div>
+	)}
 
 	<!-- ── THE FEED ── -->
 	<section class="feed" aria-label="Latest posts and notes">
@@ -304,6 +364,37 @@ const hostOf = (url: string) => {
 			window.addEventListener('scroll', onScroll, { passive: true });
 		}
 	}
+
+	// ── Control center telemetry ──
+	const clock = document.getElementById('chi-clock');
+	const date = document.getElementById('chi-date');
+	const updateClock = () => {
+		const now = new Date();
+		if (clock) clock.textContent = new Intl.DateTimeFormat('en-US', {
+			timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+		}).format(now);
+		if (date) date.textContent = new Intl.DateTimeFormat('en-US', {
+			timeZone: 'America/Chicago', weekday: 'short', month: 'short', day: 'numeric',
+		}).format(now);
+	};
+	updateClock();
+	window.setInterval(updateClock, 1000);
+
+	const weatherLabel = document.getElementById('weather-label');
+	const weatherTemp = document.getElementById('weather-temp');
+	const weather = document.getElementById('chi-weather');
+	const weatherNames: Record<number, string> = {
+		0: 'Clear skies', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast', 45: 'Foggy', 48: 'Foggy',
+		51: 'Light drizzle', 53: 'Drizzle', 55: 'Drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+		71: 'Light snow', 73: 'Snow', 75: 'Heavy snow', 80: 'Showers', 81: 'Showers', 82: 'Heavy showers', 95: 'Storms', 96: 'Storms', 99: 'Storms',
+	};
+	fetch('https://api.open-meteo.com/v1/forecast?latitude=41.8781&longitude=-87.6298&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
+		.then(response => response.ok ? response.json() : Promise.reject(response.status))
+		.then(data => {
+			if (weatherTemp) weatherTemp.textContent = `${Math.round(data.current.temperature_2m)}°`;
+			if (weatherLabel) weatherLabel.textContent = weatherNames[data.current.weather_code] || 'Chicago, IL';
+		})
+		.catch(() => { if (weather) weather.hidden = true; });
 </script>
 
 <style>
@@ -1028,6 +1119,210 @@ const hostOf = (url: string) => {
 	.topbar-social {
 		display: none;
 	}
+}
+
+/* ══════════════════════════════════════════════════
+   CONTROL CENTER
+══════════════════════════════════════════════════ */
+.topbar { display: none; }
+.control-center {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: color-mix(in srgb, var(--paper) 92%, transparent);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border-top: 3px solid transparent;
+	border-image: linear-gradient(90deg, var(--sunrise-start), var(--sunrise-mid), var(--sunrise-end)) 1;
+	box-shadow: 0 8px 24px oklch(11% 0.015 250 / 0.06);
+}
+.control-top {
+	display: flex;
+	align-items: center;
+	gap: 1.1rem;
+	min-height: 58px;
+	padding: 0.55rem 2.5rem;
+	border-bottom: 1px solid var(--rule);
+}
+.control-brand {
+	display: inline-flex;
+	align-items: center;
+	flex-shrink: 0;
+	color: var(--ink);
+	text-decoration: none;
+}
+.brand-prompt {
+	margin-right: 0.35rem;
+	font: 700 1rem/1 var(--font-mono);
+	color: var(--sunrise-start);
+}
+.brand-wordmark {
+	font: 900 italic 1.65rem/0.9 var(--font-display);
+	letter-spacing: -0.06em;
+}
+.brand-wordmark > span { display: inline-block; }
+.brand-cursor {
+	width: 0.42rem;
+	height: 1.05rem;
+	margin-left: 0.35rem;
+	background: var(--sunrise-start);
+	border-radius: 1px;
+	animation: blink 1s step-end infinite;
+}
+.control-tagline {
+	margin: 0;
+	color: var(--ink-light);
+	font: italic 0.82rem/1.2 var(--font-body);
+	white-space: nowrap;
+}
+.control-tagline span { color: var(--ink-mid); }
+.control-nav {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	margin-left: auto;
+}
+.control-nav a,
+.control-social a {
+	color: var(--ink-mid);
+	text-decoration: none;
+	font: 700 0.68rem/1 var(--font-ui);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	transition: color 150ms ease;
+}
+.control-nav a:hover { color: var(--acc, var(--ink)); }
+.control-nav .control-bench {
+	font: 500 0.7rem/1 var(--font-mono);
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--sunrise-end);
+}
+.control-bench span { margin-left: 0.2rem; }
+.control-social {
+	display: flex;
+	gap: 0.6rem;
+	padding-left: 0.9rem;
+	border-left: 1px solid var(--rule);
+}
+.control-social a { font-size: 0.62rem; letter-spacing: 0.02em; }
+.control-instruments {
+	display: grid;
+	grid-template-columns: 1fr 1fr 2.25fr 1.35fr;
+	padding: 0 2.5rem;
+}
+.instrument {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 0;
+	min-height: 76px;
+	padding: 0.7rem 1.25rem;
+	border-right: 1px solid var(--rule);
+	font-family: var(--font-mono);
+}
+.instrument:first-child { padding-left: 0; }
+.instrument:last-child { padding-right: 0; border-right: 0; }
+.instrument-label {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-bottom: 0.32rem;
+	color: var(--ink-light);
+	font-size: 0.58rem;
+	letter-spacing: 0.1em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+.instrument strong {
+	color: var(--ink);
+	font-size: 1.08rem;
+	font-weight: 600;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+}
+.instrument strong small { color: var(--ink-light); font-size: 0.6rem; font-weight: 400; }
+.instrument > span:last-child,
+.instrument > a {
+	overflow: hidden;
+	color: var(--ink-mid);
+	font-size: 0.68rem;
+	line-height: 1.35;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.instrument a { color: var(--ink); text-decoration: none; }
+.instrument a:hover { color: var(--sunrise-end); }
+.status-dot {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--life-accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--life-accent) 15%, transparent);
+}
+.dispatch-ticker {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	min-height: 31px;
+	padding: 0 2.5rem;
+	border-bottom: 1px solid var(--rule);
+	background: color-mix(in srgb, var(--paper) 86%, var(--sunrise-start));
+}
+.ticker-label {
+	flex: 0 0 auto;
+	color: var(--sunrise-end);
+	font: 700 0.58rem/1 var(--font-mono);
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
+}
+.ticker-track { min-width: 0; overflow: hidden; }
+.ticker-items {
+	display: flex;
+	width: max-content;
+	gap: 2rem;
+	animation: ticker-scroll 70s linear infinite;
+}
+.ticker-items a {
+	color: var(--ink-mid);
+	font: 0.7rem/1.2 var(--font-body);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.ticker-items a:hover { color: var(--ink); }
+.ticker-items a span { color: var(--sunrise-start); font-family: var(--font-mono); }
+@keyframes ticker-scroll { to { transform: translateX(-50%); } }
+.dispatch-ticker:hover .ticker-items { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+	.brand-cursor, .ticker-items { animation: none; }
+}
+
+@media (max-width: 1050px) {
+	.control-top { padding-inline: 1.25rem; }
+	.control-nav { gap: 0.55rem; }
+	.control-tagline { display: none; }
+	.control-instruments, .dispatch-ticker { padding-inline: 1.25rem; }
+}
+@media (max-width: 720px) {
+	.control-center { position: relative; }
+	.control-top { flex-wrap: wrap; gap: 0.75rem; padding-block: 0.65rem; }
+	.control-nav { order: 3; flex: 1 0 100%; justify-content: space-between; gap: 0.35rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); }
+	.control-nav a { font-size: 0.6rem; }
+	.control-social { margin-left: auto; }
+	.control-instruments { grid-template-columns: 1fr 1fr; padding-inline: 1.25rem; }
+	.instrument { min-height: 64px; padding: 0.6rem 0.8rem; }
+	.instrument:first-child { padding-left: 0; }
+	.instrument:nth-child(2) { border-right: 0; padding-right: 0; }
+	.instrument-latest { grid-column: span 2; border-top: 1px solid var(--rule); border-right: 0; padding-left: 0; }
+	.instrument-index { display: none; }
+	.dispatch-ticker { padding-inline: 1.25rem; }
+}
+@media (max-width: 430px) {
+	.control-nav a:nth-child(5), .control-nav a:nth-child(6) { display: none; }
+	.control-nav { justify-content: flex-start; gap: 0.8rem; }
+	.brand-wordmark { font-size: 1.5rem; }
 }
 
 </style>
