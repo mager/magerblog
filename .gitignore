@@ -36,3 +36,6 @@ pnpm-debug.log*
 .gstack/
 .superpowers/
 .env*.local
+
+# wayfinder maps / local issue tracker
+.scratch/
