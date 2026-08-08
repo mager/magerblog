@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -11,11 +11,6 @@ const DESCRIPTION = 'Short notes — quick links, thoughts, and things learned.'
 const notes = (await getCollection('notes'))
 	.filter((n) => !n.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-// render() is async, so resolve every note's Content before mapping in JSX.
-const items = await Promise.all(
-	notes.map(async (note) => ({ note, Content: (await render(note)).Content }))
-);
 
 const hostOf = (url: string) => {
 	try {
@@ -64,63 +59,46 @@ const hostOf = (url: string) => {
 				flex-direction: column;
 				gap: 0;
 			}
-			.note {
-				padding: 1.75rem 0;
-				border-top: 1px solid var(--terminal-border, #30363d);
-			}
-			.note:last-child { border-bottom: 1px solid var(--terminal-border, #30363d); }
-			.note-meta {
+			.note-row {
 				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.8rem;
-				color: var(--text-muted, #6e7681);
-				margin-bottom: 0.6rem;
-			}
-			.note-meta a.permalink {
-				color: var(--text-muted, #6e7681);
+				align-items: baseline;
+				gap: 1.1rem;
+				padding: 0.8rem 0;
+				border-top: 1px solid var(--terminal-border, #30363d);
+				color: inherit;
 				text-decoration: none;
 			}
-			.note-meta a.permalink:hover { color: var(--accent-green); }
-			.note-title {
+			.stream a.note-row:last-child { border-bottom: 1px solid var(--terminal-border, #30363d); }
+			.row-date {
+				flex-shrink: 0;
+				width: 5.25rem;
 				font-family: 'JetBrains Mono', monospace;
-				font-size: 1.25rem;
-				font-weight: 700;
-				margin: 0 0 0.5rem;
-				line-height: 1.3;
+				font-size: 0.75rem;
+				color: var(--text-muted, #6e7681);
 			}
-			.note-title a { color: var(--text-primary); text-decoration: none; }
-			.note-title a:hover { color: var(--accent-green); }
-			.linkout {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4rem;
+			.row-title {
+				flex: 1;
+				min-width: 0;
 				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.9rem;
-				color: var(--accent, #58a6ff);
-				text-decoration: none;
-				margin-bottom: 0.75rem;
-				word-break: break-word;
+				font-size: 1rem;
+				font-weight: 600;
+				line-height: 1.35;
+				color: var(--text-primary);
 			}
-			.linkout:hover { text-decoration: underline; }
-			.linkout::before { content: '→'; opacity: 0.7; }
-			.note-body { color: var(--text-primary); line-height: 1.65; }
-			.note-body :global(p) { margin: 0 0 0.9rem; }
-			.note-body :global(p:last-child) { margin-bottom: 0; }
-			.note-body :global(pre) {
-				border: 1px solid var(--terminal-border, #30363d);
-				border-radius: 8px;
-				padding: 1rem;
-				overflow-x: auto;
-				font-size: 0.85rem;
+			.note-row:hover .row-title { color: var(--accent-green); }
+			.row-tags {
+				flex-shrink: 0;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+				gap: 0.35rem;
+				max-width: 40%;
 			}
-			.note-body :global(code) { font-family: 'JetBrains Mono', monospace; }
-			.tags { margin-top: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 			.tag {
 				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.72rem;
+				font-size: 0.68rem;
 				color: var(--text-muted, #6e7681);
+				white-space: nowrap;
 			}
 			.tag::before { content: '#'; opacity: 0.6; }
 			.feed-link {
@@ -135,6 +113,8 @@ const hostOf = (url: string) => {
 			.empty { color: var(--text-muted, #6e7681); font-family: 'JetBrains Mono', monospace; }
 			@media (max-width: 720px) {
 				.page-header h1 { font-size: 1.5rem; }
+				.note-row { flex-wrap: wrap; gap: 0.3rem 1rem; }
+				.row-tags { max-width: 100%; justify-content: flex-start; }
 			}
 		</style>
 	</head>
@@ -147,37 +127,22 @@ const hostOf = (url: string) => {
 					<p>Quick links, thoughts, and things learned. Long-form lives on the <a href="/blog">blog</a>.</p>
 				</div>
 
-				{items.length === 0 && <p class="empty">No notes yet.</p>}
+				{notes.length === 0 && <p class="empty">No notes yet.</p>}
 
 				<div class="stream">
-					{items.map(({ note, Content }) => {
+					{notes.map((note) => {
 						const slug = `/notes/${note.id}/`;
+						const title = note.data.title ?? (note.data.link ? (note.data.linkText ?? hostOf(note.data.link)) : 'Note');
 						return (
-							<article class="note" id={note.id}>
-								<div class="note-meta">
-									<a class="permalink" href={slug}>
-										<FormattedDate date={note.data.pubDate} />
-									</a>
-								</div>
-
-								{note.data.title && (
-									<h2 class="note-title"><a href={slug}>{note.data.title}</a></h2>
-								)}
-
-								{note.data.link && (
-									<a class="linkout" href={note.data.link} target="_blank" rel="noopener">
-										{note.data.linkText ?? hostOf(note.data.link)}
-									</a>
-								)}
-
-								<div class="note-body"><Content /></div>
-
+							<a class="note-row" href={slug}>
+								<span class="row-date"><FormattedDate date={note.data.pubDate} /></span>
+								<span class="row-title">{title}</span>
 								{note.data.tags && note.data.tags.length > 0 && (
-									<div class="tags">
-										{note.data.tags.map((t) => <span class="tag">{t}</span>)}
-									</div>
+									<span class="row-tags">
+										{note.data.tags.slice(0, 3).map((t) => <span class="tag">{t}</span>)}
+									</span>
 								)}
-							</article>
+							</a>
 						);
 					})}
 				</div>
