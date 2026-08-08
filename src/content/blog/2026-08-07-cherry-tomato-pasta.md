@@ -26,7 +26,7 @@ This is what to do with the cherry tomatoes piling up faster than you can eat th
 
 - 2 pints cherry tomatoes (about 4 cups), a mix of colors if you can find them
 - 4 garlic cloves, thinly sliced
-- 1 small hit Calabrian chiles, chopped (optional)
+- 1 small hit of jarred Calabrian chiles, chopped (optional)
 - 1/4 cup olive oil, plus more to finish
 - Kosher salt and black pepper, to taste
 - 3 tbsp unsalted butter
@@ -62,7 +62,7 @@ Tear the basil over the top right before serving.
 - Butter is doing real work here, not just flavor. It's the same mounting technique from a pan sauce, and it's what keeps this from tasting thin.
 - No pasta water on hand because you forgot to reserve it? A splash of hot tap water with a pinch of salt gets you most of the way there, but the starch from real pasta water is hard to fake.
 - This scales down fine for one — halve everything and use a smaller skillet so the tomatoes still have room to blister instead of steam.
-- If you know, you know: a small hit of chopped Calabrian chiles in with the garlic adds heat and funk without fighting the tomatoes. Not required, but it's how I actually make this.
+- If you know, you know: a small hit of chopped jarred Calabrian chiles in with the garlic adds heat and funk without fighting the tomatoes. Not required, but it's how I actually make this.
 
 </div>
 </div>
