@@ -8,9 +8,9 @@ draft: true
 tags: [opencode, buzz, acp, agents, harness, mac-mini, gbrain, migration]
 ---
 
-<!-- TODO before publish (after Go credits reset and kimi-k3 proves out end-to-end):
-     - update the "day one, honest edition" section with how the flip-back went
-     - confirm final model (kimi-k3 principal + deepseek-v4-flash subagents, or whatever wins)
+<!-- TODO before publish:
+     - phone end-to-end still pending (Mager pairing the Buzz app)
+     - a week of usage data on the flash-principal / kimi-escalation split
      - run blog-seo, tone pass, npm run build, then flip draft: false -->
 
 Two months ago I [killed OpenClaw for a native Claude Code setup](/blog/2026-06-02-killing-openclaw/): `claude --channels`, one `CLAUDE.md`, Telegram in and out, always-on on a Mac mini in Chicago. Yesterday I killed that too. The always-on agent now runs [OpenCode](https://opencode.ai) on OpenCode Go — $10/month for open models — and I reach it through [Buzz](/blog/2026-07-24-buzz-explainer/), the Nostr workspace, instead of Telegram.
@@ -34,7 +34,7 @@ The shape, end to end:
 [opencode acp]  the agent process
         │  OpenCode Go API
         ▼
-[kimi-k3]  $10/mo flat, no per-token bill
+[deepseek-v4-flash]  cheap default; kimi-k3 when the task earns it
         │
         └── MCP: gbrain (memory) ── ~/.gbrain/brain.pglite
 ```
@@ -69,11 +69,11 @@ That's the lesson after three harnesses: the durable assets are the brain (files
 
 ## The unattended config
 
-An always-on agent can't ask permission. OpenCode's equivalent of `--dangerously-skip-permissions`, with one deliberate exception:
+An always-on agent can't ask permission. OpenCode's equivalent of `--dangerously-skip-permissions`, with one deliberate exception (the model line is the day-one economics edit — more on that below):
 
 ```jsonc
 {
-  "model": "opencode-go/kimi-k3",
+  "model": "opencode-go/deepseek-v4-flash",
   "permission": {
     "*": "allow",
     "read": {
@@ -103,14 +103,20 @@ One caveat I'm writing down so future-me doesn't learn it the hard way: a canary
 
 ## Day one, honest edition
 
-The migration took an afternoon and immediately produced a real finding: I hit OpenCode Go's 5-hour usage cap on kimi-k3 during verification. The harness, gbrain, subagent dispatch, the watchdog, and the canary all proved out — on `opencode/big-pickle`, a free model, while the Go quota resets. That's either a footnote (rate limits happen; the architecture absorbed it without a code change — I edited one model string in three files) or a preview of life inside a $10/month request budget. I'll know which after a few weeks of real usage, and I'll update this post when the flip-back proves out.
+The migration took an afternoon and immediately produced real findings.
 
-Also wrong in my plan: I assumed Buzz's web UI would be the phone client. It isn't — it's a repos viewer. The phone answer turned out to be the native Buzz app, paired to my relay over Tailscale through a `buzz://connect` deep link. Fine outcome, wrong assumption.
+**Finding one: the rate limit is the product.** I hit OpenCode Go's 5-hour usage cap on kimi-k3 during *verification* — before a single real task ran. The harness sat on `opencode/big-pickle`, a free model, for four hours while the quota reset. The architecture absorbed this without a code change: a model is one string in three files, and everything else — harness, memory, subagents, supervision — kept working. When the window reset, kimi-k3 answered a live canary in 13 seconds.
+
+**Finding two: kimi is too expensive to be the default.** Within minutes of the flip-back it was clear that an always-on agent would live inside that 5-hour window permanently. So the principal now runs deepseek-v4-flash — the cheap workhorse — with kimi-k3 reserved for tasks that need it. First flash canary: 14 seconds. One reply got silently dropped along the way (turn completed, nothing posted, no error in any log — exactly the failure mode the canary exists for; it reproduced clean on retry and I'm watching for a pattern).
+
+**Finding three: my phone plan was wrong.** I assumed Buzz's web UI would be the phone client. It isn't — it's a repos viewer. The phone answer is the native Buzz app, paired to my relay over Tailscale through a `buzz://connect` deep link. Fine outcome, wrong assumption.
+
+And one knob worth recording: the canary costs one agent turn per run. On free models that's nothing; inside a Go request budget it's the difference between 144 probes a day and a sustainable one-every-six-hours. It now runs every six hours.
 
 ## What's the same
 
 Everything that made the last setup good survived: the brain (now `AGENTS.md` instead of `CLAUDE.md` — same file, new name), the seven product subagents, gbrain memory, the Mac mini, Tailscale, tmux + launchd, the principal-agent pattern where one session dispatches narrow work and keeps control.
 
-What's different: Telegram is no longer the transport (my relay, my keys, my logs), Claude is no longer the runtime (for now — the seam is one line if that changes), and the marginal cost of the agent existing is $10 a month flat.
+What's different: Telegram is no longer the transport (my relay, my keys, my logs), Claude is no longer the runtime (for now — the seam is one line if that changes), the default model is a cheap open one with an escalation path instead of a single expensive one, and the marginal cost of the agent existing is $10 a month flat.
 
 The brain doesn't care what body it wears. Increasingly, neither do I.
