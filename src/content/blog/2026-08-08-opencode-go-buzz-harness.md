@@ -2,20 +2,16 @@
 title: "OpenCode Go + Buzz: killing Claude Code for a $10 harness"
 description: "Second harness migration in two months. The always-on agent on my Mac mini now runs OpenCode on $10/mo open models instead of Claude Code, reachable from my phone over my own Buzz relay instead of Telegram. The interesting part: the swap was one line, because the protocol — not the model — is the actual seam."
 pubDate: 2026-08-08
+updatedDate: 2026-08-10
 category: tech
 keyword: "OpenCode Go"
-draft: true
+draft: false
 tags: [opencode, buzz, acp, agents, harness, mac-mini, gbrain, migration]
 ---
 
-<!-- TODO before publish:
-     - phone end-to-end still pending (Mager pairing the Buzz app)
-     - a week of usage data on the flash-principal / kimi-escalation split
-     - run blog-seo, tone pass, npm run build, then flip draft: false -->
+Two months ago I [killed OpenClaw for a native Claude Code setup](/blog/2026-06-02-killing-openclaw/): `claude --channels`, one `CLAUDE.md`, Telegram in and out, always-on on a Mac mini in Chicago. Two days ago I killed that too. The always-on agent now runs [OpenCode](https://opencode.ai) on OpenCode Go — $10/month for open models — and I reach it through [Buzz](/blog/2026-07-24-buzz-explainer/), the Nostr workspace, instead of Telegram.
 
-Two months ago I [killed OpenClaw for a native Claude Code setup](/blog/2026-06-02-killing-openclaw/): `claude --channels`, one `CLAUDE.md`, Telegram in and out, always-on on a Mac mini in Chicago. Yesterday I killed that too. The always-on agent now runs [OpenCode](https://opencode.ai) on OpenCode Go — $10/month for open models — and I reach it through [Buzz](/blog/2026-07-24-buzz-explainer/), the Nostr workspace, instead of Telegram.
-
-This is the third harness the brain has lived in. The migrations keep getting cheaper, and the reason why is the actual point of this post.
+This is the third harness the brain has lived in. The migrations keep getting cheaper, and the reason is the point of this post.
 
 ## How it all works
 
@@ -25,7 +21,7 @@ The shape, end to end:
 [Phone: Buzz app over Tailscale]
         │  Nostr events, signed
         ▼
-[Buzz relay]  ws://100.85.174.76:3000   (tmux: buzzrelay)
+[Buzz relay]  wss://magerbots-mac-mini.tail34e0d5.ts.net:8443   (Tailscale HTTPS, tmux: buzzrelay)
         │  websocket subscription
         ▼
 [buzz-acp]  mention filter, owner gate   (tmux: buzzacp)
@@ -44,7 +40,7 @@ A message's full life:
 1. I @mention `magerbot` in a Buzz channel on my phone. The app signs the event with my Nostr key and publishes it to my self-hosted relay.
 2. `buzz-acp` — a small Rust bridge — subscribes to every channel, filters for events that p-tag magerbot's pubkey, and checks the sender against an owner gate: my pubkey, plus one allowlisted bridge key. Everyone else is ignored.
 3. On a match, buzz-acp spawns (or reuses) an ACP session: `opencode acp` running as a child process, speaking the [Agent Client Protocol](https://agentclientprotocol.com) over stdio. One session per channel, so each product — magerblog, beatbrain, prxps, loooom, kotsu — gets its own context for free. No more `/clear` between unrelated jobs; the separation is structural.
-4. OpenCode loads the brain: a global `AGENTS.md` (ported from my `CLAUDE.md`), seven subagent definitions, and gbrain — my semantic memory layer — as a local MCP server. It calls kimi-k3 on OpenCode Go, does the work, streams the answer back.
+4. OpenCode loads the brain: a global `AGENTS.md` (ported from my `CLAUDE.md`), seven subagent definitions, and gbrain — my semantic memory layer — as a local MCP server. It calls deepseek-v4-flash by default on OpenCode Go — kimi-k3 when the task earns it — does the work, streams the answer back.
 5. buzz-acp signs the reply as magerbot and posts it to the same channel. Round trip on a trivial prompt: about six seconds.
 
 The Telegram harness is still running in parallel as a fallback. Cutover is a decision for after the new stack proves itself, not before.
@@ -79,7 +75,8 @@ An always-on agent can't ask permission. OpenCode's equivalent of `--dangerously
     "read": {
       "*": "allow",
       "*.env": "deny",
-      "*.env.*": "deny"
+      "*.env.*": "deny",
+      "*.env.example": "allow"
     }
   },
   "mcp": {
@@ -97,9 +94,9 @@ buzz-acp also auto-approves ACP permission requests on its own, so the belt-and-
 
 Same pattern as the Telegram harness — tmux plus a launchd watchdog that recreates the session every 120 seconds if it's gone — with one upgrade earned from experience. The old harness once died *silently*: process alive, network path dead, bot deaf. A liveness check would have reported green.
 
-So the new healthcheck is a canary, not a heartbeat. Every ten minutes a script signs an @magerbot mention from the allowlisted bridge key, waits up to five minutes for a reply, and restarts the session after two consecutive misses. It tests the whole path — relay, bridge, agent, model API — because it *is* the whole path.
+So the new healthcheck is a canary, not a heartbeat. Every six hours a script signs an @magerbot mention from the allowlisted bridge key, waits up to five minutes for a reply, and restarts the session after two consecutive misses. It tests the whole path — relay, bridge, agent, model API — because it *is* the whole path.
 
-One caveat I'm writing down so future-me doesn't learn it the hard way: a canary costs one agent turn per run. On a free model that's nothing. On kimi-k3's daily request budget, 144 probes a day would eat the entire allowance. When the harness flips back to Go models, the canary drops to every six hours.
+One caveat I'm writing down so future-me doesn't learn it the hard way: a canary costs one agent turn per run. On a free model that's nothing. Inside a Go request budget it's the difference between 144 probes a day and a sustainable one-every-six-hours — which is why it runs at six hours, a conservative cadence that still catches a silent failure within a working day.
 
 ## Day one, honest edition
 
@@ -109,9 +106,7 @@ The migration took an afternoon and immediately produced real findings.
 
 **Finding two: kimi is too expensive to be the default.** Within minutes of the flip-back it was clear that an always-on agent would live inside that 5-hour window permanently. So the principal now runs deepseek-v4-flash — the cheap workhorse — with kimi-k3 reserved for tasks that need it. First flash canary: 14 seconds. One reply got silently dropped along the way (turn completed, nothing posted, no error in any log — exactly the failure mode the canary exists for; it reproduced clean on retry and I'm watching for a pattern).
 
-**Finding three: my phone plan was wrong.** I assumed Buzz's web UI would be the phone client. It isn't — it's a repos viewer. The phone answer is the native Buzz app, paired to my relay over Tailscale through a `buzz://connect` deep link. Fine outcome, wrong assumption.
-
-And one knob worth recording: the canary costs one agent turn per run. On free models that's nothing; inside a Go request budget it's the difference between 144 probes a day and a sustainable one-every-six-hours. It now runs every six hours.
+**Finding three: my phone plan was wrong.** I assumed Buzz's web UI would be the phone client. It isn't — it's a repos viewer. The phone answer is the native Buzz app: the desktop client works out of the box, and the iPhone pairs through the desktop pairing flow and reaches the relay over Tailscale end to end. Fine outcome, wrong assumption.
 
 ## What's the same
 
