@@ -21,7 +21,7 @@ The shape, end to end:
 [Phone: Buzz app over Tailscale]
         │  Nostr events, signed
         ▼
-[Buzz relay]  wss://magerbots-mac-mini.tail34e0d5.ts.net:8443   (Tailscale HTTPS, tmux: buzzrelay)
+[Buzz relay]  wss://<tailnet-hostname>:8443   (Tailscale HTTPS, tmux: buzzrelay)
         │  websocket subscription
         ▼
 [buzz-acp]  mention filter, owner gate   (tmux: buzzacp)
