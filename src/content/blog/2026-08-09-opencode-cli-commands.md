@@ -1,10 +1,9 @@
 ---
 title: "OpenCode CLI: ten commands worth knowing"
 description: "OpenCode's CLI is bigger than 'type opencode and start a session.' Headless runs, provider auth, model discovery, MCP wiring, session archaeology, cost stats, and upgrades — the ten commands that carry daily work, with the doc gaps called out where they bite."
-pubDate: 2026-08-09
+pubDate: 2026-08-10
 category: tech
 keyword: "OpenCode CLI"
-draft: true
 tags: [opencode, cli, terminal, agents, tooling, ai]
 ---
 
