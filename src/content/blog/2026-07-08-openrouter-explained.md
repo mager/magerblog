@@ -4,7 +4,7 @@ description: "OpenRouter lets you pick a different model for every step in a pip
 pubDate: 2026-07-08
 category: tech
 keyword: "OpenRouter"
-draft: true
+draft: false
 tags: ["ai", "openrouter", "agents", "magerbot", "typescript", "claude"]
 ---
 
