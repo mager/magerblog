@@ -92,6 +92,51 @@ Try Anthropic first; fall back to the same model via Vertex if Anthropic is slow
 
 ---
 
+## The programmable boundary: Eve's streaming HTTP API
+
+This is the piece I haven't built anything against yet, and it's the one that made the stack click for me — so I want to write it down in a way that doesn't assume you've seen it before. I hadn't.
+
+Eve exposes every running agent as one ID-addressed HTTP contract, documented as [Sessions, Runs & Streaming](https://eve.dev/docs/concepts/sessions-runs-and-streaming). Three routes cover almost everything:
+
+1. **Start a session** — `POST /eve/v1/session` with your first message. You get back a durable `sessionId`, in the JSON body and the `x-eve-session-id` header.
+2. **Subscribe to the stream** — `GET /eve/v1/session/<sessionId>/stream`. An open HTTP connection that pushes newline-delimited JSON (NDJSON), one event per line, as the agent works.
+3. **Send follow-ups** — `POST /eve/v1/session/<sessionId>` with `{"message": "..."}`. The session keeps its history and state; you're talking to the same agent, not spinning up a fresh one.
+
+In curl, straight from the docs:
+
+```bash
+# 1. create a session
+curl -X POST http://127.0.0.1:2000/eve/v1/session \
+  -H 'content-type: application/json' \
+  -d '{"message":"Summarize the latest forecast."}'
+# → { "sessionId": "<sessionId>" }
+
+# 2. stream events as they happen
+curl http://127.0.0.1:2000/eve/v1/session/<sessionId>/stream
+
+# 3. follow up once the session is waiting
+curl -X POST http://127.0.0.1:2000/eve/v1/session/<sessionId> \
+  -H 'content-type: application/json' \
+  -d '{"message":"Now send the short version."}'
+```
+
+**Why this is different from a one-shot JSON request.** The LLM API pattern I know is: send a prompt, wait, get a complete response. An agent doesn't work that way — it reasons, calls tools, waits for approvals, and produces output over minutes, not milliseconds. The stream is how you see all of it live. The event types in the docs are the agent's internal life, surfaced: `reasoning.appended` as the model thinks, `message.appended` as assistant text arrives, `actions.requested` when a tool call is proposed, `input.requested` when the run pauses for human approval, `turn.completed` when a turn finishes, `session.waiting` when it parks for the next message. Every event is `{ type, data, meta }`, and `meta.id` is a stable identifier you can key on — which matters the moment you reconnect, because the stream is durable and replayable from a `startIndex` cursor.
+
+**Why this matters for products.** Once the agent is reachable over HTTP, the frontend becomes your problem — in the good sense. A web UI can render text deltas as they stream in. A mobile client can show "thinking / calling a tool / waiting for your approval" instead of a spinner. An enterprise portal or support console can embed an agent pane without caring what the agent is built on, because the boundary is just HTTP. Sessions themselves are durable — 30 days by default, configurable in `agent.ts` — so a long-running piece of work can outlive any single connection. And when the agent needs a human, `input.requested` carries the approval prompt; you answer with structured responses keyed by request ID, which is how a portal implements a review step rather than a free-for-all.
+
+**The part that is not magic.** This is a transport, not a security boundary. The same HTTP contract that makes an agent embeddable makes it reachable, so production still needs the full API checklist: authentication and authorization (Eve's default auth chain is Vercel OIDC plus a local-development bypass, and a deployed target requires a valid OIDC bearer — see [auth & route protection](https://eve.dev/docs/guides/auth-and-route-protection)), rate limits, tenant isolation so one customer's session can't touch another's, audit logs of who sent what and when, and real scrutiny of the tools the agent can call — a streaming agent with tool access is a bigger attack surface than a chatbot without it. The stream makes the agent programmable; the security work stays yours.
+
+**Where this sits in the stack.** The thesis of this post, made concrete:
+
+- **AI Gateway** handles model flexibility and billing — swap models, control spend, no markup.
+- **Eve** exposes the agent — durable sessions, tools, approvals, deployed as a normal Vercel project.
+- **Streaming HTTP** is the programmable UI and channel boundary — any frontend, portal, or console that can speak HTTP can host the agent.
+- **Buzz stays a separate channel layer** — the phone-to-harness path runs over my own Nostr relay and ACP ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), not through this API.
+
+None of those layers cares what the others are made of. That's the point.
+
+---
+
 ## The enterprise section: the real product
 
 Everything above is me being a small operator. The reason I think this pattern is the right answer — and the reason I'd argue for it inside a company — is that every feature I want for myself is the same feature a platform team wants for a hundred engineers, just with the dials turned up. AI Gateway was clearly built with that in mind, and it shows in the feature list:
