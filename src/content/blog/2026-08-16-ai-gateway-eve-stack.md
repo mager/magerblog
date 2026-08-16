@@ -44,7 +44,7 @@ Before the enterprise section, the things that keep this honest:
 
 - **AI Gateway is not free AI, and it's not a subscription in disguise.** It's pay-as-you-go at provider list prices with zero markup. The free tier exists but covers a subset of models with rate limits — exceed them and you get `429`s, and buying credits moves you to the paid tier. If your mental model is "Vercel now bundles AI into my plan," correct that now.
 
-- **Eve and Buzz are not a drop-in pair.** I'd love to point my phone harness at an Eve agent directly. That doesn't work today — ACP compatibility constraints mean the bridge can't drive an Eve agent the way it drives OpenCode. The path that *does* work is the one I already run: **Buzz → OpenCode → AI Gateway** ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), and it's a documented one. `vercel ai-gateway coding-agents setup --agent opencode` provisions a gateway key and adds the `vercel` provider to `~/.config/opencode/opencode.json`, keeping the key in the macOS Keychain instead of plaintext config. Then `/connect` inside OpenCode, pick models with `/models`, and requests route through the gateway.
+- **Eve and Buzz are not a drop-in pair.** I'd love to point my phone harness at an Eve agent directly. That doesn't work today — ACP compatibility constraints mean the bridge can't drive an Eve agent the way it drives OpenCode. The path that *does* work is the one I already run: **Buzz → OpenCode → AI Gateway** ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), and it's a documented one. `vercel ai-gateway coding-agents setup --agent opencode` provisions a gateway key and adds the `vercel` provider to `~/.config/opencode/opencode.json`, keeping the key in the macOS Keychain instead of plaintext config. Then `/connect` inside OpenCode, pick models with `/models`, and requests route through the gateway. The current state of that integration — what lines up and what doesn't — gets its own section below.
 
 - **BYOK costs a little context.** Bring-your-own-key is supported with no markup, but it's a paid-tier feature: you need credits on the account. And when your own credentials fail, the gateway retries with its own credentials and charges that fallback usage to your credit balance. Reasonable, but worth knowing before you wire an enterprise contract into it.
 
@@ -94,7 +94,7 @@ Try Anthropic first; fall back to the same model via Vertex if Anthropic is slow
 
 ## The programmable boundary: Eve's streaming HTTP API
 
-This is the piece I haven't built anything against yet, and it's the one that made the stack click for me — so I want to write it down in a way that doesn't assume you've seen it before. I hadn't.
+This is the piece I hadn't built anything against when I started this post — then I went and built exactly that, and the shape held up. Details in the next section. First, the pattern, written for people who haven't seen it before, because I hadn't.
 
 Eve exposes every running agent as one ID-addressed HTTP contract, documented as [Sessions, Runs & Streaming](https://eve.dev/docs/concepts/sessions-runs-and-streaming). Three routes cover almost everything:
 
@@ -134,6 +134,56 @@ curl -X POST http://127.0.0.1:2000/eve/v1/session/<sessionId> \
 - **Buzz stays a separate channel layer** — the phone-to-harness path runs over my own Nostr relay and ACP ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), not through this API.
 
 None of those layers cares what the others are made of. That's the point.
+
+---
+
+## What I actually built: the magerbot Eve agent
+
+The section above was written from the docs. Then I built against it for real, and it works.
+
+The agent lives at `~/magerbot`, scaffolded from `eve init` and packaged as `magerbot`. It's my always-on assistant: it knows the web properties — magerblog, beatbrain, prxps, loooom, kotsu — their domains and repos, and it does research. The build is functionally complete and verified end-to-end through exactly the HTTP flow from the last section: create a session, stream the NDJSON lifecycle, watch it call a tool, follow up. Typecheck passes.
+
+The pieces that are actually in there:
+
+- **`instructions.md`** — the agent's identity, replacing the scaffold placeholder.
+- **`web_properties.ts`** — the first typed tool; resolves the five properties to id, name, domain, and repo.
+- **Two MCP connections** — GitHub through a remote MCP server (`api.githubcopilot.com/mcp`) and gbrain through a local HTTP MCP (`localhost:3131/mcp`). Secrets live in a gitignored `.env`; nothing credential-shaped touches the repo.
+- **The Web Chat scaffold** — a Next.js channel (`app/`, `components/`, wired through `withEve` in `next.config.ts`), so there's a browser UI to point at the agent.
+
+Two details cost real time, so I'll name them.
+
+**gbrain runs over HTTP MCP because Eve doesn't use the stdio transport here.** Eve's [connections](https://eve.dev/docs/connections) support HTTP/SSE transport; the stdio `gbrain serve` isn't usable by the agent. So gbrain serves over HTTP on port 3131, and the connection's `getToken` mints an OAuth `client_credentials` token per call, so the secret is never at rest in agent code. There's flakiness — the PGLite WASM init on this machine occasionally fails on first launch — but retrying works, and the health endpoint reports `200` when it's up.
+
+**The model is `zai/glm-5.2` routed through AI Gateway.** The gateway key comes from the environment (`/eve/v1/info` reports `connected: true` only when it's present). OpenCode Go stays exactly where it was — the distinct, cheap default for the always-on harness and everything else. Eve gets its own model; the stack doesn't demand that they agree.
+
+The verification run, concretely: `POST /eve/v1/session` returned a session id; `GET /eve/v1/session/:id/stream` produced the full documented lifecycle — `session.started`, `turn.started`, reasoning, `actions.requested` with the `web_properties` tool call, `action.result`, `message.appended` / `message.completed`, `turn.completed`, `session.waiting` — and the follow-up POST streamed a correct reply. That's the whole loop from the docs, working on the first real agent.
+
+---
+
+## Buzz stays the channel layer
+
+Buzz stays the communication layer, because I like it: my own Nostr relay, my keys, my logs ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), and it's what the always-on harness answers through. None of that changes.
+
+What's honest about the integration status: the current path — **Buzz → buzz-acp → OpenCode → AI Gateway** — remains viable and is what runs today. Direct **Buzz → Eve** is not drop-in, and I don't want to imply otherwise. Two concrete reasons: the ACP behavior and protocol the current Buzz bridge speaks, and Eve's [ACP](https://eve.dev/docs/protocols/acp) limitations, don't line up; and Eve doesn't accept client-injected MCP servers, which is how the harness attaches gbrain to OpenCode today. So the near-term setup is deliberate, not accidental:
+
+- **Buzz stays on OpenCode Go / AI Gateway** — the phone-to-harness path keeps working exactly as it does now.
+- **Eve runs as the programmable HTTP / Web Chat agent** — reachable over the streaming API and the Web Chat scaffold, not over Buzz.
+- **If I want one unified Buzz-driven Eve agent**, that's a project: a deliberate adapter, or a [custom Eve channel](https://eve.dev/docs/channels/custom) that speaks the bridge's protocol. An explicit seam, not a hack.
+
+---
+
+## What remains
+
+Honest checklist, because "functionally complete" and "done" are different words:
+
+- **The agent repo is committed and pushed.** The magerbot project lives in the `hearth` repo on GitHub, the working tree is clean, and `.env` stays out (gitignored). What hasn't happened is any kind of release — the rest of this list is the release checklist.
+- **Replace the placeholder production auth before any public deployment.** `agent/channels/eve.ts` still ships the scaffold's `placeholderAuth()`, which returns a structured 401 in production. A real `AuthFn` — [auth & route protection](https://eve.dev/docs/guides/auth-and-route-protection) — has to go in first.
+- **Decide model routing.** `zai/glm-5.2` is Eve's default through the gateway; OpenCode Go stays the default for the harness. Whether Eve's heavier jobs deserve a different default is an open question, and it's the kind of question the gateway makes cheap to answer.
+- **Keep the gbrain HTTP service supervised.** Right now it's `nohup` — fine for a verification afternoon, not for production. It needs the same watchdog treatment the harness got.
+- **Configure AI Gateway budgets.** The spend-control layer only pays off if the caps are actually set.
+- **Choose whether Buzz needs an adapter or stays on OpenCode.** The near-term split above works; "one agent for everything" is a decision, not a default.
+
+Every item on that list is the same item a team would close out before an agent reaches production. Which is the point of the next section.
 
 ---
 
