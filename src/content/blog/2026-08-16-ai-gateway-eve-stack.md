@@ -1,6 +1,6 @@
 ---
 title: "AI Gateway: the end of the single-provider AI subscription"
-description: "I'm moving off single-provider AI subscriptions toward a stack of parts — Eve for agents, Vercel AI Gateway for routing, spend control, and no-markup provider pricing, OpenCode Go for the cheap default — and the enterprise version of that stack is the real product."
+description: "I'm moving off single-provider AI subscriptions toward a stack of parts — Eve for agents, Vercel AI Gateway as the primary model access and billing layer with no-markup provider pricing, and OpenCode Go kept as the fallback — and the enterprise version of that stack is the real product."
 pubDate: 2026-08-16
 category: tech
 keyword: "AI Gateway"
@@ -12,7 +12,7 @@ I've run my AI life on subscriptions for a while now. One vendor, one model fami
 
 The second crack is the cost story on the hosting side. I've been on Vercel's free tier for years — it's how mager.co and a few side projects have run since the beginning. That arrangement is starting to bend. Free limits get hit, and I've already made one round of cuts: I shut down two side projects I was fond of — [BeatBrain](/blog/2026-03-25-beatbrain-v2-backend-rewrite/), the music-discovery app, and [Kotsu](/blog/2026-03-21-kotsu-the-knack-for-japanese/), the Japanese-learning site — to keep mager.co inside the tier. So I'm now at the point where I either start paying Vercel or keep trimming — and if I'm going to pay, I want to know precisely what the money buys.
 
-The answer I've converged on is not "a bigger subscription." It's a stack: [Eve](/blog/2026-06-18-vercel-eve/) for the agents themselves, Vercel [AI Gateway](https://vercel.com/docs/ai-gateway) as the routing and spend-control plane, and OpenCode Go staying on as the cheap default brain for the always-on harness. Three pieces that each do one job, none of them locked to a single model family.
+The answer I've converged on is not "a bigger subscription." It's a stack: [Eve](/blog/2026-06-18-vercel-eve/) for the agents themselves, Vercel [AI Gateway](https://vercel.com/ai-gateway) as the primary model access and billing layer, and OpenCode Go kept as the backup — still useful if the gateway is unavailable or its budget and rate limits are exhausted. Three pieces that each do one job, none of them locked to a single model family.
 
 ---
 
@@ -32,9 +32,9 @@ Three pieces, each owned by a different project, each doing one job:
 
 **Eve** — Vercel's open-source agent framework ([previous post](/blog/2026-06-18-vercel-eve/)). The agent is a directory; the filesystem is the config; sessions checkpoint so long-running work survives crashes; deploy is `vercel deploy`. Eve is what I'd reach for when an agent is a real product — something that lives in a repo, has a schedule, a channel, an approval flow — rather than an interactive session in a terminal.
 
-**AI Gateway** — the control plane. One key, hundreds of models across Anthropic, OpenAI, Google, xAI and others, behind a unified API (OpenAI Chat Completions, the Responses API, Anthropic Messages, or the AI SDK). You route per request, get per-request cost and latency in the dashboard, set fallbacks, bring your own keys, and — the pricing fact that matters — **there is no markup on tokens**. You pay the provider's list price, pay-as-you-go, funded by AI Gateway credits. It is not unlimited AI. It is metered access to other people's models at their list prices, with a billing and routing layer in front.
+**AI Gateway** — the primary model access and billing layer. One key, hundreds of models across Anthropic, OpenAI, Google, xAI and others, behind a unified API (OpenAI Chat Completions, the Responses API, Anthropic Messages, or the AI SDK). You route per request, get per-request cost and latency in the dashboard, set fallbacks, bring your own keys, and — the pricing fact that matters — **there is no markup on tokens**. You pay the provider's list price, pay-as-you-go, funded by AI Gateway credits. It is not unlimited AI. It is metered access to other people's models at their list prices, with a billing and routing layer in front.
 
-**OpenCode Go** — the $10/month flat plan for open models that runs my always-on harness ([migration post](/blog/2026-08-08-opencode-go-buzz-harness/)). It stays. It's a distinct and genuinely good option: predictable cost, capable models, no per-token anxiety for an agent that answers random questions from my phone at six-second round trips. The stack isn't "one gateway to rule them all" — it's "use the right tool per job," and for the chatty always-on default, OpenCode Go is the right tool.
+**OpenCode Go** — the $10/month flat plan for open models ([migration post](/blog/2026-08-08-opencode-go-buzz-harness/)). It stays, in a new role. After experimenting with the gateway, the default flipped: AI Gateway is now the primary model access and billing layer, and OpenCode Go is the backup — the emergency option if the gateway is unavailable or its budget and rate limits are exhausted. That's not a knock on it. It's a distinct and genuinely good option: predictable cost, capable models, no per-token anxiety for an agent that answers random questions from my phone at six-second round trips. The stack isn't "one gateway to rule them all" — it's "have a primary and a fallback," and OpenCode Go is the fallback I'm glad to have.
 
 ---
 
@@ -52,7 +52,7 @@ Before the enterprise section, the things that keep this honest:
 
 ## How it fits together for me
 
-The always-on harness on the Mac mini doesn't change much. OpenCode Go stays the default — it's the right economics for an agent that's idle most of the time. AI Gateway enters at the edges: when a job genuinely wants a specific model (a Claude for a hard reasoning task, a Gemini for a multimodal one), when I want fallback so a single provider outage doesn't stall work, and when I want the dashboard's per-request cost numbers instead of a monthly guess.
+The always-on harness on the Mac mini flipped with the experiment. AI Gateway is now the primary model access and billing layer: one key, per-request cost numbers, the dashboard instead of a monthly guess. OpenCode Go stays wired in as the fallback — if the gateway is unavailable, or its budget and rate limits are exhausted, the harness drops back to the flat plan and keeps answering. That's the honest reason it remains useful.
 
 Eve is the layer for agents that deserve to be products — scheduled, channel-connected, deployable. Those get their own repos, their own Vercel projects, and the gateway in front of their model calls.
 
@@ -60,9 +60,9 @@ Eve is the layer for agents that deserve to be products — scheduled, channel-c
 [Buzz on phone] → [Buzz relay] → [buzz-acp]
                                        │  ACP
                                        ▼
-                              [OpenCode]  ← OpenCode Go default
+                              [OpenCode]  ← OpenCode Go fallback
                                        │
-                    AI Gateway when the job calls for it
+                     AI Gateway primary (budget, rate limits, fallback)
                                        ▼
                      [Anthropic / OpenAI / Google / xAI / ...]
 
@@ -77,9 +77,9 @@ The config that makes routing concrete, straight from the gateway's OpenCode int
   "provider": {
     "vercel": {
       "models": {
-        "anthropic/claude-sonnet-5": {
+        "xai/grok-4.6": {
           "options": {
-            "order": ["anthropic", "vertex"]
+            "order": ["xai"]
           }
         }
       }
@@ -88,7 +88,7 @@ The config that makes routing concrete, straight from the gateway's OpenCode int
 }
 ```
 
-Try Anthropic first; fall back to the same model via Vertex if Anthropic is slow or down. That's the whole routing story at the coding-agent level: a preference order, per model, and the gateway handles the rest — including retries, timeouts, and billing.
+Route [xai/grok-4.6](https://vercel.com/ai-gateway/models/grok-4.6) through xAI first; if that provider is slow or down, the gateway moves to the next one in the order — add a second provider to that list if you have a route to the same model. That's the whole routing story at the coding-agent level: a preference order, per model, and the gateway handles the rest — including retries, timeouts, and billing.
 
 ---
 
@@ -128,7 +128,7 @@ curl -X POST http://127.0.0.1:2000/eve/v1/session/<sessionId> \
 
 **Where this sits in the stack.** The thesis of this post, made concrete:
 
-- **AI Gateway** handles model flexibility and billing — swap models, control spend, no markup.
+- **AI Gateway** is the primary model access and billing layer — swap models, control spend, no markup.
 - **Eve** exposes the agent — durable sessions, tools, approvals, deployed as a normal Vercel project.
 - **Streaming HTTP** is the programmable UI and channel boundary — any frontend, portal, or console that can speak HTTP can host the agent.
 - **Buzz stays a separate channel layer** — the phone-to-harness path runs over my own Nostr relay and ACP ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), not through this API.
@@ -154,11 +154,11 @@ Two details cost real time, so I'll name them.
 
 **gbrain runs over HTTP MCP because Eve doesn't use the stdio transport here.** Eve's [connections](https://eve.dev/docs/connections) support HTTP/SSE transport; the stdio `gbrain serve` isn't usable by the agent. So gbrain serves over HTTP on port 3131, and the connection's `getToken` mints an OAuth `client_credentials` token per call, so the secret is never at rest in agent code. There's flakiness — the PGLite WASM init on this machine occasionally fails on first launch — but retrying works, and the health endpoint reports `200` when it's up.
 
-**The model is `zai/glm-5.2` routed through AI Gateway.** The gateway key comes from the environment (`/eve/v1/info` reports `connected: true` only when it's present). OpenCode Go stays exactly where it was — the distinct, cheap default for the always-on harness and everything else. Eve gets its own model; the stack doesn't demand that they agree.
+**The model is `zai/glm-5.2` routed through AI Gateway.** The gateway key comes from the environment (`/eve/v1/info` reports `connected: true` only when it's present). OpenCode Go, after the experiment, moved to backup — the flat-plan option I'd reach for if the gateway is unavailable or its budget and rate limits are exhausted. Eve gets its own model; the stack doesn't demand that they agree.
 
 The verification run, concretely: `POST /eve/v1/session` returned a session id; `GET /eve/v1/session/:id/stream` produced the full documented lifecycle — `session.started`, `turn.started`, reasoning, `actions.requested` with the `web_properties` tool call, `action.result`, `message.appended` / `message.completed`, `turn.completed`, `session.waiting` — and the follow-up POST streamed a correct reply. That's the whole loop from the docs, working on the first real agent.
 
-One number worth writing down. The setup work itself ran on DeepSeek V4 Flash through OpenCode Go — the flat-plan default, so the chatty part of the build never touched a per-token meter. The total AI Gateway usage for setting the whole thing up came to about $0.07. To be clear about what that is: observed setup spend, not a promise that all future agent usage costs seven cents — a busier agent will burn more. The point is that both meters are legible. The flat plan carries the heavy interactive work; the gateway bills per token at provider list price, no markup. OpenCode Go stays the preferred default for the always-on harness, and the gateway is there for the calls that deserve a meter.
+One number worth writing down. The setup work itself ran on DeepSeek V4 Flash through OpenCode Go — the flat-plan default back then, so the chatty part of the build never touched a per-token meter. The total AI Gateway usage for setting the whole thing up came to about $0.07. That historical number still stands after the pivot, and to be clear about what it is: observed setup spend, not a promise that all future agent usage costs seven cents — a busier agent will burn more. The point is that both meters are legible: the flat plan carries heavy interactive work, the gateway bills per token at provider list price with no markup. OpenCode Go was the default for that build; it's the backup now, and the $0.07 remains the honest record of the setup.
 
 ---
 
@@ -180,7 +180,7 @@ Honest checklist, because "functionally complete" and "done" are different words
 
 - **The agent repo is committed and pushed.** The magerbot project lives in the `hearth` repo on GitHub, the working tree is clean, and `.env` stays out (gitignored). What hasn't happened is any kind of release — the rest of this list is the release checklist.
 - **Replace the placeholder production auth before any public deployment.** `agent/channels/eve.ts` still ships the scaffold's `placeholderAuth()`, which returns a structured 401 in production. A real `AuthFn` — [auth & route protection](https://eve.dev/docs/guides/auth-and-route-protection) — has to go in first.
-- **Decide model routing.** `zai/glm-5.2` is Eve's default through the gateway; OpenCode Go stays the default for the harness. Whether Eve's heavier jobs deserve a different default is an open question, and it's the kind of question the gateway makes cheap to answer.
+- **Decide model routing.** `zai/glm-5.2` is Eve's default through the gateway; OpenCode Go is the harness fallback when the gateway is unavailable or its limits are exhausted. Whether Eve's heavier jobs deserve a different default is an open question, and it's the kind of question the gateway makes cheap to answer.
 - **Keep the gbrain HTTP service supervised.** Right now it's `nohup` — fine for a verification afternoon, not for production. It needs the same watchdog treatment the harness got.
 - **Configure AI Gateway budgets.** The spend-control layer only pays off if the caps are actually set.
 - **Choose whether Buzz needs an adapter or stays on OpenCode.** The near-term split above works; "one agent for everything" is a decision, not a default.
@@ -223,4 +223,8 @@ One sincere shoutout, because it's owed: Guillermo Rauch ([@rauchg](https://x.co
 
 I've been paying for AI in two currencies: subscriptions and free tiers. The subscription bought one provider's model family. The free tier bought hosting until it didn't. Both are running out around the same time, which is a good moment to look at what the money should actually buy.
 
-The answer I'm converging on: pay for infrastructure and control, not for a vendor's opinion. OpenCode Go keeps the always-on brain cheap and predictable. AI Gateway brings metered pricing, routing, fallback, and spend visibility at provider list prices with no markup. Eve gives agents a home that deploys and survives crashes. None of these is a subscription to one company's model. All of them are things I can reason about, configure, and — if the platform moves in a direction I don't like — swap out at the seams.
+The answer I'm converging on: pay for infrastructure and control, not for a vendor's opinion. AI Gateway is now the primary model access and billing layer — metered, routed, with spend visibility at provider list prices and no markup. OpenCode Go stays in the stack as the backup: cheap, predictable, flat-plan, there when the gateway is unavailable or its limits are exhausted. Eve gives agents a home that deploys and survives crashes. None of these is a subscription to one company's model. All of them are things I can reason about, configure, and — if the platform moves in a direction I don't like — swap out at the seams.
+
+---
+
+**A dated note (August 16, 2026).** GLM 5.2 — the open-weights coding model from Z.ai, currently `zai/glm-5.2` on the gateway and the model running the magerbot agent — is [free for Eve agents through August 27](https://vercel.com/changelog/glm-5-2-free-for-eve-agents-through-august-27-via-blackbox-on-ai-gateway), served by Blackbox AI on AI Gateway. It's a limited promotion, so treat it as a free window to experiment, not a pricing commitment: after August 27 the model stays available at standard provider rates (the offer also doesn't cover the `zai/glm-5.2-fast` variant). A word on Blackbox, since it's doing the serving: it advertises zero data retention, no training, and an OpenAI-compatible API ([blackbox.ai/api](https://www.blackbox.ai/api)) — but I'm not claiming every AI Gateway model or request runs through Blackbox, and I wouldn't treat any of that as an unconditional guarantee; their own materials qualify the retention claims as "wherever the provider API supports it."
