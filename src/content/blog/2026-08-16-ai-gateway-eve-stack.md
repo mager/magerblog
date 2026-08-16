@@ -1,0 +1,129 @@
+---
+title: "AI Gateway: the end of the single-provider AI subscription"
+description: "I'm moving off single-provider AI subscriptions toward a stack of parts — Eve for agents, Vercel AI Gateway for routing, spend control, and no-markup provider pricing, OpenCode Go for the cheap default — and the enterprise version of that stack is the real product."
+pubDate: 2026-08-16
+category: tech
+keyword: "AI Gateway"
+draft: true
+tags: [ai, vercel, eve, aigateway, opencode, agents, enterprise, tooling]
+---
+
+I've run my AI life on subscriptions for a while now. One vendor, one model family, one bill, and — the part that starts to matter — one opinion about what an agent is and how it should behave. The [OpenCode Go + Buzz migration](/blog/2026-08-08-opencode-go-buzz-harness/) was the first crack in that: the harness stopped caring which model it wore, and the $10/month flat plan turned the always-on agent from a line item into a rounding error.
+
+The second crack is the cost story on the hosting side. I've been on Vercel's free tier for years — it's how mager.co and a few side projects have run since the beginning. That arrangement is starting to bend. Free limits get hit, and I've already made one round of cuts: I shut down two side projects I was fond of — BeatBrain, the music-discovery app, and [Kotsu](/blog/2026-03-21-kotsu-the-knack-for-japanese/), the Japanese-learning site — to keep mager.co inside the tier. So I'm now at the point where I either start paying Vercel or keep trimming — and if I'm going to pay, I want to know precisely what the money buys.
+
+The answer I've converged on is not "a bigger subscription." It's a stack: [Eve](/blog/2026-06-18-vercel-eve/) for the agents themselves, Vercel [AI Gateway](https://vercel.com/docs/ai-gateway) as the routing and spend-control plane, and OpenCode Go staying on as the cheap default brain for the always-on harness. Three pieces that each do one job, none of them locked to a single model family.
+
+---
+
+## Why the subscription stops scaling
+
+Subscriptions buy convenience, and that's a real product. One login, one model that's always good enough, one dashboard. The cost is the part you don't see until you have a few of them: every subscription is a bet that one vendor's roadmap is your roadmap. Their agent conventions become your agent conventions. Their pricing becomes your pricing. Their deprecation calendar becomes your calendar.
+
+For a personal setup that's tolerable. For a team it's the thing that should keep you up at night, and I'll get to that.
+
+The other thing subscriptions hide is the unit economics. A flat monthly fee decouples cost from usage until the day it doesn't: you either pay for capacity you don't use, or you blow past the included quota and the real pricing shows up anyway. What I want instead is metered, per-token cost with a control plane on top — the same way I'd rather pay a storage bill than a hosting subscription that claims to be unlimited.
+
+---
+
+## The stack
+
+Three pieces, each owned by a different project, each doing one job:
+
+**Eve** — Vercel's open-source agent framework ([previous post](/blog/2026-06-18-vercel-eve/)). The agent is a directory; the filesystem is the config; sessions checkpoint so long-running work survives crashes; deploy is `vercel deploy`. Eve is what I'd reach for when an agent is a real product — something that lives in a repo, has a schedule, a channel, an approval flow — rather than an interactive session in a terminal.
+
+**AI Gateway** — the control plane. One key, hundreds of models across Anthropic, OpenAI, Google, xAI and others, behind a unified API (OpenAI Chat Completions, the Responses API, Anthropic Messages, or the AI SDK). You route per request, get per-request cost and latency in the dashboard, set fallbacks, bring your own keys, and — the pricing fact that matters — **there is no markup on tokens**. You pay the provider's list price, pay-as-you-go, funded by AI Gateway credits. It is not unlimited AI. It is metered access to other people's models at their list prices, with a billing and routing layer in front.
+
+**OpenCode Go** — the $10/month flat plan for open models that runs my always-on harness ([migration post](/blog/2026-08-08-opencode-go-buzz-harness/)). It stays. It's a distinct and genuinely good option: predictable cost, capable models, no per-token anxiety for an agent that answers random questions from my phone at six-second round trips. The stack isn't "one gateway to rule them all" — it's "use the right tool per job," and for the chatty always-on default, OpenCode Go is the right tool.
+
+---
+
+## The honest constraints
+
+Before the enterprise section, the things that keep this honest:
+
+- **AI Gateway is not free AI, and it's not a subscription in disguise.** It's pay-as-you-go at provider list prices with zero markup. The free tier exists but covers a subset of models with rate limits — exceed them and you get `429`s, and buying credits moves you to the paid tier. If your mental model is "Vercel now bundles AI into my plan," correct that now.
+
+- **Eve and Buzz are not a drop-in pair.** I'd love to point my phone harness at an Eve agent directly. That doesn't work today — ACP compatibility constraints mean the bridge can't drive an Eve agent the way it drives OpenCode. The path that *does* work is the one I already run: **Buzz → OpenCode → AI Gateway** ([Buzz explainer](/blog/2026-07-24-buzz-explainer/)), and it's a documented one. `vercel ai-gateway coding-agents setup --agent opencode` provisions a gateway key and adds the `vercel` provider to `~/.config/opencode/opencode.json`, keeping the key in the macOS Keychain instead of plaintext config. Then `/connect` inside OpenCode, pick models with `/models`, and requests route through the gateway.
+
+- **BYOK costs a little context.** Bring-your-own-key is supported with no markup, but it's a paid-tier feature: you need credits on the account. And when your own credentials fail, the gateway retries with its own credentials and charges that fallback usage to your credit balance. Reasonable, but worth knowing before you wire an enterprise contract into it.
+
+---
+
+## How it fits together for me
+
+The always-on harness on the Mac mini doesn't change much. OpenCode Go stays the default — it's the right economics for an agent that's idle most of the time. AI Gateway enters at the edges: when a job genuinely wants a specific model (a Claude for a hard reasoning task, a Gemini for a multimodal one), when I want fallback so a single provider outage doesn't stall work, and when I want the dashboard's per-request cost numbers instead of a monthly guess.
+
+Eve is the layer for agents that deserve to be products — scheduled, channel-connected, deployable. Those get their own repos, their own Vercel projects, and the gateway in front of their model calls.
+
+```
+[Buzz on phone] → [Buzz relay] → [buzz-acp]
+                                       │  ACP
+                                       ▼
+                              [OpenCode]  ← OpenCode Go default
+                                       │
+                    AI Gateway when the job calls for it
+                                       ▼
+                     [Anthropic / OpenAI / Google / xAI / ...]
+
+[Eve agent repo] → vercel deploy → [Eve agent on Vercel] → AI Gateway → models
+```
+
+The config that makes routing concrete, straight from the gateway's OpenCode integration — this goes in `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "vercel": {
+      "models": {
+        "anthropic/claude-sonnet-5": {
+          "options": {
+            "order": ["anthropic", "vertex"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Try Anthropic first; fall back to the same model via Vertex if Anthropic is slow or down. That's the whole routing story at the coding-agent level: a preference order, per model, and the gateway handles the rest — including retries, timeouts, and billing.
+
+---
+
+## The enterprise section: the real product
+
+Everything above is me being a small operator. The reason I think this pattern is the right answer — and the reason I'd argue for it inside a company — is that every feature I want for myself is the same feature a platform team wants for a hundred engineers, just with the dials turned up. AI Gateway was clearly built with that in mind, and it shows in the feature list:
+
+**Centralized routing.** One endpoint, one key, hundreds of models. Per-request provider options control which providers handle a call and in what order — `order: ['bedrock', 'anthropic']`, `only: ['bedrock', 'anthropic']`, or `sort: 'cost'` / `'ttft'` / `'tps'` to rank providers by the metric you care about. You stop distributing provider credentials to every engineer and every CI runner; you hand out one key and express policy in the gateway.
+
+**Spend controls and budgets.** This is the one that makes finance happy. AI Gateway runs on a credit balance with auto top-up; the Generations view shows every request with cost, latency, and token usage; and Custom Reporting lets you attach user IDs and quota entity IDs to requests, then query spend grouped by user, model, tag, or provider. That's per-user budgets and quotas without building the metering yourself.
+
+**Observability.** Per-request cost and latency in the dashboard, searchable and exportable logs, and Trace Drains that forward OpenTelemetry traces of every gateway request to your own observability stack. Your existing monitoring workflow gets AI spend as first-class telemetry instead of a separate spreadsheet.
+
+**Provider fallback.** Automatic retries across providers when one fails, model-level fallbacks when your primary model is unavailable, and provider timeouts for fast failover. Your team's requests survive an Anthropic incident, an OpenAI incident, or a Google incident — the gateway fails over, and you see it in the logs.
+
+**BYOK and provider contracts.** Enterprises already hold negotiated contracts with model providers. BYOK means those contracts carry through the gateway — your keys, your pricing, zero markup — including request-scoped keys for specific workloads. Enterprise teams can also pay by invoice rather than credits.
+
+**Security and retention controls.** A team-wide provider allowlist restricts which providers any request may hit (with a per-request `only` filter as the no-cost alternative). Zero Data Retention routes requests to providers that agree not to retain or train on prompt data. There's an explicit "disallow prompt training" control. These are the settings legal actually asks about, and they exist as configuration instead of negotiations.
+
+**Team governance.** App attribution tracks which application made each request — no more "who's burning the AI budget" archaeology. Authentication supports API keys or OIDC tokens, and keys stay out of plaintext (the CLI setup puts them in the macOS Keychain). You get the governance of a platform without building a platform.
+
+**Deployment boundaries.** Agents built on Eve deploy as standard Vercel projects — preview deployments per PR, instant rollback, the existing deployment story — with the gateway in front of their model calls. For sensitive workloads, the Sandbox story runs coding agents in isolated MicroVMs with controlled egress. The deployment boundary is the one you already trust for your web apps; the AI workload slots into it instead of creating a parallel universe of sidecar infrastructure.
+
+The through-line: this is the same architectural move as going from per-server hosting to a platform. You stop owning the routing, the metering, the keys, the retention policy, the failover — you own the config and the code, and the platform owns the rest. "All AI traffic routes through one control plane" is a sentence the security team, the finance team, and the engineers can all sign.
+
+---
+
+## The Rauchg note
+
+One sincere shoutout, because it's owed: Guillermo Rauch ([@rauchg](https://x.com/rauchg)) has been one of the most consistently useful follows I have on X. His posts on product thinking and where deployment and AI infrastructure are heading have shaped how I think about this stack — his commentary on agent infrastructure came before most of these features shipped, and it made the "oh, this is where the platform is going" moment land earlier than it would have otherwise. It's a reminder that the best product leaders write their reasoning down in public, and that compounds.
+
+---
+
+## What the money should buy
+
+I've been paying for AI in two currencies: subscriptions and free tiers. The subscription bought one provider's model family. The free tier bought hosting until it didn't. Both are running out around the same time, which is a good moment to look at what the money should actually buy.
+
+The answer I'm converging on: pay for infrastructure and control, not for a vendor's opinion. OpenCode Go keeps the always-on brain cheap and predictable. AI Gateway brings metered pricing, routing, fallback, and spend visibility at provider list prices with no markup. Eve gives agents a home that deploys and survives crashes. None of these is a subscription to one company's model. All of them are things I can reason about, configure, and — if the platform moves in a direction I don't like — swap out at the seams.
