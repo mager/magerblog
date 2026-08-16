@@ -4,7 +4,7 @@ description: "I'm moving off single-provider AI subscriptions toward a stack of 
 pubDate: 2026-08-16
 category: tech
 keyword: "AI Gateway"
-draft: true
+draft: false
 tags: [ai, vercel, eve, aigateway, opencode, agents, enterprise, tooling]
 ---
 
