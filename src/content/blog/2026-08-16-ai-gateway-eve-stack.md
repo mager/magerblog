@@ -158,6 +158,8 @@ Two details cost real time, so I'll name them.
 
 The verification run, concretely: `POST /eve/v1/session` returned a session id; `GET /eve/v1/session/:id/stream` produced the full documented lifecycle — `session.started`, `turn.started`, reasoning, `actions.requested` with the `web_properties` tool call, `action.result`, `message.appended` / `message.completed`, `turn.completed`, `session.waiting` — and the follow-up POST streamed a correct reply. That's the whole loop from the docs, working on the first real agent.
 
+One number worth writing down. The setup work itself ran on DeepSeek V4 Flash through OpenCode Go — the flat-plan default, so the chatty part of the build never touched a per-token meter. The total AI Gateway usage for setting the whole thing up came to about $0.07. To be clear about what that is: observed setup spend, not a promise that all future agent usage costs seven cents — a busier agent will burn more. The point is that both meters are legible. The flat plan carries the heavy interactive work; the gateway bills per token at provider list price, no markup. OpenCode Go stays the preferred default for the always-on harness, and the gateway is there for the calls that deserve a meter.
+
 ---
 
 ## Buzz stays the channel layer
