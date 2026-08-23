@@ -46,7 +46,23 @@ npx eve dev https://my-agent.vercel.app
 
 `eve dev <url>` doesn't boot a local server — it connects the TUI to the agent already running in Vercel's cloud, over HTTPS. The agent I defined in a directory is the same agent answering from the production URL. No local process, no tunnel, no "it works on my machine." Define, deploy, access — all three verbs, in that order, and every step worked.
 
-One honest note: production browser auth is still the scaffold's placeholder. The deployed agent authenticates through Vercel OIDC — which is how `eve dev` reaches it from my session — but it's not open to arbitrary browsers yet. That's the next item on the list, not a gap in the model — the agent lives in the cloud, and I drive it from anywhere.
+One honest note from the June version: production browser auth was still the scaffold's placeholder — a structured 401 for anyone without Vercel OIDC. That's fixed. `agent/channels/eve.ts` now ships a real auth walk:
+
+```typescript
+export default eveChannel({
+  auth: [
+    vercelOidc(), // eve CLI remote mode — Vercel-to-Vercel, internal runtime
+    routeBasic(), // phone browser, curl, bookmarks — password read from env
+    localDev(),   // local `eve dev` only, never opens production
+  ],
+});
+```
+
+`vercelOidc()` is how `eve dev <url>` reaches the agent from my session — deployment trust, no shared secret. `localDev()` covers the local TUI and never opens production. In between is `routeBasic()`: HTTP Basic auth, username from `EVE_ROUTE_USER` (defaults to `mager`), password read from `EVE_ROUTE_PASSWORD` at request time — a Sensitive entry in Vercel's env, a line in `.env.local` locally. The build never needs the secret, and `withAuthChallenges` announces the realm so clients know Basic is expected.
+
+Why Basic rather than Bearer: phone Safari renders Basic as a native login prompt. I open the deployment URL, the browser asks for a username and password, my password manager fills them, and I'm chatting with the agent — no custom login UI yet. On the CLI the same route is `eve dev https://user:pass@your-app.example.com`. The tradeoff is real: a shared Basic secret is right for a personal agent, but it isn't multi-user OAuth. Possession of the password is full agent access, so if it ever leaks, rotation is a Vercel env edit away.
+
+The goal was mundane: stop someone who stumbles on the URL from burning AI Gateway tokens. That's security through real auth, not obscurity — a hostname isn't a security boundary.
 
 ## The filesystem is the config
 
