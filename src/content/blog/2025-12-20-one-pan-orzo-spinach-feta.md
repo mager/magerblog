@@ -7,6 +7,7 @@ category: "food"
 keyword: "orzo"
 subcategory: "pasta"
 tags: ["Pasta", "Greek", "Weeknight"]
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2025-12-20-one-pan-orzo-spinach-feta/hero.jpg"
 prepTime: 10
 cookTime: 20
 ---
