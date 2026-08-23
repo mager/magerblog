@@ -2,6 +2,7 @@
 title: "AI Gateway: the end of the single-provider AI subscription"
 description: "I'm moving off single-provider AI subscriptions toward a stack of parts — Eve for agents, Vercel AI Gateway as the primary model access and billing layer with no-markup provider pricing, and OpenCode Go kept as the fallback — and the enterprise version of that stack is the real product."
 pubDate: 2026-08-16
+updatedDate: 2026-08-23
 category: tech
 keyword: "AI Gateway"
 draft: false
@@ -143,6 +144,8 @@ The section above was written from the docs. Then I built against it for real, a
 
 The agent lives at `~/magerbot`, scaffolded from `eve init` and packaged as `magerbot`. It's my always-on assistant: it knows the web properties — magerblog, beatbrain, prxps, loooom, kotsu — their domains and repos, and it does research. The build is functionally complete and verified end-to-end through exactly the HTTP flow from the last section: create a session, stream the NDJSON lifecycle, watch it call a tool, follow up. Typecheck passes.
 
+Since the first draft of this post, the agent has also been deployed: `magerbot-eve.vercel.app` is live, and I drive it from the eve TUI in remote mode (`eve dev https://magerbot-eve.vercel.app`) over Vercel OIDC — the same HTTP flow, exercised against the production URL instead of localhost.
+
 The pieces that are actually in there:
 
 - **`instructions.md`** — the agent's identity, replacing the scaffold placeholder.
@@ -178,8 +181,8 @@ What's honest about the integration status: the current path — **Buzz → buzz
 
 Honest checklist, because "functionally complete" and "done" are different words:
 
-- **The agent repo is committed and pushed.** The magerbot project lives in the private GitHub repo [github.com/mager/magerbot](https://github.com/mager/magerbot) — not Hearth — the reviewed working tree is clean, and `.env` remains gitignored and was never pushed. The agent has been verified locally, but there has not yet been a public release or deployment. The rest of this list is release and deployment work: replacing `placeholderAuth()`, setting up production auth, configuring the Vercel deployment, and deciding the Buzz/Eve adapter path.
-- **Replace the placeholder production auth before any public deployment.** `agent/channels/eve.ts` still ships the scaffold's `placeholderAuth()`, which returns a structured 401 in production. A real `AuthFn` — [auth & route protection](https://eve.dev/docs/guides/auth-and-route-protection) — has to go in first.
+- **The agent repo is committed, pushed, and deployed.** The magerbot project lives in the private GitHub repo [github.com/mager/magerbot](https://github.com/mager/magerbot) — not Hearth — the reviewed working tree is clean, and `.env` remains gitignored and was never pushed. The agent has been verified end-to-end locally and remotely: `magerbot-eve.vercel.app` is live and reachable through the streaming HTTP flow and through `eve dev https://magerbot-eve.vercel.app`. What's left is production-grade auth for arbitrary browsers, keeping the gbrain service supervised, setting budgets, and deciding the Buzz/Eve adapter path.
+- **Replace the placeholder production auth.** `agent/channels/eve.ts` still ships the scaffold's `placeholderAuth()`, which returns a structured 401 for browser requests in production — `/eve/v1/info` on the live deployment confirms `eve_production_auth_not_configured`. The deployed agent is reachable over Vercel OIDC, which is how `eve dev <url>` authenticates, but it's not open to arbitrary browsers yet. A real `AuthFn` — [auth & route protection](https://eve.dev/docs/guides/auth-and-route-protection) — has to go in next.
 - **Decide model routing.** `zai/glm-5.2` is Eve's default through the gateway; OpenCode Go is the harness fallback when the gateway is unavailable or its limits are exhausted. Whether Eve's heavier jobs deserve a different default is an open question, and it's the kind of question the gateway makes cheap to answer.
 - **Keep the gbrain HTTP service supervised.** Right now it's `nohup` — fine for a verification afternoon, not for production. It needs the same watchdog treatment the harness got.
 - **Configure AI Gateway budgets.** The spend-control layer only pays off if the caps are actually set.
