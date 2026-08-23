@@ -49,9 +49,3 @@ Stir in cheese, peas (if you like) and dill, cover the pan, and cook for another
 
 </div>
 </div>
-
-<div class="recipe-gallery">
-
-![Shoutout to Melissa Clark](https://lh3.googleusercontent.com/pw/AP1GczNcyjUsmKQGD3JwZRwjdNp8afn5_ecuS02FqD5VSJF0qcoiaUg793LTcx5ZR2VqxAc3f-aLWVjCy4ioDgMBPmXEzpWtPVtkzWOcfBdmwTUYibRuDMREU9mTO-QSeoHoKGRf2laIjOPaA0gZ_0W7U2z9hg=w2320-h1520-s-no-gm)
-
-</div>
