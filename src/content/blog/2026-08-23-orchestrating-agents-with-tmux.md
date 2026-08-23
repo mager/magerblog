@@ -4,7 +4,7 @@ description: "tmux is a 2007 terminal multiplexer that turns out to be the most 
 pubDate: 2026-08-23
 category: tech
 keyword: "tmux"
-draft: true
+draft: false
 tags: [tmux, terminal, agents, orchestration, claude, codex, opencode, tooling]
 ---
 
