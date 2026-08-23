@@ -1,6 +1,6 @@
 ---
 title: "Eve: define your agent, deploy it, use it from anywhere"
-description: "Define your agent in a directory, deploy it to Vercel's cloud with one command, and access it from anywhere. Months in, Eve has grown a platform around that model — capability registry, sandbox, subagents, agent-to-agent calls, MCP, evals — and my agent is still live at magerbot-eve.vercel.app, driven remotely from the eve TUI."
+description: "Define your agent in a directory, deploy it to Vercel's cloud with one command, and access it from anywhere. Months in, Eve has grown a platform around that model — capability registry, sandbox, subagents, agent-to-agent calls, MCP, evals — and my agent is still live, driven remotely from the eve TUI."
 pubDate: 2026-06-18
 updatedDate: 2026-08-23
 category: tech
@@ -33,18 +33,18 @@ The deploy is one command, same as any Vercel project (the eve CLI now also has 
 
 ```bash
 vercel deploy --prod
-→ Production aliased https://magerbot-eve.vercel.app
+→ Production aliased https://my-agent.vercel.app
 ```
 
 And here's the part that made it click. From anywhere with the eve CLI and a Vercel session:
 
 ```bash
-npx eve dev https://magerbot-eve.vercel.app
-→ remote mode targeting magerbot-eve.vercel.app
-→ eve magerbot-eve.vercel.app, model zai/glm-5.2
+npx eve dev https://my-agent.vercel.app
+→ remote mode targeting my-agent.vercel.app
+→ eve my-agent.vercel.app, model zai/glm-5.2
 ```
 
-`eve dev <url>` doesn't boot a local server — it connects the TUI to the agent already running in Vercel's cloud, over HTTPS. The agent I defined in a directory is the same agent answering from `magerbot-eve.vercel.app`. No local process, no tunnel, no "it works on my machine." Define, deploy, access — all three verbs, in that order, and every step worked.
+`eve dev <url>` doesn't boot a local server — it connects the TUI to the agent already running in Vercel's cloud, over HTTPS. The agent I defined in a directory is the same agent answering from the production URL. No local process, no tunnel, no "it works on my machine." Define, deploy, access — all three verbs, in that order, and every step worked.
 
 One honest note: production browser auth is still the scaffold's placeholder. The deployed agent authenticates through Vercel OIDC — which is how `eve dev` reaches it from my session — but it's not open to arbitrary browsers yet. That's the next item on the list, not a gap in the model — the agent lives in the cloud, and I drive it from anywhere.
 
@@ -279,7 +279,7 @@ export default defineEval({
 One more seam that matters to me specifically. `eve acp <url>` serves a local or deployed eve agent as a stable ACP v1 agent over stdio:
 
 ```bash
-eve acp https://magerbot-eve.vercel.app
+eve acp https://my-agent.vercel.app
 ```
 
 My phone harness lives in the ACP world — buzz-acp drives OpenCode over the Agent Client Protocol ([write-up](/blog/2026-08-08-opencode-go-buzz-harness/)). This is the same protocol family, and it means a deployed eve agent is drivable from any ACP client without a custom bridge. I'm not claiming it's a drop-in replacement for the Buzz path — different protocol, different plumbing — but the seam exists, and it's the kind of thing that turns "one agent, many clients" into a protocol question instead of a rewrite.
@@ -351,7 +351,7 @@ Agent-triggered deployments on Vercel went from 3% to 29% of all deployments in 
 
 ## Where the model leads
 
-Define, deploy, access. I've now run the whole loop end to end with a real agent: defined magerbot in a directory, deployed it with one command, and driven it over HTTPS from the eve TUI targeting `magerbot-eve.vercel.app`. The framework's design choices all serve that loop — the filesystem makes defining cheap, standard Vercel deploys make shipping boring, and the HTTP-facing agent makes access a URL instead of a process on my machine.
+Define, deploy, access. I've now run the whole loop end to end with a real agent: defined magerbot in a directory, deployed it with one command, and driven it over HTTPS from the eve TUI targeting the production URL. The framework's design choices all serve that loop — the filesystem makes defining cheap, standard Vercel deploys make shipping boring, and the HTTP-facing agent makes access a URL instead of a process on my machine.
 
 What the last two months added is the platform around the loop: a registry so capabilities install like packages, a sandbox so execution is contained, subagents and remote agents so work decomposes, MCP so the agent is programmable by anything that speaks it, and evals so it's testable. None of that changed the model — it all hangs off the same directory convention. That's the tell: the filesystem-first bet held up, and the growth happened inside it.
 
