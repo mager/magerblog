@@ -30,4 +30,5 @@ vercel blob put "$TMP/$NAME.jpg" \
   --cwd "$REPO_DIR" \
   --pathname "blog/$SLUG/$NAME.jpg" \
   --allow-overwrite true \
+  --access public \
   --rw-token "$TOKEN" 2>&1 | grep -o 'https://[^ ]*'
