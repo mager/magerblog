@@ -185,7 +185,7 @@ eve add @skills/vercel-labs/agent-skills/vercel-react-best-practices  # from ski
 
 Third-party registries plug in the same way — `eve registry add @acme=https://registry.acme.com/r/{name}.json` — and the whole thing speaks the standard shadcn registry format, so hosting your own is publishing static JSON over HTTP.
 
-The part I like: this doesn't change the "filesystem is the config" model, it completes it. The registry is a delivery mechanism for files. `eve add channel/slack` drops a `channels/slack.ts` in the right place; `eve add connection/linear` writes `connections/linear.ts` and installs the SDK it needs. The agent still is its directory — it just got a package manager.
+The part I like: this doesn't change the "filesystem is the config" model, it completes it. `eve add channel/slack` drops a `channels/slack.ts` in the right place; `eve add connection/linear` writes `connections/linear.ts` and installs the SDK it needs. The agent still is its directory — it just got a package manager.
 
 There's a `--non-interactive` mode built for coding agents (`eve add channel/slack --non-interactive --yes`), so an agent can install its own capabilities without a human at a prompt. The two MCP connections in magerbot — GitHub and gbrain — are exactly the kind of thing that's now installable rather than hand-authored.
 
@@ -310,11 +310,11 @@ vercel deploy --prod                       # deploy — production URL
 npx eve dev https://my-agent.vercel.app    # access — from anywhere
 ```
 
-Before you deploy, `npm run dev` opens a local TUI that shows agent actions in real time as you interact with it — tool calls, model responses, and approval prompts as they happen. It's a better feedback loop than reading logs. Once you deploy, `npx eve dev <url>` connects that same TUI to the remote agent instead of booting a local server.
+Before you deploy, `npm run dev` opens a local TUI that shows agent actions in real time as you interact with it — tool calls, model responses, and approval prompts as they happen. It's a better feedback loop than reading logs.
 
 `eve set --model` is a small thing that matters: changing an agent's model is a CLI flag instead of a source edit, so testing a different model on a live agent is cheap.
 
-Deploy is the same as any Vercel project. Agents deploy as standard Vercel projects — preview deployments per PR, instant rollback, OpenTelemetry traces in the platform.
+Agents deploy as standard Vercel projects — preview deployments per PR, instant rollback, OpenTelemetry traces in the platform.
 
 ## The demo repo
 
@@ -367,8 +367,6 @@ Agent-triggered deployments on Vercel went from 3% to 29% of all deployments in 
 
 ## Where the model leads
 
-Define, deploy, access. I've now run the whole loop end to end with a real agent: defined magerbot in a directory, deployed it with one command, and driven it over HTTPS from the eve TUI targeting the production URL. The framework's design choices all serve that loop — the filesystem makes defining cheap, standard Vercel deploys make shipping boring, and the HTTP-facing agent makes access a URL instead of a process on my machine.
-
-What the last two months added is the platform around the loop: a registry so capabilities install like packages, a sandbox so execution is contained, subagents and remote agents so work decomposes, MCP so the agent is programmable by anything that speaks it, and evals so it's testable. None of that changed the model — it all hangs off the same directory convention. That's the tell: the filesystem-first bet held up, and the growth happened inside it.
+The framework's design choices all serve the loop — the filesystem makes defining cheap, standard Vercel deploys make shipping boring, and the HTTP-facing agent makes access a URL instead of a process on my machine. Everything the last two months added hangs off that same directory convention, and none of it changed the model. That's the tell: the filesystem-first bet held up, and the growth happened inside it.
 
 The docs are at [eve.dev/docs](https://eve.dev/docs) and the source is at [github.com/vercel/eve](https://github.com/vercel/eve). Worth watching — and now I've seen it hold up on a deployment I actually run, across two months of the framework growing underneath it.
