@@ -1,22 +1,54 @@
 ---
-title: "Eve: Vercel's framework for agents that actually ship"
-description: "Vercel launched an open-source agent framework at Ship London. The filesystem is the config, durable execution is built in, and deploy is just vercel deploy."
+title: "Eve: define your agent, deploy it, use it from anywhere"
+description: "With Eve you define your agent in a directory, deploy it to Vercel's cloud with one command, and access it from anywhere. Here's the mental model that finally clicked — and my agent, live at magerbot-eve.vercel.app, driven remotely from the eve TUI."
 pubDate: 2026-06-18
+updatedDate: 2026-08-23
 category: tech
 keyword: "Eve"
 draft: false
 tags: ["tech", "ai", "vercel", "agents", "typescript"]
 ---
 
-Vercel shipped an open-source agent framework at their Ship conference in London yesterday. It's called [Eve](https://github.com/vercel/eve), and the pitch is: if Next.js solved the boilerplate problem for web apps, Eve does the same for agents.
+It finally clicks: with [Eve](https://github.com/vercel/eve) you define your own agent, deploy it to Vercel's cloud, and access that agent from anywhere.
 
-I've been following the space long enough to be skeptical of that framing. Most "Next.js for X" things end up being a thin wrapper that adds opinions without removing decisions. Eve is more considered than that.
+Three verbs, and that's the whole framework. **Define** — the agent is a directory in a repo; the filesystem is the config. **Deploy** — `vercel deploy`, same as any Vercel project, and the agent gets a production URL. **Access** — that URL is an agent you can talk to: from the eve TUI over HTTPS, from a web chat, from any client that can speak HTTP.
 
----
+I've been skeptical of the "Next.js for agents" framing since Vercel shipped Eve at Ship London in June — most of those end up being thin wrappers that add opinions without removing decisions. But once I'd built an agent and actually deployed it, the shape of the thing became obvious. This is the model. Everything else is detail.
+
+## The real thing: my agent, deployed
+
+I built magerbot — an Eve agent in its own repo ([github.com/mager/magerbot](https://github.com/mager/magerbot)). `agent.ts` picks the model, `instructions.md` is its identity, and there are tools, MCP connections, and a web chat channel. The model is `zai/glm-5.2`:
+
+```typescript
+import { defineAgent } from "eve";
+
+export default defineAgent({
+  model: "zai/glm-5.2",
+});
+```
+
+The deploy is one command, same as any Vercel project:
+
+```bash
+vercel deploy --prod
+→ Production aliased https://magerbot-eve.vercel.app
+```
+
+And here's the part that made it click. From anywhere with the eve CLI and a Vercel session:
+
+```bash
+npx eve dev https://magerbot-eve.vercel.app
+→ remote mode targeting magerbot-eve.vercel.app
+→ eve magerbot-eve.vercel.app, model zai/glm-5.2
+```
+
+`eve dev <url>` doesn't boot a local server — it connects the TUI to the agent already running in Vercel's cloud, over HTTPS. The agent I defined in a directory is the same agent answering from `magerbot-eve.vercel.app`. No local process, no tunnel, no "it works on my machine." Define, deploy, access — all three verbs, in that order, and every step worked.
+
+One honest note: production browser auth is still the scaffold's placeholder. The deployed agent authenticates through Vercel OIDC — which is how `eve dev` reaches it from my session — but it's not open to arbitrary browsers yet. That's the next item on the list, not a gap in the model — the agent lives in the cloud, and I drive it from anywhere.
 
 ## The filesystem is the config
 
-The central design choice is that an agent is a directory. Eve discovers everything by convention — no registration, no YAML, no call to `registerAgent()`.
+The central design choice behind "define" is that an agent is a directory. Eve discovers everything by convention — no registration, no YAML, no call to `registerAgent()`.
 
 ```
 agent/
@@ -40,9 +72,7 @@ export default defineAgent({
 
 And `instructions.md` is the system prompt in plain markdown. That's it. You can hand that to a non-engineer and they can understand and edit the agent's behavior without touching TypeScript.
 
-The rest of the structure scales in as you need it. Want the agent to query your database? Drop a file in `tools/`. Want it to post to Slack every Monday? Drop a file in `schedules/`. The framework infers intent from the file's location and wires it up automatically.
-
----
+The rest of the structure scales in as you need it. Want the agent to query your database? Drop a file in `tools/`. Want it to post to Slack every Monday? Drop a file in `schedules/`. The framework infers intent from the file's location and wires it up automatically. This is the whole "define" half of the model: you're writing a directory, not configuring a platform.
 
 ## Tools with typed inputs and conditional approval
 
@@ -67,15 +97,11 @@ export default defineTool({
 
 The `needsApproval` field is the part worth pausing on. You define the condition — in this case, a query that would scan more than 50 GB — and Eve handles pausing the agent, routing the approval request to wherever humans are, and resuming after the answer. The agent doesn't consume compute while it waits. You're not implementing any of that coordination yourself.
 
----
-
 ## Durable execution by default
 
 Agents crash. Deploys interrupt running sessions. The normal response is to either accept the loss or build your own checkpointing. Eve handles it at the framework level: sessions checkpoint after each step and resume from where they left off.
 
-This is one of those features that's hard to appreciate until you've debugged a long-running agent that failed halfway through and you have no idea which steps completed. With durable execution, you get replay. Without it, you get a process that's somewhere between "done" and "not started."
-
----
+This is one of those features that's hard to appreciate until you've debugged a long-running agent that failed halfway through and you have no idea which steps completed. With durable execution, you get replay. Without it, you get a process that's somewhere between "done" and "not started." And once your agent is deployed — running in the cloud instead of a terminal you're watching — this stops being a nicety and becomes the difference between an agent you trust unattended and one you don't.
 
 ## Schedules are just files
 
@@ -98,9 +124,7 @@ export default defineSchedule({
 });
 ```
 
-Drop this file in `schedules/` and the cron is registered. The agent wakes up at 9am Monday, sends the message, and waits for the response. You didn't configure any cron infrastructure.
-
----
+Drop this file in `schedules/` and the cron is registered. The agent wakes up at 9am Monday, sends the message, and waits for the response. You didn't configure any cron infrastructure — the schedule deploys with the agent and runs against the deployed process.
 
 ## Skills: business logic in markdown
 
@@ -116,39 +140,28 @@ Weeks are Monday-anchored, in UTC.
 
 The practical value here is that a non-engineer can encode something the agent needs to know without touching code. A finance analyst can write the revenue definition. A product manager can write the support escalation policy. The code stays in tools; the knowledge lives in files that humans can read and edit.
 
----
-
 ## Multi-channel out of the box
 
 Add a file to `channels/` to connect the same agent to a new surface — Slack, Discord, Teams, Telegram, Twilio, GitHub, Linear. The agent logic doesn't change. The channel file handles the connector.
 
 This is worth naming: most agent projects end up with channel-specific code scattered through the business logic because "handle this from Slack" and "handle this from Discord" felt similar but weren't quite the same. Eve separates that concern explicitly.
 
----
-
-## Getting started
+## Getting started: the three verbs
 
 ```bash
-npx eve@latest init my-agent
+npx eve@latest init my-agent            # define — a directory in a repo
 cd my-agent
-npm run dev
+vercel deploy --prod                     # deploy — production URL
+npx eve dev https://my-agent.vercel.app  # access — from anywhere
 ```
 
-`npm run dev` opens a TUI that shows agent actions in real time as you interact with it. You can see tool calls, model responses, and approval prompts as they happen. It's a better feedback loop than reading logs.
+Before you deploy, `npm run dev` opens a local TUI that shows agent actions in real time as you interact with it — tool calls, model responses, and approval prompts as they happen. It's a better feedback loop than reading logs. Once you deploy, `npx eve dev <url>` connects that same TUI to the remote agent instead of booting a local server.
 
-Deploy is the same as any Vercel project:
-
-```bash
-vercel deploy
-```
-
-Agents deploy as standard Vercel projects. You get preview deployments per PR, instant rollback, and OpenTelemetry traces in the platform.
-
----
+Deploy is the same as any Vercel project. Agents deploy as standard Vercel projects — preview deployments per PR, instant rollback, OpenTelemetry traces in the platform.
 
 ## The demo repo
 
-I put together a minimal research assistant agent at [github.com/mager/eve-demo](https://github.com/mager/eve-demo) to get hands-on with the framework. It's a single tool — `fetch_url.ts` — that fetches a URL, strips the HTML, and returns the first 4000 characters of text:
+I put together a minimal research assistant agent at [github.com/mager/eve-demo](https://github.com/mager/eve-demo) to get hands-on with the framework before the real one. It's a single tool — `fetch_url.ts` — that fetches a URL, strips the HTML, and returns the first 4000 characters of text:
 
 ```typescript
 import { defineTool } from "eve/tools";
@@ -182,8 +195,6 @@ cp .env.example .env
 npm run dev
 ```
 
----
-
 ## What Vercel actually built on top of this
 
 The framework is new, but the production data is real. Vercel runs 100+ agents on Eve internally:
@@ -197,6 +208,8 @@ The Athena point is the one I'd flag for anyone skeptical about the skills patte
 
 Agent-triggered deployments on Vercel went from 3% to 29% of all deployments in a year. Eve is the bet that the rest of the industry follows the same curve.
 
----
+## Where the model leads
 
-Eve is a public preview as of yesterday. The docs are at [eve.dev/docs](https://eve.dev/docs) and the source is at [github.com/vercel/eve](https://github.com/vercel/eve). Worth watching — the filesystem-first approach is the right call, and the production track record gives it more weight than most framework launches get on day one.
+Define, deploy, access. I've now run the whole loop end to end with a real agent: defined magerbot in a directory, deployed it with one command, and driven it over HTTPS from the eve TUI targeting `magerbot-eve.vercel.app`. The framework's design choices all serve that loop — the filesystem makes defining cheap, standard Vercel deploys make shipping boring, and the HTTP-facing agent makes access a URL instead of a process on my machine.
+
+The docs are at [eve.dev/docs](https://eve.dev/docs) and the source is at [github.com/vercel/eve](https://github.com/vercel/eve). Worth watching — the filesystem-first approach is the right call, and now I've seen it hold up on a deployment I actually run.
