@@ -32,4 +32,6 @@ The run never finished cleanly. The sandbox held the only copy of the 11 scored 
 - The harness moved to opencode: `/bench` is canonical, with the Claude skill mirroring it.
 - [bench.mager.co](https://bench.mager.co) redeployed with all of the above.
 
-The throughline from July still holds: every interesting result this month has been a bug in my harness, not a fact about a model. GLM 5.3 might be the best coder on my board. I'll believe it when the rows are in `results.json`.
+## Update (Sept 4, morning)
+
+The rows are in `results.json`. Rebuilt overnight and morning under the new harness: 10 fresh challenges plus the clean debug re-judge, all Sonnet-5 graded — refactor 9.6, fizzbuzz 9.3, readme 9.0, down to api-client 4.9, debug 7.3. GLM 5.3 sits atop [the board](https://bench.mager.co) at 11/13 challenges. Doom and slots remain failed-with-notes: doom thought through a full 39k budget without writing a character (more headroom just buys more thinking — next attempt gets `--reasoning-effort low` instead), slots wrote 8–24k chars of real slot machine and still hit the cap. Eve's lost 7.8 checks out. Believed.
