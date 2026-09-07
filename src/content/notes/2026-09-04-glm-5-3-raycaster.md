@@ -32,6 +32,6 @@ The run never finished cleanly. The sandbox held the only copy of the 11 scored 
 - The harness moved to opencode: `/bench` is canonical, with the Claude skill mirroring it.
 - [bench.mager.co](https://bench.mager.co) redeployed with all of the above.
 
-## Update (Sept 4, morning)
+## Final status: 12/13, calling it done
 
-The rows are in `results.json`. Rebuilt overnight and morning under the new harness: 10 fresh challenges plus the clean debug re-judge, all Sonnet-5 graded — refactor 9.6, fizzbuzz 9.3, readme 9.0, down to api-client 4.9, debug 7.3. GLM 5.3 sits atop [the board](https://bench.mager.co) at 11/13 challenges. Doom and slots remain failed-with-notes: doom thought through a full 39k budget without writing a character (more headroom just buys more thinking — next attempt gets `--reasoning-effort low` instead), slots wrote 8–24k chars of real slot machine and still hit the cap. Eve's lost 7.8 checks out. Believed.
+A low-effort retry (`--reasoning-effort low`) got one doom run to actually write: 27k characters of raycaster, truncated mid stripe-texture function, judged 1.3. The other two doom runs thought the full 39k budget without a character — the effort knob isn't honored on this route, or doom just eats thought regardless. All three slots runs wrote 4–26k characters of real slot machine and still hit the cap. So the book closes at 12/13 with slots unmeasured rather than failed: the model can clearly build most of a slot machine, just not inside the token budget thinking models leave themselves. That's a harness constraint as much as a model result, and I'm done spending to find out which.
