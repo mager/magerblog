@@ -2,14 +2,14 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Euglena Yogo Parfait"
 description: "I picked up euglena powder on Ishigaki — a single-celled organism that's part plant, part animal, packed with vitamins, minerals, and omega-3s — and the package had a yogurt recipe on it. Here's my yogo parfait take, plus why euglena is amazing."
-pubDate: "2026-06-06"
+pubDate: "2026-09-11"
 category: "food"
 tags: ["Japan", "Okinawa", "Ishigaki", "Euglena", "Travel", "Recipe", "Yogurt"]
 keyword: "euglena"
-heroImage: ""
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-06-euglena-yogo-parfait/hero.jpg"
 prepTime: 5
 cookTime: 0
-draft: true
+draft: false
 ---
 
 My first run-in with euglena was at the hotel I stayed at on Ishigaki, the southern Okinawan island. They served euglena biscuits, and that small detail hooked me — I couldn't stop wondering what this stuff actually was. So later, when I spotted a bag of euglena powder for sale, I grabbed it, already curious. The more I dug in, the stranger it got: it turns out to be one of the most over-qualified things I've ever eaten.
