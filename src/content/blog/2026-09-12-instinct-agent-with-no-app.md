@@ -25,6 +25,11 @@ I then asked it to search state unclaimed-property databases for money owed to m
 
 I also had Instinct remove a spam botnet. That was an unglamorous cleanup task, and a useful reason to have an agent that could take action. I wanted the cleanup handled without turning it into another project on my list.
 
+<figure style="margin: 2rem auto; max-width: 420px;">
+  <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-12-instinct-agent-with-no-app/unclaimed-property-search-detail.jpg" alt="iMessage conversation asking Instinct to search every state's unclaimed-property database, report what it finds, file the claims end-to-end, and flag anything needing my signature; Instinct replies it will hunt across the state databases and come back with results." width="736" height="1600" loading="lazy" decoding="async" />
+  <figcaption style="font-size: 0.8em; line-height: 1.5; color: var(--text-secondary);">Delegating an unclaimed-property search end-to-end in iMessage, with Instinct confirming it will report back and flag anything needing a signature.</figcaption>
+</figure>
+
 Separately, I asked it to help clean up my GitHub repositories. That request needed more judgment than simply deleting old code. If an old personal-site repository contained posts missing from my current magerblog repo, I wanted to keep it. I also wanted to preserve old startup projects and learning archives. Age alone wasn't a reason to throw something away.
 
 Instinct acknowledged those constraints and began comparing the old sites with the current blog. The screenshot captures its response and part of its assessment, rather than a completed deletion report. What I like about the exchange is that I could explain what mattered in normal language and refine the task in the same thread.
