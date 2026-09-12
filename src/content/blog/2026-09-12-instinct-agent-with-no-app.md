@@ -1,9 +1,9 @@
 ---
-title: "Instinct: your agent, a text away"
+title: "Instinct: a capable agent in your DMs"
 description: "What changed when I could text an agent from iMessage: everyday cleanup, questions worth following up on, and the trust that makes casual delegation possible."
 pubDate: 2026-09-12
 category: tech
-draft: true
+draft: false
 ---
 
 I've sent out a bunch of Instinct invites. If you want to try it, [use my invite link](https://app.instinct.com/invite?t=av6ems4arxgcqnbl5dxmwoeday). If that fills up, tell me. I'll ask Instinct for a fresh one.
@@ -26,8 +26,8 @@ I then asked it to search state unclaimed-property databases for money owed to m
 I also had Instinct remove a spam botnet. That was an unglamorous cleanup task, and a useful reason to have an agent that could take action. I wanted the cleanup handled without turning it into another project on my list.
 
 <figure style="margin: 2rem auto; max-width: 420px;">
-  <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-12-instinct-agent-with-no-app/unclaimed-property-search-detail.jpg" alt="iMessage conversation asking Instinct to search every state's unclaimed-property database, report what it finds, file the claims end-to-end, and flag anything needing my signature; Instinct replies it will hunt across the state databases and come back with results." width="736" height="1600" loading="lazy" decoding="async" />
-  <figcaption style="font-size: 0.8em; line-height: 1.5; color: var(--text-secondary);">Delegating an unclaimed-property search end-to-end in iMessage, with Instinct confirming it will report back and flag anything needing a signature.</figcaption>
+  <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-12-instinct-agent-with-no-app/spam-bot-farm-sweep.jpg" alt="iMessage conversation asking Instinct to check for a spam bot farm following me and trim my feed; Instinct explains the sweep covers accounts I follow and suspicious followers, then reports the farm is real with 54 of my 368 most recent followers looking like textbook bots." width="736" height="1600" loading="lazy" decoding="async" />
+  <figcaption style="font-size: 0.8em; line-height: 1.5; color: var(--text-secondary);">Asking Instinct to sweep for a spam bot farm. It confirmed the farm was real before touching anything.</figcaption>
 </figure>
 
 Separately, I asked it to help clean up my GitHub repositories. That request needed more judgment than simply deleting old code. If an old personal-site repository contained posts missing from my current magerblog repo, I wanted to keep it. I also wanted to preserve old startup projects and learning archives. Age alone wasn't a reason to throw something away.
