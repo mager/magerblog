@@ -57,6 +57,8 @@ It photosynthesizes. It carries chlorophyll a and b in its chloroplasts and make
 
 This dual nature genuinely broke 19th-century biology. Euglena had both plant and animal characteristics and fit neatly into neither kingdom, which is part of why Ernst Haeckel proposed an entirely new kingdom — Protista — to hold organisms like it. It's a single cell that refuses to pick a side.
 
+![Bag of euglena powder from Ishigaki](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-11-euglena-yogo-parfait/euglena-powder.jpg)
+
 A few more details that make it weird in the best way:
 
 - It has a **red eyespot** made of carotenoid pigment that filters light onto a light-sensitive structure at the base of its flagellum, letting it steer toward the brightest spot. A single cell, with something close to a primitive eye.
