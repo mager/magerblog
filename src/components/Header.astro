@@ -1,390 +1,90 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
-
-interface Props {
-	homepage?: boolean;
-}
-
-const { homepage = false } = Astro.props;
-const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+import '../styles/newspaper.css';
+interface Props { homepage?: boolean; masthead?: boolean; editionDate?: Date; }
+const { homepage = false, masthead = false, editionDate } = Astro.props;
+const path = Astro.url.pathname;
+const sections = [
+  { name: 'Tech', href: '/tech/', ink: 'blue' },
+  { name: 'Food', href: '/cooking/', ink: 'red' },
+  { name: 'Life', href: '/life/', ink: 'green' },
+  { name: 'Notes', href: '/notes/', ink: 'blue' },
+  { name: 'Seen', href: '/seen/', ink: 'green' },
+];
+const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/, '');
 ---
-
-<header class:list={["site-header", { "header-light": homepage }]}>
-	<nav>
-		<a href="/" class="logo" aria-label="mager.co home">
-			<span class="logo-prompt" aria-hidden="true">▸</span><span class="logo-name"><span aria-hidden="true">m</span><span aria-hidden="true">a</span><span aria-hidden="true">g</span><span aria-hidden="true">e</span><span aria-hidden="true">r</span><span class="sr-only">mager</span></span><span class="logo-tld">.co</span><span class="logo-cursor" aria-hidden="true"></span>
-		</a>
-		<div class="nav-right">
-			<div class="internal-links">
-				<a href="/" class:list={["home-link", { active: isHome }]} aria-label="Home">
-					<svg viewBox="0 0 20 20" aria-hidden="true" fill="currentColor" width="18" height="18">
-						<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h4a1 1 0 001-1v-3h2v3a1 1 0 001 1h4a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-					</svg>
-					<span>Home</span>
-				</a>
-				<HeaderLink href="/tech" style="--accent: var(--link-accent-indigo);">Tech</HeaderLink>
-				<HeaderLink href="/cooking" style="--accent: var(--link-accent-amber);">Food</HeaderLink>
-				<HeaderLink href="/life" style="--accent: var(--link-accent-teal);">Life</HeaderLink>
-				<HeaderLink href="/notes" style="--accent: var(--accent-green);">Notes</HeaderLink>
-				<HeaderLink href="/seen" style="--accent: var(--link-accent-indigo);">Seen</HeaderLink>
-				<HeaderLink href="/about" style="--accent: var(--link-accent-neutral);">About</HeaderLink>
-				<HeaderLink href="https://bench.mager.co" class="bench-link" target="_blank" rel="noopener" style="--accent: var(--sunrise-start);">bench<span class="bench-arrow" aria-hidden="true">↗</span></HeaderLink>
-			</div>
-			<div class="social-links">
-				<a href="https://x.com/mager" target="_blank" class="social-link">
-					<span class="sr-only">Follow @mager on X</span>
-					<svg viewBox="0 0 24 24" aria-hidden="true">
-						<path
-							fill="currentColor"
-							d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-						></path>
-					</svg>
-				</a>
-				<a href="https://github.com/mager" target="_blank" class="social-link">
-					<span class="sr-only">Go to mager's GitHub page</span>
-					<svg viewBox="0 0 16 16" aria-hidden="true">
-						<path
-							fill="currentColor"
-							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-						></path>
-					</svg>
-				</a>
-			</div>
-		</div>
-	</nav>
+{masthead && <a class="skip-link" href="#main-content">Skip to content</a>}
+<header class:list={['press-header', { 'on-paper': homepage, masthead }]}>
+  <div class="press-shell">
+    {masthead && <div class="edition-line">
+      <span>Independent publishing from Chicago</span>
+      <a href="/about/">By Andrew Mager <span aria-hidden="true">↗</span></a>
+    </div>}
+    <div class="nameplate">
+      {masthead && <div class="edition-stamp"><span class="chicago-stars" aria-label="Four Chicago stars">✶ ✶ ✶ ✶</span><span>The Chicago edition</span></div>}
+      <a href="/" class="press-wordmark" aria-label="mager.co home">mager<span class="wordmark-dot">.</span>co</a>
+      {masthead && <p class="edition-motto">Software, supper,<br />&amp; everything in between.</p>}
+      {!masthead && <a class="home-edition" href="/">The Chicago edition <span aria-hidden="true">↗</span></a>}
+    </div>
+    {masthead && <div class="edition-dateline">
+      <span>A personal newspaper</span>
+      {editionDate && <span>Latest dispatch <time datetime={editionDate.toISOString()}>{editionDate.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})}</time></span>}
+      <a href="/rss.xml">Delivered by RSS <span aria-hidden="true">↗</span></a>
+    </div>}
+    <nav class="press-nav" aria-label="Main navigation">
+      <a class:list={['front-link', { active: active('/') }]} href="/" aria-current={active('/') ? 'page' : undefined}>Front page</a>
+      {sections.map(section => <a class:list={['section-link', section.ink, { active: active(section.href) }]} href={section.href} aria-current={active(section.href) ? 'page' : undefined}>{section.name}</a>)}
+      <a class="bench-link" href="https://bench.mager.co">mager-bench <span aria-hidden="true">↗</span></a>
+      <a class:list={['about-link', { active: active('/about/') }]} href="/about/" aria-current={active('/about/') ? 'page' : undefined}>About</a>
+    </nav>
+  </div>
 </header>
-
 <style>
-	.site-header {
-		position: sticky;
-		top: 0;
-		z-index: 100;
-		background: rgba(13, 17, 23, 0.92);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(48, 54, 61, 0.4);
-
-		/* Dark mode defaults */
-		--header-text: var(--text-primary, #e6edf3);
-		--header-text-secondary: var(--text-secondary, #8b949e);
-		--header-text-muted: var(--text-muted, #484f58);
-		--link-accent-indigo: var(--cyan, #79c0ff);
-		--link-accent-teal: var(--accent-green, #3fb950);
-		--link-accent-amber: var(--orange, #ffa657);
-		--link-accent-neutral: var(--text-primary, #e6edf3);
-		--header-social-border: rgba(48, 54, 61, 0.5);
-		--header-hover-bg: rgba(255, 255, 255, 0.05);
-
-		/* Wordmark sunrise (see DESIGN.md) — coral → gold, tuned bright
-		   so every letter reads on the dark editor background. */
-		--sunrise-start: #ff7a52;
-		--sunrise-l2: #fb8948;
-		--sunrise-l3: #f7973e;
-		--sunrise-l4: #f4a634;
-		--sunrise-l5: #f0b429;
-		--sunrise-end: #f7c948;
-	}
-
-	/* Light mode for homepage */
-	.header-light {
-		background: rgba(250, 248, 245, 0.85);
-		border-bottom: 1px solid rgba(26, 26, 46, 0.06);
-
-		--header-text: #1a1a2e;
-		--header-text-secondary: #4b5563;
-		--header-text-muted: #9ca3af;
-		--link-accent-indigo: #6366f1;
-		--link-accent-teal: #0d9488;
-		--link-accent-amber: #d97706;
-		--link-accent-neutral: #1a1a2e;
-		--header-social-border: rgba(26, 26, 46, 0.1);
-		--header-hover-bg: rgba(26, 26, 46, 0.04);
-
-		/* Wordmark sunrise — the DESIGN.md paper-surface ramp
-		   (#f05a36 → #c49b00 → #b07a00), deeper for light backgrounds. */
-		--sunrise-start: #f05a36;
-		--sunrise-l2: #e56a29;
-		--sunrise-l3: #da7a1b;
-		--sunrise-l4: #cf8b0e;
-		--sunrise-l5: #c49b00;
-		--sunrise-end: #b07a00;
-	}
-
-	nav {
-		display: flex;
-		align-items: center;
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 0 2rem;
-		height: 56px;
-	}
-
-	.logo {
-		text-decoration: none;
-		display: inline-flex;
-		align-items: baseline;
-		flex-shrink: 0;
-		gap: 0;
-	}
-
-	.logo-prompt {
-		font-family: 'JetBrains Mono', monospace;
-		font-weight: 700;
-		font-size: 1.1rem;
-		color: var(--sunrise-start);
-		margin-right: 0.35rem;
-		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-		display: inline-block;
-	}
-	.logo:hover .logo-prompt {
-		transform: translateX(3px);
-	}
-
-	.logo-name {
-		font-family: 'JetBrains Mono', monospace;
-		font-weight: 700;
-		font-size: 1.25rem;
-		letter-spacing: -0.03em;
-		line-height: 1;
-	}
-
-	/* Sunrise wordmark — coral → gold crossing the letters of "mager",
-	   settling into gold for ".co". Per-letter so it survives hover filters. */
-	.logo-name > span {
-		transition: filter 0.2s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-		display: inline-block;
-	}
-	.logo-name > span:nth-child(1) { color: var(--sunrise-start); }
-	.logo-name > span:nth-child(2) { color: var(--sunrise-l2); }
-	.logo-name > span:nth-child(3) { color: var(--sunrise-l3); }
-	.logo-name > span:nth-child(4) { color: var(--sunrise-l4); }
-	.logo-name > span:nth-child(5) { color: var(--sunrise-l5); }
-
-	.logo:hover .logo-name > span {
-		filter: brightness(1.15) saturate(1.2);
-	}
-
-	.logo-tld {
-		font-family: 'JetBrains Mono', monospace;
-		font-weight: 700;
-		font-size: 1.25rem;
-		color: var(--sunrise-end);
-		letter-spacing: -0.03em;
-		line-height: 1;
-		transition: filter 0.2s ease;
-	}
-	.logo:hover .logo-tld {
-		filter: brightness(1.15) saturate(1.2);
-	}
-
-	.logo-cursor {
-		display: inline-block;
-		width: 0.55em;
-		height: 1.1em;
-		background: var(--sunrise-start);
-		margin-left: 0.4em;
-		vertical-align: -0.15em;
-		border-radius: 2px;
-		animation: blink 1s step-end infinite;
-	}
-	.logo:hover .logo-cursor {
-		animation: none;
-		opacity: 1;
-	}
-
-	@keyframes blink {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0; }
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.logo-cursor { animation: none; opacity: 0.7; }
-		.logo-prompt { transition: none; }
-	}
-
-	.nav-right {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-		margin-left: auto;
-	}
-
-	.internal-links {
-		display: flex;
-		align-items: center;
-		gap: 0.1rem;
-	}
-
-	:global(.internal-links) a {
-		padding: 0.3em 0.7em;
-		color: var(--header-text-secondary);
-		text-decoration: none;
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.875rem;
-		font-weight: 500;
-		letter-spacing: 0.01em;
-		border-radius: 6px;
-		transition: color 0.15s ease, background 0.15s ease;
-	}
-
-	:global(.internal-links) a:hover {
-		color: var(--header-text);
-		background: var(--header-hover-bg);
-	}
-
-	:global(.internal-links) a.active {
-		color: var(--accent, var(--header-text));
-		background: color-mix(in srgb, var(--accent, var(--header-text)) 10%, transparent);
-	}
-
-	/* Bench is a tool, not a section — monospace, lowercase, arrow out. */
-	:global(.internal-links a.bench-link) {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		text-transform: none;
-	}
-
-	:global(.bench-link .bench-arrow) {
-		display: inline-block;
-		font-size: 0.85em;
-		margin-left: 0.3em;
-		transition: transform 0.15s ease;
-	}
-
-	:global(.internal-links a.bench-link:hover) {
-		color: var(--accent, var(--header-text));
-	}
-
-	:global(.internal-links a.bench-link:hover .bench-arrow) {
-		transform: translate(2px, -2px);
-	}
-
-	.social-links {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		padding-left: 1.25rem;
-		border-left: 1px solid var(--header-social-border);
-	}
-
-	.social-link {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--header-text-muted);
-		padding: 0.4em;
-		border-radius: 6px;
-		transition: color 0.15s ease, background 0.15s ease;
-	}
-	.social-link:hover {
-		color: var(--header-text);
-		background: var(--header-hover-bg);
-	}
-
-	.social-links svg {
-		width: 18px;
-		height: 18px;
-		display: block;
-	}
-
-	/* Home link — desktop hidden, mobile tab */
-	.home-link {
-		display: none;
-	}
-
-	@media (max-width: 720px) {
-		.home-link {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 3px;
-			min-width: 48px;
-			min-height: 48px;
-			padding: 8px 10px;
-			font-family: 'Space Grotesk', sans-serif;
-			font-size: 0.7rem;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			text-decoration: none;
-			border-radius: 8px;
-			color: var(--header-text-secondary);
-			transition: color 0.15s ease, background 0.15s ease;
-		}
-		.home-link:hover,
-		.home-link.active {
-			color: var(--header-text);
-			background: var(--header-hover-bg);
-		}
-		.home-link svg { flex-shrink: 0; }
-	}
-
-	@media (max-width: 720px) {
-		.site-header {
-			position: fixed;
-			top: auto;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			border-top: 1px solid var(--header-social-border);
-			border-bottom: none;
-			/* Opaque so article text never bleeds through the bar while scrolling.
-			   Blur is a progressive enhancement on top of the solid fill. */
-			background: #0d1117;
-			padding-bottom: env(safe-area-inset-bottom, 0);
-			/* Avoid scroll-linked repaint jank from Chrome's collapsing UI. */
-			will-change: transform;
-		}
-		.header-light {
-			background: oklch(98.5% 0.004 250);
-		}
-
-		nav {
-			height: 58px;
-			padding: 0 0.5rem;
-			justify-content: space-around;
-		}
-		.logo { display: none; }
-		.nav-right {
-			width: 100%;
-			margin-left: 0;
-			gap: 0;
-			justify-content: space-around;
-		}
-		.internal-links {
-			width: 100%;
-			justify-content: space-around;
-			gap: 0;
-		}
-		.social-links { display: none; }
-
-		:global(.internal-links) a {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			min-width: 64px;
-			min-height: 48px;
-			padding: 8px 12px;
-			font-size: 0.7rem;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			border-radius: 8px;
-		}
-
-		/* The bottom tab bar is for on-site navigation — seven tabs is already
-		   the ceiling. Bench (external) stays reachable via the footer plug. */
-		:global(.internal-links a.bench-link) {
-			display: none;
-		}
-	}
-
-	@media (max-width: 720px) {
-		:global(body) {
-			/* Reserve space for the fixed bottom nav (58px) + iOS safe area
-			   plus a small buffer so the last line of content is never clipped. */
-			padding-bottom: calc(58px + env(safe-area-inset-bottom, 0) + 0.5rem);
-		}
-	}
+:global(.skip-link) { position: absolute; top: 8px; left: 16px; z-index: 1000; padding: 12px 18px; background: var(--news-blue); color: var(--news-paper); transform: translateY(-150%); font: 600 14px var(--news-ui); }
+:global(.skip-link:focus) { transform: translateY(0); }
+.press-header { --press-bg: oklch(19% 0.02 260); --press-ink: oklch(94% 0.009 85); --press-muted: oklch(76% 0.014 260); --press-rule: oklch(39% 0.018 260); background: var(--press-bg); color: var(--press-ink); padding: 0 24px; }
+.on-paper { --press-bg: var(--news-paper); --press-ink: var(--news-ink); --press-muted: var(--news-muted); --press-rule: var(--news-rule); }
+.press-shell { max-width: 1240px; margin: auto; }
+.press-header a { color: inherit; }
+.press-header a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.edition-line, .edition-dateline { display: flex; align-items: center; justify-content: space-between; gap: 16px; font: 500 10px/1.5 var(--news-mono); }
+.edition-line { padding: 15px 0 10px; border-bottom: 1px solid var(--press-rule); text-transform: uppercase; letter-spacing: .06em; }
+.nameplate { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; }
+.press-wordmark { font: 900 38px/.95 var(--news-display); letter-spacing: -.075em; }
+.press-header .press-wordmark:hover { text-decoration: none; }
+.wordmark-dot { color: var(--news-red); display: inline-block; transition: transform 350ms var(--news-ease); }
+.press-wordmark:hover .wordmark-dot { transform: translateY(-.14em); }
+.home-edition { font: 500 10px/1.4 var(--news-mono); color: var(--press-muted); }
+.masthead .nameplate { display: grid; grid-template-columns: 1fr auto 1fr; padding: 24px 0 28px; }
+.masthead .press-wordmark { font-size: clamp(78px, 12vw, 154px); }
+.edition-stamp { display: flex; flex-direction: column; gap: 7px; font: 500 10px/1.4 var(--news-mono); text-transform: uppercase; letter-spacing: .06em; }
+.chicago-stars { font-size: 28px; letter-spacing: .07em; color: var(--news-red); }
+.edition-motto { justify-self: end; margin: 0; font: italic 18px/1.45 var(--news-serif); }
+.edition-dateline { padding: 9px 0; border-top: 1px solid var(--press-rule); color: var(--press-muted); }
+.edition-dateline time { margin-left: 8px; color: var(--press-ink); }
+.press-nav { display: flex; align-items: center; gap: clamp(12px, 2.4vw, 34px); border-top: 3px solid var(--press-ink); border-bottom: 1px solid var(--press-ink); }
+.press-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; font: 700 12px/1.2 var(--news-ui); white-space: nowrap; }
+.press-nav a.active { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.on-paper .blue { color: var(--news-blue); }
+.on-paper .red { color: var(--news-red); }
+.on-paper .green { color: var(--news-green); }
+.bench-link { margin-left: auto; gap: 8px; }
+.press-nav .bench-link:hover { background: var(--news-yellow); color: var(--news-ink); text-decoration: none; }
+.bench-link span { transition: transform 250ms var(--news-ease); }
+.bench-link:hover span { transform: translate(2px, -2px); }
+@media(max-width: 760px) {
+  .press-header { padding: 0 18px; }
+  .edition-line { font-size: 9px; }
+  .masthead .nameplate { grid-template-columns: 1fr; text-align: center; padding: 20px 0; gap: 10px; }
+  .masthead .press-wordmark { font-size: clamp(60px, 20vw, 125px); grid-row: 1; white-space: nowrap; }
+  .edition-stamp { flex-direction: row; align-items: center; justify-content: center; font-size: 9px; }
+  .chicago-stars { font-size: 18px; }
+  .edition-motto { display: none; }
+  .edition-dateline { font-size: 9px; flex-wrap: wrap; gap: 5px 10px; }
+  .edition-dateline > span:first-child { display: none; }
+  .press-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .press-nav a { min-height: 44px; font-size: 11px; }
+  .bench-link { margin-left: 0; gap: 4px; }
+  .press-nav a:nth-child(n+5) { border-top: 1px solid var(--press-rule); }
+}
+@media(prefers-reduced-motion: reduce) { .wordmark-dot, .bench-link span { transition: none; transform: none !important; } }
 </style>

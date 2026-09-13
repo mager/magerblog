@@ -1,151 +1,50 @@
----
-version: "alpha"
-name: "Magerblog"
-description: "Editorial personal site that mixes broadsheet warmth with category-specific subworlds for tech, food, and life."
-colors:
-  primary: "#1f1c17"
-  secondary: "#6c6760"
-  tertiary: "#2f5e9e"
-  background: "#faf8f5"
-  surface: "#f5f3f0"
-  surface-strong: "#ffffff"
-  border: "#ddd6cd"
-  accent-tech: "#2f5e9e"
-  accent-food: "#c76a3e"
-  accent-life: "#7d8b3a"
-  hero-start: "#f05a36"
-  hero-mid: "#c49b00"
-  hero-end: "#b07a00"
-  on-primary: "#faf8f5"
-  on-background: "#1f1c17"
-  muted: "#8d867d"
-typography:
-  display-xl:
-    fontFamily: "Fraunces"
-    fontSize: 5rem
-    fontWeight: "700"
-    lineHeight: 0.92
-    letterSpacing: -0.04em
-  display-lg:
-    fontFamily: "Source Serif 4"
-    fontSize: 3rem
-    fontWeight: "700"
-    lineHeight: 1
-    letterSpacing: -0.03em
-  headline-md:
-    fontFamily: "Source Serif 4"
-    fontSize: 2rem
-    fontWeight: "700"
-    lineHeight: 1.05
-    letterSpacing: -0.02em
-  body-lg:
-    fontFamily: "Source Serif 4"
-    fontSize: 1.125rem
-    fontWeight: "400"
-    lineHeight: 1.65
-  body-md:
-    fontFamily: "Source Serif 4"
-    fontSize: 1rem
-    fontWeight: "400"
-    lineHeight: 1.6
-  label-ui:
-    fontFamily: "Space Grotesk"
-    fontSize: 0.75rem
-    fontWeight: "700"
-    lineHeight: 1.2
-    letterSpacing: 0.18em
-  label-mono:
-    fontFamily: "JetBrains Mono"
-    fontSize: 0.75rem
-    fontWeight: "500"
-    lineHeight: 1.4
-    letterSpacing: 0.08em
-rounded:
-  sm: 4px
-  md: 8px
-  lg: 10px
-  xl: 16px
-  full: 9999px
-spacing:
-  xs: 4px
-  sm: 8px
-  md: 16px
-  lg: 24px
-  xl: 40px
-  xxl: 64px
-  gutter: 40px
-  content-max: 1200px
-elevation:
-  flat: "none"
-  soft: "0 8px 24px rgba(31, 28, 23, 0.08)"
-  hover: "0 14px 32px rgba(31, 28, 23, 0.12)"
-shadows:
-  cursor-glow: "0 0 80px rgba(47, 94, 158, 0.12)"
-motion:
-  quick: "150ms ease"
-  standard: "200ms ease"
-  expressive: "700ms cubic-bezier(0.22, 1, 0.36, 1)"
-components:
-  page-shell:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.on-background}"
-    padding: "{spacing.xl}"
-  topbar-link:
-    textColor: "{colors.secondary}"
-    typography: "{typography.label-ui}"
-  hero-wordmark:
-    textColor: "{colors.hero-start}"
-    typography: "{typography.display-xl}"
-  section-label:
-    textColor: "{colors.accent-tech}"
-    typography: "{typography.label-ui}"
-  feature-card:
-    backgroundColor: "{colors.surface-strong}"
-    textColor: "{colors.on-background}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.lg}"
-  feature-card-hover:
-    backgroundColor: "{colors.surface}"
----
+# Magerblog: The Chicago edition
 
-## Overview
-Magerblog should feel like a personal publication with taste. The core mood is warm editorial print on an off-white page, but each category gets enough accent color to hint at a different sub-brand without breaking the shared identity.
+## Direction
 
-The homepage is the clearest expression of the system: a calm newspaper-like scaffold, a dramatic serif masthead, thin rules, compact uppercase navigation, and dense story packaging. It should feel authored rather than templated.
+A personal newspaper by Andrew Mager. A reader opens it on a bright Chicago kitchen table, coffee nearby, curious about software and what to cook next. Warm paper and firm ink carry the reading experience; purposeful section colors make it easy to explore. Reference objects: a Sunday broadsheet, the four stars of the Chicago flag, and a yellow newspaper insert.
 
-## Colors
-The base palette stays almost entirely in paper, ink, and rule colors. Warm ivory backgrounds replace pure white so the site feels collected and lived-in. Dark ink is used heavily for headlines and long-form readability.
+The front page prioritizes technology, then food. Notes are a compact notebook alongside the lead. Seen is a photographic journal; Life is the quieter weekend column. The mager-bench project gets a prominent permanent insert rather than competing with dated posts.
 
-Accent colors are categorical, not decorative. Blue belongs to tech and information architecture. Terracotta belongs to food and warmth. Olive belongs to life and reflection. The wordmark gradient is the one intentionally loud moment and should read like a sunrise crossing the masthead.
+## Color system
+
+Full palette with four named roles, defined in `src/styles/newspaper.css` using OKLCH:
+
+- Paper: `oklch(97.5% 0.009 85)`
+- Ink: `oklch(23% 0.016 260)`
+- Secondary text: `oklch(46% 0.016 260)`
+- Rules: `oklch(80% 0.016 85)`
+- Cobalt: `oklch(43% 0.19 265)`, technology, notes, information
+- Vermilion: `oklch(48% 0.17 30)`, food, Chicago stars, wordmark punctuation
+- Park green: `oklch(39% 0.075 155)`, seen and life
+- Insert yellow: `oklch(89% 0.14 93)`, mager-bench and archive discovery
+
+The shared header and footer have matching light and dark variants for the existing category and article worlds. The homepage uses paper throughout. No decorative gradients, glass, blinking cursors, or cursor-following effects.
 
 ## Typography
-Typography carries the personality. Fraunces and Source Serif 4 do most of the emotional work: sharp, literary, slightly luxurious, never sterile. Space Grotesk and JetBrains Mono step in for navigation, metadata, dates, and utility labels.
 
-Headlines should feel compressed and decisive. Body copy should stay generous and readable, with real article rhythm rather than app-style density. Monospace is a supporting voice, not the lead.
+Preserve the established fonts: Fraunces for the masthead and section display, Source Serif 4 for stories and body copy, Space Grotesk for navigation, JetBrains Mono for compact metadata. Monospace supports the writing rather than dominating it. Headlines have tight tracking and confident scale; paragraphs stay within 67 characters where possible. The masthead is upright, solid ink with a vermilion dot.
 
-## Layout & Spacing
-The layout is editorial first. Use full-bleed sections when they help a page feel like a designed spread, but keep internal rhythm disciplined with thin dividing rules and clear column thinking.
+## Layout
 
-Whitespace should be intentional, not excessive. The site works best when it balances breathing room with visible content density: lists of posts, stacked cards, and category zones that invite scanning.
+The shared shell is 1240px plus 24px gutters (18px on phones). Thin rules organize the publication, with stronger rules at navigation and section boundaries. The lead and notebook use a wide/narrow column split; supporting tech stories form two rows of three. The food spread has one large story and two smaller stories on a warm tint. Seen uses a horizontally scrollable photo strip with visible continuation and native keyboard support. Life sits alongside it as a compact reading column.
 
-## Elevation & Depth
-Depth is subtle. Most of the system relies on borders, paper contrast, and content grouping rather than obvious shadow stacks. Hover lift should feel like a gentle paper card rise, not a product card jump.
+Below 700px, the main spreads become one column, food becomes one lead plus two smaller stories, and Seen retains its swipeable journal. Every main navigation link remains visible in two rows on phones. There is no fixed bottom navigation.
 
-The one atmospheric exception is the cursor glow and occasional soft image/card hover, which can add a faint digital sheen on top of the print-inspired structure.
+## Imagery
 
-## Shapes
-Shapes are mostly restrained: thin rectangles, light rounding on cards, pill treatments only where they help metadata or compact navigation. Nothing should feel bubbly or toy-like.
+Use existing author-owned images. Front-page food photo selections prioritize permanent hosted images and leave older Google Photos URLs unchanged in source posts. Broken remote images fall back to a readable story link or photo description. Hero images load eagerly with reserved dimensions; supporting images load lazily. No photos are committed to the repository.
 
-## Components
-Homepage zones should look like sections of a publication, not isolated widgets. Navigation links are compact uppercase labels with tight tracking. Story cards should emphasize title hierarchy first, then description, then date.
+## Interaction and accessibility
 
-Cards in the footer and supporting areas can use a softer modern-web treatment, but they still need to inherit the paper-and-ink discipline from the main publication shell.
+- Wordmark punctuation lifts slightly on hover.
+- Photography scales subtly inside fixed frames.
+- The back page previews an older story; Another story changes the preview without navigating unexpectedly and announces the update politely. A normal story link works without JavaScript.
+- Category and archive links provide a complete route through all content.
+- New animation uses transform and opacity with an exponential ease-out curve, and respects reduced motion.
+- Clear focus states, a homepage skip link, semantic section headings, explicit image descriptions, and 44px main navigation targets.
+- Date-only publication values render in UTC so the displayed day does not shift with the build server's timezone.
 
-## Do's and Don'ts
-Do use warm paper backgrounds, serif hierarchy, and category accents with restraint.
-Do keep metadata quiet and structured.
-Do make the homepage feel like a designed front page.
+## Avoid
 
-Don't flood the interface with gradients outside the wordmark and rare atmospheric details.
-Don't replace the serif-led identity with generic app typography.
-Don't make spacing so loose that the editorial density disappears.
+Repetitive cards, fake live benchmark scores, torn-paper decoration, simulated printing noise, ornamental gradients, and effects that compete with reading. Newspaper structure should feel precise and useful, never like a costume.

@@ -22,7 +22,7 @@ Avoid generic dark SaaS dashboards, fake terminal theater, startup hype pages, e
 
 ## Design Principles
 
-1. Preserve the homepage's editorial confidence while giving each category a distinct world.
+1. Make the homepage a Chicago Sunday edition: technology leads, food follows, with dedicated space for mager-bench, notes, seen, and life. Keep category worlds connected through a shared masthead and colophon.
 2. Prefer dense, scannable reading surfaces over decorative whitespace.
 3. Let technical credibility come from hierarchy, metadata, and concrete content.
 4. Use accent color as information, not confetti.

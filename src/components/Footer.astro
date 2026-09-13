@@ -1,335 +1,50 @@
 ---
-interface Props {
-	homepage?: boolean;
-}
-
+import '../styles/newspaper.css';
+interface Props { homepage?: boolean; }
 const { homepage = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
-
-<footer class:list={[{ "footer-light": homepage }]}>
-	<div class="footer-inner">
-
-		<!-- Top rule with accent -->
-		<div class="footer-rule" aria-hidden="true"></div>
-
-		<div class="footer-body">
-
-			<!-- Left: Wordmark + tagline -->
-			<div class="footer-brand">
-				<a href="/" class="wordmark" aria-label="mager.co home">
-					{homepage ? (
-						<span class="wm-serif">mager.co</span>
-					) : (
-						<>
-							<span class="wm-prompt">▸</span><span class="wm-name">mager</span><span class="wm-tld">.co</span>
-						</>
-					)}
-				</a>
-				<p class="tagline">Builder. Chicago.</p>
-				<p class="copy">&copy; {year}</p>
-			</div>
-
-			<!-- Center: Nav -->
-			<nav class="footer-nav" aria-label="Footer navigation">
-				<p class="col-label">Navigate</p>
-				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="/tech">Tech</a></li>
-					<li><a href="/life">Life</a></li>
-					<li><a href="/cooking">Cooking</a></li>
-					<li><a href="/about">About</a></li>
-				</ul>
-			</nav>
-
-			<!-- Right: Socials -->
-			<div class="footer-social">
-				<p class="col-label">Elsewhere</p>
-				<ul>
-					<li>
-						<a href="https://x.com/mager" target="_blank" rel="noopener" aria-label="Follow @mager on X">
-							<svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-							<span>X / Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/mager" target="_blank" rel="noopener" aria-label="mager on GitHub">
-							<svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-							<span>GitHub</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-
-		</div>
-
-		<!-- Bottom strip -->
-		<div class="footer-strip">
-			<span class="bench-line">
-				How's Claude coding this week? <a href="https://bench.mager.co" target="_blank" rel="noopener">mager-bench</a> keeps score — 12 tasks, one of them is Doom.
-			</span>
-			<span class="built-line">
-				Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a> &amp; <a href="https://x.com/magerbot" target="_blank" rel="noopener">@magerbot</a>
-			</span>
-		</div>
-
-	</div>
+<footer class:list={['press-footer', { 'on-paper': homepage }]}>
+  <div class="footer-shell">
+    <div class="colophon">
+      <div class="footer-signature"><a href="/" aria-label="mager.co home">mager<span>.</span>co</a><p>A personal newspaper<br />by Andrew Mager, Chicago.</p></div>
+      <nav aria-label="Footer sections"><span class="footer-label">The sections</span><div class="footer-sections"><a href="/tech/">Tech</a><a href="/cooking/">Food</a><a href="/life/">Life</a><a href="/notes/">Notes</a><a href="/seen/">Seen</a><a href="/blog/">Archive</a></div></nav>
+      <nav aria-label="Projects and elsewhere"><span class="footer-label">Beyond the page</span><a href="https://bench.mager.co">mager-bench ↗</a><a href="https://github.com/mager">GitHub ↗</a><a href="https://x.com/mager">X / @mager ↗</a></nav>
+      <div class="footer-subscribe"><span class="footer-label">Keep in the loop</span><p>A new entry, straight<br />to your feed reader.</p><a href="/rss.xml">Subscribe via RSS <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="end-line"><span>© {year} Andrew Mager</span><span class="footer-stars" aria-label="Four Chicago stars">✶ ✶ ✶ ✶</span><a href="/about/">Meet the publisher <span aria-hidden="true">↗</span></a></div>
+  </div>
 </footer>
-
 <style>
-	/* ─── Tokens ─────────────────────────────────────────────── */
-	footer {
-		--ft-bg:            var(--terminal-bg-dark, #010409);
-		--ft-border:        var(--terminal-border, #30363d);
-		--ft-brand:         var(--text-primary, #e6edf3);
-		--ft-text:          var(--text-secondary, #8b949e);
-		--ft-muted:         var(--text-muted, #484f58);
-		--ft-accent:        var(--status-purple, #a371f7);
-		--ft-accent-hover:  var(--cyan, #79c0ff);
-		--ft-rule-from:     var(--status-purple, #a371f7);
-		--ft-rule-to:       var(--status-cyan, #58a6ff);
-
-		background: var(--ft-bg);
-		color: var(--ft-text);
-		padding: 0 2rem 2rem;
-	}
-
-	/* ─── Light / homepage override ─────────────────────────── */
-	.footer-light {
-		--ft-bg:            oklch(96.8% 0.004 250);
-		--ft-border:        oklch(89% 0.010 112);
-		--ft-brand:         oklch(11% 0.015 250);
-		--ft-text:          oklch(42% 0.010 250);
-		--ft-muted:         oklch(62% 0.008 250);
-		--ft-accent:        oklch(45% 0.15 240);
-		--ft-accent-hover:  oklch(45% 0.15 240);
-	}
-
-	/* ─── Rule ───────────────────────────────────────────────── */
-	.footer-rule {
-		height: 1px;
-		background: linear-gradient(90deg, var(--ft-rule-from), var(--ft-rule-to), transparent);
-		margin-bottom: 2.5rem;
-	}
-
-	/* Homepage rule: swap indigo→teal for the three category accents */
-	.footer-light .footer-rule {
-		background: linear-gradient(90deg,
-			oklch(45% 0.15 240),   /* tech — lake blue */
-			oklch(58% 0.17 33),    /* food — ripe coral */
-			oklch(52% 0.15 150),   /* life — park green */
-			transparent);
-	}
-
-	/* ─── Inner wrapper ──────────────────────────────────────── */
-	.footer-inner {
-		max-width: 880px;
-		margin: 0 auto;
-	}
-
-	/* ─── Body: 4-col grid ───────────────────────────────────── */
-	.footer-body {
-		display: grid;
-		grid-template-columns: 2fr 1fr 1fr;
-		gap: 2rem;
-		align-items: start;
-		margin-bottom: 2.5rem;
-	}
-
-	/* ─── Brand column ───────────────────────────────────────── */
-	.wordmark {
-		display: inline-flex;
-		align-items: baseline;
-		gap: 0;
-		text-decoration: none;
-		margin-bottom: 0.6rem;
-	}
-
-	.wm-prompt {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 1rem;
-		font-weight: 700;
-		color: var(--ft-accent);
-		margin-right: 0.3em;
-		transition: transform 0.2s ease;
-		display: inline-block;
-	}
-	.wordmark:hover .wm-prompt { transform: translateX(3px); }
-
-	.wm-name {
-		font-family: 'Syne', sans-serif;
-		font-weight: 800;
-		font-size: 1.5rem;
-		letter-spacing: -0.03em;
-		color: var(--ft-brand);
-		line-height: 1;
-		transition: color 0.2s ease;
-	}
-	.wordmark:hover .wm-name { color: var(--ft-accent); }
-
-	.wm-tld {
-		font-family: 'JetBrains Mono', monospace;
-		font-weight: 400;
-		font-size: 1.1rem;
-		color: var(--ft-text);
-		line-height: 1;
-		transition: color 0.2s ease;
-	}
-	.wordmark:hover .wm-tld { color: var(--ft-accent-hover); }
-
-	/* ─── Homepage wordmark: masthead's serif voice ─────────── */
-	.wm-serif {
-		font-family: 'Fraunces', Georgia, serif;
-		font-variation-settings: 'opsz' 144, 'wght' 900;
-		font-style: italic;
-		font-size: 1.5rem;
-		letter-spacing: -0.03em;
-		line-height: 1;
-		color: var(--ft-brand);
-	}
-
-	.tagline {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.68rem;
-		color: var(--ft-muted);
-		margin: 0.4rem 0 0.2rem;
-		letter-spacing: 0.04em;
-	}
-
-	.copy {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.65rem;
-		color: var(--ft-muted);
-		margin: 0;
-		opacity: 0.6;
-	}
-
-	/* ─── Column label ───────────────────────────────────────── */
-	.col-label {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.6rem;
-		font-weight: 700;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--ft-muted);
-		margin: 0 0 0.85rem;
-	}
-
-	/* ─── Lists ──────────────────────────────────────────────── */
-	.footer-nav ul,
-	.footer-projects ul,
-	.footer-social ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.4rem;
-	}
-
-	/* ─── Nav links ──────────────────────────────────────────── */
-	.footer-nav a {
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.82rem;
-		font-weight: 500;
-		color: var(--ft-text);
-		text-decoration: none;
-		transition: color 0.15s ease;
-		display: inline-block;
-	}
-	.footer-nav a:hover { color: var(--ft-accent); }
-
-	/* ─── Project links ──────────────────────────────────────── */
-	.footer-projects a {
-		text-decoration: none;
-		display: flex;
-		flex-direction: column;
-		gap: 0.05rem;
-		transition: opacity 0.15s ease;
-	}
-	.footer-projects a:hover { opacity: 0.85; }
-	.footer-projects a:hover .proj-name { color: var(--ft-accent); }
-
-	.proj-name {
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.82rem;
-		font-weight: 600;
-		color: var(--ft-brand);
-		transition: color 0.15s ease;
-	}
-
-	.proj-desc {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.65rem;
-		color: var(--ft-muted);
-		line-height: 1.4;
-	}
-
-	/* ─── Social links ───────────────────────────────────────── */
-	.footer-social a {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.82rem;
-		font-weight: 500;
-		color: var(--ft-text);
-		text-decoration: none;
-		transition: color 0.15s ease;
-	}
-	.footer-social a:hover { color: var(--ft-accent); }
-	.footer-social svg { flex-shrink: 0; opacity: 0.7; }
-
-	/* ─── Bottom strip ───────────────────────────────────────── */
-	.footer-strip {
-		padding-top: 1.25rem;
-		border-top: 1px solid var(--ft-border);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.45rem;
-		text-align: center;
-	}
-
-	.bench-line,
-	.built-line {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.65rem;
-		color: var(--ft-muted);
-		letter-spacing: 0.02em;
-	}
-
-	.bench-line a,
-	.built-line a {
-		color: var(--ft-accent);
-		text-decoration: none;
-		transition: color 0.15s ease;
-	}
-	.bench-line a:hover,
-	.built-line a:hover { color: var(--ft-accent-hover); }
-
-	/* ─── Responsive ─────────────────────────────────────────── */
-	@media (max-width: 720px) {
-		footer { padding: 0 1rem 2rem; }
-
-		.footer-body {
-			grid-template-columns: 1fr 1fr;
-			gap: 1.5rem 1rem;
-		}
-
-		.footer-brand {
-			grid-column: 1 / -1;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.footer-body {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.wm-prompt { transition: none; }
-	}
+.press-footer { --footer-bg: oklch(19% 0.02 260); --footer-ink: oklch(93% 0.009 85); --footer-muted: oklch(75% 0.014 260); --footer-rule: oklch(38% 0.02 260); background: var(--footer-bg); color: var(--footer-ink); padding: 0 24px; }
+.on-paper { --footer-bg: var(--news-paper); --footer-ink: var(--news-ink); --footer-muted: var(--news-muted); --footer-rule: var(--news-rule); }
+.footer-shell { max-width: 1240px; margin: auto; border-top: 3px solid var(--footer-ink); }
+.press-footer a { color: inherit; }
+.press-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.colophon { display: grid; grid-template-columns: 1.35fr 1fr 1fr 1fr; gap: 36px; padding: 35px 0; }
+.footer-signature > a { font: 900 42px/.95 var(--news-display); letter-spacing: -.07em; }
+.footer-signature > a:hover { text-decoration: none; }
+.footer-signature > a span { color: oklch(64% 0.17 30); }
+.on-paper .footer-signature > a span { color: var(--news-red); }
+.footer-signature p, .footer-subscribe p { font: 15px/1.5 var(--news-serif); margin: 12px 0 0; color: var(--footer-muted); }
+.footer-label { display: block; margin-bottom: 12px; font: 500 9px/1.5 var(--news-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--footer-muted); }
+.colophon nav > a, .footer-sections a { display: flex; align-items: center; min-height: 32px; font: 500 13px var(--news-ui); }
+.footer-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px; }
+.footer-subscribe > a { display: inline-flex; gap: 18px; align-items: center; min-height: 44px; font: 700 12px var(--news-ui); text-decoration: underline; text-underline-offset: 4px; }
+.end-line { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--footer-rule); padding: 15px 0 20px; font: 10px/1.5 var(--news-mono); color: var(--footer-muted); }
+.footer-stars { color: oklch(64% 0.17 30); font-size: 21px; letter-spacing: .18em; }
+.on-paper .footer-stars { color: var(--news-red); }
+.end-line a { display: inline-flex; align-items: center; min-height: 32px; }
+@media(max-width: 800px) { .colophon { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
+@media(max-width: 480px) {
+  .press-footer { padding: 0 18px; }
+  .colophon { gap: 26px 18px; }
+  .footer-signature { grid-column: 1/-1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .footer-signature p { margin: 0; font-size: 13px; }
+  .footer-subscribe { grid-column: 1/-1; }
+  .footer-subscribe p br { display: none; }
+  .end-line { flex-wrap: wrap; gap: 8px; font-size: 9px; }
+  .footer-stars { order: 3; flex-basis: 100%; text-align: center; padding-top: 10px; }
+  .colophon nav > a, .footer-sections a { min-height: 44px; }
+}
 </style>

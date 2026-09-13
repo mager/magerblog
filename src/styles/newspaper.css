@@ -1,0 +1,35 @@
+/* Chicago Sunday edition: shared publication tokens. */
+:root {
+  --news-paper: oklch(97.5% 0.009 85);
+  --news-ink: oklch(23% 0.016 260);
+  --news-muted: oklch(46% 0.016 260);
+  --news-rule: oklch(80% 0.016 85);
+  --news-blue: oklch(43% 0.19 265);
+  --news-red: oklch(48% 0.17 30);
+  --news-green: oklch(39% 0.075 155);
+  --news-yellow: oklch(89% 0.14 93);
+  --news-serif: 'Source Serif 4', Georgia, serif;
+  --news-display: 'Fraunces', Georgia, serif;
+  --news-ui: 'Space Grotesk', system-ui, sans-serif;
+  --news-mono: 'JetBrains Mono', monospace;
+  --news-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.publication {
+  background: var(--news-paper);
+  color: var(--news-ink);
+  --text-primary: var(--news-ink);
+  --text-secondary: var(--news-muted);
+  --code-fg: var(--news-blue);
+  --code-bg: oklch(92% 0.02 265);
+  padding-bottom: 0;
+}
+.publication ::selection { background: var(--news-yellow); color: var(--news-ink); }
+.publication :focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media print {
+  .publication { background: transparent; }
+  .publication a { color: inherit; }
+  .publication button, .publication .edition-index { display: none; }
+}

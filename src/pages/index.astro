@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import NewspaperHero from '../components/NewspaperHero.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// The homepage is one reverse-chronological feed of posts + notes. Drop drafts
+// The newspaper sections use the latest published and updated stories. Drop drafts
 // and Japanese translations (locale: 'ja') — they live on their own post pages
 // and share a translationKey with the English version, so the EN copy already
 // represents them in the stream.
@@ -15,17 +16,19 @@ const posts = (await getCollection('blog'))
 	.filter(post => post.data.locale !== 'ja')
 	.sort((a, b) => (b.data.updatedDate || b.data.pubDate).valueOf() - (a.data.updatedDate || a.data.pubDate).valueOf());
 
-// Short-form notes, newest first; the component interleaves them with posts.
+// Short-form notes, newest first, for the notebook column.
 const notes = (await getCollection('notes'))
 	.filter(note => !note.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// "Seen" photo posts, newest first; also interleaved into the stream.
+// Photo posts, newest first, for the Seen strip.
 const seen = (await getCollection('seen'))
 	.filter(s => !s.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // OG image: first available hero image in the feed.
+const dates = [...posts.map(p => p.data.updatedDate || p.data.pubDate), ...notes.map(n => n.data.pubDate), ...seen.map(s => s.data.pubDate)];
+const editionDate = dates.length ? new Date(Math.max(...dates.map(d => d.valueOf()))) : undefined;
 const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-placeholder-1.jpg';
 ---
 
@@ -35,9 +38,9 @@ const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-plac
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
 		<style>
 			body {
-				background-color: oklch(98.5% 0.004 250);
+				background-color: var(--news-paper);
 				overflow-x: hidden;
-				color: #0a0a0a;
+				color: var(--news-ink);
 			}
 
 			/* Full-bleed override */
@@ -51,8 +54,10 @@ const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-plac
 			}
 		</style>
 	</head>
-	<body>
-		<main>
+	<body class="publication">
+		<Header homepage={true} masthead={true} editionDate={editionDate} />
+		<main id="main-content">
+			<h1 class="sr-only">mager.co: The Chicago edition</h1>
 			<NewspaperHero posts={posts} notes={notes} seen={seen} />
 		</main>
 		<Footer homepage={true} />

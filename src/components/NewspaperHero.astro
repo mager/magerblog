@@ -1,1153 +1,301 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { render } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
-
-interface Props {
-	posts: CollectionEntry<'blog'>[];
-	notes?: CollectionEntry<'notes'>[];
-	seen?: CollectionEntry<'seen'>[];
-}
-
+interface Props { posts: CollectionEntry<'blog'>[]; notes?: CollectionEntry<'notes'>[]; seen?: CollectionEntry<'seen'>[]; }
 const { posts, notes = [], seen = [] } = Astro.props;
-
-// One reverse-chronological stream interleaving long-form posts, short notes,
-// and "seen" photo posts — the homepage as a personal feed rather than a
-// categorized front page.
-type FeedItem =
-	| { kind: 'post'; date: Date; entry: CollectionEntry<'blog'> }
-	| { kind: 'note'; date: Date; entry: CollectionEntry<'notes'> }
-	| { kind: 'seen'; date: Date; entry: CollectionEntry<'seen'> };
-
-const feed: FeedItem[] = [
-	...posts.map((entry): FeedItem => ({ kind: 'post', entry, date: entry.data.updatedDate || entry.data.pubDate })),
-	...notes.map((entry): FeedItem => ({ kind: 'note', entry, date: entry.data.pubDate })),
-	...seen.map((entry): FeedItem => ({ kind: 'seen', entry, date: entry.data.pubDate })),
-].sort((a, b) => b.date.valueOf() - a.date.valueOf());
-
-// Show a recent window on the homepage; the rest lives in the archives.
-const FEED_LIMIT = 30;
-const visible = feed.slice(0, FEED_LIMIT);
-const hasMore = feed.length > FEED_LIMIT;
-
-// Notes render as excerpts in the stream: only the first paragraph shows
-// (see .entry-note-body--excerpt), with a "Read note →" link to the full note.
-// render() is async, so resolve every note's Content component up front.
-const noteContent = new Map<string, Awaited<ReturnType<typeof render>>['Content']>();
-for (const note of notes) {
-	noteContent.set(note.id, (await render(note)).Content);
-}
-
-const CATEGORY: Record<string, { label: string; href: string }> = {
-	tech: { label: 'Tech', href: '/tech/' },
-	food: { label: 'Food', href: '/cooking/' },
-	life: { label: 'Life', href: '/life/' },
+const tech = posts.filter(post => !post.data.category || post.data.category === 'tech');
+const food = posts.filter(post => post.data.category === 'food');
+const life = posts.filter(post => post.data.category === 'life');
+const lead = tech[0];
+// The front page's photographic slots use our permanent image store. Legacy
+// Google Photos URLs remain untouched in the articles and category archives.
+const publicationImage = (url?: string) => !!url && !url.includes('lh3.googleusercontent.com');
+const foodFeatures = food.filter(post => publicationImage(post.data.heroImage)).slice(0, 3);
+const foodSpread = foodFeatures.length ? foodFeatures : food.slice(0, 3);
+const noteExcerpt = (note: CollectionEntry<'notes'>) => {
+  const paragraph = (note.body || '').trim().split(/\n\s*\n/)[0] || '';
+  const text = paragraph.replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/<[^>]*>/g, '').replace(/[*_`#]/g, '').replace(/\s+/g, ' ').trim();
+  const words = text.split(' ');
+  return words.slice(0, 32).join(' ') + (words.length > 32 ? '…' : '');
 };
-
-const hostOf = (url: string) => {
-	try {
-		return new URL(url).host.replace(/^www\./, '');
-	} catch {
-		return url;
-	}
-};
-
-const itemHref = (item: FeedItem) => {
-	if (item.kind === 'post') return `/blog/${item.entry.id}/`;
-	if (item.kind === 'seen') return `/seen/${item.entry.id}/`;
-	return `/notes/${item.entry.id}/`;
-};
-
-const itemTitle = (item: FeedItem) => {
-	if (item.kind === 'post' || item.kind === 'seen') return item.entry.data.title;
-	return item.entry.data.title || item.entry.data.linkText || 'Untitled note';
-};
-
+const dateOf = (post: CollectionEntry<'blog'>) => post.data.updatedDate || post.data.pubDate;
+const minutes = (post: CollectionEntry<'blog'>) => Math.max(1, Math.ceil((post.body || '').split(/\s+/).length / 220));
+const noteTitle = (note: CollectionEntry<'notes'>) => note.data.title || note.data.linkText || 'From the notebook';
+const archive = posts.slice(5).map(post => ({ title: post.data.title, href: `/blog/${post.id}/`, category: post.data.category === 'food' ? 'Food' : post.data.category === 'life' ? 'Life' : 'Tech' }));
+const archivePick = archive[Math.floor(archive.length / 2)];
 ---
+<div class="newspaper">
+  <nav class="edition-index" aria-label="In this edition">
+    <span>Inside this edition</span>
+    {tech.length > 0 && <a href="#technology">01 <b>Tech</b></a>}
+    {food.length > 0 && <a href="#food">02 <b>Food</b></a>}
+    {seen.length > 0 && <a href="#seen">03 <b>Seen</b></a>}
+    {life.length > 0 && <a href="#life">04 <b>Life</b></a>}
+    <span class="edition-signoff">Made of things worth sharing.</span>
+  </nav>
 
-<div class="home">
+  <div class="front-spread">
+    <section class="technology" id="technology" aria-labelledby="tech-heading">
+      <div class="section-rule tech-rule"><h2 id="tech-heading">01 / Technology &amp; making things</h2><a href="/tech/">All tech <span aria-hidden="true">↗</span></a></div>
+      {lead && <article class="lead-story">
+        <div class="story-meta"><span>The lead</span><span><FormattedDate date={dateOf(lead)} /> · {minutes(lead)} min read</span></div>
+        <a class="headline-link" href={`/blog/${lead.id}/`}><h2>{lead.data.title}</h2></a>
+        <p class="lead-dek">{lead.data.description}</p>
+        {lead.data.heroImage && <a class="lead-photo photo-link" href={`/blog/${lead.id}/`} aria-label={`Read ${lead.data.title}`}><img src={lead.data.heroImage} alt="" fetchpriority="high" loading="eager" decoding="async" width="1000" height="560" /><span class="photo-cta">Read the story <span aria-hidden="true">↗</span></span></a>}
+        {!lead.data.heroImage && <a class="text-link" href={`/blog/${lead.id}/`}>Read the story <span aria-hidden="true">↗</span></a>}
+      </article>}
+      <div class="tech-columns">
+        {tech.slice(1, 7).map((post, i) => <article>
+          <span class="column-number">0{i + 2}</span>
+          <a class="headline-link" href={`/blog/${post.id}/`}><h3>{post.data.title}</h3></a>
+          <p>{post.data.description}</p>
+          <span class="small-date"><FormattedDate date={dateOf(post)} /></span>
+        </article>)}
+      </div>
+    </section>
 
-	<!-- ── TOPBAR ── -->
-	<div class="topbar">
-		{feed[0] && (
-			<span class="topbar-stamp">
-				<span class="stamp-dot" aria-hidden="true"></span>
-				Latest edition · <FormattedDate date={feed[0].date} />
-			</span>
-		)}
-		<nav class="topbar-nav" aria-label="Site sections">
-			<a href="/tech/" style="--acc: var(--tech-accent);">Tech</a>
-			<a href="/cooking/" style="--acc: var(--food-accent);">Food</a>
-			<a href="/life/" style="--acc: var(--life-accent);">Life</a>
-			<span class="nav-rule" aria-hidden="true"></span>
-			<a href="/notes/" style="--acc: var(--note-accent);">Notes</a>
-			<a href="/seen/" style="--acc: var(--seen-accent);">Seen</a>
-			<a href="/about" style="--acc: var(--ink);">About</a>
-			<span class="nav-rule" aria-hidden="true"></span>
-			<a href="https://bench.mager.co" target="_blank" rel="noopener" class="topbar-bench">bench<span class="bench-arrow" aria-hidden="true">↗</span></a>
-		</nav>
-		<div class="topbar-social">
-			<a href="https://x.com/mager" target="_blank" class="topbar-social-link" aria-label="Follow @mager on X">
-				<svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
-					<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-				</svg>
-			</a>
-			<a href="https://github.com/mager" target="_blank" class="topbar-social-link" aria-label="mager on GitHub">
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">
-					<path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-				</svg>
-			</a>
-		</div>
-	</div>
+    <aside class="side-column" aria-label="The notebook and mager-bench">
+      <section class="bench-insert" aria-labelledby="bench-heading">
+        <div class="insert-label"><span>From the workbench</span><span aria-hidden="true">↗</span></div>
+        <a href="https://bench.mager.co" class="bench-title"><h2 id="bench-heading">mager<br /><span>bench.</span></h2></a>
+        <p>Same tasks. <br />Different models. <br /><em>See what holds up.</em></p>
+        <div class="bench-tests" aria-label="Benchmark dimensions"><span>Correctness</span><span>Code quality</span><span>Documentation</span></div>
+        <a class="bench-action" href="https://bench.mager.co">Explore the benchmark <span aria-hidden="true">↗</span></a>
+        <a class="bench-method" href="/blog/2026-07-05-mager-bench/">Why I built it</a>
+      </section>
+      {notes.length > 0 && <section class="notebook" aria-labelledby="notes-heading">
+        <div class="section-rule"><h2 id="notes-heading">The notebook</h2><a href="/notes/">All notes ↗</a></div>
+        <p class="section-caption">Quick thoughts. Open tabs. Things learned.</p>
+        {notes.slice(0, 3).map(note => <article class="note-preview">
+          <span class="small-date"><FormattedDate date={note.data.pubDate} /></span>
+          <a class="headline-link" href={`/notes/${note.id}/`}><h3>{noteTitle(note)}</h3></a>
+          <p class="note-excerpt">{noteExcerpt(note)}</p>
+          <a class="text-link" href={`/notes/${note.id}/`}>Read note <span aria-hidden="true">↗</span></a>
+        </article>)}
+      </section>}
+    </aside>
+  </div>
 
-	<!-- ── CONTROL CENTER ── -->
-	<header class="control-center">
-		<div class="control-top">
-			<a class="control-brand" href="/" aria-label="mager.co home">
-				<span class="brand-prompt" aria-hidden="true">▸</span>
-				<span class="brand-wordmark"><span class="g1">m</span><span class="g2">a</span><span class="g3">g</span><span class="g4">e</span><span class="g5">r</span><span class="g6">.</span><span class="g7">c</span><span class="g8">o</span></span>
-				<span class="brand-cursor" aria-hidden="true"></span>
-			</a>
-			<nav class="control-nav" aria-label="Site sections">
-				<a href="/tech/" style="--acc: var(--tech-accent);">Tech</a>
-				<a href="/cooking/" style="--acc: var(--food-accent);">Food</a>
-				<a href="/life/" style="--acc: var(--life-accent);">Life</a>
-				<a href="/notes/" style="--acc: var(--note-accent);">Notes</a>
-				<a href="/seen/" style="--acc: var(--seen-accent);">Seen</a>
-				<a href="/about" style="--acc: var(--ink);">About</a>
-				<a href="https://bench.mager.co" target="_blank" rel="noopener" class="control-bench">bench<span aria-hidden="true">↗</span></a>
-			</nav>
-			<div class="control-social">
-				<a href="https://x.com/mager" target="_blank" rel="noopener" aria-label="Follow @mager on X">𝕏</a>
-				<a href="https://github.com/mager" target="_blank" rel="noopener" aria-label="mager on GitHub">GH</a>
-			</div>
-		</div>
-	</header>
+  {food.length > 0 && <section class="food-section" id="food" aria-labelledby="food-heading">
+    <div class="section-rule food-rule"><h2 id="food-heading">02 / Food &amp; the kitchen</h2><a href="/cooking/">All recipes <span aria-hidden="true">↗</span></a></div>
+    <div class="food-heading"><h3>Something good<br />is cooking.</h3><p>Recipes I come back to. <br />Ingredients I get curious about.</p></div>
+    <div class="food-spread">
+      {foodSpread.map((post, i) => <article class:list={['food-story', { 'food-lead': i === 0 }]}>
+        {post.data.heroImage && <a class="food-photo photo-link" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}><img src={post.data.heroImage} alt="" loading="lazy" decoding="async" width="800" height="600" /></a>}
+        <div class="story-meta"><span>{i === 0 ? 'Fresh from the kitchen' : 'Recipe'}</span>{post.data.prepTime != null && <span>{post.data.prepTime + (post.data.cookTime || 0)} min</span>}</div>
+        <a class="headline-link" href={`/blog/${post.id}/`}><h3>{post.data.title}</h3></a>
+        <p>{post.data.description}</p>
+      </article>)}
+    </div>
+  </section>}
 
-	<!-- ── THE FEED ── -->
-	<section class="feed" aria-label="Latest posts and notes">
-		<header class="feed-head">
-			<h2 class="feed-title">Latest</h2>
-			<div class="feed-links">
-				<a href="/notes/">Notes</a>
-				<a href="/seen/">Seen</a>
-				<a href="/rss.xml">RSS</a>
-			</div>
-		</header>
+  <div class="weekend-spread">
+    {seen.length > 0 && <section class="seen-section" id="seen" aria-labelledby="seen-heading">
+      <div class="section-rule"><h2 id="seen-heading">03 / Seen</h2><a href="/seen/">The photo journal <span aria-hidden="true">↗</span></a></div>
+      <div class="seen-intro"><h3>A little evidence<br />of being here.</h3><span class="frame-mark" aria-hidden="true">⌖</span></div>
+      <div class="photo-strip" tabindex="0" role="region" aria-label="Recent photographs, scroll for more">
+        {seen.slice(0, 4).map((photo, i) => <figure>
+          <a class="seen-photo photo-link" href={`/seen/${photo.id}/`}><img src={photo.data.photo} alt={photo.data.alt || photo.data.title} loading="lazy" decoding="async" width="600" height="700" /></a>
+          <figcaption><span class="frame-number">[{String(i + 1).padStart(2, '0')}]</span><div><a href={`/seen/${photo.id}/`}>{photo.data.title}</a><span>{photo.data.location}</span></div></figcaption>
+        </figure>)}
+      </div>
+    </section>}
+    {life.length > 0 && <section class="life-section" id="life" aria-labelledby="life-heading">
+      <div class="section-rule"><h2 id="life-heading">04 / Life</h2><a href="/life/">All life ↗</a></div>
+      <h3 class="life-title">Away from<br /><em>the keyboard.</em></h3>
+      {life.slice(0, 2).map((post, i) => <article>
+        {i === 0 && publicationImage(post.data.heroImage) && <a class="life-photo photo-link" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}><img src={post.data.heroImage} alt="" loading="lazy" decoding="async" width="600" height="400" /></a>}
+        <a class="headline-link" href={`/blog/${post.id}/`}><h3>{post.data.title}</h3></a>
+        <p>{post.data.description}</p>
+        <span class="small-date"><FormattedDate date={dateOf(post)} /></span>
+      </article>)}
+    </section>}
+  </div>
 
-		{visible.map((item, index) => {
-			if (item.kind === 'post') {
-				const isLead = index === 0;
-				const categoryKey = item.entry.data.category ?? 'tech';
-				const categoryInfo = CATEGORY[categoryKey] ?? CATEGORY.tech;
-				const wordCount = item.entry.body ? item.entry.body.trim().split(/\s+/).filter(Boolean).length : 0;
-				const readingMinutes = isLead && wordCount > 0 ? Math.max(1, Math.round(wordCount / 200)) : null;
-				return (
-					<article class:list={['entry', 'entry--post', `entry--${categoryKey}`, { 'entry--lead': isLead }]}>
-						{isLead ? (
-							<div class="entry-rail entry-rail--lead">
-								<span class="entry-lead-badge">The Lead · {categoryInfo.label}</span>
-								<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-							</div>
-						) : (
-							<div class="entry-rail">
-								<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-								{item.entry.data.category && CATEGORY[item.entry.data.category] && (
-									<a class="entry-kind" href={CATEGORY[item.entry.data.category].href}>{CATEGORY[item.entry.data.category].label}</a>
-								)}
-							</div>
-						)}
-						<div class="entry-main">
-							<div class="entry-text">
-								<a class="entry-headline" href={`/blog/${item.entry.id}/`}>
-									<h3>{item.entry.data.title}</h3>
-								</a>
-								{item.entry.data.description && (
-									<p class="entry-dek">{item.entry.data.description}</p>
-								)}
-								{isLead ? (
-									<div class="entry-lead-cta">
-										<a class="entry-lead-button" href={`/blog/${item.entry.id}/`}>Read the lead →</a>
-										{readingMinutes && <span class="entry-lead-readtime">{readingMinutes} min read</span>}
-									</div>
-								) : (
-									<a class="entry-more" href={`/blog/${item.entry.id}/`}>Read post →</a>
-								)}
-							</div>
-							{item.entry.data.heroImage && (
-								<a class="entry-thumb" href={`/blog/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
-									<img src={item.entry.data.heroImage} alt="" loading="lazy" />
-								</a>
-							)}
-						</div>
-					</article>
-				);
-			}
-			if (item.kind === 'seen') {
-				return (
-					<article class="entry entry--seen">
-						<div class="entry-rail">
-							<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-							<a class="entry-kind entry-kind--seen" href="/seen/">Seen</a>
-						</div>
-						<div class="entry-main">
-							<div class="entry-text">
-								<a class="entry-headline" href={`/seen/${item.entry.id}/`}>
-									<h3>{item.entry.data.title}</h3>
-								</a>
-								<span class="entry-seen-location">📍 {item.entry.data.location}</span>
-								<a class="entry-more" href={`/seen/${item.entry.id}/`}>View photo →</a>
-							</div>
-							<a class="entry-thumb" href={`/seen/${item.entry.id}/`} tabindex="-1" aria-hidden="true">
-								<img src={item.entry.data.photo} alt="" loading="lazy" />
-							</a>
-						</div>
-					</article>
-				);
-			}
-			return (
-				<article class="entry entry--note">
-					<div class="entry-rail">
-						<time class="entry-date" datetime={item.date.toISOString()}><FormattedDate date={item.date} /></time>
-						<a class="entry-kind entry-kind--note" href="/notes/">Note</a>
-					</div>
-					<div class="entry-main">
-						<div class="entry-text">
-							{item.entry.data.title && (
-								<a class="entry-headline" href={`/notes/${item.entry.id}/`}><h3>{item.entry.data.title}</h3></a>
-							)}
-							{item.entry.data.link && (
-								<a class="entry-linkout" href={item.entry.data.link} target="_blank" rel="noopener">
-									{item.entry.data.linkText ?? hostOf(item.entry.data.link)}
-								</a>
-							)}
-							<div class="entry-note-body entry-note-body--excerpt">
-								{(() => { const C = noteContent.get(item.entry.id)!; return <C />; })()}
-							</div>
-							<a class="entry-more" href={`/notes/${item.entry.id}/`}>Read note →</a>
-						</div>
-					</div>
-				</article>
-			);
-		})}
-
-		{hasMore && (
-			<a class="feed-archive" href="/blog/">
-				<span>Browse the full archive</span>
-				<span class="feed-archive-arrow" aria-hidden="true">→</span>
-			</a>
-		)}
-	</section>
-
-</div><!-- /home -->
-
-<!-- Cursor glow orb -->
-<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
-
+  {archivePick && <section class="back-page" aria-labelledby="back-page-heading" data-archive={JSON.stringify(archive)}>
+    <div class="back-label"><span class="small-date">One more before you go</span><h2 id="back-page-heading">The back page.</h2></div>
+    <div class="archive-pick" aria-live="polite" aria-atomic="true"><span class="small-date" data-pick-category>{archivePick.category} / From the archives</span><a href={archivePick.href} data-pick-link>{archivePick.title}</a></div>
+    <button type="button" class="shuffle-button" hidden>Another story <span aria-hidden="true">⤨</span></button>
+  </section>}
+</div>
 <script>
-	// ── Ink-reveal: split hero name into chars and stagger them ──
-	// Target the visual span only — the sr-only text must stay intact and
-	// must not consume stagger delays.
-	const heroName = document.querySelector('.hero-name-visual') as HTMLElement | null;
-	if (heroName) {
-		let charIndex = 0;
-		const BASE_DELAY_MS = 80; // ms per char
-
-		function wrapChars(node: Node): void {
-			if (node.nodeType === Node.TEXT_NODE) {
-				const text = node.textContent || '';
-				const frag = document.createDocumentFragment();
-				for (const ch of text) {
-					const span = document.createElement('span');
-					span.className = 'char';
-					span.style.animationDelay = `${(charIndex++ * BASE_DELAY_MS)}ms`;
-					span.textContent = ch;
-					frag.appendChild(span);
-				}
-				node.parentNode?.replaceChild(frag, node);
-			} else if (node.nodeType === Node.ELEMENT_NODE) {
-				// Walk children in reverse so replacements don't shift indices
-				const children = Array.from(node.childNodes);
-				for (const child of children) {
-					wrapChars(child);
-				}
-			}
-		}
-
-		wrapChars(heroName);
-	}
-
-	// ── Cursor glow follows mouse ──
-	const glow = document.getElementById('cursor-glow');
-	if (glow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		let raf: number;
-		let mx = -500, my = -500;
-		window.addEventListener('mousemove', (e) => {
-			mx = e.clientX;
-			my = e.clientY;
-			cancelAnimationFrame(raf);
-			raf = requestAnimationFrame(() => {
-				glow.style.left = mx + 'px';
-				glow.style.top = my + 'px';
-			});
-		});
-		// Hide when leaving window
-		document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
-		document.addEventListener('mouseenter', () => { glow.style.opacity = '1'; });
-	} else if (glow) {
-		glow.style.display = 'none';
-	}
-
-	// ── Hero parallax on scroll (scroll-driven or JS fallback) ──
-	const hero = document.querySelector('.hero') as HTMLElement | null;
-	if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		// Use scroll-driven animations if supported
-		if (CSS.supports('animation-timeline', 'scroll()')) {
-			hero.style.cssText += `
-				animation: heroParallax linear both;
-				animation-timeline: scroll(root block);
-				animation-range: 0px 400px;
-			`;
-			const style = document.createElement('style');
-			style.textContent = `
-				@keyframes heroParallax {
-					from { transform: translateY(0px); }
-					to   { transform: translateY(-40px); }
-				}
-			`;
-			document.head.appendChild(style);
-		} else {
-			// JS fallback
-			const onScroll = () => {
-				const y = window.scrollY;
-				if (y < 500) {
-					hero.style.transform = `translateY(${-y * 0.1}px)`;
-				}
-			};
-			window.addEventListener('scroll', onScroll, { passive: true });
-		}
-	}
-
+// Retain the story link and caption if a remote image later becomes unavailable.
+document.querySelectorAll<HTMLImageElement>('.newspaper .photo-link img').forEach(img => {
+  const recover = () => {
+    const frame = img.closest<HTMLElement>('.photo-link');
+    if (!frame) return;
+    img.hidden = true;
+    frame.classList.add('photo-unavailable');
+    const label = document.createElement('span');
+    label.className = 'photo-fallback';
+    label.textContent = img.alt || frame.getAttribute('aria-label') || 'View the story';
+    frame.append(label);
+  };
+  if (img.complete && img.naturalWidth === 0) recover();
+  else img.addEventListener('error', recover, { once: true });
+});
+const backPage = document.querySelector<HTMLElement>('[data-archive]');
+if (backPage) {
+  const stories: { title: string; href: string; category: string }[] = JSON.parse(backPage.dataset.archive || '[]');
+  const button = backPage.querySelector<HTMLButtonElement>('button');
+  const link = backPage.querySelector<HTMLAnchorElement>('[data-pick-link]');
+  const category = backPage.querySelector<HTMLElement>('[data-pick-category]');
+  if (button && link && category && stories.length > 1) {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const alternatives = stories.filter(story => story.href !== link.getAttribute('href'));
+      const story = alternatives[Math.floor(Math.random() * alternatives.length)];
+      link.href = story.href;
+      link.textContent = story.title;
+      category.textContent = `${story.category} / From the archives`;
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        link.animate([{opacity: .25, transform: 'translateY(5px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 280, easing: 'cubic-bezier(.22,1,.36,1)'});
+      }
+    });
+  }
+}
 </script>
-
 <style>
-
-/* ══════════════════════════════════════════════════
-   TOKENS
-══════════════════════════════════════════════════ */
-.home {
-	--paper:       oklch(98.8% 0.004 250);
-	--ink:         oklch(11%   0.015 250);
-	--ink-mid:     oklch(42%   0.010 250);
-	--ink-light:   oklch(62%   0.008 250);
-	--rule:        oklch(89%   0.006 250);
-	--rule-dark:   oklch(79%   0.008 250);
-
-	/* Inline code on the paper surface: dark ink text on a subtle neutral
-	   tint. Overrides the dark-surface defaults from global.css so code in
-	   note bodies (rendered inline in the feed) is readable, not washed out. */
-	--code-bg: oklch(22% 0.012 250 / 0.08);
-	--code-fg: oklch(28% 0.020 250);
-
-	/* Wordmark sunrise — the one intentionally loud moment (see DESIGN.md).
-	   Coral → gold → bronze, crossing the masthead like a sunrise. */
-	--sunrise-start: #f05a36;
-	--sunrise-mid:   #c49b00;
-	--sunrise-end:   #b07a00;
-
-	/* Category accents (identity — stable across seasons) */
-	--tech-accent: oklch(45%  0.15  240);  /* lake blue */
-	--food-accent: oklch(58%  0.17  33);   /* ripe coral */
-	--life-accent: oklch(52%  0.15  150);  /* park green */
-	--note-accent: oklch(50%  0.14  290);  /* margin-note violet */
-	--seen-accent: oklch(55%  0.13  210);  /* sky / shutter blue */
-
-	/* Type */
-	--font-display: 'Fraunces', Georgia, serif;
-	--font-body:    'Source Serif 4', Georgia, serif;
-	--font-mono:    'JetBrains Mono', monospace;
-	--font-ui:      'Space Grotesk', sans-serif;
-
-	background: var(--paper);
-	color: var(--ink);
-	min-height: 100vh;
-	position: relative;
-	isolation: isolate;
-	overflow: hidden;
-}
-
-.home::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-	pointer-events: none;
-	background:
-		repeating-linear-gradient(
-			90deg,
-			oklch(46% 0.13 245 / 0.028) 0 1px,
-			transparent 1px 92px
-		),
-		repeating-linear-gradient(
-			0deg,
-			oklch(60% 0.15 150 / 0.032) 0 1px,
-			transparent 1px 68px
-		);
-}
-
-.topbar,
-.hero {
-	position: relative;
-	z-index: 1;
-}
-
-
-/* ══════════════════════════════════════════════════
-   TOPBAR
-══════════════════════════════════════════════════ */
-.topbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 1.5rem;
-	padding: 0.9rem 2.5rem;
-	border-bottom: 1px solid var(--rule);
-}
-
-/* Edition stamp — a quiet newspaper-style dateline derived from the newest
-   item in the feed (content date, not build date, so it never lies). */
-.topbar-stamp {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-	font-family: var(--font-mono);
-	font-size: 0.68rem;
-	font-weight: 500;
-	letter-spacing: 0.07em;
-	color: var(--ink-light);
-	white-space: nowrap;
-}
-
-.stamp-dot {
-	width: 7px;
-	height: 7px;
-	border-radius: 50%;
-	background: var(--sunrise-start);
-	flex-shrink: 0;
-}
-
-.topbar-nav {
-	display: flex;
-	align-items: center;
-	gap: 1.5rem;
-}
-
-/* Thin rules split the nav into sections: content · indexes · elsewhere */
-.nav-rule {
-	width: 1px;
-	height: 0.9rem;
-	background: var(--rule-dark);
-}
-
-.topbar-nav a {
-	font-family: var(--font-ui);
-	font-size: 0.8rem;
-	font-weight: 600;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--ink-mid);
-	text-decoration: none;
-	padding-bottom: 2px;
-	box-shadow: inset 0 -2px 0 transparent;
-	transition: color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.topbar-nav a:hover {
-	color: var(--acc, var(--ink));
-	box-shadow: inset 0 -2px 0 var(--acc, var(--ink));
-}
-
-/* Bench is a tool, not a section — monospace, lowercase, arrow out. */
-.topbar-nav a.topbar-bench {
-	font-family: var(--font-mono);
-	font-weight: 500;
-	text-transform: none;
-	letter-spacing: 0.02em;
-	--acc: var(--sunrise-start);
-}
-
-.bench-arrow {
-	display: inline-block;
-	font-size: 0.85em;
-	margin-left: 0.25em;
-	transition: transform 0.15s ease;
-}
-
-.topbar-bench:hover .bench-arrow {
-	transform: translate(2px, -2px);
-}
-
-.topbar-social {
-	display: flex;
-	align-items: center;
-	gap: 0.25rem;
-	padding-left: 1.5rem;
-	border-left: 1px solid var(--rule);
-}
-
-.topbar-social-link {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--ink-mid);
-	padding: 0.35em;
-	border-radius: 4px;
-	transition: color 0.15s ease;
-}
-
-.topbar-social-link:hover {
-	color: var(--ink);
-}
-
-/* ══════════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════════ */
-.hero {
-	padding: 4rem 2.5rem 3.5rem;
-	border-bottom: 1px solid var(--rule-dark);
-	overflow: hidden;
-	isolation: isolate;
-}
-
-.hero::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-	pointer-events: none;
-	background:
-		linear-gradient(110deg, transparent 0 62%, oklch(72% 0.15 33 / 0.08) 62% 62.35%, transparent 62.35%),
-		linear-gradient(110deg, transparent 0 71%, oklch(46% 0.13 245 / 0.08) 71% 71.35%, transparent 71.35%),
-		linear-gradient(110deg, transparent 0 78%, oklch(60% 0.15 150 / 0.06) 78% 78.25%, transparent 78.25%);
-}
-
-.hero-type {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-	gap: 2rem;
-	flex-wrap: wrap;
-	position: relative;
-	z-index: 1;
-}
-
-.hero-name {
-	font-family: var(--font-display);
-	font-variation-settings: 'opsz' 144, 'wght' 900;
-	font-style: italic;
-	font-size: clamp(5.5rem, 16vw, 14rem);
-	line-height: 0.88;
-	letter-spacing: -0.04em;
-	margin: 0;
-}
-
-/* Sunrise wordmark — the DESIGN.md hero gradient (#f05a36 → #c49b00 →
-   #b07a00) sampled per glyph so it survives the char-split animation:
-   coral at dawn on the left, bronze gold by the "o". */
-.g1 { color: #f05a36; }
-.g2 { color: #e36d27; }
-.g3 { color: #d77f17; }
-.g4 { color: #ca9208; }
-.g5 { color: #c19600; }
-.g6 { color: #bb8d00; }
-.g7 { color: #b68300; }
-.g8 { color: #b07a00; }
-
-/* Light shimmer: a small brightness pulse after ink-reveal finishes */
-@keyframes seasonalShimmer {
-	0%, 100% { filter: brightness(1); }
-	50%      { filter: brightness(1.16) saturate(1.08); }
-}
-
-.name-mager,
-.name-co {
-	animation: seasonalShimmer 3.5s 1.5s ease-in-out infinite;
-}
-
-.hero-meta {
-	padding-bottom: 0.5rem;
-	max-width: 280px;
-	flex-shrink: 0;
-}
-
-.hero-tagline {
-	font-family: var(--font-body);
-	font-size: 1.05rem;
-	font-style: italic;
-	color: var(--ink-mid);
-	margin: 0;
-	line-height: 1.4;
-}
-
-/* ══════════════════════════════════════════════════
-   THE FEED — one chronological stream of posts + notes
-══════════════════════════════════════════════════ */
-.feed {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: clamp(2rem, 5vw, 3.75rem) clamp(1.25rem, 5vw, 2.5rem) clamp(4rem, 8vw, 6rem);
-}
-
-.feed-head {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-	padding-bottom: 0.9rem;
-	border-bottom: 2px solid var(--ink);
-}
-
-.feed-title {
-	font-family: var(--font-ui);
-	font-size: 0.8rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.16em;
-	color: var(--ink);
-	margin: 0;
-}
-
-.feed-links {
-	display: flex;
-	gap: 1.25rem;
-	font-family: var(--font-mono);
-	font-size: 0.72rem;
-}
-
-.feed-links a { color: var(--ink-light); text-decoration: none; transition: color 0.15s ease; }
-.feed-links a:hover { color: var(--ink); }
-
-/* ── Entry ── */
-.entry {
-	--accent: var(--tech-accent);
-	display: grid;
-	grid-template-columns: 7rem 1fr;
-	gap: 0 clamp(1.25rem, 3vw, 2.5rem);
-	padding: clamp(1.6rem, 2.8vw, 2.5rem) 0;
-	border-top: 1px solid var(--rule);
-}
-
-.entry--tech { --accent: var(--tech-accent); }
-.entry--food { --accent: var(--food-accent); }
-.entry--life { --accent: var(--life-accent); }
-.entry--note { --accent: var(--note-accent); }
-.entry--seen { --accent: var(--seen-accent); }
-
-/* ── Dateline rail ── */
-.entry-rail {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	padding-top: 0.4rem;
-}
-
-.entry-date {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	font-family: var(--font-mono);
-	font-size: 0.7rem;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	color: var(--ink-light);
-	white-space: nowrap;
-}
-
-/* Accent node dot — colors the stream by entry type at a glance. */
-.entry-date::before {
-	content: '';
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: var(--accent);
-	box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 16%, transparent);
-	flex: none;
-}
-
-.entry-kind {
-	font-family: var(--font-ui);
-	font-size: 0.64rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.13em;
-	color: var(--accent);
-	text-decoration: none;
-}
-.entry-kind:hover { text-decoration: underline; }
-
-/* ── Entry body ── */
-.entry-main {
-	display: flex;
-	gap: clamp(1rem, 2.5vw, 2rem);
-	align-items: flex-start;
-	justify-content: space-between;
-}
-
-.entry-text { flex: 1 1 auto; min-width: 0; }
-
-.entry-headline { text-decoration: none; display: inline-block; }
-.entry-headline h3 {
-	font-family: var(--font-display);
-	font-variation-settings: 'opsz' 40, 'wght' 600;
-	font-size: clamp(1.35rem, 1rem + 1.6vw, 2rem);
-	line-height: 1.1;
-	letter-spacing: -0.02em;
-	color: var(--ink);
-	margin: 0 0 0.5rem;
-	text-wrap: balance;
-	transition: color 0.2s ease;
-}
-.entry-headline:hover h3 { color: var(--accent); }
-.entry--note .entry-headline h3 { font-size: clamp(1.15rem, 0.9rem + 1.1vw, 1.55rem); }
-
-.entry-dek {
-	font-family: var(--font-body);
-	font-size: 1rem;
-	line-height: 1.6;
-	color: var(--ink-mid);
-	margin: 0 0 0.7rem;
-	max-width: 64ch;
-	text-wrap: pretty;
-}
-
-.entry-more {
-	font-family: var(--font-ui);
-	font-size: 0.74rem;
-	font-weight: 600;
-	letter-spacing: 0.01em;
-	color: var(--ink-light);
-	text-decoration: none;
-	transition: color 0.2s ease;
-}
-.entry-more:hover { color: var(--accent); }
-
-/* ── Seen entries: location line under the headline ── */
-.entry-seen-location {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.3rem;
-	font-family: var(--font-mono);
-	font-size: 0.82rem;
-	color: var(--ink-mid);
-	margin: 0 0 0.7rem;
-}
-
-/* ── Lead story: the newest post gets a bigger, standalone treatment ── */
-.entry--lead {
-	grid-template-columns: 1fr;
-	gap: 0;
-}
-
-.entry-rail--lead {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	flex-wrap: wrap;
-	padding-top: 0;
-}
-
-.entry-rail--lead .entry-date::before { display: none; }
-
-.entry-lead-badge {
-	font-family: var(--font-ui);
-	font-size: 0.64rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.16em;
-	color: var(--accent);
-	border: 1px solid color-mix(in oklch, var(--accent) 35%, transparent);
-	border-radius: 999px;
-	padding: 0.3rem 0.65rem;
-}
-
-.entry--lead .entry-headline h3 {
-	font-size: clamp(2.2rem, 1.3rem + 3.2vw, 3.8rem);
-	line-height: 1.02;
-	letter-spacing: -0.03em;
-	margin: 0.85rem 0 0.9rem;
-}
-
-.entry--lead .entry-dek {
-	/* Wider than the base 64ch cap so the lead breathes, but still capped —
-	   at the 1200px container an uncapped line at this size pushes past
-	   100ch, which is too long to read comfortably. */
-	max-width: 72ch;
-	font-size: clamp(1.05rem, 1.4vw, 1.22rem);
-	line-height: 1.55;
-}
-
-.entry-lead-cta {
-	display: flex;
-	align-items: center;
-	gap: 0.9rem;
-	flex-wrap: wrap;
-}
-
-.entry-lead-button {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 0.6rem 1.15rem;
-	border: 1px solid var(--ink);
-	border-radius: 999px;
-	font-family: var(--font-ui);
-	font-size: 0.78rem;
-	font-weight: 600;
-	color: var(--ink);
-	text-decoration: none;
-	transition: background 0.2s ease, color 0.2s ease;
-}
-.entry-lead-button:hover { background: var(--ink); color: var(--paper); }
-
-.entry-lead-readtime {
-	font-family: var(--font-mono);
-	font-size: 0.7rem;
-	color: var(--ink-light);
-}
-
-/* ── Post thumbnail ── */
-.entry-thumb {
-	flex: 0 0 clamp(92px, 11vw, 148px);
-	display: block;
-	border-radius: 8px;
-	overflow: hidden;
-	border: 1px solid var(--rule);
-	align-self: flex-start;
-}
-.entry-thumb img {
-	display: block;
-	width: 100%;
-	aspect-ratio: 4 / 3;
-	object-fit: cover;
-	transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
-}
-.entry-thumb:hover img { transform: scale(1.045); filter: saturate(1.08) brightness(1.02); }
-
-/* ── Note entries: tinted marginalia, a distinct voice in the stream ── */
-.entry--note .entry-main {
-	background: color-mix(in oklch, var(--note-accent) 6%, var(--paper));
-	border: 1px solid color-mix(in oklch, var(--note-accent) 16%, var(--rule));
-	border-radius: 12px;
-	padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1.25rem, 2.4vw, 1.75rem);
-	/* Hug the 64ch body copy instead of stretching the tinted card across the
-	   full feed column, which left a large empty region on the right. */
-	max-width: 46rem;
-}
-
-.entry-linkout {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	font-family: var(--font-mono);
-	font-size: 0.85rem;
-	color: var(--accent);
-	text-decoration: none;
-	margin-bottom: 0.6rem;
-	word-break: break-word;
-}
-.entry-linkout::before { content: '→'; opacity: 0.7; transition: transform 0.2s ease; }
-.entry-linkout:hover { text-decoration: underline; }
-.entry-linkout:hover::before { transform: translateX(3px); }
-
-.entry-note-body { font-family: var(--font-body); color: var(--ink); line-height: 1.62; }
-/* Excerpt mode: the stream shows only the note's opening block; the full body
-   lives on /notes/ and the note's own page, behind "Read note →". */
-.entry-note-body--excerpt > :global(*:not(:first-child)) { display: none; }
-.entry-note-body :global(p) { margin: 0 0 0.8rem; max-width: 64ch; }
-.entry-note-body :global(p:last-child) { margin-bottom: 0; }
-.entry-note-body :global(ul) { margin: 0 0 0.8rem; padding-left: 1.1rem; }
-.entry-note-body :global(li) { margin: 0.2rem 0; max-width: 62ch; }
-.entry-note-body :global(strong) { font-weight: 700; color: var(--ink); }
-.entry-note-body :global(pre) {
-	background: var(--paper);
-	border: 1px solid var(--rule);
-	border-radius: 8px;
-	padding: 0.9rem 1rem;
-	overflow-x: auto;
-	font-size: 0.82rem;
-}
-.entry-note-body :global(code) { font-family: var(--font-mono); }
-.entry-note-body :global(a) { color: var(--accent); }
-
-/* ── Archive link: closes the stream ── */
-.feed-archive {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.6rem;
-	margin-top: clamp(2rem, 4vw, 3rem);
-	padding: 0.85rem 1.4rem;
-	border: 1px solid var(--ink);
-	border-radius: 999px;
-	font-family: var(--font-ui);
-	font-size: 0.8rem;
-	font-weight: 600;
-	letter-spacing: 0.02em;
-	color: var(--ink);
-	text-decoration: none;
-	transition: background 0.2s ease, color 0.2s ease;
-}
-.feed-archive:hover { background: var(--ink); color: var(--paper); }
-.feed-archive-arrow { transition: transform 0.2s ease; }
-.feed-archive:hover .feed-archive-arrow { transform: translateX(4px); }
-
-/* ── Delight: staggered ink-rise on load, echoing the masthead reveal ── */
-@keyframes feed-rise {
-	from { opacity: 0; transform: translateY(16px); }
-	to   { opacity: 1; transform: none; }
-}
-.feed-head,
-.entry { animation: feed-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.feed-head { animation-delay: 0.02s; }
-.entry:nth-child(2) { animation-delay: 0.10s; }
-.entry:nth-child(3) { animation-delay: 0.17s; }
-.entry:nth-child(4) { animation-delay: 0.24s; }
-.entry:nth-child(5) { animation-delay: 0.30s; }
-.entry:nth-child(6) { animation-delay: 0.36s; }
-.entry:nth-child(7) { animation-delay: 0.41s; }
-.entry:nth-child(n + 8) { animation-delay: 0.45s; }
-
-@media (prefers-reduced-motion: reduce) {
-	.feed-head,
-	.entry { animation: none; }
-	.entry-thumb img,
-	.entry-headline h3,
-	.entry-linkout::before { transition: none; }
-}
-
-/* ── Mobile: stack rail above body, thumbnail leads ── */
-@media (max-width: 680px) {
-	.entry {
-		grid-template-columns: 1fr;
-		gap: 0.65rem;
-	}
-	.entry-rail {
-		flex-direction: row;
-		align-items: center;
-		gap: 0.8rem;
-		padding-top: 0;
-	}
-	.entry-main { flex-direction: column-reverse; }
-	.entry-thumb {
-		flex: none;
-		width: 100%;
-	}
-	.entry-thumb img { aspect-ratio: 16 / 9; }
-}
-
-
-/* ══════════════════════════════════════════════════
-   PAGE LOAD ANIMATION
-══════════════════════════════════════════════════ */
-@keyframes fadeUp {
-	from { opacity: 0; transform: translateY(12px); }
-	to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Ink-reveal: letters slide up from a clipping mask, staggered */
-@keyframes inkReveal {
-	from {
-		opacity: 0;
-		transform: translateY(0.18em) skewX(-2deg);
-		filter: blur(6px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0) skewX(0deg);
-		filter: blur(0px);
-	}
-}
-
-.hero-name {
-	animation: fadeUp 0.6s ease both;
-}
-
-/* Each char in .hero-name gets staggered via JS */
-.hero-name .char {
-	display: inline-block;
-	animation: inkReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-	will-change: transform, opacity, filter;
-}
-
-.hero-meta {
-	animation: fadeUp 0.6s 0.1s ease both;
-}
-
-/* Cursor glow orb — positioned via JS */
-.cursor-glow {
-	position: fixed;
-	width: 320px;
-	height: 320px;
-	border-radius: 50%;
-	background: radial-gradient(circle, oklch(68% 0.13 215 / 0.11) 0%, transparent 70%);
-	pointer-events: none;
-	z-index: 9999;
-	transform: translate(-50%, -50%);
-	transition: left 0.12s ease, top 0.12s ease;
-	will-change: left, top;
-}
-
-/* Hero parallax wrapper */
-.hero {
-	will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.hero-name, .hero-meta, .hero-name .char, .name-mager, .name-co { animation: none; }
-	.cursor-glow { display: none; }
-}
-
-
-/* ══════════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════════ */
-@media (max-width: 800px) {
-	.topbar {
-		padding: 0.85rem 1.25rem;
-	}
-
-	.topbar-stamp {
-		display: none;
-	}
-
-	.topbar-nav {
-		gap: 1.1rem;
-	}
-
-	.hero {
-		padding: 2.5rem 1.25rem 2rem;
-	}
-
-	.hero-type {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 1.25rem;
-	}
-
-	.hero-meta {
-		max-width: 100%;
-	}
-}
-
-@media (max-width: 520px) {
-	.topbar-nav {
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.65rem 1.1rem;
-		width: 100%;
-	}
-
-	.nav-rule {
-		display: none;
-	}
-
-	.topbar-social {
-		display: none;
-	}
-}
-
-/* ══════════════════════════════════════════════════
-   CONTROL CENTER
-══════════════════════════════════════════════════ */
-.topbar { display: none; }
-.control-center {
-	position: sticky;
-	top: 0;
-	z-index: 20;
-	background: color-mix(in srgb, var(--paper) 92%, transparent);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
-	border-top: 3px solid transparent;
-	border-image: linear-gradient(90deg, var(--sunrise-start), var(--sunrise-mid), var(--sunrise-end)) 1;
-	box-shadow: 0 8px 24px oklch(11% 0.015 250 / 0.06);
-}
-.control-top {
-	display: flex;
-	align-items: center;
-	gap: 1.1rem;
-	min-height: 58px;
-	padding: 0.55rem 2.5rem;
-	border-bottom: 1px solid var(--rule);
-}
-.control-brand {
-	display: inline-flex;
-	align-items: center;
-	flex-shrink: 0;
-	color: var(--ink);
-	text-decoration: none;
-}
-.brand-prompt {
-	margin-right: 0.35rem;
-	font: 700 1rem/1 var(--font-mono);
-	color: var(--sunrise-start);
-}
-.brand-wordmark {
-	font: 900 italic 1.65rem/0.9 var(--font-display);
-	letter-spacing: -0.06em;
-}
-.brand-wordmark > span { display: inline-block; }
-.brand-cursor {
-	width: 0.42rem;
-	height: 1.05rem;
-	margin-left: 0.35rem;
-	background: var(--sunrise-start);
-	border-radius: 1px;
-	animation: blink 1s step-end infinite;
-}
-.control-nav {
-	display: flex;
-	align-items: center;
-	gap: 0.85rem;
-	margin-left: auto;
-}
-.control-nav a,
-.control-social a {
-	color: var(--ink-mid);
-	text-decoration: none;
-	font: 700 0.68rem/1 var(--font-ui);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	transition: color 150ms ease;
-}
-.control-nav a:hover { color: var(--acc, var(--ink)); }
-.control-nav .control-bench {
-	font: 500 0.7rem/1 var(--font-mono);
-	letter-spacing: 0;
-	text-transform: none;
-	color: var(--sunrise-end);
-}
-.control-bench span { margin-left: 0.2rem; }
-.control-social {
-	display: flex;
-	gap: 0.6rem;
-	padding-left: 0.9rem;
-	border-left: 1px solid var(--rule);
-}
-.control-social a { font-size: 0.62rem; letter-spacing: 0.02em; }
-
-@media (max-width: 1050px) {
-	.control-top { padding-inline: 1.25rem; }
-	.control-nav { gap: 0.55rem; }
-}
-@media (max-width: 720px) {
-	.control-center { position: relative; }
-	.control-top { flex-wrap: wrap; gap: 0.75rem; padding-block: 0.65rem; }
-	.control-nav { order: 3; flex: 1 0 100%; justify-content: space-between; gap: 0.35rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); }
-	.control-nav a { font-size: 0.6rem; }
-	.control-social { margin-left: auto; }
-}
-@media (max-width: 430px) {
-	.control-nav a:nth-child(5), .control-nav a:nth-child(6) { display: none; }
-	.control-nav { justify-content: flex-start; gap: 0.8rem; }
-	.brand-wordmark { font-size: 1.5rem; }
-}
-
+.newspaper { max-width: 1288px; padding: 0 24px 48px; margin: auto; font-family: var(--news-serif); }
+.newspaper :is(h2,h3,p) { margin: 0; }
+.newspaper :is(h2,h3) { color: inherit; font-family: var(--news-serif); }
+.newspaper a { color: inherit; }
+.newspaper a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.newspaper section { scroll-margin-top: 24px; min-width: 0; }
+.edition-index { display: flex; align-items: center; gap: 25px; padding: 15px 0 22px; font: 10px/1.5 var(--news-mono); }
+.edition-index > span:first-child { text-transform: uppercase; color: var(--news-muted); font-size: 9px; letter-spacing: .04em; }
+.edition-index a { display: flex; align-items: center; gap: 7px; min-height: 30px; }
+.edition-index a:hover { color: var(--news-blue); }
+.edition-signoff { margin-left: auto; font: italic 14px var(--news-serif); }
+.front-spread { display: grid; grid-template-columns: minmax(0, 2.55fr) minmax(250px, 1fr); gap: 32px; }
+.section-rule { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 2px solid currentColor; border-bottom: 1px solid var(--news-rule); }
+.section-rule h2, .section-rule a { font: 700 10px/1.5 var(--news-ui); text-transform: uppercase; letter-spacing: .08em; }
+.section-rule a { white-space: nowrap; font-size: 10px; letter-spacing: 0; text-transform: none; }
+.tech-rule { color: var(--news-blue); }
+.story-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; font: 500 10px/1.5 var(--news-mono); color: var(--news-muted); margin: 18px 0 12px; }
+.story-meta > span:first-child { color: var(--news-blue); text-transform: uppercase; letter-spacing: .08em; }
+.lead-story .headline-link h2 { font-weight: 750; font-size: clamp(36px, 4.7vw, 62px); line-height: 1.02; letter-spacing: -.045em; text-wrap: balance; }
+.headline-link:hover { text-decoration-thickness: 1px; }
+.technology .headline-link:hover { color: var(--news-blue); }
+.lead-story .lead-dek { font-size: 18px; line-height: 1.5; margin: 16px 0 21px; max-width: 67ch; color: var(--news-muted); }
+.photo-link { display: block; overflow: hidden; position: relative; }
+.photo-link img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; transition: transform 600ms var(--news-ease); }
+.photo-link img[hidden] { display: none; }
+.photo-link.photo-unavailable { background: var(--news-ink); color: var(--news-paper); }
+.photo-link :global(.photo-fallback) { display: block; padding: 24px; max-width: 30ch; font: 500 18px/1.4 var(--news-serif); }
+.photo-link:hover img { transform: scale(1.025); }
+.lead-photo { aspect-ratio: 16/8.4; background: var(--news-ink); }
+.photo-cta { position: absolute; bottom: 14px; right: 14px; display: flex; gap: 24px; align-items: center; padding: 12px 15px; background: var(--news-paper); color: var(--news-ink); font: 700 11px var(--news-ui); }
+.tech-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--news-rule); }
+.tech-columns article:not(:nth-child(3n + 1)) { padding-left: 20px; border-left: 1px solid var(--news-rule); }
+.tech-columns article:nth-child(n + 4) { border-top: 1px solid var(--news-rule); padding-top: 18px; }
+.column-number { font: 500 11px var(--news-mono); color: var(--news-blue); }
+.tech-columns h3 { font-size: 22px; line-height: 1.13; margin-top: 8px; letter-spacing: -.025em; }
+.tech-columns p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 12px 0; font-size: 14px; line-height: 1.5; color: var(--news-muted); }
+.small-date { font: 400 10px/1.5 var(--news-mono); color: var(--news-muted); }
+.side-column { min-width: 0; border-left: 1px solid var(--news-rule); padding-left: 28px; }
+.bench-insert { background: var(--news-yellow); color: var(--news-ink); padding: 20px; position: relative; }
+.insert-label { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid color-mix(in oklch, var(--news-ink) 30%, transparent); padding-bottom: 12px; font: 700 9px/1.3 var(--news-mono); text-transform: uppercase; letter-spacing: .05em; }
+.insert-label > span:last-child { font-size: 20px; }
+.bench-insert .bench-title:hover { text-decoration: none; }
+.bench-insert h2 { font: 800 clamp(44px, 4.7vw, 62px)/.85 var(--news-ui); letter-spacing: -.065em; margin: 22px 0 18px; }
+.bench-insert h2 span { color: var(--news-blue); }
+.bench-insert p { font: 18px/1.35 var(--news-serif); }
+.bench-tests { display: flex; flex-wrap: wrap; gap: 7px 10px; margin: 19px 0; font: 9px/1.5 var(--news-mono); }
+.bench-tests span::before { content: '↳ '; }
+.bench-action { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-top: 1px solid var(--news-ink); font: 700 11px var(--news-ui); }
+.bench-method { display: inline-flex; align-items: center; min-height: 28px; font: 11px var(--news-serif); text-decoration: underline; text-underline-offset: 3px; }
+.notebook { margin-top: 30px; }
+.notebook .section-caption { font: italic 13px/1.5 var(--news-serif); margin-top: 10px; color: var(--news-muted); }
+.note-preview { padding: 17px 0; border-bottom: 1px solid var(--news-rule); }
+.note-preview h3 { font-size: 20px; line-height: 1.15; margin-top: 7px; }
+.note-excerpt { font-size: 13px; line-height: 1.5; color: var(--news-muted); margin: 10px 0; }
+.text-link { display: inline-flex; align-items: center; min-height: 32px; font: 700 10px var(--news-ui); gap: 12px; }
+.food-section { background: oklch(94% 0.026 55); margin: 46px -24px 0; padding: 25px 24px 30px; color: var(--news-red); }
+.food-rule { border-bottom-color: color-mix(in oklch, var(--news-red) 30%, transparent); }
+.food-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding: 24px 0; }
+.food-heading h3 { font: 750 clamp(36px, 4.5vw, 58px)/.99 var(--news-display); letter-spacing: -.04em; }
+.food-heading p { font-size: 15px; line-height: 1.5; }
+.food-spread { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 25px; }
+.food-photo { aspect-ratio: 4/3; }
+.food-lead .food-photo { aspect-ratio: 1.87; }
+.food-story { color: var(--news-ink); }
+.food-story .story-meta > span:first-child { color: var(--news-red); font-size: 9px; }
+.food-story h3 { font-size: 27px; line-height: 1.05; letter-spacing: -.025em; }
+.food-lead h3 { font-size: 35px; }
+.food-story p { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--news-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.food-story a:hover { color: var(--news-red); }
+.weekend-spread { display: grid; grid-template-columns: minmax(0, 2.55fr) minmax(250px, 1fr); gap: 32px; margin-top: 44px; }
+.seen-section, .life-section { color: var(--news-green); }
+.seen-intro { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; }
+.seen-intro h3 { font-size: clamp(32px, 3.3vw, 43px); line-height: 1.05; letter-spacing: -.03em; }
+.frame-mark { font: 60px/1 var(--news-serif); }
+.photo-strip { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 15px; scrollbar-color: var(--news-green) var(--news-paper); scrollbar-width: thin; }
+.photo-strip figure { margin: 0; flex: 0 0 44%; min-width: 0; scroll-snap-align: start; }
+.seen-photo { aspect-ratio: 6/7; }
+.photo-strip figcaption { display: flex; gap: 10px; padding-top: 12px; color: var(--news-ink); }
+.frame-number { font: 10px/1.8 var(--news-mono); color: var(--news-green); }
+.photo-strip figcaption a { font: 600 15px/1.2 var(--news-serif); }
+.photo-strip figcaption div > span { display: block; margin-top: 6px; font: 10px/1.5 var(--news-mono); color: var(--news-muted); }
+.life-section { padding-left: 28px; border-left: 1px solid var(--news-rule); }
+.life-section .life-title { font: 600 32px/1.08 var(--news-serif); letter-spacing: -.03em; margin: 24px 0; }
+.life-section article { color: var(--news-ink); padding-bottom: 20px; }
+.life-section article + article { border-top: 1px solid var(--news-rule); padding-top: 18px; }
+.life-photo { aspect-ratio: 3/2; margin-bottom: 15px; }
+.life-section article h3 { font-size: 23px; line-height: 1.15; }
+.life-section article p { font-size: 14px; line-height: 1.5; margin: 10px 0; color: var(--news-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.back-page { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 30px; align-items: center; margin-top: 40px; padding: 25px 0; border-block: 1px solid var(--news-ink); }
+.back-label h2 { font: 700 32px/1.1 var(--news-display); letter-spacing: -.04em; margin-top: 6px; }
+.archive-pick a { display: block; font: 600 20px/1.25 var(--news-serif); margin-top: 7px; }
+.shuffle-button { background: transparent; border: 1px solid var(--news-ink); padding: 12px 15px; min-height: 44px; font: 600 11px var(--news-ui); color: var(--news-ink); cursor: pointer; }
+.shuffle-button:hover { background: var(--news-yellow); }
+.shuffle-button span { margin-left: 14px; font-size: 18px; }
+@media(max-width: 980px) {
+  .front-spread, .weekend-spread { grid-template-columns: minmax(0, 1.9fr) minmax(230px, 1fr); gap: 24px; }
+  .side-column, .life-section { padding-left: 22px; }
+  .tech-columns { grid-template-columns: 1fr; gap: 16px; }
+  .tech-columns article:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
+  .tech-columns article + article { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--news-rule); }
+  .tech-columns h3 { font-size: 24px; }
+  .tech-columns p { -webkit-line-clamp: 2; }
+  .edition-signoff { display: none; }
+}
+@media(max-width: 700px) {
+  .newspaper { padding: 0 18px 30px; }
+  .edition-index { gap: 16px; flex-wrap: wrap; padding: 12px 0 18px; }
+  .edition-index > span:first-child { flex-basis: 100%; }
+  .edition-index a { min-height: 30px; }
+  .front-spread, .weekend-spread { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .side-column, .life-section { border-left: 0; padding-left: 0; }
+  .lead-story .headline-link h2 { font-size: clamp(36px, 8vw, 52px); }
+  .lead-story .lead-dek { font-size: 17px; }
+  .story-meta { font-size: 9px; flex-wrap: wrap; }
+  .tech-columns { grid-template-columns: 1fr; }
+  .tech-columns p { -webkit-line-clamp: 2; }
+  .bench-insert { padding: 22px; }
+  .bench-insert h2 { font-size: 64px; }
+  .bench-insert h2 br { display: initial; }
+  .bench-insert p br { display: none; }
+  .bench-insert p br::after { content: " "; }
+  .bench-insert p { max-width: 30ch; }
+  .notebook { margin-top: 28px; }
+  .note-preview h3 { font-size: 23px; }
+  .note-excerpt { font-size: 15px; }
+  .food-section { margin: 30px -18px 0; padding: 22px 18px 28px; }
+  .food-heading { align-items: start; flex-direction: column; gap: 15px; }
+  .food-heading h3 { font-size: 44px; }
+  .food-heading p br { display: none; }
+  .food-spread { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px 18px; }
+  .food-lead { grid-column: 1/-1; }
+  .food-lead .food-photo { aspect-ratio: 1.5; }
+  .food-story h3 { font-size: 23px; }
+  .food-lead h3 { font-size: 32px; }
+  .food-story:not(.food-lead) p { display: none; }
+  .food-story .story-meta { gap: 5px; font-size: 9px; }
+  .photo-strip figure { flex-basis: 76%; }
+  .weekend-spread { margin-top: 30px; }
+  .back-page { grid-template-columns: 1fr; gap: 20px; }
+  .shuffle-button { justify-self: start; }
+}
+@media(prefers-reduced-motion: reduce) { .photo-link img { transition: none; transform: none !important; } .photo-strip { scroll-behavior: auto; } }
 </style>

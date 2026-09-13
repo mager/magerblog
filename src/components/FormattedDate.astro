@@ -24,6 +24,7 @@ if (!dateObj || isNaN(dateObj.getTime())) {
 <time datetime={dateObj.toISOString()}>
 	{
 		dateObj.toLocaleDateString('en-US', {
+			timeZone: 'UTC',
 			month: 'long',
 			day: 'numeric',
 			year: 'numeric',
