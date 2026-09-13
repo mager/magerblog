@@ -1,9 +1,9 @@
 /* Chicago Sunday edition: shared publication tokens. */
 :root {
-  --news-paper: oklch(97.5% 0.009 85);
+  --news-paper: oklch(98.6% 0.003 250);
   --news-ink: oklch(23% 0.016 260);
   --news-muted: oklch(46% 0.016 260);
-  --news-rule: oklch(80% 0.016 85);
+  --news-rule: oklch(86% 0.007 250);
   --news-blue: oklch(43% 0.19 265);
   --news-red: oklch(48% 0.17 30);
   --news-green: oklch(39% 0.075 155);
