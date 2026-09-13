@@ -24,13 +24,23 @@ const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/,
     {masthead
       ? <nav class="press-nav front-index" aria-label="Sections">
           <div class="idx-links">
-            {sections.map(section => <a href={section.href}>{section.name}</a>)}
-            <a class="bench-link" href="https://bench.mager.co">bench <span aria-hidden="true">↗</span></a>
-            <a href="/about/">about</a>
+            {sections.map((section, index) => <a class:list={['index-link', section.ink]} href={section.href}>
+              <span class="idx-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="idx-name">{section.name}</span>
+            </a>)}
+            <a class="index-link bench-link" href="https://bench.mager.co">
+              <span class="idx-number" aria-hidden="true">06</span>
+              <span class="idx-name">Bench <span aria-hidden="true">↗</span></span>
+            </a>
+            <a class="index-link about-link" href="/about/">
+              <span class="idx-number" aria-hidden="true">07</span>
+              <span class="idx-name">About</span>
+            </a>
           </div>
           <div class="idx-meta">
+            <span>Latest edition</span>
             {editionDate && <time datetime={editionDate.toISOString()}>{editionDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'})}</time>}
-            <a href="/rss.xml">rss <span aria-hidden="true">↗</span></a>
+            <a href="/rss.xml">RSS <span aria-hidden="true">↗</span></a>
           </div>
         </nav>
       : <nav class="press-nav" aria-label="Main navigation">
@@ -69,16 +79,78 @@ const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/,
 .press-nav .bench-link:hover { background: var(--news-yellow); color: var(--news-ink); text-decoration: none; }
 .bench-link span { transition: transform 250ms var(--news-ease); }
 .bench-link:hover span { transform: translate(2px, -2px); }
-/* Front-page index: slim category-dateline-style bar. Keeps the rules and the
-   serif masthead above it, drops the shouty color-block nav. */
-.press-nav.front-index { justify-content: space-between; gap: 8px 20px; padding: 9px 0; border-bottom-color: var(--press-rule); font: 500 11px/1.5 var(--news-mono); }
-.idx-links { display: flex; align-items: center; flex-wrap: wrap; }
-.press-nav.front-index a { min-height: 28px; font: inherit; text-transform: lowercase; letter-spacing: .02em; color: var(--press-muted); }
-.press-nav.front-index a:hover { color: var(--press-ink); }
-.idx-links a + a::before { content: '/'; margin: 0 12px; color: var(--press-rule); }
-.press-nav.front-index .bench-link { margin-left: 0; }
-.press-nav.front-index .bench-link:hover { background: transparent; }
-.idx-meta { display: flex; align-items: center; gap: 16px; margin-left: auto; color: var(--press-muted); white-space: nowrap; }
+/* Front-page section rail: newspaper departments with enough color and weight
+   to work as real wayfinding. The small numbers keep the editorial rhythm. */
+.press-nav.front-index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0;
+  padding: 0;
+  border-top-width: 3px;
+  border-bottom-color: var(--press-ink);
+}
+.idx-links { display: flex; align-items: stretch; min-width: 0; }
+.press-nav.front-index .index-link {
+  --rail-accent: var(--press-ink);
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 7px;
+  min-height: 58px;
+  padding: 12px clamp(10px, 1.3vw, 18px) 10px;
+  border-right: 1px solid var(--press-rule);
+  color: var(--rail-accent);
+  font: 750 clamp(14px, 1.35vw, 18px)/1 var(--news-serif);
+  letter-spacing: -.015em;
+  text-transform: none;
+  transition: color 220ms var(--news-ease), background-color 220ms var(--news-ease);
+}
+.press-nav.front-index .index-link::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  left: 10px;
+  height: 4px;
+  background: var(--rail-accent);
+  transform: scaleX(.28);
+  transform-origin: left;
+  transition: transform 300ms var(--news-ease);
+}
+.press-nav.front-index .index-link:hover {
+  background: color-mix(in oklch, var(--rail-accent) 9%, transparent);
+  color: var(--rail-accent);
+  text-decoration: none;
+}
+.press-nav.front-index .index-link:hover::after { transform: scaleX(1); }
+.press-nav.front-index .blue { --rail-accent: var(--news-blue); }
+.press-nav.front-index .red { --rail-accent: var(--news-red); }
+.press-nav.front-index .green { --rail-accent: var(--news-green); }
+.idx-number { color: var(--press-muted); font: 700 8px/1 var(--news-mono); letter-spacing: .06em; }
+.idx-name { white-space: nowrap; }
+.press-nav.front-index .bench-link {
+  --rail-accent: var(--news-ink);
+  margin-left: 0;
+  background: var(--news-yellow);
+  color: var(--news-ink);
+}
+.press-nav.front-index .bench-link:hover { background: var(--news-yellow); color: var(--news-ink); }
+.press-nav.front-index .about-link { --rail-accent: var(--news-ink); }
+.idx-meta {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  min-width: 128px;
+  padding: 8px 14px;
+  color: var(--press-muted);
+  font: 500 9px/1.35 var(--news-mono);
+  letter-spacing: .025em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.idx-meta time { color: var(--press-ink); font-weight: 700; }
+.press-nav.front-index .idx-meta a { justify-content: flex-start; min-height: 18px; color: var(--news-blue); font: inherit; }
 @media(max-width: 760px) {
   .press-header { padding: 0 18px; }
   .masthead .nameplate { grid-template-columns: 1fr; text-align: center; padding: 20px 0; gap: 10px; }
@@ -89,9 +161,29 @@ const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/,
   .press-nav:not(.front-index) { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
   .press-nav:not(.front-index) a { min-height: 44px; font-size: 11px; }
   .press-nav:not(.front-index) a:nth-child(n+5) { border-top: 1px solid var(--press-rule); }
-  .press-nav.front-index { flex-wrap: wrap; row-gap: 2px; }
-  .idx-links a + a::before { margin: 0 8px; }
-  .idx-meta { margin-left: 0; }
+  .press-nav.front-index { grid-template-columns: 1fr; }
+  .idx-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .press-nav.front-index .index-link {
+    min-width: 0;
+    min-height: 50px;
+    padding: 9px 7px 8px;
+    gap: 4px;
+    border-top: 1px solid var(--press-rule);
+    font-size: clamp(12px, 3.8vw, 15px);
+  }
+  .press-nav.front-index .index-link:nth-child(-n + 4) { border-top: 0; }
+  .press-nav.front-index .index-link::after { right: 7px; left: 7px; height: 3px; }
+  .idx-number { font-size: 7px; }
+  .idx-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 34px;
+    padding: 5px 8px;
+    border-top: 1px solid var(--press-ink);
+  }
 }
-@media(prefers-reduced-motion: reduce) { .wordmark-dot, .bench-link span { transition: none; transform: none !important; } }
+@media(prefers-reduced-motion: reduce) {
+  .wordmark-dot, .bench-link span, .press-nav.front-index .index-link::after { transition: none; transform: none !important; }
+}
 </style>
