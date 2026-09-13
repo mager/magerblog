@@ -25,15 +25,6 @@ const archive = posts.slice(5).map(post => ({ title: post.data.title, href: `/bl
 const archivePick = archive[Math.floor(archive.length / 2)];
 ---
 <div class="newspaper">
-  <nav class="edition-index" aria-label="In this edition">
-    <span>Inside this edition</span>
-    {tech.length > 0 && <a href="#technology">01 <b>Tech</b></a>}
-    {food.length > 0 && <a href="#food">02 <b>Food</b></a>}
-    {seen.length > 0 && <a href="#seen">03 <b>Seen</b></a>}
-    {life.length > 0 && <a href="#life">04 <b>Life</b></a>}
-    <span class="edition-signoff">Made of things worth sharing.</span>
-  </nav>
-
   <div class="front-spread">
     <section class="technology" id="technology" aria-labelledby="tech-heading">
       <div class="section-rule tech-rule"><h2 id="tech-heading">01 / Technology &amp; making things</h2><a href="/tech/">All tech <span aria-hidden="true">↗</span></a></div>
@@ -56,11 +47,12 @@ const archivePick = archive[Math.floor(archive.length / 2)];
 
     <aside class="side-column" aria-label="The notebook and mager-bench">
       <section class="bench-insert" aria-labelledby="bench-heading">
-        <div class="insert-label"><span>From the workbench</span><span aria-hidden="true">↗</span></div>
-        <a href="https://bench.mager.co" class="bench-title"><h2 id="bench-heading">mager<br /><span>bench.</span></h2></a>
-        <p>Same tasks. <br />Different models. <br /><em>See what holds up.</em></p>
-        <div class="bench-tests" aria-label="Benchmark dimensions"><span>Correctness</span><span>Code quality</span><span>Documentation</span></div>
-        <a class="bench-action" href="https://bench.mager.co">Explore the benchmark <span aria-hidden="true">↗</span></a>
+        <div class="insert-label"><span>mager-bench</span><span>v1.1 // live</span></div>
+        <a href="https://bench.mager.co" class="bench-title"><h2 id="bench-heading">mager-bench</h2></a>
+        <p>Opinionated coding tasks, scored by an LLM judge.</p>
+        <div class="bench-score" aria-label="Current leader"><span class="bench-leader">7.4</span><span class="bench-sub">/ 10 · GLM 5.3 leads</span></div>
+        <div class="bench-tests" aria-label="Benchmark dimensions"><span class="dim-crct">correctness</span><span class="dim-qual">quality</span><span class="dim-docs">docs</span></div>
+        <a class="bench-action" href="https://bench.mager.co">Explore the leaderboard <span aria-hidden="true">↗</span></a>
         <a class="bench-method" href="/blog/2026-07-05-mager-bench/">Why I built it</a>
       </section>
       {notes.length > 0 && <section class="notebook" aria-labelledby="notes-heading">
@@ -162,12 +154,7 @@ if (backPage) {
 .newspaper a { color: inherit; }
 .newspaper a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .newspaper section { scroll-margin-top: 24px; min-width: 0; }
-.edition-index { display: flex; align-items: center; gap: 25px; padding: 15px 0 22px; font: 10px/1.5 var(--news-mono); }
-.edition-index > span:first-child { text-transform: uppercase; color: var(--news-muted); font-size: 9px; letter-spacing: .04em; }
-.edition-index a { display: flex; align-items: center; gap: 7px; min-height: 30px; }
-.edition-index a:hover { color: var(--news-blue); }
-.edition-signoff { margin-left: auto; font: italic 14px var(--news-serif); }
-.front-spread { display: grid; grid-template-columns: minmax(0, 2.55fr) minmax(250px, 1fr); gap: 32px; }
+.front-spread { display: grid; grid-template-columns: minmax(0, 2.55fr) minmax(250px, 1fr); gap: 32px; padding-top: 26px; }
 .section-rule { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 2px solid currentColor; border-bottom: 1px solid var(--news-rule); }
 .section-rule h2, .section-rule a { font: 700 10px/1.5 var(--news-ui); text-transform: uppercase; letter-spacing: .08em; }
 .section-rule a { white-space: nowrap; font-size: 10px; letter-spacing: 0; text-transform: none; }
@@ -194,17 +181,22 @@ if (backPage) {
 .tech-columns p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 12px 0; font-size: 14px; line-height: 1.5; color: var(--news-muted); }
 .small-date { font: 400 10px/1.5 var(--news-mono); color: var(--news-muted); }
 .side-column { min-width: 0; border-left: 1px solid var(--news-rule); padding-left: 28px; }
-.bench-insert { background: var(--news-yellow); color: var(--news-ink); padding: 20px; position: relative; }
-.insert-label { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid color-mix(in oklch, var(--news-ink) 30%, transparent); padding-bottom: 12px; font: 700 9px/1.3 var(--news-mono); text-transform: uppercase; letter-spacing: .05em; }
-.insert-label > span:last-child { font-size: 20px; }
+.bench-insert { background: #100e09; color: #f2e9d4; padding: 20px; position: relative; border: 1px solid oklch(62% 0.12 75 / 0.45); }
+.insert-label { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid oklch(62% 0.12 75 / 0.35); padding-bottom: 12px; font: 500 9px/1.3 var(--news-mono); text-transform: lowercase; letter-spacing: .08em; color: #b8a67a; }
 .bench-insert .bench-title:hover { text-decoration: none; }
-.bench-insert h2 { font: 800 clamp(44px, 4.7vw, 62px)/.85 var(--news-ui); letter-spacing: -.065em; margin: 22px 0 18px; }
-.bench-insert h2 span { color: var(--news-blue); }
-.bench-insert p { font: 18px/1.35 var(--news-serif); }
-.bench-tests { display: flex; flex-wrap: wrap; gap: 7px 10px; margin: 19px 0; font: 9px/1.5 var(--news-mono); }
-.bench-tests span::before { content: '↳ '; }
-.bench-action { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-top: 1px solid var(--news-ink); font: 700 11px var(--news-ui); }
-.bench-method { display: inline-flex; align-items: center; min-height: 28px; font: 11px var(--news-serif); text-decoration: underline; text-underline-offset: 3px; }
+.bench-insert h2 { font: 700 30px/1 var(--news-mono); letter-spacing: -0.02em; margin: 18px 0 12px; color: #f5b73f; text-shadow: 0 0 14px oklch(72% 0.16 75 / 0.55); }
+.bench-insert p { font: 13px/1.55 var(--news-mono); color: #cfc3a5; }
+.bench-score { display: flex; align-items: baseline; gap: 10px; margin: 16px 0 4px; }
+.bench-leader { font: 700 44px/1 var(--news-mono); color: #f5b73f; text-shadow: 0 0 18px oklch(72% 0.16 75 / 0.5); }
+.bench-sub { font: 500 10px/1.5 var(--news-mono); color: #b8a67a; }
+.bench-tests { display: flex; flex-wrap: wrap; gap: 7px 14px; margin: 14px 0 18px; font: 500 10px/1.5 var(--news-mono); }
+.dim-crct { color: #7ee2a8; }
+.dim-qual { color: #f08fd6; }
+.dim-docs { color: #7cc7ff; }
+.bench-tests span::before { content: '· '; color: #b8a67a; }
+.bench-action { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-top: 1px solid oklch(62% 0.12 75 / 0.4); font: 700 11px var(--news-ui); color: #f2e9d4; }
+.bench-action:hover { color: #f5b73f; }
+.bench-method { display: inline-flex; align-items: center; min-height: 28px; font: 11px var(--news-serif); color: #b8a67a; text-decoration: underline; text-underline-offset: 3px; }
 .notebook { margin-top: 30px; }
 .notebook .section-caption { font: italic 13px/1.5 var(--news-serif); margin-top: 10px; color: var(--news-muted); }
 .note-preview { padding: 17px 0; border-bottom: 1px solid var(--news-rule); }
@@ -258,13 +250,9 @@ if (backPage) {
   .tech-columns article + article { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--news-rule); }
   .tech-columns h3 { font-size: 24px; }
   .tech-columns p { -webkit-line-clamp: 2; }
-  .edition-signoff { display: none; }
 }
 @media(max-width: 700px) {
   .newspaper { padding: 0 18px 30px; }
-  .edition-index { gap: 16px; flex-wrap: wrap; padding: 12px 0 18px; }
-  .edition-index > span:first-child { flex-basis: 100%; }
-  .edition-index a { min-height: 30px; }
   .front-spread, .weekend-spread { grid-template-columns: minmax(0, 1fr); gap: 30px; }
   .side-column, .life-section { border-left: 0; padding-left: 0; }
   .lead-story .headline-link h2 { font-size: clamp(36px, 8vw, 52px); }
@@ -273,11 +261,9 @@ if (backPage) {
   .tech-columns { grid-template-columns: 1fr; }
   .tech-columns p { -webkit-line-clamp: 2; }
   .bench-insert { padding: 22px; }
-  .bench-insert h2 { font-size: 64px; }
-  .bench-insert h2 br { display: initial; }
-  .bench-insert p br { display: none; }
-  .bench-insert p br::after { content: " "; }
-  .bench-insert p { max-width: 30ch; }
+  .bench-insert h2 { font-size: 34px; }
+  .bench-leader { font-size: 40px; }
+  .bench-insert p { max-width: 32ch; }
   .notebook { margin-top: 28px; }
   .note-preview h3 { font-size: 23px; }
   .note-excerpt { font-size: 15px; }

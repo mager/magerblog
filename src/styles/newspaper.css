@@ -31,5 +31,5 @@
 @media print {
   .publication { background: transparent; }
   .publication a { color: inherit; }
-  .publication button, .publication .edition-index { display: none; }
+  .publication button { display: none; }
 }

@@ -7,18 +7,18 @@ const year = new Date().getFullYear();
 <footer class:list={['press-footer', { 'on-paper': homepage }]}>
   <div class="footer-shell">
     <div class="colophon">
-      <div class="footer-signature"><a href="/" aria-label="mager.co home">mager<span>.</span>co</a><p>A personal newspaper<br />by Andrew Mager, Chicago.</p></div>
+      <div class="footer-signature"><a href="/" aria-label="mager.co home">mager<span>.</span>co</a><p>Tech, food &amp; life<br />from Chicago.</p></div>
       <nav aria-label="Footer sections"><span class="footer-label">The sections</span><div class="footer-sections"><a href="/tech/">Tech</a><a href="/cooking/">Food</a><a href="/life/">Life</a><a href="/notes/">Notes</a><a href="/seen/">Seen</a><a href="/blog/">Archive</a></div></nav>
       <nav aria-label="Projects and elsewhere"><span class="footer-label">Beyond the page</span><a href="https://bench.mager.co">mager-bench ↗</a><a href="https://github.com/mager">GitHub ↗</a><a href="https://x.com/mager">X / @mager ↗</a></nav>
       <div class="footer-subscribe"><span class="footer-label">Keep in the loop</span><p>A new entry, straight<br />to your feed reader.</p><a href="/rss.xml">Subscribe via RSS <span aria-hidden="true">↗</span></a></div>
     </div>
-    <div class="end-line"><span>© {year} Andrew Mager</span><span class="footer-stars" aria-label="Four Chicago stars">✶ ✶ ✶ ✶</span><a href="/about/">Meet the publisher <span aria-hidden="true">↗</span></a></div>
+    <div class="end-line"><span>© {year} mager.co</span><span class="footer-stars" aria-label="Four Chicago stars">✶ ✶ ✶ ✶</span><a href="/about/">About <span aria-hidden="true">↗</span></a></div>
   </div>
 </footer>
 <style>
 .press-footer { --footer-bg: oklch(19% 0.02 260); --footer-ink: oklch(93% 0.009 85); --footer-muted: oklch(75% 0.014 260); --footer-rule: oklch(38% 0.02 260); background: var(--footer-bg); color: var(--footer-ink); padding: 0 24px; }
 .on-paper { --footer-bg: var(--news-paper); --footer-ink: var(--news-ink); --footer-muted: var(--news-muted); --footer-rule: var(--news-rule); }
-.footer-shell { max-width: 1240px; margin: auto; border-top: 3px solid var(--footer-ink); }
+.footer-shell { max-width: 1240px; margin: auto; border-top: 1px solid var(--footer-ink); }
 .press-footer a { color: inherit; }
 .press-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .colophon { display: grid; grid-template-columns: 1.35fr 1fr 1fr 1fr; gap: 36px; padding: 35px 0; }
