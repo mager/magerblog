@@ -84,7 +84,7 @@ const archivePick = archive[Math.floor(archive.length / 2)];
   <div class="weekend-spread">
     {seen.length > 0 && <section class="seen-section" id="seen" aria-labelledby="seen-heading">
       <div class="section-rule"><h2 id="seen-heading">03 / Seen</h2><a href="/seen/">The photo journal <span aria-hidden="true">↗</span></a></div>
-      <div class="seen-intro"><h3>A little evidence<br />of being here.</h3><span class="frame-mark" aria-hidden="true">⌖</span></div>
+      <div class="seen-intro"><h3 class="shorthand-title"><strong>IRL</strong><span>(in real life)</span></h3><span class="frame-mark" aria-hidden="true">⌖</span></div>
       <div class="photo-strip" tabindex="0" role="region" aria-label="Recent photographs, scroll for more">
         {seen.slice(0, 4).map((photo, i) => <figure>
           <a class="seen-photo photo-link" href={`/seen/${photo.id}/`}><img src={photo.data.photo} alt={photo.data.alt || photo.data.title} loading="lazy" decoding="async" width="600" height="700" /></a>
@@ -94,7 +94,7 @@ const archivePick = archive[Math.floor(archive.length / 2)];
     </section>}
     {life.length > 0 && <section class="life-section" id="life" aria-labelledby="life-heading">
       <div class="section-rule"><h2 id="life-heading">04 / Life</h2><a href="/life/">All life ↗</a></div>
-      <h3 class="life-title">Away from<br /><em>the keyboard.</em></h3>
+      <h3 class="life-title shorthand-title"><strong>AFK</strong><span>(away from <span role="img" aria-label="keyboard">⌨️</span>)</span></h3>
       {life.slice(0, 2).map((post, i) => <article>
         {i === 0 && publicationImage(post.data.heroImage) && <a class="life-photo photo-link" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}><img src={post.data.heroImage} alt="" loading="lazy" decoding="async" width="600" height="400" /></a>}
         <a class="headline-link" href={`/blog/${post.id}/`}><h3>{post.data.title}</h3></a>
@@ -221,6 +221,8 @@ if (backPage) {
 .seen-section, .life-section { color: var(--news-green); }
 .seen-intro { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; }
 .seen-intro h3 { font-size: clamp(32px, 3.3vw, 43px); line-height: 1.05; letter-spacing: -.03em; }
+.shorthand-title strong { display: block; font: 800 clamp(52px, 6.2vw, 78px)/.82 var(--news-display); letter-spacing: -.055em; }
+.shorthand-title > span { display: block; margin-top: 12px; font: italic 500 clamp(18px, 2vw, 25px)/1.05 var(--news-serif); letter-spacing: -.02em; }
 .frame-mark { font: 60px/1 var(--news-serif); }
 .photo-strip { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 15px; scrollbar-color: var(--news-green) var(--news-paper); scrollbar-width: thin; }
 .photo-strip figure { margin: 0; flex: 0 0 44%; min-width: 0; scroll-snap-align: start; }
@@ -231,6 +233,8 @@ if (backPage) {
 .photo-strip figcaption div > span { display: block; margin-top: 6px; font: 10px/1.5 var(--news-mono); color: var(--news-muted); }
 .life-section { padding-left: 28px; border-left: 1px solid var(--news-rule); }
 .life-section .life-title { font: 600 32px/1.08 var(--news-serif); letter-spacing: -.03em; margin: 24px 0; }
+.life-section .shorthand-title strong { font-size: clamp(48px, 5.2vw, 68px); }
+.life-section .shorthand-title > span { font-size: 18px; }
 .life-section article { color: var(--news-ink); padding-bottom: 20px; }
 .life-section article + article { border-top: 1px solid var(--news-rule); padding-top: 18px; }
 .life-photo { aspect-ratio: 3/2; margin-bottom: 15px; }
