@@ -76,21 +76,21 @@ Those are two synthetic examples, not an accuracy or latency benchmark. The timi
 
 As of September 19, [Vercel's Jev model page](https://vercel.com/ai-gateway/models/jev) lists free promotional usage ending September 25, 2026. That covers this weekend's experiments. It doesn't make free usage a permanent assumption for an app.
 
-## A weekend project: PRXPS Pick
+## A weekend project: prxps Pick
 
-[PRXPS](https://prxps.xyz) is my sports picks app. There is no money at stake: you make picks and earn RXP when they win. It's about reputation, and it gives me a useful place to test a model's judgment against outcomes that eventually become observable.
+[prxps](https://prxps.xyz) is my sports picks app. There is no money at stake: you make picks and earn RXP when they win. It's about reputation, and it gives me a useful place to test a model's judgment against outcomes that eventually become observable.
 
 The app already has matchup information: home and away teams, start times, bookmaker moneylines, and agreement or disagreement across books. It also has integrations for injury reports and NFL weather. Availability varies, so missing context needs to stay missing.
 
-The feature is **PRXPS Pick**: given the information PRXPS has for a matchup, which side does the evidence favor? The possible decisions include the home team, the away team, and no clear edge, plus a draw for markets that include one. Jev powers the decision behind the scenes; the app presents a pick and the evidence behind it.
+The feature is **prxps Pick**: given the information prxps has for a matchup, which side does the evidence favor? The possible decisions include the home team, the away team, and no clear edge, plus a draw for markets that include one. Jev powers the decision behind the scenes; the app presents a pick and the evidence behind it.
 
 This is a more interesting experiment than asking a chatbot who will win. The input is a specific snapshot of data the application already owns. The output is a bounded decision we can show next to the same evidence and, eventually, compare with the result.
 
 ### How we built the first version
 
-I delegated the PRXPS implementation to a coding agent while working on this post. We added an on-demand panel to the game detail page. Pressing **Get our pick** calls a separate server endpoint, so loading a matchup doesn't depend on an evaluation finishing.
+I delegated the prxps implementation to a coding agent while working on this post. We added an on-demand panel to the game detail page. Pressing **Get our pick** calls a separate server endpoint, so loading a matchup doesn't depend on an evaluation finishing.
 
-The server looks up the event in PRXPS's existing odds cache. It uses complete moneyline markets, rejects stale data, and preserves the draw outcome when present. For each book, it converts decimal prices to implied probabilities and normalizes them to remove the margin, then averages across books. That gives the decision a concrete market baseline. It's a simple normalization, not an independently trained forecast.
+The server looks up the event in prxps's existing odds cache. It uses complete moneyline markets, rejects stale data, and preserves the draw outcome when present. For each book, it converts decimal prices to implied probabilities and normalizes them to remove the margin, then averages across books. That gives the decision a concrete market baseline. It's a simple normalization, not an independently trained forecast.
 
 Available injury reports and NFL weather add context. An absent injury report stays unknown; it doesn't turn into a claim that everyone is healthy. The question tells Jev to use the supplied state rather than remembered team strength or news, and to avoid counting an injury twice if the odds already reflect it.
 
@@ -123,7 +123,7 @@ The first useful comparison will be against a simple baseline: pick the bookmake
 
 The first implementation is a reader, not a validated prediction system. These are the next experiments I want to build:
 
-- **A public PRXPS Pick record.** Freeze the inputs and decision before each game, then score it after the result. Let people compare their own picks with the app's without changing anyone's RXP automatically.
+- **A public prxps Pick record.** Freeze the inputs and decision before each game, then score it after the result. Let people compare their own picks with the app's without changing anyone's RXP automatically.
 - **A market comparison.** Track whether the model agrees with the favorite, picks an underdog, or abstains. Compare results by sport and data availability, including how often it declines to pick.
 - **What-if reads.** Let someone remove an injury signal or compare a weather scenario using the same matchup. Label hypothetical inputs clearly and keep those results separate from the recorded pregame pick.
 
