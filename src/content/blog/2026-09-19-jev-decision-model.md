@@ -9,11 +9,13 @@ tags: [ai, jev, typesafe, vercel, aigateway, agents, prxps]
 draft: false
 ---
 
-I tried Jev at work this week inside a skill with a lot of decision points. The workflow already knew what it could do next; it needed help choosing. I plugged Jev into those branches, and the prototype ran faster and used fewer tokens overall.
+[Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) is an AI model for making decisions. Give it a situation and a set of possible answers, and it returns a probability for each one. Instead of asking a model to write something, you can ask: Which support queue should receive this ticket? Which tool should my agent call next? Is there enough evidence to continue, or should the system stop and ask a person?
 
-That is an observation from an early prototype, not a benchmark. I haven't measured the quality tradeoff across a representative set of tasks yet. But it was enough to make me want to build something with it outside work.
+That makes Jev useful anywhere software reaches a fork in the road. An app could use it to sort an ambiguous message, route a task to the right model, choose the next step in a workflow, or decide whether an automated action looks safe enough to attempt. You define the choices and keep control of what happens after the decision. Jev does the narrow job of reading the available context and weighing those choices.
 
-[Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) is TypeSafe AI's first public System One model. I find **decision model** the most useful way to think about it. You supply the state of a problem, define the questions and possible answers, and get structured decisions with probabilities back.
+TypeSafe AI calls Jev its first public System One model. I find **decision model** the clearest description. A normal LLM is designed to generate an open-ended sequence of words. Jev gives up that open-ended output and returns a structured answer from the options you supplied, along with its confidence in each option.
+
+I tried it at work this week inside a skill with a lot of decision points. The workflow already knew what it could do next; it needed help choosing. I plugged Jev into those branches, and the prototype ran faster and used fewer tokens overall. That is an observation from an early prototype, not a benchmark, and I haven't measured the quality tradeoff across a representative set of tasks yet. But it was enough to make me want to build something with it outside work.
 
 ## What changes when the model doesn't write text
 
