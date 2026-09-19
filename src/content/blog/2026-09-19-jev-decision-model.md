@@ -3,6 +3,7 @@ title: "Jev: a decision model"
 description: "Testing TypeSafe's Jev through Vercel AI Gateway, putting it inside a decision-heavy skill, and building a matchup reader for my reputation-based sports picks app."
 pubDate: 2026-09-19
 category: tech
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-19-jev-decision-model/hero.jpg"
 keyword: "decision models"
 tags: [ai, jev, typesafe, vercel, aigateway, agents, prxps]
 draft: false
@@ -116,6 +117,13 @@ The response drives the selected team and decision-support bars. The facts under
 We cache the decision by a fingerprint of its input state, model, and question version. A changed snapshot gets a new evaluation; an unchanged one can reuse its read for up to 15 minutes, capped at game time. The Gateway key stays on the server. Missing credentials, timeouts, and unavailable data produce an unavailable state while the rest of the matchup page keeps working.
 
 The first end-to-end integration test used a real Toledo–Temple matchup from the prxps odds cache. All nine available books favored Toledo. After removing each book's margin and averaging the markets, the baseline was 64% Toledo and 36% Temple. Jev chose Toledo with 85% decision support, 15% for no clear edge, and 0% for Temple. The evaluation took 891 milliseconds. In this case it agreed with the market, which is exactly the sort of result the comparison needs to record rather than dress up as new insight.
+
+I then verified the deployed version with LSU at Ole Miss. All eight markets favored LSU, with a margin-removed baseline of 58% LSU and 42% Ole Miss. prxps Pick chose LSU with 90% decision support and left 10% on no clear edge.
+
+<figure>
+  <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-19-jev-decision-model/prxps-pick-production.jpg" alt="The prxps Pick production widget choosing LSU Tigers over Ole Miss Rebels with 90 percent decision support, while showing the eight-book market baseline and missing injury context." width="1600" height="1049" loading="lazy" decoding="async" />
+  <figcaption>prxps Pick running in production. The disclosure shows the market facts and the context the model did not receive.</figcaption>
+</figure>
 
 The probabilities need careful labeling. If Jev assigns 70% to the home-team answer, that is a probability within our decision question. We haven't established that teams receiving that answer win 70% of the time. Adding a “no clear edge” option makes it especially misleading to present the distribution as a conventional win-probability forecast.
 
