@@ -5,7 +5,7 @@ pubDate: 2026-09-19
 category: tech
 keyword: "decision models"
 tags: [ai, jev, typesafe, vercel, aigateway, agents, prxps]
-draft: true
+draft: false
 ---
 
 I tried Jev at work this week inside a skill with a lot of decision points. The workflow already knew what it could do next; it needed help choosing. I plugged Jev into those branches, and the prototype ran faster and used fewer tokens overall.
@@ -114,6 +114,8 @@ questions: {
 The response drives the selected team and decision-support bars. The facts underneath come from ordinary code: bookmaker agreement, the market baseline, injury counts, and available conditions. Jev isn't writing an explanation. Showing the inputs separately also avoids pretending that a generated paragraph reveals why a model made its choice.
 
 We cache the decision by a fingerprint of its input state, model, and question version. A changed snapshot gets a new evaluation; an unchanged one can reuse its read for up to 15 minutes, capped at game time. The Gateway key stays on the server. Missing credentials, timeouts, and unavailable data produce an unavailable state while the rest of the matchup page keeps working.
+
+The first end-to-end integration test used a real Toledo–Temple matchup from the prxps odds cache. All nine available books favored Toledo. After removing each book's margin and averaging the markets, the baseline was 64% Toledo and 36% Temple. Jev chose Toledo with 85% decision support, 15% for no clear edge, and 0% for Temple. The evaluation took 891 milliseconds. In this case it agreed with the market, which is exactly the sort of result the comparison needs to record rather than dress up as new insight.
 
 The probabilities need careful labeling. If Jev assigns 70% to the home-team answer, that is a probability within our decision question. We haven't established that teams receiving that answer win 70% of the time. Adding a “no clear edge” option makes it especially misleading to present the distribution as a conventional win-probability forecast.
 
