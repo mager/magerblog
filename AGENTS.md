@@ -191,6 +191,10 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
 
 - The site uses Astro 5's content loader API with `glob()` loader
 - All pages are statically generated at build time
+- The homepage's `BenchWidget.astro` takes a dated build snapshot from
+  `https://bench.mager.co/api/summary`, then refreshes it in the browser on each
+  visit. Keep scores and model names out of the component source. Failed live
+  requests retain the labeled snapshot and the leaderboard link.
 - Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
 - The sticky header appears after scrolling 300px down the page
 - Terminal-style placeholders display when no hero image is provided
