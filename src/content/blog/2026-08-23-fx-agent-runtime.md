@@ -4,7 +4,7 @@ description: "Vercel Labs shipped fx — a ~6MB, Zig-written coding agent that c
 pubDate: 2026-08-23
 category: tech
 keyword: "fx"
-draft: true
+draft: false
 tags: [fx, vercel, zig, agents, harness, acp, mcp, wasm, tooling, mac-mini]
 ---
 

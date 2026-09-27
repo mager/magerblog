@@ -4,7 +4,7 @@ description: "Garry Tan open-sourced gbrain — a self-wiring knowledge graph fo
 pubDate: 2026-05-18
 category: tech
 keyword: "gbrain"
-draft: true
+draft: false
 tags: ["ai", "claude", "memory", "gbrain", "garry-tan", "agents", "mcp", "gstack"]
 ---
 

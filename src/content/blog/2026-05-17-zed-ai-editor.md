@@ -1,6 +1,6 @@
 ---
-title: "Zed: The AI editor everyone is talking about — what's actually real"
-description: "Everyone on my timeline is switching to Zed. Before I install it and wreck my workflow, I did the research. Here's what's hype and what's measurable."
+title: "Zed: A fast AI editor, with real tradeoffs"
+description: "Zed combines a fast native editor with inline assistance, agent threads, and Claude Code through ACP. I read the docs to separate the measurable advantages from the workflow tradeoffs."
 pubDate: 2026-05-17
 category: tech
 keyword: "Zed"
@@ -8,13 +8,13 @@ draft: true
 tags: [zed, ai, editor, cursor, claude-code, tools]
 ---
 
-Everyone on my timeline is switching to Zed. Before I install it and blow up my Claude Code workflow, I wanted to know what's actually different — not the marketing, the real tradeoffs.
+Zed keeps coming up whenever people talk about a faster AI editor. Before I install it and change my Claude Code workflow, I wanted to separate the measurable differences from the marketing.
 
 Here's what the research turned up.
 
 ## What Zed actually is
 
-Zed is a code editor written in Rust with a custom GPU-accelerated UI framework called GPUI. It renders directly to Metal on macOS (Vulkan elsewhere), the same way a video game renders — no web engine, no Electron, no abstraction layers between the text cursor and the GPU. That's the technical reason it's fast, and the benchmarks back it up: 0.12s startup vs VS Code's 1.2s, 222MB memory vs 3,549MB, ~2ms input latency vs ~25ms.
+Zed is a code editor written in Rust with a custom GPU-backed UI framework called GPUI. It uses native rendering rather than an Electron-style web stack, which is the technical reason it can feel lighter. The published comparisons are compelling: 0.12s startup versus VS Code's 1.2s, 222MB of memory versus 3,549MB, and roughly 2ms of input latency versus 25ms.
 
 That last number is the one that matters. 25ms of input latency is below the perceptual threshold for most people, but above it for some. If you've ever felt VS Code or Cursor getting "heavy" under load, Zed is genuinely solving a different problem.
 
@@ -26,7 +26,7 @@ There are two modes:
 
 **Agent Panel** — conversational AI that can read files, write across the codebase, run shell commands, and call MCP tools. Three sub-modes: Ask (read-only), Write (edits), and Thread (persistent sessions that survive window restarts). Tool calls surface inline so you can inspect them.
 
-The headline feature from Zed 1.0 (April 2026) is **Parallel Agents** — multiple agent threads running concurrently in the same window, each on different files or repos, each optionally using different models. You open the Threads Sidebar and run them side by side. This is architecturally novel. I haven't seen this done cleanly in any other editor.
+The headline feature from Zed 1.0 (April 2026) is **Parallel Agents** — multiple agent threads running concurrently in the same window, each on different files or repos, and each optionally using a different model. You open the Threads Sidebar and run them side by side. That combination is unusual among editors I've looked at.
 
 Model support is broad: Claude, GPT, Gemini, DeepSeek, Bedrock, Ollama, LM Studio, OpenRouter. You can bring your own keys or use Zed's hosted credit ($5/month included with Pro). The "not paying Zed" path is fully supported.
 
@@ -64,7 +64,7 @@ The "LLM infested" complaint exists too. Some Zed users came for the fast editor
 
 I haven't actually installed it. That's the next step — try the Inline Assistant on a real codebase, run the Agent Panel on something non-trivial, test the Claude Code ACP integration and see how the context compaction actually feels in practice.
 
-The research says: fast, honest about limitations, parallel agents are the real differentiator, Claude Code integration is functional but degraded compared to terminal. That's a reasonable starting hypothesis. I'll update this post after I've run it for a few days.
+The current hypothesis is: Zed is fast, its limitations are fairly legible, parallel agents are the main differentiator, and Claude Code through ACP is useful but degraded compared with the terminal. I’ll update this post after I’ve run it for a few days.
 
 ---
 

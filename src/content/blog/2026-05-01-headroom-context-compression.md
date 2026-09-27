@@ -32,7 +32,7 @@ OPENAI_BASE_URL=http://localhost:8787/v1 codex
 
 I have not run this in my daily workflow yet, so this is not a results post. It is a note from the "this is aimed at the right layer" stage of curiosity.
 
-## The Actual Layer
+## The actual layer
 
 The thing I like about Headroom is that it does not ask the agent to become smarter by instruction alone. It changes the substrate the agent runs on.
 
@@ -47,7 +47,7 @@ That last part matters. Compression is usually scary because it quietly deletes 
 
 That is much closer to how I want agent infrastructure to work. Do not pretend context is free. Do not throw information away permanently. Give the model a smaller working set and a principled escape hatch.
 
-## Why This Maps to Coding Agents
+## Why this maps to coding agents
 
 Coding agents are pathological context consumers.
 
@@ -67,7 +67,7 @@ That last row is important. The docs say code compression exists, but the defaul
 
 The real savings are not from making code vague. They are from not pasting 500 repetitive rows into the prompt when 20 representative rows plus anomaly preservation will do.
 
-## CCR Is the Interesting Bit
+## CCR is the interesting bit
 
 The part I keep coming back to is CCR: Compress, Cache, Retrieve.
 
@@ -87,7 +87,7 @@ That feels like a more honest mental model for agents. The model should not need
 
 This is also why the local design matters. The original payload is not shipped to some extra hosted summarization service. The proxy runs on your machine. For coding agents that read private repos and local logs, that is not a minor implementation detail.
 
-## Cache Alignment Is Less Flashy, Maybe More Valuable
+## Cache alignment is less flashy, maybe more valuable
 
 The compression story is easy to understand. The cache story is subtler.
 
@@ -106,7 +106,7 @@ original data retrievable on demand
 
 Each piece is useful alone. Together, they start to look like an operating layer for long agent sessions.
 
-## The Memory and Learning Angle
+## The memory and learning angle
 
 Headroom also includes memory and `headroom learn`, which is where it gets especially relevant to my own stack.
 
@@ -118,7 +118,7 @@ This is also where Headroom overlaps with my OpenClaw/Loooom brain. I already ca
 
 I am not yet sure whether I want Headroom to own memory in my setup, or whether I want it to feed learnings into the memory layer I already use. But the interface is pointed in the right direction: the output is agent-readable project context, not a proprietary little black box.
 
-## What I Want to Test
+## What I want to test
 
 The obvious test is to wrap Codex and Claude Code for a real week and look at the traces.
 
@@ -130,11 +130,11 @@ Questions I care about:
 - Does `headroom learn` produce corrections I would keep in `AGENTS.md`?
 - How annoying is the proxy operationally when tools update underneath it?
 
-The failure modes are also worth watching. A local proxy is another moving part. Compression heuristics can be conservative in the wrong places and aggressive in the wrong places. Benchmarks are useful, but agent work is messy. The only eval that matters to me is whether I trust it during a real debugging session when the logs are long and the answer is buried in one ugly line.
+The failure modes are also worth watching. A local proxy is another moving part. Compression heuristics can be conservative in the wrong places and aggressive in the wrong places. Benchmarks are useful, but agent work is messy. The evaluation I would trust is a real debugging session where the logs are long and the answer is buried in one ugly line.
 
 That said, the architecture makes sense. It treats context as infrastructure, not as a magical infinite bucket.
 
-## My Read Right Now
+## My read right now
 
 Headroom is interesting because it is aimed at a real bottleneck: agent context is full of machine exhaust.
 
@@ -148,6 +148,6 @@ Headroom's bet is that this should be handled below the agent, close to the requ
 - keep originals retrievable
 - learn from repeated failures
 
-That is a good bet.
+I think that is the right place to put the experiment.
 
 I do not know yet whether Headroom becomes part of my default agent setup. I do know it is now on my short list of things to run against a real week of Codex and Claude Code sessions, because the problem is not theoretical anymore. My agents are useful enough to generate a lot of context. Now the context needs a management layer.

@@ -1,5 +1,5 @@
 ---
-title: "OhMyOpenAgent: Why Everyone Is Talking About It"
+title: "OhMyOpenAgent: What the orchestration layer is actually doing"
 pubDate: "2026-04-28"
 description: "A practical explainer on OhMyOpenAgent: what it is, why it's getting attention, how I would use it as an individual builder, and how a large enterprise might adopt the same ideas more carefully."
 draft: true
@@ -9,15 +9,15 @@ keyword: "OhMyOpenAgent explainer"
 heroImage: ""
 ---
 
-I've been seeing a lot of noise around **OhMyOpenAgent** lately, and after reading through the docs, I think the excitement makes sense.
+I've been seeing a lot of noise around **OhMyOpenAgent** lately. After reading through the docs, I think the interest is easier to understand once you separate the model from the harness around it.
 
-My short version is this: **OhMyOpenAgent is not really "one more coding agent." It's a harness that turns one coding agent session into a small, specialized AI dev team.**
+My short version is this: **OhMyOpenAgent is not really one more coding agent. It is a harness that turns a coding-agent session into a set of specialized roles.**
 
 That distinction matters.
 
 A lot of agent products are competing on the model. OhMyOpenAgent is competing on the **orchestration layer** — how tasks get classified, how work gets delegated, how different models get matched to different roles, and how the system keeps pushing until the task is actually finished.
 
-That is why people are paying attention.
+That is the product's main bet.
 
 ## First: what is it, exactly?
 
@@ -62,7 +62,7 @@ OhMyOpenAgent turns that intuition into a system.
 
 The memorable command here is `ultrawork`.
 
-That is smart product design.
+That makes the system easier to try than a diagram of subagent dispatch would be.
 
 Instead of asking users to learn a big orchestration model up front, it says: install this, type one command, and let the agent swarm do the work.
 
@@ -79,7 +79,7 @@ The project's model-matching guide basically argues that models are not just str
 - Gemini is strong for visual and creative tasks
 - smaller fast models should handle utility work
 
-Whether you agree with every assignment or not, that is a serious design philosophy. It is much more thoughtful than "set one default model and pray."
+Whether you agree with every assignment or not, that is a serious design philosophy. It treats model choice as part of workflow design rather than as a permanent global setting.
 
 ### 4. It attacks harness problems, not just model problems
 
@@ -130,7 +130,7 @@ What feels different here is the **combination** of:
 - a heavy bias toward completion
 - harness-level improvements like better edit semantics
 
-It is trying to behave less like a chat assistant and more like a **staffed software factory**.
+It is trying to behave less like a chat assistant and more like a **small software team with explicit roles**.
 
 That is a compelling pitch, especially for developers who have already hit the ceiling of vanilla coding agents.
 
@@ -304,7 +304,7 @@ We are past the era where "pick one model" feels like a complete answer. The fro
 
 This is maybe the biggest one.
 
-The docs are full of language about not stopping halfway, pushing until done, and enforcing completion. That tone resonates because most developers have seen agents do 70% of the job and then quietly quit.
+The docs emphasize not stopping halfway, pushing toward completion, and verifying the result. That focus is useful because most developers have seen agents do 70% of a job and then quietly quit.
 
 OhMyOpenAgent is selling the opposite experience.
 
@@ -343,7 +343,7 @@ First, if you are a solo developer or small team, OhMyOpenAgent looks like a ser
 
 Second, even if you never install it, it is a useful signal about where this whole space is going.
 
-The most interesting agent products over the next year probably will not be "one model, one chat box, one tool call loop."
+The useful agent products are unlikely to be just "one model, one chat box, one tool-call loop."
 
 They will look more like this:
 
@@ -355,8 +355,8 @@ They will look more like this:
 - background execution
 - persistent conventions
 
-In other words, less like autocomplete and more like a software organization encoded in prompts, tools, and routing logic.
+In other words, less like autocomplete and more like a software workflow encoded in prompts, tools, and routing logic.
 
 That is the real story here.
 
-OhMyOpenAgent is getting buzz because it makes that future feel usable today.
+OhMyOpenAgent is interesting because it makes that workflow concrete enough to try today.
