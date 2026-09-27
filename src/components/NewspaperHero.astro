@@ -25,6 +25,19 @@ const archive = posts.slice(5).map(post => ({ title: post.data.title, href: `/bl
 const archivePick = archive[Math.floor(archive.length / 2)];
 ---
 <div class="newspaper">
+  {notes.length > 0 && <section class="latest-note" aria-labelledby="latest-note-heading">
+    <div class="latest-note-intro">
+      <span class="note-kicker">Fresh from the notebook</span>
+      <h2 id="latest-note-heading">Notes<span aria-hidden="true">✳</span></h2>
+      <a href="/notes/">Browse all notes <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="latest-note-story">
+      <span class="small-date"><FormattedDate date={notes[0].data.pubDate} /></span>
+      <a class="headline-link" href={`/notes/${notes[0].id}/`}><h3>{noteTitle(notes[0])}</h3></a>
+      <p>{noteExcerpt(notes[0])}</p>
+    </div>
+    <a class="latest-note-action" href={`/notes/${notes[0].id}/`} aria-label={`Read note: ${noteTitle(notes[0])}`}><span>Read note</span><span aria-hidden="true">↗</span></a>
+  </section>}
   <div class="front-spread">
     <section class="technology" id="technology" aria-labelledby="tech-heading">
       <div class="section-rule tech-rule"><h2 id="tech-heading">01 / Technology &amp; making things</h2><a href="/tech/">All tech <span aria-hidden="true">↗</span></a></div>
@@ -55,10 +68,10 @@ const archivePick = archive[Math.floor(archive.length / 2)];
         <a class="bench-action" href="https://bench.mager.co">Explore the leaderboard <span aria-hidden="true">↗</span></a>
         <a class="bench-method" href="/blog/2026-07-05-mager-bench/">Why I built it</a>
       </section>
-      {notes.length > 0 && <section class="notebook" aria-labelledby="notes-heading">
-        <div class="section-rule"><h2 id="notes-heading">The notebook</h2><a href="/notes/">All notes ↗</a></div>
+      {notes.length > 1 && <section class="notebook" aria-labelledby="notes-heading">
+        <div class="section-rule"><h2 id="notes-heading">More notes</h2><a href="/notes/">All notes ↗</a></div>
         <p class="section-caption">Quick thoughts. Open tabs. Things learned.</p>
-        {notes.slice(0, 3).map(note => <article class="note-preview">
+        {notes.slice(1, 4).map(note => <article class="note-preview">
           <span class="small-date"><FormattedDate date={note.data.pubDate} /></span>
           <a class="headline-link" href={`/notes/${note.id}/`}><h3>{noteTitle(note)}</h3></a>
           <p class="note-excerpt">{noteExcerpt(note)}</p>
@@ -154,6 +167,19 @@ if (backPage) {
 .newspaper a { color: inherit; }
 .newspaper a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .newspaper section { scroll-margin-top: 24px; min-width: 0; }
+.latest-note { display: grid; grid-template-columns: minmax(165px, 1fr) minmax(0, 3.3fr) auto; gap: clamp(18px, 3vw, 44px); align-items: center; margin-top: 16px; padding: 20px 0 23px; border-top: 2px solid var(--news-blue); border-bottom: 1px solid var(--news-rule); }
+.latest-note-intro { align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+.note-kicker { color: var(--news-blue); font: 700 9px/1.4 var(--news-mono); letter-spacing: .08em; text-transform: uppercase; }
+.latest-note-intro h2 { display: flex; align-items: flex-start; gap: 5px; margin: 7px 0 8px; font: 720 clamp(28px, 3vw, 39px)/.95 var(--news-display); letter-spacing: -.045em; }
+.latest-note-intro h2 span { color: var(--news-blue); font: 22px/1 var(--news-serif); }
+.latest-note-intro > a { color: var(--news-blue); font: 700 10px/1.4 var(--news-ui); }
+.latest-note-story { min-width: 0; padding-left: clamp(18px, 3vw, 44px); border-left: 1px solid var(--news-rule); }
+.latest-note-story h3 { margin: 4px 0 5px; font: 670 clamp(21px, 2.2vw, 29px)/1.1 var(--news-serif); letter-spacing: -.025em; text-wrap: balance; }
+.latest-note-story .headline-link:hover { color: var(--news-blue); }
+.latest-note-story p { max-width: 72ch; color: var(--news-muted); font: 13px/1.45 var(--news-serif); }
+.latest-note-action { display: flex; flex-direction: column; align-self: stretch; align-items: flex-end; justify-content: space-between; min-width: 74px; color: var(--news-blue) !important; font: 700 10px/1.2 var(--news-ui); white-space: nowrap; }
+.latest-note-action span:last-child { font: 30px/1 var(--news-serif); transition: transform 250ms var(--news-ease); }
+.latest-note-action:hover span:last-child { transform: translate(3px, -3px); }
 .front-spread { display: grid; grid-template-columns: minmax(0, 2.55fr) minmax(250px, 1fr); gap: 32px; padding-top: 18px; }
 .section-rule { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 2px solid currentColor; border-bottom: 1px solid var(--news-rule); }
 .section-rule h2, .section-rule a { font: 700 10px/1.5 var(--news-ui); text-transform: uppercase; letter-spacing: .08em; }
@@ -257,6 +283,17 @@ if (backPage) {
 }
 @media(max-width: 700px) {
   .newspaper { padding: 0 18px 30px; }
+  .latest-note { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; margin-top: 15px; padding: 15px 0 17px; }
+  .latest-note-intro { grid-column: 1/-1; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 3px 12px; }
+  .latest-note-intro .note-kicker { grid-column: 1/-1; }
+  .latest-note-intro h2 { margin: 0; font-size: 30px; }
+  .latest-note-intro > a { padding-bottom: 3px; }
+  .latest-note-story { padding-left: 0; border-left: 0; }
+  .latest-note-story h3 { font-size: clamp(22px, 5.5vw, 28px); }
+  .latest-note-story p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; }
+  .latest-note-action { min-width: 36px; align-items: flex-end; justify-content: center; }
+  .latest-note-action span:first-child { display: none; }
+  .latest-note-action span:last-child { font-size: 26px; }
   .front-spread, .weekend-spread { grid-template-columns: minmax(0, 1fr); gap: 30px; }
   .side-column, .life-section { border-left: 0; padding-left: 0; }
   .lead-story .headline-link h2 { font-size: clamp(36px, 8vw, 52px); }
@@ -287,5 +324,5 @@ if (backPage) {
   .back-page { grid-template-columns: 1fr; gap: 20px; }
   .shuffle-button { justify-self: start; }
 }
-@media(prefers-reduced-motion: reduce) { .photo-link img { transition: none; transform: none !important; } .photo-strip { scroll-behavior: auto; } }
+@media(prefers-reduced-motion: reduce) { .photo-link img, .latest-note-action span:last-child { transition: none; transform: none !important; } .photo-strip { scroll-behavior: auto; } }
 </style>

@@ -116,6 +116,12 @@ const hostOf = (url: string) => {
 				.note-row { flex-wrap: wrap; gap: 0.3rem 1rem; }
 				.row-tags { max-width: 100%; justify-content: flex-start; }
 			}
+			@media (max-width: 420px) {
+				.note-row { display: block; padding: 1rem 0; }
+				.row-date { display: block; width: auto; margin-bottom: 0.35rem; }
+				.row-title { display: block; overflow-wrap: normal; }
+				.row-tags { justify-content: flex-start; margin-top: 0.5rem; }
+			}
 		</style>
 	</head>
 	<body>
