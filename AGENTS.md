@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Unified feed of articles, notes, photos, and link shares, sorted by publication date descending (updates do not bump entries). Filters and progressive loading enhance the complete static feed.
+- `src/pages/index.astro`: Two-column homepage: a chronological feed of tech articles, notes, photos/screenshots, and link shares on the left; recent cooking and life articles on the right. Stacks feed-first on mobile. Updates do not bump entries. Filters and progressive loading enhance the complete static stream.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
 - `src/pages/links/`: Link-share archive and permalinks
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`

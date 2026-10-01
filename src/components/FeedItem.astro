@@ -69,6 +69,7 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   .entry-title { font: 650 clamp(25px, 3.3vw, 36px)/1.15 var(--news-display); letter-spacing: -.035em; margin: 0 0 14px; text-wrap: pretty; }
   .entry-title a { color: var(--news-ink); }
   .entry-title a:hover { color: var(--entry-accent); }
+  .feed-entry[data-kind="notes"] .entry-title { font-family: var(--news-ui); font-size: clamp(23px, 2.5vw, 29px); line-height: 1.25; letter-spacing: -.03em; }
   .entry-description { color: var(--news-muted); font: 18px/1.6 var(--news-serif); margin: 0 0 20px; }
   .entry-photo { display: block; margin: 18px 0; overflow: hidden; border-radius: 6px; background: color-mix(in oklch, var(--news-ink) 5%, var(--news-paper)); }
   .entry-photo img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; aspect-ratio: 16/9; border-radius: 0; transition: opacity 180ms ease; }

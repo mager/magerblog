@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+  title: string;
+  category: 'food' | 'life';
+  href: string;
+  posts: CollectionEntry<'blog'>[];
+}
+const { title, category, href, posts } = Astro.props;
+const headingId = `shelf-${category}`;
+---
+{posts.length > 0 && <section class="shelf" data-category={category} aria-labelledby={headingId}>
+  <header class="shelf-heading">
+    <h2 id={headingId}>{title}</h2>
+    <a href={href}>All {category === 'food' ? 'recipes' : 'life'} <span aria-hidden="true">↗</span></a>
+  </header>
+  {posts.slice(0, 3).map((post, index) => <article class:list={['shelf-post', { featured: index === 0 }]}>
+    {index === 0 && post.data.heroImage && <a class="shelf-photo" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}>
+      <img src={post.data.heroImage} alt="" width="600" height="400" loading="lazy" decoding="async" />
+    </a>}
+    <div class="shelf-meta"><FormattedDate date={post.data.pubDate} />
+      {category === 'food' && (post.data.prepTime != null || post.data.cookTime != null) && <span>{(post.data.prepTime || 0) + (post.data.cookTime || 0)} min</span>}
+    </div>
+    <h3><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+    {index === 0 && <p>{post.data.description}</p>}
+  </article>)}
+</section>}
+<script>
+  document.querySelectorAll<HTMLImageElement>('.shelf-photo img').forEach(img => {
+    const recover = () => { img.closest<HTMLElement>('.shelf-photo')?.setAttribute('hidden', ''); };
+    if (img.complete && img.naturalWidth === 0) recover();
+    else img.addEventListener('error', recover, { once: true });
+  });
+</script>
+<style>
+  .shelf { --shelf-accent: var(--news-green); min-width: 0; }
+  .shelf[data-category="food"] { --shelf-accent: var(--news-red); }
+  .shelf-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 0 14px; border-bottom: 2px solid var(--shelf-accent); }
+  .shelf-heading h2 { font: 650 25px/1.2 var(--news-display); letter-spacing: -.035em; color: var(--shelf-accent); margin: 0; }
+  .shelf-heading > a { color: var(--shelf-accent); font: 600 10px/1.4 var(--news-ui); white-space: nowrap; padding: 8px 0; }
+  .shelf a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .shelf-post { padding: 18px 0; border-bottom: 1px solid var(--news-rule); }
+  .shelf-post:last-child { padding-bottom: 0; border-bottom: 0; }
+  .shelf-photo { display: block; overflow: hidden; border-radius: 4px; margin-bottom: 16px; }
+  .shelf-photo[hidden] { display: none; }
+  .shelf-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; border-radius: 0; transition: opacity 180ms ease; }
+  .shelf-photo:hover img { opacity: .9; }
+  .shelf-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; color: var(--news-muted); font: 400 9px/1.6 var(--news-mono); margin-bottom: 7px; }
+  .shelf-post h3 { font: 650 19px/1.25 var(--news-serif); letter-spacing: -.02em; margin: 0; }
+  .shelf-post.featured h3 { font-size: 25px; line-height: 1.15; }
+  .shelf-post h3 a { color: var(--news-ink); }
+  .shelf-post h3 a:hover { color: var(--shelf-accent); }
+  .shelf-post p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; color: var(--news-muted); font: 15px/1.55 var(--news-serif); margin: 10px 0 0; }
+  @media(prefers-reduced-motion: reduce) { .shelf-photo img { transition: none; } }
+</style>

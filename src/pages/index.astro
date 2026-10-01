@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Feed from '../components/Feed.astro';
+import HomeShelf from '../components/HomeShelf.astro';
 import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { getFeed } from '../lib/feed';
@@ -10,6 +11,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 const entries = await getFeed();
 const posts = entries.filter(entry => entry.collection === 'blog');
+const stream = entries.filter(entry => entry.collection !== 'blog' || !['food', 'life'].includes(entry.data.category || 'tech'));
+const cooking = posts.filter(post => post.data.category === 'food');
+const life = posts.filter(post => post.data.category === 'life');
 const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
 ---
 <!doctype html>
@@ -21,19 +25,30 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage />
     <main id="main-content">
-      <div class="feed-label"><h1>The feed</h1><span>Newest first <span aria-hidden="true">↓</span></span></div>
-      <Feed entries={entries} filters />
-      <details class="bench-details">
-        <summary>From the workshop <span>mager-bench</span></summary>
-        <BenchWidget />
-      </details>
+      <section class="main-feed" aria-labelledby="feed-heading">
+        <div class="feed-label"><h1 id="feed-heading">The feed</h1><span>Newest first <span aria-hidden="true">↓</span></span></div>
+        <a class="shelf-jump" href="#cooking-life">Cooking &amp; life <span aria-hidden="true">↓</span></a>
+        <Feed entries={stream} filters />
+      </section>
+      <aside class="home-shelves" id="cooking-life" aria-label="Cooking and life">
+        <HomeShelf title="Cooking" category="food" href="/cooking/" posts={cooking} />
+        <HomeShelf title="Life" category="life" href="/life/" posts={life} />
+        <details class="bench-details">
+          <summary>From the workshop <span>mager-bench</span></summary>
+          <BenchWidget />
+        </details>
+        <a class="feed-return" href="#feed-heading">Back to the feed ↑</a>
+      </aside>
     </main>
     <Footer homepage />
     <SecretSearch posts={posts} />
   </body>
 </html>
 <style>
-  main { width: 760px; max-width: calc(100% - 40px); padding: 0 0 48px; margin: 0 auto; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); align-items: start; gap: clamp(28px, 4vw, 48px); width: 1136px; max-width: calc(100% - 48px); padding: 0 0 48px; margin: 0 auto; }
+  .main-feed { min-width: 0; }
+  .home-shelves { display: grid; gap: 38px; min-width: 0; margin-top: 26px; padding-left: 28px; border-left: 1px solid var(--news-rule); scroll-margin-top: 24px; }
+  .shelf-jump, .feed-return { display: none; }
   .feed-label { display: flex; align-items: center; justify-content: space-between; padding: 26px 0 6px; font: 600 11px/1.4 var(--news-mono); }
   .feed-label h1 { font: inherit; letter-spacing: 0; margin: 0; }
   .feed-label > span:last-child { color: var(--news-muted); font-size: 10px; font-weight: 400; }
@@ -43,5 +58,10 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
   details[open] summary::before { content: '−'; }
   summary span { margin-left: auto; }
   summary:hover { color: var(--news-blue); }
-  @media(max-width: 540px) { main { max-width: calc(100% - 36px); } }
+  @media(max-width: 900px) {
+    main { display: block; width: 760px; max-width: calc(100% - 36px); }
+    .home-shelves { padding: 30px 0 0; margin-top: 0; border-left: 0; border-top: 1px solid var(--news-rule); }
+    .shelf-jump, .feed-return { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--news-green); font: 500 11px/1.4 var(--news-mono); }
+    .shelf-jump:hover, .feed-return:hover { text-decoration: underline; text-underline-offset: 4px; }
+  }
 </style>
