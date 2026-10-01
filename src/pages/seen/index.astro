@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { SITE_TITLE } from '../../consts';
 
-const DESCRIPTION = 'Seen — a photo, a place, a title. Things worth a second look.';
+const DESCRIPTION = 'Photos, screenshots, and things worth a second look.';
 
 const seen = (await getCollection('seen'))
 	.filter((s) => !s.data.draft)
@@ -71,6 +71,7 @@ const seen = (await getCollection('seen'))
 				object-fit: cover;
 			}
 			.tile-body { padding: 0.85rem 1rem 1rem; }
+			.tile-photo.screenshot { object-fit: contain; background: var(--terminal-bg-dark); }
 			.tile-meta {
 				font-family: 'JetBrains Mono', monospace;
 				font-size: 0.72rem;
@@ -115,7 +116,7 @@ const seen = (await getCollection('seen'))
 			<section>
 				<div class="page-header">
 					<h1>$ ls ~/seen</h1>
-					<p>A photo, a place, a title. Things worth a second look.</p>
+					<p>{DESCRIPTION}</p>
 				</div>
 
 				{seen.length === 0 && <p class="empty">Nothing seen yet.</p>}
@@ -126,15 +127,15 @@ const seen = (await getCollection('seen'))
 						return (
 							<a class="tile" href={slug}>
 								<img
-									class="tile-photo"
+									class:list={['tile-photo', { screenshot: entry.data.mediaType === 'screenshot' }]}
 									src={entry.data.photo}
 									alt={entry.data.alt ?? entry.data.title}
 									loading="lazy"
 								/>
 								<div class="tile-body">
-									<div class="tile-meta"><FormattedDate date={entry.data.pubDate} /></div>
+									<div class="tile-meta">{entry.data.mediaType === 'screenshot' && 'Screenshot · '}<FormattedDate date={entry.data.pubDate} /></div>
 									<h2 class="tile-title">{entry.data.title}</h2>
-									<span class="tile-location">📍 {entry.data.location}</span>
+									{entry.data.location && <span class="tile-location">📍 {entry.data.location}</span>}
 								</div>
 							</a>
 						);

@@ -9,6 +9,7 @@ const sections = [
   { name: 'Life', href: '/life/', ink: 'green' },
   { name: 'Notes', href: '/notes/', ink: 'blue' },
   { name: 'Seen', href: '/seen/', ink: 'green' },
+  { name: 'Links', href: '/links/', ink: 'red' },
 ];
 const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/, '');
 ---
@@ -80,7 +81,7 @@ const active = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/,
   .edition-motto { display: none; }
   .press-nav { flex-wrap: wrap; }
   .nav-label { display: none; }
-  .nav-sections { flex: 1 0 100%; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .nav-sections { flex: 1 0 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .nav-link { padding: 0 3px; font-size: clamp(11px, 3vw, 14px); }
   .press-nav a { min-height: 44px; }
   .nav-utility { flex: 1 0 100%; justify-content: flex-end; border-left: 0; border-top: 1px solid var(--press-rule); }

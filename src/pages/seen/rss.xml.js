@@ -9,11 +9,11 @@ export async function GET(context) {
 
 	return rss({
 		title: `${SITE_TITLE} — seen`,
-		description: 'Seen — a photo, a place, a title. Things worth a second look.',
+		description: 'Photos, screenshots, and things worth a second look.',
 		site: context.site,
 		items: seen.map((entry) => ({
 			title: entry.data.title,
-			description: entry.data.location,
+			description: entry.body?.trim() || entry.data.location || entry.data.title,
 			pubDate: entry.data.pubDate,
 			link: `/seen/${entry.id}/`,
 			categories: entry.data.tags,

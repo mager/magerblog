@@ -1,0 +1,100 @@
+---
+import { render } from 'astro:content';
+import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
+import FormattedDate from './FormattedDate.astro';
+import LinkEmbed from './LinkEmbed.astro';
+import { linkHost } from '../lib/link-share';
+
+interface Props { entry: FeedEntry; standalone?: boolean; }
+const { entry, standalone = false } = Astro.props;
+const href = entryHref(entry);
+const title = entryTitle(entry);
+const Heading = standalone ? 'h1' : 'h2';
+const rendered = entry.collection === 'blog' ? undefined : await render(entry);
+const Content = rendered?.Content;
+const category = entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
+const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / Recipe', life: 'Life / Article', notes: 'Note', seen: 'Photo', links: 'Link share' };
+const label = entry.collection === 'seen' && entry.data.mediaType === 'screenshot' ? 'Screenshot' : labels[category] || 'Article';
+const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body || '').split(/\s+/).length / 220)) : undefined;
+---
+<article class="feed-entry" data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
+  <div class="entry-meta">
+    <span class="entry-kind">{label}</span>
+    <a href={href} aria-label={`Permalink: ${title}`}><FormattedDate date={entry.data.pubDate} /></a>
+    {minutes && <span class="reading-time">{minutes} min read</span>}
+  </div>
+  <Heading class="entry-title"><a href={href}>{title}</a></Heading>
+  {entry.collection === 'blog' && <>
+    <p class="entry-description">{entry.data.description}</p>
+    {entry.data.heroImage && <a class="entry-photo" href={href} aria-label={`Read ${title}`}><img src={entry.data.heroImage} alt="" width="800" height="450" loading="lazy" decoding="async" /></a>}
+    <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
+  </>}
+  {entry.collection === 'links' && <>
+    {entry.data.description && <p class="entry-description">{entry.data.description}</p>}
+    <LinkEmbed url={entry.data.url} title={title} author={entry.data.author} />
+  </>}
+  {entry.collection === 'seen' && <>
+    {entry.data.location && <p class="entry-location">{entry.data.location}</p>}
+    <a class="entry-photo seen-photo" href={href}><img src={entry.data.photo} alt={entry.data.alt || title} width="800" height="600" loading="lazy" decoding="async" /></a>
+  </>}
+  {entry.collection === 'notes' && entry.data.link && <a class="note-source" href={entry.data.link} target="_blank" rel="noopener noreferrer">{entry.data.linkText || linkHost(entry.data.link)} <span aria-hidden="true">↗</span></a>}
+  {Content && <div class="entry-body"><Content /></div>}
+  {entry.collection === 'links' && !standalone && <a class="entry-action" href={href}>Permalink <span aria-hidden="true">↗</span></a>}
+</article>
+<script>
+  // Old external photos can disappear; keep a useful link in their place.
+  document.querySelectorAll<HTMLImageElement>('.feed-entry .entry-photo img').forEach(img => {
+    const recover = () => {
+      const frame = img.closest<HTMLAnchorElement>('.entry-photo');
+      if (!frame || frame.classList.contains('photo-unavailable')) return;
+      frame.classList.add('photo-unavailable');
+      img.hidden = true;
+      const label = document.createElement('span');
+      label.textContent = img.alt || frame.getAttribute('aria-label') || 'View photo post';
+      frame.append(label);
+    };
+    if (img.complete && img.naturalWidth === 0) recover();
+    else img.addEventListener('error', recover, { once: true });
+  });
+</script>
+<style>
+  .feed-entry { --entry-accent: var(--news-blue); padding: 32px 0 34px; border-bottom: 1px solid var(--news-rule); min-width: 0; scroll-margin-top: 80px; }
+  .feed-entry[data-category="food"], .feed-entry[data-category="links"] { --entry-accent: var(--news-red); }
+  .feed-entry[data-category="life"], .feed-entry[data-category="seen"] { --entry-accent: var(--news-green); }
+  .entry-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 14px; margin-bottom: 12px; color: var(--news-muted); font: 400 10px/1.6 var(--news-mono); }
+  .entry-meta a { color: inherit; }
+  .entry-kind { color: var(--entry-accent); font-weight: 700; }
+  .entry-kind::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 8px; vertical-align: 1px; }
+  .reading-time { margin-left: auto; }
+  .entry-title { font: 650 clamp(25px, 3.3vw, 36px)/1.15 var(--news-display); letter-spacing: -.035em; margin: 0 0 14px; text-wrap: pretty; }
+  .entry-title a { color: var(--news-ink); }
+  .entry-title a:hover { color: var(--entry-accent); }
+  .entry-description { color: var(--news-muted); font: 18px/1.6 var(--news-serif); margin: 0 0 20px; }
+  .entry-photo { display: block; margin: 18px 0; overflow: hidden; border-radius: 6px; background: color-mix(in oklch, var(--news-ink) 5%, var(--news-paper)); }
+  .entry-photo img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; aspect-ratio: 16/9; border-radius: 0; transition: opacity 180ms ease; }
+  .entry-photo:hover img { opacity: .9; }
+  .entry-photo img[hidden] { display: none; }
+  .entry-photo.photo-unavailable { padding: 24px; color: var(--entry-accent); font: 500 14px/1.6 var(--news-ui); }
+  .seen-photo img { aspect-ratio: auto; object-fit: contain; }
+  .entry-action { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--entry-accent); font: 600 12px/1.4 var(--news-ui); }
+  .entry-action:hover, .entry-meta a:hover, .note-source:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .entry-location { font: 12px/1.6 var(--news-mono); color: var(--news-green); margin: 0 0 16px; }
+  .note-source { display: inline-block; color: var(--news-blue); font: 500 12px/1.6 var(--news-mono); margin: 0 0 12px; }
+  .entry-body { font: 18px/1.7 var(--news-serif); color: var(--news-ink); overflow-wrap: anywhere; }
+  .entry-body :global(p) { margin: 0 0 16px; }
+  .entry-body :global(p:last-child) { margin-bottom: 0; }
+  .entry-body :global(a) { color: var(--news-blue); text-decoration: underline; text-underline-offset: 3px; }
+  .entry-body :global(h2), .entry-body :global(h3) { font: 650 23px/1.3 var(--news-serif); margin: 24px 0 12px; }
+  .entry-body :global(pre) { font-size: 12px; }
+  .entry-body :global(blockquote) { background: transparent; border-color: var(--entry-accent); color: var(--news-muted); }
+  .entry-body :global(table) { display: block; overflow-x: auto; background: var(--news-paper); }
+  .entry-body :global(th) { background: var(--news-rule); color: var(--news-ink); }
+  .entry-body :global(td) { color: var(--news-ink); }
+  @media(max-width: 540px) {
+    .feed-entry { padding: 26px 0; }
+    .reading-time { display: none; }
+    .entry-meta { font-size: 9px; gap: 6px 10px; }
+    .entry-description, .entry-body { font-size: 17px; }
+  }
+  @media(prefers-reduced-motion: reduce) { .entry-photo img { transition: none; } }
+</style>

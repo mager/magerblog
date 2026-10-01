@@ -76,7 +76,9 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Homepage displaying latest post from each category
+- `src/pages/index.astro`: Unified feed of articles, notes, photos, and link shares, sorted by publication date descending (updates do not bump entries). Filters and progressive loading enhance the complete static feed.
+- `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
+- `src/pages/links/`: Link-share archive and permalinks
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
 - `src/pages/about.astro`: About page
@@ -125,6 +127,25 @@ Images in blog posts receive category-specific border colors applied via `body[d
 4. Optionally add heroImage URL
 5. Write content in Markdown/MDX
 6. Do a tone pass before shipping
+
+### Sharing a Link
+
+Create `src/content/links/YYYY-MM-DD-slug.md` with required `title`, `url`
+(HTTP/HTTPS), and `pubDate`. Optional fields: `description`, `author`, `tags`,
+and `draft`. Add personal commentary as Markdown below the frontmatter when
+needed. Use the sharing date for `pubDate`, not the linked source's original
+publication date. YouTube watch, live, short, embed, and youtu.be URLs embed
+inline automatically; other links display a source link. Shares appear in the
+homepage feed, `/links/`, their own permalink, and `/rss.xml`.
+
+### Photos and Screenshots
+
+Both belong in `src/content/seen/`. Set `mediaType: screenshot` for screen
+captures; existing posts default to `photo`. Required fields are `title`,
+`photo` (the hosted image URL), and `pubDate`. `location` is optional. Include
+descriptive `alt` text and a short Markdown caption. Use a timezone-qualified
+timestamp when ordering multiple posts on the same day; timestamps display in
+Chicago time, while date-only frontmatter keeps its written calendar date.
 
 ### Writing Voice for magerblog
 

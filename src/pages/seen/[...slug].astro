@@ -14,9 +14,9 @@ type Props = CollectionEntry<'seen'>;
 
 const entry = Astro.props;
 const { Content } = await render(entry);
-const { title, location, photo, pubDate, alt, tags } = entry.data;
+const { title, location, photo, pubDate, alt, tags, mediaType } = entry.data;
 
-const description = `${title} — ${location}`;
+const description = location ? `${title} — ${location}` : title;
 ---
 
 <!doctype html>
@@ -87,9 +87,9 @@ const description = `${title} — ${location}`;
 			<article>
 				<a class="back" href="/seen">$ cd ~/seen</a>
 				<img class="seen-photo" src={photo} alt={alt ?? title} loading="eager" />
-				<div class="seen-meta"><FormattedDate date={pubDate} /></div>
+				<div class="seen-meta">{mediaType === 'screenshot' && 'Screenshot · '}<FormattedDate date={pubDate} /></div>
 				<h1 class="seen-title">{title}</h1>
-				<div class="seen-location">📍 {location}</div>
+				{location && <div class="seen-location">📍 {location}</div>}
 				<div class="seen-body"><Content /></div>
 				{tags && tags.length > 0 && (
 					<div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>

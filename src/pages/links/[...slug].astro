@@ -1,0 +1,34 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FeedItem from '../../components/FeedItem.astro';
+import { youtubeId } from '../../lib/link-share';
+
+export async function getStaticPaths() {
+  return (await getCollection('links', ({ data }) => !data.draft))
+    .map(entry => ({ params: { slug: entry.id }, props: { entry } }));
+}
+interface Props { entry: CollectionEntry<'links'>; }
+const { entry } = Astro.props;
+const id = youtubeId(entry.data.url);
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={`${entry.data.title} — mager.co`} description={entry.data.description || entry.data.title} image={id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : undefined} /></head>
+  <body class="publication">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage />
+    <main id="main-content">
+      <a class="back" href="/">← Back to the feed</a>
+      <FeedItem entry={entry} standalone />
+      <a class="back" href="/links/">All link shares →</a>
+    </main>
+    <Footer homepage />
+  </body>
+</html>
+<style>
+  main { width: 760px; max-width: calc(100% - 36px); margin: 0 auto; padding: 24px 0 48px; }
+  .back { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-blue); font: 500 12px var(--news-mono); }
+</style>

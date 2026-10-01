@@ -41,16 +41,15 @@ const notes = defineCollection({
 	}),
 });
 
-// Photo posts — Simon Willison-style "sightings", here called "seen". Each post
-// is essentially a title, a location, and a photo (an external Google Photos /
-// lh3.googleusercontent.com URL, same as heroImage — no upload pipeline). Body,
-// alt text, and tags are optional.
+// Visual posts: photos and screenshots share the Seen collection. New images
+// live in Vercel Blob; location is optional for screenshots and other captures.
 const seen = defineCollection({
 	loader: glob({ base: './src/content/seen', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string(),
-		location: z.string(),
-		photo: z.string().url(), // external image URL (lh3.googleusercontent.com)
+		location: z.string().optional(),
+		mediaType: z.enum(['photo', 'screenshot']).default('photo'),
+		photo: z.string().url(), // externally hosted image URL
 		pubDate: z.coerce.date(),
 		alt: z.string().optional(), // accessible description of the photo
 		tags: z.array(z.string()).optional(),
@@ -58,4 +57,19 @@ const seen = defineCollection({
 	}),
 });
 
-export const collections = { blog, notes, seen };
+// Link shares are distinct from notes. YouTube URLs embed automatically;
+// every other URL stays a normal link with optional Markdown commentary.
+const links = defineCollection({
+	loader: glob({ base: './src/content/links', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		url: z.string().url().refine(url => ['http:', 'https:'].includes(new URL(url).protocol), 'Use an HTTP or HTTPS URL'),
+		pubDate: z.coerce.date(),
+		description: z.string().optional(),
+		author: z.string().optional(),
+		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
+	}),
+});
+
+export const collections = { blog, notes, seen, links };

@@ -19,12 +19,16 @@ if (date instanceof Date) {
 if (!dateObj || isNaN(dateObj.getTime())) {
 	return null;
 }
+
+// Date-only frontmatter is stored at UTC midnight. Preserve its calendar date;
+// timestamped posts use Chicago time so an evening update stays on that day.
+const timeZone = dateObj.toISOString().endsWith('T00:00:00.000Z') ? 'UTC' : 'America/Chicago';
 ---
 
 <time datetime={dateObj.toISOString()}>
 	{
 		dateObj.toLocaleDateString('en-US', {
-			timeZone: 'UTC',
+			timeZone,
 			month: 'long',
 			day: 'numeric',
 			year: 'numeric',

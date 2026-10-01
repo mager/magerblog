@@ -1,66 +1,47 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import NewspaperHero from '../components/NewspaperHero.astro';
+import Feed from '../components/Feed.astro';
+import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
+import { getFeed } from '../lib/feed';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// The newspaper sections use the latest published and updated stories. Drop drafts
-// and Japanese translations (locale: 'ja') — they live on their own post pages
-// and share a translationKey with the English version, so the EN copy already
-// represents them in the stream.
-const posts = (await getCollection('blog'))
-	.filter(post => !post.data.draft)
-	.filter(post => post.data.locale !== 'ja')
-	.sort((a, b) => (b.data.updatedDate || b.data.pubDate).valueOf() - (a.data.updatedDate || a.data.pubDate).valueOf());
-
-// Short-form notes, newest first, for the notebook column.
-const notes = (await getCollection('notes'))
-	.filter(note => !note.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-// Photo posts, newest first, for the Seen strip.
-const seen = (await getCollection('seen'))
-	.filter(s => !s.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-// OG image: first available hero image in the feed.
-const dates = [...posts.map(p => p.data.updatedDate || p.data.pubDate), ...notes.map(n => n.data.pubDate), ...seen.map(s => s.data.pubDate)];
-const editionDate = dates.length ? new Date(Math.max(...dates.map(d => d.valueOf()))) : undefined;
-const ogImage = posts.find(p => p.data.heroImage)?.data.heroImage || '/blog-placeholder-1.jpg';
+const entries = await getFeed();
+const posts = entries.filter(entry => entry.collection === 'blog');
+const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
 ---
-
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
-		<style>
-			body {
-				background-color: var(--news-paper);
-				overflow-x: hidden;
-				color: var(--news-ink);
-			}
-
-			/* Full-bleed override */
-			main {
-				max-width: 100%;
-				width: 100%;
-				padding: 0;
-				margin: 0;
-				position: relative;
-				z-index: 1;
-			}
-		</style>
-	</head>
-	<body class="publication">
-		<Header homepage={true} masthead={true} editionDate={editionDate} />
-		<main id="main-content">
-			<h1 class="sr-only">mager.co: The Chicago edition</h1>
-			<NewspaperHero posts={posts} notes={notes} seen={seen} />
-		</main>
-		<Footer homepage={true} />
-		<SecretSearch posts={posts} />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
+  </head>
+  <body class="publication">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage />
+    <main id="main-content">
+      <div class="feed-label"><h1>The feed</h1><span>Newest first <span aria-hidden="true">↓</span></span></div>
+      <Feed entries={entries} filters />
+      <details class="bench-details">
+        <summary>From the workshop <span>mager-bench</span></summary>
+        <BenchWidget />
+      </details>
+    </main>
+    <Footer homepage />
+    <SecretSearch posts={posts} />
+  </body>
 </html>
+<style>
+  main { width: 760px; max-width: calc(100% - 40px); padding: 0 0 48px; margin: 0 auto; }
+  .feed-label { display: flex; align-items: center; justify-content: space-between; padding: 26px 0 6px; font: 600 11px/1.4 var(--news-mono); }
+  .feed-label h1 { font: inherit; letter-spacing: 0; margin: 0; }
+  .feed-label > span:last-child { color: var(--news-muted); font-size: 10px; font-weight: 400; }
+  .bench-details { border-top: 1px solid var(--news-rule); }
+  summary { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; cursor: pointer; color: var(--news-muted); font: 500 11px/1.5 var(--news-mono); }
+  summary::before { content: '+'; }
+  details[open] summary::before { content: '−'; }
+  summary span { margin-left: auto; }
+  summary:hover { color: var(--news-blue); }
+  @media(max-width: 540px) { main { max-width: calc(100% - 36px); } }
+</style>
