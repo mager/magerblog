@@ -25,13 +25,13 @@ const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / R
 const label = entry.collection === 'seen' && entry.data.mediaType === 'screenshot' ? 'Screenshot' : labels[category] || 'Article';
 const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body || '').split(/\s+/).length / 220)) : undefined;
 ---
-<article class="feed-entry" data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
+<article class:list={['feed-entry', { 'note-preview': notePreview }]} data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
   <div class="entry-meta">
     <span class="entry-kind">{label}</span>
     <a href={href} aria-label={`Permalink: ${title}`}><FormattedDate date={entry.data.pubDate} /></a>
     {minutes && <span class="reading-time">{minutes} min read</span>}
   </div>
-  <Heading class="entry-title"><a href={href}>{title}</a></Heading>
+  <Heading class="entry-title"><a href={href}>{title}{notePreview && <span class="note-arrow" aria-hidden="true"> ↗</span>}</a></Heading>
   {entry.collection === 'blog' && <>
     <p class="entry-description">{entry.data.description}</p>
     <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
@@ -46,7 +46,6 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   </>}
   {notePreview && <>
     <p class="entry-description">{noteDescription}</p>
-    <a class="entry-action" href={href}>Read note <span aria-hidden="true">↗</span></a>
   </>}
   {entry.collection === 'notes' && !notePreview && entry.data.link && <a class="note-source" href={entry.data.link} target="_blank" rel="noopener noreferrer">{entry.data.linkText || linkHost(entry.data.link)} <span aria-hidden="true">↗</span></a>}
   {Content && <div class="entry-body"><Content /></div>}
@@ -82,6 +81,13 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   .entry-title a:hover { color: var(--entry-accent); }
   .feed-entry[data-kind="notes"] .entry-title { font-family: var(--news-ui); font-size: clamp(23px, 2.5vw, 29px); line-height: 1.25; letter-spacing: -.03em; }
   .entry-description { color: var(--news-muted); font: 18px/1.6 var(--news-serif); margin: 0 0 20px; }
+  .feed-entry.note-preview { position: relative; padding: 24px 0 24px 22px; }
+  .note-preview::before { content: ''; position: absolute; top: 26px; bottom: 26px; left: 0; width: 2px; background: color-mix(in oklch, var(--entry-accent) 35%, var(--news-paper)); }
+  .note-preview .entry-meta { margin-bottom: 8px; }
+  .note-preview .entry-kind::before { display: none; }
+  .feed-entry.note-preview .entry-title { font: 600 20px/1.35 var(--news-ui); letter-spacing: -.02em; margin-bottom: 8px; }
+  .note-preview .entry-description { font: 400 16px/1.6 var(--news-ui); margin: 0; }
+  .note-arrow { color: var(--entry-accent); font-size: .8em; white-space: nowrap; }
   .entry-photo { display: block; margin: 18px 0; overflow: hidden; border-radius: 6px; background: color-mix(in oklch, var(--news-ink) 5%, var(--news-paper)); }
   .entry-photo img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; aspect-ratio: 16/9; border-radius: 0; transition: opacity 180ms ease; }
   .entry-photo:hover img { opacity: .9; }
@@ -107,6 +113,10 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
     .reading-time { display: none; }
     .entry-meta { font-size: 9px; gap: 6px 10px; }
     .entry-description, .entry-body { font-size: 17px; }
+    .feed-entry.note-preview { padding: 22px 0 22px 16px; }
+    .note-preview::before { top: 24px; bottom: 24px; }
+    .feed-entry.note-preview .entry-title { font-size: 19px; }
+    .note-preview .entry-description { font-size: 15px; }
   }
   @media(prefers-reduced-motion: reduce) { .entry-photo img { transition: none; } }
 </style>
