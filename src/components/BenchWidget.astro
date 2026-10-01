@@ -4,14 +4,14 @@ const summary = await loadBenchSummary();
 ---
 <section class="bench-insert" aria-labelledby="bench-heading" data-bench-widget data-bench-state={summary ? 'snapshot' : 'unavailable'}>
   <div class="insert-label"><span>mager-bench 1.1</span><span data-bench-status>{summary ? 'saved calibration' : 'Counterexample Lab'}</span></div>
-  <a href="https://bench.mager.co" class="bench-title"><h2 id="bench-heading">Can it find the bug?</h2></a>
-  <p>Models write compact regression tests. Code checks the exact results. No model judge.</p>
+  <a href="https://bench.mager.co" class="bench-title"><h2 id="bench-heading">Who’s on the bench?</h2></a>
+  <p>Coding models, thirteen original challenges, and a new test: can their regression tests catch the bugs?</p>
   <div class="bench-results" data-bench-results aria-live="polite" aria-atomic="true">
     {summary ? summary.models.map(model => <div class="bench-model"><strong>{model.name}</strong><span>{benchScoreLabel(model, summary.total_faults)}</span><small>{model.effort} reasoning · {model.attempts} attempts</small></div>) : <p>Explore the latest calibration on the bench.</p>}
   </div>
   <p class="bench-meta" data-bench-meta>{summary ? `Faults exposed / ${summary.total_faults} · ${benchResultsDate(summary)}` : 'Every attempt is open for inspection.'}</p>
   <p class="bench-caveat">Preliminary calibration, not a general model ranking.</p>
-  <a class="bench-action" href="https://bench.mager.co">Explore the Counterexample Lab <span aria-hidden="true">↗</span></a>
+  <a class="bench-action" href="https://bench.mager.co">Explore the model lineup <span aria-hidden="true">↗</span></a>
   <a class="bench-method" href="/blog/2026-09-27-mager-bench-1-1/">What changed in 1.1</a>
 </section>
 <script>
@@ -45,22 +45,22 @@ async function refreshBenchWidget() {
 void refreshBenchWidget();
 </script>
 <style>
-.bench-insert { background: oklch(95% .035 80); color: var(--news-ink, oklch(23% .016 260)); padding: 22px; border: 1px solid oklch(80% .035 80); }
+.bench-insert { background: oklch(13% .006 270); color: oklch(94% .009 265); padding: 22px; border: 1px solid oklch(31% .017 270); }
 .bench-insert a { color: inherit; }
 .bench-insert a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.insert-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid oklch(80% .035 80); padding-bottom: 12px; font: 500 9px/1.5 var(--news-mono); color: oklch(43% .03 50); }
+.insert-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid oklch(31% .017 270); padding-bottom: 12px; font: 500 9px/1.5 var(--news-mono); color: oklch(71% .022 268); }
 .bench-insert .bench-title:hover { text-decoration: none; }
-.bench-insert h2 { font: 650 30px/1.1 var(--news-ui); letter-spacing: -.04em; margin: 20px 0 12px; color: oklch(43% .14 36); }
-.bench-insert p { margin: 0; font: 14px/1.6 var(--news-serif); color: oklch(37% .02 260); }
+.bench-insert h2 { font: 650 30px/1.1 var(--news-ui); letter-spacing: -.04em; margin: 20px 0 12px; color: oklch(83% .185 153); }
+.bench-insert p { margin: 0; font: 14px/1.6 var(--news-serif); color: oklch(80% .014 265); }
 .bench-results { margin: 18px 0; }
-.bench-results :global(.bench-model) { display: grid; grid-template-columns: 1fr; gap: 6px; border-top: 1px solid oklch(82% .03 80); padding: 13px 0; }
-.bench-results :global(.bench-model strong) { font: 650 13px var(--news-ui); }
-.bench-results :global(.bench-model span) { font: 500 13px var(--news-mono); }
-.bench-results :global(.bench-model small) { font: 9px/1.7 var(--news-mono); color: oklch(43% .02 260); }
-.bench-insert .bench-meta { font: 9px/1.7 var(--news-mono); color: oklch(43% .02 260); }
+.bench-results :global(.bench-model) { display: grid; grid-template-columns: 1fr; gap: 6px; border-top: 1px solid oklch(31% .017 270); padding: 13px 0; }
+.bench-results :global(.bench-model strong) { color: oklch(76% .14 249); font: 650 13px var(--news-ui); }
+.bench-results :global(.bench-model span) { color: oklch(76% .15 305); font: 500 13px var(--news-mono); }
+.bench-results :global(.bench-model small) { font: 9px/1.7 var(--news-mono); color: oklch(71% .022 268); }
+.bench-insert .bench-meta { font: 9px/1.7 var(--news-mono); color: oklch(71% .022 268); }
 .bench-insert .bench-caveat { font-size: 12px; margin-block: 9px 17px; }
-.bench-action { display: flex; justify-content: space-between; gap: 12px; align-items: center; min-height: 44px; border-top: 1px solid oklch(80% .035 80); font: 650 11px var(--news-ui); }
-.bench-action:hover { color: oklch(43% .14 36); }
+.bench-action { display: flex; justify-content: space-between; gap: 12px; align-items: center; min-height: 44px; border-top: 1px solid oklch(31% .017 270); font: 650 11px var(--news-ui); }
+.bench-action:hover { color: oklch(83% .185 153); }
 .bench-method { display: inline-flex; align-items: center; min-height: 32px; font: 12px var(--news-serif); text-decoration: underline; text-underline-offset: 3px; }
-.bench-insert a:focus-visible { outline: 2px solid oklch(43% .14 36); outline-offset: 4px; }
+.bench-insert a:focus-visible { outline: 2px solid oklch(83% .185 153); outline-offset: 4px; }
 </style>
