@@ -21,7 +21,7 @@ interface Props {
   next?: RelatedPost;
   draft?: boolean;
 }
-const { title, description, pubDate, updatedDate, heroImage, tags = [], kind, minutes, headings = [], source, previous, next, draft } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, kind, minutes, headings = [], source, previous, next, draft } = Astro.props;
 const sections = headings.filter(heading => heading.depth === 2);
 const contents = sections.length > 1;
 const displayTitle = draft ? `[Draft] ${title}` : title;
@@ -54,15 +54,14 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
         {contents && <details class="mobile-contents"><summary>In this post <span>{sections.length} sections</span></summary><nav aria-label="Article sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></details>}
         <div class="reading-prose"><slot /></div>
         <footer class="reading-footer">
-          {tags.length > 0 && <ul class="reading-tags" aria-label="Tags">{tags.map(tag => <li>{tag}</li>)}</ul>}
-          <div class="reading-end"><a href="/">← Back to the feed</a><a href="#article-top">Back to top ↑</a></div>
           {(previous || next) && <nav class="reading-related" aria-label="More posts">
-            {previous && <a href={previous.href}><span>← Older {kind === 'Note' ? 'note' : 'article'}</span><strong>{previous.title}</strong></a>}
-            {next && <a href={next.href}><span>Newer {kind === 'Note' ? 'note' : 'article'} →</span><strong>{next.title}</strong></a>}
+            {previous && <a href={previous.href}><span>← Older</span><strong>{previous.title}</strong></a>}
+            {next && <a href={next.href}><span>Newer →</span><strong>{next.title}</strong></a>}
           </nav>}
+          <a class="reading-top" href="#article-top">Top ↑</a>
         </footer>
         </div>
-      {contents && <aside class="reading-contents" aria-label="On this page"><p>In this post</p><nav aria-label="Article sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav><a class="contents-top" href="#article-top">Back to top ↑</a></aside>}
+      {contents && <aside class="reading-contents" aria-label="On this page"><p>In this post</p><nav aria-label="Article sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></aside>}
       </article>
     </main>
     <Footer homepage />
