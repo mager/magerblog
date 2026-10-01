@@ -1,5 +1,6 @@
 ---
 title: "mager-bench: free first"
+description: "Moving mager-bench toward free models, repeated runs, and multiple judges."
 pubDate: "2026-07-17"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

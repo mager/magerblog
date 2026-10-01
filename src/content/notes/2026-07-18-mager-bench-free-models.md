@@ -1,5 +1,6 @@
 ---
 title: "mager-bench: free models, thinking-token bugs, and traces"
+description: "Free models join the board, with a closer look at token accounting and run traces."
 pubDate: "2026-07-18"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

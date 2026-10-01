@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const isCooking = post.data.category === 'food';
 const isLife = post.data.category === 'life';
 ---
@@ -29,7 +29,7 @@ const isLife = post.data.category === 'life';
 		<Content />
 	</LifePost>
 ) : (
-	<BlogPost {...post.data} postId={post.id}>
+	<BlogPost {...post.data} postId={post.id} headings={headings}>
 		<Content />
 	</BlogPost>
 )}

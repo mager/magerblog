@@ -78,6 +78,7 @@ The site organizes content into three categories, each with distinct visual them
 
 - `src/pages/index.astro`: Two-column homepage: a chronological feed of tech articles, notes, photos/screenshots, and link shares on the left; recent cooking and life articles on the right. Stacks feed-first on mobile. Updates do not bump entries. Filters and progressive loading enhance the complete static stream.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
+- Homepage articles and notes show only a short description and a read link. Add `description` to notes for an authored preview; a brief first-paragraph excerpt is the fallback. Keep full text on the post pages, while Seen captions and link embeds remain inline.
 - `src/pages/links/`: Link-share archive and permalinks
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
@@ -85,13 +86,11 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Layouts
 
-- `src/layouts/BlogPost.astro`: Main blog post layout with:
-  - Hero image or terminal window placeholder
-  - Sticky header that appears on scroll
-  - Category-specific image border styling via `data-category` attribute
-  - Prev/Next navigation within the same category
-  - Recipe metadata display (prep/cook times)
-  - Article footer with publication info
+- `src/layouts/ReadingPost.astro`: Shared editorial layout for tech articles and notes, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
+- `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
+- Cooking and life articles retain their dedicated layouts.
+- `src/styles/reading.css`: Detail-page typography, prose, code, tables, and mobile layout.
+- Publication pages default to light mode. `ThemeToggle.astro` saves an explicit light/dark choice under `mager-theme`; `BaseHead.astro` applies it before paint. Dark publication surfaces use true black. Theme colors live in `newspaper.css`.
 
 ### Components
 
@@ -217,5 +216,4 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
   visit. Keep scores and model names out of the component source. Failed live
   requests retain the labeled snapshot and the leaderboard link.
 - Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
-- The sticky header appears after scrolling 300px down the page
-- Terminal-style placeholders display when no hero image is provided
+- Tech articles and notes use a compact shared header and footer; an optional hero image follows the title without a full-screen placeholder.

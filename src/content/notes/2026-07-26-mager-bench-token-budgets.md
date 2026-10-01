@@ -1,5 +1,6 @@
 ---
 title: "mager-bench: the benchmark was measuring my token budget"
+description: "Adding another model exposed a problem with what my benchmark was actually measuring."
 pubDate: "2026-07-26"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

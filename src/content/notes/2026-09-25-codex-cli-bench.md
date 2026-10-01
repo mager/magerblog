@@ -1,5 +1,6 @@
 ---
 title: "Running mager-bench through my ChatGPT subscription"
+description: "Running mager-bench through my ChatGPT subscription, then checking what the judge actually received."
 pubDate: "2026-09-25"
 link: "https://bench.mager.co/experiments/codex-cli-sol"
 linkText: "the full Codex CLI run"

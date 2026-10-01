@@ -1,5 +1,6 @@
 ---
 title: "GLM 5.3 vs. my raycaster, or: the benchmark fought back"
+description: "A GLM 5.3 benchmark run became an investigation into the harness, the judge, and missing results."
 pubDate: "2026-09-04"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

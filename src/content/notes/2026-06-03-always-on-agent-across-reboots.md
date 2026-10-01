@@ -1,5 +1,6 @@
 ---
 title: "Keeping an always-on agent alive across reboots"
+description: "How I keep a Mac mini agent running through crashes, model changes, and reboots."
 pubDate: "2026-06-03"
 tags: ["agents", "macOS", "harness"]
 category: tech

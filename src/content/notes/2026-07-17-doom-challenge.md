@@ -1,5 +1,6 @@
 ---
 title: "mager-bench: the doom challenge"
+description: "Adding a playable raycasting challenge to mager-bench, where the output can speak for itself."
 pubDate: "2026-07-17"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

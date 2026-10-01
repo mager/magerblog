@@ -1,5 +1,6 @@
 ---
 title: "skill-evals"
+description: "A Claude Code plugin for investigating agent failures and building evaluations you can trust."
 pubDate: "2026-06-26"
 link: "https://github.com/mager/skill-evals"
 linkText: "github.com/mager/skill-evals"

@@ -10,8 +10,16 @@ const { entry, standalone = false } = Astro.props;
 const href = entryHref(entry);
 const title = entryTitle(entry);
 const Heading = standalone ? 'h1' : 'h2';
-const rendered = entry.collection === 'blog' ? undefined : await render(entry);
+const notePreview = entry.collection === 'notes' && !standalone;
+const rendered = entry.collection === 'blog' || notePreview ? undefined : await render(entry);
 const Content = rendered?.Content;
+const noteDescription = entry.collection === 'notes'
+  ? entry.data.description || (() => {
+      const paragraph = (entry.body || '').trim().split(/\n\s*\n/)[0]
+        .replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/<[^>]*>/g, '').replace(/[*_`#]/g, '').replace(/\s+/g, ' ').trim();
+      return paragraph.length > 240 ? `${paragraph.slice(0, 240).replace(/\s+\S*$/, '')}…` : paragraph;
+    })()
+  : undefined;
 const category = entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
 const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / Recipe', life: 'Life / Article', notes: 'Note', seen: 'Photo', links: 'Link share' };
 const label = entry.collection === 'seen' && entry.data.mediaType === 'screenshot' ? 'Screenshot' : labels[category] || 'Article';
@@ -26,7 +34,6 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   <Heading class="entry-title"><a href={href}>{title}</a></Heading>
   {entry.collection === 'blog' && <>
     <p class="entry-description">{entry.data.description}</p>
-    {entry.data.heroImage && <a class="entry-photo" href={href} aria-label={`Read ${title}`}><img src={entry.data.heroImage} alt="" width="800" height="450" loading="lazy" decoding="async" /></a>}
     <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
   </>}
   {entry.collection === 'links' && <>
@@ -37,7 +44,11 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
     {entry.data.location && <p class="entry-location">{entry.data.location}</p>}
     <a class="entry-photo seen-photo" href={href}><img src={entry.data.photo} alt={entry.data.alt || title} width="800" height="600" loading="lazy" decoding="async" /></a>
   </>}
-  {entry.collection === 'notes' && entry.data.link && <a class="note-source" href={entry.data.link} target="_blank" rel="noopener noreferrer">{entry.data.linkText || linkHost(entry.data.link)} <span aria-hidden="true">↗</span></a>}
+  {notePreview && <>
+    <p class="entry-description">{noteDescription}</p>
+    <a class="entry-action" href={href}>Read note <span aria-hidden="true">↗</span></a>
+  </>}
+  {entry.collection === 'notes' && !notePreview && entry.data.link && <a class="note-source" href={entry.data.link} target="_blank" rel="noopener noreferrer">{entry.data.linkText || linkHost(entry.data.link)} <span aria-hidden="true">↗</span></a>}
   {Content && <div class="entry-body"><Content /></div>}
   {entry.collection === 'links' && !standalone && <a class="entry-action" href={href}>Permalink <span aria-hidden="true">↗</span></a>}
 </article>

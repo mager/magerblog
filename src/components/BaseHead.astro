@@ -20,6 +20,14 @@ const { title, description, image = '/blog-placeholder-1.jpg', keywords } = Astr
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<script is:inline>
+  // Light by default. Apply a saved choice before painting the page.
+  try {
+    document.documentElement.dataset.theme = localStorage.getItem('mager-theme') === 'dark' ? 'dark' : 'light';
+  } catch {
+    document.documentElement.dataset.theme = 'light';
+  }
+</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link

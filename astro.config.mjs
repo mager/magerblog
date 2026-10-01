@@ -17,5 +17,9 @@ export default defineConfig({
 	},
 	markdown: {
 		smartypants: false,
+		shikiConfig: {
+			themes: { light: 'github-light', dark: 'github-dark' },
+			defaultColor: 'dark',
+		},
 	},
 });

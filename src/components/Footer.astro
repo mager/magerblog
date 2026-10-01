@@ -4,47 +4,22 @@ interface Props { homepage?: boolean; }
 const { homepage = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
-<footer class:list={['press-footer', { 'on-paper': homepage }]}>
+<footer class:list={['site-footer', { 'on-paper': homepage }]}>
   <div class="footer-shell">
-    <div class="colophon">
-      <div class="footer-signature"><a href="/" aria-label="mager.co home">mager<span>.</span>co</a><p>Tech, food &amp; life<br />from Chicago.</p></div>
-      <nav aria-label="Footer sections"><span class="footer-label">The sections</span><div class="footer-sections"><a href="/tech/">Tech</a><a href="/cooking/">Food</a><a href="/life/">Life</a><a href="/notes/">Notes</a><a href="/seen/">Seen</a><a href="/links/">Links</a><a href="/blog/">Archive</a></div></nav>
-      <nav aria-label="Projects and elsewhere"><span class="footer-label">Beyond the page</span><a href="https://bench.mager.co">mager-bench ↗</a><a href="https://github.com/mager">GitHub ↗</a><a href="https://x.com/mager">X / @mager ↗</a></nav>
-      <div class="footer-subscribe"><span class="footer-label">Keep in the loop</span><p>A new entry, straight<br />to your feed reader.</p><a href="/rss.xml">Subscribe via RSS <span aria-hidden="true">↗</span></a></div>
-    </div>
-    <div class="end-line"><span>© {year} mager.co</span><span class="footer-stars" aria-label="Four Chicago stars">✶ ✶ ✶ ✶</span><a href="/about/">About <span aria-hidden="true">↗</span></a></div>
+    <a class="footer-home" href="/">mager.co <span>© {year}</span></a>
+    <nav aria-label="Footer navigation">
+      <a href="/blog/">Archive</a><a href="https://bench.mager.co">Bench ↗</a><a href="https://github.com/mager">GitHub ↗</a><a href="https://x.com/mager">X ↗</a><a href="/about/">About</a><a href="/rss.xml">RSS</a>
+    </nav>
   </div>
 </footer>
 <style>
-.press-footer { --footer-bg: oklch(19% 0.02 260); --footer-ink: oklch(93% 0.009 85); --footer-muted: oklch(75% 0.014 260); --footer-rule: oklch(38% 0.02 260); background: var(--footer-bg); color: var(--footer-ink); padding: 0 24px; }
-.on-paper { --footer-bg: var(--news-paper); --footer-ink: var(--news-ink); --footer-muted: var(--news-muted); --footer-rule: var(--news-rule); }
-.footer-shell { max-width: 1240px; margin: auto; border-top: 1px solid var(--footer-ink); }
-.press-footer a { color: inherit; }
-.press-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.colophon { display: grid; grid-template-columns: 1.35fr 1fr 1fr 1fr; gap: 36px; padding: 35px 0; }
-.footer-signature > a { font: 900 42px/.95 var(--news-display); letter-spacing: -.07em; }
-.footer-signature > a:hover { text-decoration: none; }
-.footer-signature > a span { color: oklch(64% 0.17 30); }
-.on-paper .footer-signature > a span { color: var(--news-red); }
-.footer-signature p, .footer-subscribe p { font: 15px/1.5 var(--news-serif); margin: 12px 0 0; color: var(--footer-muted); }
-.footer-label { display: block; margin-bottom: 12px; font: 500 9px/1.5 var(--news-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--footer-muted); }
-.colophon nav > a, .footer-sections a { display: flex; align-items: center; min-height: 32px; font: 500 13px var(--news-ui); }
-.footer-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px; }
-.footer-subscribe > a { display: inline-flex; gap: 18px; align-items: center; min-height: 44px; font: 700 12px var(--news-ui); text-decoration: underline; text-underline-offset: 4px; }
-.end-line { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--footer-rule); padding: 15px 0 20px; font: 10px/1.5 var(--news-mono); color: var(--footer-muted); }
-.footer-stars { color: oklch(64% 0.17 30); font-size: 21px; letter-spacing: .18em; }
-.on-paper .footer-stars { color: var(--news-red); }
-.end-line a { display: inline-flex; align-items: center; min-height: 32px; }
-@media(max-width: 800px) { .colophon { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
-@media(max-width: 480px) {
-  .press-footer { padding: 0 18px; }
-  .colophon { gap: 26px 18px; }
-  .footer-signature { grid-column: 1/-1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .footer-signature p { margin: 0; font-size: 13px; }
-  .footer-subscribe { grid-column: 1/-1; }
-  .footer-subscribe p br { display: none; }
-  .end-line { flex-wrap: wrap; gap: 8px; font-size: 9px; }
-  .footer-stars { order: 3; flex-basis: 100%; text-align: center; padding-top: 10px; }
-  .colophon nav > a, .footer-sections a { min-height: 44px; }
-}
+  .site-footer { --footer-bg: #0d1117; --footer-ink: #edece8; --footer-muted: #a4a5aa; --footer-rule: #292929; padding: 0 24px; background: var(--footer-bg); color: var(--footer-ink); }
+  .on-paper { --footer-bg: var(--news-paper); --footer-ink: var(--news-ink); --footer-muted: var(--news-muted); --footer-rule: var(--news-rule); }
+  .footer-shell { display: flex; justify-content: space-between; align-items: center; gap: 16px 36px; max-width: 1136px; margin: auto; border-top: 1px solid var(--footer-rule); padding: 24px 0 32px; }
+  .footer-home { display: inline-flex; align-items: baseline; gap: 16px; color: var(--footer-ink); font: 650 17px/1.4 var(--news-display); white-space: nowrap; }
+  .footer-home span { color: var(--footer-muted); font: 10px/1.5 var(--news-mono); }
+  nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--footer-muted); font: 500 11px/1.5 var(--news-ui); }
+  a:hover { color: var(--footer-ink); text-decoration: underline; text-underline-offset: 4px; }
+  @media(max-width: 640px) { .site-footer { padding: 0 18px; } .footer-shell { flex-direction: column; align-items: flex-start; gap: 8px; } nav { gap: 8px 22px; } }
 </style>

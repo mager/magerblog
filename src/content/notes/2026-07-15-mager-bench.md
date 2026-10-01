@@ -1,5 +1,6 @@
 ---
 title: "mager-bench"
+description: "New mager-bench challenges cover testing, debugging, async Python, and SQL."
 pubDate: "2026-07-15"
 link: "https://bench.mager.co"
 linkText: "bench.mager.co"

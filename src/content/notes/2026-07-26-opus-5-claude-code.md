@@ -1,5 +1,6 @@
 ---
 title: "Opus 5 is the default now, and subagents can nest three deep"
+description: "Three Claude Code changes and what they mean for my always-on agent setup."
 pubDate: "2026-07-26"
 link: "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
 linkText: "claude-code CHANGELOG"

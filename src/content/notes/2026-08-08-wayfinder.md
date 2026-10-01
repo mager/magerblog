@@ -1,5 +1,6 @@
 ---
 title: "Wayfinder: planning big work as a map of decisions"
+description: "Trying Wayfinder to organize a large project around decisions before starting implementation."
 pubDate: "2026-08-08"
 tags: ["agents", "wayfinder", "planning"]
 category: tech
