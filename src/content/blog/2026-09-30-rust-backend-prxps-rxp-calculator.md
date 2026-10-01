@@ -1,5 +1,5 @@
 ---
-title: "My first Rust backend: from an RXP calculator to Cloud Run"
+title: "Building a Rust backend for the prxps RXP calculator"
 description: "Returning to Rust after one Advent of Code puzzle, then building a small reward API and connecting it to prxps through SvelteKit."
 pubDate: 2026-09-30
 category: tech
