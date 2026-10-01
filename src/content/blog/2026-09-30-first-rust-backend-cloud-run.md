@@ -125,6 +125,8 @@ The integration is deliberately limited to the game detail page. It requests a 1
 
 For the live check, the Browns–Steelers page showed 1.24 RXP for Cleveland at +124 and 0.69 RXP for Pittsburgh at -147. Both preview fields in the production API response reported `source: "rust"`, and the page displayed those amounts. The Rust project passed 12 tests; the web integration checks passed 45 tests, including the existing reward tests.
 
+I was surprised by how easy Codex made the deployment and integration. I asked it to put the Rust backend in the cloud, and it used my existing `gcloud` login to build the container, deploy the private service, and test an authenticated request. Once my curl request worked, I asked it to wire the service into prxps. It added the server-side call, permissions, caching, and fallback, deployed the web app, and checked a real game page. I could go from a local Rust program to a working feature in the same conversation, with code, test results, and live responses to inspect along the way.
+
 ## What I got out of this
 
 This calculation is too small to justify a remote service as a performance improvement. A network request introduces work that a local TypeScript function avoids. I wanted a contained way to learn the path from Rust source to a running backend, using outputs I could verify against an existing app.
