@@ -1,6 +1,6 @@
 ---
 title: "Apple Cinnamon Bread"
-description: "A buttery apple loaf with whole-wheat flour, plain yogurt, and a crackly cinnamon-sugar top. Plenty of fruit, just enough sweetness."
+description: "A buttery apple loaf with plain yogurt, and a crackly cinnamon-sugar top. Plenty of fruit, just enough sweetness."
 pubDate: 2026-10-03
 category: "food"
 subcategory: "baking"
@@ -12,12 +12,11 @@ recipeYield: "1 loaf, 10 slices"
 draft: true
 ---
 
-I'm planning this loaf for the apples we bring home from Apple Holler in Wisconsin on October 3. I want something with enough butter to taste like a treat, but with whole-wheat flour, yogurt, and plenty of actual apple. This is the first-bake draft; I still need to test the timing and crumb in my kitchen.
+I'm planning this loaf for the apples we bring home from Apple Holler in Wisconsin on October 3. I want something with enough butter to taste like a treat, with yogurt and plenty of actual apple. This is the first-bake draft; I still need to test the timing and crumb in my kitchen.
 
 ## Ingredients
 
-- 1 cup (120 g) all-purpose flour
-- 1 cup (113 g) whole-wheat flour
+- 2 cups (240 g) all-purpose flour
 - 1½ tsp baking powder
 - ½ tsp baking soda
 - ½ tsp fine salt
@@ -35,7 +34,7 @@ I'm planning this loaf for the apples we bring home from Apple Holler in Wiscons
 
 1. **Get the pan and oven ready.** Heat the oven to **350°F conventional or 325°F convection** with a rack in the center. Lightly butter a **9 × 5-inch metal loaf pan** and line it with a parchment sling. Set aside ½ tsp of the cinnamon and mix it with the tablespoon of granulated sugar for the topping.
 
-2. **Mix the dry ingredients.** Whisk both flours, baking powder, baking soda, salt, and the remaining **2 tsp cinnamon** in a large bowl. Spoon flour into the measuring cup and level it, or use the gram weights; packed flour makes a dry loaf.
+2. **Mix the dry ingredients.** Whisk the flour, baking powder, baking soda, salt, and the remaining **2 tsp cinnamon** in a large bowl. Spoon flour into the measuring cup and level it, or use the gram weights; packed flour makes a dry loaf.
 
 3. **Mix the wet ingredients.** In another bowl, whisk the melted butter and brown sugar. Whisk in the eggs, then the yogurt, milk, and vanilla until smooth. The butter should be warm, not hot, before it meets the eggs.
 
@@ -51,7 +50,7 @@ Use firm apples that hold their shape, ideally a mix of sweet and tart. For the 
 
 ## A little restraint, a little butter
 
-Half the flour is whole wheat. Yogurt adds moisture, and the apples provide sweetness as well as texture. The butter stays: six tablespoons spread across a whole loaf is a tradeoff I'm happy with. The tablespoon of cinnamon sugar on top gives each slice a crisp edge without frosting or a thick streusel layer.
+Yogurt adds moisture, and the apples provide sweetness as well as texture. The butter stays: six tablespoons spread across a whole loaf is a tradeoff I'm happy with. The tablespoon of cinnamon sugar on top gives each slice a crisp edge without frosting or a thick streusel layer.
 
 For the first test, I'm keeping nuts and other mix-ins out so I can judge the apple-to-batter ratio. A toasted slice with salted butter is the version I'm looking forward to.
 
