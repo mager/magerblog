@@ -2,9 +2,8 @@
 .edition-masthead { display: flex; justify-content: space-between; align-items: center; gap: 40px; padding: 18px 0 20px; border-bottom: 3px solid var(--news-ink); }
 .edition-masthead h1 { font: 800 clamp(90px, 14.8vw, 216px)/.95 var(--news-display); letter-spacing: -.065em; margin: 0 0 8px -8px; color: var(--news-ink); }
 .edition-masthead h1 > span { color: var(--news-red); }
-.masthead-note { padding-top: 4px; }
+.masthead-note { display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
 .chicago-stars { font: 30px/1 var(--news-ui); letter-spacing: .12em; color: var(--news-red); }
-.masthead-note p { font: 500 18px/1.35 var(--news-ui); letter-spacing: -.025em; margin: 14px 0 10px; }
 .masthead-note > span:last-child { font: 10px/1.5 var(--news-mono); color: var(--news-muted); }
 .edition-switchbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 24px; min-height: 58px; border-bottom: 1px solid var(--news-rule); }
 .edition-switchbar > p { font: 600 11px/1.5 var(--news-mono); margin: 0; }
@@ -121,7 +120,6 @@
 @media (max-width: 800px) {
   .edition-masthead { gap: 20px; }
   .edition-masthead h1 { font-size: 18vw; }
-  .masthead-note p { font-size: 14px; }
   .chicago-stars { font-size: 24px; }
   .front-spread, .offscreen-spread, .reference-spread { grid-template-columns: minmax(0, 1fr); }
   .dispatch-column { padding-left: 0; border-left: 0; padding-top: 20px; border-top: 1px solid var(--news-rule); }
@@ -142,8 +140,7 @@
   .edition-shell { max-width: calc(100% - 36px); }
   .edition-masthead { display: block; padding: 20px 0 16px; }
   .edition-masthead h1 { font-size: 21vw; margin-left: -3px; }
-  .masthead-note { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; padding-top: 0; }
-  .masthead-note p { display: none; }
+  .masthead-note { flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; padding-top: 0; }
   .masthead-note > span:last-child { font-size: 9px; }
   .chicago-stars { font-size: 22px; }
   .edition-switchbar { padding-top: 12px; gap: 4px; }

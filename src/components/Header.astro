@@ -21,7 +21,7 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
 ---
 <header class:list={['site-header', { 'on-paper': homepage, 'edition-header': masthead }]}>
   <div class="header-shell">
-    <a class="wordmark" href="/" aria-label="mager.co home">{masthead ? 'mager' : <>mager<span>.</span>co</>}</a>
+    {!masthead && <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>}
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={path.replace(/\/$/, '') === section.href.replace(/\/$/, '') ? 'page' : undefined}>{section.name}</a>)}
       <details class="header-more">
@@ -60,12 +60,13 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
   .more-links a:hover, .more-links a[aria-current="page"] { color: var(--header-ink); background: color-mix(in oklch, var(--header-ink) 7%, var(--header-bg)); }
   .site-header :focus-visible { outline: 2px solid var(--header-ink); outline-offset: 3px; }
   .edition-header .header-shell { max-width: 1320px; min-height: 68px; }
-  .edition-header .wordmark { font: 600 14px/1.4 var(--news-ui); letter-spacing: -.02em; }
   @media(max-width: 760px) {
     .header-shell { flex-wrap: wrap; gap: 0 16px; padding-top: 14px; }
     .wordmark { font-size: 30px; }
     .header-tools { min-height: 44px; }
     .header-sections { order: 3; justify-content: space-between; flex-basis: 100%; flex-wrap: wrap; gap: 10px; padding: 6px 0 8px; }
+    .edition-header .header-shell { padding-block: 8px; }
+    .edition-header .header-sections { order: 0; flex: 1; justify-content: flex-start; gap: 4px 16px; padding: 0; }
   }
   @media(max-width: 540px) {
     .site-header { padding: 0 18px; }
