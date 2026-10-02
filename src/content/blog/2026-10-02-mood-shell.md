@@ -16,7 +16,7 @@ That became **[Mood Shell](https://github.com/mager/moodsh)**, a small shell cus
 
 Today I'm publishing **[version 0.3.0](https://github.com/mager/moodsh/releases/tag/v0.3.0)**. It runs natively on macOS, Windows, and Linux, integrates with Zsh, Bash, and PowerShell 7, and adds the feature I wanted before introducing it more widely: themes you can create, read, and share as Markdown documents.
 
-![Mood Shell running in my Mac terminal, with a lavender project directory and a cyan prompt arrow above the output of pwd and ls.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/prompt.jpg)
+![Mood Shell running in my Mac terminal, with a lavender project directory and a cyan prompt arrow ready for the next command.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/prompt-clean.jpg)
 
 This is the prompt running in my actual terminal. On this Mac, I have removed Starship and Oh My Zsh and connected Mood Shell directly to Zsh. That's a personal choice, not an installation requirement. You can keep Oh My Zsh's plugins and disable only its theme.
 
@@ -31,6 +31,8 @@ moodsh customize
 ```
 
 The picker previews a successful command and a failed command. Up and down browse moods. Tab switches between a compact prompt and a two-line layout. The two-line version puts the mood name and directory on one row, leaving the next row for the command.
+
+![Mood Shell's interactive picker with Ember selected, warm amber prompt previews, a red failed-command status, and four editable hex colors.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/customize-ember.jpg)
 
 Four numbered keys control four colors:
 
@@ -159,6 +161,10 @@ Use one prompt renderer at a time. Disable an existing Starship or Oh My Posh in
 The [README](https://github.com/mager/moodsh#install) has the Linux, Bash, and PowerShell setup instructions, as well as the optional source build. Windows runs natively and does not need WSL. macOS downloads are currently unsigned, so a downloaded binary may encounter macOS security checks; signing and smoother installation are still work to do.
 
 Installation and activation are separate. Mood Shell does not edit your startup files automatically. To disconnect it, remove its init line and restart the shell.
+
+Run `moodsh --help` to see the available commands. Here is my terminal after saving Ember in the picker:
+
+![Mood Shell's command help in my Mac terminal after saving Ember, showing the customize, theme, config, and doctor commands above a warm amber prompt.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/commands-ember.jpg)
 
 ## What is ready, and what isn't
 
