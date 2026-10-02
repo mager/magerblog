@@ -69,3 +69,20 @@ test('draft artifacts never generate pages, downloads, feed entries, or indexes'
     }
   }
 });
+
+test('front page is a complete, varied edition even without JavaScript', () => {
+  const page = html('index.html');
+  const stories = [...page.querySelectorAll('#front-page [data-edition-entry]')];
+  assert(stories.length >= 25 && stories.length <= 35);
+  assert.equal(new Set(stories.map(story => story.dataset.editionEntry)).size, stories.length);
+  assert.equal(new Set(stories.map(story => story.dataset.editionEntry.split('/')[0])).size, 5);
+  assert.equal(page.querySelectorAll('h1').length, 1);
+  assert(page.querySelector('.story-lead img[loading="eager"]'));
+  assert(page.querySelector('.seen-strip[tabindex="0"]'));
+  assert.equal(page.querySelector('#chronological-feed [data-feed]').dataset.pageSize, '24');
+  assert.equal(page.querySelector('#front-page').hasAttribute('hidden'), false);
+  for (const link of page.querySelectorAll('#front-page a[href^="/"]')) {
+    const path = link.getAttribute('href').split('#')[0];
+    assert(existsSync(new URL(`../dist${path.endsWith('/') ? `${path}index.html` : path}`, import.meta.url)), `Broken edition link: ${path}`);
+  }
+});

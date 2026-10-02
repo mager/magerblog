@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Two-column homepage: a chronological feed of tech articles, notes, photos/screenshots, link shares, and artifacts on the left; recent cooking and life articles on the right. Stacks feed-first on mobile. Updates do not bump entries. A single native select filters the complete static stream. Progressive loading starts with eight entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
+- `src/pages/index.astro`: Chicago edition homepage with about 30 distinct entries across a lead spread, dispatches, workbench, Seen strip, cooking, life, artifacts, and links. `src/lib/edition.ts` selects each section from publication order without duplicates. A Front page / All updates switch opens the chronological stream, with a native content filter and 24-entry progressive loading. Without JavaScript, the edition and a disclosure containing the full stream remain available. Updates do not bump entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
 - Homepage articles and notes show only a short description and a read link. Add `description` to notes for an authored preview; a brief first-paragraph excerpt is the fallback. Keep full text on the post pages, while Seen captions and link embeds remain inline.
 - `src/pages/links/`: Link-share archive and permalinks

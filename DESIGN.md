@@ -27,9 +27,11 @@ Preserve the established fonts: Fraunces for the masthead and section display, S
 
 ## Layout
 
-The shared shell is 1136px with 24px gutters (18px on phones). The homepage keeps a chronological stream beside a compact cooking/life shelf. A single native selector replaces the row of filter buttons. Eight entries appear initially; older entries remain available through progressive loading and in the full static HTML. Feed rows use compact titles and brief previews, with no repeated dates, reading-time labels, or permalink buttons. Link-share titles open their sources directly.
+The homepage uses a 1320px shell with 24px gutters (18px on phones), a large masthead, and a complete edition of roughly 30 distinct stories. A lead spread and compact dispatch column open the page; varied workbench columns, a horizontal photo strip, cooking and life sections, a yellow artifact insert, and shared links provide different reading rhythms. Selection follows publication order within each section and never repeats an entry within the edition.
 
-Primary navigation contains Tech, Cooking, Life, and Artifacts. Notes, Seen, Links, About, and RSS are grouped under a keyboard-accessible More disclosure. Below 760px the navigation sits in a second row; there is no fixed bottom navigation. At 900px the homepage stacks feed-first.
+Front page and All updates are plain-text view controls. The chronological view starts with 24 entries and keeps a native content filter and progressive loading. Without JavaScript, the entire edition remains available and a disclosure opens the complete static stream. Feed rows use compact titles and brief previews, with no repeated dates, reading-time labels, or permalink buttons. Link-share titles open their sources directly.
+
+Primary navigation contains Tech, Cooking, Life, and Artifacts. Notes, Seen, Links, About, and RSS are grouped under a keyboard-accessible More disclosure. Below 760px the navigation sits in a second row; there is no fixed bottom navigation. At 800px the edition stacks its main columns while retaining compact story groupings.
 
 Artifacts use a dedicated centered document layout, up to 1040px wide. The title, filename, description, and publication metadata are centered. Body text stays left-aligned, with a compact numbered contents index, full-width tables, and explicit Markdown downloads. They should look like useful working documents rather than long-form blog posts.
 
@@ -41,7 +43,7 @@ Use existing author-owned images. Front-page food photo selections prioritize pe
 
 - Wordmark punctuation lifts slightly on hover.
 - Photography scales subtly inside fixed frames.
-- The back page previews an older story; Another story changes the preview without navigating unexpectedly and announces the update politely. A normal story link works without JavaScript.
+- Front-page view changes use a short crossfade where View Transitions are available, with an immediate fallback and reduced-motion support.
 - Category and archive links provide a complete route through all content.
 - New animation uses transform and opacity with an exponential ease-out curve, and respects reduced motion.
 - Clear focus states, a homepage skip link, semantic section headings, explicit image descriptions, and 44px main navigation targets.

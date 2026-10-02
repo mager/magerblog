@@ -2,7 +2,7 @@
 import '../styles/newspaper.css';
 import ThemeToggle from './ThemeToggle.astro';
 interface Props { homepage?: boolean; masthead?: boolean; editionDate?: Date; activeSection?: string; themeToggle?: boolean; }
-const { homepage = false, activeSection, themeToggle = false } = Astro.props;
+const { homepage = false, masthead = false, activeSection, themeToggle = false } = Astro.props;
 const path = Astro.url.pathname;
 const sections = [
   { name: 'Tech', href: '/tech/' },
@@ -19,9 +19,9 @@ const moreSections = [
 ];
 const active = (href: string) => activeSection === href || path.replace(/\/$/, '') === href.replace(/\/$/, '') || path.startsWith(href);
 ---
-<header class:list={['site-header', { 'on-paper': homepage }]}>
+<header class:list={['site-header', { 'on-paper': homepage, 'edition-header': masthead }]}>
   <div class="header-shell">
-    <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>
+    <a class="wordmark" href="/" aria-label="mager.co home">{masthead ? 'Andrew Mager' : <>mager<span>.</span>co</>}</a>
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={path.replace(/\/$/, '') === section.href.replace(/\/$/, '') ? 'page' : undefined}>{section.name}</a>)}
       <details class="header-more">
@@ -59,6 +59,8 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
   .more-links a { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; color: var(--header-muted); font: 500 13px/1.4 var(--news-ui); border-radius: 3px; }
   .more-links a:hover, .more-links a[aria-current="page"] { color: var(--header-ink); background: color-mix(in oklch, var(--header-ink) 7%, var(--header-bg)); }
   .site-header :focus-visible { outline: 2px solid var(--header-ink); outline-offset: 3px; }
+  .edition-header .header-shell { max-width: 1320px; min-height: 68px; }
+  .edition-header .wordmark { font: 600 14px/1.4 var(--news-ui); letter-spacing: -.02em; }
   @media(max-width: 760px) {
     .header-shell { flex-wrap: wrap; gap: 0 16px; padding-top: 14px; }
     .wordmark { font-size: 30px; }

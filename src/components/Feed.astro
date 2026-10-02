@@ -1,13 +1,14 @@
 ---
 import type { FeedEntry } from '../lib/feed';
 import FeedItem from './FeedItem.astro';
-interface Props { entries: FeedEntry[]; filters?: boolean; compact?: boolean; }
-const { entries, filters = false, compact = false } = Astro.props;
+interface Props { entries: FeedEntry[]; filters?: boolean; compact?: boolean; pageSize?: number; headingLevel?: 'h1' | 'h2'; }
+const { entries, filters = false, compact = false, pageSize = compact ? 8 : 15, headingLevel = 'h1' } = Astro.props;
+const Heading = headingLevel;
 const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'], ['seen', 'Seen'], ['links', 'Links'], ['artifacts', 'Artifacts'] ];
 ---
-<div class:list={['feed', { compact }]} data-feed data-page-size={compact ? 8 : 15}>
+<div class:list={['feed', { compact }]} data-feed data-page-size={pageSize}>
   {filters && <div class="feed-heading">
-    <h1 id="feed-heading">Latest</h1>
+    <Heading id="feed-heading">Latest</Heading>
     <label class="feed-filter" hidden><span class="sr-only">Filter feed</span>
       <select data-feed-filter aria-label="Filter feed">{kinds.map(([kind, label]) => <option value={kind}>{label}</option>)}</select>
     </label>
@@ -55,7 +56,7 @@ const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'],
 </script>
 <style>
   .feed-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding: 24px 0 12px; border-bottom: 1px solid var(--news-rule); }
-  .feed-heading h1 { font: 600 14px/1.4 var(--news-ui); letter-spacing: 0; margin: 0; }
+  .feed-heading :is(h1, h2) { font: 600 14px/1.4 var(--news-ui); letter-spacing: 0; margin: 0; }
   .feed-filter select { max-width: 100%; min-height: 44px; padding: 8px 24px 8px 8px; border: 0; background: transparent; color: var(--news-muted); font: 500 12px/1.4 var(--news-ui); cursor: pointer; }
   .feed-filter option { background: var(--news-paper); color: var(--news-ink); }
   .feed-filter[hidden], button[hidden] { display: none; }

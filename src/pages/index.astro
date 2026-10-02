@@ -3,56 +3,89 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Feed from '../components/Feed.astro';
-import HomeShelf from '../components/HomeShelf.astro';
 import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
+import LinkPost from '../components/LinkPost.astro';
+import Story from '../components/edition/Story.astro';
 import { getFeed } from '../lib/feed';
+import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-
+import '../styles/edition.css';
 const entries = await getFeed();
 const posts = entries.filter(entry => entry.collection === 'blog');
 const stream = entries.filter(entry => entry.collection !== 'blog' || !['food', 'life'].includes(entry.data.category || 'tech'));
-const cooking = posts.filter(post => post.data.category === 'food');
-const life = posts.filter(post => post.data.category === 'life');
+const edition = makeEdition(entries);
 const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
 ---
 <!doctype html>
 <html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} />
-  </head>
-  <body class="publication">
+  <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} /></head>
+  <body class="publication edition-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header homepage themeToggle />
-    <main id="main-content">
-      <section class="main-feed" aria-labelledby="feed-heading">
-        <Feed entries={stream} filters compact />
+    <Header homepage themeToggle masthead />
+    <main id="main-content" class="edition-shell">
+      <div class="edition-masthead">
+        <h1>mager<span>.</span>co</h1>
+        <div class="masthead-note"><span class="chicago-stars" aria-hidden="true">✶ ✶ ✶ ✶</span><p>Software, supper,<br />and everything in between.</p><span>Andrew Mager · Chicago</span></div>
+      </div>
+      <div class="edition-switchbar">
+        <p>The Chicago edition <span class="edition-count">/ {edition.count} things to get into</span></p>
+        <div class="edition-switch" role="group" aria-label="Homepage view" hidden><button type="button" data-edition-view="front" aria-pressed="true" aria-controls="front-page">Front page</button><button type="button" data-edition-view="stream" aria-pressed="false" aria-controls="chronological-feed">All updates <span aria-hidden="true">↗</span></button></div>
+      </div>
+      <div id="front-page">
+        <section class="front-spread" aria-labelledby="lead-section">
+          <div class="lead-column">
+            <h2 class="section-kicker" id="lead-section">01 / On my workbench</h2>
+            {edition.lead && <Story entry={edition.lead} variant="lead" image eager />}
+            <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" />)}</div>
+          </div>
+          <aside class="dispatch-column" aria-labelledby="dispatch-heading">
+            <div class="section-heading small"><h2 id="dispatch-heading">Dispatches</h2><a href="/notes/">Notebook ↗</a></div>
+            <p class="section-deck">Small notes from things in motion.</p>
+            {edition.dispatches.map((entry, index) => <div class="numbered-dispatch"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><Story entry={entry} variant="brief" /></div>)}
+            <a class="dispatch-signoff" href="/about/">A little about me <span aria-hidden="true">↗</span></a>
+          </aside>
+        </section>
+        {edition.workbench.length > 0 && <section class="workbench-section" aria-labelledby="workbench-heading">
+          <div class="section-heading"><h2 id="workbench-heading">Built, broken, figured out.</h2><a href="/tech/">All tech ↗</a></div>
+          <div class="workbench-stories">{edition.workbench.map((entry, index) => <Story entry={entry} image={index === 0 || index === 2} />)}</div>
+        </section>}
+        {edition.seen.length > 0 && <section class="seen-section" aria-labelledby="seen-heading">
+          <div class="section-heading"><div><span class="section-kicker">02 / Field of view</span><h2 id="seen-heading">Look around.</h2></div><a href="/seen/">All seen ↗</a></div>
+          <div class="seen-strip" tabindex="0" role="region" aria-label="Photos and screenshots, scroll horizontally">{edition.seen.map(entry => <Story entry={entry} variant="photo" image />)}</div>
+        </section>}
+        <div class="offscreen-spread">
+          {edition.kitchen.length > 0 && <section class="kitchen-section" aria-labelledby="kitchen-heading">
+            <div class="section-heading"><div><span class="section-kicker">03 / Away from the keyboard</span><h2 id="kitchen-heading">Something good<br />on the stove.</h2></div><a href="/cooking/">The kitchen ↗</a></div>
+            <div class="kitchen-layout"><Story entry={edition.kitchen[0]} image /><div class="recipe-list">{edition.kitchen.slice(1).map(entry => <Story entry={entry} variant="brief" />)}</div></div>
+          </section>}
+          {edition.life.length > 0 && <section class="life-section" aria-labelledby="life-heading">
+            <div class="section-heading small"><h2 id="life-heading">Life, outside.</h2><a href="/life/">More ↗</a></div>
+            {edition.life.map((entry, index) => <Story entry={entry} variant={index === 0 ? 'story' : 'brief'} image={index === 0} />)}
+          </section>}
+        </div>
+        <div class="reference-spread">
+          <section class="artifact-section" aria-labelledby="artifact-heading">
+            <div class="section-heading"><div><span class="section-kicker">04 / Open files</span><h2 id="artifact-heading">Take the document.</h2></div><a href="/artifacts/">Artifacts ↗</a></div>
+            {edition.artifacts.length ? edition.artifacts.map(entry => <Story entry={entry} variant="document" />) : <p class="section-deck">Working documents will appear here.</p>}
+            <div class="notebook-extras"><h3>Also in the notebook</h3>{edition.notebook.map(entry => <Story entry={entry} variant="brief" />)}</div>
+          </section>
+          <aside class="bench-column" aria-label="Mager bench"><BenchWidget /></aside>
+        </div>
+        {edition.links.length > 0 && <section class="links-section" aria-labelledby="links-heading">
+          <div class="section-heading"><div><span class="section-kicker">05 / Passing it along</span><h2 id="links-heading">Worth opening.</h2></div><a href="/links/">All links ↗</a></div>
+          <div class="edition-links">{edition.links.map(entry => entry.collection === 'links' && <article data-edition-entry={`links/${entry.id}`}><LinkPost {entry} compact /></article>)}</div>
+        </section>}
+      </div>
+      <section id="chronological-feed" class="chronological-feed" aria-label="All updates">
+        <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={stream} filters compact pageSize={24} headingLevel="h2" /></details>
       </section>
-      <aside class="home-shelves" id="cooking-life" aria-label="Cooking and life">
-        <HomeShelf title="Cooking" category="food" href="/cooking/" posts={cooking} />
-        <HomeShelf title="Life" category="life" href="/life/" posts={life} />
-        <details class="bench-details">
-          <summary>From the workshop <span>mager-bench</span></summary>
-          <BenchWidget />
-        </details>
-      </aside>
+      <div class="edition-colophon"><span>Made in Chicago. Always a work in progress.</span><a href="/rss.xml">Keep up via RSS ↗</a></div>
     </main>
     <Footer homepage />
     <SecretSearch posts={posts} />
   </body>
 </html>
-<style>
-  main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); align-items: start; gap: clamp(28px, 4vw, 48px); width: 1136px; max-width: calc(100% - 48px); padding: 0 0 48px; margin: 0 auto; }
-  .main-feed { min-width: 0; }
-  .home-shelves { display: grid; gap: 38px; min-width: 0; margin-top: 26px; padding-left: 28px; border-left: 1px solid var(--news-rule); scroll-margin-top: 24px; }
-  .bench-details { border-top: 1px solid var(--news-rule); }
-  summary { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; cursor: pointer; color: var(--news-muted); font: 500 11px/1.5 var(--news-mono); }
-  summary::before { content: '+'; }
-  details[open] summary::before { content: '−'; }
-  summary span { margin-left: auto; }
-  summary:hover { color: var(--news-blue); }
-  @media(max-width: 900px) {
-    main { display: block; width: 760px; max-width: calc(100% - 36px); }
-    .home-shelves { padding: 30px 0 0; margin-top: 0; border-left: 0; border-top: 1px solid var(--news-rule); }
-  }
-</style>
+<script>
+  import '../scripts/edition';
+</script>
