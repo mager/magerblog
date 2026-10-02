@@ -7,6 +7,7 @@ import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
+import ChicagoFlag from '../components/ChicagoFlag.astro';
 import { getFeed, entryHref, entryTitle } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
@@ -26,7 +27,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <main id="main-content" class="edition-shell">
       <div class="edition-masthead">
         <h1>mager<span>.</span>co</h1>
-        <div class="masthead-note"><span class="chicago-stars" aria-hidden="true">✶ ✶ ✶ ✶</span><span>Chicago</span></div>
+        <div class="masthead-note"><ChicagoFlag /><span>Chicago</span></div>
       </div>
       <div class="edition-switchbar">
         <p>The Chicago edition <span class="edition-count">/ {edition.count} things to get into</span></p>
