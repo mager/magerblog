@@ -1,4 +1,6 @@
 ---
+import { publicationTimeZone } from '../lib/publication-date';
+
 interface Props {
 	date: Date | string | undefined;
 }
@@ -22,7 +24,7 @@ if (!dateObj || isNaN(dateObj.getTime())) {
 
 // Date-only frontmatter is stored at UTC midnight. Preserve its calendar date;
 // timestamped posts use Chicago time so an evening update stays on that day.
-const timeZone = dateObj.toISOString().endsWith('T00:00:00.000Z') ? 'UTC' : 'America/Chicago';
+const timeZone = publicationTimeZone(dateObj);
 ---
 
 <time datetime={dateObj.toISOString()}>

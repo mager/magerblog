@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { comparePublicationDates } from './publication-date';
 
 export type FeedEntry = CollectionEntry<'blog' | 'notes' | 'seen' | 'links'>;
 
@@ -8,8 +9,8 @@ export async function getFeed(): Promise<FeedEntry[]> {
   ]);
   return collections.flat()
     .filter(entry => !entry.data.draft && !(entry.collection === 'blog' && entry.data.locale === 'ja'))
-    // Publication time keeps the stream chronological; edits don't bump old posts.
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    // Match displayed publication dates; edits don't bump old posts.
+    .sort((a, b) => comparePublicationDates(a.data.pubDate, b.data.pubDate)
       || `${a.collection}/${a.id}`.localeCompare(`${b.collection}/${b.id}`));
 }
 
