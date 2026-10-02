@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test tests/*.test.mjs",
-    "audit:preview": "node scripts/audit-preview.mjs"
+    "audit:preview": "node scripts/audit-preview.mjs",
+    "test:build": "npm run build && node --test tests/artifacts.integration.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.2",

@@ -4,7 +4,7 @@ interface Props { url: string; title: string; author?: string; showSource?: bool
 const { url, title, author, showSource = true } = Astro.props;
 const id = youtubeId(url);
 ---
-<div class="link-share">
+{(id || showSource) && <div class="link-share">
   {id && <div class="video-frame">
     <iframe
       src={`https://www.youtube-nocookie.com/embed/${id}`}
@@ -19,7 +19,7 @@ const id = youtubeId(url);
     <span>{author ? `${author} · ` : ''}{linkHost(url)}</span>
     <span>{id ? 'Watch on YouTube' : 'Open link'} <span aria-hidden="true">↗</span></span>
   </a>}
-</div>
+</div>}
 <style>
   .video-frame { aspect-ratio: 16 / 9; background: #0d1117; overflow: hidden; border-radius: 6px; }
   iframe { display: block; width: 100%; height: 100%; border: 0; }

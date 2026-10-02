@@ -2,7 +2,7 @@
 
 Personal publication built with Astro 7. Use Node 22.23.3 (`nvm install && nvm use`), then `npm ci`. The supported runtime starts at Node 22.19.0.
 
-Run `npm test` for browser API resilience regressions. After `npm run build`, run `npm run audit:preview` and open `http://127.0.0.1:4331/?audit=1` for a local axe accessibility report. Add `&theme=dark` or `&textScale=2` to inspect alternate themes and doubled text. The audit server binds only to localhost and does not modify the production build.
+Run `npm test` for browser API resilience regressions and `npm run test:build` to build and verify artifact publishing, downloads, feed discovery, and draft exclusion. After `npm run build`, run `npm run audit:preview` and open `http://127.0.0.1:4331/?audit=1` for a local axe accessibility report. Add `&theme=dark` or `&textScale=2` to inspect alternate themes and doubled text. The audit server binds only to localhost and does not modify the production build.
 
 See [the frontend audit](docs/audits/2026-10-01-frontend.md) for coverage and limitations.
 

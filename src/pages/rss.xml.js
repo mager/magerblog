@@ -11,7 +11,7 @@ export async function GET(context) {
 		items: entries.map((entry) => ({
 			title: entryTitle(entry),
 			pubDate: entry.data.pubDate,
-			description: entry.collection === 'blog' || entry.collection === 'links'
+			description: entry.collection === 'blog' || entry.collection === 'links' || entry.collection === 'artifacts'
 				? entry.data.description || entry.data.title
 				: entry.body?.trim() || entryTitle(entry),
 			link: entryHref(entry),

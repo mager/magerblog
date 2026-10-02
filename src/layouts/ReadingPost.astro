@@ -22,6 +22,7 @@ interface Props {
   draft?: boolean;
 }
 const { title, description, pubDate, updatedDate, heroImage, kind, minutes, headings = [], source, previous, next, draft } = Astro.props;
+const sectionHref = kind === 'Note' ? '/notes/' : '/tech/';
 const sections = headings.filter(heading => heading.depth === 2);
 const contents = sections.length > 1;
 const displayTitle = draft ? `[Draft] ${title}` : title;
@@ -32,14 +33,14 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
   <body class="publication reading-page" data-category="tech">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
-    <Header homepage themeToggle activeSection={kind === 'Note' ? '/notes/' : '/tech/'} />
+    <Header homepage themeToggle activeSection={sectionHref} />
     <main id="main-content" class:list={['reading-layout', { 'has-contents': contents, 'has-hero': !!heroImage }]}>
       <article class="reading-article">
         <header class="reading-heading" id="article-top">
           <a class="reading-back" href="/">← Back to the feed</a>
           <div class="reading-opening">
           <div class="reading-title">
-          <div class="reading-meta"><a class="reading-kind" href={kind === 'Note' ? '/notes/' : '/tech/'}>{kind}</a><FormattedDate date={pubDate} /><span>{minutes} min read</span></div>
+          <div class="reading-meta"><a class="reading-kind" href={sectionHref}>{kind}</a><FormattedDate date={pubDate} /><span>{minutes} min read</span></div>
           <h1>{displayTitle}</h1>
           </div>
           {heroImage && <figure class="reading-hero"><img src={heroImage} alt="" width="1000" height="600" loading="eager" fetchpriority="high" decoding="async" /></figure>}
@@ -51,7 +52,7 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
           </div>
         </header>
         <div class="reading-body">
-        {contents && <details class="mobile-contents"><summary>In this post <span>{sections.length} sections</span></summary><nav aria-label="Article sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></details>}
+        {contents && <details class="mobile-contents"><summary>On this page <span>{sections.length} sections</span></summary><nav aria-label="Page sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></details>}
         <div class="reading-prose"><slot /></div>
         <footer class="reading-footer">
           {(previous || next) && <nav class="reading-related" aria-label="More posts">
@@ -61,7 +62,7 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
           <a class="reading-top" href="#article-top">Top ↑</a>
         </footer>
         </div>
-      {contents && <aside class="reading-contents" aria-label="On this page"><p>In this post</p><nav aria-label="Article sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></aside>}
+      {contents && <aside class="reading-contents" aria-label="On this page"><p>On this page</p><nav aria-label="Page sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></aside>}
       </article>
     </main>
     <Footer homepage />
@@ -69,52 +70,5 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
   </body>
 </html>
 <script>
-  const prose = document.querySelector<HTMLElement>('.reading-prose');
-  const progress = document.querySelector<HTMLElement>('[data-reading-progress]');
-  if (prose && progress) {
-    const update = () => {
-      const rect = prose.getBoundingClientRect();
-      const fraction = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / Math.max(1, rect.height)));
-      progress.style.transform = `scaleX(${fraction})`;
-    };
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    new ResizeObserver(update).observe(prose);
-    update();
-  }
-  document.querySelectorAll<HTMLElement>('.reading-prose pre').forEach((pre, index) => {
-    const text = pre.querySelector('code')?.textContent || pre.textContent || '';
-    const panel = document.createElement('div');
-    panel.className = 'reading-code';
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'copy-code';
-    button.textContent = 'Copy';
-    button.setAttribute('aria-label', `Copy code snippet ${index + 1}`);
-    const status = document.createElement('span');
-    status.className = 'sr-only';
-    status.setAttribute('role', 'status');
-    pre.parentNode?.insertBefore(panel, pre);
-    panel.append(pre, button, status);
-    button.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(text);
-        button.textContent = 'Copied';
-        status.textContent = 'Code copied to clipboard.';
-      } catch {
-        button.textContent = 'Select code';
-        status.textContent = 'Copy unavailable. Select and copy the code manually.';
-      }
-      window.setTimeout(() => { button.textContent = 'Copy'; status.textContent = ''; }, 2200);
-    });
-  });
-  const hero = document.querySelector<HTMLImageElement>('.reading-hero img');
-  if (hero) {
-    const recover = () => {
-      hero.closest('figure')!.hidden = true;
-      document.querySelector('.reading-layout')?.classList.remove('has-hero');
-    };
-    if (hero.complete && !hero.naturalWidth) recover();
-    else hero.addEventListener('error', recover, { once: true });
-  }
+  import '../scripts/reading';
 </script>

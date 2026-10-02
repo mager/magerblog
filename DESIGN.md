@@ -27,9 +27,11 @@ Preserve the established fonts: Fraunces for the masthead and section display, S
 
 ## Layout
 
-The shared shell is 1240px plus 24px gutters (18px on phones). Thin rules organize the publication, with stronger rules at navigation and section boundaries. The lead and notebook use a wide/narrow column split; supporting tech stories form two rows of three. The food spread has one large story and two smaller stories on a warm tint. Seen uses a horizontally scrollable photo strip with visible continuation and native keyboard support. Life sits alongside it as a compact reading column.
+The shared shell is 1136px with 24px gutters (18px on phones). The homepage keeps a chronological stream beside a compact cooking/life shelf. A single native selector replaces the row of filter buttons. Eight entries appear initially; older entries remain available through progressive loading and in the full static HTML. Feed rows use compact titles and brief previews, with no repeated dates, reading-time labels, or permalink buttons. Link-share titles open their sources directly.
 
-Below 700px, the main spreads become one column, food becomes one lead plus two smaller stories, and Seen retains its swipeable journal. Every main navigation link remains visible in two rows on phones. There is no fixed bottom navigation.
+Primary navigation contains Tech, Cooking, Life, and Artifacts. Notes, Seen, Links, About, and RSS are grouped under a keyboard-accessible More disclosure. Below 760px the navigation sits in a second row; there is no fixed bottom navigation. At 900px the homepage stacks feed-first.
+
+Artifacts use a dedicated centered document layout, up to 1040px wide. The title, filename, description, and publication metadata are centered. Body text stays left-aligned, with a compact numbered contents index, full-width tables, and explicit Markdown downloads. They should look like useful working documents rather than long-form blog posts.
 
 ## Imagery
 

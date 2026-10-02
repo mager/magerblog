@@ -1,16 +1,19 @@
 ---
 import type { FeedEntry } from '../lib/feed';
 import FeedItem from './FeedItem.astro';
-interface Props { entries: FeedEntry[]; filters?: boolean; }
-const { entries, filters = false } = Astro.props;
-const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'], ['seen', 'Seen'], ['links', 'Links'] ];
+interface Props { entries: FeedEntry[]; filters?: boolean; compact?: boolean; }
+const { entries, filters = false, compact = false } = Astro.props;
+const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'], ['seen', 'Seen'], ['links', 'Links'], ['artifacts', 'Artifacts'] ];
 ---
-<div class="feed" data-feed>
-  {filters && <div class="feed-filters" aria-label="Filter feed" role="group" hidden>
-    {kinds.map(([kind, label]) => <button type="button" data-filter={kind} aria-pressed={kind === 'all'}>{label}</button>)}
+<div class:list={['feed', { compact }]} data-feed data-page-size={compact ? 8 : 15}>
+  {filters && <div class="feed-heading">
+    <h1 id="feed-heading">Latest</h1>
+    <label class="feed-filter" hidden><span class="sr-only">Filter feed</span>
+      <select data-feed-filter aria-label="Filter feed">{kinds.map(([kind, label]) => <option value={kind}>{label}</option>)}</select>
+    </label>
   </div>}
   <div class="feed-entries">
-    {entries.map(entry => <FeedItem entry={entry} />)}
+    {entries.map((entry, index) => <FeedItem entry={entry} {compact} lead={compact && index === 0} />)}
   </div>
   <div class="feed-end">
     <p data-feed-count role="status">{entries.length ? `${entries.length} entries · newest first` : 'No entries yet.'}</p>
@@ -20,27 +23,26 @@ const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'],
 <script>
   document.querySelectorAll<HTMLElement>('[data-feed]').forEach(feed => {
     const entries = Array.from(feed.querySelectorAll<HTMLElement>('.feed-entry'));
-    const filters = Array.from(feed.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    const filter = feed.querySelector<HTMLSelectElement>('[data-feed-filter]');
     const more = feed.querySelector<HTMLButtonElement>('[data-load-more]')!;
     const count = feed.querySelector<HTMLElement>('[data-feed-count]')!;
-    const filterBar = feed.querySelector<HTMLElement>('.feed-filters');
-    const pageSize = 15;
+    const filterBar = feed.querySelector<HTMLElement>('.feed-filter');
+    const pageSize = Number(feed.dataset.pageSize) || 15;
     let limit = pageSize;
     let kind = 'all';
     const matching = () => entries.filter(entry => kind === 'all' || entry.dataset.kind === kind);
     function update() {
       const selected = matching();
       const visible = new Set(selected.slice(0, limit));
-      entries.forEach(entry => { entry.hidden = !visible.has(entry); });
-      filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === kind)));
+      entries.forEach(entry => { entry.hidden = !visible.has(entry); entry.classList.toggle('feed-lead', entry === selected[0]); });
       more.hidden = selected.length <= limit;
       count.textContent = selected.length ? `${Math.min(limit, selected.length)} of ${selected.length} entries · newest first` : 'No entries yet.';
     }
-    filters.forEach(button => button.addEventListener('click', () => {
-      kind = button.dataset.filter || 'all';
+    filter?.addEventListener('change', () => {
+      kind = filter.value;
       limit = pageSize;
       update();
-    }));
+    });
     more.addEventListener('click', () => {
       const next = matching()[limit];
       limit += pageSize;
@@ -52,15 +54,14 @@ const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'],
   });
 </script>
 <style>
-  .feed-filters { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 0; border-bottom: 1px solid var(--news-rule); }
-  .feed-filters[hidden], button[hidden] { display: none; }
+  .feed-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding: 24px 0 12px; border-bottom: 1px solid var(--news-rule); }
+  .feed-heading h1 { font: 600 14px/1.4 var(--news-ui); letter-spacing: 0; margin: 0; }
+  .feed-filter select { max-width: 100%; min-height: 44px; padding: 8px 24px 8px 8px; border: 0; background: transparent; color: var(--news-muted); font: 500 12px/1.4 var(--news-ui); cursor: pointer; }
+  .feed-filter option { background: var(--news-paper); color: var(--news-ink); }
+  .feed-filter[hidden], button[hidden] { display: none; }
   button { font: 600 12px/1.4 var(--news-ui); cursor: pointer; border: 0; border-radius: 4px; }
-  .feed-filters button { padding: 11px 16px; min-height: 44px; color: var(--news-muted); background: transparent; }
-  .feed-filters button[aria-pressed="true"] { background: var(--news-ink); color: var(--news-paper); }
-  .feed-filters button:hover:not([aria-pressed="true"]) { background: var(--news-rule); color: var(--news-ink); }
   .feed-end { padding: 30px 0 40px; text-align: center; }
   .feed-end p { font: 10px/1.6 var(--news-mono); color: var(--news-muted); margin: 0 0 14px; }
-  .feed-end button { padding: 14px 24px; min-height: 48px; background: var(--news-ink); color: var(--news-paper); }
-  .feed-end button:hover { background: var(--news-blue); }
-  @media(max-width: 540px) { .feed-filters button { padding-inline: 11px; font-size: 11px; } }
+  .feed-end button { padding: 12px 0; min-height: 48px; background: transparent; color: var(--news-blue); border-bottom: 1px solid var(--news-rule); border-radius: 0; }
+  .feed-end button:hover { border-color: var(--news-blue); }
 </style>

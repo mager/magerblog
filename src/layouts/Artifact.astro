@@ -1,0 +1,65 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import '../styles/reading.css';
+import '../styles/artifact.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  filename: string;
+  markdownHref: string;
+  headings: { depth: number; slug: string; text: string }[];
+  previous?: { title: string; href: string };
+  next?: { title: string; href: string };
+}
+const { title, description, pubDate, updatedDate, filename, markdownHref, headings, previous, next } = Astro.props;
+const sections = headings.filter(heading => heading.depth === 2);
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={`${title} — Artifact — mager.co`} description={description} /></head>
+  <body class="publication artifact-page">
+    <a class="skip-link" href="#main-content">Skip to document</a>
+    <Header homepage themeToggle activeSection="/artifacts/" />
+    <main id="main-content" class="artifact-layout">
+      <div class="artifact-toolbar">
+        <a href="/artifacts/">← All artifacts</a>
+        <a href={markdownHref} download={filename}>Download .md <span aria-hidden="true">↓</span></a>
+      </div>
+      <article aria-labelledby="artifact-title">
+        <header class="artifact-heading">
+          <div class="artifact-file"><span>Artifact</span><span aria-hidden="true">/</span><span>{filename}</span></div>
+          <h1 id="artifact-title">{title}</h1>
+          <p class="artifact-description">{description}</p>
+          <div class="artifact-meta">
+            <span>Published <FormattedDate date={pubDate} /></span>
+            {updatedDate && <span>Updated <FormattedDate date={updatedDate} /></span>}
+            <span>Markdown document</span>
+          </div>
+        </header>
+        {sections.length > 1 && <nav class="artifact-contents" aria-label="Document contents">
+          <p>In this document <span>{String(sections.length).padStart(2, '0')} sections</span></p>
+          <ol>{sections.map(section => <li><a href={`#${section.slug}`}>{section.text}</a></li>)}</ol>
+        </nav>}
+        <div class="reading-prose artifact-prose"><slot /></div>
+        <footer class="artifact-end">
+          <a href={markdownHref} download={filename}>Download Markdown <span aria-hidden="true">↓</span></a>
+          <a href="#artifact-title">Back to top ↑</a>
+        </footer>
+        {(previous || next) && <nav class="artifact-related" aria-label="More artifacts">
+          {previous && <a href={previous.href}><span>← Older artifact</span>{previous.title}</a>}
+          {next && <a href={next.href}><span>Newer artifact →</span>{next.title}</a>}
+        </nav>}
+      </article>
+    </main>
+    <Footer homepage />
+  </body>
+</html>
+<script>
+  import '../scripts/reading';
+</script>

@@ -1,0 +1,24 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Artifact from '../../layouts/Artifact.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('artifacts', ({ data }) => !data.draft))
+    .map(entry => ({ params: { slug: entry.id }, props: { entry } }));
+}
+interface Props { entry: CollectionEntry<'artifacts'>; }
+const { entry } = Astro.props;
+const entries = (await getCollection('artifacts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
+const index = entries.findIndex(item => item.id === entry.id);
+const previous = entries[index + 1];
+const next = index > 0 ? entries[index - 1] : undefined;
+const { Content, headings } = await render(entry);
+const filename = `${entry.id.split('/').pop()}.md`;
+---
+<Artifact {...entry.data} {filename} {headings}
+  markdownHref={`/artifacts/${entry.id}.md`}
+  previous={previous && { title: previous.data.title, href: `/artifacts/${previous.id}/` }}
+  next={next && { title: next.data.title, href: `/artifacts/${next.id}/` }}>
+  <Content />
+</Artifact>

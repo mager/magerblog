@@ -1,0 +1,29 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Feed from '../../components/Feed.astro';
+import { getFeed } from '../../lib/feed';
+const entries = (await getFeed()).filter(entry => entry.collection === 'artifacts');
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Artifacts — mager.co" description="Audits, specs, plans, and other working documents. Read them here or take the Markdown." /></head>
+  <body class="publication">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content">
+      <a class="back" href="/">← Back to the feed</a>
+      <h1>Artifacts</h1>
+      <p>Audits, specs, plans, and other working documents. Read them here or take the Markdown.</p>
+      <Feed entries={entries} />
+    </main>
+    <Footer homepage />
+  </body>
+</html>
+<style>
+  main { width: 760px; max-width: calc(100% - 36px); margin: 0 auto; padding: 24px 0 48px; }
+  .back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 20px; color: var(--news-blue); font: 500 12px var(--news-mono); }
+  h1 { font: 650 clamp(32px, 5vw, 48px)/1.1 var(--news-display); letter-spacing: -.04em; }
+  main > p { font: 18px/1.6 var(--news-serif); color: var(--news-muted); margin: 12px 0 0; }
+</style>

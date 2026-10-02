@@ -5,13 +5,13 @@ import FormattedDate from './FormattedDate.astro';
 import LinkPost from './LinkPost.astro';
 import { linkHost } from '../lib/link-share';
 
-interface Props { entry: FeedEntry; standalone?: boolean; }
-const { entry, standalone = false } = Astro.props;
+interface Props { entry: FeedEntry; standalone?: boolean; compact?: boolean; lead?: boolean; }
+const { entry, standalone = false, compact = false, lead = false } = Astro.props;
 const href = entryHref(entry);
 const title = entryTitle(entry);
 const Heading = standalone ? 'h1' : 'h2';
 const notePreview = entry.collection === 'notes' && !standalone;
-const rendered = entry.collection === 'blog' || entry.collection === 'links' || notePreview ? undefined : await render(entry);
+const rendered = entry.collection === 'blog' || entry.collection === 'links' || entry.collection === 'artifacts' || notePreview ? undefined : await render(entry);
 const Content = rendered?.Content;
 const noteDescription = entry.collection === 'notes'
   ? entry.data.description || (() => {
@@ -21,24 +21,27 @@ const noteDescription = entry.collection === 'notes'
     })()
   : undefined;
 const category = entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
-const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / Recipe', life: 'Life / Article', notes: 'Note', seen: 'Photo', links: 'Link share' };
+const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / Recipe', life: 'Life / Article', notes: 'Note', seen: 'Photo', links: 'Link share', artifacts: 'Artifact' };
 const label = entry.collection === 'seen' && entry.data.mediaType === 'screenshot' ? 'Screenshot' : labels[category] || 'Article';
 const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body || '').split(/\s+/).length / 220)) : undefined;
 ---
-<article class:list={['feed-entry', { 'note-preview': notePreview }]} data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
-  {entry.collection === 'links' ? <LinkPost entry={entry} standalone={standalone} /> : <>
+<article class:list={['feed-entry', { 'note-preview': notePreview, compact, 'feed-lead': lead }]} data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
+  {entry.collection === 'links' ? <LinkPost entry={entry} {standalone} {compact} /> : <>
   <div class="entry-meta">
     <span class="entry-kind">{label}</span>
-    <a href={href} aria-label={`Permalink: ${title}`}><FormattedDate date={entry.data.pubDate} /></a>
-    {minutes && <span class="reading-time">{minutes} min read</span>}
+    {!compact && <FormattedDate date={entry.data.pubDate} />}
+    {minutes && !compact && <span class="reading-time">{minutes} min read</span>}
   </div>
   <Heading class="entry-title"><a href={href}>{title}{notePreview && <span class="note-arrow" aria-hidden="true"> ↗</span>}</a></Heading>
   {entry.collection === 'blog' && <>
-    {entry.data.heroImage && <a class="entry-photo" href={href} aria-label={`Read ${title}`}>
-      <img src={entry.data.heroImage} alt="" width="800" height="450" loading="lazy" decoding="async" />
-    </a>}
+    {entry.data.heroImage && <a class="entry-photo" href={href} aria-label={`Read ${title}`}><img src={entry.data.heroImage} alt="" width="800" height="450" loading="lazy" decoding="async" /></a>}
     <p class="entry-description">{entry.data.description}</p>
-    <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
+    {!compact && <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>}
+  </>}
+  {entry.collection === 'artifacts' && <>
+    <p class="entry-file">{entry.id.split('/').pop()}.md</p>
+    <p class="entry-description">{entry.data.description}</p>
+    {!compact && <a class="entry-action" href={href}>Open artifact <span aria-hidden="true">↗</span></a>}
   </>}
   {entry.collection === 'seen' && <>
     {entry.data.location && <p class="entry-location">{entry.data.location}</p>}
@@ -81,6 +84,7 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   .entry-title a:hover { color: var(--entry-accent); }
   .feed-entry[data-kind="notes"] .entry-title { font-family: var(--news-ui); font-size: clamp(23px, 2.5vw, 29px); line-height: 1.25; letter-spacing: -.03em; }
   .entry-description { color: var(--news-muted); font: 18px/1.6 var(--news-serif); margin: 0 0 20px; }
+  .entry-file { color: var(--news-muted); font: 11px/1.6 var(--news-mono); overflow-wrap: anywhere; margin: 0 0 12px; }
   .feed-entry.note-preview { position: relative; padding: 24px 0 24px 22px; }
   .note-preview::before { content: ''; position: absolute; top: 26px; bottom: 26px; left: 0; width: 2px; background: color-mix(in oklch, var(--entry-accent) 35%, var(--news-paper)); }
   .note-preview .entry-meta { margin-bottom: 8px; }
@@ -119,4 +123,24 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
     .note-preview .entry-description { font-size: 15px; }
   }
   @media(prefers-reduced-motion: reduce) { .entry-photo img { transition: none; } }
+  .feed-entry.compact { padding: 22px 0; }
+  .feed-entry.compact[hidden] { display: none; }
+  .compact .entry-meta { margin: 0 0 8px; font-size: 10px; }
+  .compact .entry-kind::before, .compact.note-preview::before { display: none; }
+  .feed-entry.compact .entry-title { font: 600 24px/1.2 var(--news-display); letter-spacing: -.025em; margin: 0 0 10px; }
+  .feed-entry.compact.feed-lead:not([data-kind="links"]) .entry-title { font-size: clamp(29px, 3vw, 38px); }
+  .link-arrow { color: var(--news-muted); font: 400 .65em var(--news-ui); }
+  .compact .entry-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; color: var(--news-muted); font: 16px/1.55 var(--news-ui); margin: 0; }
+  .compact .entry-file { font-size: 10px; margin-bottom: 10px; }
+  .compact .entry-photo { margin: 8px 0 16px; }
+  .compact .entry-photo img { max-height: 320px; }
+  .compact .entry-body { font: 16px/1.65 var(--news-ui); }
+  .compact .note-arrow { display: none; }
+  @media(max-width: 600px) {
+    .feed-entry.compact { padding: 20px 0; }
+    .compact .entry-meta { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin-bottom: 10px; padding-top: 0; }
+    .feed-entry.compact .entry-title { font-size: 23px; }
+    .feed-entry.compact.feed-lead:not([data-kind="links"]) .entry-title { font-size: 30px; }
+    .compact .entry-description { font-size: 15px; }
+  }
 </style>

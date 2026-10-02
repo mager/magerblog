@@ -26,9 +26,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <Header homepage themeToggle />
     <main id="main-content">
       <section class="main-feed" aria-labelledby="feed-heading">
-        <div class="feed-label"><h1 id="feed-heading">The feed</h1><span>Newest first <span aria-hidden="true">↓</span></span></div>
-        <a class="shelf-jump" href="#cooking-life">Cooking &amp; life <span aria-hidden="true">↓</span></a>
-        <Feed entries={stream} filters />
+        <Feed entries={stream} filters compact />
       </section>
       <aside class="home-shelves" id="cooking-life" aria-label="Cooking and life">
         <HomeShelf title="Cooking" category="food" href="/cooking/" posts={cooking} />
@@ -37,7 +35,6 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
           <summary>From the workshop <span>mager-bench</span></summary>
           <BenchWidget />
         </details>
-        <a class="feed-return" href="#feed-heading">Back to the feed ↑</a>
       </aside>
     </main>
     <Footer homepage />
@@ -48,10 +45,6 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
   main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); align-items: start; gap: clamp(28px, 4vw, 48px); width: 1136px; max-width: calc(100% - 48px); padding: 0 0 48px; margin: 0 auto; }
   .main-feed { min-width: 0; }
   .home-shelves { display: grid; gap: 38px; min-width: 0; margin-top: 26px; padding-left: 28px; border-left: 1px solid var(--news-rule); scroll-margin-top: 24px; }
-  .shelf-jump, .feed-return { display: none; }
-  .feed-label { display: flex; align-items: center; justify-content: space-between; padding: 26px 0 6px; font: 600 11px/1.4 var(--news-mono); }
-  .feed-label h1 { font: inherit; letter-spacing: 0; margin: 0; }
-  .feed-label > span:last-child { color: var(--news-muted); font-size: 10px; font-weight: 400; }
   .bench-details { border-top: 1px solid var(--news-rule); }
   summary { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; cursor: pointer; color: var(--news-muted); font: 500 11px/1.5 var(--news-mono); }
   summary::before { content: '+'; }
@@ -61,7 +54,5 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
   @media(max-width: 900px) {
     main { display: block; width: 760px; max-width: calc(100% - 36px); }
     .home-shelves { padding: 30px 0 0; margin-top: 0; border-left: 0; border-top: 1px solid var(--news-rule); }
-    .shelf-jump, .feed-return { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--news-green); font: 500 11px/1.4 var(--news-mono); }
-    .shelf-jump:hover, .feed-return:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 </style>

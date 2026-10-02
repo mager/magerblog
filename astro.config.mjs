@@ -19,7 +19,19 @@ export default defineConfig({
 		'/blog/2026-07-29-cherry-tomato-pasta': '/blog/2026-08-07-cherry-tomato-pasta',
 	},
 	markdown: {
-		processor: satteri({ features: { smartPunctuation: false } }),
+		processor: satteri({
+			features: { smartPunctuation: false },
+			hastPlugins: [{
+				name: 'keyboard-accessible-tables',
+				element: {
+					filter: ['table'],
+					visit(node, ctx) {
+						// Tables scroll horizontally on small screens, including without JS.
+						ctx.setProperty(node, 'tabIndex', 0);
+					},
+				},
+			}],
+		}),
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
 			defaultColor: 'dark',

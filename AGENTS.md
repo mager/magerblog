@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Two-column homepage: a chronological feed of tech articles, notes, photos/screenshots, and link shares on the left; recent cooking and life articles on the right. Stacks feed-first on mobile. Updates do not bump entries. Filters and progressive loading enhance the complete static stream.
+- `src/pages/index.astro`: Two-column homepage: a chronological feed of tech articles, notes, photos/screenshots, link shares, and artifacts on the left; recent cooking and life articles on the right. Stacks feed-first on mobile. Updates do not bump entries. A single native select filters the complete static stream. Progressive loading starts with eight entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
 - Homepage articles and notes show only a short description and a read link. Add `description` to notes for an authored preview; a brief first-paragraph excerpt is the fallback. Keep full text on the post pages, while Seen captions and link embeds remain inline.
 - `src/pages/links/`: Link-share archive and permalinks
@@ -87,6 +87,7 @@ The site organizes content into three categories, each with distinct visual them
 ### Layouts
 
 - `src/layouts/ReadingPost.astro`: Shared editorial layout for tech articles and notes, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
+- `src/layouts/Artifact.astro`: Centered document layout with filename, Markdown download, numbered contents, and wider tables. Artifact bodies remain left-aligned for reading.
 - `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
 - Cooking and life articles retain their dedicated layouts.
 - `src/styles/reading.css`: Detail-page typography, prose, code, tables, and mobile layout.
@@ -95,7 +96,7 @@ The site organizes content into three categories, each with distinct visual them
 ### Components
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
-- `Header.astro`: Site navigation with category links
+- `Header.astro`: Primary links for Tech, Cooking, Life, and Artifacts. A native More disclosure contains Notes, Seen, Links, About, and RSS.
 - `Footer.astro`: Site footer
 - `Card.astro`: Blog post card for grid layouts
 - `FormattedDate.astro`: Date formatting component
@@ -138,9 +139,13 @@ inline automatically; other links display a source link. Shares appear in the
 homepage feed, `/links/`, their own permalink, and `/rss.xml`.
 
 `LinkPost.astro` renders link shares in the feed, archive, and permalink: keep
-the outbound title, source domain, and arrow primary; commentary, sharing date,
-and permalink secondary. Use publication typography and theme tokens, and
+the outbound title, source domain, and arrow primary. Keep commentary compact; omit the sharing-date/permalink footer from feeds and archives. Dates appear only on the standalone page. Use publication typography and theme tokens, and
 preserve inline YouTube playback.
+### Publishing an Artifact
+
+Artifacts are working Markdown documents (audits, specs, plans, research, checklists), distinct from blog articles. Add `src/content/artifacts/YYYY-MM-DD-slug.md` with required `title`, `description`, and `pubDate`; optional `updatedDate`, `tags`, and `draft`. Use `##` for body sections; the page and Markdown download supply the title. Use site-root or absolute links so they work from the permalink and the downloaded file.
+
+Artifacts appear in the homepage stream and its Artifacts filter, `/artifacts/`, `/artifacts/<slug>/`, the main RSS feed, and `llms.txt`. `/artifacts/<slug>.md` provides the portable title and Markdown body. Drafts are excluded from every public artifact surface. Edits do not bump publication order. Keep one canonical document in the collection; if moving an existing report, leave a pointer at its old path.
 
 ### Photos and Screenshots
 

@@ -74,4 +74,17 @@ const links = defineCollection({
 	}),
 });
 
-export const collections = { blog, notes, seen, links };
+// Working documents, published as themselves rather than rewritten as articles.
+const artifacts = defineCollection({
+	loader: glob({ base: './src/content/artifacts', pattern: '**/*.md' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
+	}),
+});
+
+export const collections = { blog, notes, seen, links, artifacts };

@@ -16,6 +16,12 @@ export const GET: APIRoute = async () => {
     .map((post) => `- [${post.data.title}](${BASE}/blog/${post.id}.md): Full post markdown`)
     .join('\n');
 
+  const artifacts = (await getCollection('artifacts', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
+  const artifactLines = artifacts
+    .map(entry => `- [${entry.data.title}](${BASE}/artifacts/${entry.id}/): ${entry.data.description} [Markdown](${BASE}/artifacts/${entry.id}.md)`)
+    .join('\n');
+
   const body = `# mager.co
 
 > Mager is a software engineer in Chicago building AI agents, developer tools, and weird internet products. He writes about what actually worked, what broke, and what he learned along the way.
@@ -23,6 +29,10 @@ export const GET: APIRoute = async () => {
 ## Blog
 
 ${blogLines}
+
+## Artifacts
+
+${artifactLines}
 
 ## Full content (markdown)
 

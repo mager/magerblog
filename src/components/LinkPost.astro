@@ -4,14 +4,13 @@ import FormattedDate from './FormattedDate.astro';
 import LinkEmbed from './LinkEmbed.astro';
 import { linkHost, youtubeId } from '../lib/link-share';
 
-interface Props { entry: CollectionEntry<'links'>; standalone?: boolean; }
-const { entry, standalone = false } = Astro.props;
+interface Props { entry: CollectionEntry<'links'>; standalone?: boolean; compact?: boolean; }
+const { entry, standalone = false, compact = false } = Astro.props;
 const { title, url, description, author, pubDate } = entry.data;
 const { Content } = await render(entry);
 const Heading = standalone ? 'h1' : 'h2';
-const href = `/links/${entry.id}/`;
 ---
-<div class:list={['link-post', { standalone }]}>
+<div class:list={['link-post', { standalone, compact }]}>
   <a class="destination" href={url}>
     <div class="destination-heading">
       <Heading>{title}</Heading>
@@ -24,10 +23,7 @@ const href = `/links/${entry.id}/`;
   {youtubeId(url) && <div class="link-video"><LinkEmbed url={url} title={title} showSource={false} /></div>}
   {description && <p class="commentary">{description}</p>}
   {entry.body?.trim() && <div class="commentary link-body"><Content /></div>}
-  <div class="link-meta">
-    <span>Shared <FormattedDate date={pubDate} /></span>
-    {!standalone && <a href={href} aria-label={`Permalink: ${title}`}>Permalink</a>}
-  </div>
+  {standalone && <div class="link-meta"><FormattedDate date={pubDate} /></div>}
 </div>
 <script>
   document.querySelectorAll<HTMLElement>('.link-body pre').forEach((pre, index) => {
@@ -89,6 +85,14 @@ const href = `/links/${entry.id}/`;
   .standalone .destination-domain { margin-top: 24px; font-size: 16px; }
   .standalone .commentary { margin-top: 32px; font-size: 24px; }
   .standalone .link-meta { margin-top: 24px; font-size: 12px; }
+  .compact .destination { padding: 0 0 8px; border: 0; }
+  .compact h2 { font-size: 30px; }
+  .compact .outbound-arrow { width: 24px; }
+  .compact .destination-domain { margin-top: 6px; font-size: 11px; color: var(--news-muted); }
+  .compact .destination-action { display: none; }
+  .compact .commentary { margin-top: 8px; font: 16px/1.55 var(--news-ui); color: var(--news-muted); }
+  .compact .link-body :global(pre) { padding: 12px; }
+  .compact .link-body :global(.link-code pre) { padding-top: 0; }
   @media(max-width: 540px) {
     .destination-heading { gap: 16px; }
     .destination-domain { font-size: 13px; }
