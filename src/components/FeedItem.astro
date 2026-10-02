@@ -34,6 +34,9 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   </div>
   <Heading class="entry-title"><a href={href}>{title}{notePreview && <span class="note-arrow" aria-hidden="true"> ↗</span>}</a></Heading>
   {entry.collection === 'blog' && <>
+    {entry.data.heroImage && <a class="entry-photo" href={href} aria-label={`Read ${title}`}>
+      <img src={entry.data.heroImage} alt="" width="800" height="450" loading="lazy" decoding="async" />
+    </a>}
     <p class="entry-description">{entry.data.description}</p>
     <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
   </>}
