@@ -52,3 +52,11 @@ Use existing author-owned images. Front-page food photo selections prioritize pe
 ## Avoid
 
 Repetitive cards, fake live benchmark scores, torn-paper decoration, simulated printing noise, ornamental gradients, and effects that compete with reading. Newspaper structure should feel precise and useful, never like a costume.
+
+## Recipe detail pages
+
+Recipes use the publication palette and fonts, with vermilion for navigation and step numbers. The default layout is ready to cook from: a compact title/photo opening, sticky Ingredients / Method / Print navigation, a two-column ingredient spread on desktop, and a single column on phones. Ingredient text is 24–28px and method text is 26–30px. Each numbered step has enough space to read at counter distance. There is no Cook Mode.
+
+`src/lib/recipe.ts` normalizes both plain Markdown and legacy recipe wrappers at build time. Semantic sections and ordered steps work without JavaScript; ingredient checks, copy/reset, completion feedback, and print controls enhance them. Ingredient checks persist per recipe. Print restores checked ingredients and uses compact black-on-white output. New recipes can use Ingredients and Method headings without hand-written HTML wrappers.
+
+Blog drafts remain available through the dev server but do not generate production permalink pages. Recipe drafts display a clear untested label. `recipeYield` supplies the optional yield beside prep and cook times.

@@ -81,90 +81,26 @@ if (section && ingredients.length) {
     persist();
     status.textContent = "Ingredient checks cleared.";
   });
-  toolbar.append(copy, clear);
-  section.prepend(toolbar, status);
+  const progress = document.createElement("span");
+  progress.className = "ingredients-progress";
+  progress.setAttribute("role", "status");
+  const updateProgress = () => {
+    const count = Array.from(ingredients).filter(li => li.querySelector<HTMLInputElement>("input")?.checked).length;
+    const ready = count === ingredients.length;
+    progress.textContent = ready ? "Everything ready. Let’s cook." : `${count} of ${ingredients.length} ready`;
+    section.classList.toggle("all-ready", ready);
+  };
+  section.addEventListener("change", updateProgress);
+  clear.addEventListener("click", updateProgress);
+  updateProgress();
+  toolbar.append(copy, clear, progress);
+  section.append(toolbar, status);
 }
 
-const modeButton = document.querySelector<HTMLButtonElement>("#cook-mode-btn");
-if (modeButton) {
-  const html = document.documentElement;
-  const label = modeButton.querySelector(".toggle-label");
-  let lock: WakeLockSentinel | null = null;
-  let pending = false;
-  const syncLock = async () => {
-    const active =
-      html.classList.contains("cook-mode") &&
-      document.visibilityState === "visible";
-    if (!active) {
-      const held = lock;
-      lock = null;
-      await held?.release().catch(() => {});
-      return;
-    }
-    if (lock || pending || !("wakeLock" in navigator)) return;
-    pending = true;
-    try {
-      const acquired = await navigator.wakeLock.request("screen");
-      if (
-        !html.classList.contains("cook-mode") ||
-        document.visibilityState !== "visible"
-      ) {
-        await acquired.release();
-      } else {
-        lock = acquired;
-        acquired.addEventListener("release", () => {
-          if (lock === acquired) lock = null;
-        });
-      }
-    } catch {
-      /* Screen wake locks are optional. */
-    } finally {
-      pending = false;
-    }
-  };
-  const syncMode = () => {
-    const active = html.classList.contains("cook-mode");
-    modeButton.setAttribute("aria-pressed", String(active));
-    if (label) label.textContent = active ? "Exit Cook Mode" : "Cook Mode";
-    void syncLock();
-  };
-  try {
-    html.classList.toggle(
-      "cook-mode",
-      localStorage.getItem("cook-mode") === "on",
-    );
-  } catch {
-    /* Default off. */
-  }
-  modeButton.hidden = false;
-  syncMode();
-  modeButton.addEventListener("click", () => {
-    const active = html.classList.toggle("cook-mode");
-    try {
-      localStorage.setItem("cook-mode", active ? "on" : "off");
-    } catch {
-      /* Still usable this visit. */
-    }
-    syncMode();
-    if (active) {
-      const instructions =
-        document.querySelector(".recipe-instructions") ||
-        document.querySelector(".recipe-text");
-      instructions?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-        block: "start",
-      });
-    }
-  });
-  document.addEventListener("visibilitychange", () => {
-    void syncLock();
-  });
-  window.addEventListener("pagehide", () => {
-    void lock?.release().catch(() => {});
-    lock = null;
-  });
+const printButton = document.querySelector<HTMLButtonElement>('[data-recipe-print]');
+if (printButton) {
+  printButton.hidden = false;
+  printButton.addEventListener('click', () => window.print());
 }
 
 document.addEventListener("keydown", (event) => {
@@ -188,7 +124,7 @@ document.addEventListener("keydown", (event) => {
     event.key === "j" ? "next" : event.key === "k" ? "prev" : null;
   const link =
     direction &&
-    document.querySelector<HTMLAnchorElement>(`.nav-card[rel="${direction}"]`);
+    document.querySelector<HTMLAnchorElement>(`.recipe-navigation a[rel="${direction}"]`);
   if (link) {
     event.preventDefault();
     window.location.href = link.href;
@@ -198,3 +134,10 @@ document.addEventListener("keydown", (event) => {
     window.print();
   }
 });
+
+const jumps = document.querySelector<HTMLElement>('.recipe-jumps');
+if (jumps && typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(([entry]) => {
+    document.documentElement.style.setProperty('--recipe-nav-height', `${entry.target.getBoundingClientRect().height}px`);
+  }).observe(jumps);
+}

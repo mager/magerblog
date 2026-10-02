@@ -10,7 +10,7 @@ const script = transformSync(
   { loader: "ts", format: "iife" },
 ).code;
 const html =
-  '<html><body><section class="recipe-ingredients"><ul><li>1 cup 米 🍚</li><li>Salt &amp; pepper</li></ul></section><div class="recipe-instructions"></div><button id="cook-mode-btn" hidden><span class="toggle-label"></span></button></body></html>';
+  '<html><body><section class="recipe-ingredients"><ul><li>1 cup 米 🍚</li><li>Salt &amp; pepper</li></ul></section><div class="recipe-instructions"></div><button data-recipe-print hidden>Print</button></body></html>';
 const tick = () => new Promise((r) => setTimeout(r, 0));
 function fixture(raw, blocked = false) {
   const dom = new JSDOM(html, {
@@ -55,23 +55,17 @@ console.log(
   const w = fixture(undefined, true);
   const d = w.document;
   d.querySelector("input").click();
-  d.querySelector("#cook-mode-btn").click();
-  assert.equal(
-    d.querySelector("#cook-mode-btn").getAttribute("aria-pressed"),
-    "true",
-  );
-  assert.equal(w.scrollOptions.behavior, "instant");
   d.querySelector(".ingredients-action").click();
   await tick();
   assert.match(
-    d.querySelector("[role=status]").textContent,
+    d.querySelector(".ingredients-status").textContent,
     /Copy unavailable/,
   );
   assert.equal(d.querySelector(".ingredients-action").disabled, false);
   w.close();
 }
 console.log(
-  "PASS: blocked storage, missing clipboard, reduced motion, cook mode state",
+  "PASS: blocked storage and missing clipboard",
 );
 {
   const w = fixture('{"0":true,"1":true}');
@@ -99,7 +93,7 @@ console.log("PASS: clear then recheck does not resurrect old checks");
   d.querySelector(".ingredients-action").click();
   await tick();
   assert.match(
-    d.querySelector("[role=status]").textContent,
+    d.querySelector(".ingredients-status").textContent,
     /Copy unavailable/,
   );
   w.close();
@@ -108,51 +102,20 @@ console.log("PASS: denied clipboard reports recovery");
 {
   const w = fixture();
   const d = w.document;
-  let resolve;
-  let releases = 0;
-  Object.defineProperty(w.navigator, "wakeLock", {
-    value: { request: () => new Promise((r) => (resolve = r)) },
-  });
-  d.querySelector("#cook-mode-btn").click();
-  d.querySelector("#cook-mode-btn").click();
-  resolve({
-    release: async () => {
-      releases++;
-    },
-    addEventListener() {},
-  });
-  await tick();
-  assert.equal(releases, 1);
+  for (const input of d.querySelectorAll("input")) input.click();
+  assert.equal(d.querySelector(".ingredients-progress").textContent, "Everything ready. Let’s cook.");
+  assert(d.querySelector(".recipe-ingredients").classList.contains("all-ready"));
+  d.querySelectorAll(".ingredients-action")[1].click();
+  assert.equal(d.querySelector(".ingredients-progress").textContent, "0 of 2 ready");
+  assert(!d.querySelector(".recipe-ingredients").classList.contains("all-ready"));
+  let prints = 0;
+  w.print = () => prints++;
+  assert.equal(d.querySelector("[data-recipe-print]").hidden, false);
+  d.querySelector("[data-recipe-print]").click();
+  assert.equal(prints, 1);
   w.close();
 }
-console.log("PASS: wake lock acquired after exit is released");
-{
-  const w = fixture();
-  const d = w.document;
-  let requests = 0,
-    releases = 0;
-  Object.defineProperty(w.navigator, "wakeLock", {
-    value: {
-      request: async () => {
-        requests++;
-        return {
-          release: async () => {
-            releases++;
-          },
-          addEventListener() {},
-        };
-      },
-    },
-  });
-  d.querySelector("#cook-mode-btn").click();
-  await tick();
-  d.querySelector("#cook-mode-btn").click();
-  await tick();
-  assert.equal(requests, 1);
-  assert.equal(releases, 1);
-  w.close();
-}
-console.log("PASS: normal cook mode exit releases wake lock");
+console.log("PASS: ingredient completion, reset, and visible print action");
 {
   const w = fixture();
   let prints = 0;

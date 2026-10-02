@@ -14,6 +14,7 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		prepTime: z.number().optional(),
+		recipeYield: z.string().optional(),
 		cookTime: z.number().optional(),
 		category: z.string().optional(),
 		tags: z.array(z.string()).optional(),
