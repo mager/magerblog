@@ -3,372 +3,62 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import '../styles/about.css';
+const portrait = 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/about/mager-human.jpg';
 ---
-
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead
-			title={`About — ${SITE_TITLE}`}
-			description="Mager is a software engineer in Chicago on Uber's AI team, building AI agents and writing about what works."
-		/>
-		<style>
-			:root {
-				--paper: #faf6f0;
-				--paper-2: #f3ede4;
-				--ink: #171722;
-				--muted: #596171;
-				--line: rgba(23, 23, 34, 0.1);
-				--indigo: #6366f1;
-				--teal: #0f766e;
-				--amber: oklch(45% 0.11 55);
-			}
-
-			body {
-				background:
-					radial-gradient(circle at top left, rgba(99, 102, 241, 0.07), transparent 30%),
-					radial-gradient(circle at top right, rgba(15, 118, 110, 0.06), transparent 26%),
-					var(--paper);
-				color: var(--ink);
-			}
-
-			main {
-				width: 100%;
-				max-width: 980px;
-				overflow-wrap: anywhere;
-				margin: 0 auto;
-				padding: 1.5rem 1rem 5rem;
-			}
-
-			.about-stack {
-				display: grid;
-				gap: 1rem;
-			}
-
-			.card {
-				background: rgba(255, 255, 255, 0.56);
-				border: 1px solid var(--line);
-				border-radius: 24px;
-				box-shadow: 0 18px 50px rgba(23, 23, 34, 0.06);
-			}
-
-			.hero {
-				display: grid;
-				grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
-				gap: 1.25rem;
-				padding: 1.25rem;
-			}
-
-			.eyebrow {
-				margin: 0 0 0.75rem;
-				font-family: 'JetBrains Mono', monospace;
-				font-size: 0.72rem;
-				font-weight: 700;
-				letter-spacing: 0.14em;
-				text-transform: uppercase;
-				color: var(--muted);
-			}
-
-			.headline {
-				margin: 0;
-				font-family: 'Fraunces', serif;
-				font-size: clamp(2.5rem, 7vw, 4.5rem);
-				line-height: 0.96;
-				letter-spacing: -0.04em;
-				color: #111018;
-			}
-
-			.headline em {
-				color: var(--indigo);
-				font-style: italic;
-			}
-
-			.standfirst {
-				margin: 1rem 0 0;
-				max-width: 36rem;
-				font-family: 'Atkinson Hyperlegible', 'Atkinson', sans-serif;
-				font-size: 1.02rem;
-				line-height: 1.72;
-				color: var(--muted);
-			}
-
-			.photo-wrap {
-				position: relative;
-				border-radius: 20px;
-				overflow: hidden;
-				background: linear-gradient(145deg, #e7e4ff 0%, #cff7ef 100%);
-				min-height: 100%;
-			}
-
-			.photo-wrap img {
-				width: 100%;
-				height: 100%;
-				min-height: 300px;
-				object-fit: cover;
-				object-position: center 18%;
-				display: block;
-			}
-
-			.photo-tag {
-				position: absolute;
-				left: 0.9rem;
-				bottom: 0.9rem;
-				padding: 0.5rem 0.75rem;
-				border-radius: 999px;
-				background: rgba(255, 255, 255, 0.82);
-				font-family: 'Space Grotesk', sans-serif;
-				font-size: 0.82rem;
-				font-weight: 700;
-				color: var(--ink);
-			}
-
-			.grid {
-				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-				gap: 1rem;
-			}
-
-			.panel {
-				padding: 1.1rem;
-				position: relative;
-				overflow: hidden;
-			}
-
-
-			.panel.tech {
-				--accent: var(--indigo);
-			}
-
-			.panel.life {
-				--accent: var(--teal);
-			}
-
-			.panel.cooking {
-				--accent: var(--amber);
-			}
-
-			.panel-title {
-				margin: 0 0 0.7rem;
-				font-family: 'Space Grotesk', sans-serif;
-				font-size: 0.95rem;
-				font-weight: 700;
-				color: var(--accent, var(--ink));
-			}
-
-			.prose {
-				font-family: 'Atkinson Hyperlegible', 'Atkinson', sans-serif;
-				font-size: 0.98rem;
-				line-height: 1.7;
-				color: var(--muted);
-			}
-
-			.prose p {
-				margin: 0;
-			}
-
-			.chips {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.55rem;
-				margin-top: 1rem;
-			}
-
-			.chip {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.42rem 0.78rem;
-				border-radius: 999px;
-				font-family: 'Space Grotesk', sans-serif;
-				font-size: 0.78rem;
-				font-weight: 700;
-				border: 1px solid transparent;
-			}
-
-			.chip.indigo {
-				background: rgba(99, 102, 241, 0.1);
-				color: var(--indigo);
-				border-color: rgba(99, 102, 241, 0.14);
-			}
-
-			.chip.teal {
-				background: rgba(15, 118, 110, 0.1);
-				color: var(--teal);
-				border-color: rgba(15, 118, 110, 0.14);
-			}
-
-			.chip.amber {
-				background: rgba(180, 83, 9, 0.1);
-				color: var(--amber);
-				border-color: rgba(180, 83, 9, 0.14);
-			}
-
-			.links {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75rem;
-				margin-top: 1rem;
-			}
-
-			.link-pill {
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				padding: 0.72rem 1rem;
-				border-radius: 999px;
-				background: rgba(255, 255, 255, 0.78);
-				border: 1px solid var(--line);
-				font-family: 'Space Grotesk', sans-serif;
-				font-size: 0.86rem;
-				font-weight: 700;
-				color: var(--ink);
-				text-decoration: none;
-			}
-
-			.link-pill:hover {
-				border-color: rgba(99, 102, 241, 0.22);
-			}
-
-			@media (max-width: 900px) {
-				.hero {
-					grid-template-columns: 1fr;
-					padding: 1.25rem;
-				}
-
-				.grid {
-					grid-template-columns: 1fr;
-				}
-
-				.photo-wrap {
-					order: -1;
-					min-height: unset;
-					height: 220px;
-					background: linear-gradient(145deg, #e7e4ff 0%, #cff7ef 100%);
-				}
-
-				.photo-wrap img {
-					min-height: unset;
-					height: 220px;
-					object-fit: contain;
-					object-position: center bottom;
-				}
-			}
-
-			@media (max-width: 720px) {
-				main {
-					padding: 0.9rem 0.8rem calc(92px + env(safe-area-inset-bottom, 0));
-				}
-
-				.card {
-					border-radius: 20px;
-				}
-
-				.hero,
-				.panel {
-					padding: 1rem;
-				}
-
-				.headline {
-					font-size: clamp(2rem, 10vw, 3rem);
-				}
-
-				.standfirst,
-				.prose {
-					font-size: 0.96rem;
-					line-height: 1.65;
-				}
-
-				.links {
-					display: grid;
-					grid-template-columns: repeat(2, minmax(0, 1fr));
-					gap: 0.6rem;
-				}
-
-				.links a:first-child {
-					grid-column: 1 / -1;
-				}
-
-				.link-pill {
-					width: 100%;
-					text-align: center;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header homepage={true} />
-		<main>
-			<div class="about-stack">
-				<section class="card hero">
-					<div>
-						<p class="eyebrow">About</p>
-						<h1 class="headline">Hi, I’m <em>Mager</em>.</h1>
-						<p class="standfirst">
-							I'm a software engineer in Chicago. I work on the AI team at Uber, focusing on skills and efficiency.
-							I build AI agents, developer tools, and weird internet products,
-							then write about what actually worked, what broke, and what I learned along the way.
-						</p>
-						<div class="chips">
-							<span class="chip indigo">AI agents</span>
-							<span class="chip indigo">Developer tools</span>
-							<span class="chip teal">Chicago</span>
-							<span class="chip amber">Home cook</span>
-						</div>
-					</div>
-					<div class="photo-wrap">
-						<img src="/images/mager.jpg" alt="Mager" />
-						<div class="photo-tag">mager.co</div>
-					</div>
-				</section>
-
-				<section class="grid">
-					<div class="card panel tech">
-						<h2 class="panel-title">Tech</h2>
-						<div class="prose">
-							<p>
-								Most of what I care about right now sits around agents, context, and software that feels alive.
-								My Mac mini is my default, always-on box for agent workflows.
-								I’m interested in the practical layer, not just the demo layer: harnesses, memory, evals, workflows,
-								and how you make AI actually useful inside a real product stack.
-							</p>
-						</div>
-					</div>
-
-					<div class="card panel life">
-						<h2 class="panel-title">Life</h2>
-						<div class="prose">
-							<p>
-								Outside of code, I post the occasional travel note, family story, or thing I want to remember.
-								I’ve been getting back to trying new products early and bringing readers along — something familiar from writing The Web Life at ZDNET.
-							</p>
-						</div>
-					</div>
-
-					<div class="card panel cooking">
-						<h2 class="panel-title">Cooking</h2>
-						<div class="prose">
-							<p>
-								I cook constantly. Soups, braises, rice, pasta, whatever I’m iterating on that week. Cooking and software scratch the same itch for me, small decisions compounding into something better when you pay attention.
-							</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="card panel life">
-					<h2 class="panel-title">Elsewhere</h2>
-					<div class="prose">
-						<p>
-							You can find the projects on GitHub, the shorter thoughts on X, and the longer version of me in the posts here.
-						</p>
-					</div>
-					<div class="links">
-						<a class="link-pill" href="/blog">Read the blog</a>
-						<a class="link-pill" href="https://github.com/mager" target="_blank" rel="noreferrer">GitHub</a>
-						<a class="link-pill" href="https://x.com/mager" target="_blank" rel="noreferrer">X</a>
-						<a class="link-pill" href="https://loooom.xyz/me/mager" target="_blank" rel="noreferrer">ME.md</a>
-					</div>
-				</section>
-			</div>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={`About · ${SITE_TITLE}`} description="Mager is a software engineer in Chicago on Uber's AI team, building AI agents and writing about what works." image="/images/mager.jpg" />
+  </head>
+  <body class="publication">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="about-page">
+      <section class="about-intro" aria-labelledby="about-heading">
+        <div class="about-copy">
+          <p class="about-kicker">About / Chicago</p>
+          <h1 id="about-heading">Hi, I’m <span>mager.</span></h1>
+          <p class="about-lead">I'm a software engineer in Chicago. I work on the AI team at Uber, focusing on skills and efficiency.</p>
+          <p>I build AI agents, developer tools, and weird internet products, then write about what worked, what broke, and what I learned along the way.</p>
+          <nav class="about-links" aria-label="Find me elsewhere">
+            <a href="https://github.com/mager">GitHub ↗</a>
+            <a href="https://x.com/mager">X ↗</a>
+            <a href="https://loooom.xyz/me/mager">ME.md ↗</a>
+          </nav>
+        </div>
+        <figure class="about-portrait">
+          <button class="portrait-toggle" type="button" aria-label="Show human photo" aria-pressed="false" aria-describedby="portrait-hint" disabled>
+            <img class="portrait-avatar" src="/images/mager.jpg" alt="Hot Dougs avatar: a character in a cap eating pizza." width="800" height="800" fetchpriority="high" />
+            <img class="portrait-human" src={portrait} alt="Mager smiling in a baseball cap." width="800" height="800" aria-hidden="true" />
+          </button>
+          <figcaption>
+            <span class="portrait-credit">Hot Dougs avatar by <a href="https://x.com/hopperdraws">@hopperdraws</a></span>
+            <span id="portrait-hint" class="portrait-hint" hidden><span class="pointer-hint">Hover to meet the human.</span><span class="touch-hint">Tap to switch portraits.</span></span>
+          </figcaption>
+          <noscript><a class="portrait-fallback" href={portrait}>See my human photo ↗</a></noscript>
+        </figure>
+      </section>
+      <div class="about-notes">
+        <section aria-labelledby="about-tech">
+          <h2 id="about-tech"><a href="/tech/">Tech ↗</a></h2>
+          <p>Most of what I care about right now sits around agents, context, and software that feels alive. My Mac mini is my always-on box for agent workflows.</p>
+          <p>I'm interested in harnesses, memory, evals, workflows, and how you make AI useful inside a real product stack.</p>
+        </section>
+        <section aria-labelledby="about-life">
+          <h2 id="about-life"><a href="/life/">Life ↗</a></h2>
+          <p>Outside of code, I post the occasional travel note, family story, or thing I want to remember. I've been getting back to trying new products early and bringing readers along, something familiar from writing The Web Life at ZDNET.</p>
+        </section>
+        <section aria-labelledby="about-cooking">
+          <h2 id="about-cooking"><a href="/cooking/">Cooking ↗</a></h2>
+          <p>I cook constantly. Soups, braises, rice, pasta, whatever I'm iterating on that week. Cooking and software scratch the same itch for me: small decisions compounding into something better when you pay attention.</p>
+        </section>
+      </div>
+      <a class="about-archive" href="/blog/">Explore the writing <span aria-hidden="true">↗</span></a>
+    </main>
+    <Footer homepage />
+  </body>
 </html>
+<script>
+  import '../scripts/portrait';
+</script>

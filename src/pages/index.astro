@@ -7,7 +7,7 @@ import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
-import { getFeed } from '../lib/feed';
+import { getFeed, entryHref, entryTitle } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/edition.css';
@@ -65,11 +65,13 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
           </section>}
         </div>
         <div class="reference-spread">
-          <section class="artifact-section" aria-labelledby="artifact-heading">
-            <div class="section-heading"><div><span class="section-kicker">04 / Open files</span><h2 id="artifact-heading">Take the document.</h2></div><a href="/artifacts/">Artifacts ↗</a></div>
-            {edition.artifacts.length ? edition.artifacts.map(entry => <Story entry={entry} variant="document" />) : <p class="section-deck">Working documents will appear here.</p>}
+          <div class="reference-list">
+            <section class="artifact-section" aria-labelledby="artifact-heading">
+              <div class="section-heading small"><h2 id="artifact-heading">Artifacts</h2><a href="/artifacts/">All artifacts ↗</a></div>
+              <ul class="artifact-list">{edition.artifacts.map(entry => <li data-edition-entry={`artifacts/${entry.id}`}><a href={entryHref(entry)}>{entryTitle(entry)} <span aria-hidden="true">↗</span></a></li>)}</ul>
+            </section>
             <div class="notebook-extras"><h3>Also in the notebook</h3>{edition.notebook.map(entry => <Story entry={entry} variant="brief" />)}</div>
-          </section>
+          </div>
           <aside class="bench-column" aria-label="Mager bench"><BenchWidget /></aside>
         </div>
         {edition.links.length > 0 && <section class="links-section" aria-labelledby="links-heading">
