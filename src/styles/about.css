@@ -5,6 +5,7 @@
 .about-copy h1 span { color: var(--news-blue); }
 .about-copy p:not(.about-kicker) { max-width: 60ch; font: 19px/1.6 var(--news-serif); margin: 0 0 18px; color: var(--news-muted); }
 .about-copy p.about-lead { font-size: 24px; line-height: 1.45; color: var(--news-ink); }
+.about-copy p a { color: var(--news-blue); text-decoration: underline; text-underline-offset: 3px; }
 .about-links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 20px; }
 .about-links a, .about-archive { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-blue); font: 500 14px/1.5 var(--news-ui); }
 .about-page a:hover { text-decoration: underline; text-underline-offset: 4px; }
