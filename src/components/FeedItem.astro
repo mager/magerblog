@@ -4,6 +4,7 @@ import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
 import FormattedDate from './FormattedDate.astro';
 import LinkPost from './LinkPost.astro';
 import { linkHost } from '../lib/link-share';
+import { contentMeta } from '../lib/content-meta';
 
 interface Props { entry: FeedEntry; standalone?: boolean; compact?: boolean; lead?: boolean; }
 const { entry, standalone = false, compact = false, lead = false } = Astro.props;
@@ -24,6 +25,7 @@ const category = entry.collection === 'blog' ? entry.data.category || 'tech' : e
 const labels: Record<string, string> = { tech: 'Tech / Article', food: 'Food / Recipe', life: 'Life / Article', notes: 'Note', seen: 'Photo', links: 'Link share', artifacts: 'Artifact' };
 const label = entry.collection === 'seen' && entry.data.mediaType === 'screenshot' ? 'Screenshot' : labels[category] || 'Article';
 const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body || '').split(/\s+/).length / 220)) : undefined;
+const detail = compact && ['blog', 'notes'].includes(entry.collection) ? contentMeta(entry) : undefined;
 ---
 <article class:list={['feed-entry', { 'note-preview': notePreview, compact, 'feed-lead': lead }]} data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
   {entry.collection === 'links' ? <LinkPost entry={entry} {standalone} {compact} /> : <>
@@ -31,6 +33,7 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
     <span class="entry-kind">{label}</span>
     {!compact && <FormattedDate date={entry.data.pubDate} />}
     {minutes && !compact && <span class="reading-time">{minutes} min read</span>}
+    {detail && <span class="entry-detail">{detail}</span>}
   </div>
   <Heading class="entry-title"><a href={href}>{title}{notePreview && <span class="note-arrow" aria-hidden="true"> ↗</span>}</a></Heading>
   {entry.collection === 'blog' && <>

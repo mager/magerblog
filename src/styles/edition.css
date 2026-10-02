@@ -22,6 +22,7 @@
 .edition-story h3 a { color: inherit; text-decoration: none; }
 .edition-story h3 a:hover { color: var(--news-blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .story-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; margin: 12px 0 0; max-width: 67ch; color: var(--news-muted); font: 15px/1.55 var(--news-ui); }
+.story-detail { margin: 7px 0 0; color: var(--news-muted); font: 10px/1.5 var(--news-mono); overflow-wrap: anywhere; }
 .story-image { display: block; overflow: hidden; margin-bottom: 16px; background: var(--news-surface); }
 .story-image[hidden] { display: none; }
 .story-image img { display: block; width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; border-radius: 0; transition: transform 450ms var(--news-ease); }

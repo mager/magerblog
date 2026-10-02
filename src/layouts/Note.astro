@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import '../styles/reading.css';
+import '../styles/note.css';
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  source?: { url: string; label: string };
+  previous?: { title: string; href: string };
+  next?: { title: string; href: string };
+  draft?: boolean;
+}
+const { title, description, pubDate, source, previous, next, draft } = Astro.props;
+const displayTitle = draft ? `[Draft] ${title}` : title;
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={`${displayTitle} · Notes · mager.co`} description={description} /></head>
+  <body class="publication reading-page note-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle activeSection="/notes/" />
+    <main id="main-content" class="note-layout">
+      <article>
+        <header class="note-heading">
+          <div class="note-meta"><a href="/notes/">← Notebook</a><FormattedDate date={pubDate} /></div>
+          <h1>{displayTitle}</h1>
+          {source && <a class="note-source" href={source.url}>{source.label} <span aria-hidden="true">↗</span></a>}
+        </header>
+        <div class="reading-prose note-prose"><slot /></div>
+        <nav class="note-pagination" aria-label="More notes">
+          {previous && <a href={previous.href} title={previous.title}>← Older note</a>}
+          <a href="/notes/">All notes</a>
+          {next && <a href={next.href} title={next.title}>Newer note →</a>}
+        </nav>
+      </article>
+    </main>
+    <Footer homepage />
+  </body>
+</html>
+<script>
+  import '../scripts/reading';
+</script>

@@ -29,11 +29,13 @@ Preserve the established fonts: Fraunces for the masthead and section display, S
 
 The homepage uses a 1320px shell with 24px gutters (18px on phones), a large masthead, and a complete edition of roughly 30 distinct stories. A lead spread and compact dispatch column open the page; varied workbench columns, a horizontal photo strip, cooking and life sections, a compact artifact list, and shared links provide different reading rhythms. Selection follows publication order within each section and never repeats an entry within the edition.
 
-Front page and All updates are plain-text view controls. The chronological view starts with 24 entries and keeps a native content filter and progressive loading. Without JavaScript, the entire edition remains available and a disclosure opens the complete static stream. Feed rows use compact titles and brief previews, with no repeated dates, reading-time labels, or permalink buttons. Link-share titles open their sources directly.
+Front page and All updates are plain-text view controls. The chronological view starts with 24 entries and keeps a native content filter and progressive loading. Without JavaScript, the entire edition remains available and a disclosure opens the complete static stream. Feed rows use compact titles and brief previews, without repeated dates or permalink buttons. One quiet metadata line adds reading time, recipe timing, or photo location where available. Link-share titles open their sources directly.
 
 Primary navigation contains Tech, Cooking, Life, and Artifacts. Notes, Seen, Links, About, and RSS are grouped under a keyboard-accessible More disclosure. Below 760px the navigation sits in a second row; there is no fixed bottom navigation. At 800px the edition stacks its main columns while retaining compact story groupings.
 
 Artifacts use a dedicated centered document layout, up to 1040px wide. The title, filename, description, and publication metadata are centered. Body text stays left-aligned, with a compact numbered contents index, full-width tables, and explicit Markdown downloads. They should look like useful working documents rather than long-form blog posts.
+
+Notes use a compact 680px notebook column with Space Grotesk headings and prose. The title leads directly into the note, with a quiet date and optional source link. Omit article summaries, contents rails, progress bars, and large related-story blocks; retain readable code, tables, and simple older/newer navigation.
 
 ## Imagery
 

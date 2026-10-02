@@ -86,3 +86,18 @@ test('front page is a complete, varied edition even without JavaScript', () => {
     assert(existsSync(new URL(`../dist${path.endsWith('/') ? `${path}index.html` : path}`, import.meta.url)), `Broken edition link: ${path}`);
   }
 });
+
+test('notes have a compact dedicated layout while keeping the complete body and source', () => {
+  const page = html('notes/2026-10-01-diving-into-impeccable/index.html');
+  assert.equal(page.querySelectorAll('h1').length, 1);
+  assert(page.querySelector('.note-layout .note-prose'));
+  assert.equal(page.querySelector('.reading-dek, .reading-progress, .reading-contents'), null);
+  assert.match(page.querySelector('.note-prose').textContent, /the first useful contribution was a small page/);
+  assert.equal(page.querySelector('.note-source').href, 'https://github.com/pbakaus/impeccable');
+  assert(page.querySelector('.note-meta time'));
+  const home = html('index.html');
+  assert.match(home.querySelector('.story-lead .story-detail').textContent, /\d+ min read/);
+  assert(home.querySelector('.dispatch-column .story-detail'));
+  assert(home.querySelector('.feed-entry.compact .entry-detail'));
+  assert.equal(home.querySelectorAll('.feed-entry.compact .entry-meta time').length, 0);
+});

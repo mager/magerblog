@@ -1,0 +1,23 @@
+/* Notes are short entries in a notebook, with less ceremony than an article. */
+.note-layout { width: 680px; max-width: calc(100% - 48px); margin: 0 auto; padding: 24px 0 36px; overflow-wrap: anywhere; }
+.note-heading { margin-bottom: 22px; }
+.note-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 14px; color: var(--news-muted); font: 11px/1.5 var(--news-mono); }
+.note-meta a { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-blue); }
+.note-heading h1 { font: 600 clamp(28px, 3.2vw, 36px)/1.18 var(--news-ui); letter-spacing: -.035em; margin: 0; color: var(--news-ink); text-wrap: pretty; }
+.note-source { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--news-blue); font: 500 12px/1.5 var(--news-ui); margin-top: 6px; }
+.note-page .note-prose { font: 400 17px/1.7 var(--news-ui); }
+.note-prose p { margin-bottom: 1.15em; }
+.note-prose h2 { font: 600 23px/1.3 var(--news-ui); letter-spacing: -.025em; margin-top: 1.4em; }
+.note-prose h3 { font: 600 20px/1.4 var(--news-ui); }
+.note-prose :is(h4, h5, h6) { font: 600 18px/1.4 var(--news-ui); }
+.note-prose :is(pre, table, blockquote) { margin-block: 22px; }
+.note-prose :is(ul, ol) { margin-bottom: 1.15em; }
+.note-prose li { margin-bottom: .4em; }
+.note-pagination { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; border-top: 1px solid var(--news-rule); margin-top: 28px; padding-top: 12px; }
+.note-pagination a { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-muted); font: 500 12px/1.5 var(--news-ui); }
+.note-layout a:hover { color: var(--news-blue); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 540px) {
+  .note-layout { max-width: calc(100% - 36px); padding-top: 14px; }
+  .note-meta { font-size: 10px; margin-bottom: 12px; }
+}
+@media print { .note-pagination, .note-meta a { display: none; } .note-layout { width: 100%; max-width: 100%; padding: 0; } }
