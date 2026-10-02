@@ -29,6 +29,34 @@ const href = `/links/${entry.id}/`;
     {!standalone && <a href={href} aria-label={`Permalink: ${title}`}>Permalink</a>}
   </div>
 </div>
+<script>
+  document.querySelectorAll<HTMLElement>('.link-body pre').forEach((pre, index) => {
+    const text = (pre.querySelector('code')?.textContent || pre.textContent || '').trimEnd();
+    const panel = document.createElement('div');
+    panel.className = 'link-code';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'link-copy';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', `Copy code snippet ${index + 1}`);
+    const status = document.createElement('span');
+    status.className = 'sr-only';
+    status.setAttribute('role', 'status');
+    pre.parentNode?.insertBefore(panel, pre);
+    panel.append(button, pre, status);
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = 'Copied';
+        status.textContent = 'Code copied to clipboard.';
+      } catch {
+        button.textContent = 'Select code';
+        status.textContent = 'Copy unavailable. Select and copy the code manually.';
+      }
+      window.setTimeout(() => { button.textContent = 'Copy'; status.textContent = ''; }, 2200);
+    });
+  });
+</script>
 <style>
   .link-post { min-width: 0; }
   .destination { display: block; color: var(--news-blue); padding: 4px 0 24px; border-bottom: 1px solid var(--news-rule); text-decoration: none; }
@@ -44,6 +72,13 @@ const href = `/links/${entry.id}/`;
   .commentary { margin: 22px 0 0; max-width: 65ch; color: var(--news-ink); font: 20px/1.55 var(--news-serif); }
   .link-body :global(p) { margin: 0 0 16px; }
   .link-body :global(a) { color: var(--news-blue); text-decoration: underline; text-underline-offset: 3px; }
+  .link-body :global(pre) { margin: 0; padding: 20px; border: 1px solid var(--news-rule); border-radius: 4px; font: 13px/1.8 var(--news-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .link-body :global(.astro-code), .link-body :global(.astro-code span) { color: var(--news-ink) !important; background: var(--news-surface) !important; }
+  .link-body :global(.link-code) { overflow: hidden; border: 1px solid var(--news-rule); border-radius: 4px; background: var(--news-surface); }
+  .link-body :global(.link-code pre) { border: 0; border-radius: 0; padding-top: 4px; }
+  .link-body :global(.link-copy) { display: block; margin-left: auto; padding: 0 16px; min-height: 44px; border: 0; border-radius: 0; background: transparent; color: var(--news-blue); font: 500 12px var(--news-ui); cursor: pointer; }
+  .link-body :global(.link-copy:hover) { text-decoration: underline; text-underline-offset: 3px; }
+  .link-body :global(.link-copy:focus-visible) { outline-offset: -4px; }
   .link-video { margin-top: 24px; }
   .link-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 20px; color: var(--news-muted); font: 400 11px/1.5 var(--news-ui); }
   .link-meta a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
