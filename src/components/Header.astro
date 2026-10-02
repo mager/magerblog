@@ -21,7 +21,7 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
 ---
 <header class:list={['site-header', { 'on-paper': homepage, 'edition-header': masthead }]}>
   <div class="header-shell">
-    <a class="wordmark" href="/" aria-label="mager.co home">{masthead ? 'Andrew Mager' : <>mager<span>.</span>co</>}</a>
+    <a class="wordmark" href="/" aria-label="mager.co home">{masthead ? 'mager' : <>mager<span>.</span>co</>}</a>
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={path.replace(/\/$/, '') === section.href.replace(/\/$/, '') ? 'page' : undefined}>{section.name}</a>)}
       <details class="header-more">
