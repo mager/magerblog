@@ -54,7 +54,7 @@ html {
 	/* Text colors */
 	--text-primary: #E6EDF3;
 	--text-secondary: #8B949E;
-	--text-muted: #484F58;
+	--text-muted: oklch(66% 0.015 250);
 
 	/* Inline code — theme-adaptive.
 	   Defaults target dark surfaces (the global background): a quiet neutral
@@ -249,12 +249,12 @@ pre > code {
 
 /* Blockquote */
 blockquote {
-	border-left: 3px solid var(--status-purple);
+	border: 1px solid var(--terminal-border);
 	padding: 1rem 1.5rem;
 	margin: 1.5rem 0;
 	font-size: 1em;
 	background: var(--terminal-bg-dark);
-	border-radius: 0 8px 8px 0;
+	border-radius: 4px;
 	font-style: italic;
 	color: var(--text-secondary);
 }

@@ -37,7 +37,7 @@ const headingId = `shelf-${category}`;
 <style>
   .shelf { --shelf-accent: var(--news-green); min-width: 0; }
   .shelf[data-category="food"] { --shelf-accent: var(--news-red); }
-  .shelf-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 0 14px; border-bottom: 2px solid var(--shelf-accent); }
+  .shelf-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 0 14px; border-bottom: 2px solid var(--shelf-accent); }
   .shelf-heading h2 { font: 650 25px/1.2 var(--news-display); letter-spacing: -.035em; color: var(--shelf-accent); margin: 0; }
   .shelf-heading > a { color: var(--shelf-accent); font: 600 10px/1.4 var(--news-ui); white-space: nowrap; padding: 8px 0; }
   .shelf a:hover { text-decoration: underline; text-underline-offset: 4px; }

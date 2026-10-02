@@ -1,11 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://mager.co',
+	// Preserve the publication's existing spacing between inline elements.
+	compressHTML: true,
 	integrations: [mdx(), sitemap()],
 	redirects: {
 		'/blog/2026-03-21-kotsu-the-knack-of-japanese': '/blog/2026-03-21-kotsu-the-knack-for-japanese',
@@ -16,7 +19,7 @@ export default defineConfig({
 		'/blog/2026-07-29-cherry-tomato-pasta': '/blog/2026-08-07-cherry-tomato-pasta',
 	},
 	markdown: {
-		smartypants: false,
+		processor: satteri({ features: { smartPunctuation: false } }),
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
 			defaultColor: 'dark',

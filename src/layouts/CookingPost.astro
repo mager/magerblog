@@ -282,7 +282,10 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
       }
 
       .cooking-content :global(.recipe-ingredients li.checked) {
-        opacity: 0.4;
+        opacity: 1;
+        background: var(--ck-bg);
+        padding: 0.4rem;
+        border-radius: 4px;
         text-decoration: line-through;
         text-decoration-color: var(--ck-gold);
       }
@@ -526,40 +529,15 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         border-color: var(--ck-border-gold);
       }
 
-      /* ── Ingredient Checkboxes ── */
-      .cooking-content :global(.recipe-ingredients li .ingredient-check) {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 14px;
-        height: 14px;
-        border: 1.5px solid var(--ck-border);
-        border-radius: 2px;
-        margin-right: 0.4rem;
-        vertical-align: middle;
-        position: relative;
-        top: -1px;
-        flex-shrink: 0;
-        transition: all 0.2s ease;
-        cursor: pointer;
-      }
-
-      .cooking-content :global(.recipe-ingredients li.checked .ingredient-check) {
-        background: var(--ck-gold);
-        border-color: var(--ck-gold);
-      }
-
-      .cooking-content :global(.recipe-ingredients li.checked .ingredient-check)::after {
-        content: '✓';
-        color: white;
-        font-size: 9px;
-        font-weight: 700;
-        line-height: 1;
-      }
-
-      .cooking-content :global(.recipe-ingredients li:has(.ingredient-check))::before {
-        display: none;
-      }
+      .recipe-main { width: 100%; max-width: none; margin: 0; padding: 0; }
+      .cook-mode-toggle[hidden] { display: none; }
+      .cooking-content :global(.ingredients-toolbar) { flex-wrap: wrap; }
+      .cooking-content :global(.ingredients-action) { min-height: 44px; }
+      .cooking-content :global(.ingredients-status) { font-size: 0.9rem; color: var(--ck-text-secondary); }
+      .cooking-content :global(.ingredients-status:empty) { display: none; }
+      .cooking-content :global(.ingredient-label) { display: flex; align-items: baseline; gap: 10px; min-height: 44px; cursor: pointer; }
+      .cooking-content :global(.ingredient-check) { width: 20px; height: 20px; flex-shrink: 0; margin: 0; accent-color: var(--ck-gold); }
+      .cooking-content :global(.recipe-ingredients li:has(.ingredient-check))::before { display: none; }
 
       /* ── Tags ── */
       .recipe-tags {
@@ -689,7 +667,10 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         display: flex;
         gap: 0.75rem;
         z-index: 50;
-        opacity: 0.4;
+        opacity: 1;
+        background: var(--ck-bg);
+        padding: 0.4rem;
+        border-radius: 4px;
         transition: opacity 0.2s ease;
       }
 
@@ -974,7 +955,9 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
   </head>
 
   <body>
+    <a class="skip-link" href="#recipe-content">Skip to recipe</a>
     <Header />
+    <main id="recipe-content" class="recipe-main">
 
     <!-- Hero Photo (no text overlay) -->
     {heroImage && (
@@ -1034,14 +1017,14 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         <div class="nav-header">More Recipes</div>
         <div class="nav-grid">
           {prevPost && (
-            <a href={`/blog/${prevPost.id}/`} class="nav-card">
+            <a href={`/blog/${prevPost.id}/`} class="nav-card" rel="prev">
               <span class="nav-direction">← Previous</span>
               <span class="nav-card-title">{prevPost.data.title}</span>
               <span class="nav-card-date"><FormattedDate date={prevPost.data.pubDate} /></span>
             </a>
           )}
           {nextPost && (
-            <a href={`/blog/${nextPost.id}/`} class="nav-card">
+            <a href={`/blog/${nextPost.id}/`} class="nav-card" rel="next">
               <span class="nav-direction">Next →</span>
               <span class="nav-card-title">{nextPost.data.title}</span>
               <span class="nav-card-date"><FormattedDate date={nextPost.data.pubDate} /></span>
@@ -1050,6 +1033,8 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         </div>
       </nav>
     )}
+
+    </main>
 
     <!-- Keyboard Hints -->
     <div class="keyboard-hints">
@@ -1066,140 +1051,14 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
     </footer>
 
     <!-- Cook Mode Toggle -->
-    <button class="cook-mode-toggle" id="cook-mode-btn" aria-label="Toggle cook mode">
+    <button class="cook-mode-toggle" id="cook-mode-btn" type="button" aria-label="Cook mode" aria-pressed="false" hidden>
       <span class="toggle-icon">🍳</span>
       <span class="toggle-label">Cook Mode</span>
     </button>
     <div class="cook-mode-hint" id="cook-mode-hint">🍳 Cook Mode — large text, less clutter</div>
 
-    <!-- Theme restore (light is default now) -->
-    <script is:inline>
-      (function() {
-        const saved = localStorage.getItem('cooking-theme');
-        if (saved === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
-      })();
-    </script>
-
-    <!-- Cook Mode Script -->
-    <script is:inline>
-      (function() {
-        const btn = document.getElementById('cook-mode-btn');
-        const label = btn?.querySelector('.toggle-label');
-        const key = 'cook-mode';
-        const html = document.documentElement;
-
-        // Restore saved state
-        if (localStorage.getItem(key) === 'on') {
-          html.classList.add('cook-mode');
-          if (label) label.textContent = 'Exit Cook Mode';
-        }
-
-        btn?.addEventListener('click', () => {
-          const active = html.classList.toggle('cook-mode');
-          localStorage.setItem(key, active ? 'on' : 'off');
-          if (label) label.textContent = active ? 'Exit Cook Mode' : 'Cook Mode';
-
-          // Try to keep screen awake in cook mode
-          if (active && 'wakeLock' in navigator) {
-            navigator.wakeLock.request('screen').catch(() => {});
-          }
-
-          // Scroll to instructions in cook mode
-          if (active) {
-            const instructions = document.querySelector('.recipe-instructions') || document.querySelector('.recipe-text');
-            if (instructions) {
-              setTimeout(() => instructions.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-            }
-          }
-        });
-      })();
-    </script>
-
-    <!-- Interactive Recipe Features -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const recipeKey = `recipe-checked-${window.location.pathname}`;
-
-        // ── Ingredient Checkboxes ──
-        const ingredients = document.querySelectorAll('.recipe-ingredients li');
-        const saved = JSON.parse(localStorage.getItem(recipeKey) || '{}');
-
-        ingredients.forEach((li, i) => {
-          const checkbox = document.createElement('span');
-          checkbox.className = 'ingredient-check';
-          checkbox.setAttribute('role', 'checkbox');
-          checkbox.setAttribute('aria-checked', saved[i] ? 'true' : 'false');
-          checkbox.setAttribute('tabindex', '0');
-          li.prepend(checkbox);
-
-          if (saved[i]) li.classList.add('checked');
-
-          const toggle = () => {
-            const isChecked = li.classList.toggle('checked');
-            checkbox.setAttribute('aria-checked', String(isChecked));
-            saved[i] = isChecked;
-            localStorage.setItem(recipeKey, JSON.stringify(saved));
-          };
-
-          li.addEventListener('click', toggle);
-          checkbox.addEventListener('keydown', (e: KeyboardEvent) => {
-            if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
-          });
-        });
-
-        // ── Ingredients Toolbar ──
-        const ingredientsSection = document.querySelector('.recipe-ingredients');
-        if (ingredientsSection) {
-          const toolbar = document.createElement('div');
-          toolbar.className = 'ingredients-toolbar';
-
-          const copyBtn = document.createElement('button');
-          copyBtn.className = 'ingredients-action';
-          copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>`;
-          copyBtn.addEventListener('click', () => {
-            const items = Array.from(ingredientsSection.querySelectorAll('li'))
-              .map(li => li.textContent?.trim())
-              .filter(Boolean);
-            navigator.clipboard.writeText(items.join('\n')).then(() => {
-              const span = copyBtn.querySelector('span');
-              if (span) { span.textContent = 'Copied!'; setTimeout(() => span.textContent = 'Copy', 1500); }
-            });
-          });
-
-          const clearBtn = document.createElement('button');
-          clearBtn.className = 'ingredients-action';
-          clearBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg><span>Clear</span>`;
-          clearBtn.addEventListener('click', () => {
-            ingredients.forEach(li => {
-              li.classList.remove('checked');
-              const cb = li.querySelector('.ingredient-check');
-              if (cb) cb.setAttribute('aria-checked', 'false');
-            });
-            localStorage.removeItem(recipeKey);
-          });
-
-          toolbar.appendChild(copyBtn);
-          toolbar.appendChild(clearBtn);
-          ingredientsSection.prepend(toolbar);
-        }
-
-        // ── Keyboard Shortcuts ──
-        document.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-          const prev = document.querySelector('.nav-card:first-child') as HTMLAnchorElement;
-          const next = document.querySelector('.nav-card:last-child') as HTMLAnchorElement;
-
-          switch(e.key) {
-            case 'j': if (next?.href) window.location.href = next.href; break;
-            case 'k': if (prev?.href) window.location.href = prev.href; break;
-            case 'p':
-              if (!e.metaKey && !e.ctrlKey) { e.preventDefault(); window.print(); }
-              break;
-          }
-        });
-      });
+      import '../scripts/recipe';
     </script>
 
     <SecretSearch posts={allPosts} />

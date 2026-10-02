@@ -317,11 +317,11 @@ const breadcrumbSchema = {
       }
       .chip-count {
         font-size: 0.82em;
-        opacity: 0.55;
+        opacity: 1;
         margin-left: 0.3rem;
         font-variant-numeric: tabular-nums;
       }
-      .chip[aria-pressed='true'] .chip-count { opacity: 0.75; }
+      .chip[aria-pressed='true'] .chip-count { opacity: 1; }
 
       /* The grid ------------------------------------------------------ */
       html[data-cooking] main.ci-index {
@@ -357,7 +357,7 @@ const breadcrumbSchema = {
         flex-wrap: wrap;
         gap: 0.5rem;
       }
-      .ci-foot a { color: var(--ck-text-secondary); text-decoration: none; }
+      html[data-cooking] .ci-foot a { color: var(--ck-text-secondary); text-decoration: underline; text-underline-offset: 3px; }
       .ci-foot a:hover { color: var(--ck-gold); }
 
       /* Responsive ---------------------------------------------------- */

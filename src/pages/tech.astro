@@ -16,7 +16,7 @@ const getLatestDate = (post) => (post.data.updatedDate || post.data.pubDate).val
 
 const posts = allPosts
 	.filter(post => post.data.category === 'tech')
-	.sort((a, b) => getLatestDate(b) - getLatestDate(a));
+	.sort((a, b) => getLatestDate(b) - getLatestDate(a) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
 
 const featuredPost = posts[0];
 const archivePosts = posts.slice(1);
@@ -25,7 +25,7 @@ const archivePosts = posts.slice(1);
 const techNotes = (await getCollection('notes'))
 	.filter(note => !note.data.draft)
 	.filter(note => note.data.category === 'tech')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
 
 // Field notes are a sidebar to the posts, not a peer of them — preview a few,
 // send the rest to /notes.
@@ -73,7 +73,7 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 				--surface:    #f5f3f0;
 				--ink:        #1f1c17;
 				--ink-mid:    #6c6760;
-				--ink-light:  #8d867d;
+				--ink-light:  oklch(49% 0.015 80);
 				--rule:       #ddd6cd;
 				--rule-dark:  #cbc3b8;
 				--accent:     oklch(45% 0.15 240); /* tech blue — identity color */
@@ -362,7 +362,7 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			<div class="tech-shell">
 
 				<!-- Dateline -->
-				<div class="dateline" aria-label="Tech section metadata">
+				<div class="dateline" role="group" aria-label="Tech section metadata">
 					<div class="dateline-pack">
 						<span class="dot" aria-hidden="true"></span>
 						<a href="/">mager.co</a>

@@ -10,7 +10,7 @@ const DESCRIPTION = 'Short notes — quick links, thoughts, and things learned.'
 
 const notes = (await getCollection('notes'))
 	.filter((n) => !n.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
 
 const hostOf = (url: string) => {
 	try {
@@ -54,6 +54,7 @@ const hostOf = (url: string) => {
 				font-size: 0.95rem;
 				margin: 0;
 			}
+			.page-header p a { text-decoration: underline; text-underline-offset: 3px; }
 			.stream {
 				display: flex;
 				flex-direction: column;

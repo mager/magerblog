@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-This is a personal blog built with Astro v5, featuring three main content categories: Tech, Life, and Recipes. The site uses a dark, terminal-inspired design theme reminiscent of code editors like Codex, with category-specific color schemes applied to images and navigation elements.
+This is a personal blog built with Astro v7, featuring three main content categories: Tech, Life, and Recipes. The site uses a dark, terminal-inspired design theme reminiscent of code editors like Codex, with category-specific color schemes applied to images and navigation elements.
 
 Site URL: https://mager.co
 
@@ -214,7 +214,7 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
 
 ## Notes
 
-- The site uses Astro 5's content loader API with `glob()` loader
+- The site uses Astro's content loader API with `glob()` loader
 - All pages are statically generated at build time
 - The homepage's `BenchWidget.astro` takes a dated build snapshot from
   `https://bench.mager.co/api/summary`, then refreshes it in the browser on each

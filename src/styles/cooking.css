@@ -12,7 +12,7 @@ html[data-cooking] {
   --ck-bg-ingredients: #f7f6f2;
   --ck-text: #121212;
   --ck-text-secondary: #444444;
-  --ck-text-muted: #767676;
+  --ck-text-muted: oklch(49% 0.005 30);
   --ck-gold: #d0021b;          /* "gold" alias — now NYT red */
   --ck-gold-light: #a80116;
   --ck-gold-bright: #d0021b;
@@ -36,7 +36,7 @@ html[data-cooking] {
   --ck-step-num: rgba(208, 2, 27, 0.08);
   --ck-coming-soon-bg: rgba(118, 118, 118, 0.08);
   --ck-coming-soon-border: rgba(118, 118, 118, 0.2);
-  --ck-coming-soon-text: #767676;
+  --ck-coming-soon-text: oklch(49% 0.005 30);
   --ck-img-border: rgba(0, 0, 0, 0.08);
 }
 
@@ -49,7 +49,7 @@ html[data-cooking][data-theme="dark"] {
   --ck-bg-ingredients: #1a1a1a;
   --ck-text: #f5f5f5;
   --ck-text-secondary: #aaaaaa;
-  --ck-text-muted: #666666;
+  --ck-text-muted: oklch(72% 0.005 30);
   --ck-gold: #ff4d5e;
   --ck-gold-light: #ff6b7a;
   --ck-gold-bright: #ff4d5e;
@@ -73,7 +73,7 @@ html[data-cooking][data-theme="dark"] {
   --ck-step-num: rgba(255, 77, 94, 0.1);
   --ck-coming-soon-bg: rgba(102, 102, 102, 0.1);
   --ck-coming-soon-border: rgba(102, 102, 102, 0.2);
-  --ck-coming-soon-text: #666666;
+  --ck-coming-soon-text: oklch(72% 0.005 30);
   --ck-img-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -260,7 +260,7 @@ html[data-cooking] code {
 
 /* ── Blockquote ── */
 html[data-cooking] blockquote {
-  border-left: 3px solid var(--ck-gold);
+  border: 1px solid var(--ck-border);
   background: var(--ck-bg-surface);
   color: var(--ck-text-secondary);
   font-style: italic;
@@ -270,4 +270,8 @@ html[data-cooking] blockquote {
 html[data-cooking] hr {
   border: none;
   border-top: 1px solid var(--ck-divider);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-cooking] *, html[data-cooking] *::before, html[data-cooking] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

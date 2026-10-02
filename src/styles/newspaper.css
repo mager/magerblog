@@ -39,7 +39,7 @@ html[data-theme="dark"] .publication {
   --code-fg: #c3d2ff;
   --code-bg: #181818;
 }
-.publication ::selection { background: var(--news-yellow); color: var(--news-ink); }
+.publication ::selection { background: var(--news-yellow); color: oklch(23% 0.016 260); }
 .publication :focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }

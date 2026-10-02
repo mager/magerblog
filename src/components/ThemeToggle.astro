@@ -1,4 +1,4 @@
-<button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-theme-toggle hidden>
+<button class="theme-toggle" type="button" aria-label="Switch to dark mode" data-theme-toggle hidden>
   <span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>Dark</span>
 </button>
 <script>
@@ -7,7 +7,7 @@
     const dark = document.documentElement.dataset.theme === 'dark';
     buttons.forEach(button => {
       button.hidden = false;
-      button.setAttribute('aria-pressed', String(dark));
+      button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
       button.querySelector('[data-theme-label]')!.textContent = dark ? 'Light' : 'Dark';
       button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
     });
