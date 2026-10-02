@@ -9,10 +9,10 @@ tags: ["apples", "cinnamon", "baking", "quick-bread", "fall"]
 prepTime: 25
 cookTime: 80
 recipeYield: "1 loaf, 10 slices"
-draft: true
+draft: false
 ---
 
-I'm planning this loaf for the apples we bring home from Apple Holler in Wisconsin on October 3. I want tender chunks of apple with browned edges, so I’m cooking them in butter and cinnamon before folding them into a yogurt batter. This is the first-bake draft; I still need to test the timing and crumb in my kitchen.
+I'm planning this loaf for the apples we bring home from Apple Holler in Wisconsin on October 3. I want tender chunks of apple with browned edges, so I’m cooking them in butter and cinnamon before folding them into a yogurt batter. We haven't baked this version yet. We'll cook it after the orchard trip and report back on the timing, texture, and anything we'd change.
 
 ## Ingredients
 
@@ -40,7 +40,7 @@ I'm planning this loaf for the apples we bring home from Apple Holler in Wiscons
 
 4. **Cool the apples; mix the dry ingredients.** Scrape the apples and buttery coating onto a plate. Spread out and cool for about **10 minutes**, until barely warm. Meanwhile, whisk the flour, baking powder, baking soda, salt, and **1½ tsp cinnamon** in a large bowl. Spoon flour into the measuring cup and level it, or use the gram weight; packed flour makes a dry loaf.
 
-5. **Mix the wet ingredients.** Melt the **remaining 6 tbsp butter** and let it cool slightly. In another bowl, whisk it and **remaining brown sugar (88 g)**. Whisk in the eggs, then the yogurt, milk, and vanilla until smooth. The butter should be warm, not hot, before it meets the eggs.
+5. **Mix the wet ingredients.** Melt the **remaining 6 tbsp butter** and let it cool slightly. In another bowl, whisk it with the **remaining brown sugar (88 g)**. Whisk in the eggs, then the yogurt, milk, and vanilla until smooth. The butter should be warm, not hot, before it meets the eggs.
 
 6. **Fold in the cooked apples.** Add the wet mixture to the flour and fold gently until a few dry streaks remain. Fold in **all the cooled apples and their buttery coating** just until the flour disappears. Use the whole cooked batch; don't top it up with raw apples to reach a cup measurement. The batter should be thick and scoopable. Avoid beating it smooth.
 
@@ -62,6 +62,6 @@ For the first test, I'm keeping nuts and other mix-ins out so I can judge the ap
 
 Let the loaf cool completely before wrapping. Keep it covered at cool room temperature for up to 2 days, or refrigerate for up to 5 days. For longer storage, freeze individual slices and rewarm in a toaster oven.
 
-## First-bake notes
+## We'll report back
 
-Before publishing, record the apple varieties, cooked apple weight, skillet and oven times, and how the center slices after cooling. Check the sweetness again the next morning. Add a photo of the real loaf.
+After we bake it, I'll add a photo and notes on the apple varieties, actual cooking times, and how the loaf slices once cool. We'll also check the sweetness the next morning and update the recipe with what we learn.
