@@ -66,6 +66,8 @@
 .recipe-instructions > :is(ul, p) { font-size: 24px; }
 .cooking-content > h2 { margin-top: 36px; }
 .cooking-content > :is(p, ul, h2, h3), .recipe-text, .recipe-gallery { max-width: 880px; margin-inline: auto; }
+.cooking-content > :is(p, .recipe-intro):first-child { max-width: 760px; margin: clamp(24px, 3vw, 36px) 0 0; }
+.recipe-intro > :last-child { margin-bottom: 0; }
 .cooking-content li { margin-bottom: 0; }
 .recipe-gallery { display: flex; flex-wrap: wrap; gap: 24px; }
 .recipe-gallery > * { flex: 1 1 300px; }

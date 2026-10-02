@@ -12,7 +12,7 @@ recipeYield: "1 loaf, 10 slices"
 draft: false
 ---
 
-I'm planning this loaf for the apples we bring home from Apple Holler in Wisconsin on October 3. I want tender chunks of apple with browned edges, so I’m cooking them in butter and cinnamon before folding them into a yogurt batter. We haven't baked this version yet. We'll cook it after the orchard trip and report back on the timing, texture, and anything we'd change.
+I'm planning this loaf for the apples we bring home from [Apple Holler](https://www.appleholler.com/) in Wisconsin on October 3. I want tender chunks of apple with browned edges, so I’m cooking them in butter and cinnamon before folding them into a yogurt batter. We haven't baked this version yet. We'll cook it after the orchard trip and report back on the timing, texture, and anything we'd change.
 
 ## Ingredients
 
