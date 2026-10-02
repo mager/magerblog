@@ -21,14 +21,15 @@ const id = youtubeId(entry.data.url);
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage themeToggle />
     <main id="main-content">
-      <a class="back" href="/">← Back to the feed</a>
+      <a class="back" href="/links/">← All links</a>
       <FeedItem entry={entry} standalone />
-      <a class="back" href="/links/">All link shares →</a>
     </main>
     <Footer homepage />
   </body>
 </html>
 <style>
-  main { width: 760px; max-width: calc(100% - 36px); margin: 0 auto; padding: 24px 0 48px; }
+  main { width: 900px; max-width: calc(100% - 36px); margin: 0 auto; padding: 32px 0 64px; }
+  main :global(.feed-entry) { border-bottom: 0; padding: 40px 0; }
+  @media(max-width: 540px) { main { padding-top: 16px; } main :global(.feed-entry) { padding-top: 28px; } }
   .back { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-blue); font: 500 12px var(--news-mono); }
 </style>

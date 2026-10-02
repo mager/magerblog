@@ -1,0 +1,66 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import LinkEmbed from './LinkEmbed.astro';
+import { linkHost, youtubeId } from '../lib/link-share';
+
+interface Props { entry: CollectionEntry<'links'>; standalone?: boolean; }
+const { entry, standalone = false } = Astro.props;
+const { title, url, description, author, pubDate } = entry.data;
+const { Content } = await render(entry);
+const Heading = standalone ? 'h1' : 'h2';
+const href = `/links/${entry.id}/`;
+---
+<div class:list={['link-post', { standalone }]}>
+  <a class="destination" href={url}>
+    <div class="destination-heading">
+      <Heading>{title}</Heading>
+      <svg class="outbound-arrow" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M10 38 38 10M10 10h28v28" />
+      </svg>
+    </div>
+    <span class="destination-domain">{author && <span>{author} <span aria-hidden="true">/</span> </span>}{linkHost(url)}<span class="destination-action">{youtubeId(url) ? 'Watch video' : 'Visit link'}</span></span>
+  </a>
+  {youtubeId(url) && <div class="link-video"><LinkEmbed url={url} title={title} showSource={false} /></div>}
+  {description && <p class="commentary">{description}</p>}
+  {entry.body?.trim() && <div class="commentary link-body"><Content /></div>}
+  <div class="link-meta">
+    <span>Shared <FormattedDate date={pubDate} /></span>
+    {!standalone && <a href={href} aria-label={`Permalink: ${title}`}>Permalink</a>}
+  </div>
+</div>
+<style>
+  .link-post { min-width: 0; }
+  .destination { display: block; color: var(--news-blue); padding: 4px 0 24px; border-bottom: 1px solid var(--news-rule); text-decoration: none; }
+  .destination-heading { display: flex; align-items: flex-start; gap: 24px; }
+  h1, h2 { flex: 1; min-width: 0; margin: 0; color: inherit; font: 650 clamp(34px, 4.5vw, 54px)/1.08 var(--news-display); letter-spacing: -.04em; overflow-wrap: anywhere; text-wrap: balance; }
+  .outbound-arrow { width: clamp(32px, 4vw, 48px); flex: 0 0 auto; margin-top: 4px; transition: transform 220ms var(--news-ease); }
+  .destination-domain { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; margin-top: 18px; font: 500 13px/1.5 var(--news-ui); overflow-wrap: anywhere; }
+  .destination-action { margin-left: auto; }
+  .destination:hover h1, .destination:hover h2 { text-decoration: underline; text-decoration-thickness: .035em; text-underline-offset: .12em; }
+  .destination:hover .outbound-arrow { transform: translate(3px, -3px); }
+  .destination:active { opacity: .75; }
+  .destination:focus-visible { outline: 3px solid var(--news-blue); outline-offset: 8px; }
+  .commentary { margin: 22px 0 0; max-width: 65ch; color: var(--news-ink); font: 20px/1.55 var(--news-serif); }
+  .link-body :global(p) { margin: 0 0 16px; }
+  .link-body :global(a) { color: var(--news-blue); text-decoration: underline; text-underline-offset: 3px; }
+  .link-video { margin-top: 24px; }
+  .link-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 20px; color: var(--news-muted); font: 400 11px/1.5 var(--news-ui); }
+  .link-meta a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .link-meta a:hover { color: var(--news-blue); }
+  .standalone h1 { font-size: clamp(54px, 8vw, 96px); }
+  .standalone .outbound-arrow { width: clamp(44px, 6vw, 72px); margin-top: 8px; }
+  .standalone .destination { padding-bottom: 32px; }
+  .standalone .destination-domain { margin-top: 24px; font-size: 16px; }
+  .standalone .commentary { margin-top: 32px; font-size: 24px; }
+  .standalone .link-meta { margin-top: 24px; font-size: 12px; }
+  @media(max-width: 540px) {
+    .destination-heading { gap: 16px; }
+    .destination-domain { font-size: 13px; }
+    .standalone .destination-domain { font-size: 14px; }
+    .standalone .commentary { font-size: 21px; }
+    .standalone .destination { padding-bottom: 24px; }
+    .standalone .commentary { margin-top: 24px; }
+  }
+  @media(prefers-reduced-motion: reduce) { .outbound-arrow { transition: none; } .destination:hover .outbound-arrow { transform: none; } }
+</style>

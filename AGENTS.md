@@ -137,6 +137,11 @@ publication date. YouTube watch, live, short, embed, and youtu.be URLs embed
 inline automatically; other links display a source link. Shares appear in the
 homepage feed, `/links/`, their own permalink, and `/rss.xml`.
 
+`LinkPost.astro` renders link shares in the feed, archive, and permalink: keep
+the outbound title, source domain, and arrow primary; commentary, sharing date,
+and permalink secondary. Use publication typography and theme tokens, and
+preserve inline YouTube playback.
+
 ### Photos and Screenshots
 
 Both belong in `src/content/seen/`. Set `mediaType: screenshot` for screen

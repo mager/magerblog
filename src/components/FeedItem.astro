@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
 import FormattedDate from './FormattedDate.astro';
-import LinkEmbed from './LinkEmbed.astro';
+import LinkPost from './LinkPost.astro';
 import { linkHost } from '../lib/link-share';
 
 interface Props { entry: FeedEntry; standalone?: boolean; }
@@ -11,7 +11,7 @@ const href = entryHref(entry);
 const title = entryTitle(entry);
 const Heading = standalone ? 'h1' : 'h2';
 const notePreview = entry.collection === 'notes' && !standalone;
-const rendered = entry.collection === 'blog' || notePreview ? undefined : await render(entry);
+const rendered = entry.collection === 'blog' || entry.collection === 'links' || notePreview ? undefined : await render(entry);
 const Content = rendered?.Content;
 const noteDescription = entry.collection === 'notes'
   ? entry.data.description || (() => {
@@ -26,6 +26,7 @@ const label = entry.collection === 'seen' && entry.data.mediaType === 'screensho
 const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body || '').split(/\s+/).length / 220)) : undefined;
 ---
 <article class:list={['feed-entry', { 'note-preview': notePreview }]} data-kind={entry.collection} data-category={category} data-published={entry.data.pubDate.toISOString()} aria-label={title} tabindex="-1">
+  {entry.collection === 'links' ? <LinkPost entry={entry} standalone={standalone} /> : <>
   <div class="entry-meta">
     <span class="entry-kind">{label}</span>
     <a href={href} aria-label={`Permalink: ${title}`}><FormattedDate date={entry.data.pubDate} /></a>
@@ -36,10 +37,6 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
     <p class="entry-description">{entry.data.description}</p>
     <a class="entry-action" href={href}>Read {entry.data.category === 'food' ? 'recipe' : 'article'} <span aria-hidden="true">↗</span></a>
   </>}
-  {entry.collection === 'links' && <>
-    {entry.data.description && <p class="entry-description">{entry.data.description}</p>}
-    <LinkEmbed url={entry.data.url} title={title} author={entry.data.author} />
-  </>}
   {entry.collection === 'seen' && <>
     {entry.data.location && <p class="entry-location">{entry.data.location}</p>}
     <a class="entry-photo seen-photo" href={href}><img src={entry.data.photo} alt={entry.data.alt || title} width="800" height="600" loading="lazy" decoding="async" /></a>
@@ -49,7 +46,7 @@ const minutes = entry.collection === 'blog' ? Math.max(1, Math.ceil((entry.body 
   </>}
   {entry.collection === 'notes' && !notePreview && entry.data.link && <a class="note-source" href={entry.data.link} target="_blank" rel="noopener noreferrer">{entry.data.linkText || linkHost(entry.data.link)} <span aria-hidden="true">↗</span></a>}
   {Content && <div class="entry-body"><Content /></div>}
-  {entry.collection === 'links' && !standalone && <a class="entry-action" href={href}>Permalink <span aria-hidden="true">↗</span></a>}
+  </>}
 </article>
 <script>
   // Old external photos can disappear; keep a useful link in their place.

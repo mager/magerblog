@@ -1,7 +1,7 @@
 ---
 import { youtubeId, linkHost } from '../lib/link-share';
-interface Props { url: string; title: string; author?: string; }
-const { url, title, author } = Astro.props;
+interface Props { url: string; title: string; author?: string; showSource?: boolean; }
+const { url, title, author, showSource = true } = Astro.props;
 const id = youtubeId(url);
 ---
 <div class="link-share">
@@ -15,10 +15,10 @@ const id = youtubeId(url);
       allowfullscreen
     ></iframe>
   </div>}
-  <a class="source-link" href={url} target="_blank" rel="noopener noreferrer">
+  {showSource && <a class="source-link" href={url} target="_blank" rel="noopener noreferrer">
     <span>{author ? `${author} · ` : ''}{linkHost(url)}</span>
     <span>{id ? 'Watch on YouTube' : 'Open link'} <span aria-hidden="true">↗</span></span>
-  </a>
+  </a>}
 </div>
 <style>
   .video-frame { aspect-ratio: 16 / 9; background: #0d1117; overflow: hidden; border-radius: 6px; }
