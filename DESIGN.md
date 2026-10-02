@@ -27,7 +27,7 @@ Preserve the established fonts: Fraunces for the masthead and section display, S
 
 ## Layout
 
-The homepage uses a 1320px shell with 24px gutters (18px on phones), a large masthead, and a complete edition of roughly 30 distinct stories. A lead spread and compact dispatch column open the page; varied workbench columns, a horizontal photo strip, cooking and life sections, a yellow artifact insert, and shared links provide different reading rhythms. Selection follows publication order within each section and never repeats an entry within the edition.
+The homepage uses a 1320px shell with 24px gutters (18px on phones), a large masthead, and a complete edition of roughly 30 distinct stories. A lead spread and compact dispatch column open the page; varied workbench columns, a horizontal photo strip, cooking and life sections, a compact artifact list, and shared links provide different reading rhythms. Selection follows publication order within each section and never repeats an entry within the edition.
 
 Front page and All updates are plain-text view controls. The chronological view starts with 24 entries and keeps a native content filter and progressive loading. Without JavaScript, the entire edition remains available and a disclosure opens the complete static stream. Feed rows use compact titles and brief previews, with no repeated dates, reading-time labels, or permalink buttons. Link-share titles open their sources directly.
 
@@ -60,3 +60,7 @@ Recipes use the publication palette and fonts, with vermilion for navigation and
 `src/lib/recipe.ts` normalizes both plain Markdown and legacy recipe wrappers at build time. Semantic sections and ordered steps work without JavaScript; ingredient checks, copy/reset, completion feedback, and print controls enhance them. Ingredient checks persist per recipe. Print restores checked ingredients and uses compact black-on-white output. New recipes can use Ingredients and Method headings without hand-written HTML wrappers.
 
 Blog drafts remain available through the dev server but do not generate production permalink pages. Recipe drafts display a clear untested label. `recipeYield` supplies the optional yield beside prep and cook times.
+
+## About page
+
+Use the shared publication palette and typography, with an open two-column introduction and square portrait. The Hot Dougs avatar by @hopperdraws links to the artist’s X profile. Mouse hover reveals the hosted human photo; touch and keyboard activation toggle it. Keep both portraits at the same aspect ratio, honor reduced motion, and retain the avatar if the photo fails to load.

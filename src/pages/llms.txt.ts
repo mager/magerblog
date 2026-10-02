@@ -24,7 +24,7 @@ export const GET: APIRoute = async () => {
 
   const body = `# mager.co
 
-> Mager is a software engineer in Chicago building AI agents, developer tools, and weird internet products. He writes about what actually worked, what broke, and what he learned along the way.
+> Mager is a software engineer in Chicago specializing in personal software. He built [prxps](https://github.com/mager/prxps), [loooom](https://github.com/mager/loooom.xyz), and [kotsu](https://github.com/mager/kotsu), and writes about what worked, what broke, and what he learned along the way.
 
 ## Blog
 
