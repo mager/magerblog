@@ -89,7 +89,7 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
       <header class:list={['recipe-opening', { 'has-photo': !!heroImage }]}>
         <div class="recipe-heading">
           <a class="recipe-back" href="/cooking/">← All recipes</a>
-          <p class="recipe-eyebrow">From my kitchen{subcategory && ` / ${subcategory}`}</p>
+          {subcategory && <p class="recipe-eyebrow">{subcategory}</p>}
           {draft && <p class="recipe-draft">Draft recipe · not yet kitchen-tested</p>}
           <h1>{title}</h1>
           <p class="recipe-description">{description}</p>
