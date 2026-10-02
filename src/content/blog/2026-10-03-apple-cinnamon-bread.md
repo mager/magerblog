@@ -1,6 +1,6 @@
 ---
 title: "Apple Cinnamon Bread"
-description: "Buttery cinnamon apples, cooked down before they meet a yogurt batter, with a crackly cinnamon-sugar top."
+description: "A buttery apple loaf with sautéed cinnamon apples, plain yogurt, and a crackly cinnamon-sugar top. Plenty of fruit, just enough sweetness."
 pubDate: 2026-10-03
 category: "food"
 subcategory: "baking"
