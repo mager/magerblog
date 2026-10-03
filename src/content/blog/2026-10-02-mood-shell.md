@@ -15,7 +15,7 @@ I wanted a tool organized around that experience. Pick a palette. See it immedia
 
 That became **[Mood Shell](https://moodsh.vercel.app)**, a small shell customization toolkit written in Rust. The command is `moodsh`. I've also started calling it Modge, although the executable is keeping its original name.
 
-The current release is **[version 0.5.0](https://github.com/mager/moodsh/releases/tag/v0.5.0)**. It runs natively on macOS, Windows, and Linux, integrates with Zsh, Bash, and PowerShell 7, and includes native Tab completion and opt-in Git shortcuts. Its central idea is still small: themes you can create, read, and share as Markdown documents.
+The current release is **[version 0.6.0](https://github.com/mager/moodsh/releases/tag/v0.6.0)**. It runs natively on macOS, Windows, and Linux, integrates with Zsh, Bash, and PowerShell 7, and includes native Tab completion and opt-in Git shortcuts. Its central idea is still small: themes you can create, read, and share as Markdown documents.
 
 ![Mood Shell running in my Mac terminal, with a lavender project directory and a cyan prompt arrow ready for the next command.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/prompt-clean.jpg)
 
@@ -85,7 +85,7 @@ moodsh theme apply afterhours.md
 
 Previewing changes nothing. Applying validates the document and saves the palette for your next prompt. Editing the Markdown file later does not silently change your shell; you explicitly apply it again.
 
-The repository and release archives include a longer [Afterhours example](https://github.com/mager/moodsh/blob/v0.5.0/themes/afterhours.md), with color notes and instructions. You can put your own description, author credit, and preferred terminal background around the block. Mood Shell reads the palette; Markdown readers display the explanation.
+The repository and release archives include a longer [Afterhours example](https://github.com/mager/moodsh/blob/v0.6.0/themes/afterhours.md), with color notes and instructions. You can put your own description, author credit, and preferred terminal background around the block. Mood Shell reads the palette; Markdown readers display the explanation.
 
 This is where I want the project to stand out: make the theme the thing you can understand and pass around, rather than making every new user learn the implementation first.
 
@@ -113,7 +113,9 @@ An assistant can help draft the prose or propose a palette, too. The output stil
 
 ## Keep the Git shortcuts
 
-The part of Oh My Zsh I missed immediately was muscle memory: `gst`, `gco`, `gcmsg`, `glog`. Version 0.5.0 brings 25 familiar Git shortcuts to Zsh, Bash, and PowerShell. Run `moodsh shortcuts git` to see exactly what each one does.
+The part of Oh My Zsh I missed immediately was muscle memory: `gst`, `gco`, `gcmsg`, `glog`. Version 0.6.0 brings 26 familiar Git shortcuts to Zsh, Bash, and PowerShell. Run `moodsh shortcuts git` to see exactly what each one does.
+
+`gprom` pulls and rebases from origin’s main branch, resolving the target when you run it. It prefers a valid local `origin/HEAD`, falls back to common names such as `main` or `master`, and stops before pulling if discovery fails.
 
 To enable them, add the flag to your existing init line. For Zsh:
 
@@ -133,7 +135,7 @@ Sharing opens a prepared GitHub issue for you to review and submit. I review sub
 
 I like Markdown as the interface for a theme's author and reader. I also want machine-readable settings to have predictable meaning. Parsing a prose sentence such as “make the arrow a warmer pink” would be a different product with different dependencies and failure modes.
 
-The boundary is explicit: one labeled block, two layouts, four colors, one name. Unknown keys and invalid colors produce errors. A document with multiple theme blocks is rejected rather than choosing one silently. The [format guide](https://github.com/mager/moodsh/blob/v0.5.0/themes/README.md) documents the supported standalone fences and the 64 KiB file limit.
+The boundary is explicit: one labeled block, two layouts, four colors, one name. Unknown keys and invalid colors produce errors. A document with multiple theme blocks is rejected rather than choosing one silently. The [format guide](https://github.com/mager/moodsh/blob/v0.6.0/themes/README.md) documents the supported standalone fences and the 64 KiB file limit.
 
 The runtime configuration remains TOML. Applying a theme copies the validated settings into that config; the shell hook never scans Markdown. Once a theme is applied, you can move the document or share it without breaking the active prompt.
 
@@ -155,7 +157,7 @@ Existing Bash and Zsh prompt hooks are preserved, and the PowerShell integration
 
 I ran into an embarrassing bit of onboarding myself: the source-install command started with `cargo`, and my shell answered `command not found`. Rust was installed on my Mac, but its executable directory wasn't on PATH in that session. That was a useful reminder that building the program and using it are different tasks.
 
-**You do not need Cargo or Rust to use Mood Shell.** The [release page](https://github.com/mager/moodsh/releases/tag/v0.5.0) contains ready-to-run archives for Apple Silicon macOS, Intel macOS, x64 Linux with glibc, and x64 Windows, along with SHA-256 checksum files. Download the archive for your machine rather than GitHub's source-code archive.
+**You do not need Cargo or Rust to use Mood Shell.** The [release page](https://github.com/mager/moodsh/releases/tag/v0.6.0) contains ready-to-run archives for Apple Silicon macOS, Intel macOS, x64 Linux with glibc, and x64 Windows, along with SHA-256 checksum files. Download the archive for your machine rather than GitHub's source-code archive.
 
 On a Mac, extract the archive and open a terminal in the extracted folder. Run:
 
@@ -187,7 +189,7 @@ Run `moodsh --help` to see the available commands. Here is my terminal after sav
 
 ## What is ready, and what isn't
 
-I am releasing this for people who want to try a small, personal prompt, and I'm using it myself. Version 0.5.0 is still an early release, not a claim that every terminal and shell setup has been covered.
+I am releasing this for people who want to try a small, personal prompt, and I'm using it myself. Version 0.6.0 is still an early release, not a claim that every terminal and shell setup has been covered.
 
 The release passes 26 Rust tests and CI on macOS, Windows, and Linux. The tests cover Markdown round trips, malformed files, no-overwrite behavior, unsafe input, and the existing prompt behavior. Shell integration tests run against real Bash, Zsh, and PowerShell processes where supported; CI requires PowerShell on all three operating systems. The interactive picker has terminal tests on macOS and Linux, plus input-state tests on all three platforms. That doesn't replace testing the Windows picker in every terminal host.
 
