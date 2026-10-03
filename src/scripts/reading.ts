@@ -15,6 +15,8 @@
     const text = pre.querySelector('code')?.textContent || pre.textContent || '';
     const panel = document.createElement('div');
     panel.className = 'reading-code';
+    const toolbar = document.createElement('div');
+    toolbar.className = 'reading-code-toolbar';
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'copy-code';
@@ -24,7 +26,8 @@
     status.className = 'sr-only';
     status.setAttribute('role', 'status');
     pre.parentNode?.insertBefore(panel, pre);
-    panel.append(pre, button, status);
+    toolbar.append(button);
+    panel.append(toolbar, pre, status);
     button.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(text);

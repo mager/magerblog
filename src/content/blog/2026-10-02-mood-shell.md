@@ -2,14 +2,14 @@
 title: "Mood Shell: a small Rust prompt with themes you can share as Markdown"
 description: "Mood Shell is my small Rust prompt toolkit, with live color previews, familiar Git shortcuts, and a gallery where you can make and share Markdown themes."
 pubDate: 2026-10-02T10:30:00-05:00
-updatedDate: 2026-10-02
+updatedDate: 2026-10-03
 category: tech
 keyword: "Mood Shell"
 tags: [rust, terminal, shell, markdown, open-source, moodsh]
 draft: false
 ---
 
-I love Oh My Zsh. It made my terminal feel like a place I could customize, and I have used it alongside Starship. But the part I most wanted to change was small: the colors, the spacing, and the little bit of text waiting for my next command.
+I love [Oh My Zsh](https://ohmyz.sh/). It made my terminal feel like a place I could customize, and I have used it alongside [Starship](https://starship.rs/). But the part I most wanted to change was small: the colors, the spacing, and the little bit of text waiting for my next command.
 
 I wanted a tool organized around that experience. Pick a palette. See it immediately. Adjust a color without reading a configuration guide. Save something personal enough that I would want to keep using it.
 
