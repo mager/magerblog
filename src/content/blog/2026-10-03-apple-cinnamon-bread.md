@@ -1,6 +1,6 @@
 ---
 title: "Apple Cinnamon Bread"
-description: "A buttery apple loaf with sautéed cinnamon apples, plain yogurt, and a crackly cinnamon-sugar top. Plenty of fruit, just enough sweetness."
+description: "A buttery yogurt loaf with sautéed apples and a crisp cinnamon-sugar top."
 pubDate: 2026-10-03
 category: "food"
 subcategory: "baking"
@@ -12,7 +12,7 @@ recipeYield: "1 loaf, 10 slices"
 draft: false
 ---
 
-I'm planning this loaf for the apples we bring home from [Apple Holler](https://www.appleholler.com/) in Wisconsin on October 3. I want tender chunks of apple with browned edges, so I’m cooking them in butter and cinnamon before folding them into a yogurt batter. We haven't baked this version yet. We'll cook it after the orchard trip and report back on the timing, texture, and anything we'd change.
+I’m planning this loaf around apples from [Apple Holler](https://www.appleholler.com/) in Wisconsin: buttery sautéed apples, yogurt batter, and a crisp cinnamon-sugar top. We haven’t baked this version yet; I’ll update it with notes after the first bake.
 
 ## Ingredients
 
@@ -32,36 +32,26 @@ I'm planning this loaf for the apples we bring home from [Apple Holler](https://
 
 ## Method
 
-1. **Get the pan and oven ready.** Heat the oven to **350°F conventional or 325°F convection** with a rack in the center. Lightly butter a **9 × 5-inch metal loaf pan** and line it with a parchment sling. Set aside ½ tsp of the cinnamon and mix it with the tablespoon of granulated sugar for the topping.
+1. **Mix the dry ingredients.** Whisk the flour, baking powder, baking soda, salt, and **1½ tsp cinnamon** in a large bowl. Set aside.
 
-2. **Cook down the apples.** Melt **2 tbsp butter** in a wide skillet over medium heat. Cut the peeled apples into **⅜-inch dice**. Add the **3 cups diced apples** and spread them out. Cook for **8–12 minutes**, stirring occasionally, until tender with some golden edges and most of the released juice has evaporated.
+2. **Prep the oven and pan.** Heat the oven to **350°F conventional or 325°F convection**, with a rack in the center. Butter a **9 × 5-inch metal loaf pan** and line with parchment. Mix **½ tsp cinnamon** with the **1 tbsp granulated sugar** for the topping.
 
-3. **Glaze with cinnamon.** Stir in **1 tbsp of the brown sugar** and cook another **1–2 minutes**, until glossy. Add **1 tsp cinnamon** for the final **30 seconds**. The pan should have no puddle of juice, and the pieces should still hold their shape. Lower the heat if the butter or sugar starts to darken too quickly.
+3. **Cook the apples.** Melt **2 tbsp butter** in a wide skillet over medium heat. Add the apples, cut into **⅜-inch dice**, and cook **8–12 minutes**, stirring occasionally, until tender with golden edges and no pooled juice. Stir in **1 tbsp brown sugar** and cook **1–2 minutes**, then add **1 tsp cinnamon for the final 30 seconds**. Lower the heat if the butter or sugar darkens too quickly. Spread the apples and buttery coating on a plate to cool for about **10 minutes**, until barely warm.
 
-4. **Cool the apples; mix the dry ingredients.** Scrape the apples and buttery coating onto a plate. Spread out and cool for about **10 minutes**, until barely warm. Meanwhile, whisk the flour, baking powder, baking soda, salt, and **1½ tsp cinnamon** in a large bowl. Spoon flour into the measuring cup and level it, or use the gram weight; packed flour makes a dry loaf.
+4. **Mix the wet ingredients.** Melt the **remaining 6 tbsp butter** and let it cool until warm, not hot. Whisk with the **remaining brown sugar (88 g)**, then the eggs, yogurt, milk, and vanilla until smooth.
 
-5. **Mix the wet ingredients.** Melt the **remaining 6 tbsp butter** and let it cool slightly. In another bowl, whisk it with the **remaining brown sugar (88 g)**. Whisk in the eggs, then the yogurt, milk, and vanilla until smooth. The butter should be warm, not hot, before it meets the eggs.
+5. **Combine.** Fold the wet ingredients into the dry until a few flour streaks remain. Fold in **all the cooled apples and their buttery coating** just until the flour disappears. The batter will be thick; don’t overmix.
 
-6. **Fold in the cooked apples.** Add the wet mixture to the flour and fold gently until a few dry streaks remain. Fold in **all the cooled apples and their buttery coating** just until the flour disappears. Use the whole cooked batch; don't top it up with raw apples to reach a cup measurement. The batter should be thick and scoopable. Avoid beating it smooth.
+6. **Bake.** Spoon into the pan, smooth the top, and sprinkle with the cinnamon sugar. Bake **55–65 minutes**, checking at 50. Tent loosely with foil if the top browns early. A skewer in the center should come out without wet batter; try another spot if you hit an apple.
 
-7. **Top and bake.** Scrape into the pan and smooth the surface. Sprinkle all the cinnamon sugar evenly over the top. Bake for **55–65 minutes**, checking at 50. If the top browns early, loosely tent with foil. A skewer in the center should come out without wet batter; test a second spot if you hit a piece of apple. Give it another 5 minutes if needed.
+7. **Cool.** Leave in the pan for **15 minutes**, then lift onto a rack. Wait at least **1 hour** before slicing so the center can set.
 
-8. **Let the crumb set.** Cool in the pan for **15 minutes**, then lift onto a rack with the parchment. Let it cool at least **1 hour** before slicing. Cutting too early can make the center seem gummy. Allow about **1¾ hours through baking**, plus **75 minutes** to cool the finished loaf. The cook time includes both the skillet and oven stages.
+## A few notes
 
-## Which apples?
+- **Apples:** Use firm apples, ideally a mix of sweet and tart. Measure the **3 cups (360 g)** after peeling and coring, before cooking. Use the whole cooked batch.
+- **Flour:** Weigh it, or spoon into the measuring cup and level off.
+- **Timing:** Allow about **1¾ hours through baking**, plus **75 minutes** to cool. The listed cook time includes the skillet and oven.
 
-Use firm apples that hold their shape, ideally a mix of sweet and tart. For the first bake, I'll use whatever suitable varieties we bring home. Start with **3 cups (360 g prepared), roughly 3 medium apples or 4 small ones**, to allow for moisture loss. Weigh after peeling and coring; apple sizes vary considerably. Measure before cooking, then use the whole reduced batch. Keep the pieces small enough to distribute through the loaf, but big enough to survive the skillet.
+## Storage
 
-## A little restraint, a little butter
-
-Yogurt adds moisture, and the apples provide sweetness as well as texture. Two tablespoons of butter cook the apples; six go into the batter. The tablespoon of brown sugar for the skillet comes from the half cup measured for the loaf. The tablespoon of cinnamon sugar on top gives each slice a crisp edge without frosting or a thick streusel layer.
-
-For the first test, I'm keeping nuts and other mix-ins out so I can judge the apple-to-batter ratio. A toasted slice with salted butter is the version I'm looking forward to.
-
-## Keep it for breakfast
-
-Let the loaf cool completely before wrapping. Keep it covered at cool room temperature for up to 2 days, or refrigerate for up to 5 days. For longer storage, freeze individual slices and rewarm in a toaster oven.
-
-## We'll report back
-
-After we bake it, I'll add a photo and notes on the apple varieties, actual cooking times, and how the loaf slices once cool. We'll also check the sweetness the next morning and update the recipe with what we learn.
+Cool completely before wrapping. Keep covered at cool room temperature for up to **2 days**, or refrigerate for up to **5 days**. Freeze individual slices for longer storage and rewarm in a toaster oven.
