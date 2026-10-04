@@ -1,44 +1,41 @@
-export const BENCH_SUMMARY_URL = 'https://bench.mager.co/api/v1.1/summary';
+export const BENCH_SUMMARY_URL = 'https://bench.mager.co/api/v1.3/results';
 
-export interface BenchModel {
+export interface BenchRun {
   id: string;
-  name: string;
-  effort: string;
-  attempts: number;
-  completed: number;
-  failed: number;
-  scores: number[];
+  model: string;
+  generated_at: string;
+  reasoning_effort: string;
+  score: { passed: number; total: number } | null;
 }
 
 export interface BenchSummary {
-  benchmark_version: '1.1';
-  status: 'preliminary_calibration';
-  generated_at: string;
-  total_faults: number;
-  models: BenchModel[];
+  version: string;
+  checked_at: string;
+  task_count: number;
+  total_checks: number;
+  latest: BenchRun | null;
 }
 
 export function parseBenchSummary(data: unknown): BenchSummary | null {
   if (!data || typeof data !== 'object') return null;
-  const summary = data as BenchSummary;
-  if (
-    summary.benchmark_version !== '1.1' || summary.status !== 'preliminary_calibration' ||
-    typeof summary.generated_at !== 'string' || !Number.isFinite(Date.parse(summary.generated_at)) ||
-    !Number.isInteger(summary.total_faults) || summary.total_faults < 1 ||
-    !Array.isArray(summary.models) || summary.models.length < 1 ||
-    !summary.models.every(model =>
-      model && typeof model.id === 'string' && model.id.trim() &&
-      typeof model.name === 'string' && model.name.trim() &&
-      typeof model.effort === 'string' && model.effort.trim() &&
-      Number.isInteger(model.attempts) && model.attempts >= 1 &&
-      Number.isInteger(model.completed) && model.completed >= 1 &&
-      Number.isInteger(model.failed) && model.failed >= 0 &&
-      model.completed + model.failed === model.attempts &&
-      Array.isArray(model.scores) && model.scores.length === model.completed &&
-      model.scores.every(score => Number.isInteger(score) && score >= 0 && score <= summary.total_faults)
-    )
-  ) return null;
-  return summary;
+  const value = data as { version?: unknown; tasks?: unknown; runs?: unknown };
+  if (value.version !== '1.3' || !Array.isArray(value.tasks) || !value.tasks.length || !Array.isArray(value.runs)) return null;
+  if (!value.tasks.every(task => task && Array.isArray(task.cases) && task.cases.length > 0)) return null;
+  const total = value.tasks.reduce((count, task) => count + task.cases.length, 0);
+  if (!value.runs.every(run => run && run.benchmark_version === value.version &&
+    typeof run.id === 'string' && /^[\w-]+$/.test(run.id) &&
+    typeof run.model === 'string' && run.model.trim() &&
+    typeof run.reasoning_effort === 'string' && run.reasoning_effort.trim() &&
+    typeof run.generated_at === 'string' && Number.isFinite(Date.parse(run.generated_at)) &&
+    (run.score === null || (run.score && run.score.total === total &&
+      Number.isInteger(run.score.passed) && run.score.passed >= 0 && run.score.passed <= total)))) return null;
+  return {
+    version: value.version,
+    checked_at: new Date().toISOString(),
+    task_count: value.tasks.length,
+    total_checks: total,
+    latest: [...value.runs].sort((a, b) => Date.parse(b.generated_at) - Date.parse(a.generated_at))[0] ?? null,
+  };
 }
 
 export async function loadBenchSummary(): Promise<BenchSummary | null> {
@@ -52,11 +49,14 @@ export async function loadBenchSummary(): Promise<BenchSummary | null> {
 }
 
 export function benchResultsDate(summary: BenchSummary): string {
-  return new Date(summary.generated_at).toLocaleDateString('en-US', {
+  return new Date(summary.checked_at).toLocaleDateString('en-US', {
     month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago',
   });
 }
 
-export function benchScoreLabel(model: BenchModel, total: number): string {
-  return `${model.scores.map(score => `${score}/${total}`).join(' · ')}${model.failed ? ` · ${model.failed} unscored` : ''}`;
+export function benchResultLabel(summary: BenchSummary): string {
+  if (!summary.latest) return `No v${summary.version} model results yet.`;
+  const run = summary.latest;
+  const model = run.model.replace(/^codex-cli\//, '').replace(/^gpt-/, 'GPT-').replace(/-sol$/, ' Sol').replace(/-astra$/, ' Astra');
+  return `${model}: ${run.score ? `${run.score.passed}/${run.score.total} checks passed` : 'unscored attempt'} · ${run.reasoning_effort} effort.`;
 }

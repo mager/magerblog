@@ -225,7 +225,7 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
 - The site uses Astro's content loader API with `glob()` loader
 - All pages are statically generated at build time
 - The homepage's `BenchWidget.astro` takes a dated build snapshot from
-  `https://bench.mager.co/api/summary`, then refreshes it in the browser on each
+  `https://bench.mager.co/api/v1.3/results`, then refreshes it in the browser on each
   visit. Keep scores and model names out of the component source. Failed live
   requests retain the labeled snapshot and the leaderboard link.
 - Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
