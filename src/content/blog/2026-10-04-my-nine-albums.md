@@ -9,9 +9,7 @@ heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10
 heroImageAlt: "My nine-album grid: Metallica, Fabolous, Jay-Z, two Kanye West albums, The Weeknd, Kid Cudi, Major Lazer, and Tommy Richman."
 ---
 
-I loved wearing those big headphones. These days I wear AirPods Pro.
-
-Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9albums.com/). Here’s [my nine-album grid](https://www.my9albums.com/s/ucJNG17vVK), and a little about why I picked each one.
+Thanks to Trevor ([@whatdotcd](https://x.com/whatdotcd)) for turning me on to [my9albums](https://www.my9albums.com/). Here’s [my nine-album grid](https://www.my9albums.com/s/ucJNG17vVK), and a little about why I picked each one.
 
 <ol class="album-tracklist" role="list">
   <li class="album-track" id="album-1">
@@ -37,7 +35,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">Jay-Z</p>
       <h3><a href="https://open.spotify.com/album/0DbcIbqkdiUSJhL1K7neAv">Vol. 2… Hard Knock Life</a> <span>(1998)</span></h3>
-      <p>This is the album I blasted in my first car, and it’s probably my favorite album of all time.</p>
+      <p>This is the album I blasted in my first car, and it’s probably my favorite album of all time. “Money Ain’t a Thang” was my jam!</p>
       <a class="album-spotify" aria-label="Listen to Vol. 2… Hard Knock Life by Jay-Z on Spotify" href="https://open.spotify.com/album/0DbcIbqkdiUSJhL1K7neAv">Listen on Spotify</a>
     </div>
   </li>

@@ -72,7 +72,7 @@ test('album poster precedes nine accessible ordered records with covers, years a
     assert.equal(record.querySelector('.album-spotify').getAttribute('href'), destination);
   }
   assert.equal(destinations.size, 9);
-  assert.match(document.querySelector('.album-prose').textContent, /big headphones[\s\S]*AirPods Pro/);
+  assert(document.querySelector('.album-headphones svg'), 'Keep the headphone illustration');
 });
 
 test('the Japanese learning story retains code, a keyboard-accessible table, and Japanese text', () => {
