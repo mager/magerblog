@@ -1,8 +1,8 @@
 ---
 import '../styles/newspaper.css';
 import ThemeToggle from './ThemeToggle.astro';
-interface Props { homepage?: boolean; activeSection?: string; themeToggle?: boolean; }
-const { homepage = false, activeSection, themeToggle = homepage } = Astro.props;
+interface Props { homepage?: boolean; activeSection?: string; themeToggle?: boolean; revealWordmark?: boolean; }
+const { homepage = false, activeSection, themeToggle = homepage, revealWordmark = false } = Astro.props;
 const path = Astro.url.pathname;
 const sections = [
   { name: 'Tech', href: '/tech/' },
@@ -15,9 +15,9 @@ const sections = [
 ];
 const active = (href: string) => activeSection === href || path.replace(/\/$/, '') === href.replace(/\/$/, '') || path.startsWith(href);
 ---
-<header class:list={['site-header', { 'on-paper': homepage }]}>
+<header class:list={['site-header', { 'on-paper': homepage }]} data-reveal-wordmark={revealWordmark || undefined} data-wordmark-visible={revealWordmark ? 'false' : undefined}>
   <div class="header-shell">
-    <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>
+    <a class="wordmark" href="/" aria-label="mager.co home" inert={revealWordmark}>mager<span>.</span>co</a>
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={path.replace(/\/$/, '') === section.href.replace(/\/$/, '') ? 'page' : undefined}>{section.name}</a>)}
 
@@ -36,6 +36,13 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
   .wordmark { color: var(--header-ink); font: 800 27px/1 var(--news-display); letter-spacing: -.07em; white-space: nowrap; }
   .wordmark span { color: var(--news-red); }
   .wordmark:hover { color: var(--header-ink); opacity: .8; }
+  [data-wordmark-visible="false"] .wordmark { opacity: 0; visibility: hidden; transform: translateY(-4px); }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-wordmark] .wordmark { transition: opacity 160ms ease-out, transform 160ms ease-out; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal-wordmark] .wordmark { transition: none; }
+  }
   .header-sections { display: flex; flex-wrap: wrap; gap: 0 clamp(12px, 1.8vw, 24px); align-items: center; }
   .header-sections > a { display: inline-flex; align-items: center; position: relative; min-height: 44px; color: var(--header-muted); font: 500 13px/1.4 var(--news-ui); }
   .header-sections > a:hover, .header-sections > a.active { color: var(--header-ink); }
@@ -58,10 +65,13 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
 </style>
 
 <script>
+  import { observeHeaderWordmark } from '../scripts/header-wordmark';
   const header = document.querySelector<HTMLElement>('.site-header');
   if (header) {
+    const refreshWordmark = observeHeaderWordmark(header);
     new ResizeObserver(() => {
       document.documentElement.style.setProperty('--site-header-height', `${header.getBoundingClientRect().height}px`);
+      refreshWordmark();
     }).observe(header);
   }
 

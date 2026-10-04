@@ -7,6 +7,7 @@ import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
+import SocialIcon from '../components/SocialIcon.astro';
 import { getFeed, entryHref, entryTitle } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
@@ -22,10 +23,26 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
   <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} /></head>
   <body class="publication edition-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header homepage themeToggle />
+    <Header homepage themeToggle revealWordmark />
     <main id="main-content" class="edition-shell">
       <div class="edition-masthead">
-        <h1>mager<span>.</span>co</h1>
+        <h1 data-main-wordmark>mager<span>.</span>co</h1>
+        <div class="masthead-intro">
+          <img src="/images/mager.jpg" alt="Mager’s illustrated avatar, wearing a cap and eating a hot dog." width="800" height="800" />
+          <div>
+            <nav class="masthead-socials" aria-label="Social profiles">
+              <a href="https://linkedin.com/in/magerleagues" aria-label="Mager on LinkedIn" title="LinkedIn"><SocialIcon name="linkedin" /></a>
+              <a href="https://github.com/mager" aria-label="Mager on GitHub" title="GitHub"><SocialIcon name="github" /></a>
+              <a href="https://twitter.com/mager" aria-label="Mager on X" title="X"><SocialIcon name="x" /></a>
+              <a href="https://instagram.com/mager" aria-label="Mager on Instagram" title="Instagram"><SocialIcon name="instagram" /></a>
+              <a href="https://open.spotify.com/user/magerleagues" aria-label="Mager on Spotify" title="Spotify"><SocialIcon name="spotify" /></a>
+              <a href="https://soundcloud.com/andrew" aria-label="Mager on SoundCloud" title="SoundCloud"><SocialIcon name="soundcloud" /></a>
+              <a href="https://www.goodreads.com/user/show/7586152-mager" aria-label="Mager on Goodreads" title="Goodreads"><SocialIcon name="goodreads" /></a>
+              <a href="https://www.last.fm/user/magerleagues" aria-label="Mager on Last.fm" title="Last.fm"><SocialIcon name="lastfm" /></a>
+            </nav>
+            <a class="masthead-all-profiles" href="https://bio.link/mager">All profiles <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </div>
       <div class="edition-switchbar">
         <p>The Chicago edition <span class="edition-count">/ {edition.count} things to get into</span></p>
