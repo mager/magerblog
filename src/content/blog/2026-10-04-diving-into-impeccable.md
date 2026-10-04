@@ -126,10 +126,10 @@ Other investigations took me through [gradient contrast](https://github.com/pbak
 
 ## Suggesting new slop checks
 
-I'm also developing a proposal around hard offset shadows, such as `box-shadow: 4px 4px 0 #333`. Impeccable's design guidance discourages them outside an intentional neobrutalist direction, but my synthetic examples didn't trigger a detector finding.
+I opened [a proposal for an advisory hard offset shadow check](https://github.com/pbakaus/impeccable/issues/929), covering patterns such as `box-shadow: 4px 4px 0 #333`. Impeccable's design guidance discourages them outside an intentional neobrutalist direction, but my synthetic examples didn't trigger a detector finding.
 
 The exception is the interesting part. On [neobrutalism.dev](https://www.neobrutalism.dev/), hard shadows belong to the chosen style. Detecting the CSS shape is easier than deciding whether it belongs on a particular page.
 
-I'm exploring an advisory check that could flag the pattern for review without treating every use as a failure. The proposal is still a draft. The next step is a [GitHub feature-request issue](https://github.com/pbakaus/impeccable/issues/new?template=feature_request.md): explain the problem, include screenshots of cases to flag and intentional uses to leave alone, and ask whether an advisory detector or better skill guidance would help. I'll offer to implement it and wait for maintainer approval before opening a PR.
+The proposal asks whether an advisory check could flag the pattern for review without treating every use as a failure, or whether this belongs in the agent's design guidance. I included the static-engine results, intentional-use examples, and a test plan. I still need examples where the effect clearly conflicts with the intended design. I've offered to implement the check and am waiting for maintainer feedback before opening a PR.
 
 That's where I am: using a plugin I love, learning how it works, and trying to contribute something useful. If you're new to it, start with the [installation guide](https://impeccable.style/docs/), pick a page you know well, and learn a few verbs. For me, `bolder`, `delight`, and `overdrive` opened the door. I'm still finding out how much is behind it.
