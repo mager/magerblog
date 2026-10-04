@@ -55,7 +55,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">Kanye West</p>
       <h3><a href="https://open.spotify.com/album/4SZko61aMnmgvNhfhgTuD3">Graduation</a> <span>(2007)</span></h3>
-      <p>Kanye gets two spots. I almost added <a href="https://open.spotify.com/album/0eZRIt3Ht1IuMXsr0QR8OY">Watch the Throne</a> too. That album is so good.</p>
+      <p>Funny enough, I graduated in 2007 too. “Good Morning,” “Good Life,” “Flashing Lights,” “Homecoming”!? I blasted this album in my college apartment. Kanye gets two spots, and I almost added <a href="https://open.spotify.com/album/0eZRIt3Ht1IuMXsr0QR8OY">Watch the Throne</a> too. That album is so good.</p>
       <a class="album-spotify" aria-label="Listen to Graduation by Kanye West on Spotify" href="https://open.spotify.com/album/4SZko61aMnmgvNhfhgTuD3">Listen on Spotify</a>
     </div>
   </li>
@@ -64,7 +64,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">The Weeknd</p>
       <h3><a href="https://open.spotify.com/album/7zCODUHkfuRxsUjtuzNqbd">House of Balloons</a> <span>(2011)</span></h3>
-      <p>When I moved to NYC in 2011, I listened to all of The Weeknd’s mixtapes every day for months on repeat. <em>House of Balloons</em> gets the spot here. He’s still one of my favorite artists.</p>
+      <p>When I moved to NYC in 2011, I listened to all of The Weeknd’s mixtapes every day for months on repeat. I remember listening to <em>House of Balloons</em> on the L train, heading to the Spotify office. He’s still one of my favorite artists.</p>
       <a class="album-spotify" aria-label="Listen to House of Balloons by The Weeknd on Spotify" href="https://open.spotify.com/album/7zCODUHkfuRxsUjtuzNqbd">Listen on Spotify</a>
     </div>
   </li>
@@ -73,7 +73,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">Kid Cudi</p>
       <h3><a href="https://open.spotify.com/album/1OnCqi7IuzjnrOh2ZNvJHd">Man on the Moon: The End of Day</a> <span>(2009)</span></h3>
-      <p>I love this album so much. “Pursuit of Happiness” is incredible.</p>
+      <p>For me, this is probably the album of the decade. It felt like the record that made Cudi a household name. I love it so much, and “Pursuit of Happiness” is incredible.</p>
       <a class="album-spotify" aria-label="Listen to Man on the Moon: The End of Day by Kid Cudi on Spotify" href="https://open.spotify.com/album/1OnCqi7IuzjnrOh2ZNvJHd">Listen on Spotify</a>
     </div>
   </li>
@@ -82,7 +82,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">Major Lazer</p>
       <h3><a href="https://open.spotify.com/album/2HgfRoTq6OG0AsoJQLsyUQ">Major Lazer Essentials</a> <span>(2018)</span></h3>
-      <p>I love Diplo and Major Lazer, and I frequently put this on when I fly.</p>
+      <p>I love Diplo and Major Lazer, and I frequently put this on when I fly. “Lean On” and “Bubble Butt” are the best.</p>
       <a class="album-spotify" aria-label="Listen to Major Lazer Essentials by Major Lazer on Spotify" href="https://open.spotify.com/album/2HgfRoTq6OG0AsoJQLsyUQ">Listen on Spotify</a>
     </div>
   </li>
@@ -91,7 +91,7 @@ Thanks to Trevor (@whatdotcd) for turning me on to [my9albums](https://www.my9al
     <div class="album-detail">
       <p class="album-artist">Tommy Richman</p>
       <h3><a href="https://open.spotify.com/album/7c60QdnpXI2efwnUaIzQSu">COYOTE</a> <span>(2024)</span></h3>
-      <p>Tommy Richman is one of my newer favorite artists. This album is insane.</p>
+      <p>Tommy Richman is one of my newer favorite artists. This album is insane, and he’s really good live too.</p>
       <a class="album-spotify" aria-label="Listen to COYOTE by Tommy Richman on Spotify" href="https://open.spotify.com/album/7c60QdnpXI2efwnUaIzQSu">Listen on Spotify</a>
     </div>
   </li>
