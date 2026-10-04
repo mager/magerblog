@@ -83,7 +83,7 @@ The site organizes content into three categories, each with distinct visual them
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
 - `src/pages/about.astro`: About page
-- `src/pages/software.astro`: Selected projects (Perch, Mood Shell, Homeport, and prxps), with project sites, public source links, and build logs. Styling lives in `src/styles/software.css`.
+- `src/pages/software.astro`: Selected projects (Perch, Mood Shell, Homeport, and prxps), with project sites, public source links, and build logs. Terminal-inspired project directory with a dark default and a light option; an explicit saved theme still wins. Styling lives in `src/styles/software.css`.
 
 ### Layouts
 
