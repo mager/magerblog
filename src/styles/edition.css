@@ -2,15 +2,16 @@
 .edition-masthead { display: grid; grid-template-columns: minmax(0, 2.15fr) minmax(260px, 1fr); align-items: center; gap: 32px; padding: 28px 0; border-bottom: 3px solid var(--news-ink); }
 .edition-masthead h1 { font: 800 clamp(80px, 12vw, 172px)/.95 var(--news-display); letter-spacing: -.065em; margin: 0 0 calc(8px - .2em) -6px; padding-bottom: .2em; color: var(--news-ink); }
 .edition-masthead h1 > span { color: var(--news-red); }
-.masthead-intro { display: flex; align-items: flex-start; gap: 18px; padding-left: 28px; }
+.masthead-intro { display: flex; justify-content: flex-end; align-items: flex-start; gap: 18px; }
+.masthead-intro > div { display: flex; flex-direction: column; align-items: flex-end; }
 .masthead-intro img { width: 76px; height: 76px; flex: 0 0 76px; object-fit: cover; border-radius: 50%; }
-.masthead-socials { display: grid; grid-template-columns: repeat(4, 44px); gap: 2px; margin-left: -10px; }
+.masthead-socials { display: grid; grid-template-columns: repeat(4, 44px); gap: 2px; }
 .masthead-socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--news-muted); border-radius: 6px; }
 .masthead-socials a:hover { background: var(--news-surface); }
 .masthead-all-profiles { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; color: var(--news-muted); font: 12px/1.5 var(--news-ui); }
 .masthead-intro a:hover { color: var(--news-blue); text-decoration: underline; text-underline-offset: 4px; }
 @media (min-width: 801px) and (max-width: 1000px) {
-  .masthead-intro { gap: 12px; padding-left: 16px; }
+  .masthead-intro { gap: 12px; }
   .masthead-intro img { width: 52px; height: 52px; flex-basis: 52px; }
   .masthead-socials { gap: 0; }
 }
@@ -135,9 +136,9 @@
 @media (max-width: 800px) {
   .edition-masthead { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .edition-masthead h1 { font-size: 16vw; }
-  .masthead-intro { padding-left: 0; gap: 14px; }
+  .masthead-intro { justify-content: flex-start; gap: 14px; }
+  .masthead-intro > div { align-items: flex-start; }
   .masthead-intro img { width: 52px; height: 52px; flex-basis: 52px; }
-  .masthead-hello { font-size: 16px; margin-bottom: 4px; }
   .masthead-socials { gap: 2px; }
   .front-spread, .offscreen-spread, .reference-spread { grid-template-columns: minmax(0, 1fr); }
   .dispatch-column { padding-left: 0; border-left: 0; padding-top: 20px; border-top: 1px solid var(--news-rule); }
