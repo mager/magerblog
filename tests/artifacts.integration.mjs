@@ -30,7 +30,7 @@ test('artifact is a centered document with one title, contents, tables, and port
 
 test('artifact discovery uses short feed previews, archive, RSS, and llms.txt', () => {
   for (const path of ['index.html', 'artifacts/index.html']) {
-    const entry = html(path).querySelector(`[data-kind="artifacts"]`);
+    const entry = html(path).querySelector(`[data-kind="artifacts"] .entry-title a[href="${href}"]`)?.closest('[data-kind="artifacts"]');
     assert(entry);
     assert.equal(entry.querySelector('.entry-title a').getAttribute('href'), href);
     assert(entry.querySelector('.entry-description'));
