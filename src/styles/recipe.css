@@ -16,7 +16,7 @@
 .recipe-photo { margin: 0; }
 .recipe-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 4px; }
 .recipe-draft { display: inline-block; padding: 8px 12px; background: var(--news-yellow); color: oklch(23% 0.016 260); font: 500 16px/1.4 var(--news-ui); }
-.recipe-jumps { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; background: var(--news-paper); border-block: 1px solid var(--news-rule); }
+.recipe-jumps { position: sticky; top: var(--site-header-height, 65px); z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; background: var(--news-paper); border-block: 1px solid var(--news-rule); }
 .recipe-jumps > div { display: flex; align-items: center; gap: 24px; }
 .recipe-jumps a, .recipe-jumps button { display: inline-flex; gap: 12px; align-items: center; min-height: 48px; font: 600 18px/1.4 var(--news-ui); }
 .recipe-jumps button { cursor: pointer; background: none; border: none; padding: 0; color: var(--news-muted); }

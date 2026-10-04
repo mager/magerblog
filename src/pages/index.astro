@@ -7,7 +7,6 @@ import BenchWidget from '../components/BenchWidget.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
-import ChicagoFlag from '../components/ChicagoFlag.astro';
 import { getFeed, entryHref, entryTitle } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
@@ -23,7 +22,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
   <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} /></head>
   <body class="publication edition-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header homepage themeToggle masthead />
+    <Header homepage themeToggle />
     <main id="main-content" class="edition-shell">
       <div class="edition-masthead">
         <h1>mager<span>.</span>co</h1>
@@ -82,7 +81,6 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
         <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={stream} filters compact pageSize={24} headingLevel="h2" /></details>
       </section>
     </main>
-    <div class="edition-colophon"><div class="edition-colophon-inner"><span class="edition-credit"><ChicagoFlag /><span>Built with agents in Chicago</span></span><a href="/rss.xml">RSS ↗</a></div></div>
     <Footer homepage />
     <SecretSearch posts={posts} />
   </body>

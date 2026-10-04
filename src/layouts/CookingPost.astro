@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import PhotoViewer from '../components/cooking/PhotoViewer.astro';
 import '../styles/recipe.css';
@@ -119,8 +120,9 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
           {nextPost && <a href={`/blog/${nextPost.id}/`} rel="next">{nextPost.data.title}<span aria-hidden="true">↗</span></a>}
         </div>
       </nav>}
-      <footer class="recipe-footer"><a href="/cooking/">More from my kitchen</a><a href="#recipe-content">Back to top ↑</a></footer>
+
     </main>
+    <Footer homepage />
     <PhotoViewer />
     <script>import '../scripts/recipe';</script>
     <SecretSearch posts={allPosts} />

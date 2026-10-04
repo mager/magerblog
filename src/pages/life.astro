@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import LifeCard from '../components/life/LifeCard.astro';
 import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE } from '../consts';
@@ -246,86 +247,6 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         grid-column: 1 / -1;
       }
 
-      /* ── Footer ──────────────────────────────────────────── */
-      .life-footer {
-        padding: 0 1.5rem 5rem;
-      }
-
-      .footer-panel {
-        max-width: 1240px;
-        margin: 0 auto;
-        padding: 1.7rem 1.8rem;
-        border-radius: 0;
-        background: var(--lf-sky);
-        border: 2px solid var(--lf-pixel);
-        box-shadow: var(--lf-shadow);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem 2rem;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .footer-copyblock {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-      }
-
-      .footer-brand {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 2.2rem;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        color: var(--lf-text);
-      }
-
-      .footer-tagline,
-      .footer-copy {
-        font-family: 'Azeret Mono', monospace;
-        font-size: 0.68rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--lf-text-muted);
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-
-      .footer-link {
-        font-family: 'Azeret Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--lf-white) !important;
-        background: var(--lf-coral);
-        border: 2px solid var(--lf-pixel);
-        box-shadow: var(--lf-shadow-sm);
-        padding: 0.5rem 0.9rem;
-        transition: transform 0.1s, box-shadow 0.1s;
-      }
-
-      .footer-link:hover {
-        color: var(--lf-white) !important;
-        transform: translate(2px, 2px);
-        box-shadow: 1px 1px 0 var(--lf-pixel);
-      }
-
-      kbd {
-        font-family: 'Azeret Mono', monospace;
-        font-size: 0.65rem;
-        padding: 0.12rem 0.4rem;
-        background: var(--lf-white);
-        border: 1px solid var(--lf-pixel);
-        border-radius: 0;
-        box-shadow: 2px 2px 0 var(--lf-pixel);
-      }
-
       /* ── Responsive ──────────────────────────────────────── */
       @media (max-width: 960px) {
         .life-grid {
@@ -346,13 +267,9 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         .hero-subtitle {
           font-size: 1rem;
         }
-        .life-grid-section,
-        .life-footer {
+        .life-grid-section {
           padding-left: 1.15rem;
           padding-right: 1.15rem;
-        }
-        .footer-panel {
-          padding: 1.35rem 1.2rem;
         }
       }
     </style>
@@ -407,21 +324,10 @@ const latestYear = posts[0]?.data.pubDate.getFullYear() || new Date().getFullYea
         </div>
       </main>
 
-      <footer class="life-footer">
-        <div class="footer-panel">
-          <div class="footer-copyblock">
-            <div class="footer-brand">Life</div>
-            <p class="footer-tagline">Travel, seasons, things worth keeping</p>
-            <p class="footer-copy">Built with Astro · press <kbd>/</kbd> to search</p>
-          </div>
-          <div class="footer-links">
-            <a href="/" class="footer-link">mager.co</a>
-            <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
-          </div>
-        </div>
-      </footer>
+
     </div>
 
+    <Footer />
     <SecretSearch posts={allPosts} />
 
     <script>

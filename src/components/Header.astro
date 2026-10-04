@@ -2,7 +2,7 @@
 import '../styles/newspaper.css';
 import ThemeToggle from './ThemeToggle.astro';
 interface Props { homepage?: boolean; masthead?: boolean; editionDate?: Date; activeSection?: string; themeToggle?: boolean; }
-const { homepage = false, masthead = false, activeSection, themeToggle = false } = Astro.props;
+const { homepage = false, activeSection, themeToggle = homepage } = Astro.props;
 const path = Astro.url.pathname;
 const sections = [
   { name: 'Tech', href: '/tech/' },
@@ -16,13 +16,15 @@ const moreSections = [
   { name: 'Links', href: '/links/' },
   { name: 'mager-bench ↗', href: 'https://bench.mager.co/' },
   { name: 'About', href: '/about/' },
-  { name: 'Subscribe via RSS', href: '/rss.xml' },
+  { name: 'Archive', href: '/blog/' },
+  { name: 'GitHub ↗', href: 'https://github.com/mager' },
+  { name: 'X ↗', href: 'https://x.com/mager' },
 ];
 const active = (href: string) => activeSection === href || path.replace(/\/$/, '') === href.replace(/\/$/, '') || path.startsWith(href);
 ---
-<header class:list={['site-header', { 'on-paper': homepage, 'edition-header': masthead }]}>
+<header class:list={['site-header', { 'on-paper': homepage }]}>
   <div class="header-shell">
-    {!masthead && <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>}
+    <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={path.replace(/\/$/, '') === section.href.replace(/\/$/, '') ? 'page' : undefined}>{section.name}</a>)}
       <details class="header-more">
@@ -40,10 +42,10 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
 <style>
   :global(.skip-link) { position: absolute; top: 8px; left: 16px; z-index: 1000; padding: 12px 18px; background: var(--news-blue); color: var(--news-paper); transform: translateY(-150%); font: 600 14px var(--news-ui); }
   :global(.skip-link:focus) { transform: translateY(0); }
-  .site-header { --header-bg: #0d1117; --header-ink: #edece8; --header-muted: #a4a5aa; --header-rule: #292929; background: var(--header-bg); color: var(--header-ink); padding: 0 24px; }
+  .site-header { --header-bg: #0d1117; --header-ink: #edece8; --header-muted: #a4a5aa; --header-rule: #292929; background: var(--header-bg); color: var(--header-ink); padding: 0 24px; position: sticky; top: 0; z-index: 30; border-bottom: 1px solid var(--header-rule); }
   .on-paper { --header-bg: var(--news-paper); --header-ink: var(--news-ink); --header-muted: var(--news-muted); --header-rule: var(--news-rule); }
-  .header-shell { display: flex; align-items: center; gap: clamp(24px, 4vw, 56px); max-width: 1136px; margin: auto; min-height: 88px; border-bottom: 1px solid var(--header-rule); }
-  .wordmark { color: var(--header-ink); font: 800 32px/1 var(--news-display); letter-spacing: -.07em; white-space: nowrap; }
+  .header-shell { display: flex; align-items: center; gap: clamp(24px, 4vw, 56px); max-width: 1320px; margin: auto; min-height: 64px; }
+  .wordmark { color: var(--header-ink); font: 800 27px/1 var(--news-display); letter-spacing: -.07em; white-space: nowrap; }
   .wordmark span { color: var(--news-red); }
   .wordmark:hover { color: var(--header-ink); opacity: .8; }
   .header-sections { display: flex; gap: clamp(12px, 1.8vw, 24px); align-items: center; }
@@ -56,34 +58,32 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
   .header-more summary { gap: 6px; cursor: pointer; list-style: none; }
   .header-more summary::-webkit-details-marker { display: none; }
   .header-more summary span { font-size: 14px; }
-  .more-links { position: absolute; top: calc(100% + 4px); right: 0; z-index: 100; width: 190px; padding: 8px; border: 1px solid var(--header-rule); border-radius: 6px; background: var(--header-bg); box-shadow: 0 8px 24px rgb(0 0 0 / 8%); }
+  .more-links { position: absolute; top: calc(100% + 4px); right: 0; z-index: 100; width: 190px; max-height: calc(100dvh - var(--site-header-height, 64px) - 72px); overflow-y: auto; padding: 8px; border: 1px solid var(--header-rule); border-radius: 6px; background: var(--header-bg); box-shadow: 0 8px 24px rgb(0 0 0 / 8%); }
   .more-links a { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; color: var(--header-muted); font: 500 13px/1.4 var(--news-ui); border-radius: 3px; }
   .more-links a:hover, .more-links a[aria-current="page"] { color: var(--header-ink); background: color-mix(in oklch, var(--header-ink) 7%, var(--header-bg)); }
   .site-header :focus-visible { outline: 2px solid var(--header-ink); outline-offset: 3px; }
-  .edition-header .header-shell { max-width: 1320px; min-height: 68px; }
-  .edition-header { position: sticky; top: 0; z-index: 30; border-bottom: 1px solid var(--header-rule); }
-  .edition-header .header-shell { border-bottom: 0; }
+  :global(:root) { --site-header-height: 65px; }
+  :global(html) { scroll-padding-block: calc(var(--site-header-height) + 16px) calc(var(--site-footer-height, 49px) + 16px); }
   @media(max-width: 760px) {
-    .header-shell { flex-wrap: wrap; gap: 0 16px; padding-top: 14px; }
-    .wordmark { font-size: 30px; }
-    .header-tools { min-height: 44px; }
-    .header-sections { order: 3; justify-content: space-between; flex-basis: 100%; flex-wrap: wrap; gap: 10px; padding: 6px 0 8px; }
-    .edition-header .header-shell { padding-block: 8px; }
-    .edition-header .header-sections { order: 0; flex: 1; justify-content: flex-start; gap: 4px 16px; padding: 0; }
-  }
-  @media(max-width: 540px) {
-    .site-header { padding: 0 18px; }
-    .header-tools { gap: 16px; }
+    :global(:root) { --site-header-height: 97px; }
+    .header-shell { display: grid; grid-template-columns: 1fr auto; gap: 0 16px; padding-top: 4px; }
+    .wordmark { font-size: 25px; }
+    .header-tools { grid-column: 2; grid-row: 1; min-height: 44px; }
+    .header-sections { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; gap: 10px; padding-bottom: 4px; }
     .header-sections > a, .header-more summary { font-size: 12px; }
-    .edition-header .header-shell { flex-wrap: nowrap; gap: 8px; min-height: 56px; padding-block: 4px; }
-    .edition-header .header-sections { flex-wrap: nowrap; gap: 10px; }
-    .edition-header .header-tools :global(.theme-toggle) { min-width: 44px; }
-    .edition-header .header-tools :global([data-theme-label]) { display: none; }
   }
-  @media print { .edition-header { position: static; } }
+  @media(max-width: 540px) { .site-header { padding-inline: 18px; } }
+  @media print { .site-header { display: none; } }
 </style>
 
 <script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--site-header-height', `${header.getBoundingClientRect().height}px`);
+    }).observe(header);
+  }
+
   document.querySelectorAll<HTMLDetailsElement>('.header-more').forEach(menu => {
     document.addEventListener('click', event => {
       if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false;

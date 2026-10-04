@@ -52,7 +52,8 @@ test('homepage keeps filters and ordinary links without date or permalink clutte
   const link = page.querySelector('[data-kind="links"] .destination');
   assert.match(link.getAttribute('href'), /^https?:\/\//);
   assert(page.querySelector('.header-more a[href="/notes/"]'));
-  assert(page.querySelector('.header-more a[href="/rss.xml"]'));
+  assert(page.querySelector('.site-footer a[href="/rss.xml"]'));
+  assert.equal(page.querySelector('.header-more a[href="/rss.xml"]'), null);
 });
 
 test('draft artifacts never generate pages, downloads, feed entries, or indexes', () => {
@@ -93,7 +94,8 @@ test('notes have a compact dedicated layout while keeping the complete body and 
   assert.equal(page.querySelectorAll('h1').length, 1);
   assert(page.querySelector('.note-layout .note-prose'));
   assert.equal(page.querySelector('.reading-dek, .reading-progress, .reading-contents'), null);
-  assert.match(page.querySelector('.note-prose').textContent, /the first useful contribution was a small page/);
+  assert(page.querySelectorAll('.note-prose p').length > 1);
+  assert(page.querySelector('.note-prose pre code'));
   assert.equal(page.querySelector('.note-source').href, 'https://github.com/pbakaus/impeccable');
   assert(page.querySelector('.note-meta time'));
   const home = html('index.html');

@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import RecipeCard from '../../components/cooking/RecipeCard.astro';
 import SecretSearch from '../../components/SecretSearch.astro';
 import { SITE_TITLE } from '../../consts';
@@ -343,23 +344,6 @@ const breadcrumbSchema = {
         color: var(--ck-text-muted);
       }
 
-      /* Footer -------------------------------------------------------- */
-      .ci-foot {
-        max-width: var(--kx-maxw);
-        margin: 0 auto;
-        padding: 2.25rem var(--kx-pad) 4rem;
-        border-top: 1px solid var(--ck-divider);
-        font-family: 'DM Sans', -apple-system, sans-serif;
-        font-size: 0.8rem;
-        color: var(--ck-text-muted);
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      html[data-cooking] .ci-foot a { color: var(--ck-text-secondary); text-decoration: underline; text-underline-offset: 3px; }
-      .ci-foot a:hover { color: var(--ck-gold); }
-
       /* Responsive ---------------------------------------------------- */
       @media (max-width: 760px) {
         .feature-card { grid-template-columns: 1fr; gap: 1.25rem; }
@@ -376,8 +360,8 @@ const breadcrumbSchema = {
   </head>
 
   <body>
+    <Header homepage />
     <div class="ci-shell">
-      <Header homepage={true} />
 
       <!-- Masthead -->
       <header class="ci-mast">
@@ -453,11 +437,10 @@ const breadcrumbSchema = {
         </div>
       </main>
 
-      <footer class="ci-foot">
-        <span><a href="/">mager.co</a> &middot; Cooking</span>
-        <span>Chicago &middot; since {startYear}</span>
-      </footer>
+
     </div>
+
+    <Footer homepage />
 
     <!-- Category filter (graceful: works without View Transitions) -->
     <script is:inline>
