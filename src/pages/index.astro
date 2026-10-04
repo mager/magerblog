@@ -58,7 +58,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
         <div class="offscreen-spread">
           {edition.kitchen.length > 0 && <section class="kitchen-section" aria-labelledby="kitchen-heading">
             <div class="section-heading"><div><span class="section-kicker">03 / Away from the keyboard</span><h2 id="kitchen-heading">Something good<br />on the stove.</h2></div><a href="/cooking/">The kitchen ↗</a></div>
-            <div class="kitchen-layout"><Story entry={edition.kitchen[0]} image /><div class="recipe-list">{edition.kitchen.slice(1).map(entry => <Story entry={entry} variant="brief" />)}</div></div>
+            <div class="kitchen-layout"><Story entry={edition.kitchen[0]} image /><div class="recipe-list">{edition.kitchen.slice(1).map(entry => <Story entry={entry} variant="brief" thumbnail />)}</div></div>
           </section>}
           {edition.life.length > 0 && <section class="life-section" aria-labelledby="life-heading">
             <div class="section-heading small"><h2 id="life-heading">Life, outside.</h2><a href="/life/">More ↗</a></div>

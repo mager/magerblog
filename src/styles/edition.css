@@ -74,6 +74,9 @@
 .kitchen-layout .story-kind, .life-section .story-kind { display: none; }
 .recipe-list article { padding: 14px 0; border-top: 1px solid var(--news-rule); }
 .recipe-list article:first-child { padding-top: 0; border-top: 0; }
+.recipe-list article:has(.story-image:not([hidden])) { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 14px; align-items: center; }
+.recipe-list .story-image { margin: 0; }
+.kitchen-layout .recipe-list .story-image img { aspect-ratio: 1; }
 .recipe-list h3 { font-family: var(--news-display); font-size: 23px; }
 .recipe-list .story-description { display: none; }
 .life-section .section-heading h2 { color: var(--news-green); }
