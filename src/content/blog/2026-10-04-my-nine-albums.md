@@ -17,7 +17,7 @@ Thanks to Trevor ([@whatdotcd](https://x.com/whatdotcd)) for turning me on to [m
     <div class="album-detail">
       <p class="album-artist">Metallica</p>
       <h3><a href="https://open.spotify.com/album/4PKUNQFKllHhl5EAjtiBOq">Reload</a> <span>(1997)</span></h3>
-      <p>Picking a single album from high school and before was hard, but <em>Reload</em> is the one that comes to mind. I almost added Nirvana’s <a href="https://open.spotify.com/album/7wOOA7l306K8HfBKfPoafr">In Utero</a>, and I had Tool’s <a href="https://open.spotify.com/album/6yWMN087PgSimbcVmHLEwG">Ænima</a> on the list for a minute.</p>
+      <p>Picking a single album from high school and before was hard, but <em>Reload</em> is the one that comes to mind. By the time I graduated high school, I could play almost every Metallica song on guitar, along with songs by Tool, Nirvana, and Led Zeppelin. I almost added Nirvana’s <a href="https://open.spotify.com/album/7wOOA7l306K8HfBKfPoafr">In Utero</a>, and I had Tool’s <a href="https://open.spotify.com/album/6yWMN087PgSimbcVmHLEwG">Ænima</a> on the list for a minute.</p>
       <a class="album-spotify" aria-label="Listen to Reload by Metallica on Spotify" href="https://open.spotify.com/album/4PKUNQFKllHhl5EAjtiBOq">Listen on Spotify</a>
     </div>
   </li>
