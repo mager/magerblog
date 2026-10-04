@@ -8,7 +8,9 @@ const year = new Date().getFullYear();
 <footer class:list={['site-footer', { 'on-paper': homepage }]}>
   <div class="footer-shell">
     <p class="footer-credit"><ChicagoFlag /><span>Built with agents in Chicago<span class="footer-copyright"> · © {year}</span></span></p>
-    <a class="footer-rss" href="/rss.xml">RSS <span aria-hidden="true">↗</span></a>
+    <nav class="footer-links" aria-label="Elsewhere">
+      <a href="/about/">About</a><a href="/blog/">Archive</a><a href="https://bench.mager.co/">Bench ↗</a><a href="https://github.com/mager">GitHub ↗</a><a href="https://x.com/mager">X ↗</a><a href="/rss.xml">RSS</a>
+    </nav>
   </div>
 </footer>
 <style>
@@ -17,10 +19,18 @@ const year = new Date().getFullYear();
   .on-paper { --footer-bg: var(--news-paper); --footer-ink: var(--news-ink); --footer-muted: var(--news-muted); --footer-rule: var(--news-rule); }
   .footer-shell { display: flex; justify-content: space-between; align-items: center; gap: 16px; max-width: 1320px; min-height: 48px; margin: auto; }
   .footer-credit { display: flex; align-items: center; gap: 10px; margin: 0; font: 400 11px/1.5 var(--news-ui); }
-  .footer-rss { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: var(--footer-muted); font: 500 11px/1.5 var(--news-ui); }
-  .footer-rss:hover { color: var(--footer-ink); text-decoration: underline; text-underline-offset: 4px; }
-  .footer-rss:focus-visible { outline: 2px solid var(--footer-ink); outline-offset: 3px; }
-  @media(max-width: 640px) { .site-footer { padding-inline: 18px; } .footer-copyright { display: none; } }
+  .footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+  .footer-links a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: var(--footer-muted); font: 500 11px/1.5 var(--news-ui); }
+  .footer-links a:hover { color: var(--footer-ink); text-decoration: underline; text-underline-offset: 4px; }
+  .footer-links a:focus-visible { outline: 2px solid var(--footer-ink); outline-offset: 3px; }
+  @media(max-width: 760px) {
+    :global(body:has(.site-footer)) { padding-bottom: calc(var(--site-footer-height, 77px) + 16px); }
+    .site-footer { padding-inline: 18px; }
+    .footer-shell { flex-direction: column; align-items: stretch; gap: 0; padding-top: 8px; }
+    .footer-credit { justify-content: center; }
+    .footer-links { justify-content: space-between; gap: 8px; }
+    .footer-copyright { display: none; }
+  }
   @media print { .site-footer { display: none; } :global(body:has(.site-footer)) { padding-bottom: 0; } }
 </style>
 <script>

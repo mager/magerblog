@@ -123,10 +123,6 @@
 }
 /* Keep navigation usable when readers enlarge text. */
 .recipe-jumps > div { flex-wrap: wrap; }
-.recipe-page .more-links a { overflow-wrap: anywhere; }
 .cooking-content :is(h2, h3), .recipe-ingredients, .recipe-instructions, .recipe-steps > li {
   scroll-margin-top: calc(var(--recipe-nav-height, 68px) + 24px);
 }
-.recipe-page .header-shell { position: relative; }
-.recipe-page .header-more { position: static; }
-.recipe-page .more-links { top: 100%; right: 0; }

@@ -51,9 +51,9 @@ test('homepage keeps filters and ordinary links without date or permalink clutte
   assert.equal([...page.querySelectorAll('.feed-entry a')].some(a => /Permalink/i.test(a.textContent)), false);
   const link = page.querySelector('[data-kind="links"] .destination');
   assert.match(link.getAttribute('href'), /^https?:\/\//);
-  assert(page.querySelector('.header-more a[href="/notes/"]'));
+  assert(page.querySelector('.header-sections a[href="/notes/"]'));
   assert(page.querySelector('.site-footer a[href="/rss.xml"]'));
-  assert.equal(page.querySelector('.header-more a[href="/rss.xml"]'), null);
+  assert.equal(page.querySelector('.header-sections a[href="/rss.xml"]'), null);
 });
 
 test('draft artifacts never generate pages, downloads, feed entries, or indexes', () => {

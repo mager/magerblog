@@ -99,8 +99,8 @@ The site organizes content into three categories, each with distinct visual them
 ### Components
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
-- `Header.astro`: Primary links for Tech, Cooking, Life, and Artifacts. A native More disclosure contains Notes, Seen, Links, Bench, About, Archive, GitHub, and X. This shared header stays visible while scrolling.
-- `Footer.astro`: The single global fixed footer, with the Chicago credit and RSS. Do not add page-specific site footers or duplicate header destinations here.
+- `Header.astro`: Visible links for Tech, Cooking, Life, Notes, Seen, Links, and Artifacts. No More dropdown. This shared header stays visible while scrolling.
+- `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Archive, Bench, GitHub, X, and RSS. Do not add page-specific site footers or duplicate header destinations here.
 - `Card.astro`: Blog post card for grid layouts
 - `FormattedDate.astro`: Date formatting component
 
