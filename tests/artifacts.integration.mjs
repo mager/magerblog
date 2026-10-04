@@ -16,7 +16,8 @@ test('artifact is a centered document with one title, contents, tables, and port
   assert(page.querySelector('.artifact-layout .artifact-prose'));
   assert(page.querySelectorAll('.artifact-prose table').length >= 3);
   for (const table of page.querySelectorAll('.artifact-prose table')) {
-    assert.equal(table.getAttribute('tabindex'), '0', 'Scrollable tables need keyboard access without JS');
+    assert.equal(table.parentElement.getAttribute('tabindex'), '0', 'Scrollable tables need keyboard access without JS');
+    assert.equal(table.parentElement.getAttribute('role'), 'region');
   }
   for (const link of page.querySelectorAll('.artifact-contents a')) {
     assert(page.getElementById(link.hash.slice(1)), `Missing heading ${link.hash}`);

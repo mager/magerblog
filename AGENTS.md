@@ -89,7 +89,7 @@ The site organizes content into three categories, each with distinct visual them
 - `src/layouts/ReadingPost.astro`: Editorial layout for tech articles, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
 - `src/layouts/Note.astro`: Compact notebook layout with a 680px reading column, Space Grotesk title and prose, quiet publication date, source link, and simple note navigation. Descriptions remain metadata and feed previews; notes omit the article deck, contents rail, and reading progress. Shared code-copy controls and Markdown styles remain available.
 - `src/lib/content-meta.ts`: Homepage metadata uses reading time for articles and notes, authored recipe timing, and photo locations or screenshot labels. Missing recipe timing is omitted; partial timing is labeled explicitly.
-- `src/layouts/Artifact.astro`: Centered document layout with filename, Markdown download, numbered contents, and wider tables. Artifact bodies remain left-aligned for reading.
+- `src/layouts/Artifact.astro`: Compact 860px document column with left-aligned heading, filename, Markdown download, and a numbered contents disclosure. Native tables fill keyboard-accessible scroll containers; artifact prose uses the publication UI font.
 - `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
 - Cooking and life articles retain their dedicated layouts.
 - `src/styles/reading.css`: Detail-page typography, prose, code, tables, and mobile layout.

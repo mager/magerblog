@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import '../styles/reading.css';
 import '../styles/artifact.css';
+import { parse, renderSync, h } from 'ultrahtml';
+import { querySelectorAll } from 'ultrahtml/selector';
 
 interface Props {
   title: string;
@@ -19,11 +21,24 @@ interface Props {
 }
 const { title, description, pubDate, updatedDate, filename, markdownHref, headings, previous, next } = Astro.props;
 const sections = headings.filter(heading => heading.depth === 2);
+// Keep native table layout inside a keyboard-accessible scroll container.
+const document = parse(await Astro.slots.render('default'));
+for (const [index, table] of querySelectorAll(document, 'table').entries()) {
+  const parent = table.parent;
+  const position = parent.children.indexOf(table);
+  delete table.attributes.tabindex;
+  delete table.attributes.tabIndex;
+  parent.children[position] = h('div', {
+    class: 'artifact-table', tabindex: '0', role: 'region',
+    'aria-label': `Table ${index + 1}, scroll horizontally if needed`,
+  }, table);
+}
+const content = renderSync(document);
 ---
 <!doctype html>
 <html lang="en">
   <head><BaseHead title={`${title} — Artifact — mager.co`} description={description} /></head>
-  <body class="publication artifact-page">
+  <body class="publication reading-page artifact-page">
     <a class="skip-link" href="#main-content">Skip to document</a>
     <Header homepage themeToggle activeSection="/artifacts/" />
     <main id="main-content" class="artifact-layout">
@@ -42,11 +57,13 @@ const sections = headings.filter(heading => heading.depth === 2);
             <span>Markdown document</span>
           </div>
         </header>
-        {sections.length > 1 && <nav class="artifact-contents" aria-label="Document contents">
-          <p>In this document <span>{String(sections.length).padStart(2, '0')} sections</span></p>
+        {sections.length > 1 && <details class="artifact-contents">
+          <summary>In this document <span>{sections.length} sections</span></summary>
+          <nav aria-label="Document contents">
           <ol>{sections.map(section => <li><a href={`#${section.slug}`}>{section.text}</a></li>)}</ol>
-        </nav>}
-        <div class="reading-prose artifact-prose"><slot /></div>
+          </nav>
+        </details>}
+        <div class="reading-prose artifact-prose" set:html={content} />
         <footer class="artifact-end">
           <a href={markdownHref} download={filename}>Download Markdown <span aria-hidden="true">↓</span></a>
           <a href="#artifact-title">Back to top ↑</a>

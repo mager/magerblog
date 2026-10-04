@@ -33,7 +33,7 @@ Front page and All updates are plain-text view controls. The chronological view 
 
 Primary navigation contains Tech, Cooking, Life, and Artifacts. Notes, Seen, Links, About, and RSS are grouped under a keyboard-accessible More disclosure. Below 760px the navigation sits in a second row; there is no fixed bottom navigation. At 800px the edition stacks its main columns while retaining compact story groupings.
 
-Artifacts use a dedicated centered document layout, up to 1040px wide. The title, filename, description, and publication metadata are centered. Body text stays left-aligned, with a compact numbered contents index, full-width tables, and explicit Markdown downloads. They should look like useful working documents rather than long-form blog posts.
+Artifacts use a centered 860px document column with left-aligned title, filename, description, and metadata. Space Grotesk prose and section headings keep references compact; Fraunces remains on the document title. A native contents disclosure keeps the body close to the opening. Tables fill their containers and scroll within keyboard-accessible regions on small screens. Code has compact copy controls; explicit Markdown downloads remain available. These are working documents rather than long-form blog posts.
 
 Notes use a compact 680px notebook column with Space Grotesk headings and prose. The title leads directly into the note, with a quiet date and optional source link. Omit article summaries, contents rails, progress bars, and large related-story blocks; retain readable code, tables, and simple older/newer navigation.
 

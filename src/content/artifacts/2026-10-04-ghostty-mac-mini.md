@@ -1,28 +1,40 @@
 ---
 title: "Ghostty and my Mac mini: quick reference"
-description: "My shortcuts for opening a persistent Mac mini workspace from Ghostty, reconnecting to tmux, and remembering which machine is doing the work."
+description: "Connect, detach, and pick up where I left off. The commands and shortcuts for my Mac mini workspace."
 pubDate: 2026-10-04
 tags: [ghostty, macos, ssh, tmux]
 ---
 
-I use Ghostty on my laptop to connect over SSH to my Mac mini. tmux runs on the Mini and keeps my terminal workspace alive when I disconnect. I added a small launcher so the drop-down terminal connects straight to that workspace.
+Ghostty is the window on my laptop. SSH connects to the Mini. tmux keeps the workspace on the Mini running after I disconnect.
 
-These are my custom bindings and scripts, verified against Ghostty 1.3.1. Installing Ghostty alone does not install the `mini` command or automatic connection.
+## Reconnect to magerbot
+
+From a laptop terminal:
+
+```sh
+ssh -t macmini '/opt/homebrew/bin/tmux -L magerbot attach -t magerbot'
+```
+
+This opens my Pydantic workspace. Keep `-L magerbot`: it selects the separate tmux server used by this harness. The `mini` shortcut below connects to a different session on the default server.
+
+**To detach:** press **Ctrl + B**, release both keys, then press **D**. The programs keep running on the Mini. Inside tmux, **Ctrl + B**, then a window number switches windows.
 
 ## The shortcuts I need
 
-| What I want | What I do |
+| Action | Shortcut or command |
 | --- | --- |
-| Show or hide the Mini terminal | **Cmd + backtick** (the key marked \`) |
-| Reconnect after detaching in the drop-down | Press **Enter** at the reconnect prompt |
-| Leave the drop-down at a local laptop shell | Type **q**, then **Enter**, at that prompt |
-| Open the default Mini workspace from a laptop shell | Run `mini` |
-| Open a different named workspace | Run `mini magerblog` |
-| Detach from tmux, leaving the workspace running | **Cmd + Shift + D** |
-| Detach using tmux's default keys | **Ctrl + B**, release, then **D** |
-| Reload Ghostty configuration | **Cmd + Shift + comma** |
+| Show / hide the drop-down | **Cmd + backtick** |
+| Reconnect from its prompt | **Enter** |
+| Return to a local shell from its prompt | **q**, then **Enter** |
+| Open the default workspace | `mini` |
+| Open a named workspace | `mini magerblog` |
+| Detach, leaving tmux running | **Cmd + Shift + D** |
+| Detach with tmux's default keys | **Ctrl + B**, release, then **D** |
+| Reload Ghostty config | **Cmd + Shift + comma** |
 
 The default tmux session is named `harness`. `mini magerblog` attaches to a session named `magerblog`, creating it if necessary. The launcher connects to a shell; it does not start an agent automatically.
+
+These are my custom bindings and scripts, configured for Ghostty 1.3.1. Installing Ghostty alone does not install `mini` or the automatic connection.
 
 My **Cmd + Shift + D** binding replaces Ghostty's split-down shortcut and sends tmux's default detach sequence. I use it while attached to tmux.
 

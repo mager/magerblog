@@ -1,32 +1,38 @@
 /* A centered working document, with room for structured Markdown. */
-.artifact-layout { width: 1040px; max-width: calc(100% - 48px); margin: 0 auto; padding: 20px 0 64px; }
+.artifact-layout { width: 860px; max-width: calc(100% - 48px); margin: 0 auto; padding: 12px 0 64px; }
 .artifact-toolbar, .artifact-end { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
 .artifact-toolbar a, .artifact-end a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--news-blue); font: 500 12px/1.5 var(--news-mono); }
 .artifact-toolbar a:hover, .artifact-end a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.artifact-heading { padding: 44px 0 38px; text-align: center; border-bottom: 1px solid var(--news-rule); }
-.artifact-file { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px; color: var(--news-muted); font: 11px/1.6 var(--news-mono); overflow-wrap: anywhere; }
+.artifact-heading { padding: 24px 0; text-align: left; border-bottom: 1px solid var(--news-rule); }
+.artifact-file { display: flex; flex-wrap: wrap; gap: 8px 12px; color: var(--news-muted); font: 11px/1.6 var(--news-mono); overflow-wrap: anywhere; }
 .artifact-file > span:first-child { color: var(--news-blue); font-weight: 700; }
-.artifact-heading h1 { max-width: 20ch; margin: 22px auto 20px; color: var(--news-ink); font: 650 clamp(36px, 5vw, 60px)/1.08 var(--news-display); letter-spacing: -.04em; text-wrap: balance; overflow-wrap: anywhere; }
-.artifact-description { max-width: 62ch; margin: 0 auto; color: var(--news-muted); font: 18px/1.65 var(--news-ui); text-wrap: pretty; }
-.artifact-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 24px; color: var(--news-muted); font: 10px/1.6 var(--news-mono); }
-.artifact-contents { padding: 22px 0; margin-bottom: 36px; border-bottom: 1px solid var(--news-rule); }
-.artifact-contents > p { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin: 0 0 8px; color: var(--news-muted); font: 600 11px/1.6 var(--news-mono); }
-.artifact-contents > p span { font-weight: 400; }
+.artifact-heading h1 { max-width: 26ch; margin: 16px 0; color: var(--news-ink); font: 650 clamp(32px, 4vw, 44px)/1.12 var(--news-display); letter-spacing: -.035em; text-wrap: pretty; overflow-wrap: anywhere; }
+.artifact-description { max-width: 65ch; margin: 0; color: var(--news-muted); font: 16px/1.6 var(--news-ui); text-wrap: pretty; }
+.artifact-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; color: var(--news-muted); font: 10px/1.6 var(--news-mono); }
+.artifact-contents { margin-bottom: 24px; border-bottom: 1px solid var(--news-rule); }
+.artifact-contents summary { padding-block: 14px; cursor: pointer; color: var(--news-ink); font: 600 12px/1.6 var(--news-ui); }
+.artifact-contents summary span { float: right; color: var(--news-muted); font-weight: 400; }
+.artifact-contents[open] { padding-bottom: 12px; }
 .artifact-contents ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; list-style: decimal-leading-zero; padding-left: 28px; margin: 0; }
 .artifact-contents li { padding-left: 8px; color: var(--news-muted); font: 11px/1.5 var(--news-mono); }
 .artifact-contents a { display: flex; align-items: center; min-height: 44px; color: var(--news-ink); font: 500 14px/1.5 var(--news-ui); overflow-wrap: anywhere; }
 .artifact-contents a:hover { color: var(--news-blue); text-decoration: underline; text-underline-offset: 4px; }
-.artifact-prose { font-size: 18px; line-height: 1.75; }
-.artifact-prose > :is(p, ul, ol, blockquote) { max-width: 76ch; margin-left: auto; margin-right: auto; }
-.artifact-prose h2 { padding-top: 24px; margin: 52px 0 20px; border-top: 1px solid var(--news-rule); font-size: 30px; }
+.artifact-prose { font: 16px/1.7 var(--news-ui); }
+.artifact-prose > :is(p, ul, ol, blockquote) { max-width: 70ch; margin-left: 0; margin-right: 0; }
+.artifact-prose h2 { padding-top: 20px; margin: 36px 0 16px; border-top: 1px solid var(--news-rule); font: 650 25px/1.25 var(--news-ui); }
 .artifact-prose h3 { font-size: 23px; }
-.artifact-prose table { margin: 24px 0 36px; font-size: 14px; line-height: 1.6; font-variant-numeric: tabular-nums; }
-.artifact-prose :is(th, td) { padding: 16px; text-align: left; vertical-align: top; }
+.artifact-table { max-width: 100%; overflow-x: auto; margin: 20px 0 24px; border-block: 1px solid var(--news-rule); }
+.artifact-prose table { display: table; width: 100%; margin: 0; border: 0; border-radius: 0; border-collapse: collapse; font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.artifact-prose :is(th, td) { padding: 12px; text-align: left; vertical-align: top; }
 .artifact-prose th { font-weight: 700; }
 .artifact-prose th:first-child { min-width: 100px; }
 .artifact-prose td { min-width: 110px; }
-.artifact-prose tbody tr:nth-child(even) { background: var(--news-surface); }
+.artifact-prose tbody tr:last-child td { border-bottom: 0; }
 .artifact-prose table code { font-size: .85em; }
+.artifact-prose code { overflow-wrap: anywhere; }
+.artifact-prose .reading-code { position: relative; margin: 20px 0 24px; }
+.artifact-prose .reading-code-toolbar { position: absolute; z-index: 1; top: 4px; right: 4px; min-height: 0; padding: 0; border: 0; background: var(--news-paper); border-radius: 3px; }
+.artifact-prose .reading-code pre { padding: 16px 88px 16px 16px; }
 .artifact-prose blockquote { padding: 20px 24px; background: var(--news-surface); border: 1px solid var(--news-rule); border-radius: 4px; font-size: 17px; }
 .artifact-end { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--news-rule); }
 .artifact-related { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
@@ -38,8 +44,8 @@
   .artifact-heading h1 { margin-top: 18px; }
   .artifact-description { font-size: 16px; }
   .artifact-contents ol, .artifact-related { grid-template-columns: minmax(0, 1fr); }
-  .artifact-prose { font-size: 17px; }
-  .artifact-prose h2 { font-size: 27px; }
+  .artifact-prose { font-size: 16px; }
+  .artifact-prose h2 { font-size: 23px; }
   .artifact-prose table { font-size: 13px; }
   .artifact-prose :is(th, td) { padding: 12px; }
 }
@@ -48,4 +54,5 @@
   .artifact-layout { width: 100%; max-width: 100%; padding: 0; }
   .artifact-heading { padding-top: 0; }
   .artifact-prose table { display: table; overflow: visible; }
+  .artifact-table { overflow: visible; }
 }
