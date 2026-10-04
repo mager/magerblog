@@ -7,9 +7,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://mager.co',
-	// Only optimize the kitchen thumbnails; leave legacy Markdown images untouched.
+	// Optimize the edition's selected photos; leave legacy Markdown images untouched.
 	image: {
 		remotePatterns: [
+			{ protocol: 'https', hostname: 'sdld3v8bpzf3snqo.public.blob.vercel-storage.com', pathname: '/blog/2026-09-19-jev-decision-model/hero.jpg' },
+			{ protocol: 'https', hostname: 'sdld3v8bpzf3snqo.public.blob.vercel-storage.com', pathname: '/blog/2026-09-12-instinct/hero.jpg' },
 			{ protocol: 'https', hostname: 'sdld3v8bpzf3snqo.public.blob.vercel-storage.com', pathname: '/blog/2026-06-06-euglena-yogo-parfait/hero.jpg' },
 			{ protocol: 'https', hostname: 'sdld3v8bpzf3snqo.public.blob.vercel-storage.com', pathname: '/blog/2026-08-07-cherry-tomato-pasta/hero.jpg' },
 			{ protocol: 'https', hostname: 'lh3.googleusercontent.com', pathname: '/pw/AP1GczMXnudm2XjUjkec0fmixxvHO5BLNpsmIaz_v5FUktoj04gaQEcaxRaIasv9SScrlKHRX1av0nR4fc-2_d_eURa0XT9zbiPDl8D24X-STzyIu0qmYWNYHSKHFaU2I_GB1iuOhu-O9-zvTCugGKLY12qVSQ=w2030-h1522-s-no-gm' },

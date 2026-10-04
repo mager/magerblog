@@ -3,9 +3,11 @@ import { Image } from 'astro:assets';
 import { type FeedEntry, entryHref, entryTitle } from '../../lib/feed';
 import { editionDescription, editionImage, editionLabel } from '../../lib/edition';
 import { contentMeta } from '../../lib/content-meta';
-interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo' | 'document'; image?: boolean; thumbnail?: boolean; eager?: boolean; }
+interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo' | 'document'; image?: boolean | 'hero'; thumbnail?: boolean; eager?: boolean; }
 const { entry, variant = 'story', image: showImage = false, thumbnail = false, eager = false } = Astro.props;
-const image = (showImage || thumbnail) && editionImage(entry);
+const image = showImage === 'hero'
+  ? entry.collection === 'blog' && entry.data.heroImage
+  : (showImage || thumbnail) && editionImage(entry);
 const href = entryHref(entry);
 const title = entryTitle(entry);
 const description = editionDescription(entry);
@@ -15,7 +17,9 @@ const detail = contentMeta(entry);
   {image && <a class="story-image" href={href} aria-label={`Read ${title}`}>
     {thumbnail
       ? <Image src={image} alt="" width={80} height={80} densities={[1, 2]} fit="cover" format="webp" loading="lazy" decoding="async" />
-      : <img src={image} alt={entry.collection === 'seen' ? entry.data.alt || title : ''} width="900" height="600" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />}
+      : showImage === 'hero'
+        ? <Image src={image} alt="" width={480} height={300} widths={[240, 480, 720, 960]} sizes="(max-width: 540px) calc((100vw - 52px) / 2), (max-width: 1100px) calc((100vw - 72px) / 2), 360px" fit="cover" format="webp" loading="lazy" decoding="async" />
+        : <img src={image} alt={entry.collection === 'seen' ? entry.data.alt || title : ''} width="900" height="600" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />}
   </a>}
   <div class="story-copy">
     {variant !== 'brief' && <span class="story-kind">{editionLabel(entry)}</span>}
