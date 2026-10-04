@@ -180,23 +180,23 @@ const { title, description, heroImage, tags } = post.data;
     padding: 0.24rem 0.52rem;
   }
 
-  .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+  .life-card .card-title {
+    font-family: var(--news-ui, 'Space Grotesk', sans-serif);
+    font-size: clamp(1.85rem, 2.8vw, 2.4rem);
     font-weight: 700;
-    line-height: 0.98;
+    line-height: 1.1;
     color: var(--lf-text);
     margin: 0;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.04em;
     transition: color 0.15s ease;
     text-wrap: balance;
   }
 
-  .life-card:not(.featured) .card-title {
-    font-size: 1.58rem;
+  .life-card.featured .card-title {
+    font-size: clamp(2.2rem, 3.4vw, 3rem);
   }
 
-  .life-card:hover .card-title {
+  .life-card:is(:hover, :focus-visible) .card-title {
     color: var(--lf-coral-dark);
   }
 
@@ -261,12 +261,11 @@ const { title, description, heroImage, tags } = post.data;
     .life-card.featured .card-content {
       padding: 1.1rem 1.15rem 1.2rem;
     }
-    .card-title,
-    .life-card:not(.featured) .card-title {
-      font-size: 1.42rem;
+    .life-card .card-title {
+      font-size: clamp(1.65rem, 6.5vw, 2rem);
     }
     .life-card.featured .card-title {
-      font-size: 1.78rem;
+      font-size: clamp(1.9rem, 7.5vw, 2.4rem);
     }
     .card-description,
     .life-card.featured .card-description {
