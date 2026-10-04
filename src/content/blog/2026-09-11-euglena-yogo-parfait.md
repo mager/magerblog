@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "Euglena Yogo Parfait"
-description: "I picked up euglena powder on Ishigaki — a single-celled organism that's part plant, part animal, packed with vitamins, minerals, and omega-3s — and the package had a yogurt recipe on it. Here's my yogo parfait take, plus why euglena is amazing."
+description: "A bag of euglena powder from Ishigaki, a yogurt recipe on the package, and five minutes to make breakfast."
 pubDate: "2026-09-11"
 category: "food"
 tags: ["Japan", "Okinawa", "Ishigaki", "Euglena", "Travel", "Recipe", "Yogurt"]
@@ -9,30 +9,25 @@ keyword: "euglena"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-06-euglena-yogo-parfait/hero.jpg"
 prepTime: 5
 cookTime: 0
+recipeYield: "1 serving"
 draft: false
 ---
 
-My first run-in with euglena was at the hotel I stayed at on Ishigaki, the southern Okinawan island. They served euglena biscuits, and that small detail hooked me — I couldn't stop wondering what this stuff actually was. So later, when I spotted a bag of euglena powder for sale, I grabbed it, already curious. The more I dug in, the stranger it got: it turns out to be one of the most over-qualified things I've ever eaten.
+I first tried euglena in a biscuit at my hotel on Ishigaki, an island in Okinawa. I had no idea what it was. When I found a bag of the powder for sale, I bought it to bring home.
 
-The hook was the package itself: printed right on it is a recipe that tells you to stir the powder into yogurt. That's it — euglena and yogurt. So I brought the powder home and ran with the idea. The result is a yogo parfait: yogurt plus euglena as the base, and then whatever toppings you feel like layering on top.
-
-<div class="recipe-intro">
-
-Two things make this work: yogo (yogurt) and euglena powder whisked together until the base turns a vibrant green. Everything else is optional — a drizzle of sweetness, some bright fruit, a bit of crunch. Five minutes, no cooking, and you can riff on the toppings however you want.
-
-</div>
+The package had a yogurt recipe on it, so that’s where I started. Mix the powder into yogurt, add some fruit and granola, and you have a green parfait. I’m calling it a yogo parfait. It takes about five minutes.
 
 <div class="recipe-body">
 <div class="recipe-ingredients">
 
-#### Serves 1
+### The base
 
-**The base**
 - 1 cup plain or vanilla Greek yogurt
 - 1 tsp euglena powder
 
-**Toppings (optional)**
-- Honey or maple syrup
+### Optional toppings
+
+- Honey or maple syrup, to taste
 - Fresh blueberries or sliced strawberries
 - Granola or toasted almonds
 
@@ -40,46 +35,23 @@ Two things make this work: yogo (yogurt) and euglena powder whisked together unt
 
 <div class="recipe-instructions">
 
-**Make the base.** Whisk the euglena powder into the yogurt until it's a uniform green with no grey-green streaks at the bottom. That's the whole parfait if you want it to be.
+**Mix the base.** Stir the euglena powder into the yogurt until the color is even. Scrape the bottom of the bowl to catch any pockets of powder.
 
-**Add the toppings.** Layer or pile on whatever you've got — a drizzle of honey or maple to cut the grassy, matcha-like bitterness, a handful of berries for brightness, granola or almonds for crunch. No fixed order, no fixed amounts. Improvise.
-
-Between the yogurt's live cultures and the paramylon fiber from the euglena, it's a good thing to be feeding your gut first thing in the morning.
+**Add toppings.** Spoon the yogurt into a bowl or glass. Add fruit, granola or almonds, and a little honey or maple syrup if you want it sweeter. Layer it if you’re feeling fancy. Otherwise, just eat it.
 
 </div>
 </div>
 
-## What euglena actually is
+## So what is euglena?
 
-Euglena — ミドリムシ in Japanese, literally "green bug" — is a single-celled, flagellate eukaryote. That sounds dry until you get to the punchline: nobody could decide whether it was a plant or an animal, because it behaves like both.
+This is the part I went down a rabbit hole on. Euglena is a single-celled organism with some characteristics of both plants and animals. It can photosynthesize, but it also swims using a little whip-like structure called a flagellum. The Japanese name is ミドリムシ (midorimushi), or “green bug.” It isn’t an insect.
 
-It photosynthesizes. It carries chlorophyll a and b in its chloroplasts and makes its own food from sunlight, exactly like a plant. But it also *moves* — it has a long whip-like flagellum it uses to swim toward light, and when there's no light around, it can switch modes entirely and feed on organic matter from its surroundings, like an animal. Biologists call this trait mixotrophy: it runs on sunlight or on food, depending on what's available.
+[Euglena Co.’s explainer](https://www.euglena.jp/en/whatiseuglena/) covers the biology and how they grow it on Ishigaki. The company also uses euglena oil as an ingredient in biofuel. I was just trying to figure out what was in my hotel biscuit, and somehow ended up reading about fuel for planes.
 
-This dual nature genuinely broke 19th-century biology. Euglena had both plant and animal characteristics and fit neatly into neither kingdom, which is part of why Ernst Haeckel proposed an entirely new kingdom — Protista — to hold organisms like it. It's a single cell that refuses to pick a side.
+![Bag of euglena powder I brought home from Ishigaki](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-11-euglena-yogo-parfait/euglena-powder.jpg)
 
-![Bag of euglena powder from Ishigaki](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-11-euglena-yogo-parfait/euglena-powder.jpg)
+## Why I brought it home
 
-A few more details that make it weird in the best way:
+You’ll see euglena sold as a superfood, with plenty of claims about its nutrients. I have no idea whether a teaspoon in my yogurt does anything for me. I bought it because I was curious, and the recipe on the bag gave me an easy way to try it.
 
-- It has a **red eyespot** made of carotenoid pigment that filters light onto a light-sensitive structure at the base of its flagellum, letting it steer toward the brightest spot. A single cell, with something close to a primitive eye.
-- Its flagellum is covered in roughly **30,000 fine filaments** called mastigonemes.
-- Its chloroplasts are wrapped in **three membranes** instead of the usual two, a fingerprint of secondary endosymbiosis — meaning euglena didn't inherit photosynthesis directly, it essentially swallowed a green alga long ago and kept it.
-- Instead of storing energy as ordinary starch, it makes **paramylon**, a β-1,3-glucan. That's a type of beta-glucan, the same family of fiber that shows up in oats and mushrooms and gets studied for immune and metabolic effects. Euglena is unusual in making it as its main energy reserve.
-
-## The micronutrient pitch
-
-Here's where Japan got interested. According to Wikipedia, powdered euglena "contains minerals, vitamins and docosahexaenoic acid" — DHA, the omega-3 fatty acid you usually associate with fish oil. So in one microscopic organism you get plant-style vitamins and minerals *and* an animal-style omega-3, which lines up with its part-plant, part-animal biology. The taste of the raw powder, fittingly, is described as dried sardine flakes.
-
-That breadth is the whole reason it's sold as a superfood here. A single cell that photosynthesizes like a plant and feeds like an animal ends up carrying a little of everything — vitamins, minerals, fatty acids — which is a genuinely unusual nutritional spread for one ingredient.
-
-A note on the hype, because euglena marketing runs hot: you'll see claims that it contains "59 nutrients." That figure comes from companies selling the stuff, not from the encyclopedic record, so I'm not going to repeat it as fact. What's solidly established is the categories — minerals, vitamins, the omega-3 DHA, and paramylon — not a tidy headline number. The honest version is still impressive without the marketing gloss.
-
-There's a real industry behind it, too. Euglena Co. in Japan farms the organism at scale; it even opened a Yokohama refinery in 2018 that turns euglena's lipids into biodiesel and biojet fuel. The same cell that gets dried into a powder you stir into yogurt is also being burned in engines. Finding it bagged on a shelf on Ishigaki, with a yogurt recipe on the back, felt like the most domestic possible endpoint for all that.
-
-## Why yogurt
-
-The package answered that for me before I could ask. "Superfood algae" usually shows up as a powder you choke down or a murky green drink. The euglena bag skips the lecture and just prints a yogurt recipe on the side — stir it in, eat it for breakfast. It's a much friendlier delivery system than a shot of green sludge, and it's what gave me the parfait in the first place.
-
-**[Taste notes — Mager to fill in.]** *Placeholder so the post reads either way:* stirred into yogurt, the powder is mild — more yogurt than algae, faintly grassy, no real fishiness coming through. If the euglena announces itself at all, it's subtle. Fill in your real impression here.
-
-I have no idea if a teaspoon of this did anything for me. But as a souvenir of Ishigaki — a bag of single-celled organisms that can't decide if they're plant or animal, sold with a casual yogurt recipe like it's the most normal thing in the world — it's hard to beat.
+That’s what I like about bringing ingredients home from a trip. I tried something on Ishigaki, got curious about it, and now I can make breakfast with it in Chicago.

@@ -97,7 +97,7 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
           <dl class="recipe-meta">
             {recipeYield && <div><dt>Makes</dt><dd>{recipeYield}</dd></div>}
             {prepTime && <div><dt>Prep</dt><dd>{prepTime} min</dd></div>}
-            {cookTime && <div><dt>Cook</dt><dd>{cookTime} min</dd></div>}
+            {cookTime !== undefined && cookTime > 0 && <div><dt>Cook</dt><dd>{cookTime} min</dd></div>}
             {totalTime > 0 && <div><dt>Total</dt><dd>{totalTime} min</dd></div>}
           </dl>
         </div>

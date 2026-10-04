@@ -25,7 +25,7 @@
 .recipe-jump-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--news-muted); font: 500 16px/1.4 var(--news-ui); max-width: 35%; }
 .cooking-content { font-size: clamp(24px, 2.4vw, 28px); color: var(--news-ink); overflow-wrap: anywhere; }
 .cooking-content :is(p, ul, ol) { max-width: 67ch; }
-.cooking-content > p, .recipe-intro { max-width: 760px; margin: 28px 0; color: var(--news-muted); font-size: 22px; }
+.cooking-content > p, .recipe-intro, .recipe-text { color: var(--news-ink); font-size: clamp(20px, 1.8vw, 22px); line-height: 1.65; }
 .cooking-content h2, .recipe-navigation h2 { font: 600 clamp(32px, 4vw, 46px)/1.15 var(--news-display); letter-spacing: -.03em; margin: 0 0 24px; color: var(--news-ink); }
 .cooking-content h3 { font: 600 23px/1.4 var(--news-ui); margin: 24px 0 12px; color: var(--news-ink); }
 .cooking-content :is(h2, h3), .recipe-ingredients, .recipe-instructions { scroll-margin-top: 92px; }
@@ -65,8 +65,12 @@
 .cooking-content .recipe-steps img { max-height: 300px; margin: 24px 0 0; }
 .recipe-instructions > :is(ul, p) { font-size: 24px; }
 .cooking-content > h2 { margin-top: 36px; }
-.cooking-content > :is(p, ul, h2, h3), .recipe-text, .recipe-gallery { max-width: 880px; margin-inline: auto; }
-.cooking-content > :is(p, .recipe-intro):first-child { max-width: 760px; margin: clamp(24px, 3vw, 36px) 0 0; }
+.cooking-content > :is(p, ul, ol, h2, h3, blockquote), .recipe-intro, .recipe-text, .recipe-gallery { max-width: 720px; margin-inline: auto; }
+.cooking-content > :is(p, ul, ol), .recipe-intro, .recipe-text { margin-block: 0 24px; }
+.cooking-content > :is(p, .recipe-intro):first-child { margin-top: clamp(28px, 3vw, 40px); }
+.cooking-content > :is(ul, ol) { font-size: clamp(20px, 1.8vw, 22px); line-height: 1.65; }
+.cooking-content blockquote { box-sizing: border-box; padding: 20px 24px; margin-block: 28px; border: 1px solid var(--news-rule); border-radius: 0; background: var(--news-surface); color: var(--news-ink); font: 400 clamp(20px, 1.8vw, 22px)/1.65 var(--news-serif); }
+.cooking-content blockquote > :last-child { margin-bottom: 0; }
 .recipe-intro > :last-child { margin-bottom: 0; }
 .cooking-content li { margin-bottom: 0; }
 .recipe-gallery { display: flex; flex-wrap: wrap; gap: 24px; }
