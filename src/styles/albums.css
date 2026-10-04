@@ -1,0 +1,89 @@
+.album-page {
+  --news-paper: oklch(96% 0.014 85);
+  --news-ink: oklch(25% 0.025 325);
+  --news-muted: oklch(45% 0.023 325);
+  --news-rule: oklch(82% 0.024 65);
+  --news-blue: oklch(44% 0.14 325);
+  --album-plum: oklch(26% 0.055 325);
+  --album-orange: oklch(80% 0.15 56);
+  --album-accent: oklch(49% 0.16 38);
+  font-family: var(--news-ui);
+}
+html[data-theme="dark"] .album-page {
+  --album-accent: oklch(80% 0.15 56);
+  --news-blue: oklch(81% 0.1 325);
+}
+.album-page .header-shell { min-height: 70px; border-bottom: 0; }
+.album-main { width: 100%; max-width: none; margin: 0; padding: 0; }
+.album-opening { background: var(--album-plum); color: oklch(96% 0.014 85); padding: 0 24px 30px; }
+.album-heading { max-width: 1136px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 0; }
+.album-heading h1 { color: inherit; font: 600 clamp(19px, 2.1vw, 28px)/1.2 var(--news-ui); letter-spacing: -.045em; margin: 0; }
+.album-heading .album-back, .album-heading time { color: oklch(86% 0.032 65); font-size: 12px; line-height: 1.4; }
+.album-back { min-height: 44px; display: inline-flex; align-items: center; }
+.album-poster { width: min(100%, 660px); margin: 0 auto; }
+.album-poster > a { display: block; }
+.album-poster img { display: block; width: 100%; height: auto; aspect-ratio: 6 / 7; border-radius: 0; box-shadow: 0 18px 50px oklch(10% 0.02 325 / 25%); }
+.album-poster figcaption { display: flex; justify-content: space-between; gap: 20px; padding-top: 16px; font-size: 12px; line-height: 1.5; color: oklch(86% 0.032 65); }
+.album-poster figcaption a { color: var(--album-orange); text-decoration: underline; text-underline-offset: 4px; }
+.album-notes { max-width: 1000px; margin: auto; padding: clamp(44px, 7vw, 88px) 32px 64px; scroll-margin-top: 24px; }
+.album-notes-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 20px; }
+.album-kicker { font: 600 12px/1.5 var(--news-ui); letter-spacing: .13em; text-transform: uppercase; color: var(--album-accent); margin: 0 0 12px; }
+.album-notes h2 { color: var(--news-ink); font: 700 clamp(52px, 9vw, 104px)/.95 var(--news-ui); letter-spacing: -.075em; margin: 0; }
+.album-headphones { width: clamp(85px, 14vw, 150px); flex-shrink: 0; color: var(--album-accent); transform: rotate(12deg); }
+.album-headphones svg { width: 100%; height: auto; display: block; }
+.album-prose { font: 400 clamp(17px, 1.65vw, 20px)/1.7 'Atkinson', system-ui, sans-serif; }
+.album-prose > p { max-width: 64ch; margin: 0 0 20px; }
+.album-prose > p:first-child { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.5; letter-spacing: -.025em; max-width: 48ch; }
+.album-prose a { color: var(--news-ink); text-decoration: underline; text-decoration-color: var(--news-rule); text-underline-offset: 4px; }
+.album-prose a:hover { color: var(--album-accent); text-decoration-color: currentColor; }
+.album-tracklist { list-style: none; counter-reset: tracks; padding: 0; margin: 52px 0 0; }
+.album-track { counter-increment: tracks; position: relative; display: grid; grid-template-columns: 44px 144px minmax(0, 1fr); gap: 28px; padding: 32px 0 38px; border-top: 1px solid var(--news-rule); scroll-margin-top: 24px; }
+.album-track::before { content: counter(tracks, decimal-leading-zero); color: var(--album-accent); font: 500 24px/1 var(--news-ui); padding-top: 5px; }
+.album-cover { align-self: start; display: block; }
+.album-cover img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 0; display: block; transition: transform .25s var(--news-ease); }
+.album-cover:hover img { transform: rotate(-3deg) scale(1.035); }
+.album-artist { color: var(--news-muted); font: 600 13px/1.5 var(--news-ui); margin: 0 0 7px; }
+.album-detail h3 { font: 600 clamp(24px, 3vw, 34px)/1.1 var(--news-ui); letter-spacing: -.045em; color: var(--news-ink); margin: 0 0 18px; }
+.album-detail h3 a { text-decoration: none; }
+.album-detail h3 span { font-size: .58em; font-weight: 500; letter-spacing: -.015em; color: var(--news-muted); white-space: nowrap; }
+.album-detail > p:not(.album-artist) { margin: 0 0 16px; max-width: 65ch; }
+.album-detail .album-spotify { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font: 600 12px/1.4 var(--news-ui); text-decoration: none; color: var(--album-accent); }
+.album-spotify::after { content: '↗'; font-size: 17px; transition: transform .2s var(--news-ease); }
+.album-spotify:hover::after { transform: translate(2px, -2px); }
+.album-return { display: inline-flex; align-items: center; gap: 24px; min-height: 48px; margin-top: 20px; color: var(--news-ink); font: 600 18px/1.4 var(--news-ui); }
+.album-opening :focus-visible { outline: 3px solid var(--album-orange); outline-offset: 6px; }
+.album-heading a:hover { color: var(--album-orange); }
+@media (min-width: 1000px) {
+  .album-poster { width: min(660px, calc((100svh - 235px) * .857)); min-width: 360px; }
+}
+@media (max-width: 700px) {
+  .album-heading { flex-wrap: wrap; gap: 0 16px; padding: 14px 0 20px; }
+  .album-heading h1 { order: 3; width: 100%; font-size: 28px; }
+  .album-opening { padding: 0 18px 22px; }
+  .album-poster figcaption { font-size: 11px; gap: 16px; }
+  .album-poster figcaption a { flex-shrink: 0; }
+  .album-notes { padding: 44px 20px; }
+  .album-track { grid-template-columns: 28px 86px minmax(0, 1fr); gap: 14px; padding: 26px 0; }
+  .album-track::before { font-size: 18px; }
+  .album-detail { display: contents; }
+  .album-artist { grid-column: 3; grid-row: 1; align-self: start; margin-top: 0; }
+  .album-detail h3 { grid-column: 3; grid-row: 1; align-self: start; padding-top: 26px; font-size: 25px; margin-bottom: 0; }
+  .album-detail > p:not(.album-artist) { grid-column: 2 / -1; margin: 4px 0 0; }
+  .album-detail .album-spotify { grid-column: 2 / -1; justify-self: start; }
+  .album-tracklist { margin-top: 36px; }
+}
+@media (max-width: 380px) {
+  .album-track { grid-template-columns: 24px 70px minmax(0, 1fr); gap: 10px; }
+  .album-detail h3 { font-size: 22px; }
+  .album-poster figcaption { flex-wrap: wrap; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .album-page *, .album-page *::after { transition: none !important; }
+  .album-cover:hover img { transform: none; }
+}
+@media print {
+  .album-opening { background: none; color: var(--news-ink); }
+  .album-poster { width: 350px; }
+  .album-poster img { box-shadow: none; }
+  .album-track { break-inside: avoid; }
+}

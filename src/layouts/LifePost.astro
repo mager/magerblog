@@ -1,766 +1,102 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import { parse, renderSync, ELEMENT_NODE } from 'ultrahtml';
+import { querySelectorAll } from 'ultrahtml/selector';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import SecretSearch from '../components/SecretSearch.astro';
-import '../styles/life.css';
+import { getLifeTheme } from '../lib/life-themes';
+import '../styles/reading.css';
+import '../styles/life-story.css';
 
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
-
-const {
-  title, description, pubDate, updatedDate, heroImage,
-  tags, postId, locale, translationKey
-} = Astro.props;
-
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, tags, postId, locale, translationKey, draft } = Astro.props;
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
-const lifePosts = allPosts
-  .filter(post => post.data.category === 'life' && !post.data.locale)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const currentIndex = lifePosts.findIndex(post => post.id === postId);
-const prevPost = currentIndex < lifePosts.length - 1 ? lifePosts[currentIndex + 1] : null;
-const nextPost = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
-
-// Find translation counterpart
 const currentLocale = locale ?? 'en';
 const translation = translationKey
-  ? allPosts.find(p => p.data.translationKey === translationKey && (p.data.locale ?? 'en') !== currentLocale)
+  ? allPosts.find(post => post.data.translationKey === translationKey && (post.data.locale ?? 'en') !== currentLocale)
   : null;
+const lifePosts = allPosts
+  .filter(post => post.data.category === 'life' && (post.data.locale ?? 'en') === 'en')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// Translations navigate from their English counterpart's place in publication order.
+const navigationId = currentLocale === 'en' ? postId : translation?.id ?? postId;
+const currentIndex = lifePosts.findIndex(post => post.id === navigationId);
+const previous = currentIndex >= 0 && currentIndex < lifePosts.length - 1 ? lifePosts[currentIndex + 1] : null;
+const next = currentIndex > 0 ? lifePosts[currentIndex - 1] : null;
+// Keep the opening photo first in the network queue on photo-heavy stories.
+const content = parse(await Astro.slots.render('default'));
+for (const image of querySelectorAll(content, 'img')) {
+  if (image.type !== ELEMENT_NODE) continue;
+  image.attributes.loading ??= 'lazy';
+  image.attributes.decoding ??= 'async';
+}
+const contentHtml = renderSync(content);
+const theme = getLifeTheme(postId);
+const themeStyle = `--story-accent-light:${theme.accent};--story-accent-dark:${theme.accentDark};--story-paper:${theme.paper ?? 'var(--news-paper)'};--story-image-position:${theme.heroPosition ?? 'center'};`;
 ---
-
-<html lang="en" data-life>
-  <head>
-    <BaseHead title={title} description={description} image={heroImage} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
-    <style>
-      /* ─── Page shell ──────────────────────────────── */
-      .life-post-page {
-        --post-bg: #EFF9FF;
-        --post-surface: #FFFFFF;
-        --post-surface-strong: rgba(239, 249, 255, 0.96);
-        --post-border: rgba(12, 35, 64, 0.12);
-        --post-border-strong: rgba(12, 35, 64, 0.22);
-        --post-pixel: #0C2340;
-        --post-text: #0C2340;
-        --post-text-soft: #1E4D6E;
-        --post-text-muted: oklch(47% 0.04 240);
-        --post-accent: oklch(43% 0.07 215);
-        --post-accent-soft: rgba(6, 182, 212, 0.08);
-        --post-coral: #F97316;
-        --post-coral-dark: oklch(43% 0.12 40);
-        --post-shadow-card: 4px 4px 0 var(--post-pixel);
-        min-height: 100vh;
-        background:
-          linear-gradient(rgba(6, 182, 212, 0.055) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(6, 182, 212, 0.055) 1px, transparent 1px),
-          linear-gradient(180deg, #EFF9FF 0%, #E4F4FF 60%, #D8EEFF 100%);
-        background-size: 4px 4px, 4px 4px, auto;
-        color: var(--post-text);
-      }
-
-      /* ─── Cinematic Hero ──────────────────────────── */
-      .life-hero {
-        position: relative;
-        width: 100%;
-        min-height: 90vh;
-        overflow: hidden;
-        display: flex;
-        align-items: flex-end;
-      }
-
-      /* Parallax image wrapper — oversized to allow movement */
-      .life-hero-parallax {
-        position: absolute;
-        inset: -12% 0;
-        z-index: 0;
-      }
-
-      .life-hero-img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 30%;
-        animation: heroEnter 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-      }
-
-      @keyframes heroEnter {
-        from { transform: scale(1.07); }
-        to   { transform: scale(1); }
-      }
-
-      /* CSS scroll-driven parallax */
-      @supports (animation-timeline: scroll()) {
-        @media (prefers-reduced-motion: no-preference) {
-          .life-hero-parallax {
-            animation: heroParallax linear both;
-            animation-timeline: scroll(root);
-            animation-range: 0 100vh;
-          }
-          @keyframes heroParallax {
-            from { transform: translateY(0); }
-            to   { transform: translateY(18%); }
-          }
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .life-hero-img { animation: none; }
-      }
-
-      /* Multi-layer gradient — deep cinematic scrim */
-      .life-hero-gradient {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background:
-          linear-gradient(to top,
-            rgba(4, 3, 2, 0.96) 0%,
-            rgba(4, 3, 2, 0.88) 18%,
-            rgba(4, 3, 2, 0.72) 35%,
-            rgba(4, 3, 2, 0.45) 52%,
-            rgba(4, 3, 2, 0.15) 68%,
-            transparent 84%
-          ),
-          linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.50) 0%,
-            rgba(0, 0, 0, 0.10) 18%,
-            transparent 35%
-          );
-      }
-
-      /* No hero fallback — coastal deep atmosphere */
-      .life-hero--no-image {
-        min-height: 70vh;
-        background:
-          radial-gradient(ellipse at 20% 80%, rgba(6, 182, 212, 0.28) 0%, transparent 60%),
-          radial-gradient(ellipse at 80% 20%, rgba(14, 165, 233, 0.18) 0%, transparent 50%),
-          linear-gradient(160deg, #041524 0%, #020B12 100%);
-      }
-
-      /* Content overlaid on hero — anchored to bottom */
-      .life-hero-content {
-        position: relative;
-        z-index: 2;
-        width: min(100%, 1180px);
-        margin: 0 auto;
-        padding: 0 1.4rem 4rem;
-        animation: heroContentRise 0.9s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
-      }
-
-      @keyframes heroContentRise {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .life-hero-content { animation: none; }
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1.1rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.64rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: rgba(255, 255, 255, 0.55);
-      }
-
-      .eyebrow::before {
-        content: '';
-        display: inline-block;
-        width: 1.6rem;
-        height: 1px;
-        background: rgba(255,255,255,0.4);
-      }
-
-      .post-title {
-        margin: 0;
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(3.4rem, 7.8vw, 6.4rem);
-        line-height: 0.9;
-        letter-spacing: -0.055em;
-        color: #fff;
-        text-wrap: balance;
-        max-width: 18ch;
-        text-shadow:
-          0 1px 0   rgba(0, 0, 0, 0.95),
-          0 2px 6px rgba(0, 0, 0, 0.9),
-          0 6px 20px rgba(0, 0, 0, 0.75),
-          0 16px 50px rgba(0, 0, 0, 0.55),
-          0 32px 100px rgba(0, 0, 0, 0.35);
-      }
-
-      .post-description {
-        max-width: 44rem;
-        margin: 1.1rem 0 0;
-        font-family: 'Newsreader', serif;
-        font-size: 1.3rem;
-        line-height: 1.65;
-        color: rgba(255, 255, 255, 0.82);
-        text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 4px 16px rgba(0,0,0,0.5);
-      }
-
-      .intro-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.65rem;
-        margin-top: 1.5rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-
-      .meta-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.62rem 0.9rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: rgba(255, 255, 255, 0.82);
-      }
-
-      .meta-dot {
-        width: 0.44rem;
-        height: 0.44rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.6);
-      }
-
-      .lang-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 0;
-        border: 2px solid rgba(255, 255, 255, 0.7);
-        box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.25);
-      }
-
-      .lang-toggle a,
-      .lang-toggle span {
-        padding: 0.48rem 0.82rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.64rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        text-decoration: none;
-        line-height: 1;
-        transition: background 0.1s ease, color 0.1s ease;
-      }
-
-      .lang-toggle .lang-active {
-        background: #FFFFFF;
-        color: #0C2340;
-      }
-
-      .lang-toggle a {
-        color: rgba(255, 255, 255, 0.7);
-        background: rgba(0, 0, 0, 0.35);
-      }
-
-      .lang-toggle a:hover {
-        background: rgba(255, 255, 255, 0.15);
-        color: #FFFFFF;
-      }
-
-      .lang-divider {
-        width: 2px;
-        align-self: stretch;
-        background: rgba(255, 255, 255, 0.7);
-        flex-shrink: 0;
-      }
-
-      .updated-label {
-        font-family: 'IBM Plex Mono', monospace;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: rgba(255,255,255,0.5);
-        font-size: 0.6rem;
-      }
-
-      /* Scroll hint */
-      .life-hero-scroll {
-        position: absolute;
-        bottom: 1.8rem;
-        right: 2rem;
-        z-index: 3;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.4rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.58rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.35);
-        animation: scrollHintFade 0.8s 1.2s ease both;
-      }
-
-      @keyframes scrollHintFade {
-        from { opacity: 0; transform: translateY(6px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      .life-hero-scroll-arrow {
-        width: 1px;
-        height: 2.4rem;
-        background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
-        animation: scrollArrowPulse 2s 1.5s ease-in-out infinite;
-      }
-
-      @keyframes scrollArrowPulse {
-        0%, 100% { opacity: 0.3; transform: scaleY(1); }
-        50%       { opacity: 0.7; transform: scaleY(1.15); }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .life-hero-scroll,
-        .life-hero-scroll-arrow { animation: none; }
-      }
-
-      /* ─── Post body shell ─────────────────────────── */
-      .life-post-shell {
-        width: min(100%, 1180px);
-        margin: 0 auto;
-        padding: 4rem 1.4rem 5rem;
-      }
-
-      /* ─── Article ─────────────────────────────────── */
-      .life-content {
-        max-width: 740px;
-        margin: 0 auto;
-        font-family: 'Newsreader', serif;
-        font-size: 1.34rem;
-        line-height: 1.82;
-        color: var(--post-text);
-      }
-
-      .life-content :global(p)  { margin: 0 0 1.6rem; }
-
-      .life-content :global(h2) {
-        margin: 3.1rem 0 1rem;
-        font-family: 'Instrument Serif', serif;
-        font-size: 2.55rem;
-        line-height: 0.98;
-        letter-spacing: -0.04em;
-        color: var(--post-text);
-      }
-
-      .life-content :global(h3) {
-        margin: 2.3rem 0 0.85rem;
-        font-family: 'Instrument Serif', serif;
-        font-size: 1.84rem;
-        line-height: 1.02;
-        letter-spacing: -0.03em;
-      }
-
-      .life-content :global(h4) {
-        margin: 2rem 0 0.7rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--post-accent);
-      }
-
-      .life-content :global(a) {
-        color: var(--post-accent);
-        text-decoration: underline;
-        text-decoration-color: rgba(8, 145, 178, 0.32);
-        text-underline-offset: 0.16em;
-        text-decoration-thickness: 1px;
-      }
-
-      .life-content :global(a:hover) {
-        color: var(--post-coral-dark);
-        text-decoration-color: rgba(249, 115, 22, 0.4);
-      }
-
-      .life-content :global(strong) {
-        font-weight: 600;
-        color: var(--post-text);
-      }
-
-      .life-content :global(ul),
-      .life-content :global(ol) {
-        margin: 0 0 1.65rem;
-        padding-left: 1.3em;
-      }
-
-      .life-content :global(li) { margin-bottom: 0.45rem; }
-
-      .life-content :global(blockquote) {
-        margin: 2.1rem 0;
-        padding: 1.1rem 1.25rem;
-        border: 1px solid var(--post-border-strong);
-        background: var(--post-accent-soft);
-        border-radius: 0;
-        color: var(--post-text-soft);
-      }
-
-      .life-content :global(hr) {
-        margin: 3rem 0;
-        border: 0;
-        height: 2px;
-        background: var(--post-pixel);
-      }
-
-      .life-content :global(img) {
-        width: 100%;
-        height: auto;
-        display: block;
-        margin: 2rem 0;
-        border-radius: 0;
-        border: 2px solid var(--post-pixel);
-        box-shadow: var(--post-shadow-card);
-      }
-
-      .life-content :global(iframe) {
-        width: 100%;
-        margin: 2rem 0;
-        border-radius: 0;
-        border: 2px solid var(--post-pixel);
-      }
-
-      .life-content :global(code:not(pre code)) {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.83em;
-        padding: 0.16em 0.42em;
-        border-radius: 0;
-        color: var(--post-accent);
-        background: rgba(6, 182, 212, 0.08);
-        border: 1px solid rgba(6, 182, 212, 0.2);
-      }
-
-      .life-content :global(pre),
-      .life-content :global(.astro-code) {
-        margin: 2.25rem 0 !important;
-        padding: 1.2rem 1.3rem !important;
-        border-radius: 0 !important;
-        border: 2px solid var(--post-pixel) !important;
-        background: #EFF9FF !important;
-        box-shadow: 4px 4px 0 var(--post-pixel);
-        overflow-x: auto;
-      }
-
-      .life-content :global(pre > code) {
-        font-family: 'IBM Plex Mono', monospace !important;
-        font-size: 0.88rem !important;
-        line-height: 1.7 !important;
-        white-space: pre !important;
-      }
-
-      /* ─── Tags ────────────────────────────────────── */
-      .post-tags {
-        max-width: 740px;
-        margin: 2.75rem auto 0;
-        padding-top: 1.2rem;
-        border-top: 2px solid var(--post-pixel);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.65rem;
-        align-items: center;
-      }
-
-      .tag-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--post-text-muted);
-      }
-
-      .tag {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.46rem 0.72rem;
-        border-radius: 0;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.67rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #FFFFFF;
-        background: var(--post-accent);
-        border: 2px solid var(--post-pixel);
-        box-shadow: 2px 2px 0 var(--post-pixel);
-      }
-
-      /* ─── Post nav ────────────────────────────────── */
-      .post-nav {
-        max-width: 980px;
-        margin: 4rem auto 0;
-        padding-top: 1.6rem;
-        border-top: 2px solid var(--post-pixel);
-      }
-
-      .nav-header {
-        margin-bottom: 1rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--post-text-muted);
-      }
-
-      .nav-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-      }
-
-      .nav-card {
-        display: flex;
-        flex-direction: column;
-        gap: 0.45rem;
-        padding: 1.15rem 1.2rem;
-        border-radius: 0;
-        background: #FFFFFF;
-        border: 2px solid var(--post-pixel);
-        box-shadow: var(--post-shadow-card);
-        text-decoration: none;
-        transition: transform 0.1s ease, box-shadow 0.1s ease;
-      }
-
-      .nav-card:hover {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 var(--post-pixel);
-      }
-
-      .nav-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.64rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--post-coral-dark);
-      }
-
-      .nav-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.5rem;
-        line-height: 1.0;
-        letter-spacing: -0.04em;
-        color: var(--post-text);
-        transition: color 0.15s ease;
-      }
-
-      .nav-card:hover .nav-title { color: var(--post-coral-dark); }
-
-      .nav-date {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
-        color: var(--post-text-muted);
-      }
-
-      /* ─── Footer ──────────────────────────────────── */
-      .life-footer {
-        max-width: 980px;
-        margin: 4rem auto 0;
-        padding: 1.6rem 0 0;
-        border-top: 2px solid var(--post-pixel);
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.65rem;
-      }
-
-      .footer-link {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.44rem 0.78rem;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.64rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--post-text) !important;
-        text-decoration: none !important;
-        background: #FFFFFF;
-        border: 2px solid var(--post-pixel);
-        box-shadow: 2px 2px 0 var(--post-pixel);
-        transition: transform 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
-      }
-
-      .footer-link:hover {
-        transform: translate(1px, 1px);
-        box-shadow: 1px 1px 0 var(--post-pixel);
-        color: var(--post-coral) !important;
-      }
-
-      /* ─── Responsive ──────────────────────────────── */
-      @media (max-width: 900px) {
-        .life-hero { min-height: 80vh; }
-        .nav-grid { grid-template-columns: 1fr; }
-        .life-footer { flex-direction: column; align-items: flex-start; }
-      }
-
-      @media (max-width: 720px) {
-        .life-hero { min-height: 100svh; }
-        .life-hero-content { padding: 0 1rem 3.2rem; }
-
-        .post-title { font-size: clamp(2.8rem, 12vw, 4.2rem); }
-
-        .post-description,
-        .life-content { font-size: 1.12rem; }
-
-        .life-content :global(h2) { font-size: 2.08rem; }
-        .life-content :global(h3) { font-size: 1.56rem; }
-
-        .life-post-shell { padding-left: 1rem; padding-right: 1rem; padding-bottom: 3.2rem; }
-
-        .life-hero-scroll { display: none; }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="life-post-page">
-      <Header homepage={true} />
-
-      {heroImage ? (
-        <div class="life-hero">
-          <div class="life-hero-parallax">
-            <img
-              class="life-hero-img"
-              src={heroImage}
-              alt=""
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </div>
-          <div class="life-hero-gradient" />
-          <div class="life-hero-content">
-            <div class="eyebrow">Life</div>
-            <h1 class="post-title">{title}</h1>
-            <p class="post-description">{description}</p>
-            <div class="intro-meta">
-              <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
-              {updatedDate && (
-                <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
-              )}
-              {translation && (
-                <div class="lang-toggle" title="Read in another language">
-                  {currentLocale === 'en' ? (
-                    <>
-                      <span class="lang-active">EN</span>
-                      <div class="lang-divider" />
-                      <a href={`/blog/${translation.id}/`}>日本語</a>
-                    </>
-                  ) : (
-                    <>
-                      <a href={`/blog/${translation.id}/`}>EN</a>
-                      <div class="lang-divider" />
-                      <span class="lang-active">日本語</span>
-                    </>
-                  )}
-                </div>
-              )}
+<!doctype html>
+<html lang={currentLocale}>
+  <head><BaseHead title={title} description={description} image={heroImage || undefined} /></head>
+  <body class="publication reading-page life-story" data-story-kind={theme.kind} data-story-theme={theme.id} data-story-display={theme.display} style={themeStyle}>
+    <a class="story-skip" href="#main-content">Skip to story</a>
+    <Header homepage themeToggle activeSection="/life/" />
+    <main id="main-content" class="story-main">
+      <article>
+        <header class:list={['story-opening', { 'has-image': Boolean(heroImage) }]}>
+          <div class="story-title-block">
+            <div class="story-eyebrow"><a href="/life/">Life</a><span aria-hidden="true">/</span><span>{theme.label}</span></div>
+            {draft && <p class="story-draft">Draft</p>}
+            <h1>{title}</h1>
+            {description !== title && <p class="story-description">{description}</p>}
+            <div class="story-meta">
+              <FormattedDate date={pubDate} />
+              {updatedDate && updatedDate.valueOf() !== pubDate.valueOf() && <span>Updated <FormattedDate date={updatedDate} /></span>}
             </div>
+            {translation && (
+              <nav class="story-languages" aria-label="Story language">
+                <a href={currentLocale === 'en' ? `/blog/${postId}/` : `/blog/${translation.id}/`} lang="en" aria-current={currentLocale === 'en' ? 'page' : undefined}>English</a>
+                <a href={currentLocale === 'ja' ? `/blog/${postId}/` : `/blog/${translation.id}/`} lang="ja" aria-current={currentLocale === 'ja' ? 'page' : undefined}>日本語</a>
+              </nav>
+            )}
           </div>
-          <div class="life-hero-scroll" aria-hidden="true">
-            <span>Scroll</span>
-            <div class="life-hero-scroll-arrow"></div>
-          </div>
+          {heroImage && (
+            <figure class="story-image">
+              <img src={heroImage} alt={heroImageAlt ?? ''} width="1200" height="900" loading="eager" decoding="async" fetchpriority="high" />
+            </figure>
+          )}
+        </header>
+        <div class="story-reading">
+          <div class="story-margin" aria-hidden="true"><span>{theme.label}</span><span>{pubDate.getUTCFullYear()}</span></div>
+          <div class="reading-prose story-prose" set:html={contentHtml} />
         </div>
-      ) : (
-        <div class="life-hero life-hero--no-image">
-          <div class="life-hero-gradient" />
-          <div class="life-hero-content">
-            <div class="eyebrow">Life</div>
-            <h1 class="post-title">{title}</h1>
-            <p class="post-description">{description}</p>
-            <div class="intro-meta">
-              <span class="meta-pill"><span class="meta-dot"></span><FormattedDate date={pubDate} /></span>
-              {updatedDate && (
-                <span class="meta-pill"><span class="updated-label">Updated</span><FormattedDate date={updatedDate} /></span>
-              )}
-              {translation && (
-                <div class="lang-toggle" title="Read in another language">
-                  {currentLocale === 'en' ? (
-                    <>
-                      <span class="lang-active">EN</span>
-                      <div class="lang-divider" />
-                      <a href={`/blog/${translation.id}/`}>日本語</a>
-                    </>
-                  ) : (
-                    <>
-                      <a href={`/blog/${translation.id}/`}>EN</a>
-                      <div class="lang-divider" />
-                      <span class="lang-active">日本語</span>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <main class="life-post-shell">
-        <article class="life-content">
-          <slot />
-        </article>
-
-        {tags && tags.length > 0 && (
-          <div class="post-tags">
-            <span class="tag-label">Tags</span>
-            {tags.map(tag => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        )}
-
-        {(prevPost || nextPost) && (
-          <nav class="post-nav">
-            <div class="nav-header">More from life</div>
-            <div class="nav-grid">
-              {prevPost && (
-                <a href={`/blog/${prevPost.id}/`} class="nav-card">
-                  <span class="nav-label">Previous</span>
-                  <span class="nav-title">{prevPost.data.title}</span>
-                  <span class="nav-date"><FormattedDate date={prevPost.data.pubDate} /></span>
-                </a>
-              )}
-              {nextPost && (
-                <a href={`/blog/${nextPost.id}/`} class="nav-card">
-                  <span class="nav-label">Next</span>
-                  <span class="nav-title">{nextPost.data.title}</span>
-                  <span class="nav-date"><FormattedDate date={nextPost.data.pubDate} /></span>
-                </a>
-              )}
+        {tags && tags.length > 0 && <div class="story-tags" aria-label="Topics">{tags.map(tag => <span>{tag}</span>)}</div>}
+        {(previous || next) && (
+          <nav class="story-navigation" aria-label="More Life stories">
+            <div class="story-navigation-heading"><span>Keep reading</span><a href="/life/">All Life stories <span aria-hidden="true">↗</span></a></div>
+            <div class="story-navigation-links">
+              {previous && <a href={`/blog/${previous.id}/`}><span class="story-nav-direction">← Older story</span><strong>{previous.data.title}</strong></a>}
+              {next && <a href={`/blog/${next.id}/`}><span class="story-nav-direction">Newer story →</span><strong>{next.data.title}</strong></a>}
             </div>
           </nav>
         )}
-
-        <footer class="life-footer">
-          <div class="footer-links">
-            <a href="/life" class="footer-link">All life posts</a>
-            <a href="/" class="footer-link">mager.co</a>
-            <a href="https://x.com/mager" target="_blank" class="footer-link">@mager</a>
-          </div>
-        </footer>
-      </main>
-
-      <SecretSearch posts={allPosts} />
-    </div>
+      </article>
+    </main>
+    <Footer homepage />
+    <SecretSearch posts={allPosts} />
   </body>
 </html>
+<script>
+  import '../scripts/reading';
+  document.querySelectorAll<HTMLImageElement>('.story-image img').forEach(image => {
+    const hideUnavailable = () => {
+      image.closest('figure')?.setAttribute('hidden', '');
+      image.closest('.story-opening')?.classList.remove('has-image');
+    };
+    if (image.complete && image.naturalWidth === 0) hideUnavailable();
+    image.addEventListener('error', hideUnavailable, { once: true });
+  });
+</script>

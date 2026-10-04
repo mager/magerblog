@@ -1,0 +1,128 @@
+/* Life is a collection of stories, each with its own subject and visual voice. */
+.life-story {
+  --story-accent: var(--story-accent-light, var(--news-green));
+  --story-tint: color-mix(in oklch, var(--story-accent) 8%, var(--story-paper, var(--news-paper)));
+  background: var(--story-paper, var(--news-paper));
+}
+html[data-theme="dark"] .life-story {
+  --story-accent: var(--story-accent-dark, var(--news-green));
+  --story-paper: #000 !important;
+  --story-tint: color-mix(in oklch, var(--story-accent) 10%, #000);
+}
+.life-story :focus-visible { outline-color: var(--story-accent); }
+.story-skip { position: absolute; z-index: 100; left: 18px; top: 12px; transform: translateY(-200%); padding: 12px 18px; background: var(--news-ink); color: var(--news-paper); font: 600 14px/1.4 var(--news-ui); }
+.story-skip:focus { transform: none; }
+.story-main { width: 1136px; max-width: calc(100% - 48px); margin-inline: auto; padding: 36px 0 64px; }
+.story-opening { padding: 8px 0 36px; margin-bottom: 42px; border-bottom: 1px solid var(--news-rule); }
+.story-title-block { min-width: 0; }
+.story-eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 22px; color: var(--story-accent); font: 600 12px/1.5 var(--news-ui); }
+.story-eyebrow a { color: inherit; min-height: 44px; display: inline-flex; align-items: center; }
+.story-eyebrow a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.story-eyebrow > span[aria-hidden] { color: var(--news-rule); }
+.story-opening h1 { color: var(--news-ink); font: 650 clamp(38px, 4.7vw, 62px)/1.05 var(--news-display); letter-spacing: -.045em; margin: 0 0 24px; text-wrap: pretty; overflow-wrap: break-word; }
+.story-description { color: var(--news-muted); font: 21px/1.55 var(--news-serif); max-width: 52ch; margin: 0 0 24px; }
+.story-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--news-muted); font: 10px/1.6 var(--news-mono); }
+.story-draft { color: var(--story-accent); font: 600 12px/1.4 var(--news-ui); }
+.story-languages { display: flex; gap: 20px; margin-top: 14px; }
+.story-languages a { display: inline-flex; align-items: center; min-height: 44px; color: var(--news-muted); font: 500 13px/1.4 var(--news-ui); }
+.story-languages a[aria-current] { color: var(--story-accent); text-decoration: underline; text-underline-offset: 6px; }
+.story-languages a:hover { color: var(--story-accent); }
+.story-image { margin: 0; min-width: 0; overflow: hidden; background: var(--story-tint); }
+.story-image[hidden] { display: none; }
+.story-image img { display: block; width: 100%; height: auto; max-width: 100%; border-radius: 0; object-fit: contain; object-position: var(--story-image-position); }
+.story-reading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 720px) minmax(0, 1fr); gap: 24px; }
+.story-margin { align-self: start; display: flex; flex-direction: column; gap: 6px; padding-top: 8px; color: var(--news-muted); font: 10px/1.6 var(--news-mono); }
+.story-margin span:first-child { color: var(--story-accent); }
+.story-prose { grid-column: 2; min-width: 0; font-size: 21px; }
+.story-prose a { color: var(--story-accent); }
+.story-prose :is(h2, h3) { scroll-margin-top: 24px; }
+.story-prose h2 { font-size: clamp(29px, 3vw, 36px); }
+.story-prose img { border: 0; box-shadow: none; border-radius: 0; max-width: 100%; }
+.story-prose iframe { border: 0; }
+.story-prose iframe[src*="mixcloud.com"] { aspect-ratio: auto; height: 120px; width: 100%; }
+.story-prose iframe[src*="spotify.com"] { aspect-ratio: auto; height: 152px; width: 100%; }
+.story-prose blockquote { border: 0; padding: 20px 24px; background: var(--story-tint); color: var(--news-ink); }
+.story-prose li::marker { color: var(--story-accent); }
+.story-tags { max-width: 720px; display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 36px auto 0; color: var(--news-muted); font: 11px/1.5 var(--news-ui); }
+.story-tags span::before { content: '#'; color: var(--story-accent); }
+.story-navigation { max-width: 920px; margin: 64px auto 0; border-top: 1px solid var(--news-rule); padding-top: 18px; }
+.story-navigation-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; color: var(--news-muted); font: 500 12px/1.5 var(--news-ui); }
+.story-navigation-heading a { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; color: var(--story-accent); }
+.story-navigation-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 10px; }
+.story-navigation-links a { display: flex; flex-direction: column; gap: 12px; color: var(--news-ink); padding: 14px 0; }
+.story-nav-direction { color: var(--news-muted); font: 10px/1.5 var(--news-mono); }
+.story-navigation-links strong { font: 600 23px/1.2 var(--news-display); letter-spacing: -.025em; text-wrap: pretty; }
+.story-navigation-links a:hover strong { color: var(--story-accent); }
+
+/* Travel: an open photographic spread, like the first page of a trip journal. */
+[data-story-kind="travel"] .story-opening.has-image { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+[data-story-kind="travel"] .story-image { align-self: center; }
+[data-story-kind="travel"] .story-opening h1 { font-size: clamp(38px, 4.2vw, 56px); }
+[data-story-kind="travel"] .story-prose > p:has(> img:only-child) { margin-block: 36px; }
+
+/* Sports: a compact headline strip and a wide view of the event. */
+[data-story-kind="sports"] .story-title-block { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); column-gap: 40px; align-items: start; }
+[data-story-kind="sports"] .story-eyebrow { grid-column: 1 / -1; margin-bottom: 14px; }
+[data-story-kind="sports"] .story-opening h1 { grid-column: 1; grid-row: 2 / 5; font-family: var(--news-ui); font-weight: 700; font-size: clamp(38px, 4.5vw, 60px); letter-spacing: -.055em; }
+[data-story-kind="sports"] .story-description { grid-column: 2; padding-top: 3px; font-size: 19px; }
+[data-story-kind="sports"] :is(.story-meta, .story-languages) { grid-column: 2; }
+[data-story-kind="sports"] .story-image { margin-top: 20px; background: transparent; }
+[data-story-kind="sports"] .story-image img { max-height: 520px; width: auto; margin-inline: auto; }
+[data-story-kind="sports"] .story-prose h2 { font-family: var(--news-ui); letter-spacing: -.04em; }
+
+/* Garden: botanical photography beside a generous colored field-note opening. */
+[data-story-kind="garden"] .story-opening { background: var(--story-tint); border: 0; padding: 36px; }
+[data-story-kind="garden"] .story-opening.has-image { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+[data-story-kind="garden"] .story-image { align-self: center; }
+[data-story-kind="garden"] .story-opening h1 { font-size: clamp(42px, 5vw, 68px); color: var(--story-accent); }
+[data-story-kind="garden"] .story-prose h2 { color: var(--story-accent); }
+
+/* Personal entries retain the close scale of a letter, with a small photo beside it. */
+[data-story-kind="journal"] .story-opening { max-width: 920px; margin-inline: auto; }
+[data-story-kind="journal"] .story-opening.has-image { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+[data-story-kind="journal"] .story-opening h1 { font-size: clamp(36px, 4vw, 50px); }
+[data-story-kind="journal"] .story-image { align-self: center; }
+[data-story-kind="journal"] .story-description { font-size: 19px; }
+[data-story-kind="journal"] .story-prose { font-size: 20px; }
+
+/* Music memorabilia: give the artifact room and preserve every edge. */
+[data-story-kind="music"] .story-opening.has-image { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: center; }
+[data-story-kind="music"] .story-image { padding: 16px; background: var(--story-tint); }
+[data-story-kind="music"] .story-image img { height: auto; object-fit: contain; }
+[data-story-kind="music"] .story-opening h1 { font-family: var(--news-ui); font-weight: 700; }
+
+[data-story-display="serif"] .story-opening h1 { font-family: var(--news-display); }
+[data-story-display="sans"] .story-opening h1 { font-family: var(--news-ui); font-weight: 700; }
+[data-story-display="mono"] .story-opening h1 { font-family: var(--news-mono); font-size: clamp(30px, 3.2vw, 43px); letter-spacing: -.065em; line-height: 1.15; }
+
+@media (max-width: 900px) {
+  .story-reading { grid-template-columns: minmax(0, 720px); justify-content: center; }
+  .story-prose { grid-column: 1; }
+  .story-margin { display: none; }
+  [data-story-kind="sports"] .story-title-block { column-gap: 24px; grid-template-columns: 1.3fr 1fr; }
+  [data-story-kind="garden"] .story-opening { padding: 24px; }
+}
+@media (max-width: 680px) {
+  .story-main { max-width: calc(100% - 36px); padding-top: 12px; padding-bottom: 44px; }
+  .life-story .story-opening, .life-story .story-opening.has-image, .life-story .story-title-block { display: block; }
+  .story-opening { margin-bottom: 28px; padding-bottom: 24px; }
+  .story-eyebrow { margin-bottom: 14px; }
+  .life-story .story-opening h1 { font-size: clamp(36px, 9vw, 48px); line-height: 1.08; margin-bottom: 18px; }
+  [data-story-display="mono"] .story-opening h1 { font-size: clamp(29px, 7.8vw, 40px); }
+  .life-story .story-description { font-size: 19px; margin-bottom: 20px; }
+  .life-story .story-image { margin-top: 24px; }
+  [data-story-kind="music"] .story-image { aspect-ratio: auto; padding: 10px; }
+  [data-story-kind="garden"] .story-opening { padding: 20px; margin-inline: -6px; }
+  .life-story .story-prose { font-size: 19px; line-height: 1.7; }
+  .story-prose h2 { font-size: 29px; }
+  .story-navigation { margin-top: 44px; }
+  .story-navigation-links { grid-template-columns: 1fr; gap: 6px; }
+  .story-navigation-links a + a { border-top: 1px solid var(--news-rule); }
+}
+@media print {
+  .story-main { width: 100%; max-width: none; padding: 0; }
+  .story-opening { break-inside: avoid; }
+  .story-reading { display: block; }
+  .story-margin, .story-navigation, .story-tags, .story-languages { display: none; }
+  .story-prose { font-size: 12pt; }
+}

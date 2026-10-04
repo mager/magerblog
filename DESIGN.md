@@ -66,3 +66,9 @@ Blog drafts remain available through the dev server but do not generate producti
 ## About page
 
 Use the shared publication palette and typography, with an open two-column introduction and square portrait. The Hot Dougs avatar by @hopperdraws links to the artist’s X profile. Mouse hover reveals the hosted human photo; touch and keyboard activation toggle it. Keep both portraits at the same aspect ratio, honor reduced motion, and retain the avatar if the photo fails to load.
+
+## Life stories
+
+Life has a shared masthead and reading foundation, with art direction assigned to each story in `src/lib/life-themes.ts`. Travel opens with a photographic spread, sports with a headline and event photograph, gardening with a botanical field-note opening, and personal entries at the intimate scale of a letter. Music memorabilia preserves the full artifact. Use each story's palette and display face; translated versions share the same identity. Keep photographs uncropped, avoid empty hero space, and preserve true-black reading surfaces when the reader chooses dark mode.
+
+The nine-album post uses `lifeLayout: albums` and a dedicated `AlbumPost.astro` layout. Its complete my9albums poster leads on a deep plum surface, sized to fit a desktop opening and the width of a phone. Warm paper, burnt orange, geometric headings, and a headphone illustration accompany the notes below. The semantic ordered list pairs each record's cover, artist, title, release year, personal memory, and Spotify link. Keep the canonical memories and links in the content file, not in layout code.

@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import CookingPost from '../../layouts/CookingPost.astro';
 import LifePost from '../../layouts/LifePost.astro';
+import AlbumPost from '../../layouts/AlbumPost.astro';
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -24,6 +25,10 @@ const isLife = post.data.category === 'life';
 	<CookingPost {...post.data} postId={post.id}>
 		<Content />
 	</CookingPost>
+) : isLife && post.data.lifeLayout === 'albums' ? (
+	<AlbumPost {...post.data}>
+		<Content />
+	</AlbumPost>
 ) : isLife ? (
 	<LifePost {...post.data} postId={post.id}>
 		<Content />

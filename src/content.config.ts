@@ -13,6 +13,8 @@ const blog = defineCollection({
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
+		heroImageAlt: z.string().optional(),
+		lifeLayout: z.enum(['story', 'albums']).optional(),
 		prepTime: z.number().optional(),
 		recipeYield: z.string().optional(),
 		cookTime: z.number().optional(),

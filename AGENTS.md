@@ -92,6 +92,7 @@ The site organizes content into three categories, each with distinct visual them
 - `src/layouts/Artifact.astro`: Compact 860px document column with left-aligned heading, filename, Markdown download, and a numbered contents disclosure. Native tables fill keyboard-accessible scroll containers; artifact prose uses the publication UI font.
 - `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
 - Cooking and life articles retain their dedicated layouts.
+- Life stories use `src/lib/life-themes.ts` for a named, per-story palette and one of five subject-specific openings in `LifePost.astro`. Add an explicit theme when publishing a new life story; translations share their original's theme. `lifeLayout: albums` selects `AlbumPost.astro` for music lists, with a complete `heroImage` poster, descriptive `heroImageAlt`, and numbered album notes below it.
 - `src/styles/reading.css`: Detail-page typography, prose, code, tables, and mobile layout.
 - Publication pages default to light mode. `ThemeToggle.astro` saves an explicit light/dark choice under `mager-theme`; `BaseHead.astro` applies it before paint. Dark publication surfaces use true black. Theme colors live in `newspaper.css`.
 

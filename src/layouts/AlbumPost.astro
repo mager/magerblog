@@ -1,0 +1,62 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import '../styles/albums.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  heroImage?: string;
+  heroImageAlt?: string;
+}
+const { title, description, pubDate, heroImage, heroImageAlt = '' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={title} description={description} image={heroImage} /></head>
+  <body class="publication album-page">
+    <a class="skip-link" href="#main-content">Skip to albums</a>
+    <Header homepage themeToggle activeSection="/life/" />
+    <main id="main-content" class="album-main">
+      <header class="album-opening">
+        <div class="album-heading">
+          <a class="album-back" href="/life/">Life / Music</a>
+          <h1>{title}</h1>
+          <FormattedDate date={pubDate} />
+        </div>
+        {heroImage && <figure class="album-poster">
+          <a href={heroImage} aria-label="View the full nine-album poster">
+            <img src={heroImage} alt={heroImageAlt} width="1543" height="1800" fetchpriority="high" decoding="async" />
+          </a>
+          <figcaption>
+            <span>Nine records. A lot of memories.</span>
+            <a href="#album-notes">The stories below <span aria-hidden="true">↓</span></a>
+          </figcaption>
+        </figure>}
+      </header>
+      <article id="album-notes" class="album-notes">
+        <header class="album-notes-heading">
+          <div>
+            <p class="album-kicker">Liner notes</p>
+            <h2>On repeat.</h2>
+          </div>
+          <div class="album-headphones" aria-hidden="true">
+            <svg viewBox="0 0 180 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M29 91V74a61 61 0 0 1 122 0v17" stroke="currentColor" stroke-width="12" stroke-linecap="round" />
+              <path d="M42 77a48 48 0 0 1 96 0" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+              <rect x="16" y="81" width="33" height="57" rx="13" fill="currentColor" transform="rotate(-9 16 81)" />
+              <rect x="130" y="76" width="33" height="57" rx="13" fill="currentColor" transform="rotate(9 130 76)" />
+              <path d="M144 138c0 13-12 16-35 16" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </div>
+        </header>
+        <div class="album-prose"><slot /></div>
+        <a class="album-return" href="/life/">More from life <span aria-hidden="true">↗</span></a>
+      </article>
+    </main>
+    <Footer homepage />
+  </body>
+</html>
