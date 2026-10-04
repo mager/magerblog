@@ -27,7 +27,6 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <main id="main-content" class="edition-shell">
       <div class="edition-masthead">
         <h1>mager<span>.</span>co</h1>
-        <div class="masthead-note"><ChicagoFlag /><span>Chicago</span></div>
       </div>
       <div class="edition-switchbar">
         <p>The Chicago edition <span class="edition-count">/ {edition.count} things to get into</span></p>
@@ -41,8 +40,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
             <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" />)}</div>
           </div>
           <aside class="dispatch-column" aria-labelledby="dispatch-heading">
-            <div class="section-heading small"><h2 id="dispatch-heading">Dispatches</h2><a href="/notes/">Notebook ↗</a></div>
-            <p class="section-deck">Small notes from things in motion.</p>
+            <div class="section-heading small"><h2 id="dispatch-heading">Notes</h2><a href="/notes/">All notes ↗</a></div>
             {edition.dispatches.map((entry, index) => <div class="numbered-dispatch"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><Story entry={entry} variant="brief" /></div>)}
             <a class="dispatch-signoff" href="/about/">A little about me <span aria-hidden="true">↗</span></a>
           </aside>
@@ -83,8 +81,8 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
       <section id="chronological-feed" class="chronological-feed" aria-label="All updates">
         <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={stream} filters compact pageSize={24} headingLevel="h2" /></details>
       </section>
-      <div class="edition-colophon"><span>Made in Chicago. Always a work in progress.</span><a href="/rss.xml">Keep up via RSS ↗</a></div>
     </main>
+    <div class="edition-colophon"><div class="edition-colophon-inner"><span class="edition-credit"><ChicagoFlag /><span>Built with agents in Chicago</span></span><a href="/rss.xml">RSS ↗</a></div></div>
     <Footer homepage />
     <SecretSearch posts={posts} />
   </body>
