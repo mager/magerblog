@@ -36,13 +36,7 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
   .wordmark { color: var(--header-ink); font: 800 27px/1 var(--news-display); letter-spacing: -.07em; white-space: nowrap; }
   .wordmark span { color: var(--news-red); }
   .wordmark:hover { color: var(--header-ink); opacity: .8; }
-  [data-wordmark-visible="false"] .wordmark { opacity: 0; visibility: hidden; transform: translateY(-4px); }
-  @media (prefers-reduced-motion: no-preference) {
-    [data-reveal-wordmark] .wordmark { transition: opacity 160ms ease-out, transform 160ms ease-out; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    [data-reveal-wordmark] .wordmark { transition: none; }
-  }
+  [data-wordmark-visible="false"] .wordmark { display: none; }
   .header-sections { display: flex; flex-wrap: wrap; gap: 0 clamp(12px, 1.8vw, 24px); align-items: center; }
   .header-sections > a { display: inline-flex; align-items: center; position: relative; min-height: 44px; color: var(--header-muted); font: 500 13px/1.4 var(--news-ui); }
   .header-sections > a:hover, .header-sections > a.active { color: var(--header-ink); }
