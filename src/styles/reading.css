@@ -42,6 +42,9 @@
 .reading-prose li::marker { color: var(--news-muted); }
 .reading-prose blockquote { margin: 28px 0; padding: 20px 0; border: 0; border-block: 1px solid var(--news-rule); border-radius: 0; background: transparent; color: var(--news-muted); }
 .reading-prose blockquote > :last-child { margin-bottom: 0; }
+.reading-prose figure { margin: 28px 0; }
+.reading-prose figure img { margin-bottom: 10px; }
+.reading-prose figcaption { color: var(--news-muted); font: 13px/1.6 var(--news-ui); }
 .reading-prose img { display: block; height: auto; margin: 28px auto; border-radius: 5px; }
 .reading-prose :is(video, iframe) { max-width: 100%; }
 .reading-prose iframe { aspect-ratio: 16/9; height: auto; }
@@ -55,6 +58,7 @@ html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not
 .copy-code { min-height: 40px; min-width: 64px; padding: 8px 12px; border: 0; border-radius: 3px; background: transparent; color: var(--news-muted); font: 600 11px/1 var(--news-mono); cursor: pointer; transition: color .15s ease, background-color .15s ease; }
 .copy-code:hover { color: var(--news-blue); background: var(--news-paper); }
 .reading-prose table { display: block; width: 100%; overflow-x: auto; margin: 28px 0; border: 1px solid var(--news-rule); border-radius: 4px; background: var(--news-paper); font: 14px/1.6 var(--news-ui); }
+.reading-prose :is(th, td) > code { white-space: nowrap; }
 .reading-prose thead { background: var(--news-surface); }
 .reading-prose :is(th,td) { color: var(--news-ink); padding: 12px 16px; border-bottom: 1px solid var(--news-rule); }
 .reading-prose tbody tr { border-color: var(--news-rule); }
