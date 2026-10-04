@@ -15,7 +15,7 @@ I wanted a tool organized around that experience. Pick a palette. See it immedia
 
 That became **[Mood Shell](https://moodsh.vercel.app)**, a small shell customization toolkit written in Rust. The command is `moodsh`. I've also started calling it Modge, although the executable is keeping its original name.
 
-The current release is **[version 0.7.0](https://github.com/mager/moodsh/releases/tag/v0.7.0)**. It runs natively on macOS, Windows, and Linux, integrates with Zsh, Bash, and PowerShell 7, and includes native Tab completion and opt-in Git shortcuts. Its central idea is still small: themes you can create, read, and share as Markdown documents.
+The current release is **[version 0.7.1](https://github.com/mager/moodsh/releases/tag/v0.7.1)**. It runs natively on macOS, Windows, and Linux, integrates with Zsh, Bash, and PowerShell 7, and includes native Tab completion and opt-in Git shortcuts. Its central idea is still small: themes you can create, read, and share as Markdown documents.
 
 ![Mood Shell running in my Mac terminal, with a lavender project directory and a cyan prompt arrow ready for the next command.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/prompt-clean.jpg)
 
@@ -50,10 +50,10 @@ That is the interaction I wanted: a small set of choices with immediate, visible
 
 ## Keep the directory readable
 
-A path can be present and still be hard to see. Paper uses dark directory text for a light terminal; on a dark background, that can make the path difficult to read. Version 0.7.0 adds a way to use the terminal’s normal text color for the path without replacing the rest of the palette:
+A path can be present and still be hard to see. Paper uses dark directory text for a light terminal; on a dark background, that can make the path difficult to read. Version 0.7.1 makes the terminal’s normal text color the default for paths. Explicit saved choices still win. To use the theme’s palette instead:
 
 ```sh
-moodsh path --color terminal
+moodsh path --color theme
 ```
 
 Both layouts already show the directory. `moodsh path --format full` shows its full path; `--format home` keeps the familiar `~/…`. These preferences survive theme changes and stay out of exported Markdown themes. The picker also has a **P** toggle for path color. Use `--color theme` to restore the palette. None of this changes the terminal background.
@@ -95,7 +95,7 @@ moodsh theme apply afterhours.md
 
 Previewing changes nothing. Applying validates the document and saves the palette for your next prompt. Editing the Markdown file later does not silently change your shell; you explicitly apply it again.
 
-The repository and release archives include a longer [Afterhours example](https://github.com/mager/moodsh/blob/v0.7.0/themes/afterhours.md), with color notes and instructions. You can put your own description, author credit, and preferred terminal background around the block. Mood Shell reads the palette; Markdown readers display the explanation.
+The repository and release archives include a longer [Afterhours example](https://github.com/mager/moodsh/blob/v0.7.1/themes/afterhours.md), with color notes and instructions. You can put your own description, author credit, and preferred terminal background around the block. Mood Shell reads the palette; Markdown readers display the explanation.
 
 This is where I want the project to stand out: make the theme the thing you can understand and pass around, rather than making every new user learn the implementation first.
 
@@ -145,7 +145,7 @@ Sharing opens a prepared GitHub issue for you to review and submit. I review sub
 
 I like Markdown as the interface for a theme's author and reader. I also want machine-readable settings to have predictable meaning. Parsing a prose sentence such as “make the arrow a warmer pink” would be a different product with different dependencies and failure modes.
 
-The boundary is explicit: one labeled block, two layouts, four colors, one name. Unknown keys and invalid colors produce errors. A document with multiple theme blocks is rejected rather than choosing one silently. The [format guide](https://github.com/mager/moodsh/blob/v0.7.0/themes/README.md) documents the supported standalone fences and the 64 KiB file limit.
+The boundary is explicit: one labeled block, two layouts, four colors, one name. Unknown keys and invalid colors produce errors. A document with multiple theme blocks is rejected rather than choosing one silently. The [format guide](https://github.com/mager/moodsh/blob/v0.7.1/themes/README.md) documents the supported standalone fences and the 64 KiB file limit.
 
 The runtime configuration remains TOML. Applying a theme copies the validated settings into that config; the shell hook never scans Markdown. Once a theme is applied, you can move the document or share it without breaking the active prompt.
 
@@ -167,7 +167,7 @@ Existing Bash and Zsh prompt hooks are preserved, and the PowerShell integration
 
 I ran into an embarrassing bit of onboarding myself: the source-install command started with `cargo`, and my shell answered `command not found`. Rust was installed on my Mac, but its executable directory wasn't on PATH in that session. That was a useful reminder that building the program and using it are different tasks.
 
-**You do not need Cargo or Rust to use Mood Shell.** The [release page](https://github.com/mager/moodsh/releases/tag/v0.7.0) contains ready-to-run archives for Apple Silicon macOS, Intel macOS, x64 Linux with glibc, and x64 Windows, along with SHA-256 checksum files. Download the archive for your machine rather than GitHub's source-code archive.
+**You do not need Cargo or Rust to use Mood Shell.** The [release page](https://github.com/mager/moodsh/releases/tag/v0.7.1) contains ready-to-run archives for Apple Silicon macOS, Intel macOS, x64 Linux with glibc, and x64 Windows, along with SHA-256 checksum files. Download the archive for your machine rather than GitHub's source-code archive.
 
 On a Mac, extract the archive and open a terminal in the extracted folder. Run:
 
@@ -199,9 +199,9 @@ Run `moodsh --help` to see the available commands. Here is my terminal after sav
 
 ## What is ready, and what isn't
 
-I am releasing this for people who want to try a small, personal prompt, and I'm using it myself. Version 0.7.0 is still an early release, not a claim that every terminal and shell setup has been covered.
+I am releasing this for people who want to try a small, personal prompt, and I'm using it myself. Version 0.7.1 is still an early release, not a claim that every terminal and shell setup has been covered.
 
-The release passes 31 Rust tests and CI on macOS, Windows, and Linux. The tests cover Markdown round trips, malformed files, no-overwrite behavior, unsafe input, and the existing prompt behavior. Shell integration tests run against real Bash, Zsh, and PowerShell processes where supported; CI requires PowerShell on all three operating systems. The interactive picker has terminal tests on macOS and Linux, plus input-state tests on all three platforms. That doesn't replace testing the Windows picker in every terminal host.
+The release passes 33 Rust tests and CI on macOS, Windows, and Linux. The tests cover Markdown round trips, malformed files, no-overwrite behavior, unsafe input, and the existing prompt behavior. Shell integration tests run against real Bash, Zsh, and PowerShell processes where supported; CI requires PowerShell on all three operating systems. The interactive picker has terminal tests on macOS and Linux, plus input-state tests on all three platforms. That doesn't replace testing the Windows picker in every terminal host.
 
 The scope is deliberately clear. Mood Shell styles **the prompt** and offers native Tab completion and optional Git shortcuts. It also initializes Zsh’s standard completion system when needed, so command and path completion work after removing Oh My Zsh. It doesn't change terminal backgrounds, add command syntax highlighting or autosuggestions, manage plugins, support Fish, or animate your terminal. I noticed the pulsing cursor as soon as the prompt was running and loved how the whole thing looked, but that pulse belongs to the terminal emulator. It isn't a Mood Shell feature.
 
