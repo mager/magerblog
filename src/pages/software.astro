@@ -1,0 +1,86 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+import '../styles/software.css';
+
+const projects = [
+  {
+    id: 'perch', name: 'Perch', kind: 'Mac monitoring', stack: 'Node.js · Redis',
+    tagline: 'A quiet lookout for your Mac.',
+    description: 'I built Perch to check on my Mac mini without opening a terminal. A self-hosted dashboard brings together heartbeats, system resources, and tmux sessions.',
+    note: 'In development · Self-hosted',
+    url: 'https://perch-mac-app.vercel.app', source: 'https://github.com/mager/perch',
+    story: '/blog/2026-10-04-perch/',
+  },
+  {
+    id: 'moodsh', name: 'Mood Shell', kind: 'Terminal toolkit', stack: 'Rust',
+    tagline: 'A little color in the command line.',
+    description: 'A small prompt toolkit for Zsh, Bash, and PowerShell. Pick a palette, tune it with live previews, and share your theme as a Markdown file. The command is moodsh.',
+    note: 'macOS · Linux · Windows',
+    url: 'https://moodsh.vercel.app', source: 'https://github.com/mager/moodsh',
+    story: '/blog/2026-10-02-mood-shell/',
+  },
+  {
+    id: 'homeport', name: 'Homeport', kind: 'Coding workspace', stack: 'Python · Pydantic · SQLite',
+    tagline: 'Somewhere for the work to stay.',
+    description: 'Start a Codex task, close your laptop, and return to the same conversation. A private browser workspace keeps the agent processes, repositories, and task history on your own computer.',
+    note: 'Early release · Self-hosted',
+    url: 'https://homeport-gamma.vercel.app/', source: 'https://github.com/mager/homeport',
+    story: '/blog/2026-10-04-homeport/',
+  },
+  {
+    id: 'prxps', name: 'prxps', kind: 'Sports picks', stack: 'SvelteKit · TypeScript · Rust',
+    tagline: 'Make the call. Keep the receipt.',
+    description: 'My sports picks project. Make free picks, build a public record, and earn RXP for correct calls. RXP is an in-game reputation currency with no monetary value.',
+    note: 'Web app · Free picks',
+    url: 'https://prxps.xyz',
+    story: '/blog/2026-09-30-rust-backend-prxps-rxp-calculator/',
+  },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Software · ${SITE_TITLE}`} description="Personal software by Mager: Perch, Mood Shell, Homeport, and prxps. Tools for my Mac, my terminal, my coding workflow, and sports picks." image="/images/mager.jpg" />
+  </head>
+  <body class="publication">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="software-page">
+      <header class="software-intro">
+        <p class="software-kicker">Personal software / Selected projects</p>
+        <h1>Software<span>.</span></h1>
+        <div class="software-deck">
+          <p>I’ve been building tools for the things I do every day: checking on my Mac, working in the terminal, writing code, and following sports. Here’s what I’m making.</p>
+          <a href="https://github.com/mager">Follow along on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </header>
+      <div class="software-grid">
+        {projects.map((project, index) => (
+          <article class={`software-project project-${project.id}`} aria-labelledby={`${project.id}-title`}>
+            <div class="project-index"><span>0{index + 1} / {project.kind}</span><span>{project.stack}</span></div>
+            <a class={`project-visual visual-${project.id}`} href={project.url} aria-label={`Visit ${project.name}`}>
+              {project.id === 'perch' && <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/hero.jpg" alt="" width="1536" height="1024" fetchpriority="high" />}
+              {project.id === 'moodsh' && <div class="prompt-art" aria-hidden="true"><span class="terminal-label">moodsh / dusk</span><div><span class="prompt-path">~/code/something-good</span><br /><span class="prompt-arrow">❯</span> <span class="prompt-cursor"></span></div><div class="prompt-palette"><i></i><i></i><i></i><i></i><i></i><span>Make it yours.</span></div></div>}
+              {project.id === 'homeport' && <img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg" alt="" width="1536" height="1024" loading="lazy" />}
+              {project.id === 'prxps' && <div class="picks-art" aria-hidden="true"><span class="picks-label">Picks. Streaks. Receipts.</span><span class="picks-wordmark">prxps<span>↗</span></span><span class="picks-bottom">Your call. On the record.</span></div>}
+              <span class="visual-arrow" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-heading"><h2 id={`${project.id}-title`}><a href={project.url}>{project.name}</a></h2><span class="project-note">{project.note}</span></div>
+            <p class="project-tagline">{project.tagline}</p>
+            <p class="project-description">{project.description}</p>
+            <nav class="project-links" aria-label={`${project.name} links`}>
+              <a class="project-primary" href={project.url}>Visit {project.name} <span aria-hidden="true">↗</span></a>
+              {project.source && <a href={project.source}>Source <span aria-hidden="true">↗</span></a>}
+              <a href={project.story}>Build log <span aria-hidden="true">→</span></a>
+            </nav>
+          </article>
+        ))}
+      </div>
+      <aside class="software-more"><p>The work behind the software.</p><a href="/tech/">Read my technical writing <span aria-hidden="true">→</span></a></aside>
+    </main>
+    <Footer homepage />
+  </body>
+</html>

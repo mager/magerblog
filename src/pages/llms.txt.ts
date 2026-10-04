@@ -26,6 +26,10 @@ export const GET: APIRoute = async () => {
 
 > Mager is a software engineer in Chicago specializing in personal software. He built [prxps](https://github.com/mager/prxps), [loooom](https://github.com/mager/loooom.xyz), and [kotsu](https://github.com/mager/kotsu), and writes about what worked, what broke, and what he learned along the way.
 
+## Software
+
+- [Software](${BASE}/software/): Perch, Mood Shell, Homeport, and prxps. Project websites, public source links, and build logs.
+
 ## Blog
 
 ${blogLines}

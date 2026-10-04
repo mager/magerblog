@@ -6,6 +6,7 @@ const { homepage = false, activeSection, themeToggle = homepage, revealWordmark 
 const path = Astro.url.pathname;
 const sections = [
   { name: 'Tech', href: '/tech/' },
+  { name: 'Software', href: '/software/' },
   { name: 'Cooking', href: '/cooking/' },
   { name: 'Life', href: '/life/' },
   { name: 'Notes', href: '/notes/' },
@@ -55,6 +56,7 @@ const active = (href: string) => activeSection === href || path.replace(/\/$/, '
     .header-sections > a { font-size: 12px; }
   }
   @media(max-width: 540px) { .site-header { padding-inline: 18px; } }
+  @media(max-width: 380px) { .header-sections { display: grid; grid-template-columns: repeat(4, max-content); } }
   @media print { .site-header { display: none; } }
 </style>
 

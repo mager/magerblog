@@ -83,6 +83,7 @@ The site organizes content into three categories, each with distinct visual them
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
 - `src/pages/about.astro`: About page
+- `src/pages/software.astro`: Selected projects (Perch, Mood Shell, Homeport, and prxps), with project sites, public source links, and build logs. Styling lives in `src/styles/software.css`.
 
 ### Layouts
 
@@ -99,7 +100,7 @@ The site organizes content into three categories, each with distinct visual them
 ### Components
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
-- `Header.astro`: Visible links for Tech, Cooking, Life, Notes, Seen, Links, and Artifacts. No More dropdown. This shared header stays visible while scrolling. On the homepage, its wordmark appears only when the large masthead wordmark has passed behind the header. While the logo is hidden, desktop navigation starts at the shell’s left edge; when it appears, navigation makes room beside it. Other pages always show the home wordmark.
+- `Header.astro`: Visible links for Tech, Software, Cooking, Life, Notes, Seen, Links, and Artifacts. No More dropdown. This shared header stays visible while scrolling. On the homepage, its wordmark appears only when the large masthead wordmark has passed behind the header. While the logo is hidden, desktop navigation starts at the shell’s left edge; when it appears, navigation makes room beside it. Other pages always show the home wordmark.
 - `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Archive, Bench, and RSS. Do not add page-specific site footers or duplicate header destinations here. Social profiles appear as accessible brand icons beside the homepage masthead, with an All profiles link to bio.link/mager.
 - `Card.astro`: Blog post card for grid layouts
 - `FormattedDate.astro`: Date formatting component
