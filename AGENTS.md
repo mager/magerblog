@@ -131,6 +131,8 @@ Images in blog posts receive category-specific border colors applied via `body[d
 5. Write content in Markdown/MDX
 6. Do a tone pass before shipping
 
+When writing or editing recipes, repeat ingredient measurements in the method where they are added so readers do not need to scroll back to the ingredient list. For divided ingredients, state the amount used in that step, including the measured remainder, rather than just saying "the remaining sugar." Keep cup/spoon measurements alongside any gram weights, and check that the step amounts add up to the ingredient-list totals.
+
 ### Sharing a Link
 
 Create `src/content/links/YYYY-MM-DD-slug.md` with required `title`, `url`

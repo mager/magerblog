@@ -103,6 +103,34 @@ if (printButton) {
   printButton.addEventListener('click', () => window.print());
 }
 
+const recipeStops = Array.from(document.querySelectorAll<HTMLElement>(
+  '.recipe-ingredients, .recipe-instructions .recipe-steps > li',
+));
+let recipeStop = -1;
+let lastJumpY: number | undefined;
+
+const jumpThroughRecipe = (direction: number) => {
+  if (!recipeStops.length) return;
+  // After manual scrolling or a section link, continue from the visible step.
+  // Keep the explicit index otherwise, including near the bottom of the page
+  // where the browser cannot align the final steps to the top of the viewport.
+  if (lastJumpY !== window.scrollY) {
+    const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    recipeStop = recipeStops.findLastIndex(stop => {
+      const margin = parseFloat(getComputedStyle(stop).scrollMarginTop) || 0;
+      return stop.getBoundingClientRect().top <= padding + margin + 2;
+    });
+  }
+  const next = Math.max(0, Math.min(recipeStops.length - 1, recipeStop + direction));
+  if (direction < 0 && recipeStop < 0) return;
+  recipeStop = next;
+  const stop = recipeStops[next];
+  stop.tabIndex = -1;
+  stop.focus({ preventScroll: true });
+  stop.scrollIntoView({ behavior: 'instant', block: 'start' });
+  lastJumpY = window.scrollY;
+};
+
 document.addEventListener("keydown", (event) => {
   const target = event.target;
   if (
@@ -110,6 +138,7 @@ document.addEventListener("keydown", (event) => {
     event.metaKey ||
     event.ctrlKey ||
     event.altKey ||
+    event.shiftKey ||
     event.isComposing ||
     document.querySelector("dialog[open]")
   )
@@ -117,9 +146,14 @@ document.addEventListener("keydown", (event) => {
   if (
     target instanceof HTMLElement &&
     (target.isContentEditable ||
-      target.closest('input, textarea, select, button, [role="textbox"]'))
+      target.closest('input, textarea, select, button, audio, video, [role="textbox"], [role="slider"], [role="spinbutton"], [contenteditable]:not([contenteditable="false"])'))
   )
     return;
+  if ((event.key === "ArrowRight" || event.key === "ArrowLeft") && recipeStops.length) {
+    event.preventDefault();
+    jumpThroughRecipe(event.key === "ArrowRight" ? 1 : -1);
+    return;
+  }
   const direction =
     event.key === "j" ? "next" : event.key === "k" ? "prev" : null;
   const link =

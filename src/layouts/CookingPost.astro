@@ -12,7 +12,7 @@ import { prepareRecipe } from '../lib/recipe';
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 const {
-  title, description, pubDate, heroImage, keyword,
+  title, description, pubDate, heroImage, heroImageAlt, keyword,
   prepTime, cookTime, subcategory, postId, draft, tags, recipeYield
 } = Astro.props;
 
@@ -102,7 +102,7 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
             {totalTime > 0 && <div><dt>Total</dt><dd>{totalTime} min</dd></div>}
           </dl>
         </div>
-        {heroImage && <figure class="recipe-photo"><img src={heroImage} alt={`${title}, ready to serve`} width="800" height="600" loading="eager" fetchpriority="high" decoding="async" /></figure>}
+        {heroImage && <figure class="recipe-photo"><img src={heroImage} alt={heroImageAlt || `${title}, ready to serve`} width="800" height="600" loading="eager" fetchpriority="high" decoding="async" /></figure>}
       </header>
       <nav class="recipe-jumps" aria-label="Recipe sections">
         <div>
