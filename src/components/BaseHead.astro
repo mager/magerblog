@@ -10,22 +10,25 @@ interface Props {
 	description: string;
 	image?: string;
 	keywords?: string;
+	defaultTheme?: 'light' | 'dark';
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/blog-placeholder-1.jpg', keywords } = Astro.props;
+const { title, description, image = '/blog-placeholder-1.jpg', keywords, defaultTheme = 'light' } = Astro.props;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<script is:inline>
-  // Light by default. Apply a saved choice before painting the page.
+<script is:inline define:vars={{ defaultTheme }}>
+  // Apply an explicit saved choice or this page's default before painting.
+  document.documentElement.dataset.defaultTheme = defaultTheme;
   try {
-    document.documentElement.dataset.theme = localStorage.getItem('mager-theme') === 'dark' ? 'dark' : 'light';
+    const savedTheme = localStorage.getItem('mager-theme');
+    document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : defaultTheme;
   } catch {
-    document.documentElement.dataset.theme = 'light';
+    document.documentElement.dataset.theme = defaultTheme;
   }
 </script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

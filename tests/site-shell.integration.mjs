@@ -16,8 +16,12 @@ test('every public page uses one shared header and footer with unique navigation
     const hrefs=[...doc.querySelectorAll('.site-header a, .site-footer a')].map(a=>a.getAttribute('href').replace(/\/$/,''));
     assert.equal(new Set(hrefs).size,hrefs.length,`Repeated site navigation on ${file}`);
     assert(doc.querySelector('.site-header .wordmark[href="/"]'),file);
-    assert.equal(doc.querySelector('.header-more'),null,file);
-    for(const section of ['notes','seen','links']) assert(doc.querySelector(`.header-sections a[href="/${section}/"]`),file);
+    assert.equal(doc.querySelectorAll('.header-sections > a').length,2,file);
+    assert(doc.querySelector('.header-sections > a[href="/blog/"]'),file);
+    assert(doc.querySelector('.header-sections > a[href="/software/"]'),file);
+    assert(doc.querySelector('.header-browse > summary'),file);
+    assert.equal(doc.querySelector('.header-browse').hasAttribute('open'),false,file);
+    for(const section of ['tech','cooking','life','notes','seen','links','artifacts']) assert(doc.querySelector(`.header-browse a[href="/${section}/"]`),file);
     assert(doc.querySelector('.site-footer a[href="/rss.xml"]'),file);
     assert.match(doc.querySelector('.site-footer').textContent,/Built with agents in Chicago/,file);
   }

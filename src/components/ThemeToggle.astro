@@ -20,7 +20,7 @@
   }));
   window.addEventListener('storage', event => {
     if (event.key === 'mager-theme') {
-      document.documentElement.dataset.theme = event.newValue === 'dark' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = event.newValue === 'dark' || event.newValue === 'light' ? event.newValue : (document.documentElement.dataset.defaultTheme || 'light');
       syncButtons();
     }
   });
