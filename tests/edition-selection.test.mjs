@@ -8,41 +8,41 @@ const entry = (id, date, category = 'tech', collection = 'blog', extra = {}) => 
 const assigned = edition => [edition.lead, ...['supporting', 'dispatches', 'workbench', 'links', 'seen', 'kitchen', 'life', 'artifacts', 'notebook']
   .flatMap(key => edition[key])].filter(Boolean);
 
-for (const category of ['food', 'life', 'tech']) {
-  test(`the newest ${category} article can lead, including without an image`, () => {
-    const edition = makeEdition([entry('older', '2026-10-09'), entry('newest', '2026-10-10', category)]);
-    assert.equal(edition.lead.id, 'newest');
-  });
-}
-
-test('recent cooking and life stories get supporting space during a burst of tech posts', () => {
+test('the newest tech story leads even when life and cooking publish later', () => {
   const edition = makeEdition([
-    entry('tech-lead', '2026-10-10T12:00:00-05:00'),
-    entry('tech-second', '2026-10-10T11:00:00-05:00'),
-    entry('tech-third', '2026-10-10T10:00:00-05:00'),
-    entry('albums', '2026-10-09', 'life'),
-    entry('apple-bread', '2026-10-08', 'food'),
+    entry('older-tech', '2026-09-01'), entry('tech-lead', '2026-09-02'),
+    entry('albums', '2026-10-09', 'life'), entry('apple-bread', '2026-10-10', 'food'),
+  ]);
+  assert.equal(edition.lead.id, 'tech-lead');
+  assert.deepEqual(edition.supporting.map(item => item.id), ['albums', 'apple-bread']);
+});
+
+test('life then cooking keep supporting space regardless of age or publication order', () => {
+  const edition = makeEdition([
+    entry('tech-lead', '2026-10-10'), entry('tech-second', '2026-10-09'),
+    entry('albums', '2026-08-01', 'life'), entry('apple-bread', '2026-09-01', 'food'),
+    entry('old-albums', '2026-07-01', 'life'), entry('old-recipe', '2026-07-02', 'food'),
   ]);
   assert.deepEqual(edition.supporting.map(item => item.id), ['albums', 'apple-bread']);
-  assert.deepEqual(edition.dispatches.map(item => item.id), ['tech-second', 'tech-third']);
+  assert.equal(edition.dispatches[0].id, 'tech-second');
 });
 
-test('a quiet category does not keep a supporting slot indefinitely', () => {
-  const edition = makeEdition([
-    entry('lead', '2026-10-10'), entry('next', '2026-10-09'), entry('third', '2026-10-08'),
-    entry('old-recipe', '2026-09-01', 'food'),
-  ]);
-  assert.deepEqual(edition.supporting.map(item => item.id), ['next', 'third']);
-});
-
-test('new publications move an older recipe down to its category section', () => {
+test('a new recipe replaces the previous recipe in its supporting slot', () => {
   const recipe = entry('apple-bread', '2026-10-03', 'food');
-  assert(makeEdition([entry('lead', '2026-10-04'), recipe]).supporting.includes(recipe));
-  const later = makeEdition([recipe, ...Array.from({ length: 8 }, (_, i) => entry(`new-${i}`, `2026-10-${20 - i}`))]);
-  assert(!later.supporting.includes(recipe));
-  assert(!later.dispatches.includes(recipe));
-  assert(later.kitchen.includes(recipe));
-  assert(later.sections.indexOf('workbench') < later.sections.indexOf('offscreen'));
+  const entries = [entry('lead', '2026-10-04'), recipe];
+  assert(makeEdition(entries).supporting.includes(recipe));
+  const later = makeEdition([...entries, entry('new-recipe', '2026-10-10', 'food')]);
+  assert.deepEqual(later.supporting.map(item => item.id), ['new-recipe']);
+  assert(later.dispatches.includes(recipe));
+});
+
+test('missing categories do not borrow other category slots or duplicate the fallback lead', () => {
+  const techOnly = makeEdition([entry('tech', '2026-10-10'), entry('other-tech', '2026-10-09')]);
+  assert.deepEqual(techOnly.supporting, []);
+  assert.equal(techOnly.dispatches[0].id, 'other-tech');
+  const noTech = makeEdition([entry('recipe', '2026-10-10', 'food'), entry('life', '2026-10-09', 'life')]);
+  assert.equal(noTech.lead.id, 'recipe');
+  assert.deepEqual(noTech.supporting.map(item => item.id), ['life']);
 });
 
 test('the update column accepts every collection in publication order', () => {
@@ -59,8 +59,8 @@ test('the update column accepts every collection in publication order', () => {
 test('lower sections follow their newest remaining entries, not a fixed category order', () => {
   const edition = makeEdition([
     ...Array.from({ length: 8 }, (_, i) => entry(`feature-${i}`, `2026-10-${20 - i}`, 'life')),
-    entry('older-tech', '2026-09-20'),
-    entry('recent-recipe', '2026-10-10', 'food'),
+    entry('tech-lead', '2026-10-21'), entry('older-tech', '2026-09-20'),
+    entry('featured-recipe', '2026-10-12', 'food'), entry('recent-recipe', '2026-10-10', 'food'),
     entry('photo', '2026-10-11', undefined, 'seen'),
     entry('document', '2026-09-01', undefined, 'artifacts'),
   ]);

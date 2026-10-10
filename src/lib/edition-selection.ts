@@ -5,9 +5,8 @@ const key = (entry: FeedEntry) => `${entry.collection}/${entry.id}`;
 const desk = (entry: FeedEntry) => entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
 const byPublication = (a: FeedEntry, b: FeedEntry) => comparePublicationDates(a.data.pubDate, b.data.pubDate)
   || key(a).localeCompare(key(b));
-const SUPPORTING_WINDOW = 7 * 24 * 60 * 60 * 1000;
 
-/** Build one edition from publication dates, never edit dates or category priority. */
+/** Keep tech, life, and cooking in the opening spread; select by publication date. */
 export function makeEdition(entries: FeedEntry[]) {
   const ordered = entries.filter(entry => !entry.data.draft
     && !(entry.collection === 'blog' && entry.data.locale === 'ja')).sort(byPublication);
@@ -23,22 +22,12 @@ export function makeEdition(entries: FeedEntry[]) {
     return selected;
   };
   const isArticle = (entry: FeedEntry) => entry.collection === 'blog';
-  const lead = take(isArticle, 1)[0] || take(() => true, 1)[0];
+  const lead = take(entry => isArticle(entry) && desk(entry) === 'tech', 1)[0]
+    || take(isArticle, 1)[0] || take(() => true, 1)[0];
 
-  // Reserve the two supporting positions for other recent desks when possible.
-  // The window moves with new publications; a dormant category cannot keep a slot.
-  const represented = new Set(lead ? [desk(lead)] : []);
-  const cutoff = (lead?.data.pubDate.valueOf() || 0) - SUPPORTING_WINDOW;
-  const supporting: FeedEntry[] = [];
-  for (let slot = 0; slot < 2; slot++) {
-    const story = take(entry => isArticle(entry) && entry.data.pubDate.valueOf() >= cutoff
-      && !represented.has(desk(entry)), 1)[0];
-    if (!story) break;
-    supporting.push(story);
-    represented.add(desk(story));
-  }
-  supporting.push(...take(isArticle, 2 - supporting.length));
-  supporting.sort(byPublication);
+  // Keep the opening mix consistent, even when a category publishes less often.
+  const supporting = ['life', 'food'].flatMap(category =>
+    take(entry => isArticle(entry) && desk(entry) === category, 1));
 
   const dispatches = take(() => true, 4);
   const workbench = take(entry => isArticle(entry) && desk(entry) === 'tech', 4);
