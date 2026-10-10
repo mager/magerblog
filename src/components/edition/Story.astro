@@ -3,17 +3,17 @@ import { Image } from 'astro:assets';
 import { type FeedEntry, entryHref, entryTitle } from '../../lib/feed';
 import { editionDescription, editionImage, editionLabel } from '../../lib/edition';
 import { contentMeta } from '../../lib/content-meta';
-interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo' | 'document'; image?: boolean | 'hero'; thumbnail?: boolean; eager?: boolean; }
-const { entry, variant = 'story', image: showImage = false, thumbnail = false, eager = false } = Astro.props;
+interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo' | 'document'; image?: boolean | 'hero'; thumbnail?: boolean; eager?: boolean; label?: boolean; }
+const { entry, variant = 'story', image: showImage = false, thumbnail = false, eager = false, label = false } = Astro.props;
 const image = showImage === 'hero'
   ? entry.collection === 'blog' && entry.data.heroImage
   : (showImage || thumbnail) && editionImage(entry);
-const href = entryHref(entry);
+const href = entry.collection === 'links' ? entry.data.url : entryHref(entry);
 const title = entryTitle(entry);
 const description = editionDescription(entry);
 const detail = contentMeta(entry);
 ---
-<article class:list={['edition-story', `story-${variant}`]} data-edition-entry={`${entry.collection}/${entry.id}`} data-media={entry.collection === 'seen' ? entry.data.mediaType : undefined}>
+<article class:list={['edition-story', `story-${variant}`]} data-edition-entry={`${entry.collection}/${entry.id}`} data-category={entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection} data-media={entry.collection === 'seen' ? entry.data.mediaType : undefined}>
   {image && <a class="story-image" href={href} aria-label={`Read ${title}`}>
     {thumbnail
       ? <Image src={image} alt="" width={80} height={80} densities={[1, 2]} fit="cover" format="webp" loading="lazy" decoding="async" />
@@ -22,8 +22,8 @@ const detail = contentMeta(entry);
         : <img src={image} alt={entry.collection === 'seen' ? entry.data.alt || title : ''} width="900" height="600" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />}
   </a>}
   <div class="story-copy">
-    {variant !== 'brief' && <span class="story-kind">{editionLabel(entry)}</span>}
-    <h3><a href={href}>{title}</a></h3>
+    {(variant !== 'brief' || label) && <span class="story-kind">{editionLabel(entry)}</span>}
+    <h3><a href={href}>{title}{entry.collection === 'links' && <span aria-hidden="true"> ↗</span>}</a></h3>
     {detail && <p class="story-detail">{detail}</p>}
     {variant === 'document' && <p class="story-filename">{entry.id.split('/').pop()}.md</p>}
     {description && variant !== 'photo' && <p class="story-description">{description}</p>}

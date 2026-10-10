@@ -14,7 +14,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/edition.css';
 const entries = await getFeed();
 const posts = entries.filter(entry => entry.collection === 'blog');
-const stream = entries.filter(entry => entry.collection !== 'blog' || !['food', 'life'].includes(entry.data.category || 'tech'));
 const edition = makeEdition(entries);
 const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
 ---
@@ -51,51 +50,55 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
       <div id="front-page">
         <section class="front-spread" aria-labelledby="lead-section">
           <div class="lead-column">
-            <h2 class="section-kicker" id="lead-section">01 / On my workbench</h2>
+            <h2 class="section-kicker" id="lead-section">Front page</h2>
             {edition.lead && <Story entry={edition.lead} variant="lead" image eager />}
-            <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" />)}</div>
+            <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" image="hero" label />)}</div>
           </div>
           <aside class="dispatch-column" aria-labelledby="dispatch-heading">
-            <div class="section-heading small"><h2 id="dispatch-heading">Notes</h2><a href="/notes/">All notes ↗</a></div>
-            {edition.dispatches.map((entry, index) => <div class="numbered-dispatch"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><Story entry={entry} variant="brief" /></div>)}
+            <div class="section-heading small"><h2 id="dispatch-heading">Latest updates</h2></div>
+            {edition.dispatches.map((entry, index) => <div class="numbered-dispatch"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><Story entry={entry} variant="brief" label /></div>)}
             <a class="dispatch-signoff" href="/about/">A little about me <span aria-hidden="true">↗</span></a>
           </aside>
         </section>
-        {edition.workbench.length > 0 && <section class="workbench-section" aria-labelledby="workbench-heading">
+        {edition.sections.map(section => <>
+        {section === 'workbench' && <section class="workbench-section" aria-labelledby="workbench-heading" data-edition-section="workbench">
           <div class="section-heading"><h2 id="workbench-heading">Built, broken, figured out.</h2><a href="/tech/">All tech ↗</a></div>
           <div class="workbench-stories">{edition.workbench.map(entry => <Story entry={entry} image="hero" />)}</div>
         </section>}
-        {edition.seen.length > 0 && <section class="seen-section" aria-labelledby="seen-heading">
-          <div class="section-heading"><div><span class="section-kicker">02 / Field of view</span><h2 id="seen-heading">Look around.</h2></div><a href="/seen/">All seen ↗</a></div>
+        {section === 'seen' && <section class="seen-section" aria-labelledby="seen-heading" data-edition-section="seen">
+          <div class="section-heading"><div><span class="section-kicker">Field of view</span><h2 id="seen-heading">Look around.</h2></div><a href="/seen/">All seen ↗</a></div>
           <div class="seen-strip" tabindex="0" role="region" aria-label="Photos and screenshots, scroll horizontally">{edition.seen.map(entry => <Story entry={entry} variant="photo" image />)}</div>
         </section>}
-        <div class="offscreen-spread">
-          {edition.kitchen.length > 0 && <section class="kitchen-section" aria-labelledby="kitchen-heading">
-            <div class="section-heading"><div><span class="section-kicker">03 / Away from the keyboard</span><h2 id="kitchen-heading">Something good<br />on the stove.</h2></div><a href="/cooking/">The kitchen ↗</a></div>
+        {section === 'offscreen' && <div class="offscreen-spread" data-edition-section="offscreen" data-leading={edition.offscreenOrder[0]}>
+          {edition.offscreenOrder.map(desk => <>
+          {desk === 'kitchen' && <section class="kitchen-section" aria-labelledby="kitchen-heading">
+            <div class="section-heading"><div><span class="section-kicker">Away from the keyboard</span><h2 id="kitchen-heading">Something good<br />on the stove.</h2></div><a href="/cooking/">The kitchen ↗</a></div>
             <div class="kitchen-layout"><Story entry={edition.kitchen[0]} image /><div class="recipe-list">{edition.kitchen.slice(1).map(entry => <Story entry={entry} variant="brief" thumbnail />)}</div></div>
           </section>}
-          {edition.life.length > 0 && <section class="life-section" aria-labelledby="life-heading">
+          {desk === 'life' && <section class="life-section" aria-labelledby="life-heading">
             <div class="section-heading small"><h2 id="life-heading">Life, outside.</h2><a href="/life/">More ↗</a></div>
             {edition.life.map((entry, index) => <Story entry={entry} variant={index === 0 ? 'story' : 'brief'} image={index === 0} />)}
           </section>}
-        </div>
-        <div class="reference-spread">
+          </>)}
+        </div>}
+        {section === 'reference' && <div class="reference-spread" data-edition-section="reference">
           <div class="reference-list">
-            <section class="artifact-section" aria-labelledby="artifact-heading">
+            {edition.artifacts.length > 0 && <section class="artifact-section" aria-labelledby="artifact-heading">
               <div class="section-heading small"><h2 id="artifact-heading">Artifacts</h2><a href="/artifacts/">All artifacts ↗</a></div>
               <ul class="artifact-list">{edition.artifacts.map(entry => <li data-edition-entry={`artifacts/${entry.id}`}><a href={entryHref(entry)}>{entryTitle(entry)} <span aria-hidden="true">↗</span></a></li>)}</ul>
-            </section>
-            <div class="notebook-extras"><h3>Also in the notebook</h3>{edition.notebook.map(entry => <Story entry={entry} variant="brief" />)}</div>
+            </section>}
+            {edition.notebook.length > 0 && <div class="notebook-extras"><h3>From the notebook</h3>{edition.notebook.map(entry => <Story entry={entry} variant="brief" />)}</div>}
           </div>
           <aside class="bench-column" aria-label="Mager bench"><BenchWidget /></aside>
-        </div>
-        {edition.links.length > 0 && <section class="links-section" aria-labelledby="links-heading">
-          <div class="section-heading"><div><span class="section-kicker">05 / Passing it along</span><h2 id="links-heading">Worth opening.</h2></div><a href="/links/">All links ↗</a></div>
+        </div>}
+        {section === 'links' && <section class="links-section" aria-labelledby="links-heading" data-edition-section="links">
+          <div class="section-heading"><div><span class="section-kicker">Passing it along</span><h2 id="links-heading">Worth opening.</h2></div><a href="/links/">All links ↗</a></div>
           <div class="edition-links">{edition.links.map(entry => entry.collection === 'links' && <article data-edition-entry={`links/${entry.id}`}><LinkPost {entry} compact /></article>)}</div>
         </section>}
+        </>)}
       </div>
       <section id="chronological-feed" class="chronological-feed" aria-label="All updates">
-        <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={stream} filters compact pageSize={24} headingLevel="h2" /></details>
+        <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={entries} filters compact pageSize={24} headingLevel="h2" /></details>
       </section>
     </main>
     <Footer homepage />
