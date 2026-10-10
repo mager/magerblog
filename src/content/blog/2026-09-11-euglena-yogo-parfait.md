@@ -6,7 +6,8 @@ pubDate: "2026-09-11"
 category: "food"
 tags: ["Japan", "Okinawa", "Ishigaki", "Euglena", "Travel", "Recipe", "Yogurt"]
 keyword: "euglena"
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-06-euglena-yogo-parfait/hero.jpg"
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-11-euglena-yogo-parfait/hero-natural.jpg"
+heroImageAlt: "Pale green euglena yogurt topped with granola, blueberries, and strawberries in a glass on a kitchen counter."
 prepTime: 5
 cookTime: 0
 recipeYield: "1 serving"
