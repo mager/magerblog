@@ -7,7 +7,8 @@ category: "food"
 subcategory: "seasoning"
 keyword: "italian sausage"
 tags: ["Sausage", "Italian", "Seasoning", "Make-Ahead"]
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-04-26-italian-sausage/hero.jpg"
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-04-26-italian-sausage/hero-natural.jpg"
+heroImageAlt: "Italian sausage seasoning in a small white bowl with a metal spoon on a kitchen counter."
 prepTime: 10
 cookTime: 60
 ---
