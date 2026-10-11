@@ -12,6 +12,9 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   heroImage?: string;
+  heroImageAlt?: string;
+  heroImageCaption?: string;
+  heroImageLayout?: 'split' | 'wide';
   tags?: string[];
   kind: 'Note' | 'Tech';
   minutes: number;
@@ -21,7 +24,7 @@ interface Props {
   next?: RelatedPost;
   draft?: boolean;
 }
-const { title, description, pubDate, updatedDate, heroImage, kind, minutes, headings = [], source, previous, next, draft } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt = "", heroImageCaption, heroImageLayout = "split", kind, minutes, headings = [], source, previous, next, draft } = Astro.props;
 const sectionHref = kind === 'Note' ? '/notes/' : '/tech/';
 const sections = headings.filter(heading => heading.depth === 2);
 const contents = sections.length > 1;
@@ -34,7 +37,7 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
     <Header homepage themeToggle activeSection={sectionHref} />
-    <main id="main-content" class:list={['reading-layout', { 'has-contents': contents, 'has-hero': !!heroImage }]}>
+    <main id="main-content" class:list={['reading-layout', { 'has-contents': contents, 'has-hero': !!heroImage, 'hero-wide': heroImageLayout === 'wide' }]}>
       <article class="reading-article">
         <header class="reading-heading" id="article-top">
           <a class="reading-back" href="/">← Back to the feed</a>
@@ -43,12 +46,17 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
           <div class="reading-meta"><a class="reading-kind" href={sectionHref}>{kind}</a><FormattedDate date={pubDate} /><span>{minutes} min read</span></div>
           <h1>{displayTitle}</h1>
           </div>
-          {heroImage && <figure class="reading-hero"><img src={heroImage} alt="" width="1000" height="600" loading="eager" fetchpriority="high" decoding="async" /></figure>}
           <div class="reading-summary">
           {description && description !== title && <p class="reading-dek">{description}</p>}
           {source && <a class="reading-source" href={source.url} target="_blank" rel="noopener noreferrer"><span>Source</span> {source.label} <span aria-hidden="true">↗</span></a>}
           {updatedDate && <p class="reading-updated">Updated <FormattedDate date={updatedDate} /></p>}
           </div>
+          {heroImage && <figure class="reading-hero">
+            {heroImageLayout === 'wide' ? <a class="reading-hero-expand" href={heroImage} target="_blank" rel="noopener noreferrer" aria-label="Open full-size screenshot">
+              <img src={heroImage} alt={heroImageAlt} width="1440" height="900" loading="eager" fetchpriority="high" decoding="async" />
+            </a> : <img src={heroImage} alt={heroImageAlt} width="1000" height="600" loading="eager" fetchpriority="high" decoding="async" />}
+            {heroImageCaption && <figcaption>{heroImageCaption}{heroImageLayout === 'wide' && <a href={heroImage} target="_blank" rel="noopener noreferrer">View full size ↗</a>}</figcaption>}
+          </figure>}
           </div>
         </header>
         <div class="reading-body">

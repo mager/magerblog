@@ -7,7 +7,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
   postId: string;
   headings?: { depth: number; slug: string; text: string }[];
 };
-const { title, description, pubDate, updatedDate, heroImage, category, tags, postId, draft, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, heroImageCaption, heroImageLayout, category, tags, postId, draft, headings } = Astro.props;
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft && post.data.locale !== 'ja');
 const categoryPosts = allPosts
   .filter(post => (post.data.category || 'tech') === (category || 'tech'))
@@ -18,7 +18,7 @@ const next = index > 0 ? categoryPosts[index - 1] : undefined;
 const current = (await getCollection('blog')).find(post => post.id === postId);
 const minutes = Math.max(1, Math.ceil((current?.body || '').split(/\s+/).length / 220));
 ---
-<ReadingPost {title} {description} {pubDate} {updatedDate} {heroImage} {tags} {draft} {headings} {minutes} kind="Tech"
+<ReadingPost {title} {description} {pubDate} {updatedDate} {heroImage} {heroImageAlt} {heroImageCaption} {heroImageLayout} {tags} {draft} {headings} {minutes} kind="Tech"
   previous={previous && { title: previous.data.title, href: `/blog/${previous.id}/` }}
   next={next && { title: next.data.title, href: `/blog/${next.id}/` }}>
   <slot />

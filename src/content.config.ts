@@ -14,6 +14,8 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		heroImageAlt: z.string().optional(),
+		heroImageCaption: z.string().optional(),
+		heroImageLayout: z.enum(['split', 'wide']).optional(),
 		lifeLayout: z.enum(['story', 'albums']).optional(),
 		prepTime: z.number().optional(),
 		recipeYield: z.string().optional(),
