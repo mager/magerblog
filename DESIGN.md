@@ -8,22 +8,24 @@ The front page leads with the newest tech article. Two supporting positions show
 
 ## Color system
 
-Full palette with four named roles, defined in `src/styles/newspaper.css` using OKLCH:
+Full palette with four named roles, defined in `src/styles/newspaper.css` using OKLCH. The scene is clean paper by Lake Michigan: deep lake-blue links, copper cooking labels, moss-green life entries, and a saffron newspaper insert.
 
-- Paper: `oklch(97.5% 0.009 85)`
-- Ink: `oklch(23% 0.016 260)`
-- Secondary text: `oklch(46% 0.016 260)`
-- Rules: `oklch(80% 0.016 85)`
-- Cobalt: `oklch(43% 0.19 265)`, technology, notes, information
-- Vermilion: `oklch(48% 0.17 30)`, food, Chicago stars, wordmark punctuation
-- Park green: `oklch(39% 0.075 155)`, seen and life
-- Insert yellow: `oklch(89% 0.14 93)`, mager-bench and archive discovery
+- Paper: `oklch(98% 0.006 85)`
+- Ink: `oklch(23% 0.016 230)`
+- Secondary text: `oklch(46% 0.018 230)`
+- Rules: `oklch(84% 0.012 230)`
+- Lake blue: `oklch(43% 0.085 230)`, links, focus, technology, notes, and active navigation
+- Copper: `oklch(49% 0.13 45)`, cooking labels, recipe controls, and step numbers
+- Moss: `oklch(43% 0.075 140)`, seen, life, and the software directory
+- Saffron: `oklch(90% 0.10 88)`, selection; a pale yellow surface with dark warm ink distinguishes the Bench insert
 
-The shared header and footer have matching light and dark variants for the existing category and article worlds. The homepage uses paper throughout. No decorative gradients, glass, blinking cursors, or cursor-following effects.
+The masthead and small header wordmark are a single ink color, including the dot. Keep punctuation quiet; use color to identify content and interaction. Category washes derive from these tokens rather than introducing independent colors. Existing project artwork and per-story life palettes retain their own colors.
+
+The shared header and footer follow the publication theme. Light mode uses clean paper throughout. Dark mode keeps true black with softer blue, apricot, and moss accents; the Bench insert becomes dark amber with light warm text. Theme-specific insert tokens keep every text role legible on its surface. No decorative gradients, glass, blinking cursors, or cursor-following effects.
 
 ## Typography
 
-Preserve the established fonts: Fraunces for the masthead and section display, Source Serif 4 for stories and body copy, Space Grotesk for navigation, JetBrains Mono for compact metadata. Monospace supports the writing rather than dominating it. Headlines have tight tracking and confident scale; paragraphs stay within 67 characters where possible. The masthead is upright, solid ink with a vermilion dot.
+Preserve the established fonts: Fraunces for the masthead and section display, Source Serif 4 for stories and body copy, Space Grotesk for navigation, JetBrains Mono for compact metadata. Monospace supports the writing rather than dominating it. Headlines have tight tracking and confident scale; paragraphs stay within 67 characters where possible. The masthead is upright, solid ink, including the dot.
 
 ## Layout
 
@@ -43,7 +45,7 @@ Use existing author-owned images. Front-page food photo selections prioritize pe
 
 ## Interaction and accessibility
 
-- Wordmark punctuation lifts slightly on hover.
+- The complete header wordmark dims slightly on hover; punctuation remains the same color.
 - Photography scales subtly inside fixed frames.
 - Front-page view changes use a short crossfade where View Transitions are available, with an immediate fallback and reduced-motion support.
 - Category and archive links provide a complete route through all content.
@@ -57,7 +59,7 @@ Repetitive cards, fake live benchmark scores, torn-paper decoration, simulated p
 
 ## Recipe detail pages
 
-Recipes use the publication palette and fonts, with vermilion for navigation and step numbers. The default layout is ready to cook from: a compact title/photo opening, sticky Ingredients / Method / Print navigation, a two-column ingredient spread on desktop, and a single column on phones. Ingredient text is 24–28px and method text is 26–30px. Each numbered step has enough space to read at counter distance. There is no Cook Mode.
+Recipes use the publication palette and fonts, with copper for navigation and step numbers. The default layout is ready to cook from: a compact title/photo opening, sticky Ingredients / Method / Print navigation, a two-column ingredient spread on desktop, and a single column on phones. Ingredient text is 24–28px and method text is 26–30px. Each numbered step has enough space to read at counter distance. There is no Cook Mode.
 
 `src/lib/recipe.ts` normalizes both plain Markdown and legacy recipe wrappers at build time. Semantic sections and ordered steps work without JavaScript; ingredient checks, copy/reset, completion feedback, and print controls enhance them. Ingredient checks persist per recipe. Print restores checked ingredients and uses compact black-on-white output. New recipes can use Ingredients and Method headings without hand-written HTML wrappers.
 

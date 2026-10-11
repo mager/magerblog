@@ -1,6 +1,6 @@
 /* The software directory uses a terminal palette within the shared site shell. */
-.software-terminal { --software-accent: #237343; --software-panel: #f1f4f2; --software-chrome: #e7ece9; --news-blue: #237343; }
-html[data-theme="dark"] .software-terminal { --software-accent: #9de6b4; --software-panel: #090e0c; --software-chrome: #101713; --news-ink: #e2ebe5; --news-muted: #99aaa0; --news-rule: #28372e; --news-blue: #9de6b4; }
+.software-terminal { --software-accent: var(--news-green); --software-panel: color-mix(in oklch, var(--news-green) 4%, var(--news-paper)); --software-chrome: color-mix(in oklch, var(--news-green) 8%, var(--news-paper)); --news-blue: var(--news-green); }
+html[data-theme="dark"] .software-terminal { --software-panel: color-mix(in oklch, var(--news-green) 10%, var(--news-paper)); --software-chrome: color-mix(in oklch, var(--news-green) 16%, var(--news-paper)); --news-blue: var(--news-green); }
 .software-page { width: 1200px; max-width: calc(100% - 48px); margin: 0 auto; padding: 40px 0 32px; font-family: var(--news-mono); }
 .software-kicker { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 26px; color: var(--news-muted); font: 500 12px/1.5 var(--news-mono); }
 .software-kicker span:first-child { color: var(--software-accent); }

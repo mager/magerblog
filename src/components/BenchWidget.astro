@@ -37,18 +37,18 @@ async function refreshBenchWidget() {
 void refreshBenchWidget();
 </script>
 <style>
-.bench-insert { background: oklch(13% .006 270); color: oklch(94% .009 265); padding: 22px; border: 1px solid oklch(31% .017 270); }
+.bench-insert { background: var(--news-insert-bg); color: var(--news-insert-ink); padding: 22px; border: 1px solid var(--news-insert-rule); }
 .bench-insert a { color: inherit; }
 .bench-insert a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.insert-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid oklch(31% .017 270); padding-bottom: 12px; font: 500 9px/1.5 var(--news-mono); color: oklch(71% .022 268); }
+.insert-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--news-insert-rule); padding-bottom: 12px; font: 500 9px/1.5 var(--news-mono); color: var(--news-insert-muted); }
 .bench-insert .bench-title:hover { text-decoration: none; }
-.bench-insert h2 { font: 650 30px/1.1 var(--news-ui); letter-spacing: -.04em; margin: 20px 0 12px; color: oklch(83% .185 153); }
-.bench-insert p { margin: 0; font: 14px/1.6 var(--news-serif); color: oklch(80% .014 265); }
+.bench-insert h2 { font: 650 30px/1.1 var(--news-ui); letter-spacing: -.04em; margin: 20px 0 12px; color: var(--news-insert-ink); }
+.bench-insert p { margin: 0; font: 14px/1.6 var(--news-serif); color: var(--news-insert-ink); }
 .bench-results { margin: 18px 0; }
-.bench-insert .bench-meta { font: 9px/1.7 var(--news-mono); color: oklch(71% .022 268); }
+.bench-insert .bench-meta { font: 9px/1.7 var(--news-mono); color: var(--news-insert-muted); }
 .bench-insert .bench-caveat { font-size: 12px; margin-block: 9px 17px; }
-.bench-action { display: flex; justify-content: space-between; gap: 12px; align-items: center; min-height: 44px; border-top: 1px solid oklch(31% .017 270); font: 650 11px var(--news-ui); }
-.bench-action:hover { color: oklch(83% .185 153); }
+.bench-action { display: flex; justify-content: space-between; gap: 12px; align-items: center; min-height: 44px; border-top: 1px solid var(--news-insert-rule); font: 650 11px var(--news-ui); }
+.bench-action:hover { color: var(--news-insert-ink); }
 .bench-method { display: inline-flex; align-items: center; min-height: 32px; font: 12px var(--news-serif); text-decoration: underline; text-underline-offset: 3px; }
-.bench-insert a:focus-visible { outline: 2px solid oklch(83% .185 153); outline-offset: 4px; }
+.bench-insert a:focus-visible { outline: 2px solid var(--news-insert-ink); outline-offset: 4px; }
 </style>

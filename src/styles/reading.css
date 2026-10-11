@@ -51,7 +51,7 @@
 .reading-prose code { font: .78em/1.6 var(--news-mono); }
 .reading-prose pre { padding: 24px; margin: 28px 0; border: 1px solid var(--news-rule); border-radius: 5px; box-shadow: none; font: 13px/1.7 var(--news-mono); overflow-wrap: normal; }
 .reading-prose pre code { font: inherit; word-break: normal; }
-html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code span { color: var(--shiki-light) !important; background-color: var(--shiki-light-bg) !important; }
+html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code span { color: color-mix(in oklch, var(--shiki-light) 80%, var(--news-ink)) !important; background-color: var(--shiki-light-bg) !important; }
 .reading-code { margin: 28px 0; border: 1px solid var(--news-rule); border-radius: 5px; overflow: hidden; }
 .reading-code-toolbar { display: flex; justify-content: flex-end; min-height: 40px; padding: 4px 8px; background: var(--news-surface); border-bottom: 1px solid var(--news-rule); }
 .reading-code pre { margin: 0; padding: 16px 20px; border: 0; border-radius: 0; }

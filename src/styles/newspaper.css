@@ -1,14 +1,18 @@
-/* Chicago Sunday edition: shared publication tokens. */
+/* Chicago Sunday edition: lake blue, copper, moss, and a saffron insert. */
 :root {
-  --news-paper: oklch(98.6% 0.003 250);
-  --news-ink: oklch(23% 0.016 260);
-  --news-muted: oklch(46% 0.016 260);
-  --news-rule: oklch(86% 0.007 250);
-  --news-surface: #eff1f4;
-  --news-blue: oklch(43% 0.19 265);
-  --news-red: oklch(48% 0.17 30);
-  --news-green: oklch(39% 0.075 155);
-  --news-yellow: oklch(89% 0.14 93);
+  --news-paper: oklch(98% 0.006 85);
+  --news-ink: oklch(23% 0.016 230);
+  --news-muted: oklch(46% 0.018 230);
+  --news-rule: oklch(84% 0.012 230);
+  --news-surface: oklch(95% 0.009 230);
+  --news-blue: oklch(43% 0.085 230);
+  --news-red: oklch(49% 0.13 45);
+  --news-green: oklch(43% 0.075 140);
+  --news-yellow: oklch(90% 0.10 88);
+  --news-insert-bg: oklch(94% 0.07 88);
+  --news-insert-ink: oklch(30% 0.05 70);
+  --news-insert-muted: oklch(45% 0.045 70);
+  --news-insert-rule: oklch(77% 0.06 88);
   --news-serif: 'Source Serif 4', Georgia, serif;
   --news-display: 'Fraunces', Georgia, serif;
   --news-ui: 'Space Grotesk', system-ui, sans-serif;
@@ -22,24 +26,28 @@
   --text-primary: var(--news-ink);
   --text-secondary: var(--news-muted);
   --code-fg: var(--news-blue);
-  --code-bg: oklch(92% 0.02 265);
+  --code-bg: oklch(93% 0.018 230);
   padding-bottom: 0;
 }
 html[data-theme="dark"] .publication {
   color-scheme: dark;
   --news-paper: #000;
-  --news-ink: #edece8;
-  --news-muted: #a4a5aa;
-  --news-rule: #292929;
-  --news-surface: #111;
-  --news-blue: #9eb8ff;
-  --news-red: #f69b88;
-  --news-green: #91c6a3;
-  --news-yellow: #e0c965;
-  --code-fg: #c3d2ff;
-  --code-bg: #181818;
+  --news-ink: oklch(94% 0.009 85);
+  --news-muted: oklch(72% 0.014 230);
+  --news-rule: oklch(30% 0.009 230);
+  --news-surface: oklch(18% 0.009 230);
+  --news-blue: oklch(78% 0.09 230);
+  --news-red: oklch(78% 0.11 50);
+  --news-green: oklch(78% 0.085 140);
+  --news-yellow: oklch(85% 0.10 88);
+  --news-insert-bg: oklch(21% 0.028 80);
+  --news-insert-ink: oklch(90% 0.10 88);
+  --news-insert-muted: oklch(77% 0.04 88);
+  --news-insert-rule: oklch(38% 0.04 88);
+  --code-fg: var(--news-blue);
+  --code-bg: oklch(22% 0.018 230);
 }
-.publication ::selection { background: var(--news-yellow); color: oklch(23% 0.016 260); }
+.publication ::selection { background: var(--news-yellow); color: oklch(23% 0.016 230); }
 .publication :focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
