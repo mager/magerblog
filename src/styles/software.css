@@ -74,6 +74,26 @@ html[data-theme="dark"] .project-prxps { --project-accent: #d2ec82; }
 .picks-wordmark > span { font-size: .6em; margin-right: .2em; }
 .software-more { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 24px; border-top: 1px solid var(--news-rule); margin-top: 32px; padding-top: 16px; font: 400 11px/1.5 var(--news-mono); }
 .software-more p { margin: 0; color: var(--news-muted); }
+/* A short directory of external repositories, using their project or owner icons. */
+.software-contributions { margin-top: 56px; border-top: 1px solid var(--software-accent); padding-top: 28px; }
+.software-contributions h2 { margin: 0 0 22px; font: 500 clamp(25px, 3.2vw, 38px)/1.25 var(--news-mono); letter-spacing: -.04em; text-wrap: balance; }
+.contribution-list { list-style: none; padding: 0; margin: 0; }
+.contribution-list li { border-top: 1px solid var(--news-rule); }
+.contribution-link { display: grid; grid-template-columns: 40px minmax(0, 1fr) 16px; align-items: center; gap: 20px; padding: 20px 0; }
+.contribution-link img { display: block; width: 40px; height: 40px; border-radius: 6px; object-fit: contain; }
+.contribution-copy { min-width: 0; }
+.contribution-copy h3 { margin: 0 0 5px; font: 500 16px/1.5 var(--news-mono); letter-spacing: -.02em; }
+.contribution-copy p { margin: 0; max-width: 90ch; color: var(--news-muted); font: 400 13px/1.8 var(--news-mono); }
+.contribution-arrow { color: var(--software-accent); font-size: 16px; }
+.contribution-link:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.contribution-link:focus-visible { outline: 2px solid var(--software-accent); outline-offset: 5px; }
+@media (max-width: 680px) {
+  .software-contributions { margin-top: 40px; }
+  .contribution-link { grid-template-columns: 32px minmax(0, 1fr) 14px; align-items: start; gap: 12px; padding-block: 18px; }
+  .contribution-link img { width: 32px; height: 32px; margin-top: 3px; }
+  .contribution-copy h3 { font-size: 14px; }
+  .contribution-copy p { font-size: 12px; }
+}
 @media (max-width: 900px) { .software-deck { align-items: start; flex-direction: column; gap: 12px; } .software-grid { gap: 20px; } .project-copy { padding-inline: 18px; } .project-visual { aspect-ratio: 2; } }
 @media (max-width: 680px) {
   .software-page { max-width: calc(100% - 36px); padding-top: 28px; }

@@ -1,0 +1,4126 @@
+{
+  "account": "mager",
+  "checkedAt": "2026-10-12",
+  "accountCreatedAt": "2008-07-21",
+  "scope": "Public authored pull requests, opened issues, reviews of other authors\u2019 pull requests, and indexed authored commits outside personal repositories. Includes employer and community collaboration.",
+  "methodology": [
+    "Searches have no lower date cutoff for pull requests, issues, or reviews. Commit search covers account creation in 2008 through 2026; date ranges were partitioned below GitHub\u2019s 1,000-result search limit and all pages retrieved.",
+    "Only is:public results are included. Naturah and Stack Paper are excluded at the owner\u2019s request.",
+    "Commit search returned 1,615 repository/commit matches (549 distinct SHAs). Known upstream repositories are retained, duplicate SHAs are counted once, and inherited copies in other repositories are not treated as separate contributions.",
+    "Commit records overlap pull requests: their counts must not be added together. Commits include merge commits; GitHub search is not a complete Git log.",
+    "Reviews link to verified submissions by mager, grouped by pull request. Pull request states and issue states are a dated snapshot.",
+    "Deleted/private repositories, unindexed or unattributed commits, issue comments, and discussions are not covered. Public visibility does not establish an open-source license."
+  ],
+  "queries": {
+    "pullRequests": "author:mager type:pr -user:mager is:public",
+    "issues": "author:mager type:issue -user:mager is:public",
+    "reviews": "reviewed-by:mager type:pr -author:mager -user:mager is:public",
+    "commits": "author:mager -user:mager is:public"
+  },
+  "excludedOwners": [
+    "mager",
+    "Naturah",
+    "stackpaperapp"
+  ],
+  "pendingOwnership": [
+    "wagerlife/contracts",
+    "agdolla/open-frontend",
+    "xres/dailydesign"
+  ],
+  "unresolvedHistory": [
+    {
+      "repositories": [
+        "kryptokrona/kryptokrona",
+        "other TurtleCoin descendants"
+      ],
+      "reason": "The same 2018 README commit appears in many descendants; original upstream contribution not verified.",
+      "sha": "2e9b8a4b1a03a0dc2e50a74cd6d8b8cf418bdffa"
+    },
+    {
+      "repositories": [
+        "episod/wadl-library",
+        "other WADL mirrors"
+      ],
+      "reason": "Mirrored history includes two additional commits beyond simplegeo/wadl-library; original upstream provenance not verified."
+    },
+    {
+      "repositories": [
+        "tomgco/spotify-remote-app",
+        "SaLiVeR/spotifyapp"
+      ],
+      "reason": "Copied Spotify tutorial history includes two additional bundle identifier commits; original upstream provenance not verified."
+    }
+  ],
+  "repositories": [
+    {
+      "name": "pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "pullRequests": [
+        {
+          "number": 998,
+          "title": "Add advisory detection for hard offset shadows",
+          "url": "https://github.com/pbakaus/impeccable/pull/998",
+          "date": "2026-10-09T01:06:29Z",
+          "status": "open",
+          "mergedAt": null
+        },
+        {
+          "number": 996,
+          "title": "Fix Firefox extension scanner startup",
+          "url": "https://github.com/pbakaus/impeccable/pull/996",
+          "date": "2026-10-09T00:47:50Z",
+          "status": "merged",
+          "mergedAt": "2026-10-11T08:54:35Z"
+        }
+      ],
+      "issues": [
+        {
+          "number": 929,
+          "title": "[Feature] Should hard offset shadows get an advisory detector check?",
+          "url": "https://github.com/pbakaus/impeccable/issues/929",
+          "date": "2026-10-04T13:36:58Z",
+          "status": "open"
+        }
+      ],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "c63b8dd7dd5a5f3c32eaabe1af76d0694f863ed2",
+          "title": "Fix Firefox extension scanner startup (#996)",
+          "url": "https://github.com/pbakaus/impeccable/commit/c63b8dd7dd5a5f3c32eaabe1af76d0694f863ed2",
+          "date": "2026-10-11T03:54:34.000-05:00"
+        }
+      ],
+      "firstDate": "2026-10-04",
+      "lastDate": "2026-10-11"
+    },
+    {
+      "name": "block/buzz",
+      "url": "https://github.com/block/buzz",
+      "pullRequests": [
+        {
+          "number": 2875,
+          "title": "docs(buzz-acp): correct agent key generation instructions",
+          "url": "https://github.com/block/buzz/pull/2875",
+          "date": "2026-07-25T18:46:10Z",
+          "status": "merged",
+          "mergedAt": "2026-07-25T22:22:19Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "c7089d3b52a6758596cb516f7b3e65989428d26b",
+          "title": "docs(buzz-acp): correct agent key generation instructions (#2875)",
+          "url": "https://github.com/block/buzz/commit/c7089d3b52a6758596cb516f7b3e65989428d26b",
+          "date": "2026-07-25T17:22:18.000-05:00"
+        }
+      ],
+      "firstDate": "2026-07-25",
+      "lastDate": "2026-07-25"
+    },
+    {
+      "name": "openclaw/openclaw",
+      "url": "https://github.com/openclaw/openclaw",
+      "pullRequests": [
+        {
+          "number": 46653,
+          "title": "feat: add `openclaw tunnel` command for managed SSH port-forwarding",
+          "url": "https://github.com/openclaw/openclaw/pull/46653",
+          "date": "2026-03-14T23:36:34Z",
+          "status": "closed",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2026-03-14",
+      "lastDate": "2026-03-14"
+    },
+    {
+      "name": "uber/uber-direct-sdk",
+      "url": "https://github.com/uber/uber-direct-sdk",
+      "pullRequests": [
+        {
+          "number": 48,
+          "title": "Add sandbox environment support",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/48",
+          "date": "2025-11-25T01:17:58Z",
+          "status": "open",
+          "mergedAt": null
+        },
+        {
+          "number": 44,
+          "title": "Org API: Add support for contract type",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/44",
+          "date": "2024-10-22T21:04:53Z",
+          "status": "merged",
+          "mergedAt": "2024-10-23T16:21:40Z"
+        },
+        {
+          "number": 43,
+          "title": "Update organizations YAML & add decentralized test",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/43",
+          "date": "2024-10-22T20:13:50Z",
+          "status": "merged",
+          "mergedAt": "2024-10-22T20:25:44Z"
+        },
+        {
+          "number": 29,
+          "title": "Update README",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/29",
+          "date": "2024-08-16T14:52:38Z",
+          "status": "merged",
+          "mergedAt": "2024-08-16T14:52:45Z"
+        },
+        {
+          "number": 25,
+          "title": "Improve exports and README",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/25",
+          "date": "2024-08-15T23:38:58Z",
+          "status": "merged",
+          "mergedAt": "2024-08-15T23:42:26Z"
+        },
+        {
+          "number": 24,
+          "title": "Fix package.json: Point to the compiled JavaScript file",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/24",
+          "date": "2024-08-15T18:50:33Z",
+          "status": "merged",
+          "mergedAt": "2024-08-15T19:33:55Z"
+        },
+        {
+          "number": 22,
+          "title": "Cleanup dist references",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/22",
+          "date": "2024-08-14T23:00:44Z",
+          "status": "merged",
+          "mergedAt": "2024-08-15T09:48:05Z"
+        },
+        {
+          "number": 21,
+          "title": "Fix build in package.json",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/21",
+          "date": "2024-08-14T22:55:44Z",
+          "status": "merged",
+          "mergedAt": "2024-08-15T09:44:18Z"
+        },
+        {
+          "number": 17,
+          "title": "Improve test commands, remove unused test",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/17",
+          "date": "2024-08-14T00:48:31Z",
+          "status": "merged",
+          "mergedAt": "2024-08-14T12:35:26Z"
+        },
+        {
+          "number": 12,
+          "title": "Consolidate getHeaders func, fix tests",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/12",
+          "date": "2024-07-25T14:18:51Z",
+          "status": "merged",
+          "mergedAt": "2024-07-25T15:10:42Z"
+        },
+        {
+          "number": 11,
+          "title": "Add back integration tests",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/11",
+          "date": "2024-07-25T13:27:29Z",
+          "status": "open",
+          "mergedAt": null
+        },
+        {
+          "number": 8,
+          "title": "Add Github actions for unit & integration tests",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/8",
+          "date": "2024-07-10T14:45:46Z",
+          "status": "merged",
+          "mergedAt": "2024-07-25T13:09:14Z"
+        },
+        {
+          "number": 7,
+          "title": "Add user agent",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/7",
+          "date": "2024-07-09T14:29:35Z",
+          "status": "merged",
+          "mergedAt": "2024-07-10T14:43:32Z"
+        },
+        {
+          "number": 6,
+          "title": "Add support for customerID when creating deliveriesClient",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/6",
+          "date": "2024-05-31T20:19:18Z",
+          "status": "merged",
+          "mergedAt": "2024-05-31T20:22:51Z"
+        },
+        {
+          "number": 3,
+          "title": "Add Gitignore",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/3",
+          "date": "2024-05-16T14:48:18Z",
+          "status": "merged",
+          "mergedAt": "2024-05-16T15:06:32Z"
+        }
+      ],
+      "issues": [
+        {
+          "number": 41,
+          "title": "Consolidate changelogs",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/41",
+          "date": "2024-10-10T11:06:03Z",
+          "status": "open"
+        },
+        {
+          "number": 36,
+          "title": "Fix samples app",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/36",
+          "date": "2024-08-30T18:53:12Z",
+          "status": "closed"
+        },
+        {
+          "number": 30,
+          "title": "Add keywords to package.json",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/30",
+          "date": "2024-08-18T18:20:23Z",
+          "status": "open"
+        },
+        {
+          "number": 28,
+          "title": "Support Typescript",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/28",
+          "date": "2024-08-16T14:50:41Z",
+          "status": "open"
+        },
+        {
+          "number": 27,
+          "title": "Update README for samples app",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/27",
+          "date": "2024-08-16T14:42:47Z",
+          "status": "open"
+        },
+        {
+          "number": 26,
+          "title": "Samples are broken on latest build",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/26",
+          "date": "2024-08-16T14:41:52Z",
+          "status": "closed"
+        },
+        {
+          "number": 23,
+          "title": "Use semantic-release for releases",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/23",
+          "date": "2024-08-15T17:49:19Z",
+          "status": "open"
+        },
+        {
+          "number": 18,
+          "title": "Remove dist folder from all examples",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/18",
+          "date": "2024-08-14T14:52:52Z",
+          "status": "closed"
+        },
+        {
+          "number": 16,
+          "title": "100% unit test coverage",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/16",
+          "date": "2024-08-14T00:45:25Z",
+          "status": "open"
+        },
+        {
+          "number": 14,
+          "title": "Investigate dependabot alerts",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/14",
+          "date": "2024-08-14T00:24:34Z",
+          "status": "open"
+        },
+        {
+          "number": 13,
+          "title": "Remove extra LICENSE.md",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/13",
+          "date": "2024-08-14T00:23:46Z",
+          "status": "closed"
+        },
+        {
+          "number": 5,
+          "title": "Support customerID in deliveriesClient",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/5",
+          "date": "2024-05-31T19:54:11Z",
+          "status": "closed"
+        },
+        {
+          "number": 4,
+          "title": "Measure latency from Uber API and report back",
+          "url": "https://github.com/uber/uber-direct-sdk/issues/4",
+          "date": "2024-05-20T19:38:03Z",
+          "status": "open"
+        }
+      ],
+      "reviews": [
+        {
+          "number": 20,
+          "title": "delete license.md",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/20",
+          "date": "2024-08-14T21:34:48Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk/pull/20#pullrequestreview-2239236930",
+              "submitted_at": "2024-08-14T21:34:48Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 19,
+          "title": "issue #13 - delete license.md",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/19",
+          "date": "2024-08-14T20:14:36Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk/pull/19#pullrequestreview-2239106412",
+              "submitted_at": "2024-08-14T20:14:36Z",
+              "state": "CHANGES_REQUESTED"
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "title": "Remove .DS_Store and add to gitignore",
+          "url": "https://github.com/uber/uber-direct-sdk/pull/10",
+          "date": "2024-07-18T18:54:12Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk/pull/10#pullrequestreview-2186639378",
+              "submitted_at": "2024-07-18T18:54:12Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [
+        {
+          "sha": "6dd4217a406afca6292c3d38b339d558fc1a21e9",
+          "title": "0.1.7",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/6dd4217a406afca6292c3d38b339d558fc1a21e9",
+          "date": "2024-09-02T07:42:41.000-05:00"
+        },
+        {
+          "sha": "622783b94d5964c6963ddbac3c1bab64ee2596b3",
+          "title": "0.1.7 Add dist back",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/622783b94d5964c6963ddbac3c1bab64ee2596b3",
+          "date": "2024-09-02T07:42:36.000-05:00"
+        },
+        {
+          "sha": "5f8eb19e89adc973f2b71ed262c6c6a14560875f",
+          "title": "v0.1.6 Update package.json and tsconfig",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/5f8eb19e89adc973f2b71ed262c6c6a14560875f",
+          "date": "2024-09-02T07:28:47.000-05:00"
+        },
+        {
+          "sha": "0e1ab3dfd2531aaa7789a6e00802622323b2fa3d",
+          "title": "v0.1.5: Update README",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/0e1ab3dfd2531aaa7789a6e00802622323b2fa3d",
+          "date": "2024-08-16T10:00:49.000-05:00"
+        },
+        {
+          "sha": "b58204a7e651a43d43a53d05becf4234d4cd135a",
+          "title": "v0.1.4: Improve exports and README",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/b58204a7e651a43d43a53d05becf4234d4cd135a",
+          "date": "2024-08-15T18:45:17.000-05:00"
+        },
+        {
+          "sha": "7b7a6b19e33e6b9313b4c77b23e321c7b7ff745f",
+          "title": "v0.1.3: Fix main in package.json",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/7b7a6b19e33e6b9313b4c77b23e321c7b7ff745f",
+          "date": "2024-08-15T14:38:15.000-05:00"
+        },
+        {
+          "sha": "28da7d8068d99b69b288cf78995931690b63f727",
+          "title": "v0.1.2: More cleanup",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/28da7d8068d99b69b288cf78995931690b63f727",
+          "date": "2024-08-15T12:55:45.000-05:00"
+        },
+        {
+          "sha": "fe9b487cc1a93e63dd09fec7dbd60d58731f8465",
+          "title": "Consolidate getHeaders func, fix tests",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/fe9b487cc1a93e63dd09fec7dbd60d58731f8465",
+          "date": "2024-07-25T09:18:29.000-05:00"
+        },
+        {
+          "sha": "09dd29d853902716ee6d4bc6cc8a4dc4c9607ede",
+          "title": "Add Github actions for unit & integration tests (#8)",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/09dd29d853902716ee6d4bc6cc8a4dc4c9607ede",
+          "date": "2024-07-25T08:09:14.000-05:00"
+        },
+        {
+          "sha": "a7f3b3403eae859834e4eac9b6a50b82f6bac35a",
+          "title": "Add user agent (#7)",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/a7f3b3403eae859834e4eac9b6a50b82f6bac35a",
+          "date": "2024-07-10T09:43:32.000-05:00"
+        },
+        {
+          "sha": "4178d764c656c3b84ec7609745de9c11565c776b",
+          "title": "Add support for customerID when creating deliveriesClient (#6)",
+          "url": "https://github.com/uber/uber-direct-sdk/commit/4178d764c656c3b84ec7609745de9c11565c776b",
+          "date": "2024-05-31T15:22:51.000-05:00"
+        }
+      ],
+      "firstDate": "2024-05-16",
+      "lastDate": "2025-11-25"
+    },
+    {
+      "name": "Bogdanp/awesome-advent-of-code",
+      "url": "https://github.com/Bogdanp/awesome-advent-of-code",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 1928,
+          "title": "add my c# solutions repo",
+          "url": "https://github.com/Bogdanp/awesome-advent-of-code/pull/1928",
+          "date": "2024-12-02T14:18:04Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/Bogdanp/awesome-advent-of-code/pull/1928#pullrequestreview-2472826350",
+              "submitted_at": "2024-12-02T14:18:04Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 1927,
+          "title": "Add Rust solutions repo",
+          "url": "https://github.com/Bogdanp/awesome-advent-of-code/pull/1927",
+          "date": "2024-12-02T14:18:26Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/Bogdanp/awesome-advent-of-code/pull/1927#pullrequestreview-2472827376",
+              "submitted_at": "2024-12-02T14:18:26Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [],
+      "firstDate": "2024-12-02",
+      "lastDate": "2024-12-02"
+    },
+    {
+      "name": "uber/uber-direct-sdk-samples",
+      "url": "https://github.com/uber/uber-direct-sdk-samples",
+      "pullRequests": [
+        {
+          "number": 16,
+          "title": "Add contract type to Create Org",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/16",
+          "date": "2024-10-24T16:42:04Z",
+          "status": "merged",
+          "mergedAt": "2024-10-24T16:43:53Z"
+        },
+        {
+          "number": 7,
+          "title": "Improve developer experience for vanilla JS examples Part 2",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/7",
+          "date": "2024-08-18T18:39:34Z",
+          "status": "merged",
+          "mergedAt": "2024-08-18T18:39:42Z"
+        },
+        {
+          "number": 6,
+          "title": "Improve developer experience for vanilla JS examples",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/6",
+          "date": "2024-08-18T13:20:22Z",
+          "status": "merged",
+          "mergedAt": "2024-08-18T13:20:28Z"
+        },
+        {
+          "number": 5,
+          "title": "Remove dist from examples",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/5",
+          "date": "2024-08-15T19:41:00Z",
+          "status": "merged",
+          "mergedAt": "2024-08-16T14:38:22Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 26,
+          "title": "Fix run example",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/26",
+          "date": "2024-11-11T18:30:58Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk-samples/pull/26#pullrequestreview-2427920513",
+              "submitted_at": "2024-11-11T18:30:58Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 25,
+          "title": "Fixes Deliveries Examples",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/25",
+          "date": "2024-11-08T12:25:58Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk-samples/pull/25#pullrequestreview-2423668158",
+              "submitted_at": "2024-11-08T12:25:58Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "title": "Fix Orgs examples #34",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/9",
+          "date": "2024-09-03T16:42:35Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk-samples/pull/9#pullrequestreview-2277966151",
+              "submitted_at": "2024-09-03T16:42:35Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 1,
+          "title": "Initial-commit",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/pull/1",
+          "date": "2024-04-25T14:14:16Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/uber/uber-direct-sdk-samples/pull/1#pullrequestreview-2022647086",
+              "submitted_at": "2024-04-25T14:14:16Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [
+        {
+          "sha": "44421228fb9fde783c349f103e3061524bf37f65",
+          "title": "Add contract type to Create Org (#16)",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/44421228fb9fde783c349f103e3061524bf37f65",
+          "date": "2024-10-24T11:43:52.000-05:00"
+        },
+        {
+          "sha": "c74cea45d0dd5b3cbd19cf0095ed8e3cee7035b5",
+          "title": "Update next.js example",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/c74cea45d0dd5b3cbd19cf0095ed8e3cee7035b5",
+          "date": "2024-10-10T07:30:46.000-04:00"
+        },
+        {
+          "sha": "528588b0114fbaac761e68da2a8ac33073d00820",
+          "title": "Fix package-lock",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/528588b0114fbaac761e68da2a8ac33073d00820",
+          "date": "2024-08-30T13:51:46.000-05:00"
+        },
+        {
+          "sha": "260a0ba041c05d353e6ff830642774ec72524e4e",
+          "title": "Better README",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/260a0ba041c05d353e6ff830642774ec72524e4e",
+          "date": "2024-08-18T13:45:29.000-05:00"
+        },
+        {
+          "sha": "c33cdbfc5144cc2fbb9927c140859b6d63893d15",
+          "title": "Improve developer experience for vanilla JS examples Part 2 (#7)",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/c33cdbfc5144cc2fbb9927c140859b6d63893d15",
+          "date": "2024-08-18T13:39:42.000-05:00"
+        },
+        {
+          "sha": "90ec96d9b245e94456cd665832561492beb420e5",
+          "title": "Improve developer experience for vanilla JS examples (#6)",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/90ec96d9b245e94456cd665832561492beb420e5",
+          "date": "2024-08-18T08:20:28.000-05:00"
+        },
+        {
+          "sha": "97be548a85c2d49fc1085956d15f224c0c70c6bf",
+          "title": "Remove dist from examples (#5)",
+          "url": "https://github.com/uber/uber-direct-sdk-samples/commit/97be548a85c2d49fc1085956d15f224c0c70c6bf",
+          "date": "2024-08-16T09:38:22.000-05:00"
+        }
+      ],
+      "firstDate": "2024-04-25",
+      "lastDate": "2024-11-11"
+    },
+    {
+      "name": "jonathanpaulson/AdventOfCode",
+      "url": "https://github.com/jonathanpaulson/AdventOfCode",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 4,
+          "title": "Fix user agent curl arg. Update TODO text.",
+          "url": "https://github.com/jonathanpaulson/AdventOfCode/pull/4",
+          "date": "2023-12-02T12:41:43Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/jonathanpaulson/AdventOfCode/pull/4#pullrequestreview-1760867227",
+              "submitted_at": "2023-12-02T12:41:43Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [],
+      "firstDate": "2023-12-02",
+      "lastDate": "2023-12-02"
+    },
+    {
+      "name": "premint/premintbot",
+      "url": "https://github.com/premint/premintbot",
+      "pullRequests": [
+        {
+          "number": 21,
+          "title": "Add more BQ fields: RoleAdded, ErrorMsg",
+          "url": "https://github.com/premint/premintbot/pull/21",
+          "date": "2022-07-23T17:37:56Z",
+          "status": "merged",
+          "mergedAt": "2022-07-23T17:40:01Z"
+        },
+        {
+          "number": 17,
+          "title": "Revert \"Disable BigQuery writes\"",
+          "url": "https://github.com/premint/premintbot/pull/17",
+          "date": "2022-06-08T12:17:38Z",
+          "status": "merged",
+          "mergedAt": "2022-06-08T12:18:05Z"
+        },
+        {
+          "number": 16,
+          "title": "Only grant role if user ID matches PREMINT Discord ID",
+          "url": "https://github.com/premint/premintbot/pull/16",
+          "date": "2022-06-04T13:15:15Z",
+          "status": "merged",
+          "mergedAt": "2022-06-06T17:04:41Z"
+        },
+        {
+          "number": 15,
+          "title": "Disable BigQuery writes",
+          "url": "https://github.com/premint/premintbot/pull/15",
+          "date": "2022-05-29T21:40:49Z",
+          "status": "merged",
+          "mergedAt": "2022-05-29T21:42:00Z"
+        },
+        {
+          "number": 14,
+          "title": "Log address in BQ, and don't lowercase it when calling PREMINT API",
+          "url": "https://github.com/premint/premintbot/pull/14",
+          "date": "2022-05-28T20:12:25Z",
+          "status": "merged",
+          "mergedAt": "2022-05-28T20:33:17Z"
+        },
+        {
+          "number": 11,
+          "title": "API Key & Role ID: Validate bad chars & better docs",
+          "url": "https://github.com/premint/premintbot/pull/11",
+          "date": "2022-05-26T00:20:45Z",
+          "status": "merged",
+          "mergedAt": "2022-05-26T01:48:39Z"
+        },
+        {
+          "number": 9,
+          "title": "Rename Go module to github.com/premint/premintbot",
+          "url": "https://github.com/premint/premintbot/pull/9",
+          "date": "2022-05-17T14:21:51Z",
+          "status": "merged",
+          "mergedAt": "2022-05-17T19:25:34Z"
+        },
+        {
+          "number": 5,
+          "title": "Lowercase address (Fixes #4)",
+          "url": "https://github.com/premint/premintbot/pull/5",
+          "date": "2022-03-27T18:38:37Z",
+          "status": "merged",
+          "mergedAt": "2022-03-27T18:38:56Z"
+        }
+      ],
+      "issues": [
+        {
+          "number": 23,
+          "title": "Recurring deploys",
+          "url": "https://github.com/premint/premintbot/issues/23",
+          "date": "2022-08-28T16:19:54Z",
+          "status": "open"
+        },
+        {
+          "number": 22,
+          "title": "Show warning when max roles reached",
+          "url": "https://github.com/premint/premintbot/issues/22",
+          "date": "2022-08-28T15:51:08Z",
+          "status": "open"
+        },
+        {
+          "number": 13,
+          "title": "Don't convert address to lowercase when calling PREMINT API",
+          "url": "https://github.com/premint/premintbot/issues/13",
+          "date": "2022-05-28T20:11:52Z",
+          "status": "closed"
+        },
+        {
+          "number": 7,
+          "title": "Permission error when adding role",
+          "url": "https://github.com/premint/premintbot/issues/7",
+          "date": "2022-04-09T20:59:55Z",
+          "status": "closed"
+        },
+        {
+          "number": 6,
+          "title": "Add support for ENS names",
+          "url": "https://github.com/premint/premintbot/issues/6",
+          "date": "2022-03-27T21:27:29Z",
+          "status": "closed"
+        },
+        {
+          "number": 4,
+          "title": "Lowercase addresses being sent using /premint {ETH address}",
+          "url": "https://github.com/premint/premintbot/issues/4",
+          "date": "2022-03-27T18:35:13Z",
+          "status": "closed"
+        },
+        {
+          "number": 3,
+          "title": "Bot inviter should get Premintbot role",
+          "url": "https://github.com/premint/premintbot/issues/3",
+          "date": "2022-03-23T17:09:24Z",
+          "status": "closed"
+        },
+        {
+          "number": 2,
+          "title": "Command for adding admins: !premint-add-admin <User ID>",
+          "url": "https://github.com/premint/premintbot/issues/2",
+          "date": "2022-03-23T11:41:05Z",
+          "status": "open"
+        },
+        {
+          "number": 1,
+          "title": "Duplicate roles created for Premintbot",
+          "url": "https://github.com/premint/premintbot/issues/1",
+          "date": "2022-03-23T11:39:47Z",
+          "status": "open"
+        }
+      ],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "680dc995bffedc212b8d37c12f7350a5010d81b5",
+          "title": "Add disclaimer in setup instructions that bang commands are broken",
+          "url": "https://github.com/premint/premintbot/commit/680dc995bffedc212b8d37c12f7350a5010d81b5",
+          "date": "2022-09-04T09:14:24.000-05:00"
+        },
+        {
+          "sha": "3cc8bbc45af68ddeee9b4d954fe9ffc1e35f87ec",
+          "title": "Add more logging to bang commands",
+          "url": "https://github.com/premint/premintbot/commit/3cc8bbc45af68ddeee9b4d954fe9ffc1e35f87ec",
+          "date": "2022-09-04T08:59:36.000-05:00"
+        },
+        {
+          "sha": "7d26511fd54da962b0c82884842ab809985887bd",
+          "title": "Let the user know that the role was added",
+          "url": "https://github.com/premint/premintbot/commit/7d26511fd54da962b0c82884842ab809985887bd",
+          "date": "2022-09-03T12:27:13.000-05:00"
+        },
+        {
+          "sha": "65dcddfa9609cd19f2b3a4d957c5e7be9f18317c",
+          "title": "Check if guild in db before returning, add more instructions",
+          "url": "https://github.com/premint/premintbot/commit/65dcddfa9609cd19f2b3a4d957c5e7be9f18317c",
+          "date": "2022-07-24T09:10:01.000-05:00"
+        },
+        {
+          "sha": "17ff53d75b42455b9faa5061dfce4b9bf8d1c189",
+          "title": "Add more BQ fields: RoleAdded, ErrorMsg (#21)",
+          "url": "https://github.com/premint/premintbot/commit/17ff53d75b42455b9faa5061dfce4b9bf8d1c189",
+          "date": "2022-07-23T12:40:01.000-05:00"
+        },
+        {
+          "sha": "d9ea27fecfe23bf81bbd0a3192a7c0d0e395dc6a",
+          "title": "Better docs about role order, more logging",
+          "url": "https://github.com/premint/premintbot/commit/d9ea27fecfe23bf81bbd0a3192a7c0d0e395dc6a",
+          "date": "2022-06-11T16:18:47.000-05:00"
+        },
+        {
+          "sha": "69beb55741a5622fb6170b3e1fdf5654e7f46549",
+          "title": "Add instructions for !premint-nuke cmd & data deletion",
+          "url": "https://github.com/premint/premintbot/commit/69beb55741a5622fb6170b3e1fdf5654e7f46549",
+          "date": "2022-06-10T16:11:02.000-05:00"
+        },
+        {
+          "sha": "f0d0d3cf496d76a914c9a670afd8eb3aed338357",
+          "title": "Revert \"Disable BigQuery writes (#15)\" (#17)",
+          "url": "https://github.com/premint/premintbot/commit/f0d0d3cf496d76a914c9a670afd8eb3aed338357",
+          "date": "2022-06-08T07:18:05.000-05:00"
+        },
+        {
+          "sha": "4ac8dc114d0ae956d540c5b743e6d8290e539c9a",
+          "title": "Only grant role if user ID matches PREMINT Discord ID (#16)",
+          "url": "https://github.com/premint/premintbot/commit/4ac8dc114d0ae956d540c5b743e6d8290e539c9a",
+          "date": "2022-06-06T13:04:41.000-04:00"
+        },
+        {
+          "sha": "0ca0078dec17b632c72da48c71378442ad481a38",
+          "title": "Disable BigQuery writes (#15)",
+          "url": "https://github.com/premint/premintbot/commit/0ca0078dec17b632c72da48c71378442ad481a38",
+          "date": "2022-05-29T16:42:00.000-05:00"
+        },
+        {
+          "sha": "49b6beafe2341d29e4ee01d8d30cf06a8320d723",
+          "title": "Log address in BQ, and don't lowercase it when calling PREMINT API (#14)",
+          "url": "https://github.com/premint/premintbot/commit/49b6beafe2341d29e4ee01d8d30cf06a8320d723",
+          "date": "2022-05-28T15:33:17.000-05:00"
+        },
+        {
+          "sha": "e77bd12bbeabefe18e11d174b9ba2688b9766320",
+          "title": "API Key & Role ID: Validate bad chars & better docs",
+          "url": "https://github.com/premint/premintbot/commit/e77bd12bbeabefe18e11d174b9ba2688b9766320",
+          "date": "2022-05-25T19:18:24.000-05:00"
+        },
+        {
+          "sha": "ecec725f6b2ed93b0fc6814d1b6ee1ffd8650d1e",
+          "title": "Rename Go module to github.com/premint/premintbot",
+          "url": "https://github.com/premint/premintbot/commit/ecec725f6b2ed93b0fc6814d1b6ee1ffd8650d1e",
+          "date": "2022-05-17T09:20:23.000-05:00"
+        },
+        {
+          "sha": "e3b5cb47c934a98f8f4490ff7f199104dabab331",
+          "title": "Setup instructions",
+          "url": "https://github.com/premint/premintbot/commit/e3b5cb47c934a98f8f4490ff7f199104dabab331",
+          "date": "2022-05-14T13:34:17.000-05:00"
+        },
+        {
+          "sha": "0785e57fa3fb174b8715d68131eca81dce273109",
+          "title": "Attempt to fix API URL",
+          "url": "https://github.com/premint/premintbot/commit/0785e57fa3fb174b8715d68131eca81dce273109",
+          "date": "2022-04-15T06:27:47.000-05:00"
+        },
+        {
+          "sha": "78a00a8cdb5e3157631f42d7b9c8a663cfe66e8c",
+          "title": "Make the nuke command delete the db record",
+          "url": "https://github.com/premint/premintbot/commit/78a00a8cdb5e3157631f42d7b9c8a663cfe66e8c",
+          "date": "2022-04-09T15:22:44.000-05:00"
+        },
+        {
+          "sha": "67ec58a6a41f294df607c49544d8bd0d7dd3480d",
+          "title": "Fix table name",
+          "url": "https://github.com/premint/premintbot/commit/67ec58a6a41f294df607c49544d8bd0d7dd3480d",
+          "date": "2022-04-04T19:08:19.000-05:00"
+        },
+        {
+          "sha": "2197adad4128df23a81e45fbf54bb14a0125e4fa",
+          "title": "Fix auth",
+          "url": "https://github.com/premint/premintbot/commit/2197adad4128df23a81e45fbf54bb14a0125e4fa",
+          "date": "2022-04-04T19:03:55.000-05:00"
+        },
+        {
+          "sha": "7b5e83bb33a0db62c785c00767c0be34dbaa0b9d",
+          "title": "Add support for ENS name",
+          "url": "https://github.com/premint/premintbot/commit/7b5e83bb33a0db62c785c00767c0be34dbaa0b9d",
+          "date": "2022-03-27T16:46:04.000-05:00"
+        },
+        {
+          "sha": "36a7218ef97f88b4772c36ea70d602943b98d837",
+          "title": "More BQ events",
+          "url": "https://github.com/premint/premintbot/commit/36a7218ef97f88b4772c36ea70d602943b98d837",
+          "date": "2022-03-27T16:25:08.000-05:00"
+        },
+        {
+          "sha": "97f4a51eb2735f867df8c29aaa237c1ab5dd4b7c",
+          "title": "Lowercase address (Fixes #4) (#5)",
+          "url": "https://github.com/premint/premintbot/commit/97f4a51eb2735f867df8c29aaa237c1ab5dd4b7c",
+          "date": "2022-03-27T13:38:56.000-05:00"
+        },
+        {
+          "sha": "4325cc41ee018cceb8494b012aef72f8c5ce1a50",
+          "title": "Fix BigQuery events",
+          "url": "https://github.com/premint/premintbot/commit/4325cc41ee018cceb8494b012aef72f8c5ce1a50",
+          "date": "2022-03-27T09:06:48.000-05:00"
+        },
+        {
+          "sha": "0d1a5110d3db9a5c61cf45a9cc434f4678f28313",
+          "title": "Fix premint command",
+          "url": "https://github.com/premint/premintbot/commit/0d1a5110d3db9a5c61cf45a9cc434f4678f28313",
+          "date": "2022-03-27T08:48:54.000-05:00"
+        },
+        {
+          "sha": "84a9605fa9ebb47dbc397e1c7536e05beb85b8ad",
+          "title": "Log the /premint command in BigQuery",
+          "url": "https://github.com/premint/premintbot/commit/84a9605fa9ebb47dbc397e1c7536e05beb85b8ad",
+          "date": "2022-03-26T16:30:24.000-05:00"
+        },
+        {
+          "sha": "83f1bcce09a6af90fbf5e6ba7803500749ee7ace",
+          "title": "Add guild admins",
+          "url": "https://github.com/premint/premintbot/commit/83f1bcce09a6af90fbf5e6ba7803500749ee7ace",
+          "date": "2022-03-26T14:33:22.000-05:00"
+        },
+        {
+          "sha": "c71db1a1114ad3375a4b2b65f0ea0d1f44b1dc50",
+          "title": "Check the bot inviter from the audit log",
+          "url": "https://github.com/premint/premintbot/commit/c71db1a1114ad3375a4b2b65f0ea0d1f44b1dc50",
+          "date": "2022-03-24T22:21:25.000-05:00"
+        },
+        {
+          "sha": "9d6b9c5f092b958d7a8f25c7d0631431fe0cb4a1",
+          "title": "Add !premint-set-role to !premint command",
+          "url": "https://github.com/premint/premintbot/commit/9d6b9c5f092b958d7a8f25c7d0631431fe0cb4a1",
+          "date": "2022-03-22T18:39:58.000-05:00"
+        },
+        {
+          "sha": "5fc80309fa79213466eb7f553da93b12ea2d5375",
+          "title": "Log guild creation in BigQuery",
+          "url": "https://github.com/premint/premintbot/commit/5fc80309fa79213466eb7f553da93b12ea2d5375",
+          "date": "2022-03-20T18:34:44.000-05:00"
+        },
+        {
+          "sha": "bfa03b3da2c77010ba70e92471811ccc2cce80b4",
+          "title": "Clean",
+          "url": "https://github.com/premint/premintbot/commit/bfa03b3da2c77010ba70e92471811ccc2cce80b4",
+          "date": "2022-03-20T18:19:33.000-05:00"
+        },
+        {
+          "sha": "701c07ad3f210d5d966a30a9cd19de6229eb482a",
+          "title": "Add role for /premint command",
+          "url": "https://github.com/premint/premintbot/commit/701c07ad3f210d5d966a30a9cd19de6229eb482a",
+          "date": "2022-03-20T16:57:05.000-05:00"
+        },
+        {
+          "sha": "1fab696bd633c3c0b862c251b638e6c1d8ad6cf9",
+          "title": "Add support for api key on assign_role endpoint",
+          "url": "https://github.com/premint/premintbot/commit/1fab696bd633c3c0b862c251b638e6c1d8ad6cf9",
+          "date": "2022-03-20T16:24:49.000-05:00"
+        },
+        {
+          "sha": "cea18ba755e8bb2d8cf64f2358af7748957421e7",
+          "title": "/assign_role endpoint",
+          "url": "https://github.com/premint/premintbot/commit/cea18ba755e8bb2d8cf64f2358af7748957421e7",
+          "date": "2022-03-20T16:16:38.000-05:00"
+        },
+        {
+          "sha": "3cad32c6ef1a8b116918ef36adae77b76e21e8c0",
+          "title": "Security fixes, cleanup",
+          "url": "https://github.com/premint/premintbot/commit/3cad32c6ef1a8b116918ef36adae77b76e21e8c0",
+          "date": "2022-03-20T14:04:06.000-05:00"
+        },
+        {
+          "sha": "f8110edcd89c93d57a07751adea71c3c22d96dd1",
+          "title": "Tons of refactoring",
+          "url": "https://github.com/premint/premintbot/commit/f8110edcd89c93d57a07751adea71c3c22d96dd1",
+          "date": "2022-03-19T12:12:24.000-05:00"
+        },
+        {
+          "sha": "65433c6d09d333bc94ab92bb710745b1a3853014",
+          "title": "README",
+          "url": "https://github.com/premint/premintbot/commit/65433c6d09d333bc94ab92bb710745b1a3853014",
+          "date": "2022-03-12T06:56:53.000-06:00"
+        },
+        {
+          "sha": "68a3342e2edafdc83e964e39c6710ff1ce07c742",
+          "title": "Announcement in #premint-config when bot joins",
+          "url": "https://github.com/premint/premintbot/commit/68a3342e2edafdc83e964e39c6710ff1ce07c742",
+          "date": "2022-03-12T06:49:24.000-06:00"
+        },
+        {
+          "sha": "045b37053f3c5d467c29c47322fcff38d94c3ec9",
+          "title": "Handle when no address is passed in",
+          "url": "https://github.com/premint/premintbot/commit/045b37053f3c5d467c29c47322fcff38d94c3ec9",
+          "date": "2022-03-12T06:35:44.000-06:00"
+        },
+        {
+          "sha": "83d0049510f7ae81954f3791eb52a779208e7b3a",
+          "title": "Clean",
+          "url": "https://github.com/premint/premintbot/commit/83d0049510f7ae81954f3791eb52a779208e7b3a",
+          "date": "2022-03-10T19:31:25.000-06:00"
+        },
+        {
+          "sha": "5ebe2aec803a7a552cd936676ca679d8dc0393cd",
+          "title": "Working slash command",
+          "url": "https://github.com/premint/premintbot/commit/5ebe2aec803a7a552cd936676ca679d8dc0393cd",
+          "date": "2022-03-10T19:00:07.000-06:00"
+        },
+        {
+          "sha": "e7d988320271c8ea9ae5069dc925baf12d525bb4",
+          "title": "Save - slash commands not working yet",
+          "url": "https://github.com/premint/premintbot/commit/e7d988320271c8ea9ae5069dc925baf12d525bb4",
+          "date": "2022-03-09T20:26:06.000-06:00"
+        },
+        {
+          "sha": "c4a701220bd703c383144d1944422842d53d08e2",
+          "title": "Save",
+          "url": "https://github.com/premint/premintbot/commit/c4a701220bd703c383144d1944422842d53d08e2",
+          "date": "2022-03-08T21:15:44.000-06:00"
+        },
+        {
+          "sha": "51535d6cb90d0677cca9fe51f2d50cd3349042d9",
+          "title": "Working bot",
+          "url": "https://github.com/premint/premintbot/commit/51535d6cb90d0677cca9fe51f2d50cd3349042d9",
+          "date": "2022-03-08T20:35:08.000-06:00"
+        },
+        {
+          "sha": "81cc6432bb3ae7a6cb769b35d410afbb5c3cfa23",
+          "title": "Start",
+          "url": "https://github.com/premint/premintbot/commit/81cc6432bb3ae7a6cb769b35d410afbb5c3cfa23",
+          "date": "2022-03-08T20:03:22.000-06:00"
+        },
+        {
+          "sha": "6846436a03857ecd5c47907a30152ce74ea3470c",
+          "title": "Init",
+          "url": "https://github.com/premint/premintbot/commit/6846436a03857ecd5c47907a30152ce74ea3470c",
+          "date": "2022-03-08T10:44:55.000-06:00"
+        }
+      ],
+      "firstDate": "2022-03-08",
+      "lastDate": "2022-09-04"
+    },
+    {
+      "name": "postmates/consul_mut_ex",
+      "url": "https://github.com/postmates/consul_mut_ex",
+      "pullRequests": [
+        {
+          "number": 7,
+          "title": "Update to use :consul@1.1.0",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/7",
+          "date": "2017-03-20T22:44:12Z",
+          "status": "open",
+          "mergedAt": null
+        },
+        {
+          "number": 5,
+          "title": "Setup package for hex.pm",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/5",
+          "date": "2017-03-20T20:43:42Z",
+          "status": "merged",
+          "mergedAt": "2017-03-20T21:53:01Z"
+        },
+        {
+          "number": 4,
+          "title": "v1.0.0",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/4",
+          "date": "2017-03-20T17:55:14Z",
+          "status": "merged",
+          "mergedAt": "2017-03-20T19:37:21Z"
+        },
+        {
+          "number": 1,
+          "title": "Consul as a backend",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/1",
+          "date": "2017-01-08T23:49:51Z",
+          "status": "merged",
+          "mergedAt": "2017-01-11T19:15:22Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 6,
+          "title": "Remove extraneous backticks",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/6",
+          "date": "2017-03-20T21:35:51Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/consul_mut_ex/pull/6#pullrequestreview-27972909",
+              "submitted_at": "2017-03-20T21:35:51Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "title": "add delete_key to ets_backend and ConsulMutEx",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/3",
+          "date": "2017-01-24T21:42:37Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/consul_mut_ex/pull/3#pullrequestreview-18274779",
+              "submitted_at": "2017-01-24T21:42:37Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "title": "Use a consul fork for features we need",
+          "url": "https://github.com/postmates/consul_mut_ex/pull/2",
+          "date": "2017-01-24T17:49:20Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/consul_mut_ex/pull/2#pullrequestreview-18222362",
+              "submitted_at": "2017-01-24T17:48:31Z",
+              "state": "APPROVED"
+            },
+            {
+              "html_url": "https://github.com/postmates/consul_mut_ex/pull/2#pullrequestreview-18222669",
+              "submitted_at": "2017-01-24T17:49:20Z",
+              "state": "COMMENTED"
+            }
+          ]
+        }
+      ],
+      "commits": [
+        {
+          "sha": "895a3774f749ec65f4a9d72bbb2a48f43e8e2492",
+          "title": "Update README about fork",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/895a3774f749ec65f4a9d72bbb2a48f43e8e2492",
+          "date": "2021-10-27T11:55:37.000-05:00"
+        },
+        {
+          "sha": "f26e91ff829bb0fa347fd163824e0407a3ff544d",
+          "title": "Setup package for hex.pm (Closes #5)",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/f26e91ff829bb0fa347fd163824e0407a3ff544d",
+          "date": "2017-03-20T14:53:01.000-07:00"
+        },
+        {
+          "sha": "83b428579a426464714306b633e9d0399df56ffc",
+          "title": "v1.0.0 (Closes #4)",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/83b428579a426464714306b633e9d0399df56ffc",
+          "date": "2017-03-20T12:37:20.000-07:00"
+        },
+        {
+          "sha": "9f66c76318b72de38c800099a4f2d1ee04d3e530",
+          "title": "Update README",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/9f66c76318b72de38c800099a4f2d1ee04d3e530",
+          "date": "2017-01-11T13:30:17.000-08:00"
+        },
+        {
+          "sha": "471216388af1c8461f079a11c39aee9fd24f33ac",
+          "title": "Remove Coming Soon",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/471216388af1c8461f079a11c39aee9fd24f33ac",
+          "date": "2017-01-11T13:26:49.000-08:00"
+        },
+        {
+          "sha": "75b84178d45712192bb9a8563f399ef731e08308",
+          "title": "3-Clause BSD License",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/75b84178d45712192bb9a8563f399ef731e08308",
+          "date": "2017-01-11T13:26:08.000-08:00"
+        },
+        {
+          "sha": "a8d57e8a1dda55c4ea287727fc080356f90e206f",
+          "title": "Bump to 0.2.0",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/a8d57e8a1dda55c4ea287727fc080356f90e206f",
+          "date": "2017-01-11T13:24:25.000-08:00"
+        },
+        {
+          "sha": "72aa5076d39dc8ca6c661164c8771e032aaa3361",
+          "title": "Consul as a backend (Closes #1)",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/72aa5076d39dc8ca6c661164c8771e032aaa3361",
+          "date": "2017-01-11T11:15:22.000-08:00"
+        },
+        {
+          "sha": "7a7155c531af6f04850fda964d25e677e387ecfb",
+          "title": "Cleanup :clean:",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/7a7155c531af6f04850fda964d25e677e387ecfb",
+          "date": "2017-01-06T16:48:44.000-08:00"
+        },
+        {
+          "sha": "c9c1e814e2f0dabfa018a0f642310195e3eb7122",
+          "title": "README",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/c9c1e814e2f0dabfa018a0f642310195e3eb7122",
+          "date": "2017-01-06T16:26:46.000-08:00"
+        },
+        {
+          "sha": "30565d4225aced3fcb4a25de787e3d001ff8960b",
+          "title": "Acquire and release a lock",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/30565d4225aced3fcb4a25de787e3d001ff8960b",
+          "date": "2017-01-06T15:40:59.000-08:00"
+        },
+        {
+          "sha": "004e07648e8c3acad981326672cedc5baada5a1f",
+          "title": "Some tests",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/004e07648e8c3acad981326672cedc5baada5a1f",
+          "date": "2017-01-06T14:28:04.000-08:00"
+        },
+        {
+          "sha": "5e33a303092d5f39ec66936b39a5bfac87fb3b95",
+          "title": "Initial",
+          "url": "https://github.com/postmates/consul_mut_ex/commit/5e33a303092d5f39ec66936b39a5bfac87fb3b95",
+          "date": "2017-01-06T13:45:52.000-08:00"
+        }
+      ],
+      "firstDate": "2017-01-06",
+      "lastDate": "2021-10-27"
+    },
+    {
+      "name": "postmates/ex-stats-tracker",
+      "url": "https://github.com/postmates/ex-stats-tracker",
+      "pullRequests": [
+        {
+          "number": 4,
+          "title": "Style tweaks",
+          "url": "https://github.com/postmates/ex-stats-tracker/pull/4",
+          "date": "2017-06-20T20:36:28Z",
+          "status": "merged",
+          "mergedAt": "2017-06-20T20:39:41Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 3,
+          "title": "Fixes for hostname needing to converted to atom before being passed t\u2026",
+          "url": "https://github.com/postmates/ex-stats-tracker/pull/3",
+          "date": "2017-06-20T19:57:29Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/ex-stats-tracker/pull/3#pullrequestreview-45226786",
+              "submitted_at": "2017-06-20T18:31:57Z",
+              "state": "COMMENTED"
+            },
+            {
+              "html_url": "https://github.com/postmates/ex-stats-tracker/pull/3#pullrequestreview-45249440",
+              "submitted_at": "2017-06-20T19:57:29Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [
+        {
+          "sha": "a0b9c07106928894339a6767dd3161749a1d7291",
+          "title": "Fork & archive",
+          "url": "https://github.com/postmates/ex-stats-tracker/commit/a0b9c07106928894339a6767dd3161749a1d7291",
+          "date": "2021-10-27T13:00:03.000-05:00"
+        },
+        {
+          "sha": "333fb84988948ab3c09a3502709b2a66d99a7e99",
+          "title": "Style tweaks (Closes #4)",
+          "url": "https://github.com/postmates/ex-stats-tracker/commit/333fb84988948ab3c09a3502709b2a66d99a7e99",
+          "date": "2017-06-20T16:39:41.000-04:00"
+        }
+      ],
+      "firstDate": "2017-06-20",
+      "lastDate": "2021-10-27"
+    },
+    {
+      "name": "nimajalali/go-force",
+      "url": "https://github.com/nimajalali/go-force",
+      "pullRequests": [
+        {
+          "number": 61,
+          "title": "Replace ApiName with APIName",
+          "url": "https://github.com/nimajalali/go-force/pull/61",
+          "date": "2019-03-28T16:01:18Z",
+          "status": "closed",
+          "mergedAt": null
+        },
+        {
+          "number": 60,
+          "title": "Replace ApiName with APIName",
+          "url": "https://github.com/nimajalali/go-force/pull/60",
+          "date": "2019-03-28T15:58:04Z",
+          "status": "closed",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2019-03-28",
+      "lastDate": "2019-03-28"
+    },
+    {
+      "name": "startupdetroit/www",
+      "url": "https://github.com/startupdetroit/www",
+      "pullRequests": [
+        {
+          "number": 9,
+          "title": "New hero",
+          "url": "https://github.com/startupdetroit/www/pull/9",
+          "date": "2017-10-18T14:27:20Z",
+          "status": "merged",
+          "mergedAt": "2017-10-18T14:28:48Z"
+        },
+        {
+          "number": 5,
+          "title": "First 8 logos",
+          "url": "https://github.com/startupdetroit/www/pull/5",
+          "date": "2017-10-17T16:03:27Z",
+          "status": "merged",
+          "mergedAt": "2017-10-17T16:31:00Z"
+        },
+        {
+          "number": 4,
+          "title": "Add first four logos",
+          "url": "https://github.com/startupdetroit/www/pull/4",
+          "date": "2017-10-17T15:42:56Z",
+          "status": "closed",
+          "mergedAt": null
+        },
+        {
+          "number": 3,
+          "title": "Skeleton",
+          "url": "https://github.com/startupdetroit/www/pull/3",
+          "date": "2017-10-11T20:11:19Z",
+          "status": "merged",
+          "mergedAt": "2017-10-11T20:11:34Z"
+        },
+        {
+          "number": 2,
+          "title": "Reactify app",
+          "url": "https://github.com/startupdetroit/www/pull/2",
+          "date": "2017-10-11T15:36:39Z",
+          "status": "merged",
+          "mergedAt": "2017-10-11T15:45:27Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 19,
+          "title": "XR Design Studios Logo Submission",
+          "url": "https://github.com/startupdetroit/www/pull/19",
+          "date": "2019-01-07T17:23:58Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/startupdetroit/www/pull/19#pullrequestreview-189909640",
+              "submitted_at": "2019-01-07T17:23:58Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [
+        {
+          "sha": "589c682c4d5a11d0ebb2c8d7230dc771ac9e6b7b",
+          "title": "GA",
+          "url": "https://github.com/startupdetroit/www/commit/589c682c4d5a11d0ebb2c8d7230dc771ac9e6b7b",
+          "date": "2017-10-18T17:44:44.000-04:00"
+        },
+        {
+          "sha": "21e123ce60a9050cc42a586985f203a4b2c5c5c9",
+          "title": "Ditch the header on mobile",
+          "url": "https://github.com/startupdetroit/www/commit/21e123ce60a9050cc42a586985f203a4b2c5c5c9",
+          "date": "2017-10-18T15:52:39.000-04:00"
+        },
+        {
+          "sha": "5f5e3a8712de9f58cc6e7da390b86b3f39adbf43",
+          "title": "important",
+          "url": "https://github.com/startupdetroit/www/commit/5f5e3a8712de9f58cc6e7da390b86b3f39adbf43",
+          "date": "2017-10-18T15:51:08.000-04:00"
+        },
+        {
+          "sha": "4ec5c802efa84e450cc8813445de39ffd476c0a0",
+          "title": "Fix mobile header",
+          "url": "https://github.com/startupdetroit/www/commit/4ec5c802efa84e450cc8813445de39ffd476c0a0",
+          "date": "2017-10-18T15:44:59.000-04:00"
+        },
+        {
+          "sha": "225816c4d6b1498b20902fb77eed83fdabb7cb00",
+          "title": "Favicon",
+          "url": "https://github.com/startupdetroit/www/commit/225816c4d6b1498b20902fb77eed83fdabb7cb00",
+          "date": "2017-10-18T15:21:58.000-04:00"
+        },
+        {
+          "sha": "fe708a3332c6958f11ca604fd7280cdbb90bac02",
+          "title": "Fix footer",
+          "url": "https://github.com/startupdetroit/www/commit/fe708a3332c6958f11ca604fd7280cdbb90bac02",
+          "date": "2017-10-18T15:19:06.000-04:00"
+        },
+        {
+          "sha": "a2a178cee9934ff9b8fc9a49fea4c5bf958f753c",
+          "title": "Design tweaks",
+          "url": "https://github.com/startupdetroit/www/commit/a2a178cee9934ff9b8fc9a49fea4c5bf958f753c",
+          "date": "2017-10-18T14:58:27.000-04:00"
+        },
+        {
+          "sha": "86edf2381b19d831284f12666ec64a4e0a420b56",
+          "title": "Fix mobile header",
+          "url": "https://github.com/startupdetroit/www/commit/86edf2381b19d831284f12666ec64a4e0a420b56",
+          "date": "2017-10-18T12:41:57.000-04:00"
+        },
+        {
+          "sha": "cc010397a6ba76019aa91d80d7a5558f4805506c",
+          "title": "Center about text",
+          "url": "https://github.com/startupdetroit/www/commit/cc010397a6ba76019aa91d80d7a5558f4805506c",
+          "date": "2017-10-18T12:38:12.000-04:00"
+        },
+        {
+          "sha": "8a8054022df6111c54b2229840353fef232f4e8f",
+          "title": "Google Analytics",
+          "url": "https://github.com/startupdetroit/www/commit/8a8054022df6111c54b2229840353fef232f4e8f",
+          "date": "2017-10-18T12:30:26.000-04:00"
+        },
+        {
+          "sha": "285e97d9dd520c50eb50a96293068b2be2ac4259",
+          "title": "Final",
+          "url": "https://github.com/startupdetroit/www/commit/285e97d9dd520c50eb50a96293068b2be2ac4259",
+          "date": "2017-10-18T12:27:22.000-04:00"
+        },
+        {
+          "sha": "76d54d166e94211d9a81cbcf77b7d803db0425cb",
+          "title": "New hero (Closes #9)",
+          "url": "https://github.com/startupdetroit/www/commit/76d54d166e94211d9a81cbcf77b7d803db0425cb",
+          "date": "2017-10-18T10:28:47.000-04:00"
+        },
+        {
+          "sha": "36905d5d71e7771db940e4f176141a48b4d24e66",
+          "title": "New hero",
+          "url": "https://github.com/startupdetroit/www/commit/36905d5d71e7771db940e4f176141a48b4d24e66",
+          "date": "2017-10-18T10:26:21.000-04:00"
+        },
+        {
+          "sha": "b0406f899b422086c732e8bda2ba57cd38b4fa96",
+          "title": "Format About",
+          "url": "https://github.com/startupdetroit/www/commit/b0406f899b422086c732e8bda2ba57cd38b4fa96",
+          "date": "2017-10-18T09:44:57.000-04:00"
+        },
+        {
+          "sha": "072ed1ef58741e1ab0fb305bcfad7e2eb481c299",
+          "title": "Waymark",
+          "url": "https://github.com/startupdetroit/www/commit/072ed1ef58741e1ab0fb305bcfad7e2eb481c299",
+          "date": "2017-10-17T20:19:36.000-04:00"
+        },
+        {
+          "sha": "50a2f5d8813335765f185fa8b8de3db24d6f4a70",
+          "title": "Add StockX",
+          "url": "https://github.com/startupdetroit/www/commit/50a2f5d8813335765f185fa8b8de3db24d6f4a70",
+          "date": "2017-10-17T20:04:00.000-04:00"
+        },
+        {
+          "sha": "b9e7420f372bb5996614fa7cff202af95a180fb9",
+          "title": "Updates",
+          "url": "https://github.com/startupdetroit/www/commit/b9e7420f372bb5996614fa7cff202af95a180fb9",
+          "date": "2017-10-17T19:59:22.000-04:00"
+        },
+        {
+          "sha": "8cb92eb94d60c4454c338a99ba6c59e37bc86c06",
+          "title": "More logos",
+          "url": "https://github.com/startupdetroit/www/commit/8cb92eb94d60c4454c338a99ba6c59e37bc86c06",
+          "date": "2017-10-17T17:49:22.000-04:00"
+        },
+        {
+          "sha": "2b441a007362f11c22347dcf1ce3a4a93620dfe6",
+          "title": "First 8 logos (Closes #5)",
+          "url": "https://github.com/startupdetroit/www/commit/2b441a007362f11c22347dcf1ce3a4a93620dfe6",
+          "date": "2017-10-17T12:30:59.000-04:00"
+        },
+        {
+          "sha": "88d27e884689b6b1a6b1be31bc2a1289fa8bbeaf",
+          "title": "Add community type",
+          "url": "https://github.com/startupdetroit/www/commit/88d27e884689b6b1a6b1be31bc2a1289fa8bbeaf",
+          "date": "2017-10-16T12:33:34.000-04:00"
+        },
+        {
+          "sha": "98a36c59c8732e95a2acfa54b93567bfa50466e2",
+          "title": "Links in navbar",
+          "url": "https://github.com/startupdetroit/www/commit/98a36c59c8732e95a2acfa54b93567bfa50466e2",
+          "date": "2017-10-16T12:07:04.000-04:00"
+        },
+        {
+          "sha": "0173f30b262393b609db15e39a343b3aba685d6a",
+          "title": "Slack button, calendar",
+          "url": "https://github.com/startupdetroit/www/commit/0173f30b262393b609db15e39a343b3aba685d6a",
+          "date": "2017-10-16T12:03:57.000-04:00"
+        },
+        {
+          "sha": "d588916cad5c468f1c261aa67ef560222e7992cb",
+          "title": "Fonts",
+          "url": "https://github.com/startupdetroit/www/commit/d588916cad5c468f1c261aa67ef560222e7992cb",
+          "date": "2017-10-16T11:15:44.000-04:00"
+        },
+        {
+          "sha": "980bbb07269bafcb0ec1fd36df65ec72dd1be876",
+          "title": "More responsiveness",
+          "url": "https://github.com/startupdetroit/www/commit/980bbb07269bafcb0ec1fd36df65ec72dd1be876",
+          "date": "2017-10-16T11:06:17.000-04:00"
+        },
+        {
+          "sha": "405ae2b7a12bf3575de9ab9b6516893d62857fe8",
+          "title": "Start responsiveness",
+          "url": "https://github.com/startupdetroit/www/commit/405ae2b7a12bf3575de9ab9b6516893d62857fe8",
+          "date": "2017-10-16T10:57:20.000-04:00"
+        },
+        {
+          "sha": "298d95c4f31cd7d174cf6140075056c47ad9f5ec",
+          "title": "Update README",
+          "url": "https://github.com/startupdetroit/www/commit/298d95c4f31cd7d174cf6140075056c47ad9f5ec",
+          "date": "2017-10-13T16:37:34.000-04:00"
+        },
+        {
+          "sha": "c73dc779ec1d7fa32c251f20795f0427af88c5b7",
+          "title": "todo",
+          "url": "https://github.com/startupdetroit/www/commit/c73dc779ec1d7fa32c251f20795f0427af88c5b7",
+          "date": "2017-10-13T11:23:49.000-04:00"
+        },
+        {
+          "sha": "f78fa57a4582b229f27aa9c5b98cb197e6a88fbb",
+          "title": "Logos",
+          "url": "https://github.com/startupdetroit/www/commit/f78fa57a4582b229f27aa9c5b98cb197e6a88fbb",
+          "date": "2017-10-13T11:12:59.000-04:00"
+        },
+        {
+          "sha": "116b0dbac0db74cb90eeaa0c0149122cd662cd6d",
+          "title": "Boilerplate",
+          "url": "https://github.com/startupdetroit/www/commit/116b0dbac0db74cb90eeaa0c0149122cd662cd6d",
+          "date": "2017-10-13T10:46:43.000-04:00"
+        },
+        {
+          "sha": "57ba26c2f9819ad5b0989195a8561f6fb9891f50",
+          "title": "Add image",
+          "url": "https://github.com/startupdetroit/www/commit/57ba26c2f9819ad5b0989195a8561f6fb9891f50",
+          "date": "2017-10-11T16:41:01.000-04:00"
+        },
+        {
+          "sha": "7cf74e6d025295ec4e0358fa85ab520eb4379833",
+          "title": "Header image",
+          "url": "https://github.com/startupdetroit/www/commit/7cf74e6d025295ec4e0358fa85ab520eb4379833",
+          "date": "2017-10-11T16:40:25.000-04:00"
+        },
+        {
+          "sha": "6054aab628c401c9042a9e2f937d4e534d46b608",
+          "title": "rm build",
+          "url": "https://github.com/startupdetroit/www/commit/6054aab628c401c9042a9e2f937d4e534d46b608",
+          "date": "2017-10-11T16:13:41.000-04:00"
+        },
+        {
+          "sha": "769f33123cc49f002207957ae10e810f203d333d",
+          "title": "Skeleton (Closes #3)",
+          "url": "https://github.com/startupdetroit/www/commit/769f33123cc49f002207957ae10e810f203d333d",
+          "date": "2017-10-11T16:11:33.000-04:00"
+        },
+        {
+          "sha": "b97bc6d18aaa96ea41ec72b643acf1ce8a281087",
+          "title": "rmwww",
+          "url": "https://github.com/startupdetroit/www/commit/b97bc6d18aaa96ea41ec72b643acf1ce8a281087",
+          "date": "2017-10-11T15:04:46.000-04:00"
+        },
+        {
+          "sha": "18c7cb2968dcde2943790a3466c26b4a3dfef4fb",
+          "title": "Update",
+          "url": "https://github.com/startupdetroit/www/commit/18c7cb2968dcde2943790a3466c26b4a3dfef4fb",
+          "date": "2017-10-11T15:02:09.000-04:00"
+        },
+        {
+          "sha": "6ef8d231d1c7b3fd140b622aeeb6da987d631338",
+          "title": "Update package",
+          "url": "https://github.com/startupdetroit/www/commit/6ef8d231d1c7b3fd140b622aeeb6da987d631338",
+          "date": "2017-10-11T14:59:23.000-04:00"
+        },
+        {
+          "sha": "d989592baf8a96ff2f97c272bc279e5f0064bbc1",
+          "title": "CNAME",
+          "url": "https://github.com/startupdetroit/www/commit/d989592baf8a96ff2f97c272bc279e5f0064bbc1",
+          "date": "2017-10-11T13:06:32.000-04:00"
+        },
+        {
+          "sha": "a7c3e486588da288adfa86eb59dea9a363f017e4",
+          "title": "Fix yarn",
+          "url": "https://github.com/startupdetroit/www/commit/a7c3e486588da288adfa86eb59dea9a363f017e4",
+          "date": "2017-10-11T12:36:08.000-04:00"
+        },
+        {
+          "sha": "a80715861fd6173aff8c1894d3c7fbca57414fe1",
+          "title": "Rm extra files",
+          "url": "https://github.com/startupdetroit/www/commit/a80715861fd6173aff8c1894d3c7fbca57414fe1",
+          "date": "2017-10-11T12:17:58.000-04:00"
+        },
+        {
+          "sha": "891614f745a6cb06d2c2613200a63ddf73f8ba65",
+          "title": "Update package",
+          "url": "https://github.com/startupdetroit/www/commit/891614f745a6cb06d2c2613200a63ddf73f8ba65",
+          "date": "2017-10-11T12:14:57.000-04:00"
+        },
+        {
+          "sha": "d7e38134d2f7cf62c40ae6d86347e752413830ba",
+          "title": "Update",
+          "url": "https://github.com/startupdetroit/www/commit/d7e38134d2f7cf62c40ae6d86347e752413830ba",
+          "date": "2017-10-11T12:07:29.000-04:00"
+        },
+        {
+          "sha": "9b0f4e1e9880c2d4391362476eedb27bf5878ed3",
+          "title": "Rearrange",
+          "url": "https://github.com/startupdetroit/www/commit/9b0f4e1e9880c2d4391362476eedb27bf5878ed3",
+          "date": "2017-10-11T11:52:03.000-04:00"
+        },
+        {
+          "sha": "6bb6e6da8a7374c909cbbd80e0ebabcc252461a9",
+          "title": "Update package and README",
+          "url": "https://github.com/startupdetroit/www/commit/6bb6e6da8a7374c909cbbd80e0ebabcc252461a9",
+          "date": "2017-10-11T11:46:02.000-04:00"
+        },
+        {
+          "sha": "48d3ceb9583d2cc09c397c8daeff88aba441faf5",
+          "title": "Reactify app (Closes #2)",
+          "url": "https://github.com/startupdetroit/www/commit/48d3ceb9583d2cc09c397c8daeff88aba441faf5",
+          "date": "2017-10-11T11:45:26.000-04:00"
+        }
+      ],
+      "firstDate": "2017-10-11",
+      "lastDate": "2019-01-07"
+    },
+    {
+      "name": "hayesgm/ravenex",
+      "url": "https://github.com/hayesgm/ravenex",
+      "pullRequests": [
+        {
+          "number": 6,
+          "title": "Upgrade Elixir; use elixir_uuid instead of uuid",
+          "url": "https://github.com/hayesgm/ravenex/pull/6",
+          "date": "2018-09-04T17:14:25Z",
+          "status": "merged",
+          "mergedAt": "2018-09-06T22:57:11Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "536a49d4daad920ce8cf382714c02052938d72f2",
+          "title": "Update ex_doc to 0.17",
+          "url": "https://github.com/hayesgm/ravenex/commit/536a49d4daad920ce8cf382714c02052938d72f2",
+          "date": "2018-09-06T15:56:45.000-07:00"
+        },
+        {
+          "sha": "f9314883cb7756b1995c38c4440cc9b88cdaa5cd",
+          "title": "Use elixir_uuid instead of uuid",
+          "url": "https://github.com/hayesgm/ravenex/commit/f9314883cb7756b1995c38c4440cc9b88cdaa5cd",
+          "date": "2018-09-04T13:12:41.000-04:00"
+        }
+      ],
+      "firstDate": "2018-09-04",
+      "lastDate": "2018-09-06"
+    },
+    {
+      "name": "postmates/cerlnan_avro",
+      "url": "https://github.com/postmates/cerlnan_avro",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 1,
+          "title": "Introduces Baseline cerlnan_avro / ExCernan.Avro Applications.",
+          "url": "https://github.com/postmates/cerlnan_avro/pull/1",
+          "date": "2018-01-24T21:23:03Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/cerlnan_avro/pull/1#pullrequestreview-91334105",
+              "submitted_at": "2018-01-24T21:23:03Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [],
+      "firstDate": "2018-01-24",
+      "lastDate": "2018-01-24"
+    },
+    {
+      "name": "postmates/javascript",
+      "url": "https://github.com/postmates/javascript",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [
+        {
+          "number": 4,
+          "title": "Require a key for iterators and arrays in jsx",
+          "url": "https://github.com/postmates/javascript/pull/4",
+          "date": "2017-08-15T16:23:33Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/javascript/pull/4#pullrequestreview-56391526",
+              "submitted_at": "2017-08-15T16:23:33Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "title": "Turned off no underscore dangle",
+          "url": "https://github.com/postmates/javascript/pull/3",
+          "date": "2017-08-15T16:23:05Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/javascript/pull/3#pullrequestreview-56391392",
+              "submitted_at": "2017-08-15T16:23:05Z",
+              "state": "APPROVED"
+            }
+          ]
+        },
+        {
+          "number": 1,
+          "title": "Postmates-ify\u2122 all the things. ",
+          "url": "https://github.com/postmates/javascript/pull/1",
+          "date": "2017-06-30T20:04:17Z",
+          "submissions": [
+            {
+              "html_url": "https://github.com/postmates/javascript/pull/1#pullrequestreview-47484491",
+              "submitted_at": "2017-06-30T20:04:17Z",
+              "state": "APPROVED"
+            }
+          ]
+        }
+      ],
+      "commits": [],
+      "firstDate": "2017-06-30",
+      "lastDate": "2017-08-15"
+    },
+    {
+      "name": "undeadlabs/consul-ex",
+      "url": "https://github.com/undeadlabs/consul-ex",
+      "pullRequests": [
+        {
+          "number": 12,
+          "title": "Add support for Session and KV.delete",
+          "url": "https://github.com/undeadlabs/consul-ex/pull/12",
+          "date": "2017-03-20T21:57:11Z",
+          "status": "merged",
+          "mergedAt": "2017-03-20T22:32:17Z"
+        },
+        {
+          "number": 10,
+          "title": "Add ex_doc",
+          "url": "https://github.com/undeadlabs/consul-ex/pull/10",
+          "date": "2017-01-05T01:33:46Z",
+          "status": "merged",
+          "mergedAt": "2017-03-20T22:31:17Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "16dfeb26560f873c3055593957ea029d2a6d86ea",
+          "title": "Add ex_doc",
+          "url": "https://github.com/undeadlabs/consul-ex/commit/16dfeb26560f873c3055593957ea029d2a6d86ea",
+          "date": "2017-01-04T17:33:30.000-08:00"
+        }
+      ],
+      "firstDate": "2017-01-04",
+      "lastDate": "2017-03-20"
+    },
+    {
+      "name": "postmates/cernan",
+      "url": "https://github.com/postmates/cernan",
+      "pullRequests": [
+        {
+          "number": 186,
+          "title": "Update license",
+          "url": "https://github.com/postmates/cernan/pull/186",
+          "date": "2017-01-13T19:26:47Z",
+          "status": "merged",
+          "mergedAt": "2017-01-13T19:59:05Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2017-01-13",
+      "lastDate": "2017-01-13"
+    },
+    {
+      "name": "beam-community/elixir-companies",
+      "url": "https://github.com/beam-community/elixir-companies",
+      "pullRequests": [
+        {
+          "number": 155,
+          "title": "Add Postmates",
+          "url": "https://github.com/beam-community/elixir-companies/pull/155",
+          "date": "2017-01-03T01:21:05Z",
+          "status": "merged",
+          "mergedAt": "2017-01-03T06:40:41Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "747516f77826d9943a59144d5cd11b15ab4fb76e",
+          "title": "Add Postmates (#155)",
+          "url": "https://github.com/beam-community/elixir-companies/commit/747516f77826d9943a59144d5cd11b15ab4fb76e",
+          "date": "2017-01-02T22:40:40.000-08:00"
+        }
+      ],
+      "firstDate": "2017-01-02",
+      "lastDate": "2017-01-03"
+    },
+    {
+      "name": "sorin-ionescu/prezto",
+      "url": "https://github.com/sorin-ionescu/prezto",
+      "pullRequests": [
+        {
+          "number": 1227,
+          "title": "Add git alias for `gcM` (GPG-sign the commit)",
+          "url": "https://github.com/sorin-ionescu/prezto/pull/1227",
+          "date": "2016-10-29T21:53:47Z",
+          "status": "closed",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2016-10-29",
+      "lastDate": "2016-10-29"
+    },
+    {
+      "name": "StephenGrider/ReduxSimpleStarter",
+      "url": "https://github.com/StephenGrider/ReduxSimpleStarter",
+      "pullRequests": [
+        {
+          "number": 46,
+          "title": "Add a blank action types file",
+          "url": "https://github.com/StephenGrider/ReduxSimpleStarter/pull/46",
+          "date": "2016-07-03T23:29:43Z",
+          "status": "open",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2016-07-03",
+      "lastDate": "2016-07-03"
+    },
+    {
+      "name": "far33d/py-postmates",
+      "url": "https://github.com/far33d/py-postmates",
+      "pullRequests": [
+        {
+          "number": 2,
+          "title": "Fix docs",
+          "url": "https://github.com/far33d/py-postmates/pull/2",
+          "date": "2016-04-30T19:46:27Z",
+          "status": "merged",
+          "mergedAt": "2016-08-12T00:33:32Z"
+        },
+        {
+          "number": 1,
+          "title": "Tweaked README to include more instructions and fixed a missing param",
+          "url": "https://github.com/far33d/py-postmates/pull/1",
+          "date": "2015-09-02T18:05:57Z",
+          "status": "merged",
+          "mergedAt": "2015-12-10T17:33:44Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "67b898f6f328bfea6484fcb156dd4394c163eacf",
+          "title": "Fix docs",
+          "url": "https://github.com/far33d/py-postmates/commit/67b898f6f328bfea6484fcb156dd4394c163eacf",
+          "date": "2016-04-30T12:45:53.000-07:00"
+        },
+        {
+          "sha": "c74d34d7c75a185684c4f3d9a1eb54c89c93a528",
+          "title": "Tweaked README to include more instructions and fixed a missing parameter",
+          "url": "https://github.com/far33d/py-postmates/commit/c74d34d7c75a185684c4f3d9a1eb54c89c93a528",
+          "date": "2015-09-02T11:01:36.000-07:00"
+        }
+      ],
+      "firstDate": "2015-09-02",
+      "lastDate": "2016-04-30"
+    },
+    {
+      "name": "facebookarchive/makeitopen",
+      "url": "https://github.com/facebookarchive/makeitopen",
+      "pullRequests": [
+        {
+          "number": 11,
+          "title": "Minor typo",
+          "url": "https://github.com/facebookarchive/makeitopen/pull/11",
+          "date": "2016-04-25T01:48:28Z",
+          "status": "merged",
+          "mergedAt": "2016-05-12T10:15:54Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "1035c257bc3b9aeb53bd9eefcf025125cb864a61",
+          "title": "Minor typo",
+          "url": "https://github.com/facebookarchive/makeitopen/commit/1035c257bc3b9aeb53bd9eefcf025125cb864a61",
+          "date": "2016-04-24T18:47:59.000-07:00"
+        }
+      ],
+      "firstDate": "2016-04-24",
+      "lastDate": "2016-04-25"
+    },
+    {
+      "name": "piratefsh/image-processing-101",
+      "url": "https://github.com/piratefsh/image-processing-101",
+      "pullRequests": [],
+      "issues": [
+        {
+          "number": 2,
+          "title": "Inline image display",
+          "url": "https://github.com/piratefsh/image-processing-101/issues/2",
+          "date": "2016-03-13T21:29:07Z",
+          "status": "closed"
+        }
+      ],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2016-03-13",
+      "lastDate": "2016-03-13"
+    },
+    {
+      "name": "keen/dashboards-dot-community",
+      "url": "https://github.com/keen/dashboards-dot-community",
+      "pullRequests": [
+        {
+          "number": 2,
+          "title": "Fixed broken URL",
+          "url": "https://github.com/keen/dashboards-dot-community/pull/2",
+          "date": "2015-10-07T19:32:54Z",
+          "status": "merged",
+          "mergedAt": "2015-11-05T19:06:28Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "b71ca4e27b094d566c3f5a8f0a56a8d08714bff8",
+          "title": "Fixed broken URL",
+          "url": "https://github.com/keen/dashboards-dot-community/commit/b71ca4e27b094d566c3f5a8f0a56a8d08714bff8",
+          "date": "2015-10-07T12:32:36.000-07:00"
+        }
+      ],
+      "firstDate": "2015-10-07",
+      "lastDate": "2015-10-07"
+    },
+    {
+      "name": "SmartThingsCommunity/Code",
+      "url": "https://github.com/SmartThingsCommunity/Code",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "4673523dd1238bf8874a844e53d8e9d205cecb66",
+          "title": "Add PHP script",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/4673523dd1238bf8874a844e53d8e9d205cecb66",
+          "date": "2015-06-25T09:44:06.000-07:00"
+        },
+        {
+          "sha": "7d96883d02e8f97d998ee9b3e0d0f9d85a6a95d7",
+          "title": "Merging",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/7d96883d02e8f97d998ee9b3e0d0f9d85a6a95d7",
+          "date": "2015-06-19T08:43:12.000-07:00"
+        },
+        {
+          "sha": "f0563853f7e1b24bb53137f74552ad9c1be7413c",
+          "title": "Updated code for SMS",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/f0563853f7e1b24bb53137f74552ad9c1be7413c",
+          "date": "2015-06-17T18:12:54.000+01:00"
+        },
+        {
+          "sha": "e74a13d119d56ce27841c64f32d36b0b9102ebc6",
+          "title": "Updated Twitter demo to use SMS instead",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/e74a13d119d56ce27841c64f32d36b0b9102ebc6",
+          "date": "2015-05-28T11:50:17.000-05:00"
+        },
+        {
+          "sha": "e536e60ebc78ca71036547e96496008cf8fe3d95",
+          "title": "Merge",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/e536e60ebc78ca71036547e96496008cf8fe3d95",
+          "date": "2015-05-08T14:05:07.000-07:00"
+        },
+        {
+          "sha": "173bf42c900ee7b3365a6ae2a47a130dcb98e89c",
+          "title": "Renamed files for order",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/173bf42c900ee7b3365a6ae2a47a130dcb98e89c",
+          "date": "2015-05-08T14:04:19.000-07:00"
+        },
+        {
+          "sha": "04f97c4f56b6581505be1a8e6cde8dd9c90c22c0",
+          "title": "Add Weather Underground example",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/04f97c4f56b6581505be1a8e6cde8dd9c90c22c0",
+          "date": "2015-05-07T14:24:32.000-07:00"
+        },
+        {
+          "sha": "91cbc7ef1520dce2894d3dfad0def24540977bbd",
+          "title": "Added Tweet to Hue demo",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/91cbc7ef1520dce2894d3dfad0def24540977bbd",
+          "date": "2015-05-07T12:05:33.000-07:00"
+        },
+        {
+          "sha": "8ca8fafab7a039d1d1384fe1e2b1877646b9bf30",
+          "title": "Workshop demo #2: Control devices with an HTTP request",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/8ca8fafab7a039d1d1384fe1e2b1877646b9bf30",
+          "date": "2015-05-06T14:55:04.000-07:00"
+        },
+        {
+          "sha": "dca87f975e604330a8a0db810954b7989b16b922",
+          "title": "Writing your first SmartApp: Control lights and locks with a contact sensor",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/dca87f975e604330a8a0db810954b7989b16b922",
+          "date": "2015-05-06T14:02:37.000-07:00"
+        },
+        {
+          "sha": "9545e439495c5929c3d310bc0d16da3069078122",
+          "title": "It works now, better spacing",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/9545e439495c5929c3d310bc0d16da3069078122",
+          "date": "2015-05-05T11:05:52.000-07:00"
+        },
+        {
+          "sha": "31ee68a3f0efd0393b8b6d9059d2cd1fe8187bd0",
+          "title": "Remove old logic",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/31ee68a3f0efd0393b8b6d9059d2cd1fe8187bd0",
+          "date": "2015-05-05T10:33:52.000-07:00"
+        },
+        {
+          "sha": "855a34c6f3aff1866c7119813fe80001e8c592a8",
+          "title": "Add SmartThings credits",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/855a34c6f3aff1866c7119813fe80001e8c592a8",
+          "date": "2015-04-21T21:08:39.000-07:00"
+        },
+        {
+          "sha": "0a5f7f97f419af6f9d3d8de41fa44c652e51ba2f",
+          "title": "Add dew point calculation",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/0a5f7f97f419af6f9d3d8de41fa44c652e51ba2f",
+          "date": "2015-04-21T20:32:12.000-07:00"
+        },
+        {
+          "sha": "06aac96b85e58c4588274de58b3ef7e685db7fcc",
+          "title": "Merge pull request #8 from jackchi/master",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/06aac96b85e58c4588274de58b3ef7e685db7fcc",
+          "date": "2015-04-07T10:35:02.000-07:00"
+        },
+        {
+          "sha": "f94068609dbe98c30b7ea734a15abc0428cdd3ec",
+          "title": "Merge pull request #1 from SmartThingsCommunity/sunrise-sunset-examples",
+          "url": "https://github.com/SmartThingsCommunity/Code/commit/f94068609dbe98c30b7ea734a15abc0428cdd3ec",
+          "date": "2015-02-04T13:49:00.000-08:00"
+        }
+      ],
+      "firstDate": "2015-02-04",
+      "lastDate": "2015-06-25"
+    },
+    {
+      "name": "DanielOgorchock/ST_Anything",
+      "url": "https://github.com/DanielOgorchock/ST_Anything",
+      "pullRequests": [
+        {
+          "number": 2,
+          "title": "Adding more instructions to the installation step",
+          "url": "https://github.com/DanielOgorchock/ST_Anything/pull/2",
+          "date": "2015-03-20T22:39:03Z",
+          "status": "merged",
+          "mergedAt": "2015-03-21T00:21:22Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2015-03-20",
+      "lastDate": "2015-03-20"
+    },
+    {
+      "name": "seejohnrun/tumblr-spotify",
+      "url": "https://github.com/seejohnrun/tumblr-spotify",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "fa7a1b817c1fb5aa6bc6dca5ffa5f9e007305615",
+          "title": "New blogs",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/fa7a1b817c1fb5aa6bc6dca5ffa5f9e007305615",
+          "date": "2013-07-14T17:09:32.000-07:00"
+        },
+        {
+          "sha": "aa168bd565cc2059a40e53d1c263599d2a20114c",
+          "title": "Add blogs",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/aa168bd565cc2059a40e53d1c263599d2a20114c",
+          "date": "2013-07-14T17:09:09.000-07:00"
+        },
+        {
+          "sha": "58d9bb33fdb614e446231f4838194cd434b9bd25",
+          "title": "Added Macklemore. Two rows",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/58d9bb33fdb614e446231f4838194cd434b9bd25",
+          "date": "2013-07-14T16:35:31.000-07:00"
+        },
+        {
+          "sha": "919236f832ca283cd6b8a13b6f2fada7b6f496a8",
+          "title": "Moar blogs",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/919236f832ca283cd6b8a13b6f2fada7b6f496a8",
+          "date": "2013-07-14T16:26:05.000-07:00"
+        },
+        {
+          "sha": "e6f230e2277bc6f5adac5fe6309bef8f541bf6ab",
+          "title": "Fixed image",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/e6f230e2277bc6f5adac5fe6309bef8f541bf6ab",
+          "date": "2013-07-14T16:12:21.000-07:00"
+        },
+        {
+          "sha": "c0271fcf608c109d07b0ad0a150d0b23f7e991e3",
+          "title": "Added Bey back",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/c0271fcf608c109d07b0ad0a150d0b23f7e991e3",
+          "date": "2013-07-14T16:11:12.000-07:00"
+        },
+        {
+          "sha": "3659fc4e3b689eb0a9e1f64b5dd3320827a75e48",
+          "title": "Updated image and a few more blogs",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/3659fc4e3b689eb0a9e1f64b5dd3320827a75e48",
+          "date": "2013-07-14T16:09:10.000-07:00"
+        },
+        {
+          "sha": "d479c1df2c7d44315f07bcbe413050502cf11560",
+          "title": "Added a few more blogs",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/d479c1df2c7d44315f07bcbe413050502cf11560",
+          "date": "2013-07-14T16:05:18.000-07:00"
+        },
+        {
+          "sha": "1f0261c03965d426849031c27f8c0a5353a3e5ad",
+          "title": "fixing merges",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/1f0261c03965d426849031c27f8c0a5353a3e5ad",
+          "date": "2013-07-14T15:48:12.000-07:00"
+        },
+        {
+          "sha": "f65592b2188e001efab7c3d415b248579867f2df",
+          "title": "Some styling",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/f65592b2188e001efab7c3d415b248579867f2df",
+          "date": "2013-07-14T15:47:16.000-07:00"
+        },
+        {
+          "sha": "a9f03b20bfbe6e3ad3580fca78388a0869438fd1",
+          "title": "Merge shit",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/a9f03b20bfbe6e3ad3580fca78388a0869438fd1",
+          "date": "2013-07-14T14:56:37.000-07:00"
+        },
+        {
+          "sha": "ad883368c2144b1442e83e607ea6989b8f656d16",
+          "title": "Added Tumblr logo",
+          "url": "https://github.com/seejohnrun/tumblr-spotify/commit/ad883368c2144b1442e83e607ea6989b8f656d16",
+          "date": "2013-07-14T14:55:53.000-07:00"
+        }
+      ],
+      "firstDate": "2013-07-14",
+      "lastDate": "2013-07-14"
+    },
+    {
+      "name": "hakimel/reveal.js",
+      "url": "https://github.com/hakimel/reveal.js",
+      "pullRequests": [
+        {
+          "number": 331,
+          "title": "Music apis",
+          "url": "https://github.com/hakimel/reveal.js/pull/331",
+          "date": "2013-02-11T16:37:42Z",
+          "status": "closed",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2013-02-11",
+      "lastDate": "2013-02-11"
+    },
+    {
+      "name": "spotify/apps-tutorial",
+      "url": "https://github.com/spotify/apps-tutorial",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "c8da1a2d00c41516b2a8f92ae14a13e9548c7ada",
+          "title": "Remove old CSS",
+          "url": "https://github.com/spotify/apps-tutorial/commit/c8da1a2d00c41516b2a8f92ae14a13e9548c7ada",
+          "date": "2012-12-15T12:17:38.000-05:00"
+        },
+        {
+          "sha": "20619227feed8783c549966f2d17f3569f76af0e",
+          "title": "Remove old tutorials folder",
+          "url": "https://github.com/spotify/apps-tutorial/commit/20619227feed8783c549966f2d17f3569f76af0e",
+          "date": "2012-12-05T10:08:47.000-05:00"
+        },
+        {
+          "sha": "2da5ee09541ed929a95b8ed7124fba55a1fef82f",
+          "title": "Cleaned up log statements, found bug in Artist.singles",
+          "url": "https://github.com/spotify/apps-tutorial/commit/2da5ee09541ed929a95b8ed7124fba55a1fef82f",
+          "date": "2012-12-02T15:53:13.000+01:00"
+        },
+        {
+          "sha": "2e949e1621a01a9e40c85740d88f9d583652d44b",
+          "title": "Add a user's photo",
+          "url": "https://github.com/spotify/apps-tutorial/commit/2e949e1621a01a9e40c85740d88f9d583652d44b",
+          "date": "2012-12-01T18:22:06.000+01:00"
+        },
+        {
+          "sha": "ba7c92b1fce5dc915c72d94103a813d44f3659b7",
+          "title": "Buttoned up the TOC",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ba7c92b1fce5dc915c72d94103a813d44f3659b7",
+          "date": "2012-11-13T12:11:43.000-05:00"
+        },
+        {
+          "sha": "6bd8909fd3023fcdf58921a77316344c56643853",
+          "title": "Update Toplist tutorial!",
+          "url": "https://github.com/spotify/apps-tutorial/commit/6bd8909fd3023fcdf58921a77316344c56643853",
+          "date": "2012-11-11T12:53:41.000-05:00"
+        },
+        {
+          "sha": "104ac43538f473f0560990f5f1c34848927bf627",
+          "title": "Trying to get Facebook auth to work",
+          "url": "https://github.com/spotify/apps-tutorial/commit/104ac43538f473f0560990f5f1c34848927bf627",
+          "date": "2012-11-11T12:17:45.000-05:00"
+        },
+        {
+          "sha": "76275d3bbfd6ecbfab7fb046a2a69e9ee6e9cfe8",
+          "title": "Working on search.",
+          "url": "https://github.com/spotify/apps-tutorial/commit/76275d3bbfd6ecbfab7fb046a2a69e9ee6e9cfe8",
+          "date": "2012-11-04T23:55:48.000-05:00"
+        },
+        {
+          "sha": "8c8a6fe2f094cb275e1ce4b8dcd7484c04827c03",
+          "title": "Add \"metadata\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/8c8a6fe2f094cb275e1ce4b8dcd7484c04827c03",
+          "date": "2012-11-04T14:49:46.000-05:00"
+        },
+        {
+          "sha": "61782faff64cc5a80beff9d980908fe32f457e08",
+          "title": "Updated \"Skip\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/61782faff64cc5a80beff9d980908fe32f457e08",
+          "date": "2012-11-03T18:01:45.000-04:00"
+        },
+        {
+          "sha": "d718a6161fdd6ebf28433dbf04f37c157bf76303",
+          "title": "Updated README",
+          "url": "https://github.com/spotify/apps-tutorial/commit/d718a6161fdd6ebf28433dbf04f37c157bf76303",
+          "date": "2012-11-03T16:56:18.000-04:00"
+        },
+        {
+          "sha": "a46aac588db2cb7298fe094388831502dd21e6dd",
+          "title": "Ignore Sublime Text files",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a46aac588db2cb7298fe094388831502dd21e6dd",
+          "date": "2012-11-03T16:49:32.000-04:00"
+        },
+        {
+          "sha": "ed287ca89354c3237a2f656b416b88a3ad5e19ab",
+          "title": "Updated button tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ed287ca89354c3237a2f656b416b88a3ad5e19ab",
+          "date": "2012-11-03T16:48:55.000-04:00"
+        },
+        {
+          "sha": "d94d493f30662c0b74f197c22b130a9d1c3efa1d",
+          "title": "Adding button tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/d94d493f30662c0b74f197c22b130a9d1c3efa1d",
+          "date": "2012-11-01T18:56:53.000Z"
+        },
+        {
+          "sha": "7c6d89811f85296ab99f3494e1268bf830604fd3",
+          "title": "Multiple tracks player",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7c6d89811f85296ab99f3494e1268bf830604fd3",
+          "date": "2012-11-01T15:08:51.000Z"
+        },
+        {
+          "sha": "0ffeca2b9f52ce58121915c3bb37e51090615b73",
+          "title": "Add manifest back",
+          "url": "https://github.com/spotify/apps-tutorial/commit/0ffeca2b9f52ce58121915c3bb37e51090615b73",
+          "date": "2012-10-29T17:11:36.000Z"
+        },
+        {
+          "sha": "fb2c7734464855c243f8a7685d1443dc09b122d1",
+          "title": "Add location tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/fb2c7734464855c243f8a7685d1443dc09b122d1",
+          "date": "2012-10-29T17:02:17.000Z"
+        },
+        {
+          "sha": "cfce60cb35fe04b6677d7a55fa7ce48a6f6952a2",
+          "title": "Fix manifest, suggest new ideas for tutorials",
+          "url": "https://github.com/spotify/apps-tutorial/commit/cfce60cb35fe04b6677d7a55fa7ce48a6f6952a2",
+          "date": "2012-10-28T15:15:40.000Z"
+        },
+        {
+          "sha": "52bd809eeccc01908bb929358500a8214d14bd91",
+          "title": "Updated 'drag & drop' tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/52bd809eeccc01908bb929358500a8214d14bd91",
+          "date": "2012-10-28T14:55:53.000Z"
+        },
+        {
+          "sha": "43a89e66609726d0edce31d8c423d851083334dc",
+          "title": "Updated 'Share' tutorial.",
+          "url": "https://github.com/spotify/apps-tutorial/commit/43a89e66609726d0edce31d8c423d851083334dc",
+          "date": "2012-10-28T14:13:05.000Z"
+        },
+        {
+          "sha": "3212f353e2cce7ff86bae50846c611bcf1667fd4",
+          "title": "Update single player tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/3212f353e2cce7ff86bae50846c611bcf1667fd4",
+          "date": "2012-10-27T23:55:18.000Z"
+        },
+        {
+          "sha": "c92f5f19a0a63164292c6f21ac78c021ab0527e6",
+          "title": "Update 'current track' tutorial. Remove extra CSS.",
+          "url": "https://github.com/spotify/apps-tutorial/commit/c92f5f19a0a63164292c6f21ac78c021ab0527e6",
+          "date": "2012-10-27T23:33:59.000Z"
+        },
+        {
+          "sha": "005032c7f6f51cd0d8eed8b95703dcf7fc65d349",
+          "title": "Fix 'tabs/pages navigation' tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/005032c7f6f51cd0d8eed8b95703dcf7fc65d349",
+          "date": "2012-10-27T21:24:47.000Z"
+        },
+        {
+          "sha": "a289070b1bdd41a228020ec76aa62ac5639304db",
+          "title": "Make 'UserInstallable': false",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a289070b1bdd41a228020ec76aa62ac5639304db",
+          "date": "2012-10-27T20:13:39.000Z"
+        },
+        {
+          "sha": "bd9a0ad80735a270fcf7bb73353886d0ccdbb960",
+          "title": "Get tabs and page links working",
+          "url": "https://github.com/spotify/apps-tutorial/commit/bd9a0ad80735a270fcf7bb73353886d0ccdbb960",
+          "date": "2012-10-27T20:12:00.000Z"
+        },
+        {
+          "sha": "026cf384d5de4d1d7bccb8a32889307afe643bd9",
+          "title": "Initial 1.0 starting point",
+          "url": "https://github.com/spotify/apps-tutorial/commit/026cf384d5de4d1d7bccb8a32889307afe643bd9",
+          "date": "2012-10-27T18:57:07.000Z"
+        },
+        {
+          "sha": "bf6b5bafca6ccc61dbb866198faf32fb5bbec991",
+          "title": "Updated multiple tracks player tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/bf6b5bafca6ccc61dbb866198faf32fb5bbec991",
+          "date": "2012-09-20T14:17:41.000-04:00"
+        },
+        {
+          "sha": "47a72a814ee6d6d03059219b311ccdf4652480af",
+          "title": "Update single track player tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/47a72a814ee6d6d03059219b311ccdf4652480af",
+          "date": "2012-09-20T13:53:03.000-04:00"
+        },
+        {
+          "sha": "4f46ce2bf19e8c11fa216fb9ccbc3d86016de0e5",
+          "title": "Added Drag & Drop tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/4f46ce2bf19e8c11fa216fb9ccbc3d86016de0e5",
+          "date": "2012-09-18T14:50:29.000-04:00"
+        },
+        {
+          "sha": "be734fb50064bd5a35b8ad473b06a4cec08af8b5",
+          "title": "Tweak readme",
+          "url": "https://github.com/spotify/apps-tutorial/commit/be734fb50064bd5a35b8ad473b06a4cec08af8b5",
+          "date": "2012-09-17T21:12:33.000-04:00"
+        },
+        {
+          "sha": "7240813fbb608aa43bd31e82beadb9da4ddbaf21",
+          "title": "Tweaked manifest tut, updated share tut",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7240813fbb608aa43bd31e82beadb9da4ddbaf21",
+          "date": "2012-09-17T21:04:55.000-04:00"
+        },
+        {
+          "sha": "bd47c3f023d1f152df6610f59f87837d45d0719b",
+          "title": "Minor tweaks/test",
+          "url": "https://github.com/spotify/apps-tutorial/commit/bd47c3f023d1f152df6610f59f87837d45d0719b",
+          "date": "2012-09-17T20:13:45.000-04:00"
+        },
+        {
+          "sha": "2d2ef591722c14870cc64c0ae4984100c8c525b6",
+          "title": "Fix the actual Javascript snippet",
+          "url": "https://github.com/spotify/apps-tutorial/commit/2d2ef591722c14870cc64c0ae4984100c8c525b6",
+          "date": "2012-08-07T21:42:43.000+02:00"
+        },
+        {
+          "sha": "5ab9809b56fafaf0b07d14edd8143e3d77dad86b",
+          "title": "Fixed playlist mosaic tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/5ab9809b56fafaf0b07d14edd8143e3d77dad86b",
+          "date": "2012-08-07T21:38:28.000+02:00"
+        },
+        {
+          "sha": "0afc0547a3f882d1f5e114e7650c5f1d401f31ed",
+          "title": "Added working Google Maps tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/0afc0547a3f882d1f5e114e7650c5f1d401f31ed",
+          "date": "2012-07-13T11:02:32.000-04:00"
+        },
+        {
+          "sha": "3b23003d3898212a30d656583ec1690f3d9a6a6d",
+          "title": "Making progress on Google Maps tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/3b23003d3898212a30d656583ec1690f3d9a6a6d",
+          "date": "2012-07-12T16:26:45.000-04:00"
+        },
+        {
+          "sha": "ab5e3887b16b872e150a92aba7750e7a473a30f6",
+          "title": "Starting to consolidate tut into one HTML file",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ab5e3887b16b872e150a92aba7750e7a473a30f6",
+          "date": "2012-07-07T11:53:47.000-04:00"
+        },
+        {
+          "sha": "3cab6eca54766b1e80d734cf3f49fd2b695e3a8d",
+          "title": "Fix README so links point to new repo URL",
+          "url": "https://github.com/spotify/apps-tutorial/commit/3cab6eca54766b1e80d734cf3f49fd2b695e3a8d",
+          "date": "2012-06-05T15:45:22.000-04:00"
+        },
+        {
+          "sha": "8e84fe9847cbfd0130ab31f65ba986b815e6065b",
+          "title": "Removed more jQuery; updated README completly",
+          "url": "https://github.com/spotify/apps-tutorial/commit/8e84fe9847cbfd0130ab31f65ba986b815e6065b",
+          "date": "2012-05-30T14:12:45.000+02:00"
+        },
+        {
+          "sha": "4c9dd97db55cc21577fad88d2d2a75db20b845d4",
+          "title": "Remove jQuery from all supported tutorials... Done",
+          "url": "https://github.com/spotify/apps-tutorial/commit/4c9dd97db55cc21577fad88d2d2a75db20b845d4",
+          "date": "2012-05-30T14:02:34.000+02:00"
+        },
+        {
+          "sha": "3a0448a78e888de5a5b6e1eaa230942d1754354f",
+          "title": "Removed jQuery from \"Facebook listening history\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/3a0448a78e888de5a5b6e1eaa230942d1754354f",
+          "date": "2012-05-30T13:58:25.000+02:00"
+        },
+        {
+          "sha": "a53114e5b3c6a0dd47be6284624563cbfdbb2d6a",
+          "title": "Remove jQuery from FB Auth and playlist mosaic tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a53114e5b3c6a0dd47be6284624563cbfdbb2d6a",
+          "date": "2012-05-30T13:18:07.000+02:00"
+        },
+        {
+          "sha": "20abb05e2b0d2c696414f27060345c1df9fc9e75",
+          "title": "Remove jQuery from toplist, playlist, search tuts",
+          "url": "https://github.com/spotify/apps-tutorial/commit/20abb05e2b0d2c696414f27060345c1df9fc9e75",
+          "date": "2012-05-30T11:53:09.000+02:00"
+        },
+        {
+          "sha": "b2ab9ef47ad836e423e5b1f97459eef5f3689487",
+          "title": "Remove jQuery from 'top lists' tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/b2ab9ef47ad836e423e5b1f97459eef5f3689487",
+          "date": "2012-05-29T17:24:08.000+02:00"
+        },
+        {
+          "sha": "a38b1cfdf46608b210855fa2ee4ff5728e5aae22",
+          "title": "Removed jQuery from \"skip\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a38b1cfdf46608b210855fa2ee4ff5728e5aae22",
+          "date": "2012-05-29T15:46:53.000+02:00"
+        },
+        {
+          "sha": "414d84487a838c77fe56e05dc21a7e9584f9a787",
+          "title": "Removed jQuery from \"Click to play\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/414d84487a838c77fe56e05dc21a7e9584f9a787",
+          "date": "2012-05-29T15:35:49.000+02:00"
+        },
+        {
+          "sha": "7064a9c22bb0c5407855270b58ebeb8bba190513",
+          "title": "Remove jQuery from \"current track\" tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7064a9c22bb0c5407855270b58ebeb8bba190513",
+          "date": "2012-05-29T15:00:01.000+02:00"
+        },
+        {
+          "sha": "ae12d87362ad767b2e9cd51ef9cf128065738daf",
+          "title": "Remove old tuts",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ae12d87362ad767b2e9cd51ef9cf128065738daf",
+          "date": "2012-05-29T14:43:58.000+02:00"
+        },
+        {
+          "sha": "a602e54f0227f0e003a26aebe6d0d5258968ef46",
+          "title": "Fixed merge conflicts",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a602e54f0227f0e003a26aebe6d0d5258968ef46",
+          "date": "2012-05-29T14:42:25.000+02:00"
+        },
+        {
+          "sha": "5bd157ab889d1ee6d1d2ce927deacae314f8aee2",
+          "title": "Removed jQuery from \"play song\" tuts",
+          "url": "https://github.com/spotify/apps-tutorial/commit/5bd157ab889d1ee6d1d2ce927deacae314f8aee2",
+          "date": "2012-05-29T14:35:57.000+02:00"
+        },
+        {
+          "sha": "9b8c26e8bec1af35c0c5017795985ea3f771c9f4",
+          "title": "Removed jQuery from \"play song\" tuts",
+          "url": "https://github.com/spotify/apps-tutorial/commit/9b8c26e8bec1af35c0c5017795985ea3f771c9f4",
+          "date": "2012-05-29T14:35:57.000+02:00"
+        },
+        {
+          "sha": "f6268db1c4dc941ef9b7ee124ac35d14d27a905b",
+          "title": "Added tutorial for \"Using standard components for buttons\"",
+          "url": "https://github.com/spotify/apps-tutorial/commit/f6268db1c4dc941ef9b7ee124ac35d14d27a905b",
+          "date": "2012-05-29T09:49:40.000+02:00"
+        },
+        {
+          "sha": "0199f756021976fa34a8bfcf58ed6dedb9947b83",
+          "title": "Remove jQuery from 'Show Share Popup' tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/0199f756021976fa34a8bfcf58ed6dedb9947b83",
+          "date": "2012-05-29T09:21:56.000+02:00"
+        },
+        {
+          "sha": "5b9db7f571ea79f364c9c05cefd6524977f8058c",
+          "title": "Starting the process of removing jQuery",
+          "url": "https://github.com/spotify/apps-tutorial/commit/5b9db7f571ea79f364c9c05cefd6524977f8058c",
+          "date": "2012-05-29T09:02:41.000+02:00"
+        },
+        {
+          "sha": "c3bf456a8891a90d7595767a58319b10aefe5a82",
+          "title": "Fix Facebook auth page formatting",
+          "url": "https://github.com/spotify/apps-tutorial/commit/c3bf456a8891a90d7595767a58319b10aefe5a82",
+          "date": "2012-05-29T08:42:42.000+02:00"
+        },
+        {
+          "sha": "a49092402d9f68709cb8e1e301086c44a977b19e",
+          "title": "Fix instructions",
+          "url": "https://github.com/spotify/apps-tutorial/commit/a49092402d9f68709cb8e1e301086c44a977b19e",
+          "date": "2012-05-18T15:02:10.000-04:00"
+        },
+        {
+          "sha": "921edeadeff3944066dc478b8de130db79e6fab4",
+          "title": "Add a song to a playlst",
+          "url": "https://github.com/spotify/apps-tutorial/commit/921edeadeff3944066dc478b8de130db79e6fab4",
+          "date": "2012-05-15T15:09:34.000-04:00"
+        },
+        {
+          "sha": "fa199fd4795f14dc83be689fcb940af2d496094f",
+          "title": "Changed the name of the app to 'tutorial'",
+          "url": "https://github.com/spotify/apps-tutorial/commit/fa199fd4795f14dc83be689fcb940af2d496094f",
+          "date": "2012-05-15T15:00:38.000-04:00"
+        },
+        {
+          "sha": "4c4527b7670c440634a77db20484c248fd1dfee7",
+          "title": "Remove @plougy's tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/4c4527b7670c440634a77db20484c248fd1dfee7",
+          "date": "2012-05-03T08:56:54.000-04:00"
+        },
+        {
+          "sha": "f7066e57fd45db99456adc4f04e6d53d1e9f5589",
+          "title": "Final touches for demo",
+          "url": "https://github.com/spotify/apps-tutorial/commit/f7066e57fd45db99456adc4f04e6d53d1e9f5589",
+          "date": "2012-04-22T16:10:14.000+02:00"
+        },
+        {
+          "sha": "b1bb479b4f42d85689309e20f51d69686cdddc10",
+          "title": "Final, before the hack",
+          "url": "https://github.com/spotify/apps-tutorial/commit/b1bb479b4f42d85689309e20f51d69686cdddc10",
+          "date": "2012-04-22T14:03:04.000+02:00"
+        },
+        {
+          "sha": "f1912e48f810298b9e0ef68beda31a36f18eefc9",
+          "title": "finishing touches",
+          "url": "https://github.com/spotify/apps-tutorial/commit/f1912e48f810298b9e0ef68beda31a36f18eefc9",
+          "date": "2012-04-22T13:47:43.000+02:00"
+        },
+        {
+          "sha": "73dd059a3679ccc2ca97fc33d6c723ecbefbb891",
+          "title": "Get playlist working",
+          "url": "https://github.com/spotify/apps-tutorial/commit/73dd059a3679ccc2ca97fc33d6c723ecbefbb891",
+          "date": "2012-04-21T23:06:01.000+02:00"
+        },
+        {
+          "sha": "442526d7fcd8f6a4684ba97d83062379ad3af8fe",
+          "title": "Get player image working",
+          "url": "https://github.com/spotify/apps-tutorial/commit/442526d7fcd8f6a4684ba97d83062379ad3af8fe",
+          "date": "2012-04-21T18:25:37.000+02:00"
+        },
+        {
+          "sha": "cc5e68d5943407fa4416eeef9f7eaa9aaafef8eb",
+          "title": "get the seed",
+          "url": "https://github.com/spotify/apps-tutorial/commit/cc5e68d5943407fa4416eeef9f7eaa9aaafef8eb",
+          "date": "2012-04-21T17:23:32.000+02:00"
+        },
+        {
+          "sha": "2758d1bc3a88abe3388300d970b6bf42b09fb25d",
+          "title": "Fix example html",
+          "url": "https://github.com/spotify/apps-tutorial/commit/2758d1bc3a88abe3388300d970b6bf42b09fb25d",
+          "date": "2012-04-21T17:15:08.000+02:00"
+        },
+        {
+          "sha": "65136d4dff0617f5ef0af97f5c1947bdb4481e23",
+          "title": "Fix broken shit",
+          "url": "https://github.com/spotify/apps-tutorial/commit/65136d4dff0617f5ef0af97f5c1947bdb4481e23",
+          "date": "2012-04-21T16:51:53.000+02:00"
+        },
+        {
+          "sha": "cca53fc2dd2240c59e538700c1af4dc63f89857f",
+          "title": "rm *.swp",
+          "url": "https://github.com/spotify/apps-tutorial/commit/cca53fc2dd2240c59e538700c1af4dc63f89857f",
+          "date": "2012-04-21T15:55:31.000+02:00"
+        },
+        {
+          "sha": "421fe4333dae0de9f971929be484bbb05256c1b5",
+          "title": "Adding broken EchoNest tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/421fe4333dae0de9f971929be484bbb05256c1b5",
+          "date": "2012-04-21T15:54:42.000+02:00"
+        },
+        {
+          "sha": "ece94238a19f672669d1d2ff91b19625b2f93dcd",
+          "title": "Subscribe to a playlist",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ece94238a19f672669d1d2ff91b19625b2f93dcd",
+          "date": "2012-04-05T12:09:42.000-04:00"
+        },
+        {
+          "sha": "d4952fcbfaffbaafe5a7eca65bb6d45e8bc9418d",
+          "title": "Tweaked FB demo, added image. Removed more gists",
+          "url": "https://github.com/spotify/apps-tutorial/commit/d4952fcbfaffbaafe5a7eca65bb6d45e8bc9418d",
+          "date": "2012-04-03T13:50:27.000-04:00"
+        },
+        {
+          "sha": "0491cf9cbc1ce1dfa2952a07c951fe98bcf46623",
+          "title": "Add some search examples, fix gists",
+          "url": "https://github.com/spotify/apps-tutorial/commit/0491cf9cbc1ce1dfa2952a07c951fe98bcf46623",
+          "date": "2012-04-02T17:20:58.000-04:00"
+        },
+        {
+          "sha": "921c16a82aec7f2c456d5f774c605427355ad349",
+          "title": "Removing some more Github gists",
+          "url": "https://github.com/spotify/apps-tutorial/commit/921c16a82aec7f2c456d5f774c605427355ad349",
+          "date": "2012-04-02T14:33:40.000-04:00"
+        },
+        {
+          "sha": "ec7a36abc79ae88ccf883162c7dbf55d094e9c8b",
+          "title": "Start removing external Javascript",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ec7a36abc79ae88ccf883162c7dbf55d094e9c8b",
+          "date": "2012-04-02T14:01:05.000-04:00"
+        },
+        {
+          "sha": "38acf9e3d79340e80b1baf8c8f68d40ee7b6024d",
+          "title": "Updated template to use Rainbow.js instead of Github gists",
+          "url": "https://github.com/spotify/apps-tutorial/commit/38acf9e3d79340e80b1baf8c8f68d40ee7b6024d",
+          "date": "2012-04-02T13:01:04.000-04:00"
+        },
+        {
+          "sha": "608d223e829875d8107c5bc0a3c15045d0a99a01",
+          "title": "Call the click function outside",
+          "url": "https://github.com/spotify/apps-tutorial/commit/608d223e829875d8107c5bc0a3c15045d0a99a01",
+          "date": "2012-03-24T23:25:24.000+01:00"
+        },
+        {
+          "sha": "55dce5f6f9bc88569f84b9e75bb413c19fe63ccd",
+          "title": "tell the player to actually play",
+          "url": "https://github.com/spotify/apps-tutorial/commit/55dce5f6f9bc88569f84b9e75bb413c19fe63ccd",
+          "date": "2012-03-24T23:24:09.000+01:00"
+        },
+        {
+          "sha": "0dfb04f948891c599c68d22b94167f69354c6f93",
+          "title": "live",
+          "url": "https://github.com/spotify/apps-tutorial/commit/0dfb04f948891c599c68d22b94167f69354c6f93",
+          "date": "2012-03-24T23:21:09.000+01:00"
+        },
+        {
+          "sha": "6ceda6fb7e1103684480cfdfa574fe9288965e54",
+          "title": "cannot fix preventdefault()",
+          "url": "https://github.com/spotify/apps-tutorial/commit/6ceda6fb7e1103684480cfdfa574fe9288965e54",
+          "date": "2012-03-24T23:16:15.000+01:00"
+        },
+        {
+          "sha": "20f20a8a26f9afb794b2c35e7bd137b28256a143",
+          "title": "Fixed the name of the things",
+          "url": "https://github.com/spotify/apps-tutorial/commit/20f20a8a26f9afb794b2c35e7bd137b28256a143",
+          "date": "2012-03-24T23:15:03.000+01:00"
+        },
+        {
+          "sha": "3a7d9ecb4081a943295e67f0a4998db369ac681a",
+          "title": "try to prevent default",
+          "url": "https://github.com/spotify/apps-tutorial/commit/3a7d9ecb4081a943295e67f0a4998db369ac681a",
+          "date": "2012-03-24T23:11:26.000+01:00"
+        },
+        {
+          "sha": "e5a0e21d2da4c1338575ed3b5edf9c3f35331b0e",
+          "title": "Remove default view",
+          "url": "https://github.com/spotify/apps-tutorial/commit/e5a0e21d2da4c1338575ed3b5edf9c3f35331b0e",
+          "date": "2012-03-24T21:47:19.000+01:00"
+        },
+        {
+          "sha": "118de1130df8eae2fb8c2ead06f8f8186486bc43",
+          "title": "Need to not duplicate adding tracks to the playlist",
+          "url": "https://github.com/spotify/apps-tutorial/commit/118de1130df8eae2fb8c2ead06f8f8186486bc43",
+          "date": "2012-03-24T20:52:05.000+01:00"
+        },
+        {
+          "sha": "593ecf11a167ba6746961a7266c1bb590cac358e",
+          "title": "Need to get the songs to update in the playlist View",
+          "url": "https://github.com/spotify/apps-tutorial/commit/593ecf11a167ba6746961a7266c1bb590cac358e",
+          "date": "2012-03-24T19:38:59.000+01:00"
+        },
+        {
+          "sha": "ba057c289a340e22dbc1fd311be211b3f3358c9b",
+          "title": "Last.fm Realtime - Fix URIs",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ba057c289a340e22dbc1fd311be211b3f3358c9b",
+          "date": "2012-03-24T17:59:45.000+01:00"
+        },
+        {
+          "sha": "6920ad411cfb7c2a4319d7873664f9eb6f362fb9",
+          "title": "Testing Last.fm Realtime API",
+          "url": "https://github.com/spotify/apps-tutorial/commit/6920ad411cfb7c2a4319d7873664f9eb6f362fb9",
+          "date": "2012-03-24T17:04:05.000+01:00"
+        },
+        {
+          "sha": "8738e7887157700656958f2992f8adcb1c9f228e",
+          "title": "Get songs from a playlist URL",
+          "url": "https://github.com/spotify/apps-tutorial/commit/8738e7887157700656958f2992f8adcb1c9f228e",
+          "date": "2012-03-21T21:14:05.000-04:00"
+        },
+        {
+          "sha": "7ab1d561a186ec45a4f06e0987cc4775050c2d23",
+          "title": "Updated RM",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7ab1d561a186ec45a4f06e0987cc4775050c2d23",
+          "date": "2012-03-21T17:58:22.000-04:00"
+        },
+        {
+          "sha": "6c41a303598a022bf60e5d7665c1d7aa7d79d641",
+          "title": "Updated README",
+          "url": "https://github.com/spotify/apps-tutorial/commit/6c41a303598a022bf60e5d7665c1d7aa7d79d641",
+          "date": "2012-03-19T11:42:26.000-04:00"
+        },
+        {
+          "sha": "43aec68a34b97a9c44e8994ce1398f85770429dc",
+          "title": "Added playlist mosaic tutorial",
+          "url": "https://github.com/spotify/apps-tutorial/commit/43aec68a34b97a9c44e8994ce1398f85770429dc",
+          "date": "2012-03-10T13:00:11.000-06:00"
+        },
+        {
+          "sha": "e4b31016d6a71658ba5357da53413e952cb39412",
+          "title": "Added skip",
+          "url": "https://github.com/spotify/apps-tutorial/commit/e4b31016d6a71658ba5357da53413e952cb39412",
+          "date": "2012-03-09T11:20:39.000-05:00"
+        },
+        {
+          "sha": "cef7624acda681f08e537de6d40b53751d5d2b50",
+          "title": "Made the element an input button instead of a div",
+          "url": "https://github.com/spotify/apps-tutorial/commit/cef7624acda681f08e537de6d40b53751d5d2b50",
+          "date": "2012-03-09T11:13:56.000-05:00"
+        },
+        {
+          "sha": "8c195d343cf50adad002ebec8dc92f2ddedbe48d",
+          "title": "#TODO: Add an observer to see when the track changes",
+          "url": "https://github.com/spotify/apps-tutorial/commit/8c195d343cf50adad002ebec8dc92f2ddedbe48d",
+          "date": "2012-03-09T11:07:17.000-05:00"
+        },
+        {
+          "sha": "27d851e79c8c55b94316513d32da4cefae3d76e9",
+          "title": "Fixed current track example",
+          "url": "https://github.com/spotify/apps-tutorial/commit/27d851e79c8c55b94316513d32da4cefae3d76e9",
+          "date": "2012-03-09T11:04:03.000-05:00"
+        },
+        {
+          "sha": "c41f4a64b0962fc54cf6bf7e3717fedddad0ce7f",
+          "title": "Playlist mosaic only shows 1 image",
+          "url": "https://github.com/spotify/apps-tutorial/commit/c41f4a64b0962fc54cf6bf7e3717fedddad0ce7f",
+          "date": "2012-03-08T15:23:18.000-05:00"
+        },
+        {
+          "sha": "6ee8569155451c20fe3fdf323182dff02a875539",
+          "title": "Added broken playlist mosaic code, for review",
+          "url": "https://github.com/spotify/apps-tutorial/commit/6ee8569155451c20fe3fdf323182dff02a875539",
+          "date": "2012-03-08T14:13:37.000-05:00"
+        },
+        {
+          "sha": "7cdf44eb9f9c328582536f84c1106d08d94d2c57",
+          "title": "Added better markup for the links",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7cdf44eb9f9c328582536f84c1106d08d94d2c57",
+          "date": "2012-03-06T12:02:09.000-05:00"
+        },
+        {
+          "sha": "4f7394ae4d3dcb34e332980bd1bdd4040701691a",
+          "title": "add broken Twitter code",
+          "url": "https://github.com/spotify/apps-tutorial/commit/4f7394ae4d3dcb34e332980bd1bdd4040701691a",
+          "date": "2012-03-02T14:54:21.000-05:00"
+        },
+        {
+          "sha": "20e14c0887d484d190ceb941280dfd02732cb3e2",
+          "title": "Added a few more tutorials",
+          "url": "https://github.com/spotify/apps-tutorial/commit/20e14c0887d484d190ceb941280dfd02732cb3e2",
+          "date": "2012-03-02T14:13:54.000-05:00"
+        },
+        {
+          "sha": "7f225985669f9be3c8d6d9b2436d14bf9a8da3b3",
+          "title": "Remove the *",
+          "url": "https://github.com/spotify/apps-tutorial/commit/7f225985669f9be3c8d6d9b2436d14bf9a8da3b3",
+          "date": "2012-03-02T14:09:20.000-05:00"
+        },
+        {
+          "sha": "b91f4a37d846fb7bd7c5f8d6bd315ea422db54a4",
+          "title": "An idea",
+          "url": "https://github.com/spotify/apps-tutorial/commit/b91f4a37d846fb7bd7c5f8d6bd315ea422db54a4",
+          "date": "2012-02-28T09:48:49.000-05:00"
+        },
+        {
+          "sha": "ab209c1e31293b43d7d1afcfd9885f15fd1e9e2a",
+          "title": "Tutorial to get top tracks from five artists",
+          "url": "https://github.com/spotify/apps-tutorial/commit/ab209c1e31293b43d7d1afcfd9885f15fd1e9e2a",
+          "date": "2012-02-25T17:11:53.000-05:00"
+        },
+        {
+          "sha": "e4d74b4ddd668a4b5cb3635b2d7c635a14f9108b",
+          "title": "Update CSS",
+          "url": "https://github.com/spotify/apps-tutorial/commit/e4d74b4ddd668a4b5cb3635b2d7c635a14f9108b",
+          "date": "2012-02-21T15:23:45.000-05:00"
+        },
+        {
+          "sha": "c636c79915a498df20c253a8224e1c776383a6da",
+          "title": "readme",
+          "url": "https://github.com/spotify/apps-tutorial/commit/c636c79915a498df20c253a8224e1c776383a6da",
+          "date": "2012-02-17T14:16:47.000-05:00"
+        }
+      ],
+      "firstDate": "2012-02-17",
+      "lastDate": "2012-12-15"
+    },
+    {
+      "name": "hackdaymanifesto/site",
+      "url": "https://github.com/hackdaymanifesto/site",
+      "pullRequests": [
+        {
+          "number": 31,
+          "title": "Adding Andrew Mager, Hacker Advocate, Spotify",
+          "url": "https://github.com/hackdaymanifesto/site/pull/31",
+          "date": "2012-04-10T20:51:09Z",
+          "status": "merged",
+          "mergedAt": "2012-04-10T20:53:21Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "bc8ca19a44e5d79be335a58391755cb167dc9649",
+          "title": "Add Andrew Mager, Hacker Advocate at Spotify",
+          "url": "https://github.com/hackdaymanifesto/site/commit/bc8ca19a44e5d79be335a58391755cb167dc9649",
+          "date": "2012-04-10T16:50:55.000-04:00"
+        }
+      ],
+      "firstDate": "2012-04-10",
+      "lastDate": "2012-04-10"
+    },
+    {
+      "name": "plamere/SpotifyEchoNestPlaylistDemo",
+      "url": "https://github.com/plamere/SpotifyEchoNestPlaylistDemo",
+      "pullRequests": [
+        {
+          "number": 1,
+          "title": "Removed sp.trackPlayer",
+          "url": "https://github.com/plamere/SpotifyEchoNestPlaylistDemo/pull/1",
+          "date": "2012-04-09T16:45:42Z",
+          "status": "merged",
+          "mergedAt": "2012-04-09T17:02:41Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "43399321475c58c01fc88eb48304e285e5d4ca10",
+          "title": "Remove sp.* (illegal)",
+          "url": "https://github.com/plamere/SpotifyEchoNestPlaylistDemo/commit/43399321475c58c01fc88eb48304e285e5d4ca10",
+          "date": "2012-04-09T12:45:11.000-04:00"
+        }
+      ],
+      "firstDate": "2012-04-09",
+      "lastDate": "2012-04-09"
+    },
+    {
+      "name": "ptrwtts/kitchensink",
+      "url": "https://github.com/ptrwtts/kitchensink",
+      "pullRequests": [
+        {
+          "number": 7,
+          "title": "Remove mention of preview client",
+          "url": "https://github.com/ptrwtts/kitchensink/pull/7",
+          "date": "2012-04-06T13:57:09Z",
+          "status": "merged",
+          "mergedAt": "2012-04-06T13:57:16Z"
+        },
+        {
+          "number": 6,
+          "title": "Updated version number for Spotify Apps preview build",
+          "url": "https://github.com/ptrwtts/kitchensink/pull/6",
+          "date": "2012-02-11T18:18:46Z",
+          "status": "merged",
+          "mergedAt": "2012-02-14T00:27:50Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "888b0589356ad6851a522e5258f55bec840ec884",
+          "title": "Remove mention of preview client",
+          "url": "https://github.com/ptrwtts/kitchensink/commit/888b0589356ad6851a522e5258f55bec840ec884",
+          "date": "2012-04-06T09:56:46.000-04:00"
+        },
+        {
+          "sha": "94f87c3f42f10b4fa52e2c22f20b85e7763419d7",
+          "title": "Merge pull request #7 from mager/master",
+          "url": "https://github.com/ptrwtts/kitchensink/commit/94f87c3f42f10b4fa52e2c22f20b85e7763419d7",
+          "date": "2012-04-06T06:57:16.000-07:00"
+        }
+      ],
+      "firstDate": "2012-02-11",
+      "lastDate": "2012-04-06"
+    },
+    {
+      "name": "jasonrothman/meditreats",
+      "url": "https://github.com/jasonrothman/meditreats",
+      "pullRequests": [
+        {
+          "number": 7,
+          "title": "Added category pages",
+          "url": "https://github.com/jasonrothman/meditreats/pull/7",
+          "date": "2011-08-12T23:04:57Z",
+          "status": "merged",
+          "mergedAt": "2011-08-12T23:05:07Z"
+        },
+        {
+          "number": 6,
+          "title": "Add missing template for new category",
+          "url": "https://github.com/jasonrothman/meditreats/pull/6",
+          "date": "2011-08-12T21:17:54Z",
+          "status": "merged",
+          "mergedAt": "2011-08-12T21:18:28Z"
+        },
+        {
+          "number": 5,
+          "title": "Now categories are a dropdown when creating a recipe",
+          "url": "https://github.com/jasonrothman/meditreats/pull/5",
+          "date": "2011-08-12T21:05:23Z",
+          "status": "merged",
+          "mergedAt": "2011-08-12T21:06:51Z"
+        },
+        {
+          "number": 4,
+          "title": "More tweaks",
+          "url": "https://github.com/jasonrothman/meditreats/pull/4",
+          "date": "2011-08-11T21:38:11Z",
+          "status": "merged",
+          "mergedAt": "2011-08-11T21:38:52Z"
+        },
+        {
+          "number": 3,
+          "title": "font fix",
+          "url": "https://github.com/jasonrothman/meditreats/pull/3",
+          "date": "2011-08-11T21:32:02Z",
+          "status": "merged",
+          "mergedAt": "2011-08-11T21:32:38Z"
+        },
+        {
+          "number": 2,
+          "title": "Bigger title fonts",
+          "url": "https://github.com/jasonrothman/meditreats/pull/2",
+          "date": "2011-08-11T21:16:45Z",
+          "status": "merged",
+          "mergedAt": "2011-08-11T21:23:19Z"
+        },
+        {
+          "number": 1,
+          "title": "Category",
+          "url": "https://github.com/jasonrothman/meditreats/pull/1",
+          "date": "2011-08-11T21:12:34Z",
+          "status": "merged",
+          "mergedAt": "2011-08-11T21:12:54Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "d4c4610df1c69f90dccf3202a04ae37d88e6fc4f",
+          "title": "Added category page",
+          "url": "https://github.com/jasonrothman/meditreats/commit/d4c4610df1c69f90dccf3202a04ae37d88e6fc4f",
+          "date": "2011-08-12T16:04:34.000-07:00"
+        },
+        {
+          "sha": "4749083eb1fee60331c52a4fb6b98b24202c3560",
+          "title": "add missing page",
+          "url": "https://github.com/jasonrothman/meditreats/commit/4749083eb1fee60331c52a4fb6b98b24202c3560",
+          "date": "2011-08-12T14:17:30.000-07:00"
+        },
+        {
+          "sha": "5eeacf004b158edd14b283e00c3cc7d8bd395bff",
+          "title": "Now categories are a dropdown when creating a recipe",
+          "url": "https://github.com/jasonrothman/meditreats/commit/5eeacf004b158edd14b283e00c3cc7d8bd395bff",
+          "date": "2011-08-12T14:04:29.000-07:00"
+        },
+        {
+          "sha": "3833ff5fa47d6918d0d66e8810c962c5f4b97ef6",
+          "title": "enhancement",
+          "url": "https://github.com/jasonrothman/meditreats/commit/3833ff5fa47d6918d0d66e8810c962c5f4b97ef6",
+          "date": "2011-08-11T14:37:06.000-07:00"
+        },
+        {
+          "sha": "53c4275d69c96734599995ea3d7c4103b81569a8",
+          "title": "Fix h3 color",
+          "url": "https://github.com/jasonrothman/meditreats/commit/53c4275d69c96734599995ea3d7c4103b81569a8",
+          "date": "2011-08-11T14:35:47.000-07:00"
+        },
+        {
+          "sha": "adddbffbf6598fdf589c661e8052c1cc222cf673",
+          "title": "Messing w fonts",
+          "url": "https://github.com/jasonrothman/meditreats/commit/adddbffbf6598fdf589c661e8052c1cc222cf673",
+          "date": "2011-08-11T14:31:40.000-07:00"
+        },
+        {
+          "sha": "54d561ac456d8368914903b3e5254e5a56d89fe9",
+          "title": "New p font",
+          "url": "https://github.com/jasonrothman/meditreats/commit/54d561ac456d8368914903b3e5254e5a56d89fe9",
+          "date": "2011-08-11T14:20:56.000-07:00"
+        },
+        {
+          "sha": "9a9bf7576ab4c8c9e75e5c7a6a2521e5d2fad520",
+          "title": "Updated fonts",
+          "url": "https://github.com/jasonrothman/meditreats/commit/9a9bf7576ab4c8c9e75e5c7a6a2521e5d2fad520",
+          "date": "2011-08-11T14:16:23.000-07:00"
+        },
+        {
+          "sha": "d5cc78b6762582d531d06bad11777b1fa68e8531",
+          "title": "Added Category as a higher level object",
+          "url": "https://github.com/jasonrothman/meditreats/commit/d5cc78b6762582d531d06bad11777b1fa68e8531",
+          "date": "2011-08-11T14:12:11.000-07:00"
+        },
+        {
+          "sha": "1b6df2b25be129716784345d6b1b43facf56cee1",
+          "title": "Updated mobile stylesheet",
+          "url": "https://github.com/jasonrothman/meditreats/commit/1b6df2b25be129716784345d6b1b43facf56cee1",
+          "date": "2011-07-11T15:18:11.000-07:00"
+        },
+        {
+          "sha": "08b32591f202d647159a127a819ff36e4ff8759d",
+          "title": "remove font file",
+          "url": "https://github.com/jasonrothman/meditreats/commit/08b32591f202d647159a127a819ff36e4ff8759d",
+          "date": "2011-07-11T15:14:28.000-07:00"
+        },
+        {
+          "sha": "a30a3c809ae508394a1ad58cfe457bbdf900b10b",
+          "title": "Added some styles and things",
+          "url": "https://github.com/jasonrothman/meditreats/commit/a30a3c809ae508394a1ad58cfe457bbdf900b10b",
+          "date": "2011-07-11T15:14:17.000-07:00"
+        },
+        {
+          "sha": "8e99b3f8d30ad77938060e9ef77173a632736467",
+          "title": "Added auto-increment, and 'show' template",
+          "url": "https://github.com/jasonrothman/meditreats/commit/8e99b3f8d30ad77938060e9ef77173a632736467",
+          "date": "2011-07-11T14:29:02.000-07:00"
+        },
+        {
+          "sha": "f489b09c38714cab7f070559ba93527cb5b61bcb",
+          "title": "We got all of the database stuff working.",
+          "url": "https://github.com/jasonrothman/meditreats/commit/f489b09c38714cab7f070559ba93527cb5b61bcb",
+          "date": "2011-07-11T13:55:13.000-07:00"
+        },
+        {
+          "sha": "95dcbd9b6f5d7f7093e04a0c59e05101fb908f46",
+          "title": "Updating the admin page",
+          "url": "https://github.com/jasonrothman/meditreats/commit/95dcbd9b6f5d7f7093e04a0c59e05101fb908f46",
+          "date": "2011-07-11T13:39:36.000-07:00"
+        },
+        {
+          "sha": "0a1feae4f3aa548e5278b2bbef3bc37822e1ad69",
+          "title": "Merge pull request #1 from jasonrothman/master",
+          "url": "https://github.com/jasonrothman/meditreats/commit/0a1feae4f3aa548e5278b2bbef3bc37822e1ad69",
+          "date": "2011-07-11T12:35:43.000-07:00"
+        },
+        {
+          "sha": "7b9a6e2b318f1bc67655ae0375112d574fd9d947",
+          "title": "WORKING TEMPLATES!",
+          "url": "https://github.com/jasonrothman/meditreats/commit/7b9a6e2b318f1bc67655ae0375112d574fd9d947",
+          "date": "2011-07-11T12:12:42.000-07:00"
+        },
+        {
+          "sha": "52a7beae3370672000d3a19a5aac63a4aec83a19",
+          "title": "Updated",
+          "url": "https://github.com/jasonrothman/meditreats/commit/52a7beae3370672000d3a19a5aac63a4aec83a19",
+          "date": "2011-07-11T11:41:51.000-07:00"
+        },
+        {
+          "sha": "22dd8aa64ea1deec74c72f8d4b8c14cd6921627f",
+          "title": "Fix Post to say Recupe",
+          "url": "https://github.com/jasonrothman/meditreats/commit/22dd8aa64ea1deec74c72f8d4b8c14cd6921627f",
+          "date": "2011-07-11T11:22:02.000-07:00"
+        },
+        {
+          "sha": "62ef28e5f049582628228c374e0b2c3cc535b72d",
+          "title": "Updated dependencies, model; added Mustache",
+          "url": "https://github.com/jasonrothman/meditreats/commit/62ef28e5f049582628228c374e0b2c3cc535b72d",
+          "date": "2011-07-11T11:19:26.000-07:00"
+        },
+        {
+          "sha": "295e469138bd63cb55e800ec11a15412b68630c0",
+          "title": "Adding test app",
+          "url": "https://github.com/jasonrothman/meditreats/commit/295e469138bd63cb55e800ec11a15412b68630c0",
+          "date": "2011-07-09T19:37:37.000-07:00"
+        },
+        {
+          "sha": "e57dd55a98c748b5238a06c486f3f1c445ede8fc",
+          "title": "Updating gem manifest file for dependencies",
+          "url": "https://github.com/jasonrothman/meditreats/commit/e57dd55a98c748b5238a06c486f3f1c445ede8fc",
+          "date": "2011-07-09T12:29:13.000-07:00"
+        },
+        {
+          "sha": "32735cb638e93603b51d1974794b4e0c8202f4a2",
+          "title": "Adding gem manifest file for dependencies",
+          "url": "https://github.com/jasonrothman/meditreats/commit/32735cb638e93603b51d1974794b4e0c8202f4a2",
+          "date": "2011-07-09T12:27:59.000-07:00"
+        },
+        {
+          "sha": "deb269f72ff7e1036e0a1282b134395f770b14eb",
+          "title": "Sinatra, take the stage",
+          "url": "https://github.com/jasonrothman/meditreats/commit/deb269f72ff7e1036e0a1282b134395f770b14eb",
+          "date": "2011-07-09T12:19:24.000-07:00"
+        },
+        {
+          "sha": "700d71f6a6ecab313301cc1c2caf66bb6e3bc52d",
+          "title": "init",
+          "url": "https://github.com/jasonrothman/meditreats/commit/700d71f6a6ecab313301cc1c2caf66bb6e3bc52d",
+          "date": "2011-07-09T11:48:29.000-07:00"
+        }
+      ],
+      "firstDate": "2011-07-09",
+      "lastDate": "2011-08-12"
+    },
+    {
+      "name": "simplegeo/php-simplegeo",
+      "url": "https://github.com/simplegeo/php-simplegeo",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "ebbcff257f2d275e501ba6f25a950ffcdb01608d",
+          "title": "Added new ContextCoordFeature() function",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/ebbcff257f2d275e501ba6f25a950ffcdb01608d",
+          "date": "2011-08-09T15:12:45.000-07:00"
+        },
+        {
+          "sha": "c1fd4fa545a2adc25cee7d7fe0cd15727a2d31f1",
+          "title": "Merge pull request #1 from jgiles/master",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/c1fd4fa545a2adc25cee7d7fe0cd15727a2d31f1",
+          "date": "2011-07-30T14:39:54.000-07:00"
+        },
+        {
+          "sha": "244541fadb2c35643ecf06788cd777f31ae83e5e",
+          "title": "Merge pull request #2 from andrewwatson/master",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/244541fadb2c35643ecf06788cd777f31ae83e5e",
+          "date": "2011-07-30T14:39:17.000-07:00"
+        },
+        {
+          "sha": "3d4ca2ddd4f39de100c926df186d51f6501d8e9d",
+          "title": "Merge pull request #3 from sthulbourn/master",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/3d4ca2ddd4f39de100c926df186d51f6501d8e9d",
+          "date": "2011-07-30T14:38:56.000-07:00"
+        },
+        {
+          "sha": "5bf158049f4e56836c24da9621f7ee59ec1fc83f",
+          "title": "Added NearbyRecordsAddress() function",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/5bf158049f4e56836c24da9621f7ee59ec1fc83f",
+          "date": "2011-07-05T09:59:42.000-07:00"
+        },
+        {
+          "sha": "3520fd4369f402c83b6868524fab3ad2b1ab53dc",
+          "title": "Fix backwards lat/lon in GeoJSON",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/3520fd4369f402c83b6868524fab3ad2b1ab53dc",
+          "date": "2011-07-05T09:18:30.000-07:00"
+        },
+        {
+          "sha": "37bf2c7a7da42bbbf34bc576836634286ee2a6cc",
+          "title": "Remove SpotRank and clarify SimpleGeo Storage documentation",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/37bf2c7a7da42bbbf34bc576836634286ee2a6cc",
+          "date": "2011-07-05T08:54:54.000-07:00"
+        },
+        {
+          "sha": "9ddf29cf30e607a35d7a38e72ada276a64499847",
+          "title": "Fixed PlacesIP",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/9ddf29cf30e607a35d7a38e72ada276a64499847",
+          "date": "2011-07-05T08:47:44.000-07:00"
+        },
+        {
+          "sha": "72381cd33fbf5f419c2dfbf8bbdb53873afee79e",
+          "title": "Fixed extra .json bug",
+          "url": "https://github.com/simplegeo/php-simplegeo/commit/72381cd33fbf5f419c2dfbf8bbdb53873afee79e",
+          "date": "2011-07-04T15:53:17.000-07:00"
+        }
+      ],
+      "firstDate": "2011-07-04",
+      "lastDate": "2011-08-09"
+    },
+    {
+      "name": "simplegeo/iodocs",
+      "url": "https://github.com/simplegeo/iodocs",
+      "pullRequests": [
+        {
+          "number": 1,
+          "title": "SimpleGeo style update",
+          "url": "https://github.com/simplegeo/iodocs/pull/1",
+          "date": "2011-08-03T22:16:53Z",
+          "status": "merged",
+          "mergedAt": "2011-08-09T17:34:08Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2011-08-03",
+      "lastDate": "2011-08-03"
+    },
+    {
+      "name": "simplegeo/simplegeo.js",
+      "url": "https://github.com/simplegeo/simplegeo.js",
+      "pullRequests": [
+        {
+          "number": 1,
+          "title": "Removed reverse geocoder endpoint (deprecated)",
+          "url": "https://github.com/simplegeo/simplegeo.js/pull/1",
+          "date": "2011-05-25T15:36:44Z",
+          "status": "merged",
+          "mergedAt": "2011-05-25T16:10:16Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "e1dc85afcb81490b85784bfc39c133c833189253",
+          "title": "Fixed code blocks in README.mkd",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/e1dc85afcb81490b85784bfc39c133c833189253",
+          "date": "2011-07-06T14:19:49.000-07:00"
+        },
+        {
+          "sha": "452694147661024592da5ab4a3714b50755ac468",
+          "title": "Tweaked README; added links to the actual .js files on the cdn server",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/452694147661024592da5ab4a3714b50755ac468",
+          "date": "2011-07-06T14:11:57.000-07:00"
+        },
+        {
+          "sha": "0a6adadaf49096ac6d3fe08ef83483f1a71ee62e",
+          "title": "Added README",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/0a6adadaf49096ac6d3fe08ef83483f1a71ee62e",
+          "date": "2011-07-06T14:01:24.000-07:00"
+        },
+        {
+          "sha": "706fe8ffeb2c66a0771af4134e340e8a6090a412",
+          "title": "Removed deprecated endpoint getNearbyAddress()",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/706fe8ffeb2c66a0771af4134e340e8a6090a412",
+          "date": "2011-05-25T08:36:18.000-07:00"
+        },
+        {
+          "sha": "5265eb03f9845874be0654e7dfb0da9bd3fa8b78",
+          "title": "Tweaked zoom level.",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/5265eb03f9845874be0654e7dfb0da9bd3fa8b78",
+          "date": "2010-10-15T15:07:32.000-07:00"
+        },
+        {
+          "sha": "af97f90662fda7a666b489ab094cbc73b72d243f",
+          "title": "Added Polymaps demo to get user's location and zoom them in on a map.",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/af97f90662fda7a666b489ab094cbc73b72d243f",
+          "date": "2010-10-15T15:05:34.000-07:00"
+        },
+        {
+          "sha": "4a09cf265360ae1309a8f7fe573b510ec666f592",
+          "title": "Added error handling.",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/4a09cf265360ae1309a8f7fe573b510ec666f592",
+          "date": "2010-10-15T14:15:49.000-07:00"
+        },
+        {
+          "sha": "4bbbab5f898ac0aaf54592599908bd8c192c1235",
+          "title": "Updated token.",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/4bbbab5f898ac0aaf54592599908bd8c192c1235",
+          "date": "2010-10-15T14:08:15.000-07:00"
+        },
+        {
+          "sha": "ed682a778de44e3f46eb13bf73a344a4e5f18c14",
+          "title": "Testing Javascript API.",
+          "url": "https://github.com/simplegeo/simplegeo.js/commit/ed682a778de44e3f46eb13bf73a344a4e5f18c14",
+          "date": "2010-10-15T10:58:13.000-07:00"
+        }
+      ],
+      "firstDate": "2010-10-15",
+      "lastDate": "2011-07-06"
+    },
+    {
+      "name": "scotchi/wikipedia-beautifier",
+      "url": "https://github.com/scotchi/wikipedia-beautifier",
+      "pullRequests": [
+        {
+          "number": 5,
+          "title": "Make title bigger",
+          "url": "https://github.com/scotchi/wikipedia-beautifier/pull/5",
+          "date": "2011-07-01T04:47:04Z",
+          "status": "open",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2011-07-01",
+      "lastDate": "2011-07-01"
+    },
+    {
+      "name": "simplegeo/simplegeo-ruby",
+      "url": "https://github.com/simplegeo/simplegeo-ruby",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "f1da623fd064a8a8d66a28d35ad87c97b770b112",
+          "title": "Added filter param to Context",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/f1da623fd064a8a8d66a28d35ad87c97b770b112",
+          "date": "2011-06-25T20:29:29.000-07:00"
+        },
+        {
+          "sha": "2a0333358673360a39663fd87180e0d8e8873516",
+          "title": "Added gemspec",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/2a0333358673360a39663fd87180e0d8e8873516",
+          "date": "2011-06-22T15:48:37.000-07:00"
+        },
+        {
+          "sha": "17995aa94af9d46d9fbcca6df6762b8cc54bdcf0",
+          "title": "Fixed README",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/17995aa94af9d46d9fbcca6df6762b8cc54bdcf0",
+          "date": "2011-06-01T14:53:10.000-07:00"
+        },
+        {
+          "sha": "d0865be72a8e6f26fc7c7d436f4e3b141261d330",
+          "title": "Removed old endpoints and fixed version",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/d0865be72a8e6f26fc7c7d436f4e3b141261d330",
+          "date": "2011-04-26T08:36:22.000-07:00"
+        },
+        {
+          "sha": "b4c7a047646681c38a99d99361fc85845d868d3a",
+          "title": "removed deprecated endpoints and fixed category URI encoding on all SG Places methods",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/b4c7a047646681c38a99d99361fc85845d868d3a",
+          "date": "2011-04-12T11:57:19.000-07:00"
+        },
+        {
+          "sha": "51066196f97e2640916b69fec041aa36a7aaffd2",
+          "title": "Fixed broken URI error on categories with ampersands and spaces",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/51066196f97e2640916b69fec041aa36a7aaffd2",
+          "date": "2011-04-12T11:32:27.000-07:00"
+        },
+        {
+          "sha": "1a6cbed24d81326a5415203c2b0730e6e0eeaf2b",
+          "title": "Added layer management functions",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/1a6cbed24d81326a5415203c2b0730e6e0eeaf2b",
+          "date": "2011-03-28T11:18:51.000-07:00"
+        },
+        {
+          "sha": "e020394d59235daeccfde5dd1af8808b897b60eb",
+          "title": "Empty array, not quotes",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/e020394d59235daeccfde5dd1af8808b897b60eb",
+          "date": "2011-02-09T15:28:31.000-08:00"
+        },
+        {
+          "sha": "0924683c4990b033a2b7e1550d16db7356ae885a",
+          "title": "Fixed code, via Seth's code review",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/0924683c4990b033a2b7e1550d16db7356ae885a",
+          "date": "2011-02-09T15:26:31.000-08:00"
+        },
+        {
+          "sha": "2a8dee7122466923c6c63a6f69a96be99cc5a15c",
+          "title": "remove print statement",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/2a8dee7122466923c6c63a6f69a96be99cc5a15c",
+          "date": "2011-02-09T11:31:06.000-08:00"
+        },
+        {
+          "sha": "4a5bcc42ed91a69f411296f9ef3304362c577450",
+          "title": "Allow ability to search places and context by address, places by IP",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/4a5bcc42ed91a69f411296f9ef3304362c577450",
+          "date": "2011-02-09T11:21:23.000-08:00"
+        },
+        {
+          "sha": "c6895c8719dd9f2e2514e39fbf45150af69b3660",
+          "title": "Testing get_places_by_address() functionality",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/c6895c8719dd9f2e2514e39fbf45150af69b3660",
+          "date": "2011-02-09T10:09:16.000-08:00"
+        },
+        {
+          "sha": "7b57aae07d8d7a6f5b95928cadca43f81910bbd1",
+          "title": "Updated readme",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/7b57aae07d8d7a6f5b95928cadca43f81910bbd1",
+          "date": "2011-01-25T11:14:43.000-08:00"
+        },
+        {
+          "sha": "fc27c7c3a18445fdec8f1173e3d4a657de62d60d",
+          "title": "Added get_context_ip()",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/fc27c7c3a18445fdec8f1173e3d4a657de62d60d",
+          "date": "2011-01-17T10:14:40.000-08:00"
+        },
+        {
+          "sha": "b4f87b5886e5594b03fc8fd713af34ed44436ae4",
+          "title": "Updated gemspecs",
+          "url": "https://github.com/simplegeo/simplegeo-ruby/commit/b4f87b5886e5594b03fc8fd713af34ed44436ae4",
+          "date": "2011-01-12T21:21:48.000-08:00"
+        }
+      ],
+      "firstDate": "2011-01-12",
+      "lastDate": "2011-06-25"
+    },
+    {
+      "name": "simplegeo/python-simplegeo",
+      "url": "https://github.com/simplegeo/python-simplegeo",
+      "pullRequests": [
+        {
+          "number": 23,
+          "title": "Adding ability to use filter parameter in Context client.",
+          "url": "https://github.com/simplegeo/python-simplegeo/pull/23",
+          "date": "2011-06-15T20:33:07Z",
+          "status": "merged",
+          "mergedAt": "2011-06-21T00:10:38Z"
+        },
+        {
+          "number": 22,
+          "title": "Added support for the num parameter in the Places client, added new bounding box function in the Context client, added get_centroid to Context client",
+          "url": "https://github.com/simplegeo/python-simplegeo/pull/22",
+          "date": "2011-05-26T16:06:28Z",
+          "status": "merged",
+          "mergedAt": "2011-06-21T00:12:01Z"
+        },
+        {
+          "number": 20,
+          "title": "Added contrib section with Google Translate call",
+          "url": "https://github.com/simplegeo/python-simplegeo/pull/20",
+          "date": "2011-05-19T17:22:54Z",
+          "status": "closed",
+          "mergedAt": null
+        },
+        {
+          "number": 19,
+          "title": "Added translate_address_from_feature() function with Google Translate API",
+          "url": "https://github.com/simplegeo/python-simplegeo/pull/19",
+          "date": "2011-05-19T16:47:43Z",
+          "status": "merged",
+          "mergedAt": "2011-05-19T17:02:28Z"
+        },
+        {
+          "number": 11,
+          "title": "Added support for zoom in get_feature()",
+          "url": "https://github.com/simplegeo/python-simplegeo/pull/11",
+          "date": "2011-04-19T18:49:51Z",
+          "status": "merged",
+          "mergedAt": "2011-04-19T19:02:54Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "fd1d36a3b607c1b52fa991f3cf81eef55396defc",
+          "title": "When creating a new place/feature, feature object doesn't need ID because it's created on the server side.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/fd1d36a3b607c1b52fa991f3cf81eef55396defc",
+          "date": "2011-06-21T13:47:33.000-07:00"
+        },
+        {
+          "sha": "be6a771c9d01bf089ef51a168f1d3a6e778237da",
+          "title": "Added get_centroid",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/be6a771c9d01bf089ef51a168f1d3a6e778237da",
+          "date": "2011-06-18T17:13:29.000-07:00"
+        },
+        {
+          "sha": "e33bae24d4d2967569ee0240c6c34cf023b499db",
+          "title": "Added get_features_from_bbox function",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/e33bae24d4d2967569ee0240c6c34cf023b499db",
+          "date": "2011-06-17T14:48:12.000-07:00"
+        },
+        {
+          "sha": "38bc336093c2f18eb9ef60484d6ebf5a833f2abf",
+          "title": "Merge branch 'pending' of github.com:mager/python-simplegeo into pending",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/38bc336093c2f18eb9ef60484d6ebf5a833f2abf",
+          "date": "2011-06-17T12:54:14.000-07:00"
+        },
+        {
+          "sha": "0977aedc0ccba11f366cafc833cfebc9515ea7a9",
+          "title": "Merge branch 'master' of github.com:mager/python-simplegeo into pending",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/0977aedc0ccba11f366cafc833cfebc9515ea7a9",
+          "date": "2011-06-15T13:27:05.000-07:00"
+        },
+        {
+          "sha": "297234c7279ec5909d90cefc0508091b75c246bc",
+          "title": "Added ability to filter in SimpleGeo Context client",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/297234c7279ec5909d90cefc0508091b75c246bc",
+          "date": "2011-06-15T13:21:48.000-07:00"
+        },
+        {
+          "sha": "ab80d465a2d2dc6bc0773f0e43bfb537344874d7",
+          "title": "Merge branch 'pending' of github.com:simplegeo/python-simplegeo into pending",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/ab80d465a2d2dc6bc0773f0e43bfb537344874d7",
+          "date": "2011-06-13T12:18:26.000-07:00"
+        },
+        {
+          "sha": "e9ba13fea9ade5e533d3727cc9b26a0668bb53f9",
+          "title": "Added support for the num parameter in the Places client",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/e9ba13fea9ade5e533d3727cc9b26a0668bb53f9",
+          "date": "2011-05-26T09:02:52.000-07:00"
+        },
+        {
+          "sha": "77729e877e04b589de45db551dff1d165a3b654c",
+          "title": "Added contrib section with Google Translate call",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/77729e877e04b589de45db551dff1d165a3b654c",
+          "date": "2011-05-19T10:21:52.000-07:00"
+        },
+        {
+          "sha": "ef5d527e300dc34ec9eb0441e1b84f13b062da19",
+          "title": "Updated docstring for zoom parameter in get_feature()",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/ef5d527e300dc34ec9eb0441e1b84f13b062da19",
+          "date": "2011-04-19T11:52:25.000-07:00"
+        },
+        {
+          "sha": "3ac2c057990730858af1054139297cb497cf9d8a",
+          "title": "Added support for zoom in get_feature()",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/3ac2c057990730858af1054139297cb497cf9d8a",
+          "date": "2011-04-19T11:48:23.000-07:00"
+        },
+        {
+          "sha": "bca00e08d193e8beaafc47bdd2058d483adf92c5",
+          "title": "Added a \"test_locate\" test for GeoIP \"locate\" endpoint.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/bca00e08d193e8beaafc47bdd2058d483adf92c5",
+          "date": "2010-10-13T15:59:10.000-07:00"
+        },
+        {
+          "sha": "b3b9db3d17d43379f0143bb1bd4d3edab6f9f764",
+          "title": "Added GeoIP \"get_nearby_ip_address\" endpoint.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/b3b9db3d17d43379f0143bb1bd4d3edab6f9f764",
+          "date": "2010-10-13T13:31:18.000-07:00"
+        },
+        {
+          "sha": "bf443f94b74100aec995e28ba2098161c039416c",
+          "title": "Added GeoIP \"get_contains_ip_address\" endpoint.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/bf443f94b74100aec995e28ba2098161c039416c",
+          "date": "2010-10-13T13:27:57.000-07:00"
+        },
+        {
+          "sha": "f86b55a7fb243444f2f0ced67d8a04ee4f7ac415",
+          "title": "Added GeoIP \"locate\" endpoint.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/f86b55a7fb243444f2f0ced67d8a04ee4f7ac415",
+          "date": "2010-10-13T13:17:55.000-07:00"
+        },
+        {
+          "sha": "ab51b107343137a8a1300127247f9a780f9bff37",
+          "title": "Cleaner image with white lines, text.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/ab51b107343137a8a1300127247f9a780f9bff37",
+          "date": "2010-05-22T17:00:00.000-07:00"
+        },
+        {
+          "sha": "fd2011d48b6604763086077ab6d441b624c0aa1c",
+          "title": "Updated image.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/fd2011d48b6604763086077ab6d441b624c0aa1c",
+          "date": "2010-05-21T13:18:24.000-07:00"
+        },
+        {
+          "sha": "c7eb596df0fb888c234962d571499b0c58b46092",
+          "title": "Updated overlaps image",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/c7eb596df0fb888c234962d571499b0c58b46092",
+          "date": "2010-05-21T13:14:47.000-07:00"
+        },
+        {
+          "sha": "6104d5ddea10a2d6010996f1d3c1973d3bf90e46",
+          "title": "Merge branch 'master' of github.com:simplegeo/python-simplegeo",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/6104d5ddea10a2d6010996f1d3c1973d3bf90e46",
+          "date": "2010-05-21T12:08:01.000-07:00"
+        },
+        {
+          "sha": "9e3353a93531858eb6d81c5ebff575d7c3960b22",
+          "title": "Updated image... it's a lot cleaner now.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/9e3353a93531858eb6d81c5ebff575d7c3960b22",
+          "date": "2010-05-21T12:06:51.000-07:00"
+        },
+        {
+          "sha": "ad06c38183a4f9a3572b953a207794e231ce2178",
+          "title": "New image, using Photoshop this time.",
+          "url": "https://github.com/simplegeo/python-simplegeo/commit/ad06c38183a4f9a3572b953a207794e231ce2178",
+          "date": "2010-05-21T10:26:49.000-07:00"
+        }
+      ],
+      "firstDate": "2010-05-21",
+      "lastDate": "2011-06-21"
+    },
+    {
+      "name": "simplegeo/django-simplegeo-demos",
+      "url": "https://github.com/simplegeo/django-simplegeo-demos",
+      "pullRequests": [
+        {
+          "number": 7,
+          "title": "Adding Blackberry Checkin demo",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/7",
+          "date": "2011-06-17T02:14:35Z",
+          "status": "merged",
+          "mergedAt": "2011-06-17T02:14:41Z"
+        },
+        {
+          "number": 6,
+          "title": "Pending",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/6",
+          "date": "2011-06-17T00:46:30Z",
+          "status": "merged",
+          "mergedAt": "2011-06-17T00:46:35Z"
+        },
+        {
+          "number": 5,
+          "title": "Initial commit for SG Places/Google Maps demo",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/5",
+          "date": "2011-06-17T00:34:19Z",
+          "status": "merged",
+          "mergedAt": "2011-06-17T00:34:31Z"
+        },
+        {
+          "number": 4,
+          "title": "Pending",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/4",
+          "date": "2011-06-15T17:42:34Z",
+          "status": "merged",
+          "mergedAt": "2011-06-16T21:59:53Z"
+        }
+      ],
+      "issues": [
+        {
+          "number": 3,
+          "title": "Error: ASCII encoding",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/issues/3",
+          "date": "2011-01-25T18:04:49Z",
+          "status": "open"
+        }
+      ],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "4198702e1808693bb4c4e38b58faeb189f300405",
+          "title": "Merge pull request #7 from mager/pending",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/4198702e1808693bb4c4e38b58faeb189f300405",
+          "date": "2011-06-16T19:14:41.000-07:00"
+        },
+        {
+          "sha": "d3881975132c6fd14ce3be9b044d5d50158eb6ca",
+          "title": "Added Blackberry demo flat page",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/d3881975132c6fd14ce3be9b044d5d50158eb6ca",
+          "date": "2011-06-16T19:14:06.000-07:00"
+        },
+        {
+          "sha": "1e8257b68c9477057761ec824c4d95356d5adc68",
+          "title": "Updated index, and added gist for Google Maps demo",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/1e8257b68c9477057761ec824c4d95356d5adc68",
+          "date": "2011-06-16T19:06:23.000-07:00"
+        },
+        {
+          "sha": "96f4e619d844decae700ed9645fd26de9a0be23a",
+          "title": "Initial commit",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/96f4e619d844decae700ed9645fd26de9a0be23a",
+          "date": "2011-06-16T17:45:15.000-07:00"
+        },
+        {
+          "sha": "5ec39a7edd6f6ee210219d4dc2d9dd42bb678405",
+          "title": "Simplified nav",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/5ec39a7edd6f6ee210219d4dc2d9dd42bb678405",
+          "date": "2011-06-15T10:52:40.000-07:00"
+        },
+        {
+          "sha": "282563100ea58414a6a47553f714518ae1e43ffd",
+          "title": "Updated to one page layout; tweaker Flickr image page",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/282563100ea58414a6a47553f714518ae1e43ffd",
+          "date": "2011-06-15T10:41:00.000-07:00"
+        },
+        {
+          "sha": "29d3367f312f1c68b244565f05626b964d3611e6",
+          "title": "Added temporarly layout tweaks. Still need help from Jon",
+          "url": "https://github.com/simplegeo/django-simplegeo-demos/commit/29d3367f312f1c68b244565f05626b964d3611e6",
+          "date": "2011-06-15T10:27:37.000-07:00"
+        }
+      ],
+      "firstDate": "2011-01-25",
+      "lastDate": "2011-06-17"
+    },
+    {
+      "name": "simplegeo/Services_SimpleGeo",
+      "url": "https://github.com/simplegeo/Services_SimpleGeo",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "d9d83a858b8aa835fd969ab52280dd7f45cf3a56",
+          "title": "Merge branch 'pending' of github.com:simplegeo/Services_SimpleGeo into pending",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/d9d83a858b8aa835fd969ab52280dd7f45cf3a56",
+          "date": "2011-06-15T11:29:18.000-07:00"
+        },
+        {
+          "sha": "e6452e1915f3d9aa22b6b25e50ac38cad04212b4",
+          "title": "Made Context accept args",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/e6452e1915f3d9aa22b6b25e50ac38cad04212b4",
+          "date": "2011-06-15T11:29:00.000-07:00"
+        },
+        {
+          "sha": "1e14c6aedf1dce946f907be32d1ca9b4e2fe7161",
+          "title": "Added  to correct function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/1e14c6aedf1dce946f907be32d1ca9b4e2fe7161",
+          "date": "2011-06-15T11:16:26.000-07:00"
+        },
+        {
+          "sha": "6871ae24007c6256b7c4c36c8fc8f750a9c09def",
+          "title": "Make Context accept args",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/6871ae24007c6256b7c4c36c8fc8f750a9c09def",
+          "date": "2011-06-15T11:12:09.000-07:00"
+        },
+        {
+          "sha": "e6087f9fcfc9d584a783d014ea43092e5fff2f50",
+          "title": "Removed Spotrank functions",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/e6087f9fcfc9d584a783d014ea43092e5fff2f50",
+          "date": "2011-05-16T14:48:38.000-07:00"
+        },
+        {
+          "sha": "f411efab27dccc884020c725f564e881eff1bfa3",
+          "title": "Fixed README.mkd",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/f411efab27dccc884020c725f564e881eff1bfa3",
+          "date": "2011-05-16T14:46:39.000-07:00"
+        },
+        {
+          "sha": "7e5516f233e9bf9384514e34ff45cfedea11d4ca",
+          "title": "Delete layer implemented",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/7e5516f233e9bf9384514e34ff45cfedea11d4ca",
+          "date": "2011-03-26T12:00:52.000-07:00"
+        },
+        {
+          "sha": "c1ea5a1e1baa479ce3e481866cb2fbb5f1a0c390",
+          "title": "Create or update a layer",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/c1ea5a1e1baa479ce3e481866cb2fbb5f1a0c390",
+          "date": "2011-03-26T11:50:39.000-07:00"
+        },
+        {
+          "sha": "f9c6da1ffabe79e987988f92f555bcf7adb2d894",
+          "title": "Added getLayerDetails() function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/f9c6da1ffabe79e987988f92f555bcf7adb2d894",
+          "date": "2011-03-26T09:53:05.000-07:00"
+        },
+        {
+          "sha": "701a62fb53dbfeb690ab8c3a24be408b93f9080c",
+          "title": "Added getLayers()",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/701a62fb53dbfeb690ab8c3a24be408b93f9080c",
+          "date": "2011-03-25T16:22:21.000-07:00"
+        },
+        {
+          "sha": "2ba9bf919e7b167d7574d35a386a77e51a9e8036",
+          "title": "Fixed broken context/places code",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/2ba9bf919e7b167d7574d35a386a77e51a9e8036",
+          "date": "2011-02-07T10:26:30.000-08:00"
+        },
+        {
+          "sha": "7955cfc8417dee6a9e3b1ec629fb77488a06bf54",
+          "title": "Testing IP",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/7955cfc8417dee6a9e3b1ec629fb77488a06bf54",
+          "date": "2010-12-25T15:48:42.000-08:00"
+        },
+        {
+          "sha": "5d76dc1aa399bc0a1519ba3fdade7c2404472057",
+          "title": "Testing getContextFromAddress()",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/5d76dc1aa399bc0a1519ba3fdade7c2404472057",
+          "date": "2010-12-25T15:03:42.000-08:00"
+        },
+        {
+          "sha": "7cddffb7efad853f9bfbc0be45ee25812ea0c645",
+          "title": "Added /1.0/features endpoint",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/7cddffb7efad853f9bfbc0be45ee25812ea0c645",
+          "date": "2010-12-14T13:31:25.000-08:00"
+        },
+        {
+          "sha": "d06050cae54660beff48677bdcb5bf2070e2ff69",
+          "title": "Make getPlaces() function accept $args array",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/d06050cae54660beff48677bdcb5bf2070e2ff69",
+          "date": "2010-12-14T12:12:27.000-08:00"
+        },
+        {
+          "sha": "be238d724ce7e4795e78340ebd35c424b7a43135",
+          "title": "Add /1.0/places endpoint to PHP client",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/be238d724ce7e4795e78340ebd35c424b7a43135",
+          "date": "2010-12-14T12:10:09.000-08:00"
+        },
+        {
+          "sha": "600e10b21242d3d85595a7a41e07f3f3e6c2af74",
+          "title": "Fixed SG Context endpoint return value",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/600e10b21242d3d85595a7a41e07f3f3e6c2af74",
+          "date": "2010-12-14T12:07:49.000-08:00"
+        },
+        {
+          "sha": "e2905f5aa18fd79415d3ab0b99f16d3d88b74789",
+          "title": "Add /1.0/context endpoint to PHP client",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/e2905f5aa18fd79415d3ab0b99f16d3d88b74789",
+          "date": "2010-12-14T11:55:07.000-08:00"
+        },
+        {
+          "sha": "06468cedaf5e37d595f7bc336a7c55c99914087a",
+          "title": "Send correct version and endpoint to getURL",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/06468cedaf5e37d595f7bc336a7c55c99914087a",
+          "date": "2010-12-14T11:35:18.000-08:00"
+        },
+        {
+          "sha": "1d90ba94ac043b58720e3ec9ce03bbc03423f480",
+          "title": "Add $version to addRecords() function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/1d90ba94ac043b58720e3ec9ce03bbc03423f480",
+          "date": "2010-12-14T11:29:40.000-08:00"
+        },
+        {
+          "sha": "17f31a9a613ef3c73927d39c8a96ea7f2bb41517",
+          "title": "Removed print statement",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/17f31a9a613ef3c73927d39c8a96ea7f2bb41517",
+          "date": "2010-12-14T11:06:48.000-08:00"
+        },
+        {
+          "sha": "7737613b28354c957681f80ae8446e18faa35291",
+          "title": "Testing the addRecord() function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/7737613b28354c957681f80ae8446e18faa35291",
+          "date": "2010-12-14T11:02:24.000-08:00"
+        },
+        {
+          "sha": "cce9c31eb2eb9b37ebc5df17d7eb437dc0555c41",
+          "title": "Fixed missing semi-colon",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/cce9c31eb2eb9b37ebc5df17d7eb437dc0555c41",
+          "date": "2010-12-14T11:00:45.000-08:00"
+        },
+        {
+          "sha": "06dfdd956722f9c0488d8195f033034b22f748a4",
+          "title": "Added versions to each endpoint",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/06dfdd956722f9c0488d8195f033034b22f748a4",
+          "date": "2010-12-14T09:40:24.000-08:00"
+        },
+        {
+          "sha": "55785a1a0b1e127777762794d1ccbe4df6dd5baf",
+          "title": "Added $version to the _getURL function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/55785a1a0b1e127777762794d1ccbe4df6dd5baf",
+          "date": "2010-12-14T09:33:07.000-08:00"
+        },
+        {
+          "sha": "edb3383f663d515362d98cbf78a1cf54ab9bd375",
+          "title": "Added version to first endpoint",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/edb3383f663d515362d98cbf78a1cf54ab9bd375",
+          "date": "2010-12-14T09:26:33.000-08:00"
+        },
+        {
+          "sha": "7c038db68b0374b0cc370c4748c2d11118ad8346",
+          "title": "Removed deprecated endpoints.",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/7c038db68b0374b0cc370c4748c2d11118ad8346",
+          "date": "2010-12-10T11:03:37.000-08:00"
+        },
+        {
+          "sha": "afcda51f248ece096d93efbcf9b5df2a0319560f",
+          "title": "Added ability to do nearby query with an IP address",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/afcda51f248ece096d93efbcf9b5df2a0319560f",
+          "date": "2010-10-18T09:36:42.000-07:00"
+        },
+        {
+          "sha": "f8ed29956d51dac691e7442b3434c9bdf0b8eec0",
+          "title": "Added ability to do a PlacePin \"contains\" query with an IP address",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/f8ed29956d51dac691e7442b3434c9bdf0b8eec0",
+          "date": "2010-10-18T09:15:55.000-07:00"
+        },
+        {
+          "sha": "a4c3128a7c19bbe16968d353b3115c6655cd33e6",
+          "title": "Added GeoIP endpoint \"getLocationFromIP()\" function",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/a4c3128a7c19bbe16968d353b3115c6655cd33e6",
+          "date": "2010-10-18T08:45:01.000-07:00"
+        },
+        {
+          "sha": "f952c00417ed3f1e6a4335f0ab7bb0621855e0cd",
+          "title": "Cleaner image with white lines, text.",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/f952c00417ed3f1e6a4335f0ab7bb0621855e0cd",
+          "date": "2010-05-22T17:01:31.000-07:00"
+        },
+        {
+          "sha": "71412ff7378dbd0122269627bb38f9dfc870bf54",
+          "title": "Updated client tutorial with Pushpin functions.",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/71412ff7378dbd0122269627bb38f9dfc870bf54",
+          "date": "2010-05-21T13:18:34.000-07:00"
+        },
+        {
+          "sha": "44b4f7bfb93a0543fcbe11b7ca98985035efc444",
+          "title": "Adding getContains() function.",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/44b4f7bfb93a0543fcbe11b7ca98985035efc444",
+          "date": "2010-05-18T20:31:28.000-07:00"
+        },
+        {
+          "sha": "4592df5e5083a610f09c28c8dff4650f87a95d67",
+          "title": "Adding tutorial to README.mkd",
+          "url": "https://github.com/simplegeo/Services_SimpleGeo/commit/4592df5e5083a610f09c28c8dff4650f87a95d67",
+          "date": "2010-05-18T19:56:22.000-07:00"
+        }
+      ],
+      "firstDate": "2010-05-18",
+      "lastDate": "2011-06-15"
+    },
+    {
+      "name": "simplegeo/simplegeo",
+      "url": "https://github.com/simplegeo/simplegeo",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "736ccd30a25d40e1766bad1e0058b2274d7fb64c",
+          "title": "implement PUT",
+          "url": "https://github.com/simplegeo/simplegeo/commit/736ccd30a25d40e1766bad1e0058b2274d7fb64c",
+          "date": "2011-06-09T14:54:19.000-04:00"
+        }
+      ],
+      "firstDate": "2011-06-09",
+      "lastDate": "2011-06-09"
+    },
+    {
+      "name": "simplegeo/SGAREnvironment",
+      "url": "https://github.com/simplegeo/SGAREnvironment",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "6f9196744ad7e7f19e94f50d41810aae015c389e",
+          "title": "Deprecated, but not deleted",
+          "url": "https://github.com/simplegeo/SGAREnvironment/commit/6f9196744ad7e7f19e94f50d41810aae015c389e",
+          "date": "2011-05-27T10:54:22.000-07:00"
+        }
+      ],
+      "firstDate": "2011-05-27",
+      "lastDate": "2011-05-27"
+    },
+    {
+      "name": "simplegeo/simplegeo-blackberry-playbook-checkin",
+      "url": "https://github.com/simplegeo/simplegeo-blackberry-playbook-checkin",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "c47585c2497ecdb10d053a33b1f9887178123439",
+          "title": "Moved README to .mkd format",
+          "url": "https://github.com/simplegeo/simplegeo-blackberry-playbook-checkin/commit/c47585c2497ecdb10d053a33b1f9887178123439",
+          "date": "2011-05-19T16:04:55.000-07:00"
+        },
+        {
+          "sha": "9a646a29b6cddd1834ab8bb0532f74dcd0a2c0b7",
+          "title": "Tweaked README and LICENSE",
+          "url": "https://github.com/simplegeo/simplegeo-blackberry-playbook-checkin/commit/9a646a29b6cddd1834ab8bb0532f74dcd0a2c0b7",
+          "date": "2011-05-19T16:02:23.000-07:00"
+        },
+        {
+          "sha": "d5c33a77411d8b5c1a224b9557b835ed89b028a7",
+          "title": "Added New BSD license",
+          "url": "https://github.com/simplegeo/simplegeo-blackberry-playbook-checkin/commit/d5c33a77411d8b5c1a224b9557b835ed89b028a7",
+          "date": "2011-05-19T15:56:16.000-07:00"
+        },
+        {
+          "sha": "c7a2939a0d4c27fb4b78b8139154a44fd148379e",
+          "title": "Initial commit",
+          "url": "https://github.com/simplegeo/simplegeo-blackberry-playbook-checkin/commit/c7a2939a0d4c27fb4b78b8139154a44fd148379e",
+          "date": "2011-05-19T15:48:21.000-07:00"
+        }
+      ],
+      "firstDate": "2011-05-19",
+      "lastDate": "2011-05-19"
+    },
+    {
+      "name": "simplegeo/polymaps",
+      "url": "https://github.com/simplegeo/polymaps",
+      "pullRequests": [
+        {
+          "number": 62,
+          "title": "Added example for SSL with Bing Maps",
+          "url": "https://github.com/simplegeo/polymaps/pull/62",
+          "date": "2011-03-24T16:38:06Z",
+          "status": "open",
+          "mergedAt": null
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [],
+      "firstDate": "2011-03-24",
+      "lastDate": "2011-03-24"
+    },
+    {
+      "name": "simplegeo/wadl-library",
+      "url": "https://github.com/simplegeo/wadl-library",
+      "pullRequests": [],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "6d04c9db135827b51e9fe77a35ec90ac4fdc9426",
+          "title": "Adding /1.0/features/<handle>/annotations.json",
+          "url": "https://github.com/simplegeo/wadl-library/commit/6d04c9db135827b51e9fe77a35ec90ac4fdc9426",
+          "date": "2011-02-28T14:04:33.000-08:00"
+        },
+        {
+          "sha": "81ba48780cc3b69846fa30473f99fda2881251d5",
+          "title": "Updated geocoder and IP endpoints",
+          "url": "https://github.com/simplegeo/wadl-library/commit/81ba48780cc3b69846fa30473f99fda2881251d5",
+          "date": "2011-01-11T12:38:45.000-08:00"
+        },
+        {
+          "sha": "cf0023c4037881ca67c954f524c7385577aa0242",
+          "title": "Updated docs for /1.0/places",
+          "url": "https://github.com/simplegeo/wadl-library/commit/cf0023c4037881ca67c954f524c7385577aa0242",
+          "date": "2010-12-13T14:21:40.000-08:00"
+        },
+        {
+          "sha": "efda69cfba34cbc1ddd01d0cc37c28f173d8e45f",
+          "title": "Removed old 0.1 endpoints and added 1.0 endpoints",
+          "url": "https://github.com/simplegeo/wadl-library/commit/efda69cfba34cbc1ddd01d0cc37c28f173d8e45f",
+          "date": "2010-12-13T14:15:10.000-08:00"
+        },
+        {
+          "sha": "82f520bf7ea3597b26e7cd8b278cfc774d50b070",
+          "title": "Added context endpoint.",
+          "url": "https://github.com/simplegeo/wadl-library/commit/82f520bf7ea3597b26e7cd8b278cfc774d50b070",
+          "date": "2010-11-24T09:23:16.000-08:00"
+        },
+        {
+          "sha": "4c07929141871df00b6469b2a4f84a206515d70b",
+          "title": "Added Geocoder endpoint",
+          "url": "https://github.com/simplegeo/wadl-library/commit/4c07929141871df00b6469b2a4f84a206515d70b",
+          "date": "2010-10-29T09:52:34.000-07:00"
+        },
+        {
+          "sha": "7a514537e70704efadb8a42f7e969210784c4c1d",
+          "title": "Added GeoIP \"contains\" endpoint",
+          "url": "https://github.com/simplegeo/wadl-library/commit/7a514537e70704efadb8a42f7e969210784c4c1d",
+          "date": "2010-10-27T11:56:28.000-07:00"
+        },
+        {
+          "sha": "817b33a3b7e50d37d5b5062bae9c713ed114046e",
+          "title": "Added GeoIP \"nearby\" endpoint",
+          "url": "https://github.com/simplegeo/wadl-library/commit/817b33a3b7e50d37d5b5062bae9c713ed114046e",
+          "date": "2010-10-27T11:47:10.000-07:00"
+        },
+        {
+          "sha": "a8a45c999fe18e08a72c5f3fee38dd53902be96a",
+          "title": "Added GeoIP \"locate\" endpoint",
+          "url": "https://github.com/simplegeo/wadl-library/commit/a8a45c999fe18e08a72c5f3fee38dd53902be96a",
+          "date": "2010-10-27T11:36:13.000-07:00"
+        },
+        {
+          "sha": "021df7d75c06e25fc84186e3383efe1f978951e4",
+          "title": "Fixed ID for density endpoint.",
+          "url": "https://github.com/simplegeo/wadl-library/commit/021df7d75c06e25fc84186e3383efe1f978951e4",
+          "date": "2010-10-27T11:33:36.000-07:00"
+        }
+      ],
+      "firstDate": "2010-10-27",
+      "lastDate": "2011-02-28"
+    },
+    {
+      "name": "archfear/simplegeo-ruby",
+      "url": "https://github.com/archfear/simplegeo-ruby",
+      "pullRequests": [
+        {
+          "number": 2,
+          "title": "Updates",
+          "url": "https://github.com/archfear/simplegeo-ruby/pull/2",
+          "date": "2010-10-18T22:07:55Z",
+          "status": "merged",
+          "mergedAt": "2010-10-18T22:47:14Z"
+        }
+      ],
+      "issues": [],
+      "reviews": [],
+      "commits": [
+        {
+          "sha": "1a594d480f210b21904c62f6d067a7e48b500cc8",
+          "title": "Merge remote branch 'archfear/master'",
+          "url": "https://github.com/archfear/simplegeo-ruby/commit/1a594d480f210b21904c62f6d067a7e48b500cc8",
+          "date": "2010-10-19T09:46:34.000-07:00"
+        },
+        {
+          "sha": "fd4a586cfcd447d6de15ff1c21bf8387fb21e350",
+          "title": "Added ability to do PlacePin query with IP address.",
+          "url": "https://github.com/archfear/simplegeo-ruby/commit/fd4a586cfcd447d6de15ff1c21bf8387fb21e350",
+          "date": "2010-10-19T09:34:17.000-07:00"
+        },
+        {
+          "sha": "53ad2424fe2edc98ebd315dccab8a59a8b5496a7",
+          "title": "Added ability to query nearby records by IP address.",
+          "url": "https://github.com/archfear/simplegeo-ruby/commit/53ad2424fe2edc98ebd315dccab8a59a8b5496a7",
+          "date": "2010-10-19T09:30:48.000-07:00"
+        },
+        {
+          "sha": "e353c1ff08519c968fc5618a897351e82e11ce38",
+          "title": "Added GeoIP endpoint \"locate\"",
+          "url": "https://github.com/archfear/simplegeo-ruby/commit/e353c1ff08519c968fc5618a897351e82e11ce38",
+          "date": "2010-10-18T15:46:56.000-07:00"
+        }
+      ],
+      "firstDate": "2010-10-18",
+      "lastDate": "2010-10-19"
+    }
+  ]
+}

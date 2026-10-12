@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SoftwareContributions from '../components/SoftwareContributions.astro';
 import { SITE_TITLE } from '../consts';
 import '../styles/software.css';
 
@@ -43,7 +44,7 @@ const projects = [
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <BaseHead title={`Software · ${SITE_TITLE}`} description="Personal software by Mager: Perch, Mood Shell, Homeport, and prxps. Tools for my Mac, my terminal, my coding workflow, and sports picks." image="/images/mager.jpg" defaultTheme="dark" />
+    <BaseHead title={`Software · ${SITE_TITLE}`} description="Software by Mager: personal projects, the Uber Direct SDK, and public contributions to Impeccable, PREMINT, Postmates, Spotify, and SimpleGeo." image="/images/mager.jpg" defaultTheme="dark" />
   </head>
   <body class="publication software-terminal">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -53,12 +54,12 @@ const projects = [
         <p class="software-kicker"><span>mager@chicago</span><span>~/software</span></p>
         <h1><span class="heading-prompt" aria-hidden="true">❯</span> Software<span class="heading-cursor" aria-hidden="true">_</span></h1>
         <div class="software-deck">
-          <p>Tools I build for my own machines, workflows, and interests. Small projects, public build logs, and a lot of time in the terminal.</p>
+          <p>Software I build and projects I contribute to. Personal tools, public build logs, and open source work dating back to 2010.</p>
           <a href="https://github.com/mager">github.com/mager <span aria-hidden="true">↗</span></a>
         </div>
       </header>
       <div class="directory-bar"><p><span aria-hidden="true">$</span> ls ~/software <span class="directory-count"># {projects.length} projects</span></p><span class="directory-label">Select a project to explore</span></div>
-      <nav class="project-directory" aria-label="Jump to a project">{projects.map(project => <a href={`#${project.id}`}><span aria-hidden="true">./</span>{project.id}<span aria-hidden="true">/</span></a>)}</nav>
+      <nav class="project-directory" aria-label="Software directory">{projects.map(project => <a href={`#${project.id}`}><span aria-hidden="true">./</span>{project.id}<span aria-hidden="true">/</span></a>)}<a href="#contributions"><span aria-hidden="true">./</span>contributions<span aria-hidden="true">/</span></a></nav>
       <div class="software-grid">
         {projects.map((project, index) => (
           <article id={project.id} class={`software-project project-${project.id}`} aria-labelledby={`${project.id}-title`}>
@@ -82,6 +83,7 @@ const projects = [
           </article>
         ))}
       </div>
+      <SoftwareContributions />
       <aside class="software-more"><p>// Notes from the workbench</p><a href="/tech/">Read my technical writing <span aria-hidden="true">→</span></a></aside>
     </main>
     <Footer homepage />

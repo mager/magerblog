@@ -1,0 +1,58 @@
+---
+const repositories = [
+  {
+    name: 'Uber Direct SDK',
+    url: 'https://github.com/uber/uber-direct-sdk',
+    icon: 'https://avatars.githubusercontent.com/u/538264?v=4&s=96',
+    description: 'I built the SDK for developers integrating Uber Direct delivery into their apps.',
+  },
+  {
+    name: 'Impeccable',
+    url: 'https://github.com/pbakaus/impeccable',
+    icon: 'https://raw.githubusercontent.com/pbakaus/impeccable/main/extension/icons/icon-128.png',
+    description: 'I’m just getting started here, with an interest in helping agents build better interfaces.',
+  },
+  {
+    name: 'PREMINT Bot',
+    url: 'https://github.com/premint/premintbot',
+    icon: 'https://avatars.githubusercontent.com/u/101993260?v=4&s=96',
+    description: 'I worked on Discord roles, wallet address handling, and logging for the PREMINT bot.',
+  },
+  {
+    name: 'Postmates · ConsulMutEx',
+    url: 'https://github.com/postmates/consul_mut_ex',
+    icon: 'https://avatars.githubusercontent.com/u/426014?v=4&s=96',
+    description: 'I contributed Consul-backed locking and packaging improvements to this Elixir library.',
+  },
+  {
+    name: 'Spotify App Tutorials',
+    url: 'https://github.com/spotify/apps-tutorial',
+    icon: 'https://avatars.githubusercontent.com/u/251374?v=4&s=96',
+    description: 'I wrote working examples and tutorials to help developers build with the Spotify Apps API.',
+  },
+  {
+    name: 'SimpleGeo · Python',
+    url: 'https://github.com/simplegeo/python-simplegeo',
+    icon: 'https://avatars.githubusercontent.com/u/93415?v=4&s=96',
+    description: 'I added location queries and API features to SimpleGeo’s Python client.',
+  },
+];
+---
+
+<section id="contributions" class="software-contributions" aria-labelledby="contributions-title">
+  <h2 id="contributions-title">Open source & collaboration</h2>
+  <ul class="contribution-list">
+    {repositories.map(repo => (
+      <li>
+        <a class="contribution-link" href={repo.url}>
+          <img src={repo.icon} alt="" width="40" height="40" loading="lazy" decoding="async" />
+          <div class="contribution-copy">
+            <h3>{repo.name}</h3>
+            <p>{repo.description}</p>
+          </div>
+          <span class="contribution-arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
