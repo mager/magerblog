@@ -1,21 +1,21 @@
 ---
-title: "Kotsu: Choose Your Path Through Japanese"
-description: "I rebuilt my Japanese learning app around a branching course map: 23 stops, five chapters, and short recall sessions. Pick your route, then come back to connect the rest."
+title: "Upgrading Kotsu: From a Character Wall to a Learning Map"
+description: "Kotsu already had the characters, reference pages, and Niko. This upgrade connects the existing material with a branching map and short recall sessions."
 pubDate: "2026-10-14"
 category: tech
 tags: ["Kotsu", "Japanese", "SvelteKit", "Design", "AI", "open-source"]
 keyword: "learning Japanese"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-14-kotsu-choose-your-path/journey.jpg"
 heroImageAlt: "Kotsu's new journey page, with five chapters, a branching map, and the First light lesson selected."
-heroImageCaption: "The new Kotsu: a course you can see, with a choice of where to go next."
+heroImageCaption: "Kotsu’s updated home screen connects the existing study material into a branching journey."
 draft: true
 ---
 
-When I [first built Kotsu](/blog/2026-03-21-kotsu-the-knack-for-japanese/), I wanted a wall of Japanese characters. Open it on my phone, tap something, and look at it until the shape starts to feel familiar. That was useful, but it left a question open: what should I learn next?
+I've been adding to Kotsu since [the original character wall](/blog/2026-03-21-kotsu-the-knack-for-japanese/): five columns, large Japanese characters, and a quick way to look something up on my phone. Then came [the local Gemma experiment](/blog/2026-05-06-local-gemma-kotsu/), which drafted kanji mnemonics into files I could review, and [Niko](/blog/2026-06-06-kotsu-logo/), the logo with the hidden smile.
 
-I rebuilt [Kotsu](https://kotsu.vercel.app/) with Codex around that question. It now has a branching adventure map, short practice sessions, and checkpoints that connect the course. I wanted some choose-your-own-adventure freedom, with the expectation that I would eventually complete the whole thing.
+This upgrade changes how I move through that material. I worked with Codex to add a branching course map and short recall sessions. The character collections and reference pages are still there; now they also have a route through them.
 
-The reference library is still there. The front door is now a journey.
+In the first post, I specifically wanted a reference wall rather than a lesson or a game. That still has a place. But I also want help deciding what to practice next. My request this time was to make it a choose-your-own-adventure game where I could choose the order and still be expected to finish the whole thing.
 
 ## Choose the order, complete the whole map
 
@@ -27,7 +27,7 @@ Underneath, this is a **directed acyclic graph**, or DAG. Each stop has prerequi
 
 I like that as a learning model. I can follow my interest without quietly skipping half the material. The map also makes the dependencies visible: I can see what is available, what is complete, and what still needs work before it opens.
 
-There are **23 stops across five chapters**, covering **1,009 study entries**:
+The map organizes the current collection into **23 stops across five chapters**, covering **1,009 study entries**. This is a new route through the material, rather than 1,009 newly added entries:
 
 - **The sound trail:** hiragana, katakana, and their sound variations.
 - **The radical forest:** the parts that help me recognize and understand kanji.
@@ -45,11 +45,11 @@ Each session has up to five pieces. First I see a large character, its reading, 
 
 A correct answer saves progress. A wrong answer lets me try again, and I can return to the study card. There is no timer, no lost life, and no streak to protect. I wanted a reason to practice, without making a missed day feel like a penalty.
 
-That is the biggest change from the original version. Looking at a character is still part of the app, but now there is a small step between recognizing it on a card and moving forward: can I remember it when the reading is gone?
+That is the main addition to the old study loop. Looking at a character is still part of the app, but now there is a small step between recognizing it on a card and moving forward: can I remember it when the reading is gone?
 
 ## The field guide stays open
 
-I did not want the course map to make quick lookup harder. The [field guide](https://kotsu.vercel.app/library) keeps the character collections, search, and recipes available outside the journey. Signed-in users can still use their custom vocabulary. A lesson also links directly to its character's reference page.
+I did not want the course map to make quick lookup harder. The [field guide](https://kotsu.org/library) keeps the character collections, search, and recipes available outside the journey. Signed-in users can still use their custom vocabulary. A lesson also links directly to its character's reference page.
 
 The new interface uses blue for the main actions, coral for the selected map stop, and green for completed stops. Labels, lock icons, and checkpoint shapes carry meaning alongside the colors. [Niko, the logo with the hidden smile](/blog/2026-06-06-kotsu-logo/), is still there too.
 
@@ -63,4 +63,4 @@ The regression tests check the graph structure, prerequisites, and course covera
 
 One current limit matters: **new adventure answers are saved in this browser on this device**. They are not yet synced through Firebase. The journey can recognize existing learned-character progress, but starting on my laptop and continuing the new adventure on my phone is still work to do.
 
-The [redesign is merged](https://github.com/mager/kotsu/pull/2), and [the source is open](https://github.com/mager/kotsu). If you want to try the change, [start with the five vowels](https://kotsu.vercel.app/journey/first-sounds). That first fork is the clearest example of what I wanted: a little freedom about what comes next, and a map that keeps the rest in view.
+The [upgrade is merged](https://github.com/mager/kotsu/pull/2). The next thing I want to learn from using it is whether the map makes me return to the material more often. Kotsu already helped me look things up. Now I want it to help me keep practicing.
