@@ -172,6 +172,7 @@ Prefer:
 - clear explanations
 - technical specificity
 - concrete examples
+- section headings that name the content directly, such as "Software and development" or "Photos and screenshots", without slogans or decorative taglines
 - honest tradeoffs
 - earned insight
 
