@@ -80,7 +80,6 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
 <html lang="en">
   <head>
     <BaseHead title={draft ? `[Draft] ${title}` : title} description={description} image={heroImage} keywords={tags?.join(', ')} />
-    {draft && <meta name="robots" content="noindex, nofollow" />}
     <script type="application/ld+json" set:html={JSON.stringify(recipeSchema).replace(/</g, '\\u003c')} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')} />
   </head>
@@ -92,7 +91,7 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
         <div class="recipe-heading">
           <a class="recipe-back" href="/cooking/">← All recipes</a>
           {subcategory && <p class="recipe-eyebrow">{subcategory}</p>}
-          {draft && <p class="recipe-draft">Draft recipe · not yet kitchen-tested</p>}
+          {draft && <p class="recipe-draft">Draft recipe</p>}
           <h1>{title}</h1>
           <p class="recipe-description">{description}</p>
           <dl class="recipe-meta">

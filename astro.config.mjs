@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
+import { noindexSitemap } from './src/integrations/noindex-sitemap.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,7 +20,7 @@ export default defineConfig({
 	},
 	// Preserve the publication's existing spacing between inline elements.
 	compressHTML: true,
-	integrations: [mdx(), sitemap()],
+	integrations: [mdx(), ...noindexSitemap()],
 	redirects: {
 		'/notes/2026-10-01-diving-into-impeccable': '/blog/2026-10-04-diving-into-impeccable',
 		'/blog/2026-03-21-kotsu-the-knack-of-japanese': '/blog/2026-03-21-kotsu-the-knack-for-japanese',

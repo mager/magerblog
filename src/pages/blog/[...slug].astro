@@ -7,7 +7,8 @@ import AlbumPost from '../../layouts/AlbumPost.astro';
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+	// Drafts have direct previews linked from /drafts, but stay out of discovery.
+	const posts = await getCollection('blog');
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: post,
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
+Astro.locals.draft = post.data.draft === true;
 const { Content, headings } = await render(post);
 const isCooking = post.data.category === 'food';
 const isLife = post.data.category === 'life';

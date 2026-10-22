@@ -87,9 +87,10 @@ test('the Japanese learning story retains code, a keyboard-accessible table, and
   assert.match(table.textContent, /Basic Conversation/);
 });
 
-test('draft Life posts are absent from public routes and discovery', () => {
+test('draft Life posts have noindex previews and are absent from discovery', () => {
   for (const { slug } of entries.filter(isDraft)) {
-    assert(!existsSync(new URL(`../dist/blog/${slug}/index.html`, import.meta.url)), slug);
+    const preview = new JSDOM(read(`dist/blog/${slug}/index.html`)).window.document;
+    assert.match(preview.querySelector('meta[name="robots"]').content, /noindex/, slug);
     for (const path of ['index.html', 'life/index.html', 'rss.xml', 'llms.txt', 'sitemap-0.xml']) {
       assert(!read(`dist/${path}`).includes(`/blog/${slug}`), `${slug} leaked into ${path}`);
     }
