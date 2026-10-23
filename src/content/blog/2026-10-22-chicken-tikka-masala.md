@@ -3,6 +3,8 @@ title: "Chicken Tikka Masala with Chickpeas"
 description: "Yogurt-marinated chicken thighs browned first, then simmered with onions, red pepper, chickpeas, and Gymkhana Tikka Masala sauce. Served with basmati rice."
 pubDate: "2026-10-22"
 category: "food"
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-22-chicken-tikka-masala/hero.jpg"
+heroImageAlt: "Chicken tikka masala with chickpeas, red pepper, and onions in a skillet on the stove."
 subcategory: "chicken"
 tags: ["Chicken", "Chickpeas", "Curry", "Rice"]
 draft: true
