@@ -35,7 +35,7 @@ test('draft blog links open noindex previews and stay out of discovery', () => {
   }
 });
 test('tikka masala preview includes ingredients and the confirmed cooking steps', () => {
-  const preview = new JSDOM(read('dist/blog/2026-10-22-gymkhana-chicken-tikka-masala/index.html')).window.document;
+  const preview = new JSDOM(read('dist/blog/2026-10-22-chicken-tikka-masala/index.html')).window.document;
   assert.match(preview.querySelector('#ingredients').textContent, /Gymkhana Tikka Masala/);
   const steps = preview.querySelectorAll('#method ol.recipe-steps > li');
   assert.equal(steps.length, 7);
