@@ -7,7 +7,7 @@ heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10
 heroImageAlt: "Chicken tikka masala with chickpeas, red pepper, and onions in a skillet on the stove."
 subcategory: "chicken"
 tags: ["Chicken", "Chickpeas", "Curry", "Rice"]
-draft: true
+draft: false
 ---
 
 I browned the chicken thighs with the yogurt marinade still on them, then moved them to a plate while I cooked the vegetables. The onions cooked for 6 minutes, followed by 4 more minutes with the red pepper. I then combined everything with the chickpeas and Gymkhana Tikka Masala sauce for a final 5-minute simmer and served it with basmati rice.
