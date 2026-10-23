@@ -27,7 +27,19 @@ I browned the chicken thighs with the yogurt marinade still on them, then moved 
 1. **Prepare the rice.** Cook the basmati rice according to its package directions. Keep it warm for serving.
 2. **Marinate the chicken.** Coat the chicken thighs in the yogurt marinade.
 3. **Brown the chicken first.** Sear the chicken thighs with the yogurt marinade still on them until browned. Transfer the chicken to a plate.
+
+   ![Browned yogurt-marinated chicken thigh pieces resting on a white plate.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-22-chicken-tikka-masala/browned-chicken.jpg)
+
 4. **Cook the onions for 6 minutes.** Add the onions to the same pan and sauté for 6 minutes, stirring as needed.
 5. **Add the red pepper for 4 more minutes.** Add the red pepper to the onions. Sauté together for another 4 minutes.
 6. **Combine and simmer.** Return the chicken and its juices to the pan. Add the chickpeas and Gymkhana Tikka Masala simmer sauce. Stir to combine and simmer for 5 minutes. Check that the thickest part of the chicken reaches 165°F (74°C), and cook longer if needed.
+
+   ![Chickpeas piled over sautéed onions and red pepper in the skillet before adding the chicken and sauce.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-22-chicken-tikka-masala/chickpeas-and-vegetables.jpg)
+
 7. **Serve.** Spoon the chicken, vegetables, chickpeas, and sauce over the cooked basmati rice.
+
+<div class="recipe-gallery">
+
+![Finished chicken tikka masala with chickpeas, red pepper, and onions in the skillet.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-22-chicken-tikka-masala/hero.jpg)
+
+</div>
