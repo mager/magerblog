@@ -1,5 +1,5 @@
 ---
-title: "Gymkhana Chicken Tikka Masala with Chickpeas"
+title: "Chicken Tikka Masala with Chickpeas"
 description: "Yogurt-marinated chicken thighs browned first, then simmered with onions, red pepper, chickpeas, and Gymkhana Tikka Masala sauce. Served with basmati rice."
 pubDate: "2026-10-22"
 category: "food"
