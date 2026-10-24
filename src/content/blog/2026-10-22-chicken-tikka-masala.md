@@ -12,6 +12,8 @@ draft: false
 
 I browned the chicken thighs with the yogurt marinade still on them, then moved them to a plate while I cooked the vegetables. The onions cooked for 6 minutes, followed by 4 more minutes with the red pepper. I then combined everything with the chickpeas and Gymkhana Tikka Masala sauce for a final 5-minute simmer and served it with basmati rice.
 
+I loved Gymkhana's tikka masala sauce and would love to try [their other sauces](https://us.gymkhanafinefoods.com/collections/shop-all).
+
 ## Ingredients
 
 - Chicken thighs
