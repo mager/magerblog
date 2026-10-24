@@ -1,0 +1,39 @@
+<figure class="homeport-flow" aria-labelledby="homeport-flow-caption">
+  <div class="flow-device"><strong>Your browser</strong><span>Send “Run the tests.”</span></div>
+  <div class="flow-link"><span aria-hidden="true">↓</span> Private HTTPS · Tailscale Serve</div>
+  <div class="flow-mini">
+    <div class="flow-location">On the Mac mini</div>
+    <ol class="flow-stages">
+      <li><div><strong>Homeport web app</strong><span>Checks access. Accepts the request.</span></div><small>Pydantic validates <br /><code>Submission → Task</code></small></li>
+      <li><div><strong>SQLite</strong><span>Saves the task before work starts.</span></div><small>Stores the prompt, <br />IDs, state, and results</small></li>
+      <li><div><strong>Python worker</strong><span>Takes the next task. Starts or resumes its conversation.</span></div><small>Saves intent, then sends <br /><code>turn/start</code></small></li>
+      <li class="flow-codex"><div><strong>Codex App Server</strong><span>Runs the agent. Uses tools. Maintains the conversation.</span></div><small>JSON-RPC over <br />a private Unix socket</small></li>
+    </ol>
+  </div>
+  <div class="flow-link"><span aria-hidden="true">↕</span> Codex ↔ OpenAI · model requests</div>
+  <div class="flow-device"><strong>OpenAI</strong><span>Runs model inference through Codex authentication.</span></div>
+  <div class="flow-return"><strong>Return path: Homeport → browser</strong><span>Homeport reads Codex history and shows progress. The worker saves events and checked results.</span></div>
+  <figcaption id="homeport-flow-caption">Pydantic runs inside Homeport’s Python code. It checks records at the data boundaries; it is not another service or another agent. The optional Codex terminal connects to the same App Server.</figcaption>
+</figure>
+<style>
+  .homeport-flow { margin: 32px 0; color: var(--news-ink); font: 15px/1.5 var(--news-ui); }
+  .homeport-flow strong { display: block; font-weight: 600; }
+  .homeport-flow span { display: block; }
+  .flow-device { padding: 14px 18px; border: 1px solid var(--news-rule); display: grid; grid-template-columns: 150px 1fr; gap: 12px; }
+  .flow-link { padding: 10px 18px; color: var(--news-blue); font: 12px/1.5 var(--news-mono); display: flex; gap: 12px; align-items: center; }
+  .flow-mini { border: 1px solid var(--news-rule); background: var(--news-surface); }
+  .flow-location { padding: 10px 18px; border-bottom: 1px solid var(--news-rule); font: 12px/1.5 var(--news-mono); }
+  .homeport-flow .flow-stages { list-style: none; padding: 0 18px; margin: 0; }
+  .homeport-flow .flow-stages li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, .6fr); gap: 16px; margin: 0; padding: 18px 0; border-bottom: 1px solid var(--news-rule); }
+  .flow-stages li:not(:last-child)::after { content: '↓'; position: absolute; bottom: -10px; left: 0; padding-right: 8px; background: var(--news-surface); color: var(--news-blue); }
+  .flow-stages small { align-self: center; color: var(--news-muted); font: 12px/1.6 var(--news-mono); }
+  .homeport-flow code { font: inherit; }
+  .flow-codex strong { color: var(--news-blue); }
+  .flow-return { margin-top: 14px; padding: 14px 18px; border-block: 1px solid var(--news-rule); font-size: 13px; }
+  .homeport-flow figcaption { margin-top: 14px; }
+  @media (max-width: 520px) {
+    .flow-device { grid-template-columns: 1fr; gap: 4px; }
+    .homeport-flow .flow-stages li { grid-template-columns: 1fr; gap: 8px; }
+    .flow-stages small br { display: none; }
+  }
+</style>
