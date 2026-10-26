@@ -49,7 +49,9 @@ export function makeEdition(entries: FeedEntry[]) {
     { key: 'reference', entries: notebook },
     { key: 'links', entries: links },
   ].filter(section => section.entries.length || section.key === 'reference')
-    .sort((a, b) => byFreshest(a.entries, b.entries)).map(section => section.key);
+    // Shared links close the edition; recipes and original writing come first.
+    .sort((a, b) => Number(a.key === 'links') - Number(b.key === 'links')
+      || byFreshest(a.entries, b.entries)).map(section => section.key);
   const offscreenOrder = [
     { key: 'kitchen', entries: kitchen }, { key: 'life', entries: life },
   ].filter(section => section.entries.length)

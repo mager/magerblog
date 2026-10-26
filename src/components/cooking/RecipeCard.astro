@@ -4,14 +4,15 @@ import FormattedDate from '../FormattedDate.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  featured?: boolean;
 }
 
-const { post } = Astro.props;
+const { post, featured = false } = Astro.props;
 const { title, description, heroImage, prepTime, cookTime, subcategory } = post.data;
 const totalTime = (prepTime || 0) + (cookTime || 0);
 ---
 
-<a href={`/blog/${post.id}/`} class:list={['recipe', { 'recipe--noimg': !heroImage }]} data-sub={subcategory || 'other'}>
+<a href={`/blog/${post.id}/`} class:list={['recipe', { 'recipe--noimg': !heroImage }]} data-sub={subcategory || 'other'} data-featured={featured || undefined} hidden={featured}>
   <figure class="recipe__figure">
     {heroImage ? (
       <img src={heroImage} alt={`${title} — from the Mager kitchen`} loading="lazy" decoding="async" />

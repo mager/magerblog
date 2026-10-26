@@ -77,6 +77,18 @@ test('image changes and updatedDate cannot bump a story, and input order is pres
   assert.deepEqual(input, [old, newest]);
 });
 
+test('shared links follow recipes even when the links are newer', () => {
+  const edition = makeEdition([
+    entry('tech-lead', '2026-10-01'),
+    entry('featured-recipe', '2026-09-02', 'food'),
+    entry('older-recipe', '2026-09-01', 'food'),
+    ...Array.from({ length: 6 }, (_, i) => entry(`link-${i}`, `2026-10-${20 - i}`, undefined, 'links')),
+  ]);
+  assert.equal(edition.links.length, 2);
+  assert.equal(edition.kitchen.length, 1);
+  assert.deepEqual(edition.sections, ['offscreen', 'reference', 'links']);
+});
+
 test('publication sorting preserves Chicago calendar days and deterministic ties', () => {
   const entries = [entry('b', '2026-10-04'), entry('late-chicago', '2026-10-03T23:30:00-05:00'), entry('a', '2026-10-04')];
   assert.equal(makeEdition(entries).lead.id, 'a');

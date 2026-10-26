@@ -17,7 +17,7 @@ const recipes = allPosts
 
 // Featured = most recently published or updated recipe with a photo.
 const featured = recipes.find(r => r.data.heroImage) ?? recipes[0];
-const grid = recipes.filter(r => r !== featured);
+const grid = recipes;
 
 // Categories derive from the real kitchen, not invented buckets.
 const counts = new Map<string, number>();
@@ -25,11 +25,11 @@ for (const r of grid) {
   const s = r.data.subcategory || 'other';
   counts.set(s, (counts.get(s) || 0) + 1);
 }
-const order = ['soup', 'meat', 'comfort', 'pasta', 'casserole', 'side', 'salad'];
+const order = ['soup', 'meat', 'chicken', 'comfort', 'pasta', 'casserole', 'side', 'salad', 'baking', 'seasoning', 'other'];
+const categories = [...order.filter(key => counts.has(key)), ...[...counts.keys()].filter(key => !order.includes(key)).sort()];
 const filters = [
   { key: 'all', label: 'All', count: grid.length },
-  ...order
-    .filter(k => (counts.get(k) || 0) >= 2)
+  ...categories
     .map(k => ({ key: k, label: k[0].toUpperCase() + k.slice(1), count: counts.get(k) || 0 })),
 ];
 
@@ -185,6 +185,7 @@ const breadcrumbSchema = {
         margin: 0 auto;
         padding: 0 var(--kx-pad);
       }
+      .ci-feature[hidden], .ci-filters[hidden] { display: none; }
       .feature-card {
         display: grid;
         grid-template-columns: 1.15fr 1fr;
@@ -310,9 +311,11 @@ const breadcrumbSchema = {
         padding: 0.38rem 0.85rem;
         cursor: pointer;
         white-space: nowrap;
+        min-height: 44px;
         transition: color 0.2s ease, background 0.2s ease;
       }
       .chip:hover { color: var(--ck-text); background: var(--ck-bg-surface); }
+      .chip:focus-visible { outline: 2px solid var(--ck-gold); outline-offset: 2px; }
       .chip[aria-pressed='true'] {
         color: var(--ck-bg);
         background: var(--ck-gold);
@@ -392,7 +395,7 @@ const breadcrumbSchema = {
 
       <!-- Featured recipe -->
       {featured && (
-        <section class="ci-feature">
+        <section class="ci-feature" id="featuredRecipe">
           <a class="feature-card" href={`/blog/${featured.id}/`}>
             <figure class="feature-figure">
               {featured.data.heroImage && (
@@ -420,9 +423,9 @@ const breadcrumbSchema = {
       <!-- Index header + category filters -->
       <div class="ci-index-head">
         <h2 class="ci-index-title">The recipe box</h2>
-        <nav class="ci-filters" id="filterRail" aria-label="Filter recipes by type">
+        <nav class="ci-filters" id="filterRail" aria-label="Filter recipes by type" hidden>
           {filters.map((f, i) => (
-            <button class="chip" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+            <button type="button" class="chip" data-filter={f.key} aria-controls="recipeGrid featuredRecipe" aria-pressed={i === 0 ? 'true' : 'false'}>
               {f.label}<span class="chip-count">{f.count}</span>
             </button>
           ))}
@@ -431,9 +434,10 @@ const breadcrumbSchema = {
 
       <!-- Grid -->
       <main class="ci-index">
+        <p class="sr-only" id="recipeResults" role="status" aria-live="polite" aria-atomic="true"></p>
         <div class="ci-grid" id="recipeGrid">
           {grid.map((post) => (
-            <RecipeCard post={post} />
+            <RecipeCard post={post} featured={post === featured} />
           ))}
           {grid.length === 0 && <p class="ci-empty">No recipes yet. Check back soon.</p>}
         </div>
@@ -444,7 +448,7 @@ const breadcrumbSchema = {
 
     <Footer homepage />
 
-    <!-- Category filter (graceful: works without View Transitions) -->
+    <!-- Filters update immediately; all recipes remain available without JavaScript. -->
     <script is:inline>
       (function () {
         const rail = document.getElementById('filterRail');
@@ -452,13 +456,19 @@ const breadcrumbSchema = {
         if (!rail || !grid) return;
         const chips = Array.from(rail.querySelectorAll('.chip'));
         const cards = Array.from(grid.querySelectorAll('.recipe'));
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const featured = document.getElementById('featuredRecipe');
+        const status = document.getElementById('recipeResults');
 
         function apply(filter) {
+          let count = 0;
           cards.forEach(function (c) {
             const sub = c.getAttribute('data-sub') || 'other';
-            c.hidden = !(filter === 'all' || sub === filter);
+            const matches = filter === 'all' || sub === filter;
+            if (matches) count++;
+            c.hidden = !matches || (filter === 'all' && c.hasAttribute('data-featured'));
           });
+          if (featured) featured.hidden = filter !== 'all';
+          if (status) status.textContent = count + (count === 1 ? ' recipe' : ' recipes') + (filter === 'all' ? ' in all categories.' : ' in ' + filter + '.');
         }
 
         rail.addEventListener('click', function (e) {
@@ -466,9 +476,9 @@ const breadcrumbSchema = {
           if (!btn) return;
           const filter = btn.getAttribute('data-filter');
           chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === btn)); });
-          if (reduce || !document.startViewTransition) { apply(filter); return; }
-          document.startViewTransition(function () { apply(filter); });
+          apply(filter);
         });
+        rail.hidden = false;
       })();
     </script>
 

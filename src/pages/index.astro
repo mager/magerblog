@@ -89,7 +89,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
         </div>}
         {section === 'links' && <section class="links-section" aria-labelledby="links-heading" data-edition-section="links">
           <div class="section-heading"><h2 id="links-heading">Shared links</h2><a href="/links/">All links ↗</a></div>
-          <div class="edition-links">{edition.links.map(entry => entry.collection === 'links' && <article data-edition-entry={`links/${entry.id}`}><LinkPost {entry} compact /></article>)}</div>
+          <div class="edition-links">{edition.links.map(entry => entry.collection === 'links' && <article data-edition-entry={`links/${entry.id}`}><LinkPost {entry} compact subdued /></article>)}</div>
         </section>}
         </>)}
       </div>

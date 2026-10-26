@@ -4,13 +4,13 @@ import FormattedDate from './FormattedDate.astro';
 import LinkEmbed from './LinkEmbed.astro';
 import { linkHost, youtubeId } from '../lib/link-share';
 
-interface Props { entry: CollectionEntry<'links'>; standalone?: boolean; compact?: boolean; }
-const { entry, standalone = false, compact = false } = Astro.props;
+interface Props { entry: CollectionEntry<'links'>; standalone?: boolean; compact?: boolean; subdued?: boolean; }
+const { entry, standalone = false, compact = false, subdued = false } = Astro.props;
 const { title, url, description, author, pubDate } = entry.data;
 const { Content } = await render(entry);
 const Heading = standalone ? 'h1' : 'h2';
 ---
-<div class:list={['link-post', { standalone, compact }]}>
+<div class:list={['link-post', { standalone, compact, subdued }]}>
   <a class="destination" href={url}>
     <div class="destination-heading">
       <Heading>{title}</Heading>
@@ -93,6 +93,12 @@ const Heading = standalone ? 'h1' : 'h2';
   .compact .commentary { margin-top: 8px; font: 16px/1.55 var(--news-ui); color: var(--news-muted); }
   .compact .link-body :global(pre) { padding: 12px; }
   .compact .link-body :global(.link-code pre) { padding-top: 0; }
+  .compact.subdued .destination { color: var(--news-ink); }
+  .compact.subdued .destination-heading { gap: 12px; }
+  .compact.subdued h2 { font-family: var(--news-ui); font-size: 19px; font-weight: 500; line-height: 1.35; letter-spacing: -.015em; text-wrap: pretty; }
+  .compact.subdued .outbound-arrow { width: 16px; color: var(--news-muted); }
+  .compact.subdued .commentary { font-size: 14px; line-height: 1.5; }
+  .compact.subdued .link-video { max-width: 320px; margin-top: 12px; }
   @media(max-width: 540px) {
     .destination-heading { gap: 16px; }
     .destination-domain { font-size: 13px; }
