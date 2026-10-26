@@ -5,7 +5,7 @@ import { makeEdition } from '../src/lib/edition-selection.ts';
 const entry = (id, date, category = 'tech', collection = 'blog', extra = {}) => ({
   id, collection, body: 'A story.', data: { title: id, pubDate: new Date(date), category, ...extra },
 });
-const assigned = edition => [edition.lead, ...['supporting', 'dispatches', 'workbench', 'links', 'seen', 'kitchen', 'life', 'artifacts', 'notebook']
+const assigned = edition => [edition.lead, ...['supporting', 'dispatches', 'workbench', 'links', 'seen', 'kitchen', 'life', 'notebook']
   .flatMap(key => edition[key])].filter(Boolean);
 
 test('the newest tech story leads even when life and cooking publish later', () => {
@@ -51,9 +51,9 @@ test('the update column accepts every collection in publication order', () => {
     entry('photo', '2026-10-10T10:00:00-05:00', undefined, 'seen'),
     entry('link', '2026-10-10T11:00:00-05:00', undefined, 'links'),
     entry('note', '2026-10-10T12:00:00-05:00', undefined, 'notes'),
-    entry('document', '2026-10-10T13:00:00-05:00', undefined, 'artifacts'),
+    entry('second-article', '2026-10-08'),
   ]);
-  assert.deepEqual(edition.dispatches.map(item => item.collection), ['artifacts', 'notes', 'links', 'seen']);
+  assert.deepEqual(edition.dispatches.map(item => item.collection), ['notes', 'links', 'seen', 'blog']);
 });
 
 test('lower sections follow their newest remaining entries, not a fixed category order', () => {
@@ -62,7 +62,7 @@ test('lower sections follow their newest remaining entries, not a fixed category
     entry('tech-lead', '2026-10-21'), entry('older-tech', '2026-09-20'),
     entry('featured-recipe', '2026-10-12', 'food'), entry('recent-recipe', '2026-10-10', 'food'),
     entry('photo', '2026-10-11', undefined, 'seen'),
-    entry('document', '2026-09-01', undefined, 'artifacts'),
+    entry('note', '2026-09-01', undefined, 'notes'),
   ]);
   assert.deepEqual(edition.sections, ['offscreen', 'seen', 'workbench', 'reference']);
   assert.deepEqual(edition.offscreenOrder, ['life', 'kitchen']);

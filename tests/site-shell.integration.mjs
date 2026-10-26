@@ -21,7 +21,7 @@ test('every public page uses one shared header and footer with unique navigation
     assert(doc.querySelector('.header-sections > a[href="/software/"]'),file);
     assert(doc.querySelector('.header-browse > summary'),file);
     assert.equal(doc.querySelector('.header-browse').hasAttribute('open'),false,file);
-    for(const section of ['tech','cooking','life','notes','seen','links','artifacts']) assert(doc.querySelector(`.header-browse a[href="/${section}/"]`),file);
+    for(const section of ['tech','cooking','life','notes','seen','links']) assert(doc.querySelector(`.header-browse a[href="/${section}/"]`),file);
     assert(doc.querySelector('.site-footer a[href="/rss.xml"]'),file);
     assert.match(doc.querySelector('.site-footer').textContent,/Built with agents in Chicago/,file);
   }

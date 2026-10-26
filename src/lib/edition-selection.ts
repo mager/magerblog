@@ -35,7 +35,6 @@ export function makeEdition(entries: FeedEntry[]) {
   const seen = take(entry => entry.collection === 'seen', 5);
   const kitchen = take(entry => isArticle(entry) && desk(entry) === 'food', 5);
   const life = take(entry => isArticle(entry) && desk(entry) === 'life', 3);
-  const artifacts = take(entry => entry.collection === 'artifacts', 3);
   const notebook = take(entry => entry.collection === 'notes', 3);
 
   const newest = (group: FeedEntry[]) => [...group].sort(byPublication)[0];
@@ -47,7 +46,7 @@ export function makeEdition(entries: FeedEntry[]) {
     { key: 'workbench', entries: workbench },
     { key: 'seen', entries: seen },
     { key: 'offscreen', entries: [...kitchen, ...life] },
-    { key: 'reference', entries: [...artifacts, ...notebook] },
+    { key: 'reference', entries: notebook },
     { key: 'links', entries: links },
   ].filter(section => section.entries.length || section.key === 'reference')
     .sort((a, b) => byFreshest(a.entries, b.entries)).map(section => section.key);
@@ -56,6 +55,6 @@ export function makeEdition(entries: FeedEntry[]) {
   ].filter(section => section.entries.length)
     .sort((a, b) => byFreshest(a.entries, b.entries)).map(section => section.key);
 
-  return { lead, supporting, dispatches, workbench, links, seen, kitchen, life, artifacts, notebook,
+  return { lead, supporting, dispatches, workbench, links, seen, kitchen, life, notebook,
     sections, offscreenOrder, count: used.size };
 }

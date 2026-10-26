@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { type FeedEntry, entryHref, entryTitle } from '../../lib/feed';
 import { editionDescription, editionImage, editionLabel } from '../../lib/edition';
 import { contentMeta } from '../../lib/content-meta';
-interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo' | 'document'; image?: boolean | 'hero'; thumbnail?: boolean; eager?: boolean; label?: boolean; }
+interface Props { entry: FeedEntry; variant?: 'lead' | 'brief' | 'story' | 'photo'; image?: boolean | 'hero'; thumbnail?: boolean; eager?: boolean; label?: boolean; }
 const { entry, variant = 'story', image: showImage = false, thumbnail = false, eager = false, label = false } = Astro.props;
 const image = showImage === 'hero'
   ? entry.collection === 'blog' && entry.data.heroImage
@@ -25,7 +25,6 @@ const detail = contentMeta(entry);
     {(variant !== 'brief' || label) && <span class="story-kind">{editionLabel(entry)}</span>}
     <h3><a href={href}>{title}{entry.collection === 'links' && <span aria-hidden="true"> ↗</span>}</a></h3>
     {detail && <p class="story-detail">{detail}</p>}
-    {variant === 'document' && <p class="story-filename">{entry.id.split('/').pop()}.md</p>}
     {description && variant !== 'photo' && <p class="story-description">{description}</p>}
   </div>
 </article>

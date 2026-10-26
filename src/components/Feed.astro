@@ -4,7 +4,7 @@ import FeedItem from './FeedItem.astro';
 interface Props { entries: FeedEntry[]; filters?: boolean; compact?: boolean; pageSize?: number; headingLevel?: 'h1' | 'h2'; }
 const { entries, filters = false, compact = false, pageSize = compact ? 8 : 15, headingLevel = 'h1' } = Astro.props;
 const Heading = headingLevel;
-const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'], ['seen', 'Seen'], ['links', 'Links'], ['artifacts', 'Artifacts'] ];
+const kinds = [ ['all', 'Everything'], ['blog', 'Articles'], ['notes', 'Notes'], ['seen', 'Seen'], ['links', 'Links'] ];
 ---
 <div class:list={['feed', { compact }]} data-feed data-page-size={pageSize}>
   {filters && <div class="feed-heading">

@@ -1,11 +1,11 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { comparePublicationDates } from './publication-date';
 
-export type FeedEntry = CollectionEntry<'blog' | 'notes' | 'seen' | 'links' | 'artifacts'>;
+export type FeedEntry = CollectionEntry<'blog' | 'notes' | 'seen' | 'links'>;
 
 export async function getFeed(): Promise<FeedEntry[]> {
   const collections = await Promise.all([
-    getCollection('blog'), getCollection('notes'), getCollection('seen'), getCollection('links'), getCollection('artifacts'),
+    getCollection('blog'), getCollection('notes'), getCollection('seen'), getCollection('links'),
   ]);
   return collections.flat()
     .filter(entry => !entry.data.draft && !(entry.collection === 'blog' && entry.data.locale === 'ja'))

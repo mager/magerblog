@@ -3,7 +3,7 @@ export { makeEdition } from './edition-selection';
 
 export const editionLabel = (entry: FeedEntry) => entry.collection === 'blog'
   ? ({ food: 'From the kitchen', life: 'Life, outside', tech: 'Building' }[entry.data.category || 'tech'] || 'Article')
-  : ({ notes: 'Notebook', seen: 'Seen', links: 'Worth opening', artifacts: 'Artifact' }[entry.collection]);
+  : ({ notes: 'Notebook', seen: 'Seen', links: 'Worth opening' }[entry.collection]);
 
 export const editionImage = (entry: FeedEntry) => entry.collection === 'blog'
   ? entry.data.heroImage || entry.body?.match(/!\[[^\]]*\]\((https?:\/\/[^\s)]+)(?:\s+"[^"]*")?\)/)?.[1]

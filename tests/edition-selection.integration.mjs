@@ -29,7 +29,7 @@ test('All updates includes cooking and life alongside the other collections with
   const feed = page.querySelector('#chronological-feed');
   assert(feed.querySelector('[data-category="food"] a[href="/blog/2026-10-03-apple-cinnamon-bread/"]'));
   assert(feed.querySelector('[data-category="life"] a[href="/blog/2026-10-04-my-nine-albums/"]'));
-  for (const kind of ['blog', 'notes', 'seen', 'links', 'artifacts']) assert(feed.querySelector(`[data-kind="${kind}"]`));
+  for (const kind of ['blog', 'notes', 'seen', 'links']) assert(feed.querySelector(`[data-kind="${kind}"]`));
 });
 
 test('the opening spread has category-neutral headings', () => {

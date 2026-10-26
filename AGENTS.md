@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Chicago edition homepage with about 30 distinct entries across a lead spread, dispatches, workbench, Seen strip, cooking, life, artifacts, and links. `src/lib/edition-selection.ts` builds an edition without duplicates: the newest tech post leads, with the newest life post and recipe underneath in that order. These category slots have no age cutoff; if tech is absent, the newest blog post leads, falling back to any entry when no blog posts exist. The update column takes the four newest remaining entries across all collections. Lower sections and the cooking/life pair follow their newest remaining entries. `src/lib/edition.ts` supplies presentation helpers. All updates includes every collection, including cooking and life. A Front page / All updates switch opens the chronological stream, with a native content filter and 24-entry progressive loading. Without JavaScript, the edition and a disclosure containing the full stream remain available. Updates do not bump entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
+- `src/pages/index.astro`: Chicago edition homepage with about 30 distinct entries across a lead spread, dispatches, workbench, Seen strip, cooking, life, notes, and links. `src/lib/edition-selection.ts` builds an edition without duplicates: the newest tech post leads, with the newest life post and recipe underneath in that order. These category slots have no age cutoff; if tech is absent, the newest blog post leads, falling back to any entry when no blog posts exist. The update column takes the four newest remaining entries across all collections. Lower sections and the cooking/life pair follow their newest remaining entries. `src/lib/edition.ts` supplies presentation helpers. All updates includes every collection, including cooking and life. A Front page / All updates switch opens the chronological stream, with a native content filter and 24-entry progressive loading. Without JavaScript, the edition and a disclosure containing the full stream remain available. Updates do not bump entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
 - Homepage articles and notes show only a short description and a read link. Add `description` to notes for an authored preview; a brief first-paragraph excerpt is the fallback. Keep full text on the post pages, while Seen captions and link embeds remain inline.
 - `src/pages/links/`: Link-share archive and permalinks
@@ -91,7 +91,6 @@ The site organizes content into three categories, each with distinct visual them
 - `src/layouts/ReadingPost.astro`: Editorial layout for tech articles, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
 - `src/layouts/Note.astro`: Compact notebook layout with a 680px reading column, Space Grotesk title and prose, quiet publication date, source link, and simple note navigation. Descriptions remain metadata and feed previews; notes omit the article deck, contents rail, and reading progress. Shared code-copy controls and Markdown styles remain available.
 - `src/lib/content-meta.ts`: Homepage metadata uses reading time for articles and notes, authored recipe timing, and photo locations or screenshot labels. Missing recipe timing is omitted; partial timing is labeled explicitly.
-- `src/layouts/Artifact.astro`: Compact 860px document column with left-aligned heading, filename, Markdown download, and a numbered contents disclosure. Native tables fill keyboard-accessible scroll containers; artifact prose uses the publication UI font.
 - `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
 - Cooking and life articles retain their dedicated layouts.
 - Life stories use `src/lib/life-themes.ts` for a named, per-story palette and one of five subject-specific openings in `LifePost.astro`. Add an explicit theme when publishing a new life story; translations share their original's theme. `lifeLayout: albums` selects `AlbumPost.astro` for music lists, with a complete `heroImage` poster, descriptive `heroImageAlt`, and numbered album notes below it.
@@ -101,7 +100,7 @@ The site organizes content into three categories, each with distinct visual them
 ### Components
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
-- `Header.astro`: Primary links for Writing and Software, with a native Browse disclosure grouping Tech/Cooking/Life under By topic and Notes/Seen/Links/Artifacts under Notebook. Browse works without JavaScript; enhancement adds Escape, outside-click, and focus-leave dismissal. This shared header stays visible while scrolling. On the homepage, its wordmark appears only when the large masthead wordmark has passed behind the header. While the logo is hidden, desktop navigation starts at the shell’s left edge; when it appears, navigation makes room beside it. Other pages always show the home wordmark.
+- `Header.astro`: Primary links for Writing and Software, with a native Browse disclosure grouping Tech/Cooking/Life under By topic and Notes/Seen/Links under Notebook. Browse works without JavaScript; enhancement adds Escape, outside-click, and focus-leave dismissal. This shared header stays visible while scrolling. On the homepage, its wordmark appears only when the large masthead wordmark has passed behind the header. While the logo is hidden, desktop navigation starts at the shell’s left edge; when it appears, navigation makes room beside it. Other pages always show the home wordmark.
 - `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. Social profiles appear as accessible brand icons beside the homepage masthead, with an All profiles link to bio.link/mager.
 - `Card.astro`: Blog post card for grid layouts
 - `FormattedDate.astro`: Date formatting component
@@ -148,12 +147,6 @@ homepage feed, `/links/`, their own permalink, and `/rss.xml`.
 `LinkPost.astro` renders link shares in the feed, archive, and permalink: keep
 the outbound title, source domain, and arrow primary. Keep commentary compact; omit the sharing-date/permalink footer from feeds and archives. Dates appear only on the standalone page. Use publication typography and theme tokens, and
 preserve inline YouTube playback.
-### Publishing an Artifact
-
-Artifacts are working Markdown documents (audits, specs, plans, research, checklists), distinct from blog articles. Add `src/content/artifacts/YYYY-MM-DD-slug.md` with required `title`, `description`, and `pubDate`; optional `updatedDate`, `tags`, and `draft`. Use `##` for body sections; the page and Markdown download supply the title. Use site-root or absolute links so they work from the permalink and the downloaded file.
-
-Artifacts appear in the homepage stream and its Artifacts filter, `/artifacts/`, `/artifacts/<slug>/`, the main RSS feed, and `llms.txt`. `/artifacts/<slug>.md` provides the portable title and Markdown body. Drafts are excluded from every public artifact surface. Edits do not bump publication order. Keep one canonical document in the collection; if moving an existing report, leave a pointer at its old path.
-
 ### Photos and Screenshots
 
 Both belong in `src/content/seen/`. Set `mediaType: screenshot` for screen
