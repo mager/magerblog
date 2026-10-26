@@ -11,6 +11,8 @@ test('every public page uses one shared header and footer with unique navigation
     if (!doc.querySelector('.site-header')) continue; // Astro redirects have no site chrome.
     checked++;
     assert.equal(doc.querySelectorAll('.site-header').length,1,file);
+    assert.equal(doc.querySelectorAll('#site-search').length,1,file);
+    assert(doc.querySelector('.site-header [data-open-search]'),file);
     assert.equal(doc.querySelectorAll('.site-footer').length,1,file);
     assert.equal(doc.querySelectorAll('.edition-colophon, .ci-foot, .life-footer').length,0,file);
     const hrefs=[...doc.querySelectorAll('.site-header a, .site-footer a')].map(a=>a.getAttribute('href').replace(/\/$/,''));

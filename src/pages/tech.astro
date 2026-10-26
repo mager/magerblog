@@ -4,7 +4,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TechPostRow from '../components/tech/TechPostRow.astro';
 import TechNoteRow from '../components/tech/TechNoteRow.astro';
-import SecretSearch from '../components/SecretSearch.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
@@ -437,6 +436,5 @@ const hasFeaturedImage = !!featuredPost?.data.heroImage;
 			</div>
 		</main>
 		<Footer homepage={true} />
-		<SecretSearch posts={allPosts} />
 	</body>
 </html>

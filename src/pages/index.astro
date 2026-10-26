@@ -4,7 +4,6 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Feed from '../components/Feed.astro';
 import BenchWidget from '../components/BenchWidget.astro';
-import SecretSearch from '../components/SecretSearch.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
 import SocialIcon from '../components/SocialIcon.astro';
@@ -98,7 +97,6 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
       </section>
     </main>
     <Footer homepage />
-    <SecretSearch posts={posts} />
   </body>
 </html>
 <script>

@@ -1,6 +1,7 @@
 ---
 import '../styles/newspaper.css';
 import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
 interface Props { homepage?: boolean; activeSection?: string; themeToggle?: boolean; revealWordmark?: boolean; }
 const { homepage = false, activeSection, themeToggle = homepage, revealWordmark = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -38,10 +39,15 @@ const browsing = groups.some(group => group.links.some(link => active(link.href)
       </details>
     </nav>
     <div class="header-tools">
+      <button class="search-trigger" type="button" data-open-search aria-haspopup="dialog" aria-controls="site-search" hidden>
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
+        <span>Search</span><kbd aria-hidden="true">/</kbd>
+      </button>
       {themeToggle && <ThemeToggle />}
     </div>
   </div>
 </header>
+<Search />
 <style>
   :global(.skip-link) { position: absolute; top: 8px; left: 16px; z-index: 1000; padding: 12px 18px; background: var(--news-blue); color: var(--news-paper); transform: translateY(-150%); font: 600 14px var(--news-ui); }
   :global(.skip-link:focus) { transform: translateY(0); }
@@ -68,6 +74,10 @@ const browsing = groups.some(group => group.links.some(link => active(link.href)
   .browse-group a:hover span, .browse-group a:focus-visible span { opacity: 1; }
   .header-tools { display: flex; align-items: center; gap: 18px; margin-left: auto; }
   .header-tools :global(.theme-toggle) { padding: 0; }
+  .search-trigger { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 3px; background: transparent; color: var(--header-ink); font: 500 13px/1.4 var(--news-ui); cursor: pointer; }
+  .search-trigger[hidden] { display: none; }
+  .search-trigger:hover { color: var(--header-accent); }
+  .search-trigger kbd { margin-left: 10px; padding: 1px 6px; border: 1px solid var(--header-rule); color: var(--header-muted); font: 12px var(--news-mono); }
   .site-header :focus-visible { outline: 2px solid var(--header-accent); outline-offset: 3px; }
   :global(:root) { --site-header-height: 65px; }
   :global(html) { scroll-padding-block: calc(var(--site-header-height) + 16px) calc(var(--site-footer-height, 49px) + 16px); }
@@ -76,6 +86,11 @@ const browsing = groups.some(group => group.links.some(link => active(link.href)
     .header-shell { display: grid; grid-template-columns: 1fr auto; gap: 0 16px; padding-top: 4px; }
     .wordmark { font-size: 25px; }
     .header-tools { grid-column: 2; grid-row: 1; min-height: 44px; }
+    .header-tools { gap: 12px; }
+    .search-trigger { padding-inline: 4px; }
+    .search-trigger kbd { display: none; }
+    [data-wordmark-visible="false"] .header-tools { grid-column: 1 / -1; width: 100%; padding-block: 4px; }
+    [data-wordmark-visible="false"] .search-trigger { flex: 1; justify-content: flex-start; padding-inline: 12px; border: 1px solid var(--header-rule); }
     .header-sections { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: 0 30px; padding-bottom: 4px; }
     .header-sections > a, .header-browse summary { font-size: 12px; }
   }

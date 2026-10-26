@@ -1,0 +1,58 @@
+<dialog class="site-search" id="site-search" aria-labelledby="search-title">
+  <div class="search-heading">
+    <h2 id="search-title">Search mager.co</h2>
+    <button type="button" data-close-search>Close <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></button>
+  </div>
+  <form role="search" class="search-form">
+    <label for="site-search-input" class="sr-only">Search the site</label>
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
+      <input type="search" id="site-search-input" placeholder="Search anything…" autocomplete="off" enterkeyhint="search" autofocus />
+      <button type="button" data-clear-search hidden aria-label="Clear search"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></button>
+    </div>
+  </form>
+  <p class="search-scope">Articles, recipes, notes, photos, and links.</p>
+  <p id="search-status" role="status" aria-live="polite" aria-atomic="true">Search by title, topic, or ingredient.</p>
+  <div class="search-results" id="search-results" aria-label="Search results"></div>
+  <button type="button" class="search-retry" data-retry-search hidden>Try again</button>
+</dialog>
+<script>
+  import { initSearch } from '../scripts/search';
+  initSearch();
+</script>
+<style>
+  .site-search { --search-paper: var(--editor-bg, #0a0a0a); --search-ink: var(--text-primary, #eee); --search-muted: var(--text-secondary, #aaa); --search-rule: var(--terminal-border, #444); --search-accent: var(--cyan, #8bd5ed); box-sizing: border-box; width: min(700px, calc(100% - 48px)); height: min(720px, calc(100dvh - 80px)); max-height: none; margin: 40px auto; padding: 28px; overflow: hidden; border: 1px solid var(--search-rule); border-radius: 6px; background: var(--search-paper); color: var(--search-ink); }
+  :global(.publication) .site-search { --search-paper: var(--news-paper); --search-ink: var(--news-ink); --search-muted: var(--news-muted); --search-rule: var(--news-rule); --search-accent: var(--news-blue); }
+  .site-search[open] { display: flex; flex-direction: column; }
+  .site-search::backdrop { background: oklch(15% .01 260 / .8); }
+  .search-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-shrink: 0; }
+  .search-heading h2 { font: 650 26px/1.2 var(--news-display); color: inherit; margin: 0; }
+  .site-search button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 8px; border: 0; border-radius: 3px; background: transparent; color: inherit; font: 500 14px var(--news-ui); cursor: pointer; }
+  .site-search button[hidden] { display: none; }
+  .site-search button:hover { color: var(--search-accent); }
+  .search-form { margin: 0; flex-shrink: 0; }
+  .search-field { display: flex; align-items: center; gap: 10px; padding-inline: 14px 4px; border: 1px solid var(--search-muted); border-radius: 4px; }
+  .search-field > svg { flex-shrink: 0; color: var(--search-muted); }
+  .search-field:focus-within { outline: 2px solid var(--search-accent); outline-offset: 2px; }
+  .search-field input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 54px; padding: 12px 0; font: 18px/1.4 var(--news-ui); background: transparent; color: var(--search-ink); caret-color: var(--search-accent); border: 0; border-radius: 0; outline: none; }
+  .search-field input::-webkit-search-cancel-button { display: none; }
+  .search-field input::placeholder { color: var(--search-muted); opacity: 1; }
+  .search-scope, #search-status { color: var(--search-muted); font: 14px/1.5 var(--news-ui); margin: 12px 0 0; flex-shrink: 0; }
+  #search-status { margin: 20px 0 12px; }
+  .search-results { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--search-rule) var(--search-paper); }
+  .search-results :global(a) { display: grid; gap: 5px; padding: 16px 4px; border-top: 1px solid var(--search-rule); color: var(--search-ink); text-decoration: none; overflow-wrap: anywhere; }
+  .search-results :global(.search-result-title) { font: 600 20px/1.3 var(--news-ui); }
+  .search-results :global(.search-result-kind) { color: var(--search-accent); font: 500 12px/1.4 var(--news-ui); }
+  .search-results :global(.search-result-description) { color: var(--search-muted); font: 14px/1.5 var(--news-ui); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .search-results :global(a:hover .search-result-title) { color: var(--search-accent); text-decoration: underline; text-underline-offset: 4px; }
+  .site-search :focus-visible { outline: 2px solid var(--search-accent); outline-offset: -2px; }
+  .search-field input:focus-visible { outline: none; }
+  @media(max-width: 760px) {
+    .site-search { position: fixed; inset: var(--search-top, 0px) 0 auto; width: 100%; max-width: none; height: var(--search-height, 100dvh); margin: 0; padding: max(16px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); border: 0; border-radius: 0; }
+    .search-heading { margin-bottom: 12px; }
+    .search-heading h2 { font-size: 24px; }
+    .search-scope { font-size: 13px; }
+    #search-status { margin-top: 14px; }
+  }
+  @media print { .site-search { display: none !important; } }
+</style>

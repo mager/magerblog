@@ -4,7 +4,6 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import SecretSearch from '../components/SecretSearch.astro';
 import PhotoViewer from '../components/cooking/PhotoViewer.astro';
 import '../styles/recipe.css';
 import { prepareRecipe } from '../lib/recipe';
@@ -124,6 +123,5 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
     <Footer homepage />
     <PhotoViewer />
     <script>import '../scripts/recipe';</script>
-    <SecretSearch posts={allPosts} />
   </body>
 </html>

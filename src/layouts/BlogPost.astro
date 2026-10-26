@@ -1,7 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import ReadingPost from './ReadingPost.astro';
-import SecretSearch from '../components/SecretSearch.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   postId: string;
@@ -22,5 +21,4 @@ const minutes = Math.max(1, Math.ceil((current?.body || '').split(/\s+/).length 
   previous={previous && { title: previous.data.title, href: `/blog/${previous.id}/` }}
   next={next && { title: next.data.title, href: `/blog/${next.id}/` }}>
   <slot />
-  <SecretSearch slot="search" posts={allPosts} />
 </ReadingPost>

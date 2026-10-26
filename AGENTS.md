@@ -104,6 +104,7 @@ The site organizes content into three categories, each with distinct visual them
 - `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. Social profiles appear as accessible brand icons beside the homepage masthead, with an All profiles link to bio.link/mager.
 - `Card.astro`: Blog post card for grid layouts
 - `FormattedDate.astro`: Date formatting component
+- `Search.astro`: Shared search dialog, included once through `Header.astro`. The visible Search control opens a full-screen panel on phones; `/` also opens it from the keyboard. `src/pages/search-index.json.ts` supplies published content from every feed collection, loaded only when search opens. `src/lib/search.ts` matches titles, descriptions, body text, tags, and photo locations, with title matches first. Keep the input and close control above the scrolling result list, account for the mobile visual viewport, and retain loading, retry, clear, and empty states.
 
 ### Design System
 
