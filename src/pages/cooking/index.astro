@@ -11,9 +11,11 @@ import '../../styles/cooking.css';
 const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
 const recipes = allPosts
   .filter(post => post.data.category === 'food')
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort((a, b) => (b.data.updatedDate ?? b.data.pubDate).valueOf()
+    - (a.data.updatedDate ?? a.data.pubDate).valueOf()
+    || b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Featured = most recent recipe that actually has a photo.
+// Featured = most recently published or updated recipe with a photo.
 const featured = recipes.find(r => r.data.heroImage) ?? recipes[0];
 const grid = recipes.filter(r => r !== featured);
 

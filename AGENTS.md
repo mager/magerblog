@@ -181,7 +181,7 @@ If a sentence sounds like it is trying to be quoted on X, it is probably making 
 
 ### Category Pages
 
-Category pages filter posts using `getCollection('blog')` and filter by category field, then sort by pubDate descending.
+Category pages filter posts using `getCollection('blog')` and filter by category field, then sort by pubDate descending. The cooking page sorts by `updatedDate` when present, otherwise `pubDate`, so revised recipes return to the top. Homepage and RSS ordering still use publication dates.
 
 ### Navigation
 

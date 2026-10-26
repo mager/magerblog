@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Zuppa Toscana"
 pubDate: "2023-10-20"
-updatedDate: "2026-01-12"
+updatedDate: "2026-10-26"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 category: "food"
 subcategory: "soup"
@@ -42,7 +42,7 @@ This fennel-forward Italian spice blend turns any ground meat into proper sausag
 
 #### Soup
 
-- 3 tablespoons extra virgin olive oil
+- 3 tablespoons extra virgin olive oil, plus 1-2 tablespoons if needed
 - 1 medium white or yellow onion diced
 - 3 tablespoons garlic minced (6 cloves)
 - 4 medium yellow potatoes diced into small pieces
@@ -56,21 +56,21 @@ This fennel-forward Italian spice blend turns any ground meat into proper sausag
 
 <div class="recipe-instructions">
 
-Grind your fennel and mix all of the dry seasoning in a bowl. Massage your ground chicken with the spice mixture thoroughly. It might seem like a lot of seasoning but it will also flavor the soup. Put this in the fridge at least 1 hour before cooking and up to 24 hours.
+In a bowl, mix 1½ teaspoons salt, 1 teaspoon black pepper, 2 tablespoons chopped parsley, 1 teaspoon each garlic powder, onion powder, dried basil, and paprika, ½ teaspoon each red pepper flakes and ground fennel seed, and ¼ teaspoon ground mustard. If using, add ¼ teaspoon each dried oregano and dried thyme. Mix all of the seasoning thoroughly into 1 pound ground chicken. Refrigerate for at least 1 hour and up to 24 hours before cooking.
 
-In a Dutch oven or heavy-bottomed medium pot over medium-high heat, add the olive oil and sausage and cook. Use a wooden spoon to break up the pieces. When browned and cooked through, drain and set aside.
+In a Dutch oven or heavy-bottomed medium pot over medium-high heat, add 3 tablespoons olive oil and the 1 pound seasoned ground chicken. Use a wooden spoon to break up the pieces. When browned and cooked through, transfer the chicken to a bowl, leaving the oil in the pot.
 
 ![Browning the chicken sausage](https://lh3.googleusercontent.com/pw/AP1GczN7AqYVYTWZ2htf90Bz0QgU_UKBo2yF0FwUVYE-Wt8kfudF_2_RGJQPfeCC-52TMC-h65OBSQmIIExOXXFXL-hQfLeGWG_ZexKQoqEKLqssBxKtKtgFHLv09ZrAVlu7wdVBJPI2_WlDGnVTeuvRJCb7=w2286-h1714-s-no-gm)
 
-Keep the oil from the chicken in the pot and stir in the onions for a few minutes. You might need 1-2 more tablespoons of olive oil. Add the garlic a few minutes later; cook until onions and garlic are soft and caramelized, about 12-15 minutes.
+Stir 1 diced medium onion into the oil in the pot. Add 1-2 more tablespoons olive oil if needed. After a few minutes, add 3 tablespoons minced garlic (about 6 cloves). Cook until the onions and garlic are soft and caramelized, about 12-15 minutes total.
 
-Toss in the potatoes and coat them with the caramelized onions and garlic for a minute. Pour the chicken broth into the Dutch oven and bring to a boil over medium high heat. Cover and reduce heat until potatoes are fork tender, about 15-20 minutes. Stir occasionally.
+Add 4 diced medium yellow potatoes and stir for 1 minute to coat them with the onions and garlic. Pour in 48-64 ounces (6-8 cups) chicken stock and bring to a boil over medium-high heat. Cover, lower the heat to low, and simmer until the potatoes are fork-tender, about 15-20 minutes. Stir occasionally.
 
 ![Adding kale to the soup](https://lh3.googleusercontent.com/pw/AP1GczPDIcaFdyd0m9Nvlx9Gloytca6ioU7UqDAjH9xlIV_8ZIB1ZSdKew4vVa2RKPIped33xyeGgF2yX_FPQUjI9kbY6LyT4yw76wUsgdjx5LMLInk_e2UP4SmaWMo3xGN5zSNCbo_xDDfKiWloXWH0i3eA=w2286-h1714-s-no-gm)
 
-Reduce the heat to medium and stir in the coconut milk, the cooked sausage for about 5 minutes. Add the kale into the soup just before serving and cook 3-5 more minutes, it should be bright green and soft.
+Remove the lid. Add 1 bunch chopped kale (4-6 cups, stems removed), all of the cooked chicken sausage, and the cream from 1 can coconut cream together, leaving out the liquid from the can. Turn the heat up to medium. Cook everything together, uncovered, for 5 minutes, stirring occasionally, until the kale is bright green and tender.
 
-Serve immediately with a crusty piece of bread and a heavy sprinkle of pecorino romano and cracked black pepper.
+Turn off the heat and let the soup cool for 5 minutes. Taste and add salt and black pepper as needed. Serve with crusty bread and a handful of grated pecorino romano or Parmesan divided among the bowls.
 
 </div>
 </div>
