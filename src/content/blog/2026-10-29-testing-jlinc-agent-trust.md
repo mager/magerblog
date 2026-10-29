@@ -1,5 +1,5 @@
 ---
-title: "Why I'm testing JLINC for personal and enterprise agents"
+title: 'JLINC: Signed agreements and audit records for AI agents'
 description: 'What signed agreements and audit records could add to personal assistants and enterprise workflows, with results from a small JLINC test.'
 pubDate: '2026-10-29'
 category: 'tech'
