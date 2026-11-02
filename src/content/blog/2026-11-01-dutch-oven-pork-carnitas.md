@@ -1,7 +1,7 @@
 ---
 title: "Low-and-Slow Dutch Oven Pork Carnitas"
 description: "Tender bone-in pork shoulder, dry-brined overnight and cooked gently with avocado oil, garlic, and orange. Serve straight from the pot or crisp in a skillet."
-pubDate: "2026-10-25"
+pubDate: "2026-11-01"
 category: "food"
 subcategory: "meat"
 tags: [recipes, carnitas, dutch-oven, pork, Mexican, New-Mexico-chile]
@@ -9,7 +9,9 @@ keyword: "pork carnitas"
 prepTime: 20
 cookTime: 375
 recipeYield: "6–8 servings"
-draft: true
+draft: false
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-01-dutch-oven-pork-carnitas/hero.jpg"
+heroImageAlt: "Three corn tortillas topped with shredded pork and melted cheese on a white plate."
 ---
 
 My earlier [Dutch Oven Pulled Pork](/blog/2025-04-27-pulled-pork/) uses a barbecue rub, vinegar, and sauce. For these carnitas, I want tender, well-seasoned pork ready for a warm tortilla, onion, cilantro, and salsa. A crisp finish is optional.
@@ -60,7 +62,7 @@ This version starts with a four-pound, bone-in shoulder and an overnight dry bri
 
 ## Instructions
 
-1. **Dry-brine the pork the night before.** Remove any skin and only thick, hard exterior fat from the **4-pound bone-in shoulder**. Keep a thin fat layer and the fat between the muscles. Pat dry. Mix **14 grams kosher salt (about 5 teaspoons Diamond Crystal or 3 teaspoons Morton), 1 teaspoon black pepper, 1 teaspoon Mexican oregano, and the optional 1 teaspoon New Mexico chile (½ teaspoon if hot)**. Rub the full mixture over the pork, including its natural creases. Set it on a rack over a rimmed tray and refrigerate **uncovered for 8–24 hours**, on the bottom shelf away from other food. Without a rack, use a shallow dish that catches the juices. Keep the citrus, water, and avocado oil for the next day. If you have already applied the fuller spice rub from the earlier draft, leave it on and skip this seasoning step; do not add another dose of salt.
+1. **Dry-brine the pork the night before.** Remove any skin and only thick, hard exterior fat from the **4-pound bone-in shoulder**. Keep a thin fat layer and the fat between the muscles. Pat dry. Mix **14 grams kosher salt (about 5 teaspoons Diamond Crystal or 3 teaspoons Morton), 1 teaspoon black pepper, 1 teaspoon Mexican oregano, and the optional 1 teaspoon New Mexico chile (½ teaspoon if hot)**. Rub the full mixture over the pork, including its natural creases. Set it on a rack over a rimmed tray and refrigerate **uncovered for 8–24 hours**, on the bottom shelf away from other food. Without a rack, use a shallow dish that catches the juices. Keep the citrus, water, and avocado oil for the next day.
 
 2. **Set up the Dutch oven.** The next day, heat the oven to **250°F (120°C) convection roast or 275°F (135°C) conventional**, with a rack in the lower third. Keep the pork refrigerated until you are ready to cook. Do not rinse it or add more salt. Add **2 tablespoons avocado oil** to the Dutch oven. Add **1 quartered medium yellow onion, 6 smashed garlic cloves, ½ cup fresh orange juice, 2 strips orange zest, ¼ cup water, 2 bay leaves, and the optional 1-inch piece of cinnamon stick**. Set the pork in the pot, fat side up. The liquid should cover the bottom in a shallow layer; it does not need to come halfway up the meat. Add **water in ¼-cup increments** only if needed to cover the bottom. Bring the liquid to a gentle simmer and cover tightly. The pork goes in without an initial sear. If you want browned edges, use the optional skillet step after it is tender. Discard the raw juices from the dry-brining tray and wash it before reuse.
 

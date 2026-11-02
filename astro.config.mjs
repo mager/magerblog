@@ -22,6 +22,7 @@ export default defineConfig({
 	compressHTML: true,
 	integrations: [mdx(), ...noindexSitemap()],
 	redirects: {
+		'/blog/2026-10-25-dutch-oven-pork-carnitas': '/blog/2026-11-01-dutch-oven-pork-carnitas',
 		'/blog/2026-10-22-gymkhana-chicken-tikka-masala': '/blog/2026-10-22-chicken-tikka-masala',
 		'/notes/2026-10-01-diving-into-impeccable': '/blog/2026-10-04-diving-into-impeccable',
 		'/blog/2026-03-21-kotsu-the-knack-of-japanese': '/blog/2026-03-21-kotsu-the-knack-for-japanese',
