@@ -12,6 +12,9 @@ const href = entry.collection === 'links' ? entry.data.url : entryHref(entry);
 const title = entryTitle(entry);
 const description = editionDescription(entry);
 const detail = contentMeta(entry);
+const Heading = variant === 'lead' ? 'h2' : 'h3';
+const showLabel = variant !== 'lead' && (variant !== 'brief' || label)
+  && !(entry.collection === 'blog' && (entry.data.category || 'tech') === 'tech');
 ---
 <article class:list={['edition-story', `story-${variant}`]} data-edition-entry={`${entry.collection}/${entry.id}`} data-category={entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection} data-media={entry.collection === 'seen' ? entry.data.mediaType : undefined}>
   {image && <a class="story-image" href={href} aria-label={`Read ${title}`}>
@@ -22,8 +25,8 @@ const detail = contentMeta(entry);
         : <img src={image} alt={entry.collection === 'seen' ? entry.data.alt || title : ''} width="900" height="600" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />}
   </a>}
   <div class="story-copy">
-    {(variant !== 'brief' || label) && <span class="story-kind">{editionLabel(entry)}</span>}
-    <h3><a href={href}>{title}{entry.collection === 'links' && <span aria-hidden="true"> ↗</span>}</a></h3>
+    {showLabel && <span class="story-kind">{editionLabel(entry)}</span>}
+    <Heading><a href={href}>{title}{entry.collection === 'links' && <span aria-hidden="true"> ↗</span>}</a></Heading>
     {detail && <p class="story-detail">{detail}</p>}
     {description && variant !== 'photo' && <p class="story-description">{description}</p>}
   </div>

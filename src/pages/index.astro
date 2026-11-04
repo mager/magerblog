@@ -7,6 +7,7 @@ import BenchWidget from '../components/BenchWidget.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
 import SocialIcon from '../components/SocialIcon.astro';
+import MastheadShader from '../components/MastheadShader.astro';
 import { getFeed } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
@@ -24,6 +25,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <Header homepage themeToggle revealWordmark />
     <main id="main-content" class="edition-shell">
       <div class="edition-masthead">
+        <MastheadShader />
         <h1 data-main-wordmark>mager<span>.</span>co</h1>
         <div class="masthead-intro">
           <img src="/images/mager.jpg" alt="Mager’s illustrated avatar, wearing a cap and eating a hot dog." width="800" height="800" />
@@ -44,12 +46,11 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
       </div>
       <div class="edition-switchbar">
         <p>The Chicago edition <span class="edition-count">/ {edition.count} entries</span></p>
-        <div class="edition-switch" role="group" aria-label="Homepage view" hidden><button type="button" data-edition-view="front" aria-pressed="true" aria-controls="front-page">Front page</button><button type="button" data-edition-view="stream" aria-pressed="false" aria-controls="chronological-feed">All updates <span aria-hidden="true">↗</span></button></div>
+        <div class="edition-switch" role="group" aria-label="Homepage view" hidden><button type="button" data-edition-view="front" aria-pressed="true" aria-controls="front-page">Edition</button><button type="button" data-edition-view="stream" aria-pressed="false" aria-controls="chronological-feed">All updates <span aria-hidden="true">↗</span></button></div>
       </div>
       <div id="front-page">
-        <section class="front-spread" aria-labelledby="lead-section">
+        <section class="front-spread" aria-label="Featured stories">
           <div class="lead-column">
-            <h2 class="section-kicker" id="lead-section">Front page</h2>
             {edition.lead && <Story entry={edition.lead} variant="lead" image eager />}
             <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" image="hero" label />)}</div>
           </div>

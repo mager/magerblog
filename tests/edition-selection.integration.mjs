@@ -20,7 +20,7 @@ test('the opening spread renders the selected stories, photos and categories wit
   for (const entry of expected) {
     const story = page.querySelector(`.front-spread [data-edition-entry="blog/${entry.id}"]`);
     if (entry.data.heroImage) assert(story.querySelector('img'));
-    assert(story.querySelector('.story-kind'));
+    assert.equal(Boolean(story.querySelector('.story-kind')), entry !== edition.lead);
     assert.equal(page.querySelectorAll(`#front-page [data-edition-entry="blog/${entry.id}"]`).length, 1);
   }
 });
@@ -33,6 +33,9 @@ test('All updates includes cooking and life alongside the other collections with
 });
 
 test('the opening spread has category-neutral headings', () => {
-  assert.equal(page.querySelector('#lead-section').textContent, 'Front page');
+  assert.equal(page.querySelector('#lead-section'), null);
+  assert(page.querySelector('.story-lead h2'));
+  assert.equal([...page.querySelectorAll('.story-kind')].some(label => label.textContent === 'Building'), false);
+  assert.equal(page.querySelector('.front-spread').getAttribute('aria-label'), 'Featured stories');
   assert.equal(page.querySelector('#dispatch-heading').textContent, 'Latest updates');
 });
