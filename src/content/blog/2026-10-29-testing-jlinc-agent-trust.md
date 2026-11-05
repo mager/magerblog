@@ -8,13 +8,11 @@ tags: ['jlinc', 'agents', 'security', 'langchain', 'privacy']
 draft: true
 ---
 
-I've been wanting to test [JLINC](https://protocol.jlinc.io/) because I care about agent trust and reliability. When I give an agent access to my information, I want to define what it may do with that information and have a way to check the resulting exchanges.
+I've been wanting to test [JLINC](https://protocol.jlinc.io/) because I care about agent trust and reliability. When I give an agent access to my information, I want to define what it may do and check the resulting exchanges.
 
-An assistant might need to read a document to answer a question. That permission does not necessarily include sending the document to another service, retaining it for another purpose, or using it to train a model. In a company, the same question extends across employees, departments, vendors, and customers.
+Permission to read a document does not necessarily include sending it to another service or using it to train a model. JLINC connects data exchanges to signed agreements and produces records that can be checked for changes. I built a small experiment to test its audit checks and tool access controls.
 
-JLINC interests me because it connects data exchanges to signed agreements and produces records that can be checked for changes. In practical terms, I want to know which parties signed a record, which terms it refers to, and whether the record still matches the audit evidence. I built a small experiment to test the audit checks and tool access controls, then consider how I might use them in a personal or enterprise workflow.
-
-After I shared the first draft, Ben Curtis, JLINC's CTO, sent technical comments through Miguel Solari. His November 4 feedback helped me clarify the archive design and separate my test results from the questions that still need work.
+After I shared the draft, Ben Curtis, JLINC's CTO, sent technical comments through Miguel Solari. His November 4 feedback clarified the archive design and helped separate my test results from the questions still open.
 
 ## What JLINC does
 
@@ -32,15 +30,13 @@ An agreement needs a system that enforces its terms. JLINC's developer API suppo
 
 The Core service handles the original data records. A separate Archive service retains signed audit records containing hashes of those originals. JLINC calls this Zero-Knowledge Auditing: the archive can hold evidence without receiving the original data payload. [Protocol specification](https://protocol.jlinc.io/)
 
-Ben clarified how the design limits metadata exposure: the archive sees timestamps and identifiers, but the identifiers are intended to reveal little about the parties. Sender and receiver identities use decentralized identifiers, or DIDs. In the deployment he described, the Core operator knows what those identifiers represent; the archive can check their cryptographic evidence without knowing the people or systems behind them. He noted an important exception: an operator can make an identifier revealing by giving it an identifiable name.
+Ben clarified that the archive sees timestamps and decentralized identifiers, or DIDs, intended to reveal little about the parties. In the deployment he described, the Core operator knows what those identifiers represent. The archive can check their cryptographic evidence without knowing the people or systems behind them, unless an operator gives them identifiable names.
 
-That gives me a concrete implementation rule for prxps: I would keep the mapping to user accounts inside Core and check the identifiers I send to the archive. I would not put a username or email address into a field intended to be opaque. Timestamps remain visible, so I would still review what an observer could infer from the records.
-
-The value is the ability to check evidence across a boundary between systems. Ordinary logs remain useful for debugging and operations. Signed records add a way to check recorded content against retained evidence.
+For prxps, I would keep the mapping to user accounts inside Core and avoid usernames or email addresses in archive identifiers. Timestamps remain visible, so metadata still needs review. Signed evidence would supplement the operational logs I already use.
 
 ## Why I would use it in my own projects
 
-Two projects I already build give me concrete places to try this: [prxps](https://prxps.xyz), my sports picks app, and [Loooom](https://loooom.xyz), my collection of agent skills and tools for testing them. The workflows below exist today. Adding JLINC to them would be a new experiment.
+Two projects give me concrete places to try this: [prxps](https://prxps.xyz), my sports picks app, and [Loooom](https://loooom.xyz), my collection of agent skills and testing tools. Their workflows exist today; adding JLINC would be a new experiment.
 
 ### prxps: checking a reward decision
 
@@ -48,45 +44,37 @@ In prxps, people make free sports picks and earn RXP, a reputation score with no
 
 It also has a [settlement event flow](/notes/2026-10-01-pubsub-for-prxps/). When a pick resolves, a Firestore transaction writes the reward and a `pick.resolved` event. A worker publishes the event to Pub/Sub, and a consumer invalidates the user's recommendations. Stable event IDs and consumer receipts prevent duplicate deliveries from repeating that work.
 
-Suppose I need to investigate why a pick earned a particular amount of RXP. I would want a record of the odds, streak, calculation version, returned reward, and settlement event ID. A JLINC integration could sign that record and retain audit evidence so I could later check whether the recorded inputs or result had changed.
+To investigate a disputed reward, I would want the odds, streak, calculation version, returned RXP, and settlement event ID. JLINC could sign that record and retain evidence to check whether it had changed. Calculation tests would still establish formula correctness, and the existing transaction controls would still prevent duplicate rewards.
 
-That would help me review a disputed reward or compare behavior before and after a calculator change. I would still need calculation tests to establish that the formula was correct. The existing transaction and duplicate-handling controls would still prevent rewards from being applied twice.
-
-There is also a useful agent permission boundary here. If I let an agent explain a user's recommendations, I could permit it to read the required pick history while denying access to the action that settles picks or changes RXP. I would test both paths: explanation allowed, reward change denied before the tool runs. JLINC's policy checks could support that boundary if I connected them to those tools.
+An agent explaining a user's recommendations could read the required pick history while being denied access to settle picks or change RXP. I would connect JLINC's policy checks to those tools and test both paths: explanation allowed, reward change denied before execution.
 
 ### Loooom: checking what an evaluation actually tested
 
 [Loooom's gym](https://loooom.xyz/gym) saves skill revisions and compares their test answers. One published experiment shortened the `focus` skill from 948 to 242 words. The original and shorter versions each passed all 15 final trials. Those results were graded by an AI and cover a small test set.
 
-The question I would use JLINC to investigate is whether a reported score still matches the exact experiment that produced it.
-
-For a future run, I would record the skill version, test questions, model settings, answers, grading rubric, and results. Signed records and separate audit evidence could let me check that this saved record had not changed. A reviewer would need access to the relevant content to inspect the experiment itself.
+I would use JLINC to check whether a reported score still matches its experiment: the skill version, test questions, model settings, answers, rubric, and results. Signed records could show whether that saved content had changed. A reviewer would still need access to the content to inspect the experiment.
 
 Git already helps me track changes to the skill and test files. The additional experiment would be to connect those versions to the recorded model exchanges and results, keep my own audit records, and check them against a separate archive. A signature would not make the grader correct or make 15 passing trials a guarantee of future behavior.
 
 I would also separate permission to propose a skill revision from permission to publish it. A repair agent could create a candidate and run tests. Updating the public skill would require a separate approval, enforced by the publishing tool. The test record would give me specific evidence to review before that approval.
 
-These are the reasons I would try JLINC as an individual builder: I have results I want to explain, experiments I want to inspect, and agent actions I want to limit. I would start with synthetic prxps records and public Loooom test data so I could learn the integration without adding private user data to another system.
+I would start with synthetic prxps records and public Loooom test data, keeping private user data out of the first integration.
 
 ## Where MyTerms fits
 
 [MyTerms](https://myterms.info/ieee7012-standards/) makes the personal use case more concrete. It describes IEEE 7012-2025, a standard for machine-readable personal privacy terms. Individuals can propose terms to a service, with the resulting agreement retained by both sides. The MyTerms agreements have plain language, machine-readable, and legal forms.
 
-I like the direction: I should be able to state the terms under which a service may use my information. An agent acting for me should have a clear representation of those terms.
+An agent acting for me should distinguish permission to use a document for my current request from permission to use it for another purpose. Machine-readable terms could support that check, while the readable version lets me understand what I am accepting.
 
-For example, I would want to distinguish permission to use a document for my current request from permission to use it for another purpose. The machine-readable form could support software that checks that distinction, while the readable version lets me understand what I am accepting.
-
-Ben also pointed me to his [MyTerms Contract Negotiation Protocol Internet-Draft](https://datatracker.ietf.org/doc/draft-curtis-myterms/). It describes technical requirements for VCAs under IEEE 7012, including agreement formats, negotiation, signing, and auditing. That makes the connection more specific: there is protocol work on how software proposes and records these terms. The document is an individual Internet-Draft, which is work in progress rather than an adopted IETF standard.
+Ben also pointed me to his [MyTerms Contract Negotiation Protocol Internet-Draft](https://datatracker.ietf.org/doc/draft-curtis-myterms/). It describes technical requirements for VCAs under IEEE 7012, including agreement formats, negotiation, signing, and auditing. It is an individual Internet-Draft: work in progress, not an adopted IETF standard.
 
 I have not implemented or enforced a MyTerms agreement in this experiment. My next test would connect an explicit synthetic agreement to a policy decision and show which actions it permits. The agreement records the accepted terms; the application still needs to enforce the corresponding tool permissions.
 
 ## Why an enterprise would consider it
 
-For an enterprise, I would look first at workflows that cross organizational boundaries.
+Consider a support assistant that sends limited customer information to a specialist vendor for diagnosis. Both parties need to understand the permitted uses, and someone may later need to review the exchange.
 
-Consider a support assistant that sends a customer issue to a specialist vendor. The company may permit the vendor to use a limited set of facts to diagnose the issue. It may restrict further sharing or other uses. Both parties need to understand the applicable terms, and someone may later need to review the exchange.
-
-A JLINC integration could associate that handoff with a signed agreement and retain evidence of the recorded exchange. Each party could use the evidence to check the records it holds. The company would still need controls that select the allowed fields, check access before transmission, and handle any required retention or deletion process.
+JLINC could associate that handoff with a signed agreement and evidence each party can check. The company would still need controls for field selection, access, retention, and deletion.
 
 That gives me three practical reasons to evaluate it:
 
@@ -98,9 +86,9 @@ These are proposed uses. My small test did not demonstrate a complete enterprise
 
 Deployment choices also matter. JLINC documents a configuration with a self-hosted Core service and a remote Archive service. That lets an organization keep original data in its own environment while placing audit evidence elsewhere. [Deployment guide](https://docs.jlinc.io/deployments/docker)
 
-Ben clarified why retaining a local copy of the audit records matters. An operator with its original data and its own Zero-Knowledge Audit records can validate the evidence locally and check the archive service's results. It does not have to accept the SaaS provider's verdict on trust alone. The archive holds its own copy of the audit evidence, so the Core operator's current database is not the only record available for comparison.
+Ben explained that an operator retaining its original data and its own audit records can validate the evidence locally and check the archive service's results. It need not accept the SaaS provider's verdict on trust alone. The archive's copy also provides evidence beyond the Core operator's current database.
 
-For an enterprise evaluation, I would turn that into a test: retain the original data and audit records, retrieve the archive's copy, and compare verification results in an environment I control. This reduces reliance on a single service's report. Key custody, access to the necessary evidence, and correct verification code still matter. My first test used the hosted Core verifier, so I have not yet demonstrated this independent verification path.
+I would test that by comparing verification results in an environment I control. Key custody, access to evidence, and correct verification code still matter. My first test used the hosted Core verifier, so independent verification remains untested.
 
 The [CloudGo Sovereign AI Lab](https://cloudgo.ai/sovereign-ai-lab/) applies this idea to a business evaluation. CloudGo supplies organizational knowledge and source context, while JLINC adds agreements, authority, and evidence around its use. A team scopes one workflow and reviews the results. That is a possible route for a company evaluation; my developer test used JLINC directly.
 
@@ -150,9 +138,7 @@ For prxps, the distinction is practical. Verifying one reward record tells me wh
 
 ## What happened in the SDK tests
 
-Ben asked whether the authorization behavior I reported came from JLINC's hosted service or from my invocation of it. That distinction deserves more detail than the first draft gave it.
-
-I tested the published `@jlinc/langchain` package at version 0.1.4 against a local HTTP fixture: a small server whose responses I controlled. These tests did not contact the hosted JLINC authorization service. Explicit denial and an authorization HTTP error blocked the tool when no fallback was configured. Real LangChain tool callbacks also reached the fixture.
+Ben asked whether my authorization findings came from the hosted service or my invocation of it. These tests used `@jlinc/langchain` version 0.1.4 against a local HTTP fixture whose responses I controlled. They did not contact the hosted authorization service. Explicit denial and an HTTP error blocked the tool when no fallback was configured; real LangChain callbacks also reached the fixture.
 
 For the cached-decision test, I called `decision.evaluate(auth)` once and received an allow response. Then I changed the fixture to return a denial and invoked the wrapped tool without calling `evaluate` again. The tool ran, and the fixture recorded only one authorization request. That establishes that this invocation pattern reuses the previous decision. It does not show that the hosted service ignored a new policy request. The fresh check in my application guard addresses that usage pattern.
 
@@ -171,18 +157,16 @@ await tracer.onToolStart({
 });
 ```
 
-The callback logged the error and resolved rather than rejecting. No network request occurred in this test. It demonstrates how that SDK callback handled an injected request error; it does not reproduce an outage of the hosted archive or prove how every failure in a full workflow behaves. If an application requires evidence before proceeding, I would test the complete workflow's response to failure before relying on the tracer for that requirement.
+The callback logged the error and resolved rather than rejecting. No network request occurred, so this was not a hosted archive outage test. An application that requires evidence before proceeding still needs a test of its complete failure path.
 
-Ben requested these reproduction details for investigation. His response did not identify a fix or establish that a new release changed the behavior. The findings here remain tied to the package version and test setup above. The [SDK source](https://gitea.jlinc.io/jlinc-labs/jlinc-langchain-js) and the 11 local tests provide the basis for that distinction.
+Ben requested these details for investigation; his response did not identify a fix. The findings remain specific to this package version and setup, backed by the [SDK source](https://gitea.jlinc.io/jlinc-labs/jlinc-langchain-js) and 11 local tests.
 
 The pinned SDK dependency tree also had seven npm audit findings on October 29, 2026. A normal dependency update did not resolve them within its constraints. I kept the SDK as a development dependency for the reproduction tests. The live API scripts use only Node's built-in modules. That audit count is a dated observation, not a new scan of the current release.
 
 ## What I want to test next
 
-For my own projects, I would start with one synthetic prxps reward record and one Loooom evaluation run. I would also test whether an agent allowed to inspect those results is blocked from changing a reward or publishing a skill. For an enterprise, I would choose one vendor handoff with a named owner, a limited payload, and explicit terms. In each case, I would want to show the denied path as clearly as the successful one.
-
-My next experiment is an explicit synthetic VCA connected to an enforceable tool policy. I would keep local audit records and verify them against a separate archive, then test stored-event changes, replay, and archive failure. Chaining needs its own missing-record tests once the implementation is available.
+My next experiment would connect a synthetic VCA to an enforceable tool policy, using one prxps reward record or Loooom evaluation. I would keep local audit records, verify them against a separate archive, and test denied actions, stored-event changes, replay, and archive failure. Chaining needs its own missing-record tests when the implementation is available.
 
 Delegation revocation remains an open question. Ben offered to discuss it further; his written feedback did not specify the revocation process or the complete evidence a separate verifier would need. I still want to know how a tool learns that delegated authority has ended, how quickly that change takes effect, and how to verify a historical signature after revocation. Those details matter before I give an agent authority that extends beyond a single request.
 
-Thanks to Ben Curtis for reading the draft, answering my questions, and asking for more precise reproduction details. And a shoutout to Miguel Solari, one of my good friends from when I lived in San Francisco, who works at JLINC and connected this experiment with the team. Their feedback helped me make the article more specific about what I tested, what the design supports, and what I still need to verify.
+Thanks to Ben Curtis for reading the draft, answering my questions, and asking for more precise reproduction details. And a shoutout to Miguel Solari, one of my good friends from when I lived in San Francisco, who works at JLINC and connected this experiment with the team. Their feedback helped make the tests and their limits more precise.
