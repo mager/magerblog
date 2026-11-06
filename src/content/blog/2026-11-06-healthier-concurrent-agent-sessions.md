@@ -1,6 +1,6 @@
 ---
 title: "Too many agents, one brain"
-description: "Running agents all day means switching between plans, bugs, reviews, and decisions. I want fewer interruptions, regular breaks, and more room between human reviews."
+description: "Imagine an orchestra where every musician can recruit another musician. Running coding agents can feel like that. These are the habits I want to build to manage it."
 pubDate: 2026-11-06
 category: tech
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-detailed-v4.jpg"
@@ -13,17 +13,21 @@ draft: true
 
 *This post is a personal reflection on work habits, not mental health advice.*
 
-With several agents running, I can be halfway through a code review when another thread needs a decision. The question looks quick enough to answer. I switch over, read it, and scroll back to the plan. Before I can choose, I need to remember what this project is supposed to do and why we chose this approach.
+Imagine an orchestra where every musician can invite another musician.
 
-Elsewhere, an agent has a failing test. Another has finished its work. I answer a question, read a summary, and return to the original review. The code is still there. My understanding of it takes longer to recover. I read a section again to find the point where I left off.
+It starts with a few small robots and a piece of music you would like to hear. A violinist tries a melody. A cellist picks it up and adds something underneath. Little bits of information travel between them as bright dots: a phrase to repeat, a note to change, a signal that the next section can begin. A robot at the back checks the score and sends a correction forward. Two others pull up chairs to work on the difficult passage.
 
-This is the rhythm of working across several agent sessions. Each thread has its own pace and its own place in the development process. One needs a broad decision about architecture. Another needs close attention to a specific failure. A third needs me to decide whether the work is ready. Moving between them means changing both the problem and the kind of judgment I bring to it.
+Soon the room is full of movement. Dots stream from one music stand to the next. Small groups form, solve a problem, and pass their work along. The percussion section has acquired an assistant. The assistant has found a triangle. You had not thought the piece needed a triangle, but you are willing to hear it out.
 
-The agents can keep working while I am elsewhere. Their results still come back through me. As more work finishes, there is more to read, more to remember, and more to decide. I find myself scanning faster to keep up. Over a day, the constant switching wears me down.
+For a moment, it all comes together. A melody you only partly imagined has depth and rhythm. The players are listening to one another. Whole passages take shape while you attend to something else. You begin to wonder how much more this orchestra could play.
 
-I want to change that rhythm. I want enough attention left to review the work carefully, take a break, and finish the day without another thread pulling me back in. That means setting limits on active sessions and daily reading, and giving agents enough direction to work between reviews.
+Then a violinist raises a hand. Which ending did you want? Before you answer, the brass section is ready for you to hear its part. A cellist has found two conflicting versions of the score. The triangle player would like a decision about the triangle. You turn from one section to another, trying to remember what each is playing and what you last told it. Every question is reasonable. Together, they leave you no time to listen to the whole piece.
 
-I do not always follow these habits. I am writing down what I want to practice, partly as a reminder to myself. The aim is to manage the outer loop: decide what matters, define success, and review the result. As the process becomes more reliable, I want to make that loop wider. The first change I want to practice is simply getting up from the screen.
+This is how I picture software engineering with concurrent agents. The dots carry plans, code changes, test results, and questions. Some agents work together; others are in separate sessions, with me carrying the context between them. One is still deciding what to build. Another is debugging. A third has a finished change waiting for review. I keep moving between different stages of the work, reading and making decisions as fast as I can. Over a day, that wears me down.
+
+I want to get better at giving the orchestra a clear score and enough room to rehearse. In software, that means a spec, a goal, and checks that let an agent complete useful work before returning to me. My part is the outer loop: choose the direction, define success, and review the result. As the process becomes more reliable, I want longer stretches between those reviews.
+
+I also need limits on how many sessions I start, how much I read, and how long I stay at the screen. I do not always follow the habits below. I am writing down what I want to practice, partly as a reminder to myself. Even when the music is good, I want to be able to leave the room for ten minutes.
 
 ## Take a 10-minute break every hour
 
