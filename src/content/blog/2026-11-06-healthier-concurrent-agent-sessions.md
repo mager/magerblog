@@ -3,8 +3,8 @@ title: "Too many agents, one brain"
 description: "Imagine an orchestra where every musician can recruit another musician. Running coding agents can feel like that. These are the habits I want to build to manage it."
 pubDate: 2026-11-06
 category: tech
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-detailed-v4.jpg"
-heroImageAlt: "Detailed pointillist painting of a calm human with closed eyes and flowing hair, surrounded by hundreds of small robots passing glowing parts, building structures, and working together along colored currents."
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-agent-orchestra-v5.jpg"
+heroImageAlt: "Pointillist painting of a calm person with closed eyes and flowing hair, surrounded by a robot orchestra playing strings, brass, woodwinds, drums, and a triangle as glowing musical notes swirl between them."
 heroImageCaption: "Too many agents, one brain. Created with ChatGPT image generation."
 heroImageLayout: wide
 tags: [agents, development, health, spec-driven-development, goal-driven-development]
