@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: The compact homepage is the only homepage layout. `SimpleHome.astro` combines `SimpleList.astro` with `SimpleSidebar.astro`. All published feed collections appear in publication order, with category filters, full-text search, and 24-row progressive loading. Without JavaScript, all rows remain available. There is no edition view, layout toggle, or `mager-layout` preference.
+- `src/pages/index.astro`: The compact homepage is the only homepage layout. `SimpleHome.astro` combines `SimpleList.astro` with `SimpleSidebar.astro`. The visible intro is omitted; a screen-reader heading names Latest posts. The newest published entry leads, followed by dated rows from all feed collections, category filters, full-text search, and 24-row progressive loading. Without JavaScript, the lead and all remaining rows stay available. There is no edition view, layout toggle, or `mager-layout` preference.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage, archives, and main RSS feed. Order uses `pubDate`; updates do not bump posts.
 - `src/lib/feed-display.ts`: Shared titles, short descriptions, thumbnail sources, categories, and publication date labels. Add `description` to notes for an authored preview; the first paragraph is the fallback. Main rows show titles and dates; sidebar notes and category features use short descriptions. Full content stays on individual post pages.
 - `src/pages/links/`: Link-share archive and permalinks
@@ -175,7 +175,7 @@ If a sentence sounds like it is trying to be quoted on X, it is probably making 
 
 ### Category Pages
 
-Category pages filter the published entries from `getFeed()` by collection and category. Keep `pubDate` order, show the newest entry once as the lead, then show the remaining dated rows. Search and active filters replace the lead with ranked or filtered rows.
+Category pages filter the published entries from `getFeed()` by collection and category. Keep `pubDate` order, show the newest entry once as the lead, then show the remaining dated rows. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the lead and includes that entry in ranked rows; clearing search restores the matching lead.
 
 ### Navigation
 

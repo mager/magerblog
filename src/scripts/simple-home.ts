@@ -16,7 +16,7 @@ if (simpleHome) {
   const retry = simpleHome.querySelector<HTMLButtonElement>('[data-simple-retry]')!;
   const heading = simpleHome.querySelector<HTMLElement>('#simple-posts-heading')!;
   const empty = simpleHome.querySelector<HTMLElement>('[data-simple-empty]')!;
-  const feature = simpleHome.querySelector<HTMLElement>('[data-simple-feature]');
+  const features = [...simpleHome.querySelectorAll<HTMLElement>('[data-simple-feature]')];
   const titles = new Map(rows.map(row => [row, row.querySelector('.simple-post-title')!.textContent || '']));
   let index: Awaited<ReturnType<typeof loadSearchIndex>> | undefined;
   let loading = false;
@@ -29,9 +29,9 @@ if (simpleHome) {
     const matchingEntries = new Map(matches.map(entry => [entry.href, entry]));
     const candidateRows = term ? matches.flatMap(entry => byHref.has(entry.href) ? [byHref.get(entry.href)!] : []) : rows;
     const filtered = candidateRows.filter(row => category === 'all' || row.dataset[simpleHome!.dataset.filterBy === 'subcategory' ? 'subcategory' : 'category'] === category);
-    const showFeature = !!feature && !term && category === 'all';
-    if (feature) feature.hidden = !showFeature;
-    const results = filtered.filter(row => !showFeature || !row.hasAttribute('data-featured'));
+    const feature = !term && filtered.length ? features.find(item => item.dataset.href === filtered[0].dataset.href) : undefined;
+    features.forEach(item => { item.hidden = item !== feature; });
+    const results = filtered.filter(row => row.dataset.href !== feature?.dataset.href);
     const visible = new Set(results.slice(0, limit));
     rows.forEach(row => {
       row.hidden = !visible.has(row);
@@ -50,7 +50,7 @@ if (simpleHome) {
     // DOM order follows ranking, so keyboard and screen-reader order do too.
     (term && index ? candidateRows : rows).forEach(row => list.append(row));
     count.textContent = `${results.length} ${results.length === 1 ? 'post' : 'posts'}`;
-    heading.textContent = term ? 'Search results' : category === 'all' ? heading.dataset.defaultHeading! : filters.find(button => button.dataset.simpleFilter === category)!.textContent;
+    heading.textContent = term ? 'Search results' : feature ? 'More posts' : category === 'all' ? heading.dataset.defaultHeading! : filters.find(button => button.dataset.simpleFilter === category)!.textContent;
     empty.hidden = filtered.length > 0 || loading || failed;
     more.hidden = results.length <= limit;
     clear.hidden = query.value.length === 0;

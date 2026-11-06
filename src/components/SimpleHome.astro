@@ -7,6 +7,6 @@ const { entries } = Astro.props;
 const filters: [string, string][] = [['all', 'All'], ['tech', 'Tech'], ['food', 'Cooking'], ['life', 'Life'], ['notes', 'Notes'], ['links', 'Links'], ['seen', 'Seen']];
 ---
 <section class="simple-home" aria-label="Latest posts">
-  <h1 class="simple-intro">Writing, photos, and things I’m making.</h1>
-  <div class="simple-columns"><SimpleList entries={entries} filters={filters} /><SimpleSidebar entries={entries} /></div>
+  <h1 class="sr-only">Latest posts</h1>
+  <div class="simple-columns"><SimpleList entries={entries} filters={filters} featured heading="More posts" /><SimpleSidebar entries={entries} /></div>
 </section>

@@ -27,7 +27,10 @@ test('simple homepage is complete without JavaScript and ignores the retired lay
   assert.equal(doc.querySelector('[data-layout-toggle], #front-page, .edition-content'), null);
   assert.equal(doc.querySelectorAll('h1').length, 1);
   assert.equal(doc.querySelectorAll('[data-simple-row]').length, data.length);
-  assert.equal(doc.querySelectorAll('[data-simple-row][hidden]').length, 0);
+  assert.equal(doc.querySelectorAll('[data-simple-row][hidden]').length, 1);
+  assert(!doc.body.textContent.includes('Writing, photos, and things I’m making.'));
+  const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
+  assert.equal(lead.dataset.href, data[0].href);
   assert(doc.querySelector('.simple-links h3 a[href^="https://"]'));
   assert.equal(doc.querySelectorAll('.simple-notes:not(.simple-links) article').length, 2);
   const ids = [...doc.querySelectorAll('[id]')].map(element => element.id);
@@ -50,11 +53,16 @@ test('list combines collection filters with full-text ranking, typos, clear, and
     doc.querySelector(`[data-simple-filter="${category}"]`).click();
     assert(visible().length > 0, category);
     assert(visible().every(row => row.dataset.category === category));
+    const newest = [...doc.querySelectorAll('[data-simple-row]')].find(row => row.dataset.category === category);
+    const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
+    assert.equal(lead.dataset.href, newest.dataset.href, category);
+    assert(!visible().includes(newest), 'the lead is not repeated in the rows');
   }
   doc.querySelector('[data-simple-filter="all"]').click();
   const input = doc.querySelector('#simple-query');
   input.value = 'homeprot'; input.dispatchEvent(new w.Event('input')); await tick();
   assert.match(visible()[0].textContent, /Homeport/);
+  assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])'), null);
   assert(visible()[0].querySelector('mark'));
   assert.equal(requests, 1);
   input.value = 'teaspoon'; input.dispatchEvent(new w.Event('input'));
@@ -67,6 +75,7 @@ test('list combines collection filters with full-text ranking, typos, clear, and
   assert.equal(visible().length, 24);
   assert.equal(doc.activeElement, input);
   assert.equal(w.location.search, '');
+  assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])').dataset.href, data[0].href);
   dom.window.close();
 });
 
