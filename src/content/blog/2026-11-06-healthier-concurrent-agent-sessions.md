@@ -73,6 +73,8 @@ I want a daily reading budget, though I have not settled on a number. Code needs
 
 Voice input lets me explain what I want in ordinary speech, without typing every word. I can get a long thought out faster that way, and it gives my hands a break from the keyboard. Then I can ask the agent to turn it into a short plan and check that it understood me.
 
+I can't recommend [FluidVoice](https://fluidvoice.com/) enough. It's open source, has a lot of useful features, and the team behind it is amazing.
+
 Keep water nearby and take pauses. Talking through every task can mean a lot of speaking. [Drink water and rest your voice](https://www.nidcd.nih.gov/health/taking-care-your-voice), especially if it feels tired. The screen break should be a break from dictating to agents too.
 
 ## Write the spec before starting the agent
