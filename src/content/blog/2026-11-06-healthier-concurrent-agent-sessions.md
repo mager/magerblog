@@ -3,8 +3,8 @@ title: "Too many agents, one brain"
 description: "Running agents all day means switching between plans, bugs, reviews, and decisions. I want fewer interruptions, regular breaks, and more room between human reviews."
 pubDate: 2026-11-06
 category: tech
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-happy-v2.jpg"
-heroImageAlt: "Abstract pointillist painting of a cheerful, dazed human with X-shaped eyes, a wide smile, and brain-like folds, surrounded by small robots working together among streams of colored dots."
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-calm-v3.jpg"
+heroImageAlt: "Pointillist painting of a human with relaxed eyes and a faint smile, their mind dissolving into colored currents among many small robots working together."
 heroImageCaption: "Too many agents, one brain. Created with ChatGPT image generation."
 heroImageLayout: wide
 tags: [agents, development, health, spec-driven-development, goal-driven-development]
@@ -18,6 +18,8 @@ Each thread is at a different stage of development. Planning needs me to think a
 Doing this all day is stressful. Even a short question can require several minutes of reading before I can answer it well. When the next question arrives before I have finished the last review, the work starts to feel like a queue I can never clear. Over time, that wears me down.
 
 I want a way to use concurrent agents that leaves enough attention for careful decisions, with room for breaks and a clear end to the day. My starting point is a small set of limits: take 10 minutes away from the screen every hour, cap active sessions, and give each agent a clear spec and goal.
+
+I do not always follow these habits. I am writing down what I want to practice, partly as a reminder to myself. Treat this as a routine I am trying to build, with room to adjust as I learn what works.
 
 The longer-term aim is to manage the outer loop: decide what matters, define success, and review the result. As the process becomes more reliable, I want to make that loop wider, with more useful work between interruptions.
 
@@ -116,4 +118,4 @@ Give the workstation some attention too. Support your feet and back, keep your s
 
 Set a finish time before starting. Leave space for lunch and ordinary movement outside the hourly breaks. A running agent does not need to extend the workday. Before stopping, save each task's state and next action so the next session has a clear starting point.
 
-I want to judge this approach by whether I can review the work carefully and still take the breaks I planned. If better specs and wider loops give me time back, I want to leave some of that time free.
+I want to judge this approach by whether I can review the work carefully and still take the breaks I planned. Writing the rules is easier than following them, and I expect to need reminders. If better specs and wider loops give me time back, I want to leave some of that time free.
