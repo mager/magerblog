@@ -13,17 +13,17 @@ draft: true
 
 *This post is a personal reflection on work habits, not mental health advice.*
 
-One agent wants a decision about the architecture. Another needs help with a failing test. A third has finished a feature and wants a review. I switch between them, answering questions, then return to the first thread and try to remember what we decided.
+With several agents running, I can be halfway through a code review when another thread needs a decision. The question looks quick enough to answer. I switch over, read it, and scroll back to the plan. Before I can choose, I need to remember what this project is supposed to do and why we chose this approach.
 
-Each thread is at a different stage of development. Planning needs me to think about requirements and tradeoffs. Debugging needs close attention to a specific failure. Reviewing code needs me to check whether the result meets the requirements. Each switch means loading a different problem back into my head.
+Elsewhere, an agent has a failing test. Another has finished its work. I answer a question, read a summary, and return to the original review. The code is still there. My understanding of it takes longer to recover. I read a section again to find the point where I left off.
 
-Doing this all day is stressful. Even a short question can require several minutes of reading before I can answer it well. When the next question arrives before I have finished the last review, the work starts to feel like a queue I can never clear. Over time, that wears me down.
+This is the rhythm of working across several agent sessions. Each thread has its own pace and its own place in the development process. One needs a broad decision about architecture. Another needs close attention to a specific failure. A third needs me to decide whether the work is ready. Moving between them means changing both the problem and the kind of judgment I bring to it.
 
-I want a way to use concurrent agents that leaves enough attention for careful decisions, with room for breaks and a clear end to the day. My starting point is a small set of limits: take 10 minutes away from the screen every hour, cap active sessions, and give each agent a clear spec and goal.
+The agents can keep working while I am elsewhere. Their results still come back through me. As more work finishes, there is more to read, more to remember, and more to decide. I find myself scanning faster to keep up. Over a day, the constant switching wears me down.
 
-I do not always follow these habits. I am writing down what I want to practice, partly as a reminder to myself. Treat this as a routine I am trying to build, with room to adjust as I learn what works.
+I want to change that rhythm. I want enough attention left to review the work carefully, take a break, and finish the day without another thread pulling me back in. That means setting limits on active sessions and daily reading, and giving agents enough direction to work between reviews.
 
-The longer-term aim is to manage the outer loop: decide what matters, define success, and review the result. As the process becomes more reliable, I want to make that loop wider, with more useful work between interruptions.
+I do not always follow these habits. I am writing down what I want to practice, partly as a reminder to myself. The aim is to manage the outer loop: decide what matters, define success, and review the result. As the process becomes more reliable, I want to make that loop wider. The first change I want to practice is simply getting up from the screen.
 
 ## Take a 10-minute break every hour
 
