@@ -60,7 +60,6 @@ const displayTitle = draft ? `[Draft] ${title}` : title;
           </div>
         </header>
         <div class="reading-body">
-        {contents && <details class="mobile-contents"><summary>On this page <span>{sections.length} sections</span></summary><nav aria-label="Page sections">{sections.map(section => <a href={`#${section.slug}`}>{section.text}</a>)}</nav></details>}
         <div class="reading-prose"><slot /></div>
         <footer class="reading-footer">
           {(previous || next) && <nav class="reading-related" aria-label="More posts">

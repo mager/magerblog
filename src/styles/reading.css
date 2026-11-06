@@ -71,7 +71,6 @@ html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not
 .reading-contents nav { display: grid; gap: 4px; }
 .reading-contents nav a { display: flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--news-muted); font: 500 13px/1.5 var(--news-ui); }
 .reading-contents nav a:hover { color: var(--news-blue); }
-.mobile-contents { display: none; }
 .reading-footer { display: flex; align-items: flex-start; gap: 24px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--news-rule); }
 .reading-top { display: inline-flex; align-items: center; min-height: 44px; margin-left: auto; flex-shrink: 0; color: var(--news-muted); font: 500 11px/1.5 var(--news-ui); }
 .reading-related { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); flex: 1; gap: 24px; min-width: 0; }
@@ -88,11 +87,6 @@ html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not
   .reading-layout.has-hero { width: 1136px; }
   .has-hero .reading-body { max-width: 760px; margin-inline: auto; }
   .reading-contents { display: none; }
-  .mobile-contents { display: block; border-bottom: 1px solid var(--news-rule); margin-bottom: 28px; padding-bottom: 12px; }
-  .mobile-contents summary { cursor: pointer; min-height: 44px; color: var(--news-muted); font: 500 12px/1.5 var(--news-ui); }
-  .mobile-contents summary span { float: right; font: 10px/1.5 var(--news-mono); }
-  .mobile-contents nav { display: grid; gap: 4px; padding: 0 0 12px; }
-  .mobile-contents a { min-height: 44px; padding: 8px 0; color: var(--news-blue); font: 14px/1.5 var(--news-ui); }
 }
 @media(max-width: 760px) {
   .has-hero .reading-opening { display: block; }
@@ -112,7 +106,7 @@ html:not([data-theme="dark"]) .reading-page .reading-prose .astro-code, html:not
   .reading-related { grid-template-columns: 1fr; gap: 16px; }
 }
 @media print {
-  .reading-contents, .mobile-contents, .reading-progress, .reading-code-toolbar, .reading-back { display: none; }
+  .reading-contents, .reading-progress, .reading-code-toolbar, .reading-back { display: none; }
   .reading-layout, .reading-layout.has-contents { display: block; max-width: 100%; width: 100%; padding: 0; }
   .reading-article, .has-contents .reading-article { display: block; }
 }
