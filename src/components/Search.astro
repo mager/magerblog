@@ -7,12 +7,12 @@
     <label for="site-search-input" class="sr-only">Search the site</label>
     <div class="search-field">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
-      <input type="search" id="site-search-input" placeholder="Search anything…" autocomplete="off" enterkeyhint="search" autofocus />
+      <input type="search" id="site-search-input" placeholder="Search anything…" autocomplete="off" maxlength="200" enterkeyhint="search" autofocus />
       <button type="button" data-clear-search hidden aria-label="Clear search"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></button>
     </div>
   </form>
   <p class="search-scope">Articles, recipes, notes, photos, and links.</p>
-  <p id="search-status" role="status" aria-live="polite" aria-atomic="true">Search by title, topic, or ingredient.</p>
+  <p id="search-status" role="status" aria-live="polite" aria-atomic="true">Search titles, full text, topics, or ingredients.</p>
   <div class="search-results" id="search-results" aria-label="Search results"></div>
   <button type="button" class="search-retry" data-retry-search hidden>Try again</button>
 </dialog>
@@ -26,7 +26,7 @@
   .site-search[open] { display: flex; flex-direction: column; }
   .site-search::backdrop { background: oklch(15% .01 260 / .8); }
   .search-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-shrink: 0; }
-  .search-heading h2 { font: 650 26px/1.2 var(--news-display); color: inherit; margin: 0; }
+  .search-heading h2 { font: 600 26px/1.2 var(--news-ui); color: inherit; margin: 0; }
   .site-search button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 8px; border: 0; border-radius: 3px; background: transparent; color: inherit; font: 500 14px var(--news-ui); cursor: pointer; }
   .site-search button[hidden] { display: none; }
   .site-search button:hover { color: var(--search-accent); }
@@ -45,6 +45,7 @@
   .search-results :global(.search-result-kind) { color: var(--search-accent); font: 500 12px/1.4 var(--news-ui); }
   .search-results :global(.search-result-description) { color: var(--search-muted); font: 14px/1.5 var(--news-ui); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .search-results :global(a:hover .search-result-title) { color: var(--search-accent); text-decoration: underline; text-underline-offset: 4px; }
+  .search-results :global(mark) { color: var(--search-ink); background: transparent; text-decoration: underline; text-decoration-color: var(--search-accent); text-underline-offset: 3px; }
   .site-search :focus-visible { outline: 2px solid var(--search-accent); outline-offset: -2px; }
   .search-field input:focus-visible { outline: none; }
   @media(max-width: 760px) {

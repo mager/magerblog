@@ -1,4 +1,6 @@
-import { createSearchIndex, searchEntries, type SearchEntry } from '../lib/search';
+import { createSearchIndex, searchEntries, searchExcerpt } from '../lib/search';
+import { loadSearchIndex } from './search-data';
+import { setSearchText } from './search-dom';
 
 export function initSearch() {
   const dialog = document.querySelector<HTMLDialogElement>('#site-search');
@@ -30,12 +32,12 @@ export function initSearch() {
       const link = document.createElement('a');
       link.href = entry.href;
       for (const [className, text] of [
-        ['search-result-title', entry.title], ['search-result-kind', entry.kind], ['search-result-description', entry.description],
+        ['search-result-title', entry.title], ['search-result-kind', entry.kind], ['search-result-description', searchExcerpt(entry, query)],
       ]) {
         if (!text) continue;
         const span = document.createElement('span');
         span.className = className;
-        span.textContent = text;
+        setSearchText(span, text, query);
         link.append(span);
       }
       fragment.append(link);
@@ -49,10 +51,7 @@ export function initSearch() {
     failed = false;
     render();
     try {
-      const response = await fetch('/search-index.json');
-      if (!response.ok) throw new Error('Search index unavailable');
-      const data: SearchEntry[] = await response.json();
-      index = createSearchIndex(data);
+      index = await loadSearchIndex();
     } catch {
       failed = true;
     } finally {

@@ -30,11 +30,6 @@ const { title, description, image = '/blog-placeholder-1.jpg', keywords, default
   } catch {
     document.documentElement.dataset.theme = defaultTheme;
   }
-  try {
-    document.documentElement.dataset.layout = localStorage.getItem('mager-layout') === 'simple' ? 'simple' : 'edition';
-  } catch {
-    document.documentElement.dataset.layout = 'edition';
-  }
 </script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />

@@ -1,10 +1,9 @@
 ---
-import '../styles/newspaper.css';
+import '../styles/publication.css';
 import ThemeToggle from './ThemeToggle.astro';
 import Search from './Search.astro';
-import LayoutToggle from './LayoutToggle.astro';
-interface Props { homepage?: boolean; activeSection?: string; themeToggle?: boolean; revealWordmark?: boolean; }
-const { homepage = false, activeSection, themeToggle = homepage, revealWordmark = false } = Astro.props;
+interface Props { homepage?: boolean; activeSection?: string; themeToggle?: boolean; }
+const { homepage = false, activeSection, themeToggle = homepage } = Astro.props;
 const path = Astro.url.pathname;
 const sections = [
   { name: 'Writing', href: '/blog/' },
@@ -20,14 +19,13 @@ const current = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/
 const active = (href: string) => activeSection ? activeSection === href : current(href) || path.startsWith(href);
 
 ---
-<header class:list={['site-header', { 'on-paper': homepage }]} data-reveal-wordmark={revealWordmark || undefined} data-wordmark-visible={revealWordmark ? 'false' : undefined}>
+<header class:list={['site-header', { 'on-paper': homepage }]}>
   <div class="header-shell">
-    <a class="wordmark" href="/" aria-label="mager.co home" inert={revealWordmark}>mager<span>.</span>co</a>
+    <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={current(section.href) ? 'page' : undefined}>{section.name}</a>)}
     </nav>
     <div class="header-tools">
-      {path === '/' && <LayoutToggle />}
       <button class="search-trigger" type="button" data-open-search aria-label="Search" title="Search (/)" aria-haspopup="dialog" aria-controls="site-search" hidden>
         <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
       </button>
@@ -44,7 +42,6 @@ const active = (href: string) => activeSection ? activeSection === href : curren
   .header-shell { display: flex; align-items: center; gap: 32px; max-width: 1320px; margin: auto; min-height: 64px; }
   .wordmark { flex-shrink: 0; color: var(--header-ink); font: 800 27px/1 var(--news-display); letter-spacing: -.04em; white-space: nowrap; }
   .wordmark:hover { color: var(--header-ink); opacity: .8; }
-  [data-wordmark-visible="false"] .wordmark { display: none; }
   .header-sections { display: flex; align-items: center; gap: 22px; min-width: 0; }
   .header-sections > a { display: inline-flex; align-items: center; flex-shrink: 0; min-height: 44px; color: var(--header-muted); font: 500 13px/1.4 var(--news-ui); text-decoration: none; white-space: nowrap; }
   .header-sections > a:hover { color: var(--header-ink); text-decoration: underline; text-underline-offset: 6px; }
@@ -80,13 +77,10 @@ const active = (href: string) => activeSection ? activeSection === href : curren
 </style>
 
 <script>
-  import { observeHeaderWordmark } from '../scripts/header-wordmark';
   const header = document.querySelector<HTMLElement>('.site-header');
   if (header) {
-    const refreshWordmark = observeHeaderWordmark(header);
     new ResizeObserver(() => {
       document.documentElement.style.setProperty('--site-header-height', `${header.getBoundingClientRect().height}px`);
-      refreshWordmark();
     }).observe(header);
   }
 

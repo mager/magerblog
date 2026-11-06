@@ -1,0 +1,46 @@
+---
+import type { FeedEntry } from '../lib/feed';
+import { entryHref, entryTitle } from '../lib/feed';
+import { entryDate, entryDescription, entryImage } from '../lib/feed-display';
+import { contentMeta } from '../lib/content-meta';
+import PostRow from './PostRow.astro';
+interface Props {
+  entries: FeedEntry[];
+  heading?: string;
+  filters?: [string, string][];
+  filterBy?: 'category' | 'subcategory';
+  featured?: boolean;
+  videos?: boolean;
+  searchLabel?: string;
+}
+const { entries, heading = 'All posts', filters = [], filterBy = 'category', featured = false, videos = false, searchLabel = 'Search all posts' } = Astro.props;
+const lead = featured ? entries[0] : undefined;
+const leadImage = lead && entryImage(lead);
+---
+<section class="simple-posts" data-simple-list data-filter-by={filterBy} aria-labelledby="simple-posts-heading">
+  <div class="simple-controls" hidden>
+    {filters.length > 0 && <div class="simple-filters" role="group" aria-label="Filter posts">{filters.map(([value, label]) => <button type="button" data-simple-filter={value} aria-pressed={value === 'all' ? 'true' : 'false'} aria-controls="simple-list">{label}</button>)}</div>}
+    <div class="simple-search" role="search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+      <input id="simple-query" type="search" aria-label={searchLabel} placeholder={`${searchLabel}…`} autocomplete="off" maxlength="200" />
+      <button type="button" data-simple-clear hidden>Clear</button>
+    </div>
+    <div class="simple-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
+  </div>
+  {lead && <article class="simple-feature" data-simple-feature data-href={entryHref(lead)}>
+    <div>
+      <h2><a href={lead.collection === 'links' ? lead.data.url : entryHref(lead)}>{entryTitle(lead)}</a></h2>
+      <p>{entryDescription(lead)}</p>
+      <div class="simple-feature-meta"><time datetime={lead.data.pubDate.toISOString()}>{entryDate(lead.data.pubDate)}</time><span>{contentMeta(lead)}</span></div>
+    </div>
+    {leadImage && <a class="simple-feature-image" href={entryHref(lead)} aria-label={`Read ${entryTitle(lead)}`}><img src={leadImage} alt="" width="240" height="160" loading="eager" decoding="async" /></a>}
+  </article>}
+  <div class="simple-list-heading"><h2 id="simple-posts-heading" data-default-heading={heading}>{heading}</h2><p data-simple-count>{entries.length} posts</p></div>
+  <ul id="simple-list" class="simple-list">{entries.map(entry => <PostRow entry={entry} featured={lead === entry} videos={videos} />)}</ul>
+  <p class="simple-empty" data-simple-empty hidden>No posts match. Try another search or choose All.</p>
+  <button class="simple-more" type="button" data-simple-more hidden>Show more posts</button>
+  {entries.length === 0 && <p>No posts yet.</p>}
+</section>
+<script>
+  import '../scripts/simple-home';
+</script>

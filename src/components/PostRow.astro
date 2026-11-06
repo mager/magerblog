@@ -1,0 +1,20 @@
+---
+import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
+import { entryCategory, entryDate, entryImage } from '../lib/feed-display';
+import { youtubeId } from '../lib/link-share';
+import LinkEmbed from './LinkEmbed.astro';
+interface Props { entry: FeedEntry; featured?: boolean; videos?: boolean; }
+const { entry, featured = false, videos = false } = Astro.props;
+const title = entryTitle(entry);
+const image = entryImage(entry);
+const external = entry.collection === 'links';
+const video = videos && external && youtubeId(entry.data.url);
+---
+<li data-simple-row data-href={entryHref(entry)} data-category={entryCategory(entry)} data-subcategory={entry.collection === 'blog' ? entry.data.subcategory : undefined} data-featured={featured || undefined} hidden={featured}>
+  <a class="simple-post-link" href={external ? entry.data.url : entryHref(entry)}>
+    <span class="simple-thumbnail" aria-hidden="true">{image && <img src={image} alt="" width="40" height="40" loading="lazy" decoding="async" />}</span>
+    <span class="simple-post-copy"><span class="simple-post-title">{title}{external && <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" role="img" aria-label="External link"><path d="M4 12 12 4M4 4h8v8" /></svg>}</span><span class="simple-search-snippet" hidden></span></span>
+    <time datetime={entry.data.pubDate.toISOString()}>{entryDate(entry.data.pubDate)}</time>
+  </a>
+  {video && <details class="simple-video"><summary>Watch video</summary><LinkEmbed url={entry.data.url} title={title} /></details>}
+</li>

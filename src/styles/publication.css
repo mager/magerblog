@@ -1,4 +1,4 @@
-/* Chicago Sunday edition: lake blue, copper, moss, and a saffron insert. */
+/* Shared reading colors and fonts; also used by the simple archive pages. */
 :root {
   --news-paper: oklch(98% 0.006 85);
   --news-ink: oklch(23% 0.016 230);

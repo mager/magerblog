@@ -1,60 +1,12 @@
 ---
-import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
-import { editionDescription, editionImage } from '../lib/edition';
-import { publicationTimeZone } from '../lib/publication-date';
+import type { FeedEntry } from '../lib/feed';
+import SimpleList from './SimpleList.astro';
+import SimpleSidebar from './SimpleSidebar.astro';
 interface Props { entries: FeedEntry[]; }
 const { entries } = Astro.props;
-const notes = entries.filter(entry => entry.collection === 'notes').slice(0, 6);
-const categories = [ ['all', 'All'], ['tech', 'Tech'], ['food', 'Cooking'], ['life', 'Life'], ['notes', 'Notes'], ['links', 'Links'], ['seen', 'Seen'] ];
-const category = (entry: FeedEntry) => entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
-const dateLabel = (date: Date) => date.toLocaleDateString('en-US', { timeZone: publicationTimeZone(date), month: 'short', day: 'numeric', year: 'numeric' });
+const filters: [string, string][] = [['all', 'All'], ['tech', 'Tech'], ['food', 'Cooking'], ['life', 'Life'], ['notes', 'Notes'], ['links', 'Links'], ['seen', 'Seen']];
 ---
-<section class="simple-home" aria-label="Simple homepage">
+<section class="simple-home" aria-label="Latest posts">
   <h1 class="simple-intro">Writing, photos, and things I’m making.</h1>
-  <div class="simple-columns">
-    <section class="simple-posts" aria-labelledby="simple-posts-heading">
-      <div class="simple-controls" hidden>
-        <div class="simple-filters" role="group" aria-label="Filter posts">
-          {categories.map(([value, label]) => <button type="button" data-simple-filter={value} aria-pressed={value === 'all' ? 'true' : 'false'} aria-controls="simple-list">{label}</button>)}
-        </div>
-        <div class="simple-search">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
-          <input id="simple-query" type="search" aria-label="Find a post or photo" placeholder="Find a post or photo…" autocomplete="off" />
-          <button type="button" data-simple-clear hidden>Clear</button>
-        </div>
-      </div>
-      <div class="simple-list-heading">
-        <h2 id="simple-posts-heading">All posts</h2>
-        <p data-simple-count role="status" aria-live="polite" aria-atomic="true">{entries.length} posts</p>
-      </div>
-      <ul id="simple-list" class="simple-list">
-        {entries.map(entry => {
-          const title = entryTitle(entry);
-          const image = editionImage(entry);
-          const external = entry.collection === 'links';
-          const search = [title, editionDescription(entry), ...(entry.data.tags || [])].join(' ').toLocaleLowerCase();
-          return <li data-simple-row data-category={category(entry)} data-search={search}>
-            <a class="simple-post-link" href={external ? entry.data.url : entryHref(entry)}>
-              <span class="simple-thumbnail" aria-hidden="true">{image && <img src={image} alt="" width="40" height="40" loading="lazy" decoding="async" />}</span>
-              <span class="simple-post-title">{title}{external && <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" role="img" aria-label="External link"><path d="M4 12 12 4M4 4h8v8" /></svg>}</span>
-              <time datetime={entry.data.pubDate.toISOString()}>{dateLabel(entry.data.pubDate)}</time>
-            </a>
-          </li>;
-        })}
-      </ul>
-      <p class="simple-empty" data-simple-empty hidden>No posts match. Try another search or choose All.</p>
-      <button class="simple-more" type="button" data-simple-more hidden>Show more posts</button>
-    </section>
-    {notes.length > 0 && <aside class="simple-notes" aria-labelledby="simple-notes-heading">
-      <div class="simple-notes-heading"><h2 id="simple-notes-heading">Notes</h2><a href="/notes/">All notes <span aria-hidden="true">↗</span></a></div>
-      {notes.map(entry => <article>
-        <h3><a href={entryHref(entry)}>{entryTitle(entry)}</a></h3>
-        <p>{editionDescription(entry)}</p>
-        <time datetime={entry.data.pubDate.toISOString()}>{dateLabel(entry.data.pubDate)}</time>
-      </article>)}
-    </aside>}
-  </div>
+  <div class="simple-columns"><SimpleList entries={entries} filters={filters} /><SimpleSidebar entries={entries} /></div>
 </section>
-<script>
-  import '../scripts/simple-home';
-</script>

@@ -1,55 +1,122 @@
-# Magerblog: The Chicago edition
+---
+name: Magerblog
+description: A compact personal publication with distinct reading layouts.
+colors:
+  paper: "oklch(98% 0.006 85)"
+  ink: "oklch(23% 0.016 230)"
+  muted: "oklch(46% 0.018 230)"
+  rule: "oklch(84% 0.012 230)"
+  surface: "oklch(95% 0.009 230)"
+  blue: "oklch(43% 0.085 230)"
+  red: "oklch(49% 0.13 45)"
+  green: "oklch(43% 0.075 140)"
+  yellow: "oklch(90% 0.10 88)"
+  dark-paper: "#000"
+  dark-ink: "oklch(94% 0.009 85)"
+  dark-muted: "oklch(72% 0.014 230)"
+  dark-rule: "oklch(30% 0.009 230)"
+  dark-surface: "oklch(18% 0.009 230)"
+  dark-blue: "oklch(78% 0.09 230)"
+  dark-red: "oklch(78% 0.11 50)"
+  dark-green: "oklch(78% 0.085 140)"
+  dark-yellow: "oklch(85% 0.10 88)"
+typography:
+  display:
+    fontFamily: "Fraunces, Georgia, serif"
+    fontSize: "27px"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "-.04em"
+  row-title:
+    fontFamily: "Space Grotesk, system-ui, sans-serif"
+    fontSize: "17px"
+    fontWeight: 500
+    lineHeight: 1.4
+  body:
+    fontFamily: "Source Serif 4, Georgia, serif"
+  label:
+    fontFamily: "Space Grotesk, system-ui, sans-serif"
+    fontSize: "13px"
+    fontWeight: 500
+    lineHeight: 1.4
+  mono:
+    fontFamily: "JetBrains Mono, monospace"
+rounded:
+  image: "2px"
+  control: "3px"
+spacing:
+  phone-gutter: "18px"
+  gutter: "24px"
+  column-gap: "56px"
+components:
+  more-button:
+    textColor: "{colors.ink}"
+    rounded: "{rounded.control}"
+    padding: "8px 16px"
+  more-button-hover:
+    textColor: "{colors.blue}"
+  search-field:
+    textColor: "{colors.ink}"
+    padding: "8px 0"
+  filter:
+    textColor: "{colors.muted}"
+    typography: "{typography.label}"
+  filter-active:
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+  post-row:
+    textColor: "{colors.ink}"
+    padding: "12px 0"
+---
+# Magerblog: The compact publication
 
 ## Direction
 
-A personal newspaper by mager. A reader opens it on a bright Chicago kitchen table, coffee nearby, curious about software and what to cook next. Warm paper and firm ink carry the reading experience; purposeful section colors make it easy to explore. Reference objects: a Sunday broadsheet, the four stars of the Chicago flag, and a yellow newspaper insert.
+**Creative North Star: "The compact publication"**
 
-The front page leads with the newest tech article. Two supporting positions show the newest life article followed by the newest recipe, regardless of their age. Missing categories leave their slot out; when tech is absent, the newest blog post leads, with any entry as the final fallback. Their photos and category labels make the range of recent work visible. A compact Latest updates column takes the four newest remaining entries from all collections. Seen is a photographic journal; Life is the quieter weekend column. The mager-bench project gets a prominent permanent insert rather than competing with dated posts.
+A quiet personal publication for software, cooking, photos, and life. The homepage and archives use plain dated rows, clear controls, and short supporting notes. This is the sole listing direction, not an optional mode. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.
+
+Keep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.
 
 ## Color system
 
-Full palette with four named roles, defined in `src/styles/newspaper.css` using OKLCH. The scene is clean paper by Lake Michigan: deep lake-blue links, copper cooking labels, moss-green life entries, and a saffron newspaper insert.
+The normative values above come from `src/styles/publication.css`, renamed from `newspaper.css` without token changes. Paper and ink provide the base; lake blue identifies links, focus, and active navigation. Copper supports cooking; moss supports life and Seen. Saffron marks text selection. Existing artwork and per-story palettes retain their colors.
 
-- Paper: `oklch(98% 0.006 85)`
-- Ink: `oklch(23% 0.016 230)`
-- Secondary text: `oklch(46% 0.018 230)`
-- Rules: `oklch(84% 0.012 230)`
-- Lake blue: `oklch(43% 0.085 230)`, links, focus, technology, notes, and active navigation
-- Copper: `oklch(49% 0.13 45)`, cooking labels, recipe controls, and step numbers
-- Moss: `oklch(43% 0.075 140)`, seen, life, and the software directory
-- Saffron: `oklch(90% 0.10 88)`, selection; a pale yellow surface with dark warm ink distinguishes the Bench insert
-
-The masthead and small header wordmark are a single ink color, including the dot. Keep punctuation quiet; use color to identify content and interaction. Category washes derive from these tokens rather than introducing independent colors. Existing project artwork and per-story life palettes retain their own colors.
-
-The shared header and footer follow the publication theme. Light mode uses clean paper throughout. Dark mode keeps true black with softer blue, apricot, and moss accents; the Bench insert becomes dark amber with light warm text. Theme-specific insert tokens keep every text role legible on its surface. No decorative gradients, glass, blinking cursors, or cursor-following effects.
+The wordmark uses one ink color, including its dot. Light mode uses paper; dark mode uses true black with softer text and accent colors. Use rules and spacing to separate rows. No decorative gradients, glass, blinking cursors, or cursor-following effects.
 
 ## Typography
 
-Preserve the established fonts: Fraunces for the masthead and section display, Source Serif 4 for stories and body copy, Space Grotesk for navigation, JetBrains Mono for compact metadata. Monospace supports the writing rather than dominating it. Headlines have tight tracking and confident scale; paragraphs stay within 67 characters where possible. The masthead is upright, solid ink, including the dot.
+Space Grotesk carries listing headings, titles, dates, navigation, search, and sidebar copy. Fraunces retains the upright header wordmark and established editorial display. Source Serif 4 remains the story body face; JetBrains Mono remains available for code and existing metadata. Preserve individual post typography. Listing titles use the row-title role above; phones reduce them to 16px. The wordmark uses the display role above, reduced to 25px at 1000px and 22px at 360px. Feature descriptions stay within 65 characters where possible.
 
 ## Layout
 
-The homepage uses a 1320px shell with 24px gutters (18px on phones), a large masthead, and a complete edition of roughly 30 distinct stories. A lead spread and compact dispatch column open the page; varied workbench columns, a horizontal photo strip, cooking and life sections, compact notes, and shared links provide different reading rhythms. Lower sections follow the newest remaining entry in each section, and the cooking/life pair follows the same order in the DOM. Selection never repeats an entry within the edition. New publications replace older stories within the opening category slots; adding photos or editing an old post does not bump it. There are no per-post pins, hidden category weights, or random rotations.
+The homepage and archives share a 1080px shell with 24px gutters, reduced to 18px at 540px. The homepage lists every published feed collection in `pubDate` order. Edits do not bump posts. A plain filter row and inline search precede the list. JavaScript shows 24 rows at a time; without it, the complete static list remains available.
 
-Front page and All updates are plain-text view controls. The chronological view includes every collection and category, including cooking and life, starts with 24 entries and keeps a native content filter and progressive loading. Without JavaScript, the entire edition remains available and a disclosure opens the complete static stream. Feed rows use compact titles and brief previews, without repeated dates or permalink buttons. One quiet metadata line adds reading time, recipe timing, or photo location where available. Link-share titles open their sources directly.
+Writing, Tech, Cooking, and Life use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Search or an active filter hides the feature and includes that entry in the results, without duplication.
 
-Every public page uses one shared sticky header and one fixed footer. The header contains the home wordmark and direct links in this order: Writing, Software, Tech, Cooking, Life, Notes, Seen, Links. There is no Browse panel. Search uses a compact icon button with an accessible name; Simple and theme controls remain separate. Header links have a minimum height of 44px. The Fraunces wordmark uses tight tracking (-.04em) at 27px, reduced to 25px at 1000px and below, and 22px at 360px and below. About, Archive, Bench, and RSS live only in the footer, beside a small Chicago flag and “Built with agents in Chicago.” The footer uses one row on desktop and two compact rows on phones; measured header/footer heights reserve content and anchor space. At 1000px and below, the header places the wordmark and tools in the top row and direct links in a horizontally scrolling row below. Native keyboard navigation keeps every link reachable without a menu script. The homepage's large masthead scrolls normally. Its right column pairs the existing illustrated avatar with two rows of LinkedIn, GitHub, X, Instagram, Spotify, SoundCloud, Goodreads, and Last.fm icons and an All profiles link. Icon links have accessible names and 44px targets. In the edition layout, the small header wordmark stays hidden and unfocusable until the large wordmark passes behind the sticky header; its space collapses so desktop navigation starts at the page’s left edge, then moves beside the logo when it appears. It hides again on upward scroll and respects reduced motion. Simple mode and interior pages always show the header wordmark. Cooking and Life use these same components rather than custom site footers. Recipe section controls sit beneath the global header. At 800px the edition stacks its main columns while retaining compact story groupings.
+The homepage and Writing/Tech/Cooking/Life archives have a 252px sidebar with the two newest notes and up to four newest links. Notes show short previews and dates; links show short commentary and source domains. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Archives without a sidebar use a column up to 780px wide.
 
-Notes use a compact 680px notebook column with Space Grotesk headings and prose. The title leads directly into the note, with a quiet date and optional source link. Omit article summaries, contents rails, progress bars, and large related-story blocks; retain readable code, tables, and simple older/newer navigation.
+Every public page uses one shared sticky header and one fixed footer. The wordmark is always visible. Direct header links appear in this order: Writing, Software, Tech, Cooking, Life, Notes, Seen, Links. Search uses an icon button with an accessible name; the theme control is separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling direct links below. Links remain reachable by keyboard. About, Bench, and RSS remain in the footer beside the Chicago credit. Measured header and footer heights reserve content and anchor space.
 
-### Simple homepage
+Notes retain a compact 680px reading column with Space Grotesk headings and prose. The title leads directly into the note, with a quiet date and optional source link. Omit article summaries, contents rails, progress bars, and large related-story blocks; retain readable code, tables, and simple older/newer navigation.
 
-The optional Simple layout uses the same publication colors, Fraunces header wordmark, and Space Grotesk interface type. Its compact list has thumbnails, titles, and publication dates in a 1080px shell, with the six newest notes in a side column. At 700px and below, the notes follow the list. Plain text filters, an underlined active state, and a search field support all published collections. Search matches titles, descriptions, and tags; the list shows 24 rows at a time. The header's Simple control saves the layout separately from light or dark mode. The Chicago edition remains the default and the available layout without JavaScript.
+## Components
+
+### List rows and sidebars
+
+Flat rows use a thin rule, a small optional thumbnail, a title, and a quiet publication date. Links open their sources directly. Hover underlines the title and uses lake blue; focus has a visible outline. Sidebar sections use the same rules and text roles, with two-line previews. There are no card shadows or raised panels. Images have slight corner rounding; controls remain nearly square.
+
+### Search and filters
+
+Filters are plain text with an underlined selected state and 44px minimum height. The search field sits on a rule with a clear control. Inline search and the global dialog use the same lazy-loaded full-text index and ranking: title matches first, accent-insensitive text, prefixes, and limited spelling correction. Results show highlighted text and short matching excerpts. Inline queries and filters persist in the URL as `q` and `type`; archive search stays within its archive. Retain loading, retry, empty, and clear states. Escape clears an inline query; Arrow Down focuses its first result. Show more posts adds 24 rows and moves focus to the first new row.
 
 ## Imagery
 
-Use existing author-owned images. Front-page food photo selections prioritize permanent hosted images and leave older Google Photos URLs unchanged in source posts. Broken remote images fall back to a readable story link or photo description. Hero images load eagerly with reserved dimensions; supporting images load lazily. No photos are committed to the repository.
+Use existing hosted images. Features preserve the complete image; small row thumbnails may crop within a square. Feature images load eagerly and row thumbnails load lazily. Image failures leave readable titles and links. Leave older Google Photos URLs unchanged in source posts. No photos are committed to the repository. This listing change adds no raster assets.
 
 ## Interaction and accessibility
 
 - The complete header wordmark dims slightly on hover; punctuation remains the same color.
-- Photography scales subtly inside fixed frames.
-- Front-page view changes use a short crossfade where View Transitions are available, with an immediate fallback and reduced-motion support.
 - Category and archive links provide a complete route through all content.
 - New animation uses transform and opacity with an exponential ease-out curve, and respects reduced motion.
 - Clear focus states, a homepage skip link, semantic section headings, explicit image descriptions, and 44px main navigation targets.
@@ -57,7 +124,7 @@ Use existing author-owned images. Front-page food photo selections prioritize pe
 
 ## Avoid
 
-Repetitive cards, fake live benchmark scores, torn-paper decoration, simulated printing noise, ornamental gradients, and effects that compete with reading. Newspaper structure should feel precise and useful, never like a costume.
+Repetitive cards, fake live benchmark scores, torn-paper decoration, simulated printing noise, ornamental gradients, and effects that compete with reading. Keep listing pages quiet and useful; retain the established art direction of individual posts.
 
 ## Recipe detail pages
 

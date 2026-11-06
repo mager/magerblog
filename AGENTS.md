@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-This is a personal blog built with Astro v7, featuring three main content categories: Tech, Life, and Recipes. The site uses a dark, terminal-inspired design theme reminiscent of code editors like Codex, with category-specific color schemes applied to images and navigation elements.
+This is a personal blog built with Astro v7, featuring three main content categories: Tech, Life, and Recipes. The homepage and archives use a compact publication layout with dated rows, Space Grotesk text, and a Fraunces wordmark. Light mode is the default; readers can save a dark theme. Individual posts retain their existing reading layouts and story-specific styling.
 
 Site URL: https://mager.co
 
@@ -76,52 +76,46 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: Chicago edition homepage with about 30 distinct entries across a lead spread, dispatches, workbench, Seen strip, cooking, life, notes, and links. `src/lib/edition-selection.ts` builds an edition without duplicates: the newest tech post leads, with the newest life post and recipe underneath in that order. These category slots have no age cutoff; if tech is absent, the newest blog post leads, falling back to any entry when no blog posts exist. The update column takes the four newest remaining entries across all collections. Lower sections and the cooking/life pair follow their newest remaining entries. `src/lib/edition.ts` supplies presentation helpers. All updates includes every collection, including cooking and life. A Front page / All updates switch opens the chronological stream, with a native content filter and 24-entry progressive loading. Without JavaScript, the edition and a disclosure containing the full stream remain available. Updates do not bump entries. Homepage rows omit visible dates and redundant read/permalink actions; link-share titles go directly to the source.
-- `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage and main RSS feed
-- `SimpleHome.astro` adds an optional compact homepage with dated rows from all feed collections, filters, title/description/tag search, 24-row progressive loading, and a six-note sidebar. `LayoutToggle.astro` saves `edition` or `simple` under `mager-layout`, separately from the color theme; the edition remains the default. Behavior lives in `src/scripts/simple-home.ts` and `src/scripts/layout-toggle.ts`, with styling in `src/styles/simple.css`.
-- Homepage articles and notes show only a short description and a read link. Add `description` to notes for an authored preview; a brief first-paragraph excerpt is the fallback. Keep full text on the post pages, while Seen captions and link embeds remain inline.
+- `src/pages/index.astro`: The compact homepage is the only homepage layout. `SimpleHome.astro` combines `SimpleList.astro` with `SimpleSidebar.astro`. All published feed collections appear in publication order, with category filters, full-text search, and 24-row progressive loading. Without JavaScript, all rows remain available. There is no edition view, layout toggle, or `mager-layout` preference.
+- `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage, archives, and main RSS feed. Order uses `pubDate`; updates do not bump posts.
+- `src/lib/feed-display.ts`: Shared titles, short descriptions, thumbnail sources, categories, and publication date labels. Add `description` to notes for an authored preview; the first paragraph is the fallback. Main rows show titles and dates; sidebar notes and category features use short descriptions. Full content stays on individual post pages.
 - `src/pages/links/`: Link-share archive and permalinks
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - Blog drafts keep working direct preview URLs linked from `/drafts/`. They use `noindex, nofollow` and stay out of the sitemap, feeds, search, and published listings. These previews are accessible by URL, not private. `src/integrations/noindex-sitemap.mjs` excludes generated noindex pages from the sitemap.
-- `src/pages/tech.astro`, `recipes.astro`, `life.astro`: Category listing pages
+- `src/pages/tech.astro`, `cooking/index.astro`, `life.astro`: Category listings use the shared Archive layout. The newest `pubDate` entry leads with a description and optional image; plain dated rows follow. Cooking retains subcategory filters.
 - `src/pages/about.astro`: About page
 - `src/pages/software.astro`: Selected projects (Perch, Mood Shell, Homeport, and prxps), with project sites, public source links, and build logs. `SoftwareContributions.astro` presents six selected external repositories with their project or GitHub owner icons and one sentence each, led by the Uber Direct SDK (built by Mager). Impeccable is an emerging contribution focused on helping agents build interfaces. Keep this section compact, without activity totals or an on-page archive. `src/data/contributions.json` preserves the dated GitHub evidence, exclusions, and research limits; `/software/contributions.json` remains available as a download. Exclude personal projects and inherited fork copies. The page makes no live GitHub API requests. Terminal-inspired project directory with a dark default and a light option; an explicit saved theme still wins. Styling lives in `src/styles/software.css`.
 
 ### Layouts
 
+- `src/layouts/Archive.astro`: Shared layout for Writing, Tech, Cooking, Life, Notes, Seen, and Links. Writing and topic pages include the notes/links sidebar. Notes and Seen use a single column with the newest post featured; Links uses dated rows with optional video disclosures. Keep all individual post reading layouts unchanged.
 - `src/layouts/ReadingPost.astro`: Editorial layout for tech articles, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
 - `src/layouts/Note.astro`: Compact notebook layout with a 680px reading column, Space Grotesk title and prose, quiet publication date, source link, and simple note navigation. Descriptions remain metadata and feed previews; notes omit the article deck, contents rail, and reading progress. Shared code-copy controls and Markdown styles remain available.
-- `src/lib/content-meta.ts`: Homepage metadata uses reading time for articles and notes, authored recipe timing, and photo locations or screenshot labels. Missing recipe timing is omitted; partial timing is labeled explicitly.
+- `src/lib/content-meta.ts`: Category feature metadata uses reading time for articles and notes, authored recipe timing, and photo locations or screenshot labels. Missing recipe timing is omitted; partial timing is labeled explicitly.
 - `src/layouts/BlogPost.astro`: Supplies tech article metadata, reading time, same-category navigation, and search to ReadingPost.
 - Cooking and life articles retain their dedicated layouts.
 - Life stories use `src/lib/life-themes.ts` for a named, per-story palette and one of five subject-specific openings in `LifePost.astro`. Add an explicit theme when publishing a new life story; translations share their original's theme. `lifeLayout: albums` selects `AlbumPost.astro` for music lists, with a complete `heroImage` poster, descriptive `heroImageAlt`, and numbered album notes below it.
 - `src/styles/reading.css`: Detail-page typography, prose, code, tables, and mobile layout.
-- Publication pages default to light mode. `ThemeToggle.astro` saves an explicit light/dark choice under `mager-theme`; `BaseHead.astro` applies it before paint. Dark publication surfaces use true black. Theme colors live in `newspaper.css`.
+- Publication pages default to light mode. `ThemeToggle.astro` saves an explicit light/dark choice under `mager-theme`; `BaseHead.astro` applies it before paint. Dark publication surfaces use true black. Theme colors live in `src/styles/publication.css`; the rename from `newspaper.css` preserves the token values.
 
 ### Components
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
-- `Header.astro`: Direct links in this order: Writing, Software, Tech, Cooking, Life, Notes, Seen, Links. There is no Browse panel or menu script. Search is an icon button with an accessible name; Simple and theme controls are separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling navigation below. Links have a minimum height of 44px and remain reachable through native keyboard navigation. This shared header stays visible while scrolling. On the edition homepage, its wordmark appears only when the large masthead wordmark has passed behind the header. While the logo is hidden, desktop navigation starts at the shell’s left edge; when it appears, navigation makes room beside it. Simple mode and other pages always show the home wordmark.
-- `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. Social profiles appear as accessible brand icons beside the homepage masthead, with an All profiles link to bio.link/mager.
-- `Card.astro`: Blog post card for grid layouts
+- `Header.astro`: The sticky header always shows the home wordmark and direct links in this order: Writing, Software, Tech, Cooking, Life, Notes, Seen, Links. Search is an icon button with an accessible name; theme selection is separate. There is no Browse panel, layout toggle, or wordmark reveal script. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling navigation below. Links have a minimum height of 44px and remain reachable through native keyboard navigation.
+- `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. The shared sidebar has a Find me elsewhere link to bio.link/mager.
+- `PostRow.astro`: Shared dated list row with an optional thumbnail. Link-share titles open the source directly. `SimpleList.astro` adds filtering, search, the optional latest-post feature, and progressive loading; behavior lives in `src/scripts/simple-home.ts`, with styling in `src/styles/simple.css`.
+- `SimpleSidebar.astro`: Shows the two newest notes and up to four newest shared links. Empty sections are omitted. It follows the list at 700px and below.
+- `Card.astro`: Blog post card for remaining grid layouts
 - `FormattedDate.astro`: Date formatting component
-- `Search.astro`: Shared search dialog, included once through `Header.astro`. The visible Search control opens a full-screen panel on phones; `/` also opens it from the keyboard. `src/pages/search-index.json.ts` supplies published content from every feed collection, loaded only when search opens. `src/lib/search.ts` matches titles, descriptions, body text, tags, and photo locations, with title matches first. Keep the input and close control above the scrolling result list, account for the mobile visual viewport, and retain loading, retry, clear, and empty states.
+- `Search.astro`: Shared search dialog, included once through `Header.astro`; the Search icon and `/` open it. Inline listing search and the dialog share one lazy request through `src/scripts/search-data.ts`. `src/pages/search-index.json.ts` supplies published titles, descriptions, body text, tags, and photo locations from every feed collection. `src/lib/search.ts` ranks title matches first, ignores accents, supports prefixes, and accepts one-edit spelling errors for words of at least four characters. Shared text-node rendering highlights matches and supplies excerpts. Inline search stays within the current listing and saves `q` and `type` in its URL. Keep loading, retry, clear, and empty states, keyboard access, and the dialog controls above the scrolling results.
 
 ### Design System
 
-The site uses a dark terminal theme with CSS custom properties in `global.css`:
+The shared publication system lives in `src/styles/publication.css`; compact listing styles live in `src/styles/simple.css`. `global.css` retains general styles and legacy tokens used by other surfaces.
 
-**Colors:**
-- Background: `--editor-bg` (#0a0a0a), `--terminal-black` (#000000)
-- Text: `--text-primary`, `--text-secondary`, `--text-muted`
-- Syntax highlighting: `--cyan`, `--purple`, `--green`, `--yellow`, `--orange`, `--red`
+**Colors:** Paper and ink surfaces, lake-blue links and focus, copper cooking accents, and moss life accents. Dark publication surfaces use true black. Reuse the `--news-*` tokens rather than adding a separate listing palette.
 
-**Typography:**
-- Primary font: JetBrains Mono (monospace)
-- Fallback font: Atkinson (custom web font)
-
-**Category-specific image styling:**
-Images in blog posts receive category-specific border colors applied via `body[data-category="..."]` selectors in `BlogPost.astro`. The styling includes double borders (border + outline) with glow effects and hover transforms.
+**Typography:** Space Grotesk for listing titles, rows, controls, and dates; Fraunces for the header wordmark and established editorial display; Source Serif 4 for existing story prose; JetBrains Mono for existing code and compact metadata. Preserve the fonts and image treatments of individual post layouts.
 
 ## Content Workflows
 
@@ -146,9 +140,7 @@ publication date. YouTube watch, live, short, embed, and youtu.be URLs embed
 inline automatically; other links display a source link. Shares appear in the
 homepage feed, `/links/`, their own permalink, and `/rss.xml`.
 
-`LinkPost.astro` renders link shares in the feed, archive, and permalink: keep
-the outbound title, source domain, and arrow primary. Keep commentary compact; omit the sharing-date/permalink footer from feeds and archives. Dates appear only on the standalone page. Use publication typography and theme tokens, and
-preserve inline YouTube playback.
+`PostRow.astro` renders dated archive and homepage rows with outbound link titles. The Links archive preserves YouTube playback inside a native Watch video disclosure. `SimpleSidebar.astro` shows compact commentary and the source domain. `LinkPost.astro` retains the standalone share page and its inline embed. Use publication typography and theme tokens.
 ### Photos and Screenshots
 
 Both belong in `src/content/seen/`. Set `mediaType: screenshot` for screen
@@ -183,7 +175,7 @@ If a sentence sounds like it is trying to be quoted on X, it is probably making 
 
 ### Category Pages
 
-Category pages filter posts using `getCollection('blog')` and filter by category field, then sort by pubDate descending.
+Category pages filter the published entries from `getFeed()` by collection and category. Keep `pubDate` order, show the newest entry once as the lead, then show the remaining dated rows. Search and active filters replace the lead with ranked or filtered rows.
 
 ### Navigation
 
@@ -224,9 +216,6 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
 
 - The site uses Astro's content loader API with `glob()` loader
 - All pages are statically generated at build time
-- The homepage's `BenchWidget.astro` takes a dated build snapshot from
-  `https://bench.mager.co/api/v1.3/results`, then refreshes it in the browser on each
-  visit. Keep scores and model names out of the component source. Failed live
-  requests retain the labeled snapshot and the leaderboard link.
+- The homepage has no benchmark widget or live benchmark request. Bench remains a footer link.
 - Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
 - Tech articles and notes use a compact shared header and footer; an optional hero image follows the title without a full-screen placeholder.

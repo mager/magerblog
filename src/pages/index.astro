@@ -1,109 +1,21 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import Feed from '../components/Feed.astro';
-import BenchWidget from '../components/BenchWidget.astro';
-import LinkPost from '../components/LinkPost.astro';
-import Story from '../components/edition/Story.astro';
-import SocialIcon from '../components/SocialIcon.astro';
+import Footer from '../components/Footer.astro';
 import SimpleHome from '../components/SimpleHome.astro';
 import { getFeed } from '../lib/feed';
-import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import '../styles/edition.css';
 import '../styles/simple.css';
 const entries = await getFeed();
-const posts = entries.filter(entry => entry.collection === 'blog');
-const edition = makeEdition(entries);
-const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
+const ogImage = entries.find(entry => entry.collection === 'blog' && entry.data.heroImage);
 ---
 <!doctype html>
 <html lang="en">
-  <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage} /></head>
-  <body class="publication edition-page">
+  <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage?.collection === 'blog' ? ogImage.data.heroImage : undefined} /></head>
+  <body class="publication simple-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header homepage themeToggle revealWordmark />
-    <main id="main-content" class="edition-shell">
-      <SimpleHome entries={entries} />
-      <div class="edition-content">
-      <div class="edition-masthead">
-        <h1 data-main-wordmark>mager<span>.</span>co</h1>
-        <div class="masthead-intro">
-          <img src="/images/mager.jpg" alt="Mager’s illustrated avatar, wearing a cap and eating a hot dog." width="800" height="800" />
-          <div>
-            <nav class="masthead-socials" aria-label="Social profiles">
-              <a href="https://linkedin.com/in/magerleagues" aria-label="Mager on LinkedIn" title="LinkedIn"><SocialIcon name="linkedin" /></a>
-              <a href="https://github.com/mager" aria-label="Mager on GitHub" title="GitHub"><SocialIcon name="github" /></a>
-              <a href="https://twitter.com/mager" aria-label="Mager on X" title="X"><SocialIcon name="x" /></a>
-              <a href="https://instagram.com/mager" aria-label="Mager on Instagram" title="Instagram"><SocialIcon name="instagram" /></a>
-              <a href="https://open.spotify.com/user/magerleagues" aria-label="Mager on Spotify" title="Spotify"><SocialIcon name="spotify" /></a>
-              <a href="https://soundcloud.com/andrew" aria-label="Mager on SoundCloud" title="SoundCloud"><SocialIcon name="soundcloud" /></a>
-              <a href="https://www.goodreads.com/user/show/7586152-mager" aria-label="Mager on Goodreads" title="Goodreads"><SocialIcon name="goodreads" /></a>
-              <a href="https://www.last.fm/user/magerleagues" aria-label="Mager on Last.fm" title="Last.fm"><SocialIcon name="lastfm" /></a>
-            </nav>
-            <a class="masthead-all-profiles" href="https://bio.link/mager">All profiles <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="edition-switchbar">
-        <p>The Chicago edition <span class="edition-count">/ {edition.count} entries</span></p>
-        <div class="edition-switch" role="group" aria-label="Homepage view" hidden><button type="button" data-edition-view="front" aria-pressed="true" aria-controls="front-page">Front page</button><button type="button" data-edition-view="stream" aria-pressed="false" aria-controls="chronological-feed">All updates <span aria-hidden="true">↗</span></button></div>
-      </div>
-      <div id="front-page">
-        <section class="front-spread" aria-labelledby="lead-section">
-          <div class="lead-column">
-            <h2 class="section-kicker" id="lead-section">Front page</h2>
-            {edition.lead && <Story entry={edition.lead} variant="lead" image eager />}
-            <div class="supporting-stories">{edition.supporting.map(entry => <Story entry={entry} variant="brief" image="hero" label />)}</div>
-          </div>
-          <aside class="dispatch-column" aria-labelledby="dispatch-heading">
-            <div class="section-heading small"><h2 id="dispatch-heading">Latest updates</h2></div>
-            {edition.dispatches.map((entry, index) => <div class="numbered-dispatch"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><Story entry={entry} variant="brief" label /></div>)}
-            <a class="dispatch-signoff" href="/about/">A little about me <span aria-hidden="true">↗</span></a>
-          </aside>
-        </section>
-        {edition.sections.map(section => <>
-        {section === 'workbench' && <section class="workbench-section" aria-labelledby="workbench-heading" data-edition-section="workbench">
-          <div class="section-heading"><h2 id="workbench-heading">Software and development</h2><a href="/tech/">All tech ↗</a></div>
-          <div class="workbench-stories">{edition.workbench.map(entry => <Story entry={entry} image="hero" />)}</div>
-        </section>}
-        {section === 'seen' && <section class="seen-section" aria-labelledby="seen-heading" data-edition-section="seen">
-          <div class="section-heading"><h2 id="seen-heading">Photos and screenshots</h2><a href="/seen/">All photos and screenshots ↗</a></div>
-          <div class="seen-strip" tabindex="0" role="region" aria-label="Photos and screenshots, scroll horizontally">{edition.seen.map(entry => <Story entry={entry} variant="photo" image />)}</div>
-        </section>}
-        {section === 'offscreen' && <div class="offscreen-spread" data-edition-section="offscreen" data-leading={edition.offscreenOrder[0]}>
-          {edition.offscreenOrder.map(desk => <>
-          {desk === 'kitchen' && <section class="kitchen-section" aria-labelledby="kitchen-heading">
-            <div class="section-heading"><h2 id="kitchen-heading">Recipes</h2><a href="/cooking/">All recipes ↗</a></div>
-            <div class="kitchen-layout"><Story entry={edition.kitchen[0]} image /><div class="recipe-list">{edition.kitchen.slice(1).map(entry => <Story entry={entry} variant="brief" thumbnail />)}</div></div>
-          </section>}
-          {desk === 'life' && <section class="life-section" aria-labelledby="life-heading">
-            <div class="section-heading small"><h2 id="life-heading">Life</h2><a href="/life/">All life stories ↗</a></div>
-            {edition.life.map((entry, index) => <Story entry={entry} variant={index === 0 ? 'story' : 'brief'} image={index === 0} />)}
-          </section>}
-          </>)}
-        </div>}
-        {section === 'reference' && <div class="reference-spread" data-edition-section="reference">
-          <div class="reference-list">
-            {edition.notebook.length > 0 && <section class="notebook-extras" aria-labelledby="notebook-heading"><div class="section-heading small"><h2 id="notebook-heading">Notes</h2><a href="/notes/">All notes ↗</a></div>{edition.notebook.map(entry => <Story entry={entry} variant="brief" />)}</section>}
-          </div>
-          <aside class="bench-column" aria-label="Mager bench"><BenchWidget /></aside>
-        </div>}
-        {section === 'links' && <section class="links-section" aria-labelledby="links-heading" data-edition-section="links">
-          <div class="section-heading"><h2 id="links-heading">Shared links</h2><a href="/links/">All links ↗</a></div>
-          <div class="edition-links">{edition.links.map(entry => entry.collection === 'links' && <article data-edition-entry={`links/${entry.id}`}><LinkPost {entry} compact /></article>)}</div>
-        </section>}
-        </>)}
-      </div>
-      <section id="chronological-feed" class="chronological-feed" aria-label="All updates">
-        <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={entries} filters compact pageSize={24} headingLevel="h2" /></details>
-      </section>
-      </div>
-    </main>
+    <Header homepage themeToggle />
+    <main id="main-content" class="simple-shell"><SimpleHome entries={entries} /></main>
     <Footer homepage />
   </body>
 </html>
-<script>
-  import '../scripts/edition';
-</script>

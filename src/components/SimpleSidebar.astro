@@ -1,0 +1,20 @@
+---
+import { type FeedEntry, entryHref, entryTitle } from '../lib/feed';
+import { entryDate, entryDescription } from '../lib/feed-display';
+import { linkHost } from '../lib/link-share';
+interface Props { entries: FeedEntry[]; }
+const { entries } = Astro.props;
+const notes = entries.filter(entry => entry.collection === 'notes').slice(0, 2);
+const links = entries.filter(entry => entry.collection === 'links').slice(0, 4);
+---
+<aside class="simple-sidebar" aria-label="Notes and shared links">
+  {notes.length > 0 && <section class="simple-notes" aria-labelledby="simple-notes-heading">
+    <div class="simple-notes-heading"><h2 id="simple-notes-heading">Notes</h2><a href="/notes/">All notes <span aria-hidden="true">↗</span></a></div>
+    {notes.map(entry => <article><h3><a href={entryHref(entry)}>{entryTitle(entry)}</a></h3><p>{entryDescription(entry)}</p><time datetime={entry.data.pubDate.toISOString()}>{entryDate(entry.data.pubDate)}</time></article>)}
+  </section>}
+  {links.length > 0 && <section class="simple-notes simple-links" aria-labelledby="simple-links-heading">
+    <div class="simple-notes-heading"><h2 id="simple-links-heading">Links</h2><a href="/links/">All links <span aria-hidden="true">↗</span></a></div>
+    {links.map(entry => entry.collection === 'links' && <article><h3><a href={entry.data.url}>{entryTitle(entry)} <span aria-hidden="true">↗</span></a></h3><p>{entryDescription(entry)}</p><span class="simple-link-host">{linkHost(entry.data.url)}</span></article>)}
+  </section>}
+  <a class="simple-profiles" href="https://bio.link/mager">Find me elsewhere <span aria-hidden="true">↗</span></a>
+</aside>

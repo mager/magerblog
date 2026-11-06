@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-06T14:38:18.363344+00:00",
+  "title": "Magerblog: The compact publication",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(98% 0.006 85)",
+        "tonalRamp": [
+          "oklch(15% 0.006 85)",
+          "oklch(26% 0.006 85)",
+          "oklch(38% 0.006 85)",
+          "oklch(49% 0.006 85)",
+          "oklch(61% 0.006 85)",
+          "oklch(72% 0.006 85)",
+          "oklch(84% 0.006 85)",
+          "oklch(95% 0.006 85)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(23% 0.016 230)",
+        "tonalRamp": [
+          "oklch(15% 0.016 230)",
+          "oklch(26% 0.016 230)",
+          "oklch(38% 0.016 230)",
+          "oklch(49% 0.016 230)",
+          "oklch(61% 0.016 230)",
+          "oklch(72% 0.016 230)",
+          "oklch(84% 0.016 230)",
+          "oklch(95% 0.016 230)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Secondary text",
+        "canonical": "oklch(46% 0.018 230)",
+        "tonalRamp": [
+          "oklch(15% 0.018 230)",
+          "oklch(26% 0.018 230)",
+          "oklch(38% 0.018 230)",
+          "oklch(49% 0.018 230)",
+          "oklch(61% 0.018 230)",
+          "oklch(72% 0.018 230)",
+          "oklch(84% 0.018 230)",
+          "oklch(95% 0.018 230)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rules",
+        "canonical": "oklch(84% 0.012 230)",
+        "tonalRamp": [
+          "oklch(15% 0.012 230)",
+          "oklch(26% 0.012 230)",
+          "oklch(38% 0.012 230)",
+          "oklch(49% 0.012 230)",
+          "oklch(61% 0.012 230)",
+          "oklch(72% 0.012 230)",
+          "oklch(84% 0.012 230)",
+          "oklch(95% 0.012 230)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Quiet surface",
+        "canonical": "oklch(95% 0.009 230)",
+        "tonalRamp": [
+          "oklch(15% 0.009 230)",
+          "oklch(26% 0.009 230)",
+          "oklch(38% 0.009 230)",
+          "oklch(49% 0.009 230)",
+          "oklch(61% 0.009 230)",
+          "oklch(72% 0.009 230)",
+          "oklch(84% 0.009 230)",
+          "oklch(95% 0.009 230)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Lake blue",
+        "canonical": "oklch(43% 0.085 230)",
+        "tonalRamp": [
+          "oklch(15% 0.085 230)",
+          "oklch(26% 0.085 230)",
+          "oklch(38% 0.085 230)",
+          "oklch(49% 0.085 230)",
+          "oklch(61% 0.085 230)",
+          "oklch(72% 0.085 230)",
+          "oklch(84% 0.085 230)",
+          "oklch(95% 0.085 230)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Copper",
+        "canonical": "oklch(49% 0.13 45)",
+        "tonalRamp": [
+          "oklch(15% 0.13 45)",
+          "oklch(26% 0.13 45)",
+          "oklch(38% 0.13 45)",
+          "oklch(49% 0.13 45)",
+          "oklch(61% 0.13 45)",
+          "oklch(72% 0.13 45)",
+          "oklch(84% 0.13 45)",
+          "oklch(95% 0.13 45)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Moss",
+        "canonical": "oklch(43% 0.075 140)",
+        "tonalRamp": [
+          "oklch(15% 0.075 140)",
+          "oklch(26% 0.075 140)",
+          "oklch(38% 0.075 140)",
+          "oklch(49% 0.075 140)",
+          "oklch(61% 0.075 140)",
+          "oklch(72% 0.075 140)",
+          "oklch(84% 0.075 140)",
+          "oklch(95% 0.075 140)"
+        ]
+      },
+      "yellow": {
+        "role": "secondary",
+        "displayName": "Saffron",
+        "canonical": "oklch(90% 0.10 88)",
+        "tonalRamp": [
+          "oklch(15% 0.10 88)",
+          "oklch(26% 0.10 88)",
+          "oklch(38% 0.10 88)",
+          "oklch(49% 0.10 88)",
+          "oklch(61% 0.10 88)",
+          "oklch(72% 0.10 88)",
+          "oklch(84% 0.10 88)",
+          "oklch(95% 0.10 88)"
+        ]
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "publication-ease",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Existing publication motion; honor reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "header-rows",
+        "value": "1000px"
+      },
+      {
+        "name": "compact-sidebar",
+        "value": "900px"
+      },
+      {
+        "name": "stack-sidebar",
+        "value": "700px"
+      },
+      {
+        "name": "phone",
+        "value": "540px"
+      },
+      {
+        "name": "small-phone",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "More posts",
+      "kind": "button",
+      "refersTo": "more-button",
+      "description": "Adds the next 24 list rows.",
+      "html": "<button class=\"ds-more\">Show more posts</button>",
+      "css": ".ds-more { min-height:44px; padding:8px 16px; border:1px solid var(--news-rule); border-radius:3px; background:transparent; color:var(--news-ink); font:500 13px/1.5 var(--news-ui); cursor:pointer; }.ds-more:hover { border-color:var(--news-blue); color:var(--news-blue); }.ds-more:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Inline full-text search within the current list.",
+      "html": "<label class=\"ds-search\">Search <input type=\"search\" aria-label=\"Search all posts\" placeholder=\"Search all posts\u2026\"></label>",
+      "css": ".ds-search { display:flex; align-items:center; gap:10px; min-height:58px; border-bottom:1px solid var(--news-rule); color:var(--news-muted); font:500 14px/1.5 var(--news-ui); }.ds-search input { min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--news-ink); font:inherit; }.ds-search input:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+    },
+    {
+      "name": "Content filters",
+      "kind": "chip",
+      "refersTo": "filter-active",
+      "description": "Plain text filters with an underlined selected state.",
+      "html": "<div class=\"ds-filters\" role=\"group\" aria-label=\"Filter posts\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">Tech</button></div>",
+      "css": ".ds-filters { display:flex; gap:24px; border-bottom:1px solid var(--news-rule); }.ds-filters button { min-height:44px; padding:0 0 10px; border:0; border-radius:0; background:transparent; color:var(--news-muted); font:500 13px/1.4 var(--news-ui); cursor:pointer; }.ds-filters button:hover,.ds-filters button[aria-pressed=\"true\"] { color:var(--news-ink); }.ds-filters button[aria-pressed=\"true\"] { border-bottom:2px solid var(--news-ink); }.ds-filters button:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+    },
+    {
+      "name": "Post row",
+      "kind": "custom",
+      "refersTo": "post-row",
+      "description": "A flat dated link row. Optional thumbnails occupy the first column.",
+      "html": "<a class=\"ds-row\" href=\"#post\"><span></span><span class=\"ds-title\">A note about making software</span><time datetime=\"2026-11-06\">Nov 6, 2026</time></a>",
+      "css": ".ds-row { display:grid; grid-template-columns:40px minmax(0,1fr) auto; align-items:center; gap:14px; min-height:68px; padding:12px 0; border-bottom:1px solid var(--news-rule); color:var(--news-ink); text-decoration:none; }.ds-title { font:500 17px/1.4 var(--news-ui); }.ds-row time { color:var(--news-muted); font:500 11px/1.5 var(--news-ui); white-space:nowrap; }.ds-row:hover { color:var(--news-blue); }.ds-row:hover .ds-title { text-decoration:underline; text-underline-offset:4px; }.ds-row:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+    },
+    {
+      "name": "Direct navigation",
+      "kind": "nav",
+      "description": "Direct links with an underlined active section; horizontal scrolling at narrow widths.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"#writing\" aria-current=\"page\">Writing</a><a href=\"#software\">Software</a><a href=\"#tech\">Tech</a></nav>",
+      "css": ".ds-nav { display:flex; gap:22px; overflow-x:auto; }.ds-nav a { display:inline-flex; align-items:center; flex-shrink:0; min-height:44px; color:var(--news-muted); font:500 13px/1.4 var(--news-ui); text-decoration:none; }.ds-nav a:hover,.ds-nav a[aria-current] { color:var(--news-ink); text-decoration:underline; text-underline-offset:6px; }.ds-nav a[aria-current] { text-decoration-color:var(--news-blue); text-decoration-thickness:2px; }.ds-nav a:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The compact publication",
+    "overview": "A quiet personal publication for software, cooking, photos, and life. The homepage and archives use plain dated rows, clear controls, and short supporting notes. This is the sole listing direction, not an optional mode. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.\n\nKeep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.\n",
+    "keyCharacteristics": [],
+    "rules": [],
+    "dos": [],
+    "donts": []
+  }
+}

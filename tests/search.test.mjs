@@ -5,8 +5,8 @@ import { stripTypeScriptTypes } from 'node:module';
 import { JSDOM } from 'jsdom';
 
 const library = stripTypeScriptTypes(readFileSync(new URL('../src/lib/search.ts', import.meta.url), 'utf8')).replaceAll('export ', '');
-const client = stripTypeScriptTypes(readFileSync(new URL('../src/scripts/search.ts', import.meta.url), 'utf8')).replace(/^import .*;\n/, '').replace('export function', 'function');
-const { createSearchIndex, searchEntries } = new Function(library + ';return {createSearchIndex, searchEntries}')();
+const client = stripTypeScriptTypes(readFileSync(new URL('../src/scripts/search.ts', import.meta.url), 'utf8')).replace(/^import .*;\n/gm, '').replace('export function', 'function');
+const { createSearchIndex, searchEntries, searchExcerpt, searchTextParts } = new Function(library + ';return {createSearchIndex, searchEntries, searchExcerpt, searchTextParts}')();
 const entry = (title, text = '', kind = 'Tech') => ({ title, text, kind, description: '', href: '/blog/example/' });
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
@@ -31,7 +31,8 @@ function fixture(fetch) {
   w.fetch = fetch;
   w.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
   w.HTMLDialogElement.prototype.close = function () { this.open = false; this.dispatchEvent(new w.Event('close')); };
-  w.eval(library + '\n' + client + '\ninitSearch();');
+  const helpers = ['search-data', 'search-dom'].map(name => stripTypeScriptTypes(readFileSync(new URL(`../src/scripts/${name}.ts`, import.meta.url), 'utf8')).replace(/^import .*;\n/gm, '').replaceAll('export ', '')).join('\n');
+  w.eval(library + '\n' + helpers + '\n' + client + '\ninitSearch();');
   return { dom, w, doc: w.document, input: w.document.querySelector('input'), trigger: w.document.querySelector('[data-open-search]') };
 }
 
@@ -85,4 +86,26 @@ test('failed requests can retry and search uses the latest typed query after loa
   input.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
   assert.equal(doc.querySelector('dialog').open, false);
   w.close();
+});
+
+test('search tolerates one typo or transposition and keeps exact title matches ahead of body matches', () => {
+  const index = createSearchIndex([
+    entry('Another post', 'Homeport works well'), entry('Homeport'), entry('Homework'), entry('Miso soup', 'A teaspoon of sesame oil'),
+  ]);
+  assert.equal(searchEntries(index, 'homeprot')[0].title, 'Homeport');
+  assert.equal(searchEntries(index, 'homeport')[0].title, 'Homeport');
+  assert.equal(searchEntries(index, 'homepor')[0].title, 'Homeport');
+  assert.equal(searchEntries(index, 'teaspon sesame')[0].title, 'Miso soup');
+  assert.equal(searchEntries(index, 'AI').length, 0, 'short queries are not fuzzy');
+  assert.equal(searchEntries(index, 'zznomatch').length, 0);
+});
+
+test('excerpts show the matching body passage and highlights preserve literal text safely', () => {
+  const text = 'A long introduction. '.repeat(20) + 'The database uses Firestore transactions for reliable writes.';
+  const result = searchExcerpt(entry('Database notes', text), 'firestore');
+  assert.match(result, /Firestore transactions/);
+  assert(result.length < 225);
+  const parts = searchTextParts('Café <img onerror=bad> rice', 'cafe rice');
+  assert.equal(parts.map(part => part.text).join(''), 'Café <img onerror=bad> rice');
+  assert.deepEqual(parts.filter(part => part.match).map(part => part.text), ['Café', 'rice']);
 });

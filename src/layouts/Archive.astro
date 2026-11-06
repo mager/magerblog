@@ -1,0 +1,29 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SimpleList from '../components/SimpleList.astro';
+import SimpleSidebar from '../components/SimpleSidebar.astro';
+import type { FeedEntry } from '../lib/feed';
+import { entryHref, entryTitle } from '../lib/feed';
+import '../styles/simple.css';
+interface Props { title: string; description: string; entries: FeedEntry[]; sidebarEntries?: FeedEntry[]; featured?: boolean; filters?: [string, string][]; filterBy?: 'category' | 'subcategory'; videos?: boolean; }
+const { title, description, entries, sidebarEntries, featured = false, filters, filterBy, videos } = Astro.props;
+const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${title} — mager.co`, description, url: new URL(Astro.url.pathname, Astro.site).href, mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entryTitle(entry), url: new URL(entryHref(entry), Astro.site).href })) } };
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={`${title} — mager.co`} description={description} /><script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} /></head>
+  <body class="publication simple-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="simple-shell simple-home">
+      <header class="simple-page-heading"><h1>{title}</h1><p>{description}</p></header>
+      <div class:list={['simple-columns', { 'without-sidebar': !sidebarEntries }]}>
+        <SimpleList entries={entries} featured={featured} filters={filters} filterBy={filterBy} videos={videos} searchLabel={`Search ${title.toLowerCase()}`} heading={featured ? 'More posts' : 'All posts'} />
+        {sidebarEntries && <SimpleSidebar entries={sidebarEntries} />}
+      </div>
+    </main>
+    <Footer homepage />
+  </body>
+</html>

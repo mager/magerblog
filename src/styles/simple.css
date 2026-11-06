@@ -1,16 +1,37 @@
-/* A saved homepage layout. Color mode and article layouts remain independent. */
-.simple-home { display: none; }
-html[data-layout="simple"] .edition-content { display: none; }
-html[data-layout="simple"] .simple-home { display: block; }
-html[data-layout="simple"] .edition-page .edition-shell,
-html[data-layout="simple"] .edition-page .header-shell,
-html[data-layout="simple"] .edition-page .footer-shell { width: 1080px; max-width: 100%; }
-html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% - 48px); }
+/* The default listing layout. Detail pages retain their reading layouts. */
+.simple-page .header-shell, .simple-page .footer-shell { width: 1080px; max-width: 100%; }
+.simple-shell { width: 1080px; max-width: calc(100% - 48px); margin: 0 auto; padding: 0; }
 .simple-home { padding: 30px 0 64px; font-family: var(--news-ui); }
-.simple-home [hidden] { display: none !important; }
+.simple-home [hidden], .simple-list [hidden] { display: none !important; }
 .simple-intro { margin: 0 0 28px; color: var(--news-muted); font: 500 15px/1.6 var(--news-ui); letter-spacing: 0; }
 .simple-columns { display: grid; grid-template-columns: minmax(0, 1fr) 252px; gap: 56px; align-items: start; }
 .simple-posts { min-width: 0; }
+.simple-columns.without-sidebar { display: block; max-width: 780px; }
+.simple-page-heading { margin: 0 0 24px; }
+.simple-page-heading h1 { margin: 0; color: var(--news-ink); font: 600 28px/1.25 var(--news-ui); letter-spacing: -.025em; }
+.simple-page-heading p { margin: 8px 0 0; color: var(--news-muted); font: 15px/1.6 var(--news-ui); }
+.simple-sidebar { display: grid; gap: 32px; min-width: 0; }
+.simple-sidebar .simple-notes article { padding: 16px 0; }
+.simple-sidebar .simple-notes article p { -webkit-line-clamp: 2; margin-bottom: 8px; }
+.simple-link-host { color: var(--news-muted); font: 12px/1.5 var(--news-ui); overflow-wrap: anywhere; }
+.simple-profiles { width: fit-content; min-height: 44px; color: var(--news-muted); font: 13px/1.5 var(--news-ui); }
+.simple-profiles:hover { color: var(--news-blue); text-decoration: underline; }
+.simple-feature { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--news-rule); }
+.simple-home .simple-feature h2 { font: 600 clamp(25px, 2.5vw, 32px)/1.2 var(--news-ui); letter-spacing: -.025em; text-wrap: pretty; }
+.simple-feature h2 a { color: var(--news-ink); }
+.simple-feature h2 a:hover { color: var(--news-blue); text-decoration: underline; text-underline-offset: 4px; }
+.simple-feature p { max-width: 65ch; margin: 12px 0; color: var(--news-muted); font: 15px/1.6 var(--news-ui); }
+.simple-feature-meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--news-muted); font: 11px/1.5 var(--news-ui); }
+.simple-feature-image { display: block; width: 144px; }
+.simple-feature-image img { display: block; width: 100%; height: auto; max-height: 160px; object-fit: contain; border-radius: 2px; }
+.simple-search-status { display: flex; gap: 12px; align-items: baseline; }
+.simple-search-status p:empty { display: none; }
+.simple-search-status p { margin: 12px 0 0; color: var(--news-muted); font: 12px/1.5 var(--news-ui); }
+.simple-search-status button { border: 0; padding: 4px 0; min-height: 44px; background: transparent; color: var(--news-blue); font: 13px var(--news-ui); cursor: pointer; }
+.simple-search-snippet { display: block; margin-top: 6px; color: var(--news-muted); font: 13px/1.6 var(--news-ui); }
+.publication mark { color: var(--news-ink); background: var(--news-surface); text-decoration: underline; text-decoration-color: var(--news-blue); text-underline-offset: 3px; }
+.simple-video { margin: 0 0 16px 54px; }
+.simple-video summary { width: fit-content; min-height: 44px; color: var(--news-blue); font: 13px/44px var(--news-ui); cursor: pointer; }
 .simple-filters { display: flex; flex-wrap: wrap; gap: 0 24px; border-bottom: 1px solid var(--news-rule); }
 .simple-filters button { position: relative; min-height: 44px; padding: 0 0 10px; border: 0; border-radius: 0; background: transparent; color: var(--news-muted); font: 500 13px/1.4 var(--news-ui); cursor: pointer; }
 .simple-filters button:hover, .simple-filters button[aria-pressed="true"] { color: var(--news-ink); }
@@ -19,6 +40,7 @@ html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% -
 .simple-search svg { flex-shrink: 0; }
 .simple-search input { flex: 1; min-width: 0; width: 100%; min-height: 44px; padding: 8px 0; border: 0; border-radius: 0; background: transparent; color: var(--news-ink); caret-color: var(--news-blue); font: 500 14px/1.5 var(--news-ui); }
 .simple-search input::placeholder { color: var(--news-muted); opacity: 1; }
+.simple-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
 .simple-search button { min-height: 44px; padding: 0 6px; border: 0; background: transparent; color: var(--news-blue); font: 500 12px var(--news-ui); cursor: pointer; }
 .simple-list-heading, .simple-notes-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
 .simple-list-heading { padding: 24px 0 12px; }
@@ -31,6 +53,7 @@ html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% -
 .simple-post-link:hover .simple-post-title { text-decoration: underline; text-underline-offset: 4px; }
 .simple-thumbnail { display: block; width: 40px; height: 40px; }
 .simple-thumbnail img { display: block; width: 40px; height: 40px; object-fit: cover; border-radius: 2px; }
+.simple-post-copy { min-width: 0; }
 .simple-post-title { font: 500 17px/1.4 var(--news-ui); overflow-wrap: anywhere; }
 .simple-post-title svg { display: inline; margin-left: 6px; vertical-align: baseline; }
 .simple-home time { color: var(--news-muted); font: 500 11px/1.5 var(--news-ui); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -58,7 +81,10 @@ html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% -
   .simple-notes { max-width: 65ch; }
 }
 @media (max-width: 540px) {
-  html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% - 36px); }
+  .simple-shell { max-width: calc(100% - 36px); }
   .simple-filters { gap: 0 20px; }
   .simple-post-title { font-size: 16px; }
+  .simple-feature { gap: 16px; }
+  .simple-feature-image { width: 88px; }
+  .simple-home .simple-feature h2 { font-size: 24px; }
 }

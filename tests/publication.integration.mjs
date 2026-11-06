@@ -7,34 +7,17 @@ import { JSDOM } from 'jsdom';
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 const html = path => new JSDOM(read(`dist/${path}`)).window.document;
 
-test('homepage keeps filters and ordinary links without date or permalink clutter', () => {
+test('homepage exposes all published collections as ordinary links without JavaScript', () => {
   const page = html('index.html');
-  assert(page.querySelector('[data-feed-filter] option[value="notes"]'));
-  assert.equal(page.querySelectorAll('.feed-entry.compact .entry-meta time').length, 0);
-  assert.equal([...page.querySelectorAll('.feed-entry a')].some(a => /Permalink/i.test(a.textContent)), false);
-  const link = page.querySelector('[data-kind="links"] .destination');
-  assert.match(link.getAttribute('href'), /^https?:\/\//);
-  assert(page.querySelector('.header-sections a[href="/notes/"]'));
-  assert(page.querySelector('.site-footer a[href="/rss.xml"]'));
-  assert.equal(page.querySelector('.header-sections a[href="/rss.xml"]'), null);
-});
-
-test('front page is a complete, varied edition even without JavaScript', () => {
-  const page = html('index.html');
-  const stories = [...page.querySelectorAll('#front-page [data-edition-entry]')];
-  assert(stories.length >= 25 && stories.length <= 35);
-  assert.equal(new Set(stories.map(story => story.dataset.editionEntry)).size, stories.length);
-  assert.equal(new Set(stories.map(story => story.dataset.editionEntry.split('/')[0])).size, 4);
-  assert.equal(page.querySelectorAll('.edition-content h1').length, 1);
-  assert.equal(page.querySelectorAll('.simple-home h1').length, 1);
-  const leadImage = page.querySelector('.story-lead img');
-  if (leadImage) assert.equal(leadImage.getAttribute('loading'), 'eager');
-  assert(page.querySelector('.seen-strip[tabindex="0"]'));
-  assert.equal(page.querySelector('#chronological-feed [data-feed]').dataset.pageSize, '24');
-  assert.equal(page.querySelector('#front-page').hasAttribute('hidden'), false);
-  for (const link of page.querySelectorAll('#front-page a[href^="/"]')) {
-    const path = link.getAttribute('href').split('#')[0];
-    assert(existsSync(new URL(`../dist${path.endsWith('/') ? `${path}index.html` : path}`, import.meta.url)), `Broken edition link: ${path}`);
+  const rows = [...page.querySelectorAll('[data-simple-row]')];
+  assert(rows.length > 100);
+  assert.equal(new Set(rows.map(row => row.dataset.href)).size, rows.length);
+  for (const category of ['tech', 'food', 'life', 'notes', 'seen', 'links']) assert(rows.some(row => row.dataset.category === category));
+  assert.equal(page.querySelectorAll('h1').length, 1);
+  for (const row of rows) {
+    assert(row.querySelector('time'));
+    const href = row.querySelector('a').getAttribute('href');
+    if (href.startsWith('/')) assert(existsSync(new URL(`../dist${href}index.html`, import.meta.url)), href);
   }
 });
 
@@ -47,11 +30,7 @@ test('notes have a compact dedicated layout while keeping the complete body and 
   assert(page.querySelector('.note-prose pre code'));
   assert.equal(page.querySelector('.note-source').href, 'https://bench.mager.co/');
   assert(page.querySelector('.note-meta time'));
-  const home = html('index.html');
-  assert.match(home.querySelector('.story-lead .story-detail').textContent, /\d+ min read/);
-  assert(home.querySelector('.dispatch-column .story-detail'));
-  assert(home.querySelector('.feed-entry.compact .entry-detail'));
-  assert.equal(home.querySelectorAll('.feed-entry.compact .entry-meta time').length, 0);
+
 });
 
 
