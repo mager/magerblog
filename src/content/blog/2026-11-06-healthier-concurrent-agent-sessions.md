@@ -61,7 +61,7 @@ Start by asking agents to write less. Choose a concise output style where the to
 
 > Keep routine replies to a few sentences. Tell me what changed, what needs my decision, and where to find the evidence. Expand when the detail matters.
 
-[Caveman](https://github.com/JuliusBrussee/caveman/) is one option for shorter replies. I also ask for [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/faq.html). Its principles include short sentences, one topic per sentence, and active voice.
+[Caveman](https://github.com/JuliusBrussee/caveman/) is one option for shorter replies. The [i-have-adhd skill](https://github.com/ayghri/i-have-adhd) puts the next action first, numbers the steps, and cuts tangents. I also ask for [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/faq.html): short sentences, one topic per sentence, and active voice.
 
 I feel like I read three or four times as much as before; some days, ten times. That is an impression, not a measurement. I now review close to a thousand pull requests a month at work, before adding agent conversations.
 
@@ -75,17 +75,17 @@ I can't recommend [FluidVoice](https://fluidvoice.com/) enough. It's open source
 
 [Keep water nearby and rest your voice](https://www.nidcd.nih.gov/health/taking-care-your-voice). A screen break should be a break from dictating to agents too.
 
-## Write the spec before starting the agent
+## Write the spec and define the goal
 
 Spend a few rounds on the spec before asking the agent to build. Explain the goal, read its interpretation, and correct what it missed. Agree on the expected behavior, constraints, and what will count as done.
 
 For a CSV export, settle which rows and columns to include, how to handle quoted values, and what happens with an empty result.
 
+Goal driven development adds an outcome and a stopping rule: prepare a reviewable change, run the agreed checks, and return the results. If blocked or out of time, report what remains unfinished.
+
 That time can save repeated questions later. Once the direction is clear, I can let the agent work while I take a break or focus on another session. A small task needs only a short spec.
 
-## Set the goal, then widen the loop
-
-Goal driven development adds an outcome and a stopping rule: prepare a reviewable change, run the agreed checks, and return the results. If blocked or out of time, report what remains unfinished.
+## Widen the loop
 
 The agent handles the inner loop: inspect, change, test, and correct. I handle the outer loop: choose the goal, review the evidence, and decide what happens next.
 
