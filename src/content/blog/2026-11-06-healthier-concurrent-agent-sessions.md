@@ -3,8 +3,8 @@ title: "The human limits of parallel agents"
 description: "Practical habits for protecting your attention while your agents work, without becoming their meat proxy."
 pubDate: 2026-11-06
 category: tech
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-agent-orchestra-v5.jpg"
-heroImageAlt: "Pointillist painting of a calm person with closed eyes and flowing hair, surrounded by a robot orchestra playing strings, brass, woodwinds, drums, and a triangle as glowing musical notes swirl between them."
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/abstract-agent-orchestra-v7.jpg"
+heroImageAlt: "Abstract painting of a fragmented human face and wild hair amid loosely drawn robot musicians, with scratched lines, paint drips, soft blue and pink color, and scattered instruments."
 heroImageCaption: "An orchestra of agents. Created with ChatGPT image generation."
 heroImageLayout: wide
 tags: [agents, development, health, spec-driven-development, goal-driven-development]
