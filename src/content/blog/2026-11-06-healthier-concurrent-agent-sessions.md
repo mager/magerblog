@@ -58,6 +58,20 @@ Watch for signs that the limit is too high:
 
 When this happens, stop starting work. Finish or pause an existing task first. More sessions are useful only while their results remain manageable.
 
+## Set a daily reading limit
+
+I feel like I am reading three or four times as much as I used to. Some days it feels closer to ten times. I have not measured that increase, but the volume is hard to miss: plans, agent replies, test results, review comments, and code.
+
+At work, I now review close to a thousand pull requests a month. Each one brings more code and more decisions to understand. Add several agent sessions, and there is a lot to keep in my head.
+
+I find myself reading faster and scanning for the parts that matter. That helps me find my way through the text, but I still need to slow down to understand a difficult change. I want to put a limit on how much I ask myself to read in a day.
+
+A rough daily word budget for agent reports is one place to start. Code needs its own allowance: a short diff can take more attention than a long explanation. I have not settled on a useful number yet. I want to choose a limit I can adjust, then stop adding work when I reach it.
+
+I can also ask agents to produce less text. A routine update can state what changed, what needs my decision, and where to find the evidence. Full logs can stay available behind a link. Repeating the whole plan after every step adds more reading without helping me decide.
+
+The budget needs to leave room for careful code review. When I catch myself scanning a diff without understanding it, I want to pause the review and reduce the queue. A short agent summary can help me navigate the work; I still need to inspect the change before approving it.
+
 ## Write the spec before starting the agent
 
 Spec driven development gives the agent a stable description of the work. It also gives me a place to return after a break, without rebuilding the requirements from a long chat.
