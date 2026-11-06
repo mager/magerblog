@@ -15,7 +15,7 @@ draft: true
 
 Imagine an orchestra where every musician can invite another musician.
 
-It starts with a few small robots and a piece of music you would like to hear. A violinist tries a melody. A cellist picks it up and adds something underneath. Little bits of information travel between them as bright dots: a phrase to repeat, a note to change, a signal that the next section can begin. A robot at the back checks the score and sends a correction forward. Two others pull up chairs to work on the difficult passage.
+A violinist tries a melody. A cellist picks it up and adds something underneath. Bits of information travel between them as bright dots: a phrase to repeat, a note to change, a signal that the next section can begin. A player at the back checks the score and sends a correction forward. Two others pull up chairs to work on the difficult passage.
 
 Soon the room is full of movement. Dots stream from one music stand to the next. Small groups form, solve a problem, and pass their work along. The percussion section has acquired an assistant. The assistant has found a triangle. You had not thought the piece needed a triangle, but you are willing to hear it out.
 
