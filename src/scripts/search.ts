@@ -67,7 +67,6 @@ export function initSearch() {
   };
   const open = () => {
     if (dialog.open || document.querySelector('dialog[open]')) return;
-    document.querySelectorAll<HTMLDetailsElement>('.header-browse[open]').forEach(menu => { menu.open = false; });
     returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     previousOverflow = document.body.style.overflow;
     updateViewport();

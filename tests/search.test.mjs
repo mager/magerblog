@@ -26,7 +26,7 @@ test('search ranks titles, finds body words in any order, and folds accents and 
 
 function fixture(fetch) {
   const component = readFileSync(new URL('../src/components/Search.astro', import.meta.url), 'utf8').split('<script>')[0];
-  const dom = new JSDOM(`<button data-open-search hidden>Search</button><details class="header-browse" open></details>${component}`, { url: 'https://example.test', runScripts: 'outside-only' });
+  const dom = new JSDOM(`<button data-open-search hidden>Search</button>${component}`, { url: 'https://example.test', runScripts: 'outside-only' });
   const w = dom.window;
   w.fetch = fetch;
   w.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
@@ -43,7 +43,6 @@ test('tap opens and focuses search; results stay safe, clear works, and close re
   assert.equal(trigger.hidden, false);
   trigger.focus(); trigger.click();
   assert.equal(doc.querySelector('dialog').open, true);
-  assert.equal(doc.querySelector('details').open, false);
   assert.equal(doc.activeElement, input);
   assert.match(doc.querySelector('[role="status"]').textContent, /Loading/);
   await tick();

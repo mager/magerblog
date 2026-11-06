@@ -61,7 +61,4 @@ html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% -
   html[data-layout="simple"] .edition-page .edition-shell { max-width: calc(100% - 36px); }
   .simple-filters { gap: 0 20px; }
   .simple-post-title { font-size: 16px; }
-  .edition-page .header-tools { gap: 12px; }
-  .edition-page .search-trigger span { display: none; }
-  .edition-page .search-trigger { min-width: 32px; }
 }

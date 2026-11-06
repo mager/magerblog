@@ -25,7 +25,8 @@ test('front page is a complete, varied edition even without JavaScript', () => {
   assert(stories.length >= 25 && stories.length <= 35);
   assert.equal(new Set(stories.map(story => story.dataset.editionEntry)).size, stories.length);
   assert.equal(new Set(stories.map(story => story.dataset.editionEntry.split('/')[0])).size, 4);
-  assert.equal(page.querySelectorAll('h1').length, 1);
+  assert.equal(page.querySelectorAll('.edition-content h1').length, 1);
+  assert.equal(page.querySelectorAll('.simple-home h1').length, 1);
   const leadImage = page.querySelector('.story-lead img');
   if (leadImage) assert.equal(leadImage.getAttribute('loading'), 'eager');
   assert(page.querySelector('.seen-strip[tabindex="0"]'));
