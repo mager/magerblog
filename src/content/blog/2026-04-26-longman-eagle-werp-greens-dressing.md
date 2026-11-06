@@ -7,7 +7,7 @@ category: "food"
 subcategory: "salad"
 tags: ["Salad", "Vinaigrette", "Longman & Eagle", "Chicago", "Shallot", "WERP Greens"]
 keyword: "Longman and Eagle WERP greens dressing"
-draft: true
+draft: false
 ---
 
 <div class="recipe-intro">

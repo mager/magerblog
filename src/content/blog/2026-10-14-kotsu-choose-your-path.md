@@ -8,7 +8,7 @@ keyword: "learning Japanese"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-14-kotsu-choose-your-path/journey.jpg"
 heroImageAlt: "Kotsu's new journey page, with five chapters, a branching map, and the First light lesson selected."
 heroImageCaption: "Kotsu’s updated home screen connects the existing study material into a branching journey."
-draft: true
+draft: false
 ---
 
 I've been adding to Kotsu since [the original character wall](/blog/2026-03-21-kotsu-the-knack-for-japanese/): five columns, large Japanese characters, and a quick way to look something up on my phone. Then came [the local Gemma experiment](/blog/2026-05-06-local-gemma-kotsu/), which drafted kanji mnemonics into files I could review, and [Niko](/blog/2026-06-06-kotsu-logo/), the logo with the hidden smile.
