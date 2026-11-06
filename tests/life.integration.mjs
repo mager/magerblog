@@ -82,7 +82,8 @@ test('the Japanese learning story retains code, a keyboard-accessible table, and
   assert.match(prose.textContent, /ありがとう/);
   const table = prose.querySelector('table');
   assert(table);
-  assert.equal(table.getAttribute('tabindex'), '0');
+  assert.equal(table.parentElement.getAttribute('tabindex'), '0');
+  assert(table.parentElement.classList.contains('table-scroll'));
   assert.equal(table.querySelectorAll('tbody tr').length, 5);
   assert.match(table.textContent, /Basic Conversation/);
 });

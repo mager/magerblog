@@ -165,6 +165,8 @@ p { margin-bottom: 1em; }
 
 textarea { width: 100%; font-size: 16px; }
 input { font-size: 16px; }
+/* Keep native table sizing inside a keyboard-accessible scroll container. */
+.table-scroll { max-width: 100%; overflow-x: auto; }
 /* Table styling */
 table {
 	width: 100%;

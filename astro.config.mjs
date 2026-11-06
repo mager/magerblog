@@ -41,7 +41,11 @@ export default defineConfig({
 					filter: ['table'],
 					visit(node, ctx) {
 						// Tables scroll horizontally on small screens, including without JS.
-						ctx.setProperty(node, 'tabIndex', 0);
+						ctx.wrapNode(node, {
+							type: 'element', tagName: 'div',
+							properties: { className: ['table-scroll'], tabIndex: 0, role: 'region', 'aria-label': 'Scrollable table' },
+							children: [],
+						});
 					},
 				},
 			}],
