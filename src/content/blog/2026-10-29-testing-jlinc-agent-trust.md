@@ -2,7 +2,7 @@
 title: 'JLINC: Signed agreements and audit records for AI agents'
 description: 'What signed agreements and audit records could add to personal assistants and enterprise workflows, with results from a small JLINC test.'
 pubDate: '2026-10-29'
-updatedDate: '2026-11-05'
+updatedDate: '2026-11-06'
 category: 'tech'
 tags: ['jlinc', 'agents', 'security', 'langchain', 'privacy']
 draft: false
@@ -14,11 +14,11 @@ Permission to read a document does not necessarily include sending it to another
 
 Thanks to Ben Curtis, JLINC's CTO, for helping refine this article and answering my technical questions. Shoutout to Miguel Solari, a good friend from my San Francisco days who works at JLINC, for connecting us.
 
-![Three steps: the parties sign terms, the application checks permission before running a tool, and JLINC records signed evidence of the exchange.](/images/jlinc-agreement-flow.svg)
+![Three steps: the sender and recipient sign terms, the application checks permission before running a tool, and JLINC records signed evidence of the exchange.](/images/jlinc-agreement-flow.svg)
 
 ## What JLINC does
 
-JLINC associates data exchanges with a **Verifiable Contractual Agreement**, or VCA. The parties sign the agreement, and subsequent exchanges refer to it. The protocol also describes delegation, through which an identity can authorize another identity to sign on its behalf. [Protocol specification](https://protocol.jlinc.io/)
+JLINC connects data exchanges to a **Verifiable Contractual Agreement**, or VCA. For example, a company sharing error logs and the vendor receiving them can agree to use the logs only for diagnosis. Each signs those terms with a private cryptographic key, creating a digital signature that the other can verify. Later exchanges include the agreement ID. An authorized agent can also sign on someone’s behalf through delegation. [Protocol specification](https://protocol.jlinc.io/)
 
 An agreement needs a system that enforces its terms. JLINC's developer API supports policy checks through an access-control service. The application must connect those checks to the actions it allows. [Access-control guide](https://docs.jlinc.io/usage-guide/access-control)
 
