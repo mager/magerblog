@@ -7,10 +7,12 @@ import BenchWidget from '../components/BenchWidget.astro';
 import LinkPost from '../components/LinkPost.astro';
 import Story from '../components/edition/Story.astro';
 import SocialIcon from '../components/SocialIcon.astro';
+import SimpleHome from '../components/SimpleHome.astro';
 import { getFeed } from '../lib/feed';
 import { makeEdition } from '../lib/edition';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/edition.css';
+import '../styles/simple.css';
 const entries = await getFeed();
 const posts = entries.filter(entry => entry.collection === 'blog');
 const edition = makeEdition(entries);
@@ -23,6 +25,8 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage themeToggle revealWordmark />
     <main id="main-content" class="edition-shell">
+      <SimpleHome entries={entries} />
+      <div class="edition-content">
       <div class="edition-masthead">
         <h1 data-main-wordmark>mager<span>.</span>co</h1>
         <div class="masthead-intro">
@@ -95,6 +99,7 @@ const ogImage = posts.find(post => post.data.heroImage)?.data.heroImage;
       <section id="chronological-feed" class="chronological-feed" aria-label="All updates">
         <details class="complete-stream"><summary>Every update, newest first <span aria-hidden="true">↓</span></summary><Feed entries={entries} filters compact pageSize={24} headingLevel="h2" /></details>
       </section>
+      </div>
     </main>
     <Footer homepage />
   </body>

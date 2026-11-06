@@ -37,6 +37,10 @@ Every public page uses one shared sticky header and one fixed footer. The header
 
 Notes use a compact 680px notebook column with Space Grotesk headings and prose. The title leads directly into the note, with a quiet date and optional source link. Omit article summaries, contents rails, progress bars, and large related-story blocks; retain readable code, tables, and simple older/newer navigation.
 
+### Simple homepage
+
+The optional Simple layout uses the same publication colors, Fraunces header wordmark, and Space Grotesk interface type. Its compact list has thumbnails, titles, and publication dates in a 1080px shell, with the six newest notes in a side column. At 700px and below, the notes follow the list. Plain text filters, an underlined active state, and a search field support all published collections. Search matches titles, descriptions, and tags; the list shows 24 rows at a time. The header's Simple control saves the layout separately from light or dark mode. The Chicago edition remains the default and the available layout without JavaScript.
+
 ## Imagery
 
 Use existing author-owned images. Front-page food photo selections prioritize permanent hosted images and leave older Google Photos URLs unchanged in source posts. Broken remote images fall back to a readable story link or photo description. Hero images load eagerly with reserved dimensions; supporting images load lazily. No photos are committed to the repository.

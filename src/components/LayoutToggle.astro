@@ -1,0 +1,13 @@
+<button class="layout-toggle" type="button" data-layout-toggle aria-pressed="false" aria-label="Simple homepage" hidden>
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" /></svg>
+  Simple
+</button>
+<script>
+  import '../scripts/layout-toggle';
+</script>
+<style>
+  .layout-toggle { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--header-muted); font: 500 12px/1.4 var(--news-ui); cursor: pointer; }
+  .layout-toggle[hidden] { display: none; }
+  .layout-toggle:hover, .layout-toggle[aria-pressed="true"] { color: var(--header-ink); }
+  .layout-toggle[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+</style>

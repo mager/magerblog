@@ -5,7 +5,8 @@ export function observeHeaderWordmark(header: HTMLElement) {
   if (!header.hasAttribute('data-reveal-wordmark') || !masthead || !wordmark) return () => {};
 
   const update = () => {
-    const visible = masthead.getBoundingClientRect().bottom <= header.getBoundingClientRect().bottom;
+    const visible = document.documentElement.dataset.layout === 'simple'
+      || masthead.getBoundingClientRect().bottom <= header.getBoundingClientRect().bottom;
     header.dataset.wordmarkVisible = String(visible);
     wordmark.inert = !visible;
   };
@@ -20,5 +21,6 @@ export function observeHeaderWordmark(header: HTMLElement) {
   };
   refresh();
   window.addEventListener('pageshow', refresh);
+  window.addEventListener('mager:layout', refresh);
   return refresh;
 }
