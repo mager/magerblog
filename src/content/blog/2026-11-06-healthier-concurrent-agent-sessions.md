@@ -3,13 +3,15 @@ title: "Too many agents, one brain"
 description: "Running agents all day means switching between plans, bugs, reviews, and decisions. I want fewer interruptions, regular breaks, and more room between human reviews."
 pubDate: 2026-11-06
 category: tech
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-calm-v3.jpg"
-heroImageAlt: "Pointillist painting of a human with relaxed eyes and a faint smile, their mind dissolving into colored currents among many small robots working together."
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-06-healthier-concurrent-agent-sessions/pointillist-mind-detailed-v4.jpg"
+heroImageAlt: "Detailed pointillist painting of a calm human with closed eyes and flowing hair, surrounded by hundreds of small robots passing glowing parts, building structures, and working together along colored currents."
 heroImageCaption: "Too many agents, one brain. Created with ChatGPT image generation."
 heroImageLayout: wide
 tags: [agents, development, health, spec-driven-development, goal-driven-development]
 draft: true
 ---
+
+*This post is a personal reflection on work habits, not mental health advice.*
 
 One agent wants a decision about the architecture. Another needs help with a failing test. A third has finished a feature and wants a review. I switch between them, answering questions, then return to the first thread and try to remember what we decided.
 
