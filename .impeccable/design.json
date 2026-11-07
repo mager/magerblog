@@ -313,7 +313,7 @@
       "refersTo": "search-field",
       "description": "Inline full-text search within the current list.",
       "html": "<label class=\"ds-search\">Search <input type=\"search\" aria-label=\"Search all posts\" placeholder=\"Search all posts\u2026\"></label>",
-      "css": ".ds-search { display:flex; align-items:center; gap:10px; min-height:58px; border-bottom:1px solid var(--news-rule); color:var(--news-muted); font:500 14px/1.5 var(--news-ui); }.ds-search input { min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--news-ink); font:inherit; }.ds-search input:focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }"
+      "css": ".ds-search { display:flex; align-items:center; gap:10px; min-height:58px; border-bottom:1px solid var(--news-rule); color:var(--news-muted); font:500 14px/1.5 var(--news-ui); }.ds-search input { min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--news-ink); font:inherit; }.ds-search:focus-within { border-bottom-color:var(--news-blue); box-shadow:inset 0 -1px 0 var(--news-blue); color:var(--news-blue); }.ds-search input:focus { outline:none; }"
     },
     {
       "name": "Content filters",

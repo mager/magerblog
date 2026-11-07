@@ -146,7 +146,7 @@ The `life-heading` and `life-feature-title` roles above use Fraunces. Supporting
 
 ### Search and filters
 
-Filters are plain text with an underlined selected state and 44px minimum height. The search field sits on a rule with a clear control. Inline search and the global dialog use the same lazy-loaded full-text index and ranking: title matches first, accent-insensitive text, prefixes, and limited spelling correction. Results show highlighted text and short matching excerpts. Inline queries and filters persist in the URL as `q` and `type`; archive search stays within its archive. Retain loading, retry, empty, and clear states. Escape clears an inline query; Arrow Down focuses its first result. Show more posts adds 24 rows and moves focus to the first new row.
+Filters are plain text with an underlined selected state and 44px minimum height. The search field sits on a rule with a clear control. Inline search focus colors the icon and thickens the bottom rule in lake blue; the input has no box outline. Keep visible keyboard focus on its clear control. Inline search and the global dialog use the same lazy-loaded full-text index and ranking: title matches first, accent-insensitive text, prefixes, and limited spelling correction. Results show highlighted text and short matching excerpts. Inline queries and filters persist in the URL as `q` and `type`; archive search stays within its archive. Retain loading, retry, empty, and clear states. Escape clears an inline query; Arrow Down focuses its first result. Show more posts adds 24 rows and moves focus to the first new row.
 
 ## Imagery
 
