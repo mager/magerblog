@@ -4,10 +4,12 @@ title: "One-Pan Orzo with Spinach and Feta"
 pubDate: "2025-12-20"
 description: A quick, one-pan meal featuring orzo, spinach, peas, and feta. Similar to spanakorizo, this is deeply satisfying but still on the lighter side thanks to all those vegetables.
 category: "food"
-keyword: "orzo"
 subcategory: "pasta"
-tags: ["Pasta", "Greek", "Weeknight"]
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2025-12-20-one-pan-orzo-spinach-feta/hero.jpg"
+recipeCategories: ["pasta"]
+keyword: "orzo"
+tags: ["pasta","greek","weeknight"]
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2025-12-20-one-pan-orzo-spinach-feta/hero-rustic.jpg"
+heroImageAlt: "Orzo with wilted spinach, peas, and uneven feta crumbles in a ceramic bowl, with a lemon slice and fork on a worn wooden table."
 prepTime: 10
 cookTime: 20
 ---

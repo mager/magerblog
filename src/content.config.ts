@@ -1,6 +1,7 @@
 import { glob } from 'astro/loaders';
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
+import { recipeCategoryIds } from './lib/cooking';
 
 const blog = defineCollection({
 	// Load Markdown and MDX files in the `src/content/blog/` directory.
@@ -25,9 +26,12 @@ const blog = defineCollection({
 		draft: z.boolean().optional(),
 		keyword: z.string().optional(), // Short 1-2 word phrase for hero cycling (e.g., "green curry", "Sicily", "AI agents")
 		recipeLayout: z.enum(['default', 'compact']).optional(), // Compact layout shows images alongside text on desktop
-		subcategory: z.string().optional(), // Recipe subcategory for filtering (soup, casserole, meat, pasta, comfort, etc.)
+		subcategory: z.string().optional(), // Primary recipe group; recipeCategories supplies all filter memberships.
+		recipeCategories: z.array(z.enum(recipeCategoryIds)).min(1).optional(),
 		locale: z.string().optional(), // 'en' or 'ja' — omit for English default
 		translationKey: z.string().optional(), // Shared key linking EN and JA versions of the same post
+	}).refine(data => data.category !== 'food' || !!data.recipeCategories?.length, {
+		message: 'Cooking posts need at least one recipeCategories value.', path: ['recipeCategories'],
 	}),
 });
 

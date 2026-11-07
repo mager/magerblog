@@ -2,11 +2,13 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Cottage Pie"
 pubDate: "2025-12-06"
+updatedDate: "2026-11-07"
 description: A hearty cottage pie made with ground beef, following Alton Brown's method. Perfect comfort food for a cold day.
 category: "food"
-subcategory: "comfort"
+subcategory: "casserole"
+recipeCategories: ["casserole","beef","turkey"]
 keyword: "cottage pie"
-tags: ["Comfort Food", "British", "Beef"]
+tags: ["comfort-food","british","beef","casserole","turkey"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPAog72I_vM3GNc49AJ0EADf_ycCZfUGLbze6dxoadtJESVvw3qrE0QgoZxmGjO2583jI2usj_h9aXpU42hzHyFtUTl9akN-xrQbL3PW9ZSgTNSsErVoDY7PU_RhOsIfAbsBFbt1U-faYjY-IPUt0FLQg=w2026-h1520-s-no-gm"
 prepTime: 60
 cookTime: 60
@@ -83,6 +85,14 @@ Bake for 25-30 minutes, or until the topping is lightly browned and the filling 
 
 </div>
 </div>
+
+## Ground turkey variation
+
+For a turkey version, replace the **1½ pounds ground beef** with **1½ pounds ground turkey thigh** if you can find it. Ground turkey breast also works, but it is leaner and can dry out more easily.
+
+Use the same **2 tablespoons vegetable oil** to cook the vegetables, then add the **1½ pounds ground turkey**, **¾ teaspoon kosher salt**, and **½ teaspoon black pepper** in place of the beef. Break up the turkey and cook it through; do not keep cooking just to get the same dark browning as beef. Skip draining unless there is excess fat in the pan.
+
+Continue with the same filling and potato topping. If the filling looks dry, especially with breast meat, add **2 tablespoons extra chicken stock** along with the listed **1 cup stock**. The filling should be moist but thick enough to hold the potato layer. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
 
 <div class="recipe-gallery">
 

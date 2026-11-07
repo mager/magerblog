@@ -6,8 +6,9 @@ updatedDate: "2026-01-17"
 description: One of my go-to "last meals" that you need to try before you die.
 category: "food"
 subcategory: "pasta"
+recipeCategories: ["pasta"]
 keyword: "penne alla vodka"
-tags: ["Pasta", "Italian", "Comfort Food"]
+tags: ["pasta","italian","comfort-food"]
 heroImage: https://lh3.googleusercontent.com/pw/AP1GczOjN-FWIv6fYun00oV1JOOe5C8qRI54e3tcr8pKFLnCBjULT5UQT1c2gvyA7PKLq3j7wCiZw7HFn-xkRM_TzK9RogyRFFkIC-sZ9EK18zRvnINt9KSUOR-DnXdE0G41s1pOH0-SGtVR91QdIHXCARlU=w1286-h1714-s-no-gm
 prepTime: 20
 cookTime: 45

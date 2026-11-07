@@ -4,7 +4,9 @@ title: "Euglena Yogo Parfait"
 description: "A bag of euglena powder from Ishigaki, a yogurt recipe on the package, and five minutes to make breakfast."
 pubDate: "2026-09-11"
 category: "food"
-tags: ["Japan", "Okinawa", "Ishigaki", "Euglena", "Travel", "Recipe", "Yogurt"]
+subcategory: "breakfast"
+recipeCategories: ["breakfast"]
+tags: ["japan","okinawa","ishigaki","euglena","travel","yogurt","breakfast"]
 keyword: "euglena"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-09-11-euglena-yogo-parfait/hero-natural.jpg"
 heroImageAlt: "Pale green euglena yogurt topped with granola, blueberries, and strawberries in a glass on a kitchen counter."

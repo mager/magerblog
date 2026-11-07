@@ -6,8 +6,9 @@ heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10
 heroImageAlt: "Golden-brown apple cinnamon bread with visible apple chunks in a parchment-lined glass loaf pan."
 category: "food"
 subcategory: "baking"
+recipeCategories: ["baking","breakfast"]
 keyword: "apple cinnamon bread"
-tags: ["apples", "cinnamon", "baking", "quick-bread", "fall"]
+tags: ["apples","cinnamon","baking","quick-bread","fall","breakfast"]
 prepTime: 25
 cookTime: 80
 recipeYield: "1 loaf, 10 slices"

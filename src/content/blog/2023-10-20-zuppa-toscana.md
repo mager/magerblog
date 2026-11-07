@@ -6,8 +6,9 @@ updatedDate: "2026-01-12"
 description: One of the best soups to kick off the autumn season, a variation that uses chicken sausage
 category: "food"
 subcategory: "soup"
+recipeCategories: ["soup","chicken"]
 keyword: "zuppa toscana"
-tags: ["Soup", "Italian", "Comfort Food"]
+tags: ["soup","italian","comfort-food","chicken"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOrvXv3eME8azjRF9vxrz_EAv6msLbdxTFe4n99SNyG7EYVckG33Z0MNqpyWETw3Ad7MTAeyk8uddwE_hWRu05f57t2vWVcLhSsJnMtILvgceqKKB5NCTKoUiKDqTOMqq-MfP-5HC_ufh5mGDXvaF3t=w2286-h1714-s-no-gm"
 prepTime: 30
 cookTime: 60

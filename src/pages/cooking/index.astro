@@ -1,9 +1,33 @@
 ---
-import Archive from '../../layouts/Archive.astro';
-import { getFeed } from '../../lib/feed';
-const all = await getFeed();
-const entries = all.filter(entry => entry.collection === 'blog' && entry.data.category === 'food');
-const types = [...new Set(entries.flatMap(entry => entry.collection === 'blog' && entry.data.subcategory ? [entry.data.subcategory] : []))].sort();
-const filters: [string, string][] = [['all', 'All recipes'], ...types.map(type => [type, type[0].toUpperCase() + type.slice(1)] as [string, string])];
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CookingCollection from '../../components/CookingCollection.astro';
+import { getFeed, entryHref } from '../../lib/feed';
+import { comparePublicationDates } from '../../lib/publication-date';
+import '../../styles/simple.css';
+import '../../styles/cooking-index.css';
+const entries = (await getFeed())
+  .filter((entry): entry is CollectionEntry<'blog'> => entry.collection === 'blog' && entry.data.category === 'food')
+  .sort((a, b) => comparePublicationDates(a.data.updatedDate || a.data.pubDate, b.data.updatedDate || b.data.pubDate)
+    || comparePublicationDates(a.data.pubDate, b.data.pubDate) || a.id.localeCompare(b.id));
+const description = 'Recipes from my kitchen: slow Sunday braises, weeknight pasta, something sweet, and everything in between.';
+const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Cooking — mager.co', description, url: new URL('/cooking/', Astro.site).href, mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entry.data.title, url: new URL(entryHref(entry), Astro.site).href })) } };
 ---
-<Archive title="Cooking" description="Recipes from my kitchen: soups, pasta, slow braises, and more." entries={entries} sidebarEntries={all} featured filters={filters} filterBy="subcategory" />
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Cooking — mager.co" description={description} /><script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} /></head>
+  <body class="publication simple-page cooking-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="simple-shell cooking-shell">
+      <header class="cooking-heading">
+        <h1>Cooking</h1>
+        <p>Recipes from my kitchen.<br />Slow Sunday braises, weeknight pasta,<br class="cooking-desktop-break" /> and something sweet for later.</p>
+      </header>
+      <CookingCollection entries={entries} />
+    </main>
+    <Footer homepage />
+  </body>
+</html>

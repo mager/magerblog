@@ -5,7 +5,8 @@ pubDate: "2026-04-18"
 description: "A hearty beef and barley soup built from chuck roast, carrots, pearl barley, red wine, and broth, with leeks swapped in for celery for a sweeter, softer backbone."
 category: "food"
 subcategory: "soup"
-tags: ["Soup", "Beef", "Barley", "Comfort Food", "Dutch Oven", "Leeks"]
+recipeCategories: ["soup","beef"]
+tags: ["soup","beef","barley","comfort-food","dutch-oven","leeks"]
 keyword: "beef barley soup with leeks"
 draft: true
 ---

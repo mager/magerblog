@@ -5,8 +5,9 @@ pubDate: "2026-05-30"
 description: "A five-ingredient Japanese-style spaghetti — butter, tamari, and parmesan tossed with hot pasta and finished with green onion. The wafu pasta I kept eyeing in Tokyo, made at home in ten minutes."
 category: "food"
 subcategory: "pasta"
+recipeCategories: ["pasta"]
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-05-30-japanese-spaghetti/hero.jpg"
-tags: ["Pasta", "Japanese", "Wafu", "Tamari", "Quick", "Weeknight"]
+tags: ["pasta","japanese","wafu","tamari","quick","weeknight"]
 keyword: "wafu spaghetti"
 prepTime: 5
 cookTime: 10
