@@ -40,6 +40,32 @@ ingredients.forEach((li, index) => {
     persist();
   });
 });
+// Copy plain recipe text, without photo captions or interactive controls.
+function copyText(node: Element): string {
+  const clone = node.cloneNode(true) as Element;
+  clone.querySelectorAll('img, figure, button, svg, audio, video').forEach(item => item.remove());
+  clone.querySelectorAll('br').forEach(item => item.replaceWith('\n'));
+  clone.querySelectorAll('p, li').forEach(item => item.append('\n'));
+  return (clone.textContent || '').split('\n').map(line => line.replace(/\s+/g, ' ').trim()).filter(Boolean).join('\n');
+}
+function createCopyButton(kind: 'ingredients' | 'instructions', status: HTMLElement, getText: () => string): HTMLButtonElement {
+  const copy = document.createElement('button');
+  copy.type = 'button';
+  copy.className = 'ingredients-action';
+  copy.textContent = `Copy ${kind}`;
+  copy.addEventListener('click', async () => {
+    copy.disabled = true;
+    try {
+      await navigator.clipboard.writeText(getText());
+      status.textContent = `${kind === 'ingredients' ? 'Ingredients' : 'Instructions'} copied.`;
+    } catch {
+      status.textContent = `Copy unavailable. Select the ${kind} and copy them manually.`;
+    } finally {
+      copy.disabled = false;
+    }
+  });
+  return copy;
+}
 const section = document.querySelector(".recipe-ingredients");
 if (section && ingredients.length) {
   const toolbar = document.createElement("div");
@@ -47,26 +73,11 @@ if (section && ingredients.length) {
   const status = document.createElement("p");
   status.className = "ingredients-status";
   status.setAttribute("role", "status");
-  const copy = document.createElement("button");
-  copy.type = "button";
-  copy.className = "ingredients-action";
-  copy.textContent = "Copy ingredients";
-  copy.addEventListener("click", async () => {
-    copy.disabled = true;
-    try {
-      await navigator.clipboard.writeText(
-        Array.from(ingredients, (li) => li.textContent?.trim())
-          .filter(Boolean)
-          .join("\n"),
-      );
-      status.textContent = "Ingredients copied.";
-    } catch {
-      status.textContent =
-        "Copy unavailable. Select the ingredient text and copy it manually.";
-    } finally {
-      copy.disabled = false;
-    }
-  });
+  const copy = createCopyButton("ingredients", status, () =>
+    Array.from(section.querySelectorAll("h3, li"), node =>
+      node.tagName === "H3" ? `\n${copyText(node)}` : `- ${copyText(node)}`,
+    ).join("\n").trim(),
+  );
   const clear = document.createElement("button");
   clear.type = "button";
   clear.className = "ingredients-action";
@@ -94,7 +105,25 @@ if (section && ingredients.length) {
   clear.addEventListener("click", updateProgress);
   updateProgress();
   toolbar.append(copy, clear, progress);
-  section.append(toolbar, status);
+  const heading = section.querySelector("h2");
+  if (heading) heading.after(toolbar, status);
+  else section.prepend(toolbar, status);
+}
+
+const method = document.querySelector('.recipe-instructions');
+const steps = method?.querySelectorAll('.recipe-steps > li');
+if (method && steps?.length) {
+  const toolbar = document.createElement('div');
+  toolbar.className = 'instructions-toolbar';
+  const status = document.createElement('p');
+  status.className = 'instructions-status';
+  status.setAttribute('role', 'status');
+  toolbar.append(createCopyButton('instructions', status, () =>
+    Array.from(steps, (step, index) => `${index + 1}. ${copyText(step)}`).join('\n\n'),
+  ));
+  const heading = method.querySelector('h2');
+  if (heading) heading.after(toolbar, status);
+  else method.prepend(toolbar, status);
 }
 
 const printButton = document.querySelector<HTMLButtonElement>('[data-recipe-print]');

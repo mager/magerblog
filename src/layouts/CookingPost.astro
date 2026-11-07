@@ -7,12 +7,13 @@ import Footer from '../components/Footer.astro';
 import PhotoViewer from '../components/cooking/PhotoViewer.astro';
 import '../styles/recipe.css';
 import { prepareRecipe } from '../lib/recipe';
+import { recipeCategoryLabels } from '../lib/cooking';
 
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
 const {
   title, description, pubDate, heroImage, heroImageAlt, keyword,
-  prepTime, cookTime, subcategory, postId, draft, tags, recipeYield
+  prepTime, cookTime, subcategory, postId, draft, tags, recipeYield, recipeCategories = []
 } = Astro.props;
 
 const recipe = prepareRecipe(await Astro.slots.render('default'));
@@ -89,7 +90,6 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
       <header class:list={['recipe-opening', { 'has-photo': !!heroImage }]}>
         <div class="recipe-heading">
           <a class="recipe-back" href="/cooking/">← All recipes</a>
-          {subcategory && <p class="recipe-eyebrow">{subcategory}</p>}
           {draft && <p class="recipe-draft">Draft recipe</p>}
           <h1>{title}</h1>
           <p class="recipe-description">{description}</p>
@@ -108,7 +108,9 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
           {recipe.hasMethod && <a href="#method">Method <span aria-hidden="true">↓</span></a>}
           <button type="button" data-recipe-print hidden>Print</button>
         </div>
-        <span class="recipe-jump-title" aria-hidden="true">{title}</span>
+        {recipeCategories.length > 0 && <ul class="recipe-category-tags" aria-label="Recipe categories">
+          {recipeCategories.map(category => <li><a href={`/cooking/?type=${category}`}>{recipeCategoryLabels[category]}</a></li>)}
+        </ul>}
       </nav>
       <article class="cooking-content" set:html={recipe.html} />
       {(prevPost || nextPost) && <nav class="recipe-navigation" aria-label="More recipes">

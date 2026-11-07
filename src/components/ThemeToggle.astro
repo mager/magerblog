@@ -1,5 +1,14 @@
-<button class="theme-toggle" type="button" aria-label="Switch to dark mode" data-theme-toggle hidden>
-  <span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>Dark</span>
+---
+interface Props { kitchen?: boolean; }
+const { kitchen = false } = Astro.props;
+---
+<button class:list={['theme-toggle', { 'theme-toggle-kitchen': kitchen }]} type="button" aria-label={kitchen ? 'Turn kitchen light off' : 'Switch to dark mode'} data-theme-toggle data-kitchen-light={kitchen || undefined} hidden>
+  {kitchen ? <svg class="kitchen-lamp" viewBox="0 0 36 40" width="32" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M14 3h8M18 3v9" />
+    <path class="lamp-shade" d="M7 25c1-8 5-13 11-13s10 5 11 13H7Z" />
+    <path class="lamp-bulb" d="M14 25a4 4 0 0 0 8 0" />
+    <path class="lamp-rays" d="M18 34v3M9 31l-2 3m20-3 2 3" />
+  </svg> : <><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>Dark</span></>}
 </button>
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
@@ -7,9 +16,12 @@
     const dark = document.documentElement.dataset.theme === 'dark';
     buttons.forEach(button => {
       button.hidden = false;
-      button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-      button.querySelector('[data-theme-label]')!.textContent = dark ? 'Light' : 'Dark';
-      button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      const kitchen = button.hasAttribute('data-kitchen-light');
+      const label = kitchen ? (dark ? 'Turn kitchen light on' : 'Turn kitchen light off') : (dark ? 'Switch to light mode' : 'Switch to dark mode');
+      button.setAttribute('aria-label', label);
+      const text = button.querySelector('[data-theme-label]');
+      if (text) text.textContent = dark ? 'Light' : 'Dark';
+      button.title = label;
     });
   }
   buttons.forEach(button => button.addEventListener('click', () => {
@@ -31,5 +43,13 @@
   .theme-toggle[hidden] { display: none; }
   .theme-toggle:hover { color: var(--news-ink); }
   .theme-symbol { font-size: 18px; }
+  .theme-toggle-kitchen { min-width: 44px; color: var(--news-red); }
+  .lamp-shade { fill: var(--news-red); }
+  .lamp-bulb { fill: var(--news-yellow); }
+  .lamp-rays { stroke: var(--news-red); }
+  :global(html[data-theme="dark"]) .theme-toggle-kitchen { color: var(--news-muted); }
+  :global(html[data-theme="dark"]) .lamp-shade { fill: var(--news-surface); }
+  :global(html[data-theme="dark"]) .lamp-bulb { fill: none; }
+  :global(html[data-theme="dark"]) .lamp-rays { opacity: 0; }
   @media(max-width: 800px) { .theme-toggle { padding: 0 0 0 14px; } }
 </style>

@@ -147,3 +147,11 @@ The nine-album post uses `lifeLayout: albums` and a dedicated `AlbumPost.astro` 
 ## Article screenshots
 
 Tech articles can opt into `heroImageLayout: wide` for a workspace screenshot. The title and deck share the desktop opening, followed by the complete 16:10 screenshot across the article grid; phones stack title, deck, and image. Keep the screenshot uncropped, supply `heroImageAlt` and `heroImageCaption`, and link to the full-size hosted image. Other articles retain the existing split hero layout. Homeport uses this treatment for its October 11 terminal workspace refresh.
+
+## Cooking collection
+
+Cooking uses a modern food magazine layout as an explicit exception to compact archive rows. Use publication tokens, bold Space Grotesk headings, large recipe photography, plain counted filters, and a varied two/three-column desktop index. Phones use one column and horizontally scrolling filters. Omit the notes/links sidebar. Sort cooking recipes by `updatedDate`, falling back to `pubDate`. Recipe detail navigation uses comma-separated category links. Separate copy buttons sit below the Ingredients and Method headings.
+
+Each category has its own introduction, color treatment, and composition. Soups use green and a wide photograph; pasta and rice use saffron paper and a reversed opening spread; baking and breakfast use copper-tinted paper and serif headings. Other families use green or copper. Selected worlds persist through search and saved filter URLs. All recipes restores the magazine view.
+
+Cooking and recipe headers use an accessible pendant-light theme button without visible Light/Dark text. `docs/design/cooking.md` records the category rules, typography, and visual behavior.

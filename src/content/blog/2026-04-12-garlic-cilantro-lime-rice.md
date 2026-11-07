@@ -6,7 +6,8 @@ description: "A bright, high-impact rice finished with garlic, lots of cilantro,
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczOJcA-rD2dlvoXWqBzqegUnyN8RRQjOYgtbBbEP-WG5oBrZyqNJTx0mle4d7tzE8u-XlQIj2bnZ_rP4K90kqad7wLlpUIpFcaH9eGrgTKvNnlZ9rruCL33Wa-ZIQaqz4VnkXz3Z3K1zJ_dLTTjoEAj34w=w1930-h1522-s-no-gm"
 category: "food"
 subcategory: "side"
-tags: ["Rice", "Garlic", "Cilantro", "Lime", "Side Dish", "Taco Night"]
+recipeCategories: ["side","rice"]
+tags: ["rice","garlic","cilantro","lime","side-dish","taco-night","side"]
 keyword: "garlic cilantro lime rice"
 ---
 

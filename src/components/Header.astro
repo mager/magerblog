@@ -29,7 +29,7 @@ const active = (href: string) => activeSection ? activeSection === href : curren
       <button class="search-trigger" type="button" data-open-search aria-label="Search" title="Search (/)" aria-haspopup="dialog" aria-controls="site-search" hidden>
         <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
       </button>
-      {themeToggle && <ThemeToggle />}
+      {themeToggle && <ThemeToggle kitchen={active('/cooking/')} />}
     </div>
   </div>
 </header>

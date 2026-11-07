@@ -3,8 +3,10 @@ title: "Make-Ahead Lentil Salad: Bon Appétit Delivers Again"
 description: "Green lentils dressed in cumin-infused oil with Castelvetrano olives, feta, and kale — better the next day, holds up all week."
 pubDate: "2026-05-31"
 category: "food"
+subcategory: "side"
+recipeCategories: ["side"]
 keyword: "lentil salad"
-tags: ["lentils", "salad", "make-ahead", "vegetarian", "bon appétit", "kale"]
+tags: ["lentils","salad","make-ahead","vegetarian","bon-appétit","kale","side"]
 draft: true
 ---
 

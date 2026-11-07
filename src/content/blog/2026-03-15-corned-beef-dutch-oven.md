@@ -3,9 +3,11 @@ title: "Corned Beef: The Dutch Oven St. Patrick's Day Braise"
 description: "4lb corned beef, mini carrots, cabbage, potatoes — braised low and slow in a covered Dutch oven. The St. Patrick's Day comfort food move."
 pubDate: 2026-03-17
 category: "food"
+subcategory: "beef"
+recipeCategories: ["beef"]
 keyword: "corned beef in a dutch oven"
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczPcOxhbfsZ28qsiZV8mExK5h5FbuOr4E9iCnWOEBL2AD6qw7XapwoY5vHUfV56lqiWLgdlTusNimcx0rkePEMG6akofvp5jgKyS7-5lxBBBG9xEokxsu1WPQbqbDIYc6dyLuYr0lR6nXOcXervMkMCmJQ=w2030-h1522-s-no-gm"
-tags: ["cooking", "comfort-food", "st-patricks-day", "braise"]
+tags: ["comfort-food","st-patricks-day","braise","beef"]
 ---
 
 4lb corned beef, one Dutch oven, a few hours — this is the move for St. Patrick's Day.

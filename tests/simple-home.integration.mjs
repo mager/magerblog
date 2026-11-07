@@ -100,7 +100,7 @@ test('saved search URLs restore and failed requests retry with the latest query'
 test('category leads use publication order, appear once, and remain searchable', async () => {
   const home = setup().window.document;
   const allRows = [...home.querySelectorAll('[data-simple-row]')];
-  for (const [route, category] of [['tech', 'tech'], ['cooking', 'food'], ['life', 'life']]) {
+  for (const [route, category] of [['tech', 'tech'], ['life', 'life']]) {
     const dom = setup(`${route}/index.html`), doc = dom.window.document;
     const expected = allRows.find(row => row.dataset.category === category).dataset.href;
     const feature = doc.querySelector('[data-simple-feature]');

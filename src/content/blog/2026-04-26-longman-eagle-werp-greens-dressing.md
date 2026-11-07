@@ -4,8 +4,9 @@ title: "Longman & Eagle: The WERP Greens Dressing I Wanted at Home"
 pubDate: "2026-04-26"
 description: "A sharp, balanced shallot vinaigrette inspired by Longman & Eagle's greens salad — bright acid, good olive oil, Dijon, and just enough honey to round the edges."
 category: "food"
-subcategory: "salad"
-tags: ["Salad", "Vinaigrette", "Longman & Eagle", "Chicago", "Shallot", "WERP Greens"]
+subcategory: "seasoning"
+recipeCategories: ["seasoning","side"]
+tags: ["salad","vinaigrette","longman-&-eagle","chicago","shallot","werp-greens","seasoning","side"]
 keyword: "Longman and Eagle WERP greens dressing"
 draft: false
 ---

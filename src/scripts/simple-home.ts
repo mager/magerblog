@@ -28,7 +28,9 @@ if (simpleHome) {
     const matches = term && index ? searchEntries(index, term) : [];
     const matchingEntries = new Map(matches.map(entry => [entry.href, entry]));
     const candidateRows = term ? matches.flatMap(entry => byHref.has(entry.href) ? [byHref.get(entry.href)!] : []) : rows;
-    const filtered = candidateRows.filter(row => category === 'all' || row.dataset[simpleHome!.dataset.filterBy === 'subcategory' ? 'subcategory' : 'category'] === category);
+    const filtered = candidateRows.filter(row => category === 'all' || (simpleHome!.dataset.filterBy === 'recipe'
+      ? (row.dataset.recipeCategories || '').split(' ').includes(category)
+      : row.dataset[simpleHome!.dataset.filterBy === 'subcategory' ? 'subcategory' : 'category'] === category));
     const feature = !term && filtered.length ? features.find(item => item.dataset.href === filtered[0].dataset.href) : undefined;
     features.forEach(item => { item.hidden = item !== feature; });
     const results = filtered.filter(row => row.dataset.href !== feature?.dataset.href);
@@ -49,8 +51,23 @@ if (simpleHome) {
     });
     // DOM order follows ranking, so keyboard and screen-reader order do too.
     (term && index ? candidateRows : rows).forEach(row => list.append(row));
-    count.textContent = `${results.length} ${results.length === 1 ? 'post' : 'posts'}`;
-    heading.textContent = term ? 'Search results' : feature ? 'More posts' : category === 'all' ? heading.dataset.defaultHeading! : filters.find(button => button.dataset.simpleFilter === category)!.textContent;
+    const cooking = simpleHome!.dataset.itemName === 'recipe';
+    const total = cooking ? filtered.length : results.length;
+    const noun = cooking ? 'recipe' : 'post';
+    count.textContent = `${total} ${noun}${total === 1 ? '' : 's'}`;
+    const selected = filters.find(button => button.dataset.simpleFilter === category);
+    if (cooking) {
+      simpleHome!.dataset.cookingWorld = category;
+      const description = simpleHome!.querySelector<HTMLElement>('[data-cooking-description]');
+      if (description) {
+        description.textContent = selected?.dataset.filterDescription || '';
+        description.hidden = !description.textContent || !!term;
+      }
+    }
+    const filterLabel = selected?.dataset.filterLabel || selected?.textContent || '';
+    heading.textContent = term ? 'Search results' : cooking
+      ? category === 'all' ? heading.dataset.defaultHeading! : filterLabel
+      : feature ? 'More posts' : category === 'all' ? heading.dataset.defaultHeading! : filterLabel;
     empty.hidden = filtered.length > 0 || loading || failed;
     more.hidden = results.length <= limit;
     clear.hidden = query.value.length === 0;
@@ -81,7 +98,7 @@ if (simpleHome) {
   filters.forEach(button => button.addEventListener('click', () => { category = button.dataset.simpleFilter || 'all'; limit = 24; update(); syncUrl(); }));
   query.addEventListener('keydown', event => {
     if (event.key === 'Escape' && query.value) { query.value = ''; limit = 24; update(); syncUrl(); }
-    if (event.key === 'ArrowDown') { event.preventDefault(); list.querySelector<HTMLAnchorElement>('[data-simple-row]:not([hidden]) a')?.focus(); }
+    if (event.key === 'ArrowDown') { event.preventDefault(); list.querySelector<HTMLAnchorElement>('[data-simple-row]:not([hidden]) a:not([tabindex="-1"])')?.focus(); }
   });
   query.addEventListener('focus', () => { void load(); });
   query.addEventListener('input', () => { limit = 24; update(); syncUrl(); void load(); });
@@ -90,11 +107,20 @@ if (simpleHome) {
   more.addEventListener('click', () => {
     const previous = new Set(rows.filter(row => !row.hidden));
     limit += 24; update();
-    [...list.querySelectorAll<HTMLElement>('[data-simple-row]')].find(row => !row.hidden && !previous.has(row))?.querySelector<HTMLAnchorElement>('a')?.focus();
+    [...list.querySelectorAll<HTMLElement>('[data-simple-row]')].find(row => !row.hidden && !previous.has(row))?.querySelector<HTMLAnchorElement>('a:not([tabindex="-1"])')?.focus();
   });
   simpleHome.querySelector<HTMLElement>('.simple-controls')!.hidden = false;
-  document.querySelectorAll<HTMLImageElement>('.simple-home img').forEach(img => {
-    const recover = () => { img.hidden = true; };
+  document.querySelectorAll<HTMLImageElement>('.simple-home img, .cooking-shell img').forEach(img => {
+    const recover = () => {
+      img.hidden = true;
+      const card = img.closest('.cooking-card');
+      const feature = img.closest('.cooking-feature');
+      if (card || feature) {
+        img.parentElement!.hidden = true;
+        card?.classList.add('cooking-card-text');
+        feature?.classList.add('cooking-feature-text');
+      }
+    };
     if (img.complete && !img.naturalWidth) recover();
     else img.addEventListener('error', recover, { once: true });
   });

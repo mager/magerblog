@@ -3,8 +3,9 @@ title: "Low-and-Slow Dutch Oven Pork Carnitas"
 description: "Tender bone-in pork shoulder, dry-brined overnight and cooked gently with avocado oil, garlic, and orange. Serve straight from the pot or crisp in a skillet."
 pubDate: "2026-11-01"
 category: "food"
-subcategory: "meat"
-tags: [recipes, carnitas, dutch-oven, pork, Mexican, New-Mexico-chile]
+subcategory: "pork"
+recipeCategories: ["pork"]
+tags: ["carnitas","dutch-oven","pork","mexican","new-mexico-chile"]
 keyword: "pork carnitas"
 prepTime: 20
 cookTime: 375

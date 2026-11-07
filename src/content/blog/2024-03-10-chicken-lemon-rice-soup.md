@@ -6,8 +6,9 @@ updatedDate: "2025-10-21"
 description: A staple soup that warms the heart and calms the soul.
 category: "food"
 subcategory: "soup"
+recipeCategories: ["soup","chicken","rice"]
 keyword: "lemon rice soup"
-tags: ["Soup", "Chicken", "Comfort Food", "Lemon", "Rice", "One-Pot", "Greek-Style", "Coconut"]
+tags: ["soup","chicken","comfort-food","lemon","rice","one-pot","greek-style","coconut"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczORH1ThPcX94bfV8HGEUfkWg2qUkquGXgSY7upuZ1b-uhzqCp_koE8TqbJzJJctl2L3sldB02asGfgfhPcEGxC7RU9aujzEF0my9bmgNhk7zuGTrEhP3f3btLUHf4qulgezN407uf7F6yrKP1pLUa38=w1024-h768-s-no-gm"
 prepTime: 30
 cookTime: 45

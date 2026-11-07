@@ -6,7 +6,8 @@ updatedDate: "2026-01-01"
 description: My staple mac & cheese, just a few pantry ingredients and a lot of comfort.
 category: "food"
 subcategory: "pasta"
-tags: ["Pasta", "Cheese", "Comfort Food"]
+recipeCategories: ["pasta","side"]
+tags: ["pasta","cheese","comfort-food","side"]
 keyword: "creamy mac"
 prepTime: 30
 cookTime: 30

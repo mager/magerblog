@@ -5,8 +5,9 @@ pubDate: "2026-04-26"
 description: A fennel-forward Italian spice blend that turns any ground meat into proper sausage
 category: "food"
 subcategory: "seasoning"
+recipeCategories: ["seasoning"]
 keyword: "italian sausage"
-tags: ["Sausage", "Italian", "Seasoning", "Make-Ahead"]
+tags: ["sausage","italian","seasoning","make-ahead"]
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-04-26-italian-sausage/hero-wooden-table.jpg"
 heroImageAlt: "Italian sausage seasoning in a white bowl with a metal spoon on a wooden table, with a sunlit window behind it."
 prepTime: 10

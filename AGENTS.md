@@ -77,18 +77,18 @@ The site organizes content into three categories, each with distinct visual them
 ### Routing
 
 - `src/pages/index.astro`: The compact homepage is the only homepage layout. `SimpleHome.astro` combines `SimpleList.astro` with `SimpleSidebar.astro`. The visible intro is omitted; a screen-reader heading names Latest posts. The newest published entry leads, followed by dated rows from all feed collections, category filters, full-text search, and 24-row progressive loading. Without JavaScript, the lead and all remaining rows stay available. There is no edition view, layout toggle, or `mager-layout` preference.
-- `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage, archives, and main RSS feed. Order uses `pubDate`; updates do not bump posts.
+- `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage, archives, and main RSS feed. Order uses `pubDate`; updates do not bump posts in the shared feed. Cooking applies its own `updatedDate` fallback ordering.
 - `src/lib/feed-display.ts`: Shared titles, short descriptions, thumbnail sources, categories, and publication date labels. Add `description` to notes for an authored preview; the first paragraph is the fallback. Main rows show titles and dates; sidebar notes and category features use short descriptions. Full content stays on individual post pages.
 - `src/pages/links/`: Link-share archive and permalinks
 - `src/pages/blog/[...slug].astro`: Dynamic blog post pages using `getStaticPaths()`
 - Blog drafts keep working direct preview URLs linked from `/drafts/`. They use `noindex, nofollow` and stay out of the sitemap, feeds, search, and published listings. These previews are accessible by URL, not private. `src/integrations/noindex-sitemap.mjs` excludes generated noindex pages from the sitemap.
-- `src/pages/tech.astro`, `cooking/index.astro`, `life.astro`: Category listings use the shared Archive layout. The newest `pubDate` entry leads with a description and optional image; plain dated rows follow. Cooking retains subcategory filters.
+- `src/pages/tech.astro` and `life.astro`: These category listings use the shared Archive layout. The newest `pubDate` entry leads with a description and optional image; plain dated rows follow. `src/pages/cooking/index.astro` uses its dedicated food magazine page, `CookingCollection.astro`, and `cooking-index.css`; it has counted multi-category filters and no notes/links sidebar.
 - `src/pages/about.astro`: About page
 - `src/pages/software.astro`: Selected projects (Perch, Mood Shell, Homeport, and prxps), with project sites, public source links, and build logs. `SoftwareContributions.astro` presents six selected external repositories with their project or GitHub owner icons and one sentence each, led by the Uber Direct SDK (built by Mager). Impeccable is an emerging contribution focused on helping agents build interfaces. Keep this section compact, without activity totals or an on-page archive. `src/data/contributions.json` preserves the dated GitHub evidence, exclusions, and research limits; `/software/contributions.json` remains available as a download. Exclude personal projects and inherited fork copies. The page makes no live GitHub API requests. Terminal-inspired project directory with a dark default and a light option; an explicit saved theme still wins. Styling lives in `src/styles/software.css`.
 
 ### Layouts
 
-- `src/layouts/Archive.astro`: Shared layout for Writing, Tech, Cooking, Life, Notes, Seen, and Links. Writing and topic pages include the notes/links sidebar. Notes and Seen use a single column with the newest post featured; Links uses dated rows with optional video disclosures. Keep all individual post reading layouts unchanged.
+- `src/layouts/Archive.astro`: Shared layout for Writing, Tech, Life, Notes, Seen, and Links. Cooking uses its own food magazine layout. Writing, Tech, and Life include the notes/links sidebar. Notes and Seen use a single column with the newest post featured; Links uses dated rows with optional video disclosures. Keep all individual post reading layouts unchanged.
 - `src/layouts/ReadingPost.astro`: Editorial layout for tech articles, with Fraunces titles, Source Serif body text, section navigation, reading progress, code-copy controls, and related posts.
 - `src/layouts/Note.astro`: Compact notebook layout with a 680px reading column, Space Grotesk title and prose, quiet publication date, source link, and simple note navigation. Descriptions remain metadata and feed previews; notes omit the article deck, contents rail, and reading progress. Shared code-copy controls and Markdown styles remain available.
 - `src/lib/content-meta.ts`: Category feature metadata uses reading time for articles and notes, authored recipe timing, and photo locations or screenshot labels. Missing recipe timing is omitted; partial timing is labeled explicitly.
@@ -123,7 +123,7 @@ The shared publication system lives in `src/styles/publication.css`; compact lis
 
 1. Create new `.md` or `.mdx` file in `src/content/blog/` with date-slug naming
 2. Add required frontmatter: title, description, pubDate, category
-3. For recipes, include prepTime and cookTime
+3. For recipes, include prepTime and cookTime when known, and a `recipeCategories` array from `src/lib/cooking.ts`. Choose categories from the ingredients and method; use the first value as `subcategory`.
 4. Optionally add heroImage URL
 5. Write content in Markdown/MDX
 6. Do a tone pass before shipping
@@ -175,7 +175,7 @@ If a sentence sounds like it is trying to be quoted on X, it is probably making 
 
 ### Category Pages
 
-Category pages filter the published entries from `getFeed()` by collection and category. Keep `pubDate` order, show the newest entry once as the lead, then show the remaining dated rows. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the lead and includes that entry in ranked rows; clearing search restores the matching lead.
+Category pages filter the published entries from `getFeed()` by collection and category. Keep `pubDate` order, show the newest entry once as the lead, then show the remaining dated rows. Category filters feature the newest matching entry and omit it from the rows. Cooking sorts by `updatedDate` when present, otherwise `pubDate`, newest first, with a large feature and recipe photo grid. Cooking date labels show the same effective date. Its `recipeCategories` array allows a recipe to match several top filters; `src/lib/cooking.ts` defines the allowed values and labels. All cooking posts, including drafts, need at least one category. Counts include the feature. Each category selects its own introduction, palette, and feature composition through `data-cooking-world`; search preserves that world. Cooking headers use a pendant-light theme button without visible Light/Dark text. See `docs/design/cooking.md` for category rules. Search hides the lead and includes that entry in ranked rows; clearing search restores the matching lead.
 
 ### Navigation
 
