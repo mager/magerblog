@@ -1,0 +1,55 @@
+---
+// A small pixel drawing inspired by Mager's Cefalù beach photograph.
+// The SVG stays visible without JavaScript and when motion is reduced.
+const buildings = Array.from({ length: 22 }, (_, i) => ({ x: 200 + i * 5, y: 50 - ((i * 7) % 11), color: ['#f6dfb1', '#e3bb85', '#fff0cd', '#c98d60'][i % 4] }));
+const foam = Array.from({ length: 40 }, (_, i) => ({ x: i * 11, y: 62 + (i % 3) * 4 }));
+const stars = [[16,12],[42,28],[77,8],[108,22],[137,11],[169,30],[191,6],[246,9],[286,8],[324,15],[347,6]];
+const people = [{x:142,y:91,skin:'#a66a42',suit:'#994b35',towel:'#f2eee0'}, {x:212,y:91,skin:'#e5ad7b',suit:'#214e6a',towel:'#d3e5df'}, {x:293,y:99,skin:'#bd8053',suit:'#a94732',towel:'#f5e7bd'}];
+const umbrellas = [{ x: 38, y: 66, s: .65 }, { x: 104, y: 71, s: .9 }, { x: 184, y: 70, s: .65 }, { x: 260, y: 58, s: 1.5 }, { x: 334, y: 76, s: .8 }];
+---
+<div class="cefalu-coast">
+  <svg class="cefalu-scene" viewBox="0 0 360 110" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Pixel-art Cefalù: people resting on beach towels, yellow umbrellas, the sea, the old town, and La Rocca." shape-rendering="crispEdges">
+    <rect width="360" height="110" fill="var(--coast-sky)" />
+    <g class="coast-day" fill="#ffe786">
+      <path d="M214 5H220V7H222V13H220V15H214V13H212V7H214Z" />
+      <path d="M216 1H218V3H216ZM216 17H218V19H216ZM208 9H210V11H208ZM224 9H226V11H224Z" />
+    </g>
+    <g class="coast-night" fill="#f5e8bb">
+      {stars.map(([x,y], i) => <g><rect x={x} y={y} width="1" height="1" />{i % 3 === 0 && <path d={`M${x-1} ${y}h3v1h-3ZM${x} ${y-1}h1v3h-1Z`} />}</g>)}
+      <path d="M214 4H220V6H217V8H215V13H217V15H221V17H214V15H211V12H210V8H212V6H214Z" />
+    </g>
+    <path d="M0 56H360V110H0Z" fill="var(--coast-sea)" />
+    <g class="coast-night coast-moonlight" fill="#9bb7ba">
+      <path d="M207 58h13v1h-13ZM201 62h16v1h-16ZM195 66h19v1h-19ZM186 70h22v1h-22ZM178 75h26v1h-26ZM168 81h31v1h-31Z" />
+    </g>
+    <path d="M238 55V39H245V32H252V27H260V22H274V20H291V24H301V28H312V26H323V31H330V37H338V53Z" fill="var(--coast-rock)" />
+    <path d="M250 39H259V30H274V27H285V30H291V36H304V41H316V48H250Z" fill="var(--coast-rock-light)" />
+    <path d="M263 27H269V24H275V28H281V31H273V35H264ZM298 30H308V34H315V38H304V35H298Z" fill="var(--coast-olive)" />
+    {buildings.map(({x,y,color}, i) => <g style={`--building-day: ${color}`}><rect x={x} y={y} width="5" height={58-y} fill="var(--coast-building, var(--building-day))"/><rect x={x+1} y={y-1} width="5" height="2" fill="var(--coast-roof)"/><rect class:list={{"coast-window-lit": i % 3 !== 0}} x={x+2} y={y+3} width="1" height="2" fill="var(--coast-window)"/></g>)}
+    <path d="M223 47V36H225V33H227V36H229V47ZM233 47V35H235V32H237V35H239V47Z" fill="var(--coast-stone)" />
+    <path d="M0 96H30V92H62V89H94V86H125V82H156V78H185V72H210V64H234V59H360V110H0Z" fill="var(--coast-sand)" />
+    <g class="coast-foam" fill="var(--coast-foam)">{foam.map(({x,y}) => <rect x={x} y={y} width={4+(x%3)} height="1" />)}</g>
+    <path d="M0 94H30V90H62V87H94V84H125V80H156V76H185V70H210V63H226" fill="none" stroke="var(--coast-foam)" stroke-width="1" />
+    {umbrellas.map(({x,y,s}) => <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M-10 26H15V28H-10Z" fill="var(--coast-shadow)" />
+      <rect x="0" y="0" width="1" height="25" fill="var(--coast-frame)" />
+      <path d="M-16 1V-2H-12V-5H-7V-7H-2V-9H2V-7H7V-5H12V-2H16V1Z" fill="var(--coast-parasol)" />
+      <path d="M-16 1V-2H-12V-3H-7V-5H-2V-7H0V1Z" fill="var(--coast-parasol-shade)" />
+      <path d="M1-7H3V-5H6V-3H8V1H1Z" fill="var(--coast-parasol-light)" />
+      <path d="M-16 1H-10V3H-5V1H1V3H6V1H11V3H16V1" fill="var(--coast-parasol-edge)" />
+      <path d="M4 21H17V15H19V23H4ZM5 23V27M17 23V27" fill="none" stroke="var(--coast-frame)" stroke-width="1" />
+      <path d="M5 20H8V22H5ZM11 20H14V22H11ZM17 15H19V18H17Z" fill="var(--coast-parasol-shade)" />
+    </g>)}
+    <g class="coast-people">
+      {people.map(({x,y,skin,suit,towel}) => <g transform={`translate(${x} ${y})`}>
+        <rect x="-2" y="1" width="27" height="8" fill={towel}/>
+        <path d="M-1 2h1v6h-1ZM23 2h1v6h-1Z" fill={suit}/>
+        <path d="M0 4h9v2H0ZM1 7h8v1H1ZM9 2h7v5H9ZM15 0h4v2h-4ZM18-1h4v4h-4ZM11 1h1v-2h7v1h-6v3h-2Z" fill={skin}/>
+        <path d="M6 3h5v5H6Z" fill={suit}/>
+        <path d="M19-2h3v1h-3ZM22-1h1v3h-1Z" fill="#43382e"/>
+
+      </g>)}
+    </g>
+    <g class="coast-boat"><path d="M66 53H79V55H77V57H69V55H66Z" fill="#fff0cd"/><path d="M73 52V41H74V52Z" fill="var(--coast-stone)"/><path d="M72 42V50H66V48H68V46H70V44Z" fill="#fff7e4"/></g>
+  </svg>
+</div>

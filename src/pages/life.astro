@@ -1,7 +1,38 @@
 ---
-import Archive from '../layouts/Archive.astro';
-import { getFeed } from '../lib/feed';
-const all = await getFeed();
-const entries = all.filter(entry => entry.collection === 'blog' && entry.data.category === 'life');
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SimpleList from '../components/SimpleList.astro';
+import CefaluCoast from '../components/life/CefaluCoast.astro';
+import { getFeed, entryHref, entryTitle } from '../lib/feed';
+import '../styles/simple.css';
+import '../styles/life-archive.css';
+const entries = (await getFeed()).filter(entry => entry.collection === 'blog' && entry.data.category === 'life');
+const description = 'Travel, music, and life outside the screen.';
+const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Life — mager.co', description, url: new URL('/life/', Astro.site).href, mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entryTitle(entry), url: new URL(entryHref(entry), Astro.site).href })) } };
 ---
-<Archive title="Life" description="Travel, music, and life outside the screen." entries={entries} sidebarEntries={all} featured />
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Life — mager.co" description={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+  </head>
+  <body class="publication simple-page life-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content">
+      <header class="life-opening">
+        <div class="life-heading simple-shell">
+          <h1>Life<span aria-hidden="true">.</span></h1>
+          <p>{description}</p>
+        </div>
+        <CefaluCoast />
+        <div class="life-scene-caption simple-shell"><span>Cefalù, Sicily</span><span>A little closer to the sea.</span></div>
+      </header>
+      <div class="simple-shell simple-home life-content">
+        <SimpleList entries={entries} featured presentation="life" searchLabel="Search life" heading="More posts" />
+      </div>
+    </main>
+    <Footer homepage />
+  </body>
+</html>

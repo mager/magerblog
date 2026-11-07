@@ -169,7 +169,134 @@
         "name": "small-phone",
         "value": "360px"
       }
-    ]
+    ],
+    "lifeArchive": {
+      "route": "/life/",
+      "scope": ".life-page",
+      "source": "src/styles/life-archive.css",
+      "surfaceBrief": ".impeccable/life-surface.md",
+      "description": "Cefal\u00f9 pixel coast and photo-led Life stories; shared publication tokens and individual reading pages remain unchanged.",
+      "reference": "User-supplied Cefal\u00f9 beach photograph: yellow umbrellas, blue sea, warm sand, old town, and La Rocca. Visual reference only; not a published photo post.",
+      "colorTokens": {
+        "life-coast-sky": {
+          "refersTo": "colors.life-coast-sky",
+          "cssProperty": "--coast-sky",
+          "theme": "light"
+        },
+        "life-coast-sea": {
+          "refersTo": "colors.life-coast-sea",
+          "cssProperty": "--coast-sea",
+          "theme": "light"
+        },
+        "life-coast-rock": {
+          "refersTo": "colors.life-coast-rock",
+          "cssProperty": "--coast-rock",
+          "theme": "light"
+        },
+        "life-coast-rock-light": {
+          "refersTo": "colors.life-coast-rock-light",
+          "cssProperty": "--coast-rock-light",
+          "theme": "light"
+        },
+        "life-coast-olive": {
+          "refersTo": "colors.life-coast-olive",
+          "cssProperty": "--coast-olive",
+          "theme": "light"
+        },
+        "life-coast-sand": {
+          "refersTo": "colors.life-coast-sand",
+          "cssProperty": "--coast-sand",
+          "theme": "light"
+        },
+        "life-coast-foam": {
+          "refersTo": "colors.life-coast-foam",
+          "cssProperty": "--coast-foam",
+          "theme": "light"
+        },
+        "life-blue": {
+          "refersTo": "colors.life-blue",
+          "cssProperty": "--life-blue",
+          "theme": "light"
+        },
+        "life-yellow": {
+          "refersTo": "colors.life-yellow",
+          "cssProperty": "--life-yellow",
+          "theme": "light and inherited dark"
+        },
+        "life-dark-coast-sky": {
+          "refersTo": "colors.life-dark-coast-sky",
+          "cssProperty": "--coast-sky",
+          "theme": "dark"
+        },
+        "life-dark-coast-sea": {
+          "refersTo": "colors.life-dark-coast-sea",
+          "cssProperty": "--coast-sea",
+          "theme": "dark"
+        },
+        "life-dark-coast-rock": {
+          "refersTo": "colors.life-dark-coast-rock",
+          "cssProperty": "--coast-rock",
+          "theme": "dark"
+        },
+        "life-dark-coast-rock-light": {
+          "refersTo": "colors.life-dark-coast-rock-light",
+          "cssProperty": "--coast-rock-light",
+          "theme": "dark"
+        },
+        "life-dark-coast-olive": {
+          "refersTo": "colors.life-dark-coast-olive",
+          "cssProperty": "--coast-olive",
+          "theme": "dark"
+        },
+        "life-dark-coast-sand": {
+          "refersTo": "colors.life-dark-coast-sand",
+          "cssProperty": "--coast-sand",
+          "theme": "dark"
+        },
+        "life-dark-coast-foam": {
+          "refersTo": "colors.life-dark-coast-foam",
+          "cssProperty": "--coast-foam",
+          "theme": "dark"
+        },
+        "life-dark-blue": {
+          "refersTo": "colors.life-dark-blue",
+          "cssProperty": "--life-blue",
+          "theme": "dark"
+        }
+      },
+      "typographyTokens": {
+        "heading": "typography.life-heading",
+        "featureTitle": "typography.life-feature-title",
+        "phoneFeatureTitle": "34px"
+      },
+      "layout": {
+        "maxWidth": "1080px",
+        "sidebar": false,
+        "feature": "Newest entry once, complete image beside title",
+        "recentStories": 4,
+        "recentColumns": 2,
+        "recentPhotoRatio": "3 / 2",
+        "olderStories": "Dated rows",
+        "stackAt": "540px",
+        "phoneSceneHeight": "180px",
+        "imageRadius": "0"
+      },
+      "scene": {
+        "source": "src/components/life/CefaluCoast.astro",
+        "format": "Native SVG with crisp pixel edges",
+        "worksWithoutJavaScript": true,
+        "phoneFraming": "Town, foreground umbrella, moon or sun, and people on towels",
+        "dayDetails": "Sun, yellow umbrellas, warm buildings, three people resting on towels",
+        "nightDetails": "Crescent moon, stars, reflected light, warm windows, muted coast colors and resting people",
+        "motion": {
+          "waves": "translateX(6px), 6s steps(6, end), infinite alternate",
+          "boat": "translateY(1px), 4s steps(2, end), infinite alternate",
+          "pauseControl": false,
+          "reducedMotion": "Static scene; no photo hover transform"
+        }
+      },
+      "behavior": "Published pubDate order; shared archive search includes every Life entry and preserves URL queries, loading, retry, empty, clear, and keyboard behavior."
+    }
   },
   "components": [
     {
@@ -214,7 +341,7 @@
   ],
   "narrative": {
     "northStar": "The compact publication",
-    "overview": "A quiet personal publication for software, cooking, photos, and life. The homepage and archives use plain dated rows, clear controls, and short supporting notes. This is the sole listing direction, not an optional mode. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.\n\nKeep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.\n",
+    "overview": "A quiet personal publication for software, cooking, photos, and life. The homepage and shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefal\u00f9 pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.\n\nKeep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.\n",
     "keyCharacteristics": [],
     "rules": [],
     "dos": [],

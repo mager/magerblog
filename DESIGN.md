@@ -20,6 +20,24 @@ colors:
   dark-red: "oklch(78% 0.11 50)"
   dark-green: "oklch(78% 0.085 140)"
   dark-yellow: "oklch(85% 0.10 88)"
+  # Life archive only; these do not replace shared publication colors.
+  life-coast-sky: "#087fbd"
+  life-coast-sea: "#066e96"
+  life-coast-rock: "#686a4c"
+  life-coast-rock-light: "#91906c"
+  life-coast-olive: "#515f35"
+  life-coast-sand: "#e8cf9c"
+  life-coast-foam: "#91d9d5"
+  life-blue: "#07547b"
+  life-yellow: "#ffd52a"
+  life-dark-coast-sky: "#101c35"
+  life-dark-coast-sea: "#12354c"
+  life-dark-coast-rock: "#242d33"
+  life-dark-coast-rock-light: "#384447"
+  life-dark-coast-olive: "#243432"
+  life-dark-coast-sand: "#847960"
+  life-dark-coast-foam: "#7bafb9"
+  life-dark-blue: "#86cce7"
 typography:
   display:
     fontFamily: "Fraunces, Georgia, serif"
@@ -41,6 +59,18 @@ typography:
     lineHeight: 1.4
   mono:
     fontFamily: "JetBrains Mono, monospace"
+  life-heading:
+    fontFamily: "Fraunces, Georgia, serif"
+    fontSize: "clamp(64px, 8vw, 96px)"
+    fontWeight: 600
+    lineHeight: 0.95
+    letterSpacing: "-.04em"
+  life-feature-title:
+    fontFamily: "Fraunces, Georgia, serif"
+    fontSize: "clamp(32px, 3.7vw, 50px)"
+    fontWeight: 600
+    lineHeight: 1.08
+    letterSpacing: "-.035em"
 rounded:
   image: "2px"
   control: "3px"
@@ -74,13 +104,13 @@ components:
 
 **Creative North Star: "The compact publication"**
 
-A quiet personal publication for software, cooking, photos, and life. The homepage and archives use plain dated rows, clear controls, and short supporting notes. This is the sole listing direction, not an optional mode. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.
+A quiet personal publication for software, cooking, photos, and life. The homepage and shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefalù pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.
 
 Keep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.
 
 ## Color system
 
-The normative values above come from `src/styles/publication.css`, renamed from `newspaper.css` without token changes. Paper and ink provide the base; lake blue identifies links, focus, and active navigation. Copper supports cooking; moss supports life and Seen. Saffron marks text selection. Existing artwork and per-story palettes retain their colors.
+The shared normative values above come from `src/styles/publication.css`, renamed from `newspaper.css` without token changes. Paper and ink provide the base; lake blue identifies links, focus, and active navigation. Copper supports cooking; moss supports life and Seen. Saffron marks text selection. Existing artwork and per-story palettes retain their colors.
 
 The wordmark uses one ink color, including its dot. Light mode uses paper; dark mode uses true black with softer text and accent colors. Use rules and spacing to separate rows. No decorative gradients, glass, blinking cursors, or cursor-following effects.
 
@@ -92,9 +122,9 @@ Space Grotesk carries listing headings, titles, dates, navigation, search, and s
 
 The homepage and archives share a 1080px shell with 24px gutters, reduced to 18px at 540px. The homepage has no visible intro sentence; a screen-reader heading names Latest posts. It features the newest entry and lists the remaining published entries in `pubDate` order. Edits do not bump posts. A plain filter row and inline search precede the list. JavaScript shows 24 rows at a time; without it, the complete static list remains available.
 
-Writing, Tech, Cooking, and Life use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature.
+Writing, Tech, and Cooking use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature.
 
-The homepage and Writing/Tech/Cooking/Life archives have a 252px sidebar with the two newest notes and up to four newest links. Notes show short previews and dates; links show short commentary and source domains. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Archives without a sidebar use a column up to 780px wide.
+The homepage and Writing/Tech/Cooking archives have a 252px sidebar with the two newest notes and up to four newest links. Notes show short previews and dates; links show short commentary and source domains. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Shared Archive pages without a sidebar use a column up to 780px wide. Life uses the full 1080px shell without a sidebar.
 
 Every public page uses one shared sticky header and one fixed footer. The wordmark is always visible. Direct header links appear in this order: Writing, Software, Tech, Cooking, Life, Notes, Seen, Links. Search uses an icon button with an accessible name; the theme control is separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling direct links below. Links remain reachable by keyboard. About, Bench, and RSS remain in the footer beside the Chicago credit. Measured header and footer heights reserve content and anchor space.
 
@@ -105,6 +135,14 @@ Notes retain a compact 680px reading column with Space Grotesk headings and pros
 ### List rows and sidebars
 
 Flat rows use a thin rule, a small optional thumbnail, a title, and a quiet publication date. Links open their sources directly. Hover underlines the title and uses lake blue; focus has a visible outline. Sidebar sections use the same rules and text roles, with two-line previews. There are no card shadows or raised panels. Images have slight corner rounding; controls remain nearly square.
+
+### Life archive — Cefalù coast
+
+**The Life Scope Rule.** This exception applies only to `/life/`, through `src/styles/life-archive.css`. Shared publication tokens and individual story themes remain unchanged. The `life-*` frontmatter colors describe this route; `life-coast-*` maps to its `--coast-*` properties, and `life-dark-*` supplies the saved dark-theme overrides. The yellow umbrellas use muted gold shades at night. Blue marks the Life heading and story-link hover; the heading dot uses shared copper.
+
+Use the supplied Cefalù beach photo as the fixed reference for native pixel SVG: yellow umbrellas, vivid blue sea, warm sand, old-town buildings, and La Rocca. `src/components/life/CefaluCoast.astro` renders without JavaScript; it is not a raster asset or a new photo post. The scene has square pixel edges and no raised frame. Waves move six pixels in six steps over six seconds; the boat moves one pixel in two steps over four seconds. Both alternate automatically and remain still with reduced motion. The user explicitly requested no pause control. Day mode shows a pixel sun. Night mode shows a crescent moon, stars, reflected light, lit windows, and cooler buildings and beach furniture. Three people rest on towels in both views. The shared theme control uses a sun for the current light theme and a moon for the current dark theme, with a 44px target and an accessible action label.
+
+The `life-heading` and `life-feature-title` roles above use Fraunces. Supporting copy and photo-story titles use Space Grotesk; story descriptions use Source Serif 4. The newest story appears once with its complete image beside the title. Four recent stories follow in two columns with 3:2 cropped photos, descriptions, and dates; older stories use dated rows. There is no notes or shared-links sidebar. At 540px and below, the feature and stories stack, the feature title is 34px, and the 180px-high coast frames the town and foreground umbrella. Images have square corners. Search includes all Life entries and keeps the shared URL, loading, retry, empty, clear, and keyboard behavior. See `.impeccable/life-surface.md` for the surface brief.
 
 ### Search and filters
 
@@ -118,7 +156,7 @@ Use existing hosted images. Features preserve the complete image; small row thum
 
 - The complete header wordmark dims slightly on hover; punctuation remains the same color.
 - Category and archive links provide a complete route through all content.
-- New animation uses transform and opacity with an exponential ease-out curve, and respects reduced motion.
+- New animation uses transform and opacity with an exponential ease-out curve, and respects reduced motion. The Life pixel coast uses the scoped stepped motion described above.
 - Clear focus states, a homepage skip link, semantic section headings, explicit image descriptions, and 44px main navigation targets.
 - Date-only publication values render in UTC so the displayed day does not shift with the build server's timezone.
 

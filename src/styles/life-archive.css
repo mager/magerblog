@@ -1,0 +1,121 @@
+/* Cefalù's yellow parasols and blue water, scoped to the Life archive. */
+.life-page {
+  --coast-sky: #087fbd;
+  --coast-sea: #066e96;
+  --coast-rock: #686a4c;
+  --coast-rock-light: #91906c;
+  --coast-olive: #515f35;
+  --coast-sand: #e8cf9c;
+  --coast-foam: #91d9d5;
+  --life-blue: #07547b;
+  --life-yellow: #ffd52a;
+  --coast-roof: #a96743;
+  --coast-window: #654b38;
+  --coast-stone: #f6dfb1;
+  --coast-shadow: #b69b6d;
+  --coast-frame: #fff5d8;
+  --coast-parasol: #ffd52a;
+  --coast-parasol-shade: #ffb516;
+  --coast-parasol-light: #ffe975;
+  --coast-parasol-edge: #ef9419;
+}
+html[data-theme="dark"] .life-page {
+  --coast-sky: #101c35;
+  --coast-sea: #12354c;
+  --coast-rock: #242d33;
+  --coast-rock-light: #384447;
+  --coast-olive: #243432;
+  --coast-sand: #847960;
+  --coast-foam: #7bafb9;
+  --life-blue: #86cce7;
+  --coast-building: #647279;
+  --coast-roof: #46525d;
+  --coast-window: #283541;
+  --coast-stone: #89918b;
+  --coast-shadow: #605a4d;
+  --coast-frame: #adb7ad;
+  --coast-parasol: #b6a467;
+  --coast-parasol-shade: #95804c;
+  --coast-parasol-light: #d5c58a;
+  --coast-parasol-edge: #857347;
+}
+.life-page #main-content { width: 100%; max-width: none; margin: 0; padding: 0; }
+.life-opening { background: var(--news-paper); }
+.life-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 28px 0 24px; }
+.life-heading h1 { margin: 0; color: var(--life-blue); font: 600 clamp(64px, 8vw, 96px)/.95 var(--news-display); letter-spacing: -.04em; }
+.life-heading h1 span { color: var(--news-red); }
+.life-heading p { max-width: 29ch; margin: 0 0 3px; color: var(--news-muted); font: 500 17px/1.6 var(--news-ui); }
+.cefalu-coast { width: 1080px; max-width: calc(100% - 48px); margin: 0 auto; position: relative; overflow: hidden; background: var(--coast-sky); }
+.cefalu-scene { display: block; width: 100%; height: auto; }
+.life-scene-caption { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; color: var(--news-muted); font: 500 12px/1.5 var(--news-ui); border-bottom: 1px solid var(--news-rule); }
+.life-content { padding-top: 12px; padding-bottom: 80px; }
+.life-posts .simple-controls { max-width: 400px; margin-left: auto; }
+.life-posts .simple-search { min-height: 48px; }
+.life-posts .simple-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 64px; padding: 32px 0 44px; }
+.life-posts .simple-feature > div { grid-column: 2; grid-row: 1; }
+.life-posts .simple-feature-image { grid-column: 1; grid-row: 1; width: 100%; background: var(--news-surface); }
+.life-posts .simple-feature-image img { width: 100%; max-height: 420px; height: 420px; object-fit: contain; border-radius: 0; }
+.life-content .simple-feature h2 { font: 600 clamp(32px, 3.7vw, 50px)/1.08 var(--news-display); letter-spacing: -.035em; text-wrap: balance; }
+.life-posts .simple-feature p { font: 17px/1.7 var(--news-serif); margin: 20px 0; }
+.life-posts .simple-feature-meta { gap: 16px; }
+.life-posts .simple-feature-meta, .life-posts time { font-size: 12px; }
+.life-posts .simple-feature h2 a:hover, .life-posts .simple-post-link:hover { color: var(--life-blue); }
+.life-posts .simple-list-heading { padding-top: 32px; padding-bottom: 24px; }
+.life-posts .simple-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+.life-posts .simple-list > li { grid-column: 1 / -1; }
+.life-posts .simple-list > .life-story { grid-column: auto; padding-bottom: 28px; margin-bottom: 32px; }
+.life-story .simple-post-link { display: flex; flex-direction: column; align-items: stretch; gap: 14px; padding: 0; height: 100%; }
+.life-story .simple-thumbnail { width: 100%; height: auto; aspect-ratio: 3/2; overflow: hidden; background: var(--news-surface); }
+.life-story .simple-thumbnail img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; transition: transform .4s var(--news-ease); }
+.life-story .simple-post-link:hover img { transform: scale(1.025); }
+.life-story .simple-post-title { font: 600 clamp(22px, 2.2vw, 28px)/1.22 var(--news-ui); letter-spacing: -.025em; }
+.life-story-description { display: block; margin-top: 12px; color: var(--news-muted); font: 16px/1.65 var(--news-serif); }
+.life-story time { margin-top: auto; padding-top: 2px; }
+.life-story .simple-post-copy:has(.simple-search-snippet:not([hidden])) .life-story-description { display: none; }
+.life-posts .simple-list > li:not(.life-story) .simple-post-link { min-height: 86px; }
+.life-posts .simple-list > li:not(.life-story) .simple-thumbnail,
+.life-posts .simple-list > li:not(.life-story) .simple-thumbnail img { width: 48px; height: 48px; }
+.life-posts .simple-list > li:not(.life-story) .simple-post-link { grid-template-columns: 48px minmax(0, 1fr) auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .coast-foam { animation: coast-drift 6s steps(6, end) infinite alternate; }
+  .coast-boat { animation: coast-bob 4s steps(2, end) infinite alternate; }
+}
+@keyframes coast-drift { to { transform: translateX(6px); } }
+@keyframes coast-bob { to { transform: translateY(1px); } }
+@media (prefers-reduced-motion: reduce) {
+  .life-story .simple-thumbnail img { transition: none; }
+  .life-story .simple-post-link:hover img { transform: none; }
+}
+@media (max-width: 700px) {
+  .life-heading { padding-top: 24px; }
+  .life-heading p { font-size: 14px; max-width: 24ch; }
+  .life-posts .simple-feature { gap: 24px; }
+  .life-posts .simple-feature-image img { height: 300px; }
+  .life-posts .simple-feature p { font-size: 16px; }
+  .life-posts .simple-list { gap: 0 24px; }
+  .life-posts .simple-list > li:not(.life-story) .simple-post-link { grid-template-columns: 48px minmax(0, 1fr); }
+}
+@media (max-width: 540px) {
+  .life-heading { align-items: center; gap: 18px; }
+  .life-heading p { max-width: 20ch; }
+  .cefalu-coast { max-width: calc(100% - 36px); }
+  .cefalu-scene { height: 180px; }
+  .life-scene-caption { font-size: 11px; gap: 12px; }
+  .life-posts .simple-controls { max-width: none; }
+  .life-posts .simple-feature { grid-template-columns: minmax(0, 1fr); gap: 22px; padding-top: 24px; padding-bottom: 30px; }
+  .life-posts .simple-feature-image { grid-column: 1; grid-row: 1; }
+  .life-posts .simple-feature > div { grid-column: 1; grid-row: 2; }
+  .life-posts .simple-feature-image img { height: 320px; }
+  .life-content .simple-feature h2 { font-size: 34px; }
+  .life-posts .simple-list { grid-template-columns: minmax(0, 1fr); }
+  .life-posts .simple-list > .life-story { margin-bottom: 28px; padding-bottom: 24px; }
+  .life-story .simple-post-title { font-size: 25px; }
+}
+
+.life-posts .simple-feature:not(:has(.simple-feature-image)) > div { grid-column: 1 / -1; }
+
+.coast-night { display: none; }
+html[data-theme="dark"] .coast-day { display: none; }
+html[data-theme="dark"] .coast-night { display: inline; }
+html[data-theme="dark"] .coast-window-lit { fill: #f4cb7d; }
+html[data-theme="dark"] .coast-people { filter: brightness(.76); }
