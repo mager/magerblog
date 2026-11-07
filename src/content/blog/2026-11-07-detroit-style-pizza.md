@@ -3,7 +3,8 @@ title: "Detroit-Style Pizza with Overnight Dough"
 description: "My first Detroit-style pizza project: a 24–48-hour dough for a 10 × 14-inch Lloyd pan, inspired by years of eating Jet's and Buddy's."
 pubDate: "2026-11-07"
 category: "food"
-subcategory: "comfort"
+subcategory: "baking"
+recipeCategories: ["baking"]
 tags: [recipes, pizza, Detroit, dough, bread]
 keyword: "Detroit pizza"
 prepTime: 40
