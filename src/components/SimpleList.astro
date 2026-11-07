@@ -6,6 +6,7 @@ import { contentMeta } from '../lib/content-meta';
 import PostRow from './PostRow.astro';
 interface Props {
   entries: FeedEntry[];
+  presentation?: 'list' | 'life';
   heading?: string;
   filters?: [string, string][];
   filterBy?: 'category' | 'subcategory';
@@ -13,7 +14,7 @@ interface Props {
   videos?: boolean;
   searchLabel?: string;
 }
-const { entries, heading = 'All posts', filters = [], filterBy = 'category', featured = false, videos = false, searchLabel = 'Search all posts' } = Astro.props;
+const { entries, presentation = 'list', heading = 'All posts', filters = [], filterBy = 'category', featured = false, videos = false, searchLabel = 'Search all posts' } = Astro.props;
 const lead = featured ? entries[0] : undefined;
 const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.find(entry =>
   value === 'all' || (filterBy === 'subcategory'
@@ -21,7 +22,7 @@ const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.
     : entryCategory(entry) === value)
 ))].filter((entry): entry is FeedEntry => !!entry))] : [];
 ---
-<section class="simple-posts" data-simple-list data-filter-by={filterBy} aria-labelledby="simple-posts-heading">
+<section class:list={["simple-posts", { "life-posts": presentation === "life" }]} data-simple-list data-filter-by={filterBy} aria-labelledby="simple-posts-heading">
   <div class="simple-controls" hidden>
     {filters.length > 0 && <div class="simple-filters" role="group" aria-label="Filter posts">{filters.map(([value, label]) => <button type="button" data-simple-filter={value} aria-pressed={value === 'all' ? 'true' : 'false'} aria-controls="simple-list">{label}</button>)}</div>}
     <div class="simple-search" role="search">
@@ -40,8 +41,8 @@ const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.
     {leadImage && <a class="simple-feature-image" href={entryHref(item)} aria-label={`Read ${entryTitle(item)}`}><img src={leadImage} alt="" width="240" height="160" loading={item === lead ? 'eager' : 'lazy'} decoding="async" /></a>}
   </article>; })}
   <div class="simple-list-heading"><h2 id="simple-posts-heading" data-default-heading={heading}>{heading}</h2><p data-simple-count>{entries.length - (lead ? 1 : 0)} posts</p></div>
-  <ul id="simple-list" class="simple-list">{entries.map(entry => <PostRow entry={entry} featured={lead === entry} videos={videos} />)}</ul>
-  <p class="simple-empty" data-simple-empty hidden>No posts match. Try another search or choose All.</p>
+  <ul id="simple-list" class="simple-list">{entries.map((entry, index) => <PostRow expanded={presentation === "life" && index > 0 && index < 5} entry={entry} featured={lead === entry} videos={videos} />)}</ul>
+  <p class="simple-empty" data-simple-empty hidden>No posts match. Try another search{filters.length > 0 ? ' or choose All.' : '.'}</p>
   <button class="simple-more" type="button" data-simple-more hidden>Show more posts</button>
   {entries.length === 0 && <p>No posts yet.</p>}
 </section>

@@ -39,3 +39,6 @@ pnpm-debug.log*
 
 # wayfinder maps / local issue tracker
 .scratch/
+
+# Local visual review captures
+.impeccable/review/

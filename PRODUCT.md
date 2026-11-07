@@ -22,7 +22,7 @@ Avoid generic dark SaaS dashboards, fake terminal theater, startup hype pages, e
 
 ## Design Principles
 
-1. Keep discovery quiet and direct: a compact chronological homepage, a newest-post lead on category pages, and plain dated rows. Notes and shared links provide a small secondary reading path. Use the shared header and publication colors while preserving each individual post’s reading layout.
+1. Keep discovery quiet and direct: a compact chronological homepage, a newest-post lead on category pages, and plain dated rows on the shared archives. Life is a scoped exception: a playful Cefalù pixel coast and photo-led stories support discovery of travel, music, and personal writing. Its page body has no notes or shared links. Elsewhere, notes and shared links provide a small secondary reading path. Use the shared header and publication colors while preserving each individual post’s reading layout.
 2. Prefer dense, scannable reading surfaces over decorative whitespace.
 3. Let technical credibility come from hierarchy, metadata, and concrete content.
 4. Use accent color as information, not confetti.
