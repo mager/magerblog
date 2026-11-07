@@ -38,7 +38,7 @@ test('simple homepage is complete without JavaScript and ignores the retired lay
   dom.window.close();
 });
 
-test('list combines collection filters with full-text ranking, typos, clear, and progressive loading', async () => {
+test('homepage keeps full-text ranking, typos, clear, and progressive loading without category filters', async () => {
   let requests = 0;
   const dom = setup('index.html', async () => { requests++; return { ok: true, json: async () => data }; });
   const w = dom.window, doc = w.document;
@@ -49,16 +49,10 @@ test('list combines collection filters with full-text ranking, typos, clear, and
   doc.querySelector('[data-simple-more]').click();
   assert.equal(visible().length, 48);
   assert.equal(doc.activeElement, visible()[24].querySelector('a'));
-  for (const category of ['tech', 'food', 'life', 'notes', 'links', 'seen']) {
-    doc.querySelector(`[data-simple-filter="${category}"]`).click();
-    assert(visible().length > 0, category);
-    assert(visible().every(row => row.dataset.category === category));
-    const newest = [...doc.querySelectorAll('[data-simple-row]')].find(row => row.dataset.category === category);
-    const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
-    assert.equal(lead.dataset.href, newest.dataset.href, category);
-    assert(!visible().includes(newest), 'the lead is not repeated in the rows');
+  assert.equal(doc.querySelector('[data-simple-filter]'), null);
+  for (const section of ['tech', 'cooking', 'life', 'notes', 'links', 'seen']) {
+    assert(doc.querySelector(`.header-sections a[href="/${section}/"]`), section);
   }
-  doc.querySelector('[data-simple-filter="all"]').click();
   const input = doc.querySelector('#simple-query');
   input.value = 'homeprot'; input.dispatchEvent(new w.Event('input')); await tick();
   assert.match(visible()[0].textContent, /Homeport/);

@@ -120,7 +120,7 @@ Space Grotesk carries listing headings, titles, dates, navigation, search, and s
 
 ## Layout
 
-The homepage and archives share a 1080px shell with 24px gutters, reduced to 18px at 540px. The homepage has no visible intro sentence; a screen-reader heading names Latest posts. It features the newest entry and lists the remaining published entries in `pubDate` order. Edits do not bump posts. A plain filter row and inline search precede the list. JavaScript shows 24 rows at a time; without it, the complete static list remains available.
+The homepage and archives share a 1080px shell with 24px gutters, reduced to 18px at 540px. The homepage has no visible intro sentence; a screen-reader heading names Latest posts. It features the newest entry and lists the remaining published entries in `pubDate` order. Edits do not bump posts. Inline search precedes the list. The homepage has no category filter row; the main header links open each section. Cooking retains its recipe filters. JavaScript shows 24 rows at a time; without it, the complete static list remains available.
 
 Writing, Tech, and Cooking use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature.
 

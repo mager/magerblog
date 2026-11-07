@@ -4,9 +4,8 @@ import SimpleList from './SimpleList.astro';
 import SimpleSidebar from './SimpleSidebar.astro';
 interface Props { entries: FeedEntry[]; }
 const { entries } = Astro.props;
-const filters: [string, string][] = [['all', 'All'], ['tech', 'Tech'], ['food', 'Cooking'], ['life', 'Life'], ['notes', 'Notes'], ['links', 'Links'], ['seen', 'Seen']];
 ---
 <section class="simple-home" aria-label="Latest posts">
   <h1 class="sr-only">Latest posts</h1>
-  <div class="simple-columns"><SimpleList entries={entries} filters={filters} featured heading="More posts" /><SimpleSidebar entries={entries} /></div>
+  <div class="simple-columns"><SimpleList entries={entries} featured heading="More posts" /><SimpleSidebar entries={entries} /></div>
 </section>
