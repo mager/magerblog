@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 660" role="img" aria-labelledby="title desc">
+  <title id="title">From a finished task to useful memory</title>
+  <desc id="desc">Save the finished task and its results. Between tasks, review the evidence and propose memory changes. Check and accept useful notes. Load the relevant notes for the next task, then repeat.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" fill="none" stroke="#21628a" stroke-width="1.5"/></marker></defs>
+  <rect width="480" height="660" rx="8" fill="#f7f5ef"/>
+  <g font-family="Arial, sans-serif" fill="#202a30">
+    <text x="32" y="43" font-size="15" letter-spacing="2" fill="#52616a">THE MEMORY CYCLE</text>
+    <text x="32" y="82" font-size="27" font-weight="700">Learn from a finished task</text>
+    <g fill="none" stroke="#21628a" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M224 210v40"/><path d="M224 350v40"/><path d="M224 490v40"/>
+    </g>
+    <path d="M394 574h44V164h-42" fill="none" stroke="#21628a" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrow)"/>
+    <rect x="32" y="120" width="362" height="90" rx="5" fill="#fff" stroke="#c9cec9"/>
+    <text x="52" y="155" font-size="23" font-weight="700">1. Finish the task</text>
+    <text x="52" y="187" font-size="20" fill="#52616a">Save actions and results.</text>
+    <rect x="32" y="260" width="362" height="90" rx="5" fill="#e1edf4" stroke="#21628a"/>
+    <text x="52" y="295" font-size="23" font-weight="700">2. Run a dream review</text>
+    <text x="52" y="327" font-size="20" fill="#34566b">Check sources; propose edits.</text>
+    <rect x="32" y="400" width="362" height="90" rx="5" fill="#fff" stroke="#c9cec9"/>
+    <text x="52" y="435" font-size="23" font-weight="700">3. Accept useful notes</text>
+    <text x="52" y="467" font-size="20" fill="#52616a">Keep evidence and limits.</text>
+    <rect x="32" y="540" width="362" height="90" rx="5" fill="#fff" stroke="#c9cec9"/>
+    <text x="52" y="575" font-size="23" font-weight="700">4. Start the next task</text>
+    <text x="52" y="607" font-size="20" fill="#52616a">Load the relevant notes.</text>
+  </g>
+</svg>

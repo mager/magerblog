@@ -3,6 +3,10 @@ title: "What agent dreaming does, and how to use it"
 description: "Anthropic's work on agent memory, the readable dreams I noticed in Meta Muse, and a practical way to turn past sessions into useful context."
 pubDate: 2026-11-07
 category: tech
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-07-agent-dreaming/dreaming-winner-v1.jpg"
+heroImageAlt: "A robot sleeps under a quilt at night while his dream self stands on a winner's podium, holding a golden trophy among stars and floating stairways."
+heroImageCaption: "Asleep at home, winning in his dreams. Created with ChatGPT image generation."
+heroImageLayout: wide
 tags: [ai, agents, memory, dreaming, anthropic, meta]
 draft: true
 ---
@@ -26,6 +30,11 @@ Consider a coding assistant that helps with a deployment. The first attempt fail
 For the next deployment, I want the assistant to find the working procedure and the evidence behind it. I also want it to know which setting was specific to that environment. An untested guess from the first attempt should not become a permanent instruction.
 
 That is where I would use a memory review. I would ask it to connect the command, the setting, and the successful result. If the transcript does not establish why the second attempt worked, the note should preserve that uncertainty.
+
+<figure>
+  <img src="/images/diagrams/agent-dreaming-cycle.svg" alt="Memory cycle: finish a task and save its results, run a dream review, accept useful notes, then load those notes for the next task. Repeat after the task ends." width="480" height="660" loading="lazy" />
+  <figcaption>The workflow I would start with: review completed work, then test the accepted notes in a new task.</figcaption>
+</figure>
 
 I wrote about agent memory in [my gbrain post in May](/blog/2026-05-18-gbrain-garry-tan-ai-memory/). The question I want to examine now is how to check the contents of that memory. A persistent mistake can affect many later sessions.
 
@@ -91,6 +100,11 @@ The application would implement this sequence:
 7. **Load the result.** At the next task, have the application supply the index and let the assistant retrieve the relevant notes and source records.
 
 I would trigger this after a group of completed tasks. A nightly schedule would make sense once there was enough daily activity. No new records would mean no run.
+
+<figure>
+  <img src="/images/diagrams/agent-memory-review.svg" alt="Check each proposed memory change against its source. Review supported edits before saving a new version. Keep unclear or conflicting claims unresolved and out of accepted memory." width="520" height="690" loading="lazy" />
+  <figcaption>A proposed change is not yet an accepted memory. This review step keeps unsupported claims out of future context.</figcaption>
+</figure>
 
 For a working reference, Anthropic has a [dreaming cookbook](https://platform.claude.com/cookbook/managed-agents-cma-dreaming-with-a-dynamic-workflow). It exports completed Managed Agents sessions, uses analyzer and organizer agents to create linked memory files, and makes the result available to later sessions. It also covers nightly execution. That example requires Managed Agents access; the manual file workflow above does not depend on that service.
 
