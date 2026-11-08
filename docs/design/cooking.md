@@ -33,3 +33,5 @@ The magazine title uses 56–96px Space Grotesk, with a 52–64px phone size. Re
 Recipe detail pages show linked category tags in the Ingredients / Method / Print bar. The tags are plain comma-separated links without borders. The tags replace the repeated title in that bar; omit the category label above the main recipe title. On phones, the tags occupy a second row and remain available while the bar is sticky.
 
 Recipe sections have separate Copy ingredients and Copy instructions buttons directly below their headings. Copies preserve ingredient groups and numbered method steps, omit controls and images, and report success or manual recovery when clipboard access fails.
+
+All category result sections use the full collection width. Align category headings and recipe grids with the filter bar at every screen width; do not add horizontal padding to the category panel.

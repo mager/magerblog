@@ -85,7 +85,7 @@
 }
 /* Category worlds retain the same controls and chronological recipe order. */
 .cooking-collection { --cooking-accent: var(--news-red); --cooking-wash: var(--news-paper); }
-.cooking-collection:not([data-cooking-world="all"]) #cooking-results { margin-top: 24px; padding: 32px; background: var(--cooking-wash); }
+.cooking-collection:not([data-cooking-world="all"]) #cooking-results { margin-top: 24px; padding: 32px 0; background: var(--cooking-wash); }
 .cooking-collection:not([data-cooking-world="all"]) .cooking-results-heading { padding: 0 0 28px; align-items: flex-start; }
 .cooking-collection:not([data-cooking-world="all"]) .cooking-results-heading h2 { color: var(--cooking-accent); font-size: clamp(32px, 4vw, 52px); line-height: 1.05; letter-spacing: -.03em; }
 .cooking-results-heading .cooking-world-description { margin: 14px 0 0; max-width: 55ch; color: var(--news-muted); font: 15px/1.65 var(--news-ui); }
@@ -114,7 +114,7 @@
 [data-cooking-world="curry"], [data-cooking-world="casserole"], [data-cooking-world="chicken"], [data-cooking-world="beef"], [data-cooking-world="pork"], [data-cooking-world="turkey"] { --cooking-wash: color-mix(in oklab, var(--news-red) 10%, var(--news-paper)); }
 [data-cooking-world="curry"] .cooking-feature-copy, [data-cooking-world="casserole"] .cooking-feature-copy { border-top: 3px solid var(--cooking-accent); padding-top: 24px; }
 @media (max-width: 600px) {
-  .cooking-collection:not([data-cooking-world="all"]) #cooking-results { margin-inline: -18px; padding: 24px 18px; }
+  .cooking-collection:not([data-cooking-world="all"]) #cooking-results { padding: 24px 0; }
   .cooking-collection:not([data-cooking-world="all"]) .cooking-results-heading { gap: 12px; }
   .cooking-collection:not([data-cooking-world="all"]) .cooking-results-heading h2 { font-size: 34px; }
   .cooking-collection .cooking-feature, [data-cooking-world="soup"] .cooking-feature-copy { grid-template-columns: minmax(0, 1fr); }
