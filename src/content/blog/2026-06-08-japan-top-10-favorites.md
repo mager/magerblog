@@ -3,10 +3,10 @@ title: "Japan: My Top 10 Favorite Things"
 description: "Three weeks in Japan — Okinawa, Kyoto, Osaka, Tokyo — and ten things I keep coming back to."
 pubDate: 2026-06-08
 category: life
-draft: true
 tags: ["Japan", "Okinawa", "Kyoto", "Travel", "Food"]
 keyword: "Japan travel favorites"
-heroImage: "https://lh3.googleusercontent.com/pw/AP1GczNLmA4hPbKg1-AqDan0mGHdSkxXYz9qPislVFvtTek1sjSEmBR0j4JTDPmQz-NNMpDaIHFGVWnwX2cLBbUFGU3cczTTtr7wQxBxKzf9z8PyQ=w2030-h1522-s-no-gm"
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/hero.jpg"
+heroImageAlt: "Bright signs and billboards above the streets of Shinjuku at night."
 ---
 
 I spent three weeks in Japan this spring — Tokyo, Osaka, Kyoto, Ishigaki, and Okinawa — and I've been trying to distill what made it so different from everywhere else I've been. Not "best restaurants" or "must-see temples." Just the things that kept stopping me mid-thought, that I found myself describing to people at every dinner since coming home.
@@ -21,15 +21,11 @@ The oshibori is one of them. Before almost every meal, you're handed a hot, roll
 
 The same care shows up in the 日本のトイレ. Every surface you encounter in Japan is thought through, and the bathroom is no exception. I won't belabor it, but coming home to what passes for a toilet in the United States felt like a genuine regression. Japan made a collective decision that this particular experience should be warm, quiet, and precise, and they were right.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczN83iyTR6PZ8kwgd_umO3Ucr5TvahkQIRLjo8Tsza1Req3CXfwKdFN_9Gu0sv7Dsv65jJKuNRZ09qjlnSsR1oLNstpUr1jDNpvZkeoN24whlEp7UgIskkY8E6JQvShqqgRO4R3p89nF_-jVWNIRTYVYA=w1142-h1522-s-no-gm)
-
 ## 9. TeamLab Borderless
 
 We went to TeamLab Borderless in Tokyo, and it was one of the best things we did on the whole trip. What makes it different from other digital art spaces is that the art isn't contained — it moves through the rooms. Something that starts as a river of light in one hall flows into the next, changes shape, becomes something else. You're not standing in front of a piece; you're moving through a world that's alive.
 
 The installations respond to where you are and what you do. The space between you and the art collapses in a way that doesn't happen anywhere else. We spent way more time than we planned. Neither of us wanted to leave.
-
-![](https://lh3.googleusercontent.com/pw/AP1GczMPIhemb7gO654vUGOn9LGO3jx_gLd6L2DKsrQLJpBmctauOPYsVVaLFPSjXTWdCoV-t4GUaNKbmeX3NmrsHw1VC7wLDFT0h5XLSGx5M6n6rzmeQ8azrb8eSrOQFJFNWthjFRgYES7eQ=w1142-h1522-s-no-gm)
 
 ## 8. Goshuin and the Shrine Stamps
 
@@ -37,25 +33,25 @@ A goshuin is a stamp you collect at shrines and temples — part ink seal, part 
 
 I loved finding the goshuin booth at every shrine. Each stamp is unique to that place, done by whoever is working that day, and the book becomes a record of everywhere you went. It's a physical souvenir that you made something of, rather than one that was made for you. By the end of the trip mine had a dozen stamps and I was annoyed there wasn't room for more.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczO0pLw1CLtCLHVU2844SW7FqY3qKUTjvjCapIWT0hFfTlyNWeGa2CM9JjaKFw52j9FH3nn9ysXt8nZpq4En09eI9tw40U5yVOGnVmvoFLz8ysN9X5bRzLoVi7VGnW29nwmERZadMokM4w929X24zHvS3w=w2030-h1522-s-no-gm)
+![An open goshuin book with black calligraphy and a red shrine seal at Meiji Jingu.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/goshuin.jpg)
 
 ## 7. Snorkeling in Iriomote (Okinawa)
 
-The water around Iriomote Island is genuinely clear — blue-green in the way that makes you feel like you're looking at an edited photo until you're actually in it. The coral is still alive. We snorkeled for hours one afternoon and I saw fish I didn't have names for in colors that don't appear in freshwater.
+The water around Iriomote Island is clear — blue-green in the way that makes you feel like you're looking at an edited photo until you're actually in it. The coral is still alive. We snorkeled for hours one afternoon and I saw fish I didn't have names for in colors that don't appear in freshwater.
 
 What made it was the silence. You're floating, face down, watching everything move below you, and the surface world disappears. I don't snorkel often enough. Japan reminded me that the water there is worth the trip on its own.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczNxkiAIGzSo9-EUM4Bu0RB2KbegM4YGhdvwTCLUvIN8LgOpWpUUfPZvFVX5vrV9UOnv8KSl921a6sX9_vAnWC-vvUcG-vnnU_tW2A5IihV372o3i3bnmkNEkDx6vhk28U7HJxRb-a3JCyTv9smzkL9PbA=w2000-h1128-s-no-gm)
+![Overlapping plate corals on the reef during our snorkeling trip near Iriomote.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/coral.jpg)
 
 ## 6. Sumo
 
 We caught a Grand Sumo tournament in Tokyo, and it was one of those sporting events that immediately recalibrates your sense of what live sports can be. The bouts themselves are short — most last under ten seconds — but the ritual surrounding each one is long and deliberate. The wrestlers circle each other, toss salt, crouch, rise, and crouch again. The crowd is quiet during the ceremony and loud at the exact right moment.
 
-The wrestlers are enormous and surprisingly fast, and the combination of size and technical skill is genuinely impressive. We sat in box seats on the floor level and were close enough to feel the impact when someone hit the clay. That's not something you get from watching it at home.
+The wrestlers are enormous and surprisingly fast, and the combination of size and technical skill stood out from our seats. We sat in box seats on the floor level and were close enough to feel the impact when someone hit the clay. That's not something you get from watching it at home.
 
 I wrote more about the whole experience [here](/blog/2026-05-11-grand-sumo-tokyo).
 
-![](https://lh3.googleusercontent.com/pw/AP1GczOU7GJHdyXHHPrkakNzVvNKrXee9Qc345f-5IqH1E4m6F6W50kkVTCjfBe4xbtPq_vMAHQBZJtY3WnhsbhR_nx-gD1_3oUdTCi6bWPLh1fO26aQP27QCr_B83E88fDtQ7XUlEAEOh0kkicszQd_yvELPA=w2030-h1522-s-no-gm)
+![Two sumo wrestlers facing each other in the ring, with the referee and ringside spectators nearby.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/sumo.jpg)
 
 ## 5. The Quaint Bars
 
@@ -63,9 +59,7 @@ Some of the best bars I've ever been in are in Japan, and what makes them isn't 
 
 There's no ambient music loud enough to interrupt a conversation, nobody's trying to turn the table, and the intimacy of the space means you always end up talking to whoever's next to you. The bar we found in Dotonbori, a dive with maybe six seats and a bartender who spoke no English and didn't need to, was one of my favorite hours of the trip. I'd trade a dozen loud American bars for one of these.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczP4wileRKR08rQauCM0WBFt165WcfscsOqAyNuPH42Kn9G3fPBI1BNN-2nd5AYvlsVI_SmcCFiCbbpxqASeoXJDwWFii5hcfx9pxYqAeUqzdgw5ilB1et8KsuL1Tf3q7O3DxB7bpia1gw90Dbmh9SMuKA=w1142-h1522-s-no-gm)
-
-![](https://lh3.googleusercontent.com/pw/AP1GczPUD9cet7Ykm2vUy8YhAIaXdbHMjhFoxLi_0XcKJ2NvFDL5Rp1Rn-WAQH1PLGxRlrfxZyqjPUitK0Ok4k3VSek_4AE8yM1U29HsfOydYotPNA3Y86TczgL9wgN7gbgQoh9UDl3p2muRSEOTushPFowISQ=w1142-h1522-s-no-gm)
+![A bartender carving a large block of ice behind a small, bottle-lined bar in Osaka.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/bar.jpg)
 
 ## 4. The Kamo River in Kyoto
 
@@ -77,13 +71,9 @@ We went north one afternoon and found the stepping stones — flat rocks spaced 
 
 At night the river is something else entirely. The lights of the restaurants on the opposite bank reflect off the water, couples line the steps, and the whole scene has a warmth that's hard to describe. We kept going back.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczMblrYN0ytAxb-1aS_JZw8oBRoM_SkpEz5daNaLZsT6tl9N4aYoPOKTv0yPCkRL-_qugD_4F7vCW53UR4X5iMFSwHfiQgGEnEOU-23QjpVIyevLywzAv7a-HzRTV53tW6Hq0gReePiZg2n2NH57Spw=w1142-h1522-s-no-gm)
+![People crossing the Kamo River on stepping stones beside grassy banks in Kyoto.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kamo-day.jpg)
 
-![](https://lh3.googleusercontent.com/pw/AP1GczPt8ksFQ84NRy3A4b9sxuIeFOMBu_oBbwhNBxNdzNKUlUbBQRsT70Q0_pgeGKJ7AdeNJtKn1XjL4MQPmWCCLl2Qy8-ru4ERAZJANQoThbkQ7Cz86F3Vszuct2d79zLf9cHZlTirf7KrMWtixTqcTqYY3g=w2030-h1522-s-no-gm)
-
-![](https://lh3.googleusercontent.com/pw/AP1GczP5Y-JL7JepnU5eAAH5_DiYohVgaW0O1P18evRAlfJrj990GOkxfj6nm0faKCcObUJ9nU-9HCzIJZP97w8lVbEoqBRmqSOvrqcXFvppYdeO1UlQb-s_xo79ji82bbVZkIIfUwZGx7VjJkX2VprFh5-EMQ=w2030-h1522-s-no-gm)
-
-![](https://lh3.googleusercontent.com/pw/AP1GczMoG8UrY7ikfIWFRvQSBTUUguQeBK_0DXBRlc18173TxHiO_JP9ISRxcT701Rz5SV_xATd8Yr1twf0k29lCrzXWUDo_ocAK7P5qRNG6E4MVPKIyevLywzAv7a-HzRTV53tW6Hq0gReePiZg2n2NH57Spw=w2030-h1522-s-no-gm)
+![Restaurant lights reflected in the Kamo River at night.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kamo-night.jpg)
 
 ## 3. The Private Onsen
 
@@ -91,11 +81,11 @@ Most ryokan have both communal baths and private ones you can reserve for an hou
 
 I thought about that tub for days afterward. There's something about hot water and no distractions that resets something.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczPeQub4U5RVDMxfkHtd9DVNUjMj7NxaUsfaLFCPOxrk2oumKb_8Qpk7Eky9BaRz1Emg6EIarBG6zlGniBGfiEyzLeYunzMnLmD8d1gdz10AP8dUK1HKS24eL6Pj1UwmkA0RY2pgEI9tjm1UqgISlYfoQA=w2030-h1522-s-no-gm)
+![A private stone bath filling with water beside a window overlooking a river and green hills.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/onsen.jpg)
 
 ## 2. The Food
 
-I'll just run through what I actually ate, because the list is the argument.
+Food was a large part of the trip, from ramen shops to convenience stores.
 
 The ramen alone deserves its own paragraph. Shio and yuzu ramen — clear, bright, a little citrus cutting through the fat — is different enough from tonkotsu that it feels like a different category of food. Tsukemen, where you dip cold noodles into a thick, concentrated broth, is the kind of thing that makes you wonder why this isn't everywhere. I also had grilled ramen, which I didn't know was a thing, and chicken ramen that was delicate in a way I wasn't expecting.
 
@@ -105,9 +95,7 @@ In Okinawa specifically: taco rice, which is exactly what it sounds like and wor
 
 I came home having eaten natto (fermented soybeans, the texture of used glue, the flavor of blue cheese — not for everyone, definitely for me), euglena biscuits, ningyo sweets with red bean paste, and a KitKat in a flavor I couldn't identify from the packaging. Japan has more variety in its convenience stores than most countries have in their grocery stores.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczNLmA4hPbKg1-AqDan0mGHdSkxXYz9qPislVFvtTek1sjSEmBR0j4JTDPmQz-NNMpDaIHFGVWnwX2cLBbUFGU3cczTTtr7wQxBxKzf9z8PyQ=w2030-h1522-s-no-gm)
-
-![](https://lh3.googleusercontent.com/pw/AP1GczOHe-x21ekvkolOeU7W1Jh0C6obLN3D2HO3CYVdAIptXd3xB7bpia1gw90Dbmh9SMuKA=w2030-h1522-s-no-gm)
+![A cook tending skewers over a smoking charcoal grill in Tokyo.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/yakitori.jpg)
 
 ## 1. The Ryokan and the Kaiseki Dinner
 
@@ -121,8 +109,8 @@ The rice course — the chazuke — was the moment of the whole trip for me. It 
 
 The room had a view of the Oi River in Arashiyama, and we sat with the window open after dinner listening to the water. That's about as good as it gets.
 
-![](https://lh3.googleusercontent.com/pw/AP1GczMgEBflCA_xZZKiTd3D3yrVNEfUYhEjWRFi46AbqG0JARAJx0Mb-aAFyptL6WRPTspVPakVCSazAiyqqueYMwHpJtBO93peMeFc5G3c4FtLt5iD5VvkhW5no_5onlc0Od_GV3SH82Y7mxOUnyVD9w=w2030-h1522-s-no-gm)
+![Small kaiseki dishes arranged on ceramic plates and wooden stands at Ryotei Rangetsu.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kaiseki.jpg)
 
 ---
 
-Three weeks was enough time to see a lot and not enough time to stop discovering things. I left with a list of places I want to go back to — a specific bar in Osaka, a ryokan in the mountains, the markets in Nishiki — which is about the best review I can give.
+Three weeks was enough time to see a lot and not enough time to stop discovering things. I left with a list of places I want to go back to — a specific bar in Osaka, a ryokan in the mountains, Nishiki Market — which is about the best review I can give.
