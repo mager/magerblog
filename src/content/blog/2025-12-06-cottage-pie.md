@@ -36,7 +36,7 @@ I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This versio
 - 1½ teaspoons chopped fresh rosemary
 - ¾ teaspoon chopped fresh thyme
 - 1½ tablespoons all-purpose flour
-- 1½ tablespoons tomato paste
+- 1 whole tube tomato paste
 - ⅓ cup red wine
 - 1 cup unsalted chicken stock or bone broth
 - ¾ teaspoon Worcestershire sauce
@@ -75,13 +75,13 @@ Turn off the heat. If there is excess fat, spoon it into a heatproof bowl and le
 
 Turn the heat back on to medium. Add ⅓ cup red wine and cook, scraping up any brown bits, for 1-2 minutes until reduced by about half.
 
-Stir in 1½ teaspoons curry powder (if using), 1½ teaspoons rosemary, ¾ teaspoon thyme, the remaining ¼ teaspoon kosher salt for the filling, and 1½ tablespoons tomato paste. Sprinkle 1½ tablespoons flour over the meat mixture and stir well. Cook for 3-4 minutes.
+Stir in 1½ teaspoons curry powder (if using), 1½ teaspoons rosemary, ¾ teaspoon thyme, the remaining ¼ teaspoon kosher salt for the filling, and 1 whole tube tomato paste. Sprinkle 1½ tablespoons flour over the meat mixture and stir well. Cook for 3-4 minutes.
 
 ![Adding spices and flour](https://lh3.googleusercontent.com/pw/AP1GczNNLIPmhLPOKEB8ekWbf4E8OM4aezNg9qLShy-xLcr47ERjJwAX3divTncMvlT9snXeOvIdqcRKfxqPrdBqSYeY28Ri-LXOqppNW4nqJK6LNpOuXmt4QuucUmUCAYoND-eHylVx4gwW7q5ptLqRLMpc-Q=w2026-h1520-s-no-gm)
 
 Stir in 1 cup stock (or bone broth) and ¾ teaspoon Worcestershire sauce. Bring to a boil, then reduce the heat and simmer uncovered, stirring occasionally, until the filling is moist but thick enough to hold the potato layer. Start checking after 10 minutes; keep simmering if it is still runny.
 
-Transfer the meat mixture to a 2-quart baking dish, such as a deep 8-inch square dish or a similar oval baker. Spread all of the mashed potato mixture evenly over the filling, smoothing it with a spatula. Sprinkle the remaining 6 tablespoons shredded cheddar (about 1½ ounces) on top.
+Transfer the meat mixture to a rectangular baking pan. Spread all of the mashed potato mixture evenly over the filling, smoothing it with a spatula. Sprinkle the remaining 6 tablespoons shredded cheddar (about 1½ ounces) on top.
 
 ![Topping with potatoes](https://lh3.googleusercontent.com/pw/AP1GczNF6w69uYiCsH0u8YT1U1_9RKnkIL-wWFKtpIxRMjGdCgwz_0AQGSv-MGYQTkf5R5h20NzlfiMzEW6kakD6TAV9VdhK6utSRdQl47o2wtbbdr3vaxTj9B43SXDUy69bTmdnkzNDaVyo6qqfHgZ_1Sv2-g=w1350-h1350-s-no-gm)
 
