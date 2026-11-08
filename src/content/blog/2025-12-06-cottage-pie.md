@@ -98,6 +98,12 @@ Use the listed **1½ tablespoons vegetable oil** to cook the vegetables, then ad
 
 Continue with the same filling and potato topping. Use the listed **⅔ cup stock**, with **2 tablespoons extra stock** only if the filling looks dry, as noted in the simmer step. This is one optional addition, not another 2 tablespoons. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
 
+## Make ahead for after the game
+
+You can bake this in the morning and reheat it when you get home from the game. Bake fully as directed, then let it cool briefly for about **15-20 minutes**. For faster cooling, divide it into shallow oven-safe containers, loosely cover with foil, and refrigerate. Metal containers work well for reheating straight from the fridge. **Refrigerate within 2 hours of cooking**; do not wait for the pie to cool completely on the counter. Once chilled, seal the foil tightly. These cooling steps follow the [FDA's guidance for leftovers](https://www.fda.gov/food/buy-store-serve-safe-food/safe-food-handling).
+
+When you get home, preheat the oven to **350°F**. Reheat the refrigerated portions covered with foil. Start checking after **30 minutes** and continue until the center and several other spots reach **165°F (74°C)**, the [USDA reheating temperature](https://ask.fsis.usda.gov/article/How-do-I-reheat-leftovers-safely). The time will depend on the portion size and depth. Remove the foil for the last **5-10 minutes** if you want to brown the top again, then let it rest briefly before serving.
+
 <div class="recipe-gallery">
 
 ![Ingredients spread](https://lh3.googleusercontent.com/pw/AP1GczMC74Cum1j16Bsh9g5994Ci1jAb06_vml5-CFYkD0NiR1yX50YfXtZBQ4I-4A5z72IkApnee2cc11AAmFrBFHlpyFnHS5RO_4HJ69jOfdoED6H66ANG6t8vahtSA2AT7aMt7RGzEWak6T71jLnI4PLPAQ=w2026-h1520-s-no-gm)
