@@ -59,7 +59,9 @@ I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This versio
 
 Preheat oven to 400°F.
 
-Boil the 1½ pounds diced potatoes in generously salted water until tender, about 15-20 minutes. Drain and mash with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Set aside.
+Put the 1½ pounds diced potatoes in a pot and cover with cold water by about 1 inch. Salt the water generously. Bring to a boil over **high heat**, then reduce to **medium-low**, adjusting as needed to keep a gentle boil. Cook for about **15-20 minutes after the water starts boiling**, until a fork slides easily through the potatoes. Use this tenderness check rather than a target potato temperature.
+
+Drain the potatoes well and mash while still hot with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Set aside.
 
 Heat 1½ tablespoons oil in a large skillet over medium heat. Add ⅔ cup chopped onion and cook for 5-10 minutes until softened and starting to brown. Add 1 cup frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the 3 minced garlic cloves.
 
