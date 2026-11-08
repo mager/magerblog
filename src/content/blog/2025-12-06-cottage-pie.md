@@ -57,13 +57,13 @@ I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This versio
 
 **Prep first:** Peel and dice the 1½ pounds potatoes. Measure ⅔ cup chopped onion, 1½ teaspoons chopped fresh rosemary, and ¾ teaspoon chopped fresh thyme. Mince the 3 cloves garlic. Shred ¾ cup cheddar cheese (about 3 ounces) and divide into two portions of 6 tablespoons each. Set aside one portion for the top. Measure out the other ingredients.
 
-Preheat oven to 400°F.
-
 Put the 1½ pounds diced potatoes in a pot and cover with cold water by about 1 inch. Salt the water generously. Bring to a boil over **high heat**, then reduce to **medium-low**, adjusting as needed to keep a gentle boil. Cook for about **15-20 minutes after the water starts boiling**, aiming for an internal temperature of **about 210°F (99°C)**. Lift a large piece out with a slotted spoon and insert an instant-read thermometer into its center. Check a few large pieces; the probe should slide in easily. This is the potato temperature, not the water temperature. At high elevations, boiling water is cooler, so use tenderness as the final check instead of waiting for 210°F. See [ThermoWorks' potato temperature guide](https://blog.thermoworks.com/the-dirt-on-potatoes/) for the temperature and altitude details.
 
-Drain the potatoes well and mash while still hot with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Set aside.
+Drain the cooked potatoes well and return them to the warm pot, off the heat. Now preheat the oven to **400°F** and start the filling. You can mash the potatoes while the vegetables and meat cook.
 
-Heat 1½ tablespoons oil in a large skillet over medium heat. Add ⅔ cup chopped onion and cook for 5-10 minutes until softened and starting to brown. Add 1 cup frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the 3 minced garlic cloves.
+Heat 1½ tablespoons oil in a large skillet over medium heat. Add ⅔ cup chopped onion and cook for 5-10 minutes until softened and starting to brown. Add 1 cup frozen vegetables (corn, peas, carrots) and cook for **at least 10 minutes**, stirring occasionally, until hot throughout and tender and the released water has mostly evaporated. Stir in the 3 minced garlic cloves and cook for about 30 seconds before adding the meat.
+
+**Mash while the filling cooks:** Mash the potatoes while still hot with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Stir the skillet mixture as needed between mashing, then set the finished potatoes aside until assembly.
 
 ![Filling](https://lh3.googleusercontent.com/pw/AP1GczPJN88jigLaN4t4M0buK_P-Gw1yhkm2L18b7E-qOYbuVTw9S6eR4ziJ05alpfAZqPXSQZTbkTgpRgx19AZhQx_ti9U3la9BEfdHah3ChcRcvwcMKG5A_lrtEiTry6LbNwZc6nftA3Jq3sk94EVISghvQw=w1350-h1350-s-no-gm)
 
