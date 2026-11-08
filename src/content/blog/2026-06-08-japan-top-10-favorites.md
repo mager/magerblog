@@ -1,6 +1,6 @@
 ---
 title: "Japan: My Top 10 Favorite Things"
-description: "Three weeks in Japan — Okinawa, Kyoto, Osaka, Tokyo — and ten things I keep coming back to."
+description: "Three weeks in Japan, ten favorites, and a lot of ramen. I still miss the yuzu ramen in Tokyo and the hotel pool in Ishigaki."
 pubDate: 2026-06-08
 category: life
 tags: ["Japan", "Okinawa", "Kyoto", "Travel", "Food"]
@@ -9,110 +9,106 @@ heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06
 heroImageAlt: "Bright signs and billboards above the streets of Shinjuku at night."
 ---
 
-I spent three weeks in Japan this spring — Tokyo, Osaka, Kyoto, Ishigaki, and Okinawa — and I've been trying to distill what made it so different from everywhere else I've been. Not "best restaurants" or "must-see temples." Just the things that kept stopping me mid-thought, that I found myself describing to people at every dinner since coming home.
+My wife and I spent three weeks in Japan this spring: Tokyo, Osaka, Kyoto, Ishigaki, and Okinawa. We ate a lot, walked a lot, and took a lot of photos. These are ten of my favorite things from the trip.
 
-Here's what made the list.
+I still think about the hotel pool in Ishigaki and pretty much every bowl of ramen we ate in Tokyo. Especially the yuzu ramen.
 
-## 10. The Cleanliness
+## 10. The little things
 
-Japan has a relationship with cleanliness that goes beyond what I'd seen anywhere else, and it shows up everywhere — in small, thoughtful ways that accumulate over the course of a trip.
+The hot towel before a meal was something I got used to very quickly. It's called an oshibori, and after walking around all day, being handed one before sitting down to eat is pretty great.
 
-The oshibori is one of them. Before almost every meal, you're handed a hot, rolled towel — a 温かいおしぼり — to wipe your hands. It sounds like a small thing. It isn't. After a day of walking, the towel arrives and you feel like the meal is actually beginning. It's a ritual that signals: you're taken care of now. Settle in.
-
-The same care shows up in the 日本のトイレ. Every surface you encounter in Japan is thought through, and the bathroom is no exception. I won't belabor it, but coming home to what passes for a toilet in the United States felt like a genuine regression. Japan made a collective decision that this particular experience should be warm, quiet, and precise, and they were right.
+Also, the toilets. Heated seats, bidets, all of it. I missed those when we got home. The places we visited were clean, and I appreciated how much care went into things you use every day.
 
 ## 9. TeamLab Borderless
 
-We went to TeamLab Borderless in Tokyo, and it was one of the best things we did on the whole trip. What makes it different from other digital art spaces is that the art isn't contained — it moves through the rooms. Something that starts as a river of light in one hall flows into the next, changes shape, becomes something else. You're not standing in front of a piece; you're moving through a world that's alive.
+We went to TeamLab Borderless in Tokyo and stayed much longer than we expected. The projections move between rooms, so you can follow something down a hall and watch it change as it goes.
 
-The installations respond to where you are and what you do. The space between you and the art collapses in a way that doesn't happen anywhere else. We spent way more time than we planned. Neither of us wanted to leave.
+Some of the installations respond to where you're standing or what you're doing. We kept finding another room to check out. Neither of us was in a hurry to leave.
 
-## 8. Goshuin and the Shrine Stamps
+## 8. Goshuin and shrine stamps
 
-A goshuin is a stamp you collect at shrines and temples — part ink seal, part calligraphed inscription, written by hand while you wait, on a specific book called a goshuincho that you carry with you and get stamped at each place you visit. They cost a few hundred yen apiece and are made in front of you in about two minutes by someone who has clearly done this thousands of times.
+A goshuin is a shrine or temple stamp, usually with calligraphy, that you collect in a book called a goshuincho. At the places we visited, we'd pay a few hundred yen and watch someone write the inscription and add the seal.
 
-I loved finding the goshuin booth at every shrine. Each stamp is unique to that place, done by whoever is working that day, and the book becomes a record of everywhere you went. It's a physical souvenir that you made something of, rather than one that was made for you. By the end of the trip mine had a dozen stamps and I was annoyed there wasn't room for more.
+I got into looking for the goshuin booth at each stop. Every page is different, and now I have a book of the places we visited. Mine had about a dozen stamps by the end of the trip.
 
 ![An open goshuin book with black calligraphy and a red shrine seal at Meiji Jingu.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/goshuin.jpg)
 
 ## 7. Snorkeling in Iriomote (Okinawa)
 
-The water around Iriomote Island is clear — blue-green in the way that makes you feel like you're looking at an edited photo until you're actually in it. The coral is still alive. We snorkeled for hours one afternoon and I saw fish I didn't have names for in colors that don't appear in freshwater.
+We spent an afternoon snorkeling near Iriomote Island. The water was so clear, and there was coral everywhere. I couldn't tell you the names of most of the fish, but I could have kept watching them for hours.
 
-What made it was the silence. You're floating, face down, watching everything move below you, and the surface world disappears. I don't snorkel often enough. Japan reminded me that the water there is worth the trip on its own.
+I don't snorkel very often, and this made me want to do it more. The island part of the trip was a favorite in general. I'd happily spend more time at our hotel pool in Ishigaki, too.
 
 ![Overlapping plate corals on the reef during our snorkeling trip near Iriomote.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/coral.jpg)
 
 ## 6. Sumo
 
-We caught a Grand Sumo tournament in Tokyo, and it was one of those sporting events that immediately recalibrates your sense of what live sports can be. The bouts themselves are short — most last under ten seconds — but the ritual surrounding each one is long and deliberate. The wrestlers circle each other, toss salt, crouch, rise, and crouch again. The crowd is quiet during the ceremony and loud at the exact right moment.
+We went to a Grand Sumo tournament in Tokyo. The matches move fast, but there's a lot to watch before they start: the salt throws, the crouching, the wrestlers getting ready. Having a guide explain it beforehand helped a lot.
 
-The wrestlers are enormous and surprisingly fast, and the combination of size and technical skill stood out from our seats. We sat in box seats on the floor level and were close enough to feel the impact when someone hit the clay. That's not something you get from watching it at home.
+We sat in box seats on the floor level. Seeing how quickly the wrestlers move from that close was impressive. My wife and I left as Enho fans and kept following the tournament afterward.
 
-I wrote more about the whole experience [here](/blog/2026-05-11-grand-sumo-tokyo).
+I wrote more about [our afternoon at the sumo tournament](/blog/2026-05-11-grand-sumo-tokyo).
 
 ![Two sumo wrestlers facing each other in the ring, with the referee and ringside spectators nearby.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/sumo.jpg)
 
-## 5. The Quaint Bars
+## 5. Small bars
 
-Some of the best bars I've ever been in are in Japan, and what makes them isn't the cocktail list — it's the use of space. A typical Tokyo or Osaka cocktail bar has room for maybe eight people. The bartender is close enough to talk to. He's working a single large block of fresh ice with a pick, hand-carving a sphere for your glass while you watch. The soda is from a siphon. He weighs the spirits on a small scale before pouring. None of this is performance — it's just how the drink gets made here.
+I liked the small bars we found in Tokyo and Osaka. Some only had room for a handful of people, so you could sit at the counter and watch the bartender work.
 
-There's no ambient music loud enough to interrupt a conversation, nobody's trying to turn the table, and the intimacy of the space means you always end up talking to whoever's next to you. The bar we found in Dotonbori, a dive with maybe six seats and a bartender who spoke no English and didn't need to, was one of my favorite hours of the trip. I'd trade a dozen loud American bars for one of these.
+At one in Dotonbori, we watched the bartender carve ice from a big block. There were bottles packed onto the shelves behind him and very little room behind the counter. It was a fun place to stop for a drink.
 
 ![A bartender carving a large block of ice behind a small, bottle-lined bar in Osaka.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/bar.jpg)
 
 ## 4. The Kamo River in Kyoto
 
-We went to the Kamo River every day we were in Kyoto. Sometimes twice. Sometimes more.
+We went to the Kamo River every day we were in Kyoto, sometimes more than once. We'd sit on the steps or walk along the bank. Lots of other people were doing the same thing.
 
-During the day, we'd sit on the low stone steps that line the bank. It was warm, still light, and there were dozens of other people doing exactly the same thing — couples, groups of students, older folks with cans of something cold. Nobody was doing anything in particular. The river is narrow enough that you can hear the people across from you. Herons and cranes moved through without any sense of urgency.
+One afternoon we walked north and found the stepping stones. People were crossing the river, sitting by the water, and wading with their shoes off. It was a good place to spend some time without much of a plan.
 
-We went north one afternoon and found the stepping stones — flat rocks spaced just far enough apart that you have to pay attention crossing them, while people upstream waded with their shoes off. We walked south another time at strolling pace, watching the locals just living their lives.
-
-At night the river is something else entirely. The lights of the restaurants on the opposite bank reflect off the water, couples line the steps, and the whole scene has a warmth that's hard to describe. We kept going back.
+We liked it at night, too, with the restaurant lights reflecting off the water and people sitting along the steps. We kept ending up back there.
 
 ![People crossing the Kamo River on stepping stones beside grassy banks in Kyoto.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kamo-day.jpg)
 
 ![Restaurant lights reflected in the Kamo River at night.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kamo-night.jpg)
 
-## 3. The Private Onsen
+## 3. The private onsen
 
-Most ryokan have both communal baths and private ones you can reserve for an hour. The private onsen is worth fighting for. You get a small wooden room with a deep stone or hinoki cedar tub, the water running continuously at exactly the temperature it wants to be, and total silence. There's no agenda. You just sit in a very hot bath and look at whatever small garden is outside the window.
+Having a private onsen was great. A hot bath, a view outside, and some time to sit after all the walking we'd been doing. I could get used to that.
 
-I thought about that tub for days afterward. There's something about hot water and no distractions that resets something.
+The photo below is the view from the bath. Easy to see why I liked it.
 
 ![A private stone bath filling with water beside a window overlooking a river and green hills.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/onsen.jpg)
 
-## 2. The Food
+## 2. The food
 
-Food was a large part of the trip, from ramen shops to convenience stores.
+I could make a separate list just for the food. The ramen in Tokyo is what I keep coming back to, especially the yuzu ramen. I loved the citrus in the broth. I'd be happy to have another bowl of that right now.
 
-The ramen alone deserves its own paragraph. Shio and yuzu ramen — clear, bright, a little citrus cutting through the fat — is different enough from tonkotsu that it feels like a different category of food. Tsukemen, where you dip cold noodles into a thick, concentrated broth, is the kind of thing that makes you wonder why this isn't everywhere. I also had grilled ramen, which I didn't know was a thing, and chicken ramen that was delicate in a way I wasn't expecting.
+We also had shio ramen, chicken ramen, grilled ramen, and tsukemen, where you dip the noodles into a separate bowl of broth. There were so many different kinds to try.
 
-Beyond ramen: yakiniku, where you grill your own marbled beef over a small charcoal fire at the table and it's better than most steakhouses; Japanese curry, which is sweeter and thicker than Indian curry and goes with everything; yakitori at tiny smoke-filled counters where the skewer is the whole meal; teishoku set meals that give you rice, miso soup, protein, and pickles for less than ten dollars; karaage in Shinjuku that was so good we talked about it for days; 7-Eleven food that would embarrass American convenience stores (the egg salad sandwiches, the onigiri, the hot case items). Curry bread. Fruit sandwiches. Hokkaido milk soft serve. Matcha ice cream. Sea grapes that pop like fish roe but taste like the ocean.
+Beyond ramen, we ate yakiniku, Japanese curry, yakitori, and teishoku set meals with rice, miso soup, and pickles. The karaage in Shinjuku was really good. So were the egg salad sandwiches and onigiri from 7-Eleven. Convenience-store food ended up being a regular part of the trip.
 
-In Okinawa specifically: taco rice, which is exactly what it sounds like and works better than it should; bitter melon stir-fry; awamori, the local rice spirit that tastes like grappa's quieter cousin; spam rice balls that I ate three days running because they were there and cheap and good. And the ivory shell snail, which a vendor handed me on a stick at a market, and which I ate without knowing what it was, and which turned out to be excellent.
+Then there was curry bread, fruit sandwiches, Hokkaido milk soft serve, matcha ice cream, and sea grapes. In Okinawa, I tried taco rice, bitter melon stir-fry, awamori, and Spam rice balls. I ate the rice balls three days in a row. At a market, I also tried an ivory shell snail on a stick without knowing what it was at the time. It was good.
 
-I came home having eaten natto (fermented soybeans, the texture of used glue, the flavor of blue cheese — not for everyone, definitely for me), euglena biscuits, ningyo sweets with red bean paste, and a KitKat in a flavor I couldn't identify from the packaging. Japan has more variety in its convenience stores than most countries have in their grocery stores.
+I liked natto, too, although I understand why the texture puts people off. Other things on the list: euglena biscuits, ningyo sweets with red bean paste, and a KitKat whose flavor I couldn't work out from the wrapper. We ate well.
 
 ![A cook tending skewers over a smoking charcoal grill in Tokyo.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/yakitori.jpg)
 
-## 1. The Ryokan and the Kaiseki Dinner
+## 1. The ryokan and kaiseki dinner
 
-A ryokan is a traditional Japanese inn, and staying in one is an experience that feels like it belongs to a different century. You sleep on a futon on tatami mats, wear a yukata robe to dinner, and the whole place operates at a gentler pace than anywhere else you've been all week.
+We stayed at Ryotei Rangestu in Arashiyama. A ryokan is a traditional Japanese inn, with tatami rooms, futons, and yukata robes. Here I am trying out the outfit.
 
 ![Standing in a patterned yukata and green jacket in the ryokan's tatami room.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/ryokan-yukata.jpg)
 
-We stayed at Ryotei Rangestu, and they took care of us in a way that's hard to articulate. The kaiseki dinner is the centerpiece of the ryokan experience — a multi-course meal where every dish is small, seasonal, and considered. Not in a precious way, but in a way that makes you realize someone thought carefully about each one.
+The kaiseki dinner was a long meal with lots of small courses. There was a lot to keep track of. Here's what we ate.
 
-Our menu that evening: pureed fava bean and seasonal onion, sea urchin with wasabi, a soup with Japanese greenling and wheat gluten, sashimi of pen shell and geoduck, an assorted dish of hairtail with soy sauce and Japanese pepper, eel-rolled burdock, water shield and Japanese yam, mozuku seaweed with vinegar, and wrapped sea bream sushi in thin white kelp. Then a small hot pot of Japanese hard clam, taro stems, udo, and wakame seaweed. Beef steak with dipping sauce and citron coulis. And finally: rice, pickled vegetables, and dashi-chazuke — rice with dashi broth poured over it, served at the end like a warm, quiet conclusion. Dessert was chocolate sweet bean jelly with kumquat.
+We started with pureed fava bean and seasonal onion, sea urchin with wasabi, and a soup with Japanese greenling and wheat gluten. There was sashimi of pen shell and geoduck, followed by an assortment that included hairtail, eel-rolled burdock, Japanese yam, seaweed, and sea bream sushi wrapped in thin white kelp.
 
-The rice course — the chazuke — was the moment of the whole trip for me. It arrived after everything else and somehow felt like the most thoughtful dish of the night. I've eaten at places that cost three times as much and felt less cared for.
+Then came a hot pot with clams and vegetables, beef steak, and finally rice, pickles, and dashi-chazuke: rice with dashi broth poured over it. That rice course was one of my favorites. Dessert was chocolate sweet bean jelly with kumquat.
 
-The room had a view of the Oi River in Arashiyama, and we sat with the window open after dinner listening to the water. That's about as good as it gets.
+Our room looked out over the Oi River. After dinner, we sat with the window open and listened to the water. I really liked staying there.
 
 ![Small kaiseki dishes arranged on ceramic plates and wooden stands at Ryotei Rangetsu.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/kaiseki.jpg)
 
 ---
 
-Three weeks was enough time to see a lot and not enough time to stop discovering things. I left with a list of places I want to go back to — a specific bar in Osaka, a ryokan in the mountains, Nishiki Market — which is about the best review I can give.
+Ask me what I'd go back for and it's probably the hotel pool in Ishigaki or another bowl of ramen in Tokyo. The yuzu ramen in particular. I miss that one.
