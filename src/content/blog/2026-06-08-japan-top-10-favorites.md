@@ -101,6 +101,8 @@ I came home having eaten natto (fermented soybeans, the texture of used glue, th
 
 A ryokan is a traditional Japanese inn, and staying in one is an experience that feels like it belongs to a different century. You sleep on a futon on tatami mats, wear a yukata robe to dinner, and the whole place operates at a gentler pace than anywhere else you've been all week.
 
+![Standing in a patterned yukata and green jacket in the ryokan's tatami room.](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-06-08-japan-top-10-favorites/ryokan-yukata.jpg)
+
 We stayed at Ryotei Rangestu, and they took care of us in a way that's hard to articulate. The kaiseki dinner is the centerpiece of the ryokan experience — a multi-course meal where every dish is small, seasonal, and considered. Not in a precious way, but in a way that makes you realize someone thought carefully about each one.
 
 Our menu that evening: pureed fava bean and seasonal onion, sea urchin with wasabi, a soup with Japanese greenling and wheat gluten, sashimi of pen shell and geoduck, an assorted dish of hairtail with soy sauce and Japanese pepper, eel-rolled burdock, water shield and Japanese yam, mozuku seaweed with vinegar, and wrapped sea bream sushi in thin white kelp. Then a small hot pot of Japanese hard clam, taro stems, udo, and wakame seaweed. Beef steak with dipping sauce and citron coulis. And finally: rice, pickled vegetables, and dashi-chazuke — rice with dashi broth poured over it, served at the end like a warm, quiet conclusion. Dessert was chocolate sweet bean jelly with kumquat.
