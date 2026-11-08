@@ -59,7 +59,7 @@ I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This versio
 
 Preheat oven to 400°F.
 
-Put the 1½ pounds diced potatoes in a pot and cover with cold water by about 1 inch. Salt the water generously. Bring to a boil over **high heat**, then reduce to **medium-low**, adjusting as needed to keep a gentle boil. Cook for about **15-20 minutes after the water starts boiling**, until a fork slides easily through the potatoes. Use this tenderness check rather than a target potato temperature.
+Put the 1½ pounds diced potatoes in a pot and cover with cold water by about 1 inch. Salt the water generously. Bring to a boil over **high heat**, then reduce to **medium-low**, adjusting as needed to keep a gentle boil. Cook for about **15-20 minutes after the water starts boiling**, aiming for an internal temperature of **about 210°F (99°C)**. Lift a large piece out with a slotted spoon and insert an instant-read thermometer into its center. Check a few large pieces; the probe should slide in easily. This is the potato temperature, not the water temperature. At high elevations, boiling water is cooler, so use tenderness as the final check instead of waiting for 210°F. See [ThermoWorks' potato temperature guide](https://blog.thermoworks.com/the-dirt-on-potatoes/) for the temperature and altitude details.
 
 Drain the potatoes well and mash while still hot with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Set aside.
 
