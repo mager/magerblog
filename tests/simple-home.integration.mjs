@@ -50,8 +50,12 @@ test('homepage keeps full-text ranking, typos, clear, and progressive loading wi
   assert.equal(visible().length, 48);
   assert.equal(doc.activeElement, visible()[24].querySelector('a'));
   assert.equal(doc.querySelector('[data-simple-filter]'), null);
-  for (const section of ['tech', 'cooking', 'life', 'notes', 'links', 'seen']) {
+  for (const section of ['tech', 'cooking', 'life', 'seen']) {
     assert(doc.querySelector(`.header-sections a[href="/${section}/"]`), section);
+  }
+  for (const section of ['notes', 'links']) {
+    assert.equal(doc.querySelector(`.header-sections a[href="/${section}/"]`), null);
+    assert(doc.querySelector(`.simple-sidebar a[href="/${section}/"]`), section);
   }
   const input = doc.querySelector('#simple-query');
   input.value = 'homeprot'; input.dispatchEvent(new w.Event('input')); await tick();

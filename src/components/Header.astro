@@ -11,9 +11,7 @@ const sections = [
   { name: 'Tech', href: '/tech/' },
   { name: 'Cooking', href: '/cooking/' },
   { name: 'Life', href: '/life/' },
-  { name: 'Notes', href: '/notes/' },
   { name: 'Seen', href: '/seen/' },
-  { name: 'Links', href: '/links/' },
 ];
 const current = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/, '');
 const active = (href: string) => activeSection ? activeSection === href : current(href) || path.startsWith(href);
