@@ -38,7 +38,7 @@ I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This versio
 - 1½ tablespoons all-purpose flour
 - 1½ tablespoons tomato paste
 - ⅓ cup red wine
-- ⅔ cup unsalted chicken stock or bone broth, plus 2 tablespoons if needed for turkey
+- 1 cup unsalted chicken stock or bone broth
 - ¾ teaspoon Worcestershire sauce
 
 #### For the Potatoes
@@ -79,7 +79,7 @@ Stir in 1½ teaspoons curry powder (if using), 1½ teaspoons rosemary, ¾ teaspo
 
 ![Adding spices and flour](https://lh3.googleusercontent.com/pw/AP1GczNNLIPmhLPOKEB8ekWbf4E8OM4aezNg9qLShy-xLcr47ERjJwAX3divTncMvlT9snXeOvIdqcRKfxqPrdBqSYeY28Ri-LXOqppNW4nqJK6LNpOuXmt4QuucUmUCAYoND-eHylVx4gwW7q5ptLqRLMpc-Q=w2026-h1520-s-no-gm)
 
-Stir in ⅔ cup stock (or bone broth) and ¾ teaspoon Worcestershire sauce. Bring to a boil, reduce heat, and simmer for about 10 minutes until the filling is moist but thick enough to hold the potato layer. If the turkey filling looks dry, add 2 tablespoons extra stock.
+Stir in 1 cup stock (or bone broth) and ¾ teaspoon Worcestershire sauce. Bring to a boil, then reduce the heat and simmer uncovered, stirring occasionally, until the filling is moist but thick enough to hold the potato layer. Start checking after 10 minutes; keep simmering if it is still runny.
 
 Transfer the meat mixture to a 2-quart baking dish, such as a deep 8-inch square dish or a similar oval baker. Spread all of the mashed potato mixture evenly over the filling, smoothing it with a spatula. Sprinkle the remaining 6 tablespoons shredded cheddar (about 1½ ounces) on top.
 
@@ -96,7 +96,7 @@ For a turkey version, use **1 pound ground turkey thigh** if you can find it. Gr
 
 Use the listed **1½ tablespoons vegetable oil** to cook the vegetables, then add **1 pound ground turkey**, **½ teaspoon kosher salt**, and **¼ teaspoon black pepper** in place of the beef step. Break up the turkey and cook it through; do not keep cooking just to get the same dark browning as beef. Skip draining unless there is excess fat in the pan.
 
-Continue with the same filling and potato topping. Use the listed **⅔ cup stock**, with **2 tablespoons extra stock** only if the filling looks dry, as noted in the simmer step. This is one optional addition, not another 2 tablespoons. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
+Continue with the same filling and potato topping. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
 
 ## Make ahead for after the game
 
