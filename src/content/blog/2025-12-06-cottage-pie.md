@@ -2,8 +2,8 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Cottage Pie"
 pubDate: "2025-12-06"
-updatedDate: "2026-11-07"
-description: A hearty cottage pie made with ground beef, following Alton Brown's method. Perfect comfort food for a cold day.
+updatedDate: "2026-11-08"
+description: Cottage pie made with 1 pound of ground beef or turkey, vegetables, and a cheddar mashed potato topping, adapted from Alton Brown's method.
 category: "food"
 subcategory: "casserole"
 recipeCategories: ["casserole","beef","turkey"]
@@ -16,7 +16,7 @@ cookTime: 60
 
 <div class="recipe-intro">
 
-This is Alton Brown's shepherd's pie recipe, adapted to use ground beef instead of ground lamb. The only major change is the meat—you'll follow the same steps and use the same quantity of meat and other filling ingredients. I'm using frozen corn, peas, and carrots for convenience, which works perfectly in this dish.
+I adapted this cottage pie from Alton Brown's shepherd's pie recipe. This version uses one 1-pound package of ground beef or turkey, with the filling and potato topping adjusted for the smaller batch. I'm using turkey this time; the turkey instructions are below. Frozen corn, peas, and carrots keep the preparation simple.
 
 </div>
 
@@ -25,59 +25,61 @@ This is Alton Brown's shepherd's pie recipe, adapted to use ground beef instead 
 
 #### For the Filling
 
-- 1½ pounds ground beef
-- 2 tablespoons vegetable oil (or canola oil)
-- 1 cup chopped onion
-- 1½ cups frozen corn, peas, and carrots mix
-- 4 cloves garlic, minced
-- Kosher salt (see instructions for amounts)
-- ½ teaspoon freshly ground black pepper
-- 2 teaspoons curry powder (optional)
-- 2 teaspoons chopped fresh rosemary
-- 1 teaspoon chopped fresh thyme
-- 2 tablespoons all-purpose flour
-- 2 tablespoons tomato paste
-- ½ cup red wine
-- 1 cup unsalted chicken stock or bone broth (bone broth recommended for richer flavor)
-- 1 teaspoon Worcestershire sauce
+- 1 pound ground beef or ground turkey (see turkey instructions below)
+- 1½ tablespoons vegetable oil (or canola oil)
+- ⅔ cup chopped onion
+- 1 cup frozen corn, peas, and carrots mix
+- 3 cloves garlic, minced
+- ¾ teaspoon kosher salt, divided
+- ¼ teaspoon freshly ground black pepper
+- 1½ teaspoons curry powder (optional)
+- 1½ teaspoons chopped fresh rosemary
+- ¾ teaspoon chopped fresh thyme
+- 1½ tablespoons all-purpose flour
+- 1½ tablespoons tomato paste
+- ⅓ cup red wine
+- ⅔ cup unsalted chicken stock or bone broth, plus 2 tablespoons if needed for turkey
+- ¾ teaspoon Worcestershire sauce
 
 #### For the Potatoes
 
-- 2 pounds russet potatoes
-- ½ cup half-and-half
-- 6 tablespoons unsalted butter, cut in cubes
+- 1½ pounds russet potatoes
+- ⅓ cup half-and-half
+- 4 tablespoons unsalted butter, cut in cubes
 - 1 large egg yolk
-- ½ brick cheddar cheese (about 4 ounces), shredded and divided
+- ¾ cup shredded cheddar cheese (about 3 ounces), divided
+- ½ teaspoon kosher salt, plus more for the cooking water
+- Freshly ground black pepper, to taste
 
 </div>
 
 <div class="recipe-instructions">
 
-**Prep first:** Peel and dice the potatoes. Chop the fresh rosemary and thyme. Mince the garlic. Shred the cheese and divide in half—set aside one half for the top. Measure out all spices and ingredients.
+**Prep first:** Peel and dice the 1½ pounds potatoes. Measure ⅔ cup chopped onion, 1½ teaspoons chopped fresh rosemary, and ¾ teaspoon chopped fresh thyme. Mince the 3 cloves garlic. Shred ¾ cup cheddar cheese (about 3 ounces) and divide into two portions of 6 tablespoons each. Set aside one portion for the top. Measure out the other ingredients.
 
 Preheat oven to 400°F.
 
-Boil the diced potatoes in generously salted water until tender, about 15-20 minutes. Drain and mash with warmed half-and-half and butter. Season the mashed potatoes with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in the egg yolk and half of the shredded cheese. Set aside.
+Boil the 1½ pounds diced potatoes in generously salted water until tender, about 15-20 minutes. Drain and mash with ⅓ cup warmed half-and-half and 4 tablespoons butter. Season with ½ teaspoon kosher salt and freshly ground black pepper to taste. Stir in 1 large egg yolk and 6 tablespoons shredded cheddar (about 1½ ounces). Set aside.
 
-Heat oil in a large skillet. Add onion and cook for 5-10 minutes to caramelize. Add the frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the garlic.
+Heat 1½ tablespoons oil in a large skillet over medium heat. Add ⅔ cup chopped onion and cook for 5-10 minutes until softened and starting to brown. Add 1 cup frozen vegetables (corn, peas, carrots) and cook for 3-5 minutes. Stir in the 3 minced garlic cloves.
 
 ![Filling](https://lh3.googleusercontent.com/pw/AP1GczPJN88jigLaN4t4M0buK_P-Gw1yhkm2L18b7E-qOYbuVTw9S6eR4ziJ05alpfAZqPXSQZTbkTgpRgx19AZhQx_ti9U3la9BEfdHah3ChcRcvwcMKG5A_lrtEiTry6LbNwZc6nftA3Jq3sk94EVISghvQw=w1350-h1350-s-no-gm)
 
-Add the ground beef, ¾ teaspoon kosher salt, and ½ teaspoon freshly ground black pepper. Cook, breaking up clumps, until all the beef is browned and cooked through (about 5 minutes).
+Add 1 pound ground beef, ½ teaspoon kosher salt, and ¼ teaspoon freshly ground black pepper. Cook, breaking up clumps, until the beef is browned and cooked through, about 5-7 minutes. For ground turkey, follow the turkey instructions below for this step and draining.
 
 ![Browning the beef](https://lh3.googleusercontent.com/pw/AP1GczM1PMLVQpVtkF1Kest44y6M9XmGwfTc645T4vRXBkM0wnsiNpS3Ln6ztmUCq-dsuV-oalEPWqprLKWbRX94n8yCxZHpKUshE9N33vMRzmrgNkW2SNKbYLOMD3I9RsdCR6dFIr5CAXpliPS4SAjJZq-bOA=w2026-h1520-s-no-gm)
 
-Turn off the heat. Use a lid to drain off any excess fat—tip the skillet, hold the lid slightly ajar, and let the fat drain into a bowl or sink.
+Turn off the heat. If there is excess fat, spoon it into a heatproof bowl and let it cool before disposal. For lean turkey, skip this step unless fat has pooled in the pan.
 
-Turn the heat back on to medium. Add ½ cup red wine and cook, scraping up any brown bits, for 1-2 minutes until reduced by about half.
+Turn the heat back on to medium. Add ⅓ cup red wine and cook, scraping up any brown bits, for 1-2 minutes until reduced by about half.
 
-Stir in the curry powder (if using), rosemary, thyme, ¼ teaspoon kosher salt, tomato paste, and sprinkle the flour over the meat mixture. Cook for 3-4 minutes.
+Stir in 1½ teaspoons curry powder (if using), 1½ teaspoons rosemary, ¾ teaspoon thyme, the remaining ¼ teaspoon kosher salt for the filling, and 1½ tablespoons tomato paste. Sprinkle 1½ tablespoons flour over the meat mixture and stir well. Cook for 3-4 minutes.
 
 ![Adding spices and flour](https://lh3.googleusercontent.com/pw/AP1GczNNLIPmhLPOKEB8ekWbf4E8OM4aezNg9qLShy-xLcr47ERjJwAX3divTncMvlT9snXeOvIdqcRKfxqPrdBqSYeY28Ri-LXOqppNW4nqJK6LNpOuXmt4QuucUmUCAYoND-eHylVx4gwW7q5ptLqRLMpc-Q=w2026-h1520-s-no-gm)
 
-Stir in the stock (or bone broth) and Worcestershire sauce. Bring to a boil, reduce heat, cover, and simmer for about 10 minutes until the sauce has thickened slightly.
+Stir in ⅔ cup stock (or bone broth) and ¾ teaspoon Worcestershire sauce. Bring to a boil, reduce heat, and simmer for about 10 minutes until the filling is moist but thick enough to hold the potato layer. If the turkey filling looks dry, add 2 tablespoons extra stock.
 
-Transfer the meat mixture to a Le Creuset oval baker (or a 9x13 baking dish if scaling up). Dollop and spread the mashed potato mixture evenly over the top of the filling, smoothing it with a spatula. Sprinkle the remaining half of the cheese on top.
+Transfer the meat mixture to a 2-quart baking dish, such as a deep 8-inch square dish or a similar oval baker. Spread all of the mashed potato mixture evenly over the filling, smoothing it with a spatula. Sprinkle the remaining 6 tablespoons shredded cheddar (about 1½ ounces) on top.
 
 ![Topping with potatoes](https://lh3.googleusercontent.com/pw/AP1GczNF6w69uYiCsH0u8YT1U1_9RKnkIL-wWFKtpIxRMjGdCgwz_0AQGSv-MGYQTkf5R5h20NzlfiMzEW6kakD6TAV9VdhK6utSRdQl47o2wtbbdr3vaxTj9B43SXDUy69bTmdnkzNDaVyo6qqfHgZ_1Sv2-g=w1350-h1350-s-no-gm)
 
@@ -88,11 +90,11 @@ Bake for 25-30 minutes, or until the topping is lightly browned and the filling 
 
 ## Ground turkey variation
 
-For a turkey version, replace the **1½ pounds ground beef** with **1½ pounds ground turkey thigh** if you can find it. Ground turkey breast also works, but it is leaner and can dry out more easily.
+For a turkey version, use **1 pound ground turkey thigh** if you can find it. Ground turkey breast also works, but it is leaner and can dry out more easily. The filling and topping above are already sized for 1 pound of meat.
 
-Use the same **2 tablespoons vegetable oil** to cook the vegetables, then add the **1½ pounds ground turkey**, **¾ teaspoon kosher salt**, and **½ teaspoon black pepper** in place of the beef. Break up the turkey and cook it through; do not keep cooking just to get the same dark browning as beef. Skip draining unless there is excess fat in the pan.
+Use the listed **1½ tablespoons vegetable oil** to cook the vegetables, then add **1 pound ground turkey**, **½ teaspoon kosher salt**, and **¼ teaspoon black pepper** in place of the beef step. Break up the turkey and cook it through; do not keep cooking just to get the same dark browning as beef. Skip draining unless there is excess fat in the pan.
 
-Continue with the same filling and potato topping. If the filling looks dry, especially with breast meat, add **2 tablespoons extra chicken stock** along with the listed **1 cup stock**. The filling should be moist but thick enough to hold the potato layer. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
+Continue with the same filling and potato topping. Use the listed **⅔ cup stock**, with **2 tablespoons extra stock** only if the filling looks dry, as noted in the simmer step. This is one optional addition, not another 2 tablespoons. Bake as directed and check that the turkey filling reaches **165°F (74°C)** with a food thermometer, the [USDA temperature for ground poultry dishes](https://ask.fsis.usda.gov/article/How-do-I-safely-handle-ground-poultry).
 
 <div class="recipe-gallery">
 
