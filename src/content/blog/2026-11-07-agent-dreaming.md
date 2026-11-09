@@ -8,7 +8,7 @@ heroImageAlt: "A robot sleeps under a quilt at night while his dream self stands
 heroImageCaption: "Asleep at home, winning in his dreams. Created with ChatGPT image generation."
 heroImageLayout: wide
 tags: [ai, agents, memory, dreaming, anthropic, meta]
-draft: true
+draft: false
 ---
 
 Anthropic published [The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory) yesterday, November 6. I thought it was an excellent article. It gives a concrete account of something I want from the agents I use: a way to improve what they remember after the work is done.
