@@ -108,6 +108,37 @@ I would trigger this after a group of completed tasks. A nightly schedule would 
 
 For a working reference, Anthropic has a [dreaming cookbook](https://platform.claude.com/cookbook/managed-agents-cma-dreaming-with-a-dynamic-workflow). It exports completed Managed Agents sessions, uses analyzer and organizer agents to create linked memory files, and makes the result available to later sessions. It also covers nightly execution. That example requires Managed Agents access; the manual file workflow above does not depend on that service.
 
+## Build your own brain
+
+I put together [dreaming-brain](https://github.com/mager/dreaming-brain), a small starter you can clone and change. It gives you a personal profile, captured sessions, proposed notes, and accepted memory that you can bring into your next agent session.
+
+Start with the offline demo. It needs Node.js 22 or later, with no packages to install:
+
+```sh
+git clone https://github.com/mager/dreaming-brain.git
+cd dreaming-brain
+npm run demo
+```
+
+The demo uses a synthetic deployment session and a hand-authored proposal. It shows what the assistant can recall before and after acceptance, then undoes the change. It makes no API calls.
+
+To start your own brain:
+
+```sh
+node bin/brain.js init
+# Edit brain/profile.md with your assistant's purpose and working style.
+node bin/brain.js capture examples/session.txt
+node bin/brain.js prompt
+```
+
+Give the generated `brain/prompt.md` to an assistant and save its JSON reply. The [README](https://github.com/mager/dreaming-brain#use-another-assistant) explains how to import, review, and accept it. There is also a Claude API option that needs an API key and a funded account. The offline demo and local tests pass; successful live API generation still needs verification.
+
+The starter stores its sessions, notes, and review history in one `state.json` file. This differs from the folder sketch above: it lets an accepted change and its checkpoint be saved together. Your profile stays in a separate file that dreaming never rewrites. Runtime data is excluded from Git by default.
+
+After accepting a proposal, run `node bin/brain.js context deployment` and give that output to the next agent session. That last connection matters: a saved brain only helps when the agent reads it.
+
+I also built [Brainpack](https://github.com/mager/brainpack) for versioning and moving portable agent brains. It is a related tool if you want to take your setup between machines. The dreaming example works on its own and uses no files from my personal brain.
+
 ## Check whether it helps
 
 Before automating this, I would choose five recurring tasks and write down what a good result requires. For a deployment assistant, one might test the correct environment setting. Another might check whether it detects that an old procedure no longer applies.
