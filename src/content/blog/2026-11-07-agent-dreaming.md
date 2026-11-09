@@ -11,7 +11,7 @@ tags: [ai, agents, memory, dreaming, anthropic, meta]
 draft: false
 ---
 
-Anthropic published [The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory) yesterday, November 6. I thought it was an excellent article. It gives a concrete account of something I want from the agents I use: a way to improve what they remember after the work is done.
+Anthropic published [The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory) yesterday. I thought it was an excellent article. It gives a concrete account of something I want from the agents I use: a way to improve what they remember after the work is done.
 
 I also noticed that Meta's Muse mobile app has dreams, and you can read them. That made this subject more interesting to me. A background process becomes something I can inspect.
 
