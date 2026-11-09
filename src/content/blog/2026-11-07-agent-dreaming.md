@@ -137,7 +137,9 @@ The starter stores its sessions, notes, and review history in one `state.json` f
 
 After accepting a proposal, run `node bin/brain.js context deployment` and give that output to the next agent session. That last connection matters: a saved brain only helps when the agent reads it.
 
-I also built [Brainpack](https://github.com/mager/brainpack) for versioning and moving portable agent brains. It is a related tool if you want to take your setup between machines. The dreaming example works on its own and uses no files from my personal brain.
+I also built [Brainpack](https://github.com/mager/brainpack) for versioning and moving portable agent brains. The starter now has an optional connection: `node bin/brain.js export` prints your profile and all accepted notes as Markdown. Brainpack can version and package that file for another machine. The export includes cited excerpts, but leaves complete session logs, pending proposals, and undo history in the local brain.
+
+The [Brainpack walkthrough](https://github.com/mager/dreaming-brain#optional-move-accepted-memory-with-brainpack) covers export, a Git snapshot, and archive restore. I tested it with a synthetic session, a corrected memory, and an archive round trip. Review the exported file before sharing it; accepted notes can still contain personal information. The dreaming example works on its own and uses no files from my personal brain.
 
 ## Check whether it helps
 
