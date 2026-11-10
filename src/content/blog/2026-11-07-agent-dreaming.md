@@ -46,6 +46,12 @@ That is where I would use a memory review. I would ask it to connect the command
 
 I wrote about agent memory in [my gbrain post in May](/blog/2026-05-18-gbrain-garry-tan-ai-memory/). The question I want to examine now is how to check the contents of that memory. A persistent mistake can affect many later sessions.
 
+## Switching between big projects
+
+Five years ago, I would have assumed that building a social site for sharing music was a job for a hundred engineers. Today I can prototype one myself. I still have to decide how the feed works, what to do about spam, and which bugs to fix first. If I have five projects like that in flight, I have to piece together a different set of decisions every time I switch.
+
+I'd keep one big project active at a time. When I set one aside, I want a short note with the decisions I made, the questions still open, and the next action. A dream can draft that note from recent sessions. I can check it before I switch, then use it to pick up the project when I'm ready.
+
 ## Reading the dreams in Muse
 
 My observation about Muse is limited to what I saw in the mobile app: it has dreams that I can read. That alone does not tell me how Meta builds them, or whether each visible dream changes a memory used later.
