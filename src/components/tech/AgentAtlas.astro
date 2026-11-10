@@ -1,0 +1,49 @@
+---
+import { entryHref, entryTitle, type FeedEntry } from '../../lib/feed';
+interface Props { entries: FeedEntry[]; }
+const { entries } = Astro.props;
+const subjects = [
+  { id: '2026-10-04-homeport', label: 'Homeport', role: 'Workspace', x: 20, y: 19 },
+  { id: '2026-06-18-vercel-eve', label: 'Eve', role: 'Runtime', x: 80, y: 23 },
+  { id: '2026-08-23-orchestrating-agents-with-tmux', label: 'tmux', role: 'Orchestration', x: 17, y: 49 },
+  { id: '2026-07-10-skills-vs-agents', label: 'Skills', role: 'Knowledge', x: 83, y: 53 },
+  { id: '2026-06-26-skill-evals', label: 'Evals', role: 'Feedback', x: 25, y: 81 },
+  { id: '2026-10-04-diving-into-impeccable', label: 'Impeccable', role: 'Design', x: 75, y: 83 },
+];
+const nodes = subjects.flatMap(subject => {
+  const entry = entries.find(entry => entry.id === subject.id);
+  return entry ? [{ ...subject, href: entryHref(entry), title: entryTitle(entry) }] : [];
+});
+---
+<section class="agent-atlas" data-agent-atlas data-motion="paused" aria-labelledby="atlas-heading">
+  <div class="atlas-heading"><h2 id="atlas-heading">Agent atlas</h2><span>A map of the work</span></div>
+  <div class="atlas-map" data-atlas-map>
+    <svg class="atlas-wires" viewBox="0 0 1000 620" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <defs><pattern id="atlas-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="currentColor" stroke-width=".6" /></pattern></defs>
+      <rect width="1000" height="620" fill="url(#atlas-grid)" class="atlas-grid" />
+      <ellipse class="atlas-orbit" cx="500" cy="310" rx="350" ry="220" />
+      <ellipse class="atlas-orbit atlas-orbit-inner" cx="500" cy="310" rx="230" ry="145" />
+      <path class="atlas-axis" d="M500 30V590M55 310H945" />
+      {nodes.map((node, index) => {
+        const d = `M500 310 C${node.x < 50 ? 350 : 650} 310 ${node.x * 10} 310 ${node.x * 10} ${node.y * 6.2}`;
+        return <g data-atlas-edge={node.id}>
+          <path class="atlas-wire" d={d} />
+          <path class="atlas-signal" d={d} pathLength="100" style={`--signal-delay: ${index * -.7}s`} />
+        </g>;
+      })}
+      <g class="atlas-crosses"><path d="M62 60h12m-6-6v12M926 560h12m-6-6v12M62 560h12m-6-6v12M926 60h12m-6-6v12" /></g>
+    </svg>
+    <div class="atlas-hub" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m20 3 15 9v16l-15 9-15-9V12Z M5 12l15 9 15-9M20 21v16M20 3v9l-8 5v9l8 5 8-5v-9l-8-5" /></svg><span>Agents</span>
+    </div>
+    {nodes.map(node => <a class="atlas-node" href={node.href} style={`--node-x: ${node.x}%; --node-y: ${node.y}%`} data-atlas-node={node.id} data-atlas-title={node.title} aria-label={node.title}>
+      <span class="atlas-node-role">{node.role}</span>
+      <span class="atlas-node-name"><span class="atlas-node-dot" aria-hidden="true"></span>{node.label}<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" /></svg></span>
+    </a>)}
+  </div>
+  <div class="atlas-bottom">
+    <p data-atlas-caption>Follow a connection. Explore an idea.</p>
+    <button type="button" data-atlas-motion aria-pressed="false" hidden>Pause motion</button>
+  </div>
+</section>
+<script>import '../../scripts/agent-atlas';</script>

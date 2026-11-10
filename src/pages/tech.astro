@@ -1,7 +1,49 @@
 ---
-import Archive from '../layouts/Archive.astro';
-import { getFeed } from '../lib/feed';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SimpleList from '../components/SimpleList.astro';
+import SimpleSidebar from '../components/SimpleSidebar.astro';
+import AgentAtlas from '../components/tech/AgentAtlas.astro';
+import { getFeed, entryHref, entryTitle } from '../lib/feed';
+import '../styles/simple.css';
+import '../styles/tech-archive.css';
 const all = await getFeed();
 const entries = all.filter(entry => entry.collection === 'blog' && entry.data.category === 'tech');
+const description = 'Software, tools, and things I’m learning.';
+const schema = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Tech — mager.co', description,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({
+    '@type': 'ListItem', position: index + 1, name: entryTitle(entry), url: new URL(entryHref(entry), Astro.site).href,
+  })) },
+};
 ---
-<Archive title="Tech" description="Software, tools, and things I’m learning." entries={entries} sidebarEntries={all} featured />
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Tech — mager.co" description={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+  </head>
+  <body class="publication simple-page tech-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="simple-shell simple-home tech-main">
+      <div class="tech-opening">
+        <header class="tech-intro">
+          <h1>Tech<span aria-hidden="true">.</span></h1>
+          <p class="tech-statement">Building<br />with agents.</p>
+          <p class="tech-description">{description}</p>
+          <a class="tech-archive-link" href="#tech-articles">Explore the writing <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" /></svg></a>
+        </header>
+        <AgentAtlas entries={entries} />
+      </div>
+      <div id="tech-articles" class="tech-archive-heading"><h2>The writing</h2><p>{entries.length} posts on software, systems, and making things work.</p></div>
+      <div class="simple-columns">
+        <SimpleList entries={entries} featured heading="More posts" searchLabel="Search tech" />
+        <SimpleSidebar entries={all} />
+      </div>
+    </main>
+    <Footer homepage />
+  </body>
+</html>

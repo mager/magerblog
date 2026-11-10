@@ -175,8 +175,8 @@
       "scope": ".life-page",
       "source": "src/styles/life-archive.css",
       "surfaceBrief": ".impeccable/life-surface.md",
-      "description": "Cefal\u00f9 pixel coast and photo-led Life stories; shared publication tokens and individual reading pages remain unchanged.",
-      "reference": "User-supplied Cefal\u00f9 beach photograph: yellow umbrellas, blue sea, warm sand, old town, and La Rocca. Visual reference only; not a published photo post.",
+      "description": "Cefalù pixel coast and photo-led Life stories; shared publication tokens and individual reading pages remain unchanged.",
+      "reference": "User-supplied Cefalù beach photograph: yellow umbrellas, blue sea, warm sand, old town, and La Rocca. Visual reference only; not a published photo post.",
       "colorTokens": {
         "life-coast-sky": {
           "refersTo": "colors.life-coast-sky",
@@ -296,6 +296,28 @@
         }
       },
       "behavior": "Published pubDate order; shared archive search includes every Life entry and preserves URL queries, loading, retry, empty, clear, and keyboard behavior."
+    },
+    "techArchive": {
+      "scope": "/tech/",
+      "mode": "Read",
+      "surfaceBrief": ".impeccable/tech-surface.md",
+      "colors": {
+        "blue": "#2548f4",
+        "signal": "#88b5ff",
+        "map": "#080e1c",
+        "mapInk": "#edf3ff",
+        "mapMuted": "#a7b7d6"
+      },
+      "shellWidth": "1240px",
+      "heading": "700 clamp(64px, 7vw, 96px)/.95 Space Grotesk",
+      "motion": {
+        "signalDuration": "5s",
+        "pauseControl": true,
+        "pauseOffscreen": true,
+        "pauseHidden": true,
+        "reducedMotion": "static"
+      },
+      "mobileStack": "700px"
     }
   },
   "components": [
@@ -312,7 +334,7 @@
       "kind": "input",
       "refersTo": "search-field",
       "description": "Inline full-text search within the current list.",
-      "html": "<label class=\"ds-search\">Search <input type=\"search\" aria-label=\"Search all posts\" placeholder=\"Search all posts\u2026\"></label>",
+      "html": "<label class=\"ds-search\">Search <input type=\"search\" aria-label=\"Search all posts\" placeholder=\"Search all posts…\"></label>",
       "css": ".ds-search { display:flex; align-items:center; gap:10px; min-height:58px; border-bottom:1px solid var(--news-rule); color:var(--news-muted); font:500 14px/1.5 var(--news-ui); }.ds-search input { min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--news-ink); font:inherit; }.ds-search:focus-within { border-bottom-color:var(--news-blue); box-shadow:inset 0 -1px 0 var(--news-blue); color:var(--news-blue); }.ds-search input:focus { outline:none; }"
     },
     {
@@ -341,7 +363,7 @@
   ],
   "narrative": {
     "northStar": "The compact publication",
-    "overview": "A quiet personal publication for software, cooking, photos, and life. The homepage and shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefal\u00f9 pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.\n\nKeep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.\n",
+    "overview": "A quiet personal publication for software, cooking, photos, and life. The homepage and shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefalù pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.\n\nKeep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.\n",
     "keyCharacteristics": [],
     "rules": [],
     "dos": [],

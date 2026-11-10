@@ -20,6 +20,12 @@ colors:
   dark-red: "oklch(78% 0.11 50)"
   dark-green: "oklch(78% 0.085 140)"
   dark-yellow: "oklch(85% 0.10 88)"
+  # Tech archive only; shared reading surfaces retain publication colors.
+  tech-blue: "#2548f4"
+  tech-signal: "#88b5ff"
+  tech-map: "#080e1c"
+  tech-map-ink: "#edf3ff"
+  tech-map-muted: "#a7b7d6"
   # Life archive only; these do not replace shared publication colors.
   life-coast-sky: "#087fbd"
   life-coast-sea: "#066e96"
@@ -135,6 +141,14 @@ Notes retain a compact 680px reading column with Space Grotesk headings and pros
 ### List rows and sidebars
 
 Flat rows use a thin rule, a small optional thumbnail, a title, and a quiet publication date. Links open their sources directly. Hover underlines the title and uses lake blue; focus has a visible outline. Sidebar sections use the same rules and text roles, with two-line previews. There are no card shadows or raised panels. Images have slight corner rounding; controls remain nearly square.
+
+### Tech archive — Agent atlas
+
+Only `/tech/` uses the Agent atlas opening, through `src/styles/tech-archive.css`. A cobalt title panel sits beside a dark SVG network with six native HTML article links: Homeport, Eve, tmux, Skills, Evals, and Impeccable. The diagram is an editorial map, not live telemetry. Space Grotesk carries the large Tech heading (up to 96px), the supporting statement, and node labels. Square link surfaces and thin connecting paths define the map; no new fonts or raster assets are required.
+
+The 1240px shell keeps the shared header and footer. The archive below uses shared publication tokens, newest-first SimpleList behavior, search, and the notes/links sidebar. Its larger lead uses a complete image and a 28–40px title. At 700px and below the title and map stack, and the sidebar follows the list. At 420px and below the lead image follows its text. Light remains the default; a saved dark theme uses a black reading surface. The map stays dark in both themes.
+
+Hover and keyboard focus highlight the matching connection and show the real article title. Moving signals have an explicit pause/resume control, stop offscreen or in hidden documents, and are disabled for reduced motion. The unenhanced map stays still with working links. See `.impeccable/tech-surface.md` for the accepted direction and verification evidence.
 
 ### Life archive — Cefalù coast
 
