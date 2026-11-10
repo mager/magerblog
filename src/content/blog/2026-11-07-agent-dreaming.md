@@ -11,13 +11,21 @@ tags: [ai, agents, memory, dreaming, anthropic, meta]
 draft: false
 ---
 
-Anthropic published [The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory) yesterday. I thought it was an excellent article. It gives a concrete account of something I want from the agents I use: a way to improve what they remember after the work is done.
+## Run the demo
 
-I also noticed that Meta's Muse mobile app has dreams, and you can read them. That made this subject more interesting to me. A background process becomes something I can inspect.
+I built [dreaming-brain](https://github.com/mager/dreaming-brain) to turn finished agent sessions into notes I can review and reuse. The demo runs offline with Node.js 22 or later and needs no packages or API key.
+
+```sh
+git clone https://github.com/mager/dreaming-brain.git
+cd dreaming-brain
+npm run demo
+```
+
+The demo uses a sample deployment session and a proposal I wrote by hand. You can see what the agent would recall before and after you accept the note, then see what undo restores. To use your own sessions, skip to [Build your own brain](#build-your-own-brain).
 
 ## What dreaming means
 
-In Anthropic's account, dreaming is a separate pass over past sessions and stored memory. An agent can check old notes, correct mistakes, and organize information for future sessions. The model's weights stay the same; the saved context changes. The term describes a software process, without implying sleep or conscious experience. [Anthropic's article](https://www.anthropic.com/research/components-of-agent-memory) explains this distinction.
+Anthropic published [The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory) yesterday. In its account, dreaming is a separate pass over past sessions and stored memory. An agent can check old notes, correct mistakes, and organize information for future sessions. The saved context changes while the model's weights stay the same.
 
 One example makes the benefit clear. While playing Pokémon, Claude saved an incorrect location for a landmark and then navigated from that false assumption. A later dreaming pass checked the record and corrected the note. The corrected memory changed its next action. That is a useful standard for memory: does it help the agent make a better decision? [The example is in the article's memory correction section](https://www.anthropic.com/research/components-of-agent-memory).
 
@@ -110,19 +118,7 @@ For a working reference, Anthropic has a [dreaming cookbook](https://platform.cl
 
 ## Build your own brain
 
-I put together [dreaming-brain](https://github.com/mager/dreaming-brain), a small starter you can clone and change. It gives you a personal profile, captured sessions, proposed notes, and accepted memory that you can bring into your next agent session.
-
-Start with the offline demo. It needs Node.js 22 or later, with no packages to install:
-
-```sh
-git clone https://github.com/mager/dreaming-brain.git
-cd dreaming-brain
-npm run demo
-```
-
-The demo uses a synthetic deployment session and a hand-authored proposal. It shows what the assistant can recall before and after acceptance, then undoes the change. It makes no API calls.
-
-To start your own brain:
+In the `dreaming-brain` checkout, create a profile and capture a session. Start with the sample, then substitute your own session file.
 
 ```sh
 node bin/brain.js init
