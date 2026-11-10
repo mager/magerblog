@@ -103,7 +103,7 @@ test('cooking features the recently updated cottage pie and labels its update da
   const dom = setup(), doc = dom.window.document;
   const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
   assert.equal(lead.dataset.href, '/blog/2025-12-06-cottage-pie/');
-  assert.match(lead.querySelector('time').textContent, /Updated Nov 7, 2026/);
+  assert.match(lead.querySelector('time').textContent, /Updated Nov 8, 2026/);
   enhance(dom.window);
   doc.querySelector('[data-simple-filter="turkey"]').click();
   assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])').dataset.href, '/blog/2025-12-06-cottage-pie/');
