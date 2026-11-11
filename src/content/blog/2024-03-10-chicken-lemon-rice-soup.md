@@ -2,13 +2,13 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Chicken Lemon Rice Soup"
 pubDate: "2024-03-15"
-updatedDate: "2026-11-07"
-description: Chicken lemon rice soup with coconut cream, plus an acini di pepe pasta variation.
+updatedDate: "2026-11-11"
+description: Chicken lemon rice soup with shredded chicken, jasmine rice, coconut cream, and fresh parsley.
 category: "food"
 subcategory: "soup"
 recipeCategories: ["soup","chicken","rice"]
 keyword: "lemon rice soup"
-tags: ["soup","chicken","comfort-food","lemon","rice","one-pot","greek-style","coconut","acini-di-pepe"]
+tags: ["soup","chicken","comfort-food","lemon","rice","one-pot","greek-style","coconut"]
 heroImage: "https://lh3.googleusercontent.com/pw/AP1GczORH1ThPcX94bfV8HGEUfkWg2qUkquGXgSY7upuZ1b-uhzqCp_koE8TqbJzJJctl2L3sldB02asGfgfhPcEGxC7RU9aujzEF0my9bmgNhk7zuGTrEhP3f3btLUHf4qulgezN407uf7F6yrKP1pLUa38=w1024-h768-s-no-gm"
 prepTime: 30
 cookTime: 45
@@ -16,7 +16,7 @@ cookTime: 45
 
 <div class="recipe-intro">
 
-I make this soup with shredded chicken, jasmine rice, coconut cream, and plenty of lemon. Rice is the main version; for a pasta variation, use acini di pepe and add it near the end of cooking. The instructions for that version are below.
+I make this soup with shredded chicken, jasmine rice, coconut cream, and plenty of lemon. For the acini di pepe version, see my [Chicken Lemon Pasta Soup](/blog/2026-11-11-chicken-lemon-pasta-soup/) recipe.
 
 This recipe is partially inspired by the NY Times [Chicken and Rice Soup](https://cooking.nytimes.com/recipes/1020898-chicken-and-rice-soup) by Ali Slagle, but I've added my own twist with coconut cream and generous amounts of lemon for a richer, more vibrant flavor profile.
 
@@ -70,16 +70,6 @@ Remove the 2 cooked chicken breasts from the pot and shred them with two forks. 
 Stir in the ½ cup chopped parsley and ½ cup lemon juice. Taste and adjust the seasoning with additional salt, pepper, or lemon juice as needed. You can let it simmer on low for a few more minutes to meld the flavors, or serve immediately for a brighter, fresher taste.
 
 Serve with crusty French bread or tortilla chips. The rice will absorb more broth as it sits; add a splash of broth or water when reheating to loosen the soup.
-
-#### Acini di Pepe Variation
-
-Replace the ¾ cup jasmine rice with ¾ cup dry acini di pepe. Keep all other ingredient amounts the same.
-
-Skip the rice-toasting step. After cooking the garlic and carrots, add the 2 chicken breasts and 64 oz. (8 cups) broth, then simmer as directed above until the chicken is cooked through. Remove the chicken and shred it.
-
-Bring the broth back to a gentle boil and stir in ¾ cup dry acini di pepe. Cook uncovered for the time on the package, stirring often so the pasta does not stick, and taste for doneness. Add a splash of broth or water if the soup becomes too thick.
-
-Once the pasta is tender, return the shredded chicken and stir in 1 can coconut cream (or coconut milk). Heat gently, then finish with ½ cup lemon juice and ½ cup chopped parsley. Taste and adjust the seasoning before serving. The pasta also absorbs broth as it sits, so add broth or water when reheating leftovers.
 
 </div>
 </div>
