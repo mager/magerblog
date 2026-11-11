@@ -35,7 +35,7 @@ Cook the chicken first. Add the pasta after you take the chicken out to shred it
 - ¼ teaspoon ground black pepper, plus more to taste
 - 2 boneless, skinless chicken breasts
 - 8 cups (64 fl oz.) low-sodium chicken broth, plus more as needed to thin the soup
-- 1 cup dry acini di pepe
+- just under 1 cup dry acini di pepe
 - 1 can (13.5 fl oz., about 400 ml) unsweetened coconut cream or full-fat coconut milk
 - ½ cup fresh lemon juice, plus more to taste
 - ½ cup chopped fresh parsley
@@ -54,7 +54,7 @@ Cook the chicken first. Add the pasta after you take the chicken out to shred it
 
 4. **Shred the chicken.** Transfer the **2 cooked chicken breasts** to a plate. Shred them with two forks. Leave the broth and vegetables in the pot.
 
-5. **Cook the pasta.** Bring the broth to a gentle boil. Stir in **1 cup dry acini di pepe** and cook uncovered, stirring often to prevent sticking. Use the package cooking time as a guide and start tasting a minute early. Stop when the pasta is just tender; it will soften further in the hot soup. Add broth or water as needed if the soup becomes too thick.
+5. **Cook the pasta.** Bring the broth to a gentle boil. Stir in **just under 1 cup dry acini di pepe** and cook uncovered, stirring often to prevent sticking. Use the package cooking time as a guide and start tasting a minute early. Stop when the pasta is just tender; it will soften further in the hot soup. Add broth or water as needed if the soup becomes too thick.
 
 6. **Add the coconut cream.** Reduce the heat to low. Return the shredded chicken and stir in **1 can (13.5 fl oz., about 400 ml) unsweetened coconut cream or full-fat coconut milk**. Heat gently until the chicken and soup are hot.
 
@@ -62,7 +62,7 @@ Cook the chicken first. Add the pasta after you take the chicken out to shred it
 
 ## Leftovers
 
-The pasta continues to absorb broth after cooking. Add a little broth or water when reheating, then taste again for salt and lemon. For firmer pasta in later servings, cook the **1 cup acini di pepe** separately according to its package directions instead of adding it to the soup in step 5. Store the cooked pasta separately and add it to each bowl when serving.
+The pasta continues to absorb broth after cooking. Add a little broth or water when reheating, then taste again for salt and lemon. For firmer pasta in later servings, cook **just under 1 cup dry acini di pepe** separately according to its package directions instead of adding it to the soup in step 5. Store the cooked pasta separately and add it to each bowl when serving.
 
 </div>
 </div>
