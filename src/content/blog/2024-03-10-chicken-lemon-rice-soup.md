@@ -16,7 +16,7 @@ cookTime: 45
 
 <div class="recipe-intro">
 
-I make this soup with shredded chicken, jasmine rice, coconut cream, and plenty of lemon. For the acini di pepe version, see my [Chicken Lemon Pasta Soup](/blog/2026-11-11-chicken-lemon-pasta-soup/) recipe.
+I make this soup with shredded chicken, jasmine rice, coconut cream, and plenty of lemon. For the acini di pepe version, see my [Lemon Chicken Pastini](/blog/2026-11-11-chicken-lemon-pasta-soup/) recipe.
 
 This recipe is partially inspired by the NY Times [Chicken and Rice Soup](https://cooking.nytimes.com/recipes/1020898-chicken-and-rice-soup) by Ali Slagle, but I've added my own twist with coconut cream and generous amounts of lemon for a richer, more vibrant flavor profile.
 

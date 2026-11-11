@@ -1,5 +1,5 @@
 ---
-title: "Chicken Lemon Pasta Soup"
+title: "Lemon Chicken Pastini"
 description: "Chicken soup with acini di pepe, coconut cream, lemon, and parsley. Cook the chicken first, then add the pasta near the end."
 pubDate: "2026-11-11"
 category: "food"
