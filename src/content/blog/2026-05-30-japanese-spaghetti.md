@@ -6,7 +6,8 @@ description: "A five-ingredient Japanese-style spaghetti — butter, tamari, and
 category: "food"
 subcategory: "pasta"
 recipeCategories: ["pasta"]
-heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-05-30-japanese-spaghetti/hero.jpg"
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-05-30-japanese-spaghetti/hero-v2.jpg"
+heroImageAlt: "Spaghetti with sliced green onions and grated Parmesan in a white bowl"
 tags: ["pasta","japanese","wafu","tamari","quick","weeknight"]
 keyword: "wafu spaghetti"
 prepTime: 5
