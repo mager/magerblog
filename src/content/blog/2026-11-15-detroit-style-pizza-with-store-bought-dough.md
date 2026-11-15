@@ -37,3 +37,21 @@ I picked up Ancient Grain Pizza Dough at Whole Foods, a can of pizza sauce, a mo
 7. **Rest and serve.** Run a thin, heat-safe spatula suitable for your pan around all four edges. Use a wide spatula to slide the pizza onto a wire rack. Rest for **5 minutes**. Spoon the warm sauce over the pizza in **three stripes of about ¼ cup each**. Cut into **8 squares**.
 
 For this first bake, I will record the bag weight, how long it takes to fill the corners, and the color of the bottom. [King Arthur's weeknight Detroit pizza](https://www.kingarthurbaking.com/recipes/weeknight-detroit-pizza-recipe) uses a plain-crust first bake and is the starting point for that step.
+
+## First bake photos
+
+![Pieces of pepperoni scattered over the stretched ancient grain dough in the rectangular pan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/pepperoni-before-prebake.jpg)
+
+*Pepperoni on the dough before the first bake.*
+
+![Set crust with pepperoni and a light sprinkle of melted mozzarella in the pan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/after-prebake.jpg)
+
+*After the first bake, before I added the rest of the cheese.*
+
+![Grated mozzarella across the center and shredded white cheddar along the four pan walls](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/mozzarella-and-cheddar.jpg)
+
+*Mozzarella across the pizza and white cheddar along the pan walls, ready for the second bake.*
+
+![Thick red pizza sauce in a skillet with a spatula](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/warm-pizza-sauce.jpg)
+
+*I warmed the sauce while the pizza finished baking.*
