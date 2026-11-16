@@ -6,7 +6,7 @@ category: "food"
 subcategory: "baking"
 recipeCategories: ["baking"]
 tags: [recipes, pizza, Detroit, pepperoni]
-prepTime: 20
+prepTime: 175
 cookTime: 19
 recipeYield: "1 pizza in a 10 × 14-inch pan, cut into 8 squares"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/hero.jpg"
@@ -15,7 +15,7 @@ heroImageAlt: "Rectangular pepperoni pizza on a wooden board with browned cheese
 
 I picked up Ancient Grain Pizza Dough at Whole Foods, a can of pizza sauce, a mozzarella ball, and pepperoni. This is my same-day version for a 10 × 14-inch pan, with a full pound of mozzarella and white cheddar around the edges. I used the whole bag, about 22 ounces. The dough rose less than I expected, but the white cheddar browned into a crisp rim. Next time I’ll [make the dough from scratch](/blog/2026-11-07-detroit-style-pizza/).
 
-Allow about 3½ hours from fridge to table, mostly for the dough to warm and rise. In my oven, the pizza took 19 minutes at 450°F convection.
+Allow about 3½ hours from fridge to table. The prep time includes the dough rests and oven preheat. In my oven, the pizza took 19 minutes at 450°F convection.
 
 ## Ingredients
 
