@@ -1,5 +1,5 @@
 ---
-title: "What’s next on my open source PRs?"
+title: "Sidework plugin v0.1: Monitor open source projects"
 description: "The Sidework plugin reads GitHub review comments and helps me pick up where I left off."
 pubDate: "2026-11-21"
 link: "https://github.com/mager/sidework/releases/tag/plugin-v0.1.1"
