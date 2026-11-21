@@ -1,7 +1,8 @@
 ---
 import Archive from '../../layouts/Archive.astro';
 import { getFeed } from '../../lib/feed';
+import '../../styles/notes-archive.css';
 const all = await getFeed();
 const entries = all.filter(entry => entry.collection === 'notes');
 ---
-<Archive title="Notes" description="Short notes, useful links, and things learned." entries={entries}  featured />
+<Archive title="Notes" description="Short notes, useful links, and things learned." entries={entries} presentation="notes" featured />

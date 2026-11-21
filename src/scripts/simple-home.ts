@@ -51,9 +51,9 @@ if (simpleHome) {
     });
     // DOM order follows ranking, so keyboard and screen-reader order do too.
     (term && index ? candidateRows : rows).forEach(row => list.append(row));
-    const cooking = simpleHome!.dataset.itemName === 'recipe';
+    const noun = simpleHome!.dataset.itemName || 'post';
+    const cooking = noun === 'recipe';
     const total = cooking ? filtered.length : results.length;
-    const noun = cooking ? 'recipe' : 'post';
     count.textContent = `${total} ${noun}${total === 1 ? '' : 's'}`;
     const selected = filters.find(button => button.dataset.simpleFilter === category);
     if (cooking) {
@@ -67,7 +67,7 @@ if (simpleHome) {
     const filterLabel = selected?.dataset.filterLabel || selected?.textContent || '';
     heading.textContent = term ? 'Search results' : cooking
       ? category === 'all' ? heading.dataset.defaultHeading! : filterLabel
-      : feature ? 'More posts' : category === 'all' ? heading.dataset.defaultHeading! : filterLabel;
+      : feature && noun === 'post' ? 'More posts' : category === 'all' ? heading.dataset.defaultHeading! : filterLabel;
     empty.hidden = filtered.length > 0 || loading || failed;
     more.hidden = results.length <= limit;
     clear.hidden = query.value.length === 0;

@@ -7,8 +7,9 @@ import SimpleSidebar from '../components/SimpleSidebar.astro';
 import type { FeedEntry } from '../lib/feed';
 import { entryHref, entryTitle } from '../lib/feed';
 import '../styles/simple.css';
-interface Props { title: string; description: string; entries: FeedEntry[]; sidebarEntries?: FeedEntry[]; featured?: boolean; filters?: [string, string][]; filterBy?: 'category' | 'subcategory'; videos?: boolean; }
-const { title, description, entries, sidebarEntries, featured = false, filters, filterBy, videos } = Astro.props;
+interface Props { title: string; description: string; entries: FeedEntry[]; sidebarEntries?: FeedEntry[]; featured?: boolean; filters?: [string, string][]; filterBy?: 'category' | 'subcategory'; videos?: boolean; presentation?: 'list' | 'notes'; }
+const { title, description, entries, sidebarEntries, featured = false, filters, filterBy, videos, presentation = 'list' } = Astro.props;
+const notes = presentation === 'notes';
 const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${title} — mager.co`, description, url: new URL(Astro.url.pathname, Astro.site).href, mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entryTitle(entry), url: new URL(entryHref(entry), Astro.site).href })) } };
 ---
 <!doctype html>
@@ -18,9 +19,11 @@ const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage themeToggle />
     <main id="main-content" class="simple-shell simple-home">
-      <header class="simple-page-heading"><h1>{title}</h1><p>{description}</p></header>
-      <div class:list={['simple-columns', { 'without-sidebar': !sidebarEntries }]}>
-        <SimpleList entries={entries} featured={featured} filters={filters} filterBy={filterBy} videos={videos} searchLabel={`Search ${title.toLowerCase()}`} heading={featured ? 'More posts' : 'All posts'} />
+      {!notes && <header class="simple-page-heading"><h1>{title}</h1><p>{description}</p></header>}
+      <div class:list={['simple-columns', { 'without-sidebar': !sidebarEntries, 'notes-archive': notes }]}>
+        <SimpleList entries={entries} presentation={presentation} featured={featured} filters={filters} filterBy={filterBy} videos={videos} searchLabel={`Search ${title.toLowerCase()}`} heading={featured ? 'More posts' : 'All posts'}>
+          {notes && <header slot="intro" class="simple-page-heading"><h1>{title}</h1><p>{description}</p></header>}
+        </SimpleList>
         {sidebarEntries && <SimpleSidebar entries={sidebarEntries} />}
       </div>
     </main>

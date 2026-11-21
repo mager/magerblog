@@ -7,5 +7,5 @@ const { entries } = Astro.props;
 ---
 <section class="simple-home" aria-label="Latest posts">
   <h1 class="sr-only">Latest posts</h1>
-  <div class="simple-columns"><SimpleList entries={entries} featured heading="More posts" /><SimpleSidebar entries={entries} /></div>
+  <div class="simple-columns"><SimpleList entries={entries} featured heading="More posts" /><SimpleSidebar entries={entries} showNotePreviews={false} /></div>
 </section>

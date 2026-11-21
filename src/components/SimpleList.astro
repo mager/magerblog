@@ -6,7 +6,7 @@ import { contentMeta } from '../lib/content-meta';
 import PostRow from './PostRow.astro';
 interface Props {
   entries: FeedEntry[];
-  presentation?: 'list' | 'life';
+  presentation?: 'list' | 'life' | 'notes';
   heading?: string;
   filters?: [string, string][];
   filterBy?: 'category' | 'subcategory';
@@ -16,13 +16,18 @@ interface Props {
 }
 const { entries, presentation = 'list', heading = 'All posts', filters = [], filterBy = 'category', featured = false, videos = false, searchLabel = 'Search all posts' } = Astro.props;
 const lead = featured ? entries[0] : undefined;
+const notes = presentation === 'notes';
+const listHeading = notes ? (lead ? 'Earlier notes' : 'All notes') : heading;
+const itemName = notes ? 'note' : 'post';
+const remaining = entries.length - (lead ? 1 : 0);
 const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.find(entry =>
   value === 'all' || (filterBy === 'subcategory'
     ? entry.collection === 'blog' && entry.data.subcategory === value
     : entryCategory(entry) === value)
 ))].filter((entry): entry is FeedEntry => !!entry))] : [];
 ---
-<section class:list={["simple-posts", { "life-posts": presentation === "life" }]} data-simple-list data-filter-by={filterBy} aria-labelledby="simple-posts-heading">
+<section class:list={["simple-posts", { "life-posts": presentation === "life", "notes-posts": notes }]} data-simple-list data-filter-by={filterBy} data-item-name={notes ? itemName : undefined} aria-labelledby="simple-posts-heading">
+  <slot name="intro" />
   <div class="simple-controls" hidden>
     {filters.length > 0 && <div class="simple-filters" role="group" aria-label="Filter posts">{filters.map(([value, label]) => <button type="button" data-simple-filter={value} aria-pressed={value === 'all' ? 'true' : 'false'} aria-controls="simple-list">{label}</button>)}</div>}
     <div class="simple-search" role="search">
@@ -33,18 +38,18 @@ const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.
     <div class="simple-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
   </div>
   {leads.map(item => { const leadImage = entryImage(item); return <article class="simple-feature" data-simple-feature data-href={entryHref(item)} hidden={item !== lead}>
-    <div>
+    <div class="simple-feature-copy">
       <h2><a href={item.collection === 'links' ? item.data.url : entryHref(item)}>{entryTitle(item)}</a></h2>
       <p>{entryDescription(item)}</p>
       <div class="simple-feature-meta"><time datetime={item.data.pubDate.toISOString()}>{entryDate(item.data.pubDate)}</time><span>{contentMeta(item)}</span></div>
     </div>
     {leadImage && <a class="simple-feature-image" href={entryHref(item)} aria-label={`Read ${entryTitle(item)}`}><img src={leadImage} alt="" width="240" height="160" loading={item === lead ? 'eager' : 'lazy'} decoding="async" /></a>}
   </article>; })}
-  <div class="simple-list-heading"><h2 id="simple-posts-heading" data-default-heading={heading}>{heading}</h2><p data-simple-count>{entries.length - (lead ? 1 : 0)} posts</p></div>
-  <ul id="simple-list" class="simple-list">{entries.map((entry, index) => <PostRow expanded={presentation === "life" && index > 0 && index < 5} entry={entry} featured={lead === entry} videos={videos} />)}</ul>
-  <p class="simple-empty" data-simple-empty hidden>No posts match. Try another search{filters.length > 0 ? ' or choose All.' : '.'}</p>
-  <button class="simple-more" type="button" data-simple-more hidden>Show more posts</button>
-  {entries.length === 0 && <p>No posts yet.</p>}
+  <div class="simple-list-heading"><h2 id="simple-posts-heading" data-default-heading={listHeading}>{listHeading}</h2><p data-simple-count>{remaining} {itemName}{remaining === 1 ? '' : 's'}</p></div>
+  <ul id="simple-list" class="simple-list">{entries.map((entry, index) => <PostRow expanded={presentation === "life" && index > 0 && index < 5} notePreview={notes} entry={entry} featured={lead === entry} videos={videos} />)}</ul>
+  <p class="simple-empty" data-simple-empty hidden>No {itemName}s match. Try another search{filters.length > 0 ? ' or choose All.' : '.'}</p>
+  <button class="simple-more" type="button" data-simple-more hidden>Show more {itemName}s</button>
+  {entries.length === 0 && <p>No {itemName}s yet.</p>}
 </section>
 <script>
   import '../scripts/simple-home';

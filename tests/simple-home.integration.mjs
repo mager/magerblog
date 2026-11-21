@@ -32,7 +32,11 @@ test('simple homepage is complete without JavaScript and ignores the retired lay
   const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
   assert.equal(lead.dataset.href, data[0].href);
   assert(doc.querySelector('.simple-links h3 a[href^="https://"]'));
-  assert.equal(doc.querySelectorAll('.simple-notes:not(.simple-links) article').length, 2);
+  assert(doc.querySelector('[data-simple-row][data-category="notes"]'));
+  assert.deepEqual(
+    [...doc.querySelectorAll('.simple-sidebar a[href^="/notes/"]')].map(link => link.getAttribute('href')),
+    ['/notes/'],
+  );
   const ids = [...doc.querySelectorAll('[id]')].map(element => element.id);
   assert.equal(new Set(ids).size, ids.length);
   dom.window.close();

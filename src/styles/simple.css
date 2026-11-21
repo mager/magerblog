@@ -13,8 +13,8 @@
 .simple-sidebar .simple-notes article { padding: 16px 0; }
 .simple-sidebar .simple-notes article p { -webkit-line-clamp: 2; margin-bottom: 8px; }
 .simple-link-host { color: var(--news-muted); font: 12px/1.5 var(--news-ui); overflow-wrap: anywhere; }
-.simple-profiles { width: fit-content; min-height: 44px; color: var(--news-muted); font: 13px/1.5 var(--news-ui); }
-.simple-profiles:hover { color: var(--news-blue); text-decoration: underline; }
+.simple-sidebar-link { width: fit-content; min-height: 44px; color: var(--news-muted); font: 13px/1.5 var(--news-ui); }
+.simple-sidebar-link:hover { color: var(--news-blue); text-decoration: underline; }
 .simple-feature { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--news-rule); }
 .simple-home .simple-feature h2 { font: 600 clamp(25px, 2.5vw, 32px)/1.2 var(--news-ui); letter-spacing: -.025em; text-wrap: pretty; }
 .simple-feature h2 a { color: var(--news-ink); }

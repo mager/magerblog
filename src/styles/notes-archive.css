@@ -1,0 +1,188 @@
+.simple-columns.without-sidebar.notes-archive {
+  max-width: none;
+}
+
+.notes-posts {
+  --notes-date-column: clamp(7rem, 13vw, 9rem);
+  --notes-inset: clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 32%);
+  align-items: start;
+  column-gap: 2rem;
+}
+
+.notes-posts > * {
+  grid-column: 1 / -1;
+}
+
+.notes-posts .simple-page-heading {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0 0 1.75rem;
+}
+
+.notes-posts .simple-page-heading h1 {
+  font: 650 clamp(3.5rem, 8vw, 6rem)/1 var(--news-display);
+  letter-spacing: -.04em;
+}
+
+.notes-posts .simple-page-heading p {
+  font-size: 1rem;
+  text-wrap: pretty;
+}
+
+.notes-posts .simple-controls {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  margin-bottom: 1.75rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.notes-posts .simple-search {
+  min-height: 3rem;
+  padding-inline: .75rem;
+  border: 1px solid var(--news-rule);
+  border-radius: 3px;
+  background: var(--news-surface);
+}
+
+.notes-posts .simple-search:focus-within {
+  outline: 2px solid var(--news-blue);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.notes-posts .simple-search input {
+  font-size: 1rem;
+}
+
+.notes-posts .simple-feature {
+  grid-template-columns: calc(var(--notes-date-column) - var(--notes-inset)) minmax(0, 1fr);
+  grid-template-areas: 'date title' 'date preview';
+  gap: .75rem 1.5rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem) var(--notes-inset);
+  border-block: 1px solid var(--news-rule);
+  background: color-mix(in oklab, var(--news-surface), var(--news-blue) 8%);
+}
+
+.notes-posts .simple-feature-copy {
+  display: contents;
+}
+
+.simple-home .notes-posts .simple-feature h2 {
+  grid-area: title;
+  max-width: 26ch;
+  font: 600 clamp(2rem, 4.7vw, 3.35rem)/1.06 var(--news-display);
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.notes-posts .simple-feature p {
+  grid-area: preview;
+  max-width: 64ch;
+  margin: 0;
+  font-size: 1rem;
+  text-wrap: pretty;
+}
+
+.notes-posts .simple-feature-meta {
+  grid-area: date;
+  flex-direction: column;
+  gap: .25rem;
+  padding-top: .5rem;
+  font: 500 .75rem/1.5 var(--news-mono);
+}
+
+.simple-home .notes-posts time {
+  font: 500 .75rem/1.5 var(--news-mono);
+}
+
+.notes-posts .simple-list-heading {
+  padding-block: 1.75rem .625rem;
+  border-bottom: 1px solid var(--news-rule);
+}
+
+.notes-posts .simple-list-heading h2 {
+  font-size: 1.125rem;
+}
+
+.notes-posts .simple-post-link {
+  grid-template-columns: var(--notes-date-column) minmax(0, 1fr);
+  grid-template-areas: 'date copy';
+  align-items: start;
+  gap: .25rem 1.5rem;
+  min-height: 3.75rem;
+  padding-block: .875rem;
+}
+
+.notes-posts .simple-post-link time {
+  grid-area: date;
+  margin-top: .25rem;
+}
+
+.notes-posts .simple-post-copy {
+  grid-area: copy;
+  display: grid;
+  gap: .25rem;
+}
+
+.notes-posts .simple-post-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.notes-preview,
+.notes-posts .simple-search-snippet {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--news-muted);
+  font: 500 .9375rem/1.55 var(--news-ui);
+  overflow-wrap: anywhere;
+}
+
+.notes-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.notes-preview:has(+ .simple-search-snippet:not([hidden])) {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .notes-posts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .notes-posts .simple-page-heading,
+  .notes-posts .simple-controls {
+    grid-column: 1;
+    grid-row: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  .notes-posts .simple-feature {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'title' 'preview' 'date';
+  }
+
+  .notes-posts .simple-feature-meta {
+    flex-direction: row;
+    gap: .5rem 1rem;
+    padding: 0;
+  }
+
+  .notes-posts .simple-post-link {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'date' 'copy';
+  }
+
+  .notes-posts .simple-post-link time {
+    margin-top: 0;
+  }
+}
