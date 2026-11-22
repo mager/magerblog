@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-This is a personal blog built with Astro v7, featuring three main content categories: Tech, Life, and Recipes. The homepage and most archives use a compact publication layout with dated rows, Space Grotesk text, and a Fraunces wordmark. The Life archive has a scoped Cefalù pixel coast and photo-led stories. Light mode is the default; readers can save a dark theme. Individual posts retain their existing reading layouts and story-specific styling.
+This is a personal blog built with Astro v7, featuring three main content categories: Tech, Life, and Recipes. The homepage has a date-driven space timeline. Most archives use a compact publication layout with dated rows, Space Grotesk text, and a Fraunces wordmark. The Life archive has a scoped Cefalù pixel coast and photo-led stories. The homepage defaults to dark. Publication archives default to light. Both respect the reader’s saved theme. Individual posts retain their existing reading layouts and story-specific styling.
 
 Site URL: https://mager.co
 
@@ -76,7 +76,7 @@ The site organizes content into three categories, each with distinct visual them
 
 ### Routing
 
-- `src/pages/index.astro`: The compact homepage is the only homepage layout. `SimpleHome.astro` combines `SimpleList.astro` with `SimpleSidebar.astro`. The visible intro is omitted; a screen-reader heading names Latest posts. The newest published entry leads, followed by dated rows from all feed collections, full-text search, and 24-row progressive loading. The homepage has no category filters; readers use the main header links to open sections. Without JavaScript, the lead and all remaining rows stay available. There is no edition view, layout toggle, or `mager-layout` preference.
+- `src/pages/index.astro`: The homepage uses `SimpleHome.astro`, `home/TimelineEntry.astro`, and `timeline.css` for its newest-first space timeline. Photos, screenshots, notes, shared links, and blog posts share one ordered list. Native scrolling reveals batches of 24. Without JavaScript the entire list is visible. The homepage opens at the current UTC time, with a geographic Earth globe and its day/night boundary. The current post’s publication date then sets the globe, solar map, and Earth-view sky through `timeline.ts` and `solar-system.ts`. Keep the expanded sky pannable with a pointer, touch, and the keyboard. Archive pages use their own layouts.
 - `src/lib/feed.ts`: Shared publication filtering and chronological ordering for the homepage, archives, and main RSS feed. Order uses `pubDate`; updates do not bump posts in the shared feed. Cooking applies its own `updatedDate` fallback ordering.
 - `src/lib/feed-display.ts`: Shared titles, short descriptions, thumbnail sources, categories, and publication date labels. Add `description` to notes for an authored preview; the first paragraph is the fallback. Main rows show titles and dates; sidebar notes and category features use short descriptions. Full content stays on individual post pages.
 - `src/pages/links/`: Link-share archive and permalinks
@@ -105,7 +105,7 @@ The site organizes content into three categories, each with distinct visual them
 - `Header.astro`: The sticky header always shows the home wordmark and direct links in this order: Writing, Software, Tech, Cooking, Life, Seen. Notes and Links remain secondary destinations in the shared sidebar, not main navigation items. Search is an icon button with an accessible name; theme selection is separate. There is no Browse panel, layout toggle, or wordmark reveal script. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling navigation below. Links have a minimum height of 44px and remain reachable through native keyboard navigation.
 - `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. The shared sidebar has a Find me elsewhere link to bio.link/mager.
 - `PostRow.astro`: Shared dated list row with an optional thumbnail. Link-share titles open the source directly. `SimpleList.astro` adds filtering, search, the optional latest-post feature, and progressive loading; behavior lives in `src/scripts/simple-home.ts`, with styling in `src/styles/simple.css`.
-- `SimpleSidebar.astro`: Shows up to four newest shared links. On the homepage, one link opens the Notes archive because the feed already includes the notes. On Writing and Tech, the sidebar shows the two newest note previews. Empty sections are omitted. The sidebar follows the list at 700px and below.
+- `SimpleSidebar.astro`: Shows up to four newest shared links. On Writing and Tech, the sidebar shows the two newest note previews. Empty sections are omitted. The sidebar follows the list at 700px and below.
 - `Card.astro`: Blog post card for remaining grid layouts
 - `FormattedDate.astro`: Date formatting component
 - `Search.astro`: Shared search dialog, included once through `Header.astro`; the Search icon and `/` open it. Inline listing search and the dialog share one lazy request through `src/scripts/search-data.ts`. `src/pages/search-index.json.ts` supplies published titles, descriptions, body text, tags, and photo locations from every feed collection. `src/lib/search.ts` ranks title matches first, ignores accents, supports prefixes, and accepts one-edit spelling errors for words of at least four characters. Shared text-node rendering highlights matches and supplies excerpts. Inline search stays within the current listing and saves `q` and `type` in its URL. Keep loading, retry, clear, and empty states, keyboard access, and the dialog controls above the scrolling results.
@@ -143,7 +143,7 @@ publication date. YouTube watch, live, short, embed, and youtu.be URLs embed
 inline automatically; other links display a source link. Shares appear in the
 homepage feed, `/links/`, their own permalink, and `/rss.xml`.
 
-`PostRow.astro` renders dated archive and homepage rows with outbound link titles. The Links archive preserves YouTube playback inside a native Watch video disclosure. `SimpleSidebar.astro` shows compact commentary and the source domain. `LinkPost.astro` retains the standalone share page and its inline embed. Use publication typography and theme tokens.
+`PostRow.astro` renders dated archive rows. `TimelineEntry.astro` renders homepage entries. Both link share titles to the original source. The Links archive preserves YouTube playback inside a native Watch video disclosure. `SimpleSidebar.astro` shows compact commentary and the source domain. `LinkPost.astro` retains the standalone share page and its inline embed. Use publication typography and theme tokens.
 ### Photos and Screenshots
 
 Both belong in `src/content/seen/`. Set `mediaType: screenshot` for screen

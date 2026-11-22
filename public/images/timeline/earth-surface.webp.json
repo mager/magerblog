@@ -1,0 +1,12 @@
+{
+  "title": "Earth surface for the timeline globe",
+  "source": "NASA Earth Observatory Blue Marble: Next Generation, September 2004, base map with topography and bathymetry",
+  "sourcePage": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/",
+  "sourceImage": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-topography-bathymetry/september/world.topo.bathy.200409.3x5400x2700.jpg",
+  "cloudSource": "NASA Earth Observatory, The Blue Marble (2002), multi-day MODIS cloud composite",
+  "cloudSourcePage": "https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/",
+  "cloudSourceImage": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg",
+  "cloudSourceMirror": "https://github.com/MaxwellLee/physics-lab/blob/main/assets/textures/SOURCES.md",
+  "credit": "NASA Earth Observatory / NASA Goddard Space Flight Center, Reto Stöckli and Robert Simmon",
+  "treatment": "Recolored land and oceans, enhanced shorelines, composited the static cloud layer, and encoded at 1280 by 640 as WebP. The renderer projects this reference texture and calculates daylight for the selected UTC instant."
+}

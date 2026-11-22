@@ -1,0 +1,69 @@
+---
+import { skyDateLabel } from '../../lib/sky-date';
+
+interface Props { date: Date }
+const { date } = Astro.props;
+---
+<dialog id="sky-explorer" class="sky-explorer" aria-labelledby="sky-heading" aria-describedby="sky-help" data-date={date.toISOString()}>
+  <canvas data-sky-canvas role="img" aria-label="Illustrated sky from Earth" aria-describedby="sky-visible"></canvas>
+  <p class="sr-only" id="sky-visible"></p>
+  <header class="sky-heading">
+    <div>
+      <h2 id="sky-heading">Sky from Earth</h2>
+      <time data-sky-date datetime={date.toISOString()}>{skyDateLabel(date, true)}</time>
+    </div>
+    <form method="dialog">
+      <button class="sky-close" aria-label="Close sky view" autofocus>
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+      </button>
+    </form>
+  </header>
+  <div class="sky-tools">
+    <div class="sky-directions">
+      <p id="sky-help">Drag or use the arrow keys to look around.</p>
+      <p>Illustrated Milky Way · Sun and planets enlarged</p>
+    </div>
+    <div class="sky-actions">
+      <label class="sky-find">
+        <span class="sr-only">Find an object in the sky</span>
+        <select data-sky-find>
+          <option value="">Find an object</option>
+          {['Galactic center', 'Sun', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'].map(name => <option>{name}</option>)}
+        </select>
+      </label>
+      <button type="button" data-sky-pan="-1" aria-label="Pan left"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="m14 5-7 7 7 7" /></svg></button>
+      <button type="button" data-sky-pan="1" aria-label="Pan right"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="m10 5 7 7-7 7" /></svg></button>
+    </div>
+  </div>
+</dialog>
+<script>
+  import { initSkyExplorer } from '../../scripts/sky-explorer';
+  const dialog = document.querySelector<HTMLDialogElement>('#sky-explorer');
+  if (dialog) initSkyExplorer(dialog);
+</script>
+<style>
+  .sky-explorer { position: fixed; inset: 0; isolation: isolate; width: 100%; height: 100dvh; max-width: none; max-height: none; padding: 0; margin: 0; border: 0; overflow: hidden; overscroll-behavior: none; background: #050812; color: #f5f2e9; color-scheme: dark; font-family: var(--news-ui); }
+  .sky-explorer:not([open]) { display: none; }
+  :global(html:has(.sky-explorer[open])) { overflow: hidden; }
+  .sky-explorer::backdrop { background: #050812; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .sky-heading, .sky-tools { position: absolute; inset-inline: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-inline: max(22px, 4vw); pointer-events: none; }
+  .sky-heading { top: 0; align-items: flex-start; padding-block: max(24px, env(safe-area-inset-top)) 38px; background: linear-gradient(#050813c9, transparent); }
+  .sky-heading h2 { margin: 0 0 5px; font: 600 clamp(26px, 3.3vw, 52px)/1.1 var(--news-ui); letter-spacing: -.04em; color: inherit; }
+  .sky-heading time { color: #d9c7ad; font: 13px/1.4 var(--news-mono); }
+  .sky-heading form { margin: 0; }
+  .sky-tools { bottom: 0; align-items: flex-end; padding-block: 36px max(24px, env(safe-area-inset-bottom)); background: linear-gradient(transparent, #050813ed); }
+  .sky-tools p { margin: 0; font: 14px/1.55 var(--news-ui); color: #f3ebe0; }
+  .sky-tools p + p { font-size: 12px; color: #bec3ce; }
+  .sky-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .sky-explorer :is(button, select) { min-height: 44px; min-width: 44px; padding: 0 12px; appearance: auto; border: 1px solid #6a6c7b; border-radius: 5px; background: #101521; color: #f5f2e9; cursor: pointer; font: 14px var(--news-ui); pointer-events: auto; }
+  .sky-explorer button { display: grid; place-items: center; padding: 0; }
+  .sky-explorer svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .sky-explorer :is(button, select):hover { background: #252a35; }
+  .sky-explorer :focus-visible { outline: 2px solid #ffca83; outline-offset: 3px; }
+  @media (max-width: 620px) {
+    .sky-tools { align-items: flex-start; flex-direction: column; gap: 12px; }
+  }
+  @media print { .sky-explorer { display: none !important; } }
+</style>

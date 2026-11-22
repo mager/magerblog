@@ -1,0 +1,133 @@
+---
+import { diagramTilt, orbitFlattening, solarSystemAt } from '../../lib/solar-system';
+import { skyDateLabel } from '../../lib/sky-date';
+
+interface Props { date: Date; }
+const { date } = Astro.props;
+const { planets, sun } = solarSystemAt(date);
+const description = planets.map(planet => `${planet.name} ${Math.round(planet.longitude)}°`).join(', ');
+---
+<figure class="solar-map" data-solar-map>
+  <figcaption class="solar-caption">
+    <h2>Solar system</h2>
+    <time datetime={date.toISOString()}>{skyDateLabel(date, true)}</time>
+  </figcaption>
+  <svg class="solar-plot" viewBox="0 0 380 182" role="img" aria-labelledby="solar-map-title solar-map-description">
+    <title id="solar-map-title">Planet orbits around the Sun, with Earth marked</title>
+    <desc id="solar-map-description">Approximate heliocentric longitudes. {description}. Orbit distances and body sizes are compressed.</desc>
+    <defs>
+      <radialGradient id="solar-body-light" cx=".27" cy=".23" r=".82">
+        <stop offset="0" stop-color="white" stop-opacity=".55"/>
+        <stop offset=".32" stop-color="white" stop-opacity="0"/>
+        <stop offset=".76" stop-color="#14152a" stop-opacity=".18"/>
+        <stop offset="1" stop-color="#14152a" stop-opacity=".82"/>
+      </radialGradient>
+      <radialGradient id="solar-corona">
+        <stop offset="0" stop-color="#ffce85" stop-opacity=".8"/>
+        <stop offset=".32" stop-color="#ffbb66" stop-opacity=".42"/>
+        <stop offset="1" stop-color="#ffb667" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g class="solar-camera" style={`transform: translate(${sun.x}px, ${sun.y}px)`}>
+      <g transform={`rotate(${diagramTilt})`}>
+        {planets.map(planet => <ellipse class="solar-orbit" rx={planet.radius} ry={planet.radius * orbitFlattening}/>)}
+        <g>
+          <title>Sun</title>
+          <circle r="19" fill="url(#solar-corona)"/>
+          <circle r="5.2" fill="#f9c277"/>
+          <circle r="3.6" fill="#fff1c5"/>
+        </g>
+        {planets.map(planet =>
+          <g data-solar-planet={planet.name} class="solar-planet" style={`transform: translate(${planet.x}px, ${planet.y}px)`}>
+            <title>{planet.name}</title>
+            {planet.name === 'Saturn' && <ellipse rx="9" ry="2.6" fill="none" stroke={planet.color} stroke-width="1.25"/>}
+            <circle r={planet.size} fill={planet.color}/>
+            {planet.name === 'Jupiter' && <path d="M-4.8-2.1q4.2 1.2 9.8.6m-10 3.1q4.2 1.6 10 .8" fill="none" stroke="#a07976" stroke-width="1.5"/>}
+            <circle r={planet.size} fill="url(#solar-body-light)"/>
+            {planet.name === 'Saturn' && <path d="M-9 0a9 2.6 0 0 0 18 0" fill="none" stroke={planet.color} stroke-width="1.5"/>}
+            {planet.name === 'Earth' && <g class="solar-earth" transform={`rotate(${-diagramTilt})`}>
+              <circle r="7" fill="none"/>
+              <path d="m5-5 9-12h6" fill="none"/>
+              <text x="23" y="-14">Earth</text>
+            </g>}
+          </g>
+        )}
+      </g>
+    </g>
+  </svg>
+  <button class="explore-sky" type="button" data-explore-sky aria-haspopup="dialog" aria-controls="sky-explorer" hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="7.2"/><ellipse cx="12" cy="12" rx="11" ry="3.1" transform="rotate(-32 12 12)"/></svg>
+    Explore sky
+  </button>
+</figure>
+
+<script>
+  import { solarSystemAt } from '../../lib/solar-system';
+  import { onSkyDate, skyDateLabel } from '../../lib/sky-date';
+
+  const map = document.querySelector<HTMLElement>('[data-solar-map]');
+  if (map) {
+    const dateLabel = map.querySelector('time')!;
+    const camera = map.querySelector<SVGGElement>('.solar-camera')!;
+    const markers = map.querySelectorAll<SVGGElement>('[data-solar-planet]');
+    const description = map.querySelector('desc')!;
+    onSkyDate(({ iso, live }) => {
+      const date = new Date(iso);
+      dateLabel.dateTime = iso;
+      dateLabel.textContent = skyDateLabel(date, live);
+      const { planets, sun } = solarSystemAt(date);
+      camera.style.transform = `translate(${sun.x}px, ${sun.y}px)`;
+      markers.forEach((marker, i) => {
+        marker.style.transform = `translate(${planets[i].x}px, ${planets[i].y}px)`;
+      });
+      const positions = planets.map(planet => `${planet.name} ${Math.round(planet.longitude)}°`).join(', ');
+      description.textContent = `Approximate heliocentric longitudes. ${positions}. Orbit distances and body sizes are compressed.`;
+    });
+  }
+</script>
+
+<style>
+  .solar-map {
+    --solar-ink: #f2edf7;
+    --solar-date: #c2bacf;
+    --solar-track: #81718e;
+    display: grid;
+    align-content: start;
+    margin: 0;
+    color: var(--solar-ink);
+  }
+  :global(html[data-theme='light']) .solar-map {
+    --solar-ink: #272435;
+    --solar-date: #544e64;
+    --solar-track: #776882;
+  }
+  .solar-caption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 2px 12px; }
+  .solar-caption h2 { margin: 0; color: inherit; font: 600 17px/1.25 var(--news-ui); letter-spacing: -.025em; }
+  .solar-caption time { color: var(--solar-date); font: 400 11px/1.4 var(--news-mono); font-variant-numeric: tabular-nums; }
+  .solar-plot { display: block; width: 100%; height: auto; overflow: visible; }
+  .solar-orbit { fill: none; stroke: var(--solar-track); stroke-opacity: .7; stroke-width: .8; }
+  .solar-earth { stroke: var(--solar-ink); stroke-width: 1; }
+  .solar-earth text {
+    font: 500 13px var(--news-ui); fill: var(--solar-ink); stroke: var(--space-panel);
+    stroke-width: 3; paint-order: stroke fill;
+  }
+  .explore-sky {
+    display: inline-flex; justify-self: start; align-items: center; gap: 9px; min-height: 44px;
+    border: 0; border-radius: 0; padding: 0 5px 0 0; background: transparent; color: inherit;
+    font: 500 13px/1.3 var(--news-ui); cursor: pointer;
+  }
+  .explore-sky[hidden] { display: none; }
+  .explore-sky:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .solar-camera, .solar-planet { transition: transform .42s cubic-bezier(.16, 1, .3, 1); }
+  }
+  @media (max-width: 760px) {
+    .solar-map { grid-template-columns: minmax(94px, 1fr) minmax(68px, 1fr) auto; align-items: center; gap: 8px; }
+    .solar-caption { flex-direction: column; gap: 3px; }
+    .solar-caption h2 { font-size: 14px; }
+    .solar-caption time { font-size: 12px; }
+    .solar-plot { max-height: 58px; }
+    .solar-earth :is(path, text) { display: none; }
+    .explore-sky { justify-self: end; font-size: 12px; gap: 5px; }
+  }
+</style>

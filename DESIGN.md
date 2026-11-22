@@ -110,7 +110,7 @@ components:
 
 **Creative North Star: "The compact publication"**
 
-A quiet personal publication for software, cooking, photos, and life. The homepage and shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefalù pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.
+A quiet personal publication for software, cooking, photos, and life. The homepage uses the space timeline described below. Shared archives use plain dated rows, clear controls, and short supporting notes. Life has a route-specific Cefalù pixel coast and photo-led stories. These are fixed page designs, not optional modes. The newspaper edition, large masthead, layout switch, and benchmark insert are removed.
 
 Keep the established publication palette and fonts. This change affects discovery pages; individual tech articles, recipes, life stories, notes, and link pages retain their reading layouts.
 
@@ -126,11 +126,19 @@ Space Grotesk carries listing headings, titles, dates, navigation, search, and s
 
 ## Layout
 
-The homepage and archives share a 1080px shell with 24px gutters, reduced to 18px at 540px. The homepage has no visible intro sentence; a screen-reader heading names Latest posts. It features the newest entry and lists the remaining published entries in `pubDate` order. Edits do not bump posts. Inline search precedes the list. The homepage has no category filter row; the main header links open each section. Cooking retains its recipe filters. JavaScript shows 24 rows at a time; without it, the complete static list remains available.
+The shared archives use a 1080px shell with 24px gutters, reduced to 18px at 540px. See the homepage exception below. The main header links open each section. Cooking retains its recipe filters.
+
+### Homepage timeline
+
+Only `/` uses the deep midnight sky, a shaded Earth globe, and a single vertical path. The surface defaults to dark and supports a saved light theme. Space Grotesk carries titles and descriptions, and JetBrains Mono carries publication dates. Type names accompany the colored markers. Each published entry appears once in the feed. Seen photos and screenshots have room to display the whole image. Shared link titles open the original source.
+
+At the top of the page, Earth’s rotation, daylight, and orbital position follow the current UTC minute. Further down, the post in the reading area sets the date for the globe, the solar map, and the Earth-based sky viewer. Scrolling loads older entries in batches of 24 without moving keyboard focus. Search and the manual load button stay available. Without JavaScript the page renders all entries and the initial solar map. The viewer supports touch, drag, arrow keys, and a planet finder. The reader can pause ambient motion. Reduced motion disables parallax, twinkling, and animated position changes. See `.impeccable/surfaces/src-pages-index-astro.md`.
+
+### Shared archives
 
 Writing, Tech, and Cooking use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature.
 
-The homepage and Writing and Tech archives have a 252px sidebar with up to four newest links. Links show short commentary and source domains. The homepage sidebar links to the Notes archive because the main feed already includes each note. The Writing and Tech sidebars show the two newest note previews and dates. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Shared Archive pages without a sidebar use a column up to 780px wide. Life and Notes use the full 1080px shell without a sidebar.
+The Writing and Tech archives have a 252px sidebar with up to four newest links. Links show short commentary and source domains. The Writing and Tech sidebars show the two newest note previews and dates. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Shared Archive pages without a sidebar use a column up to 780px wide. Life and Notes use the full 1080px shell without a sidebar.
 
 Every public page uses one shared sticky header and one fixed footer. The wordmark is always visible. Direct header links appear in this order: Writing, Software, Tech, Cooking, Life, Seen. Notes and Links remain secondary destinations in the shared sidebar, not main navigation items. Search uses an icon button with an accessible name; the theme control is separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling direct links below. Links remain reachable by keyboard. About, Bench, and RSS remain in the footer beside the Chicago credit. Measured header and footer heights reserve content and anchor space.
 

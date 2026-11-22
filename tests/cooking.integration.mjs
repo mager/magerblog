@@ -99,13 +99,18 @@ test('kitchen lamp has no visible theme text and still changes and saves the the
   w.close();
 });
 
-test('cooking features the recently updated cottage pie and labels its update date', () => {
+test('cooking orders its feature and rows by their effective dates and labels updates', () => {
   const dom = setup(), doc = dom.window.document;
-  const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
-  assert.equal(lead.dataset.href, '/blog/2025-12-06-cottage-pie/');
-  assert.match(lead.querySelector('time').textContent, /Updated Nov 8, 2026/);
+  const entries = visible(doc);
+  const dates = entries.map(entry => Date.parse(entry.querySelector('time').dateTime));
+  assert.deepEqual(dates, dates.toSorted((a, b) => b - a));
+  const pie = entries.find(entry => entry.dataset.href === '/blog/2025-12-06-cottage-pie/');
+  assert.match(pie.querySelector('time').textContent, /Updated Nov 8, 2026/);
   enhance(dom.window);
   doc.querySelector('[data-simple-filter="turkey"]').click();
-  assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])').dataset.href, '/blog/2025-12-06-cottage-pie/');
+  const turkey = visible(doc);
+  assert(turkey.some(entry => entry.dataset.href === pie.dataset.href));
+  const turkeyDates = turkey.map(entry => Date.parse(entry.querySelector('time').dateTime));
+  assert.deepEqual(turkeyDates, turkeyDates.toSorted((a, b) => b - a));
   dom.window.close();
 });

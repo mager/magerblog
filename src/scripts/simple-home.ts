@@ -23,6 +23,7 @@ if (simpleHome) {
   let failed = false;
   let category = 'all';
   let limit = 24;
+  let ranked = false;
   function update() {
     const term = query.value.trim();
     const matches = term && index ? searchEntries(index, term) : [];
@@ -50,7 +51,13 @@ if (simpleHome) {
       }
     });
     // DOM order follows ranking, so keyboard and screen-reader order do too.
-    (term && index ? candidateRows : rows).forEach(row => list.append(row));
+    if (term && index) {
+      candidateRows.forEach(row => list.append(row));
+      ranked = true;
+    } else if (ranked) {
+      rows.forEach(row => list.append(row));
+      ranked = false;
+    }
     const noun = simpleHome!.dataset.itemName || 'post';
     const cooking = noun === 'recipe';
     const total = cooking ? filtered.length : results.length;
@@ -74,6 +81,10 @@ if (simpleHome) {
     retry.hidden = !failed;
     status.textContent = failed ? 'Search could not load. Check your connection and try again.' : loading ? 'Loading full-text search…' : term && index ? `${filtered.length} ${filtered.length === 1 ? 'result' : 'results'} for “${term}”` : '';
     filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.simpleFilter === category)));
+    if (simpleHome!.hasAttribute('data-timeline')) {
+      simpleHome!.toggleAttribute('data-searching', !!term);
+      simpleHome!.dispatchEvent(new Event('timeline:results'));
+    }
   }
   async function load() {
     if (index || loading) return;
@@ -109,6 +120,16 @@ if (simpleHome) {
     limit += 24; update();
     [...list.querySelectorAll<HTMLElement>('[data-simple-row]')].find(row => !row.hidden && !previous.has(row))?.querySelector<HTMLAnchorElement>('a:not([tabindex="-1"])')?.focus();
   });
+  // Readers can scroll through the whole timeline. Keep the button for keyboards
+  // and browsers without IntersectionObserver. Auto-loading must leave focus alone.
+  if (simpleHome.hasAttribute('data-timeline') && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !more.hidden && !query.value.trim()) {
+        limit += 24;
+        update();
+      }
+    }, { rootMargin: '0px 0px 480px' }).observe(more);
+  }
   simpleHome.querySelector<HTMLElement>('.simple-controls')!.hidden = false;
   document.querySelectorAll<HTMLImageElement>('.simple-home img, .cooking-shell img').forEach(img => {
     const recover = () => {

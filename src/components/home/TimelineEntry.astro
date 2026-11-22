@@ -1,0 +1,39 @@
+---
+import { entryHref, entryTitle, type FeedEntry } from '../../lib/feed';
+import { entryCategory, entryDate, entryDescription, entryImage } from '../../lib/feed-display';
+import { publicationTimeZone } from '../../lib/publication-date';
+import { contentMeta } from '../../lib/content-meta';
+import { linkHost } from '../../lib/link-share';
+
+interface Props { entry: FeedEntry; first?: boolean; }
+const { entry, first } = Astro.props;
+const date = entry.data.pubDate;
+const tz = publicationTimeZone(date);
+const month = date.toLocaleString('en-US', { month: 'short', timeZone: tz });
+const day = date.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
+const year = date.toLocaleString('en-US', { year: 'numeric', timeZone: tz });
+const category = entryCategory(entry);
+const labels: Record<string, string> = { food: 'Recipe', life: 'Life', tech: 'Tech', notes: 'Note', links: 'Link', seen: 'Seen' };
+const title = entryTitle(entry);
+const image = entryImage(entry);
+const alt = entry.collection === 'seen' ? entry.data.alt : entry.collection === 'blog' ? entry.data.heroImageAlt : '';
+const external = entry.collection === 'links';
+const meta = external ? linkHost(entry.data.url) : entry.collection === 'seen'
+  ? (entry.data.mediaType === 'screenshot' ? 'Screenshot' : 'Photo') : contentMeta(entry);
+const preview = entryDescription(entry);
+---
+<li class:list={['time-entry', { 'time-lead': first, 'time-visual': entry.collection === 'seen' }]} data-simple-row data-category={category} data-href={entryHref(entry)} data-iso={date.toISOString()}>
+  <time class="time-stamp" datetime={date.toISOString()} aria-label={entryDate(date)}>
+    <span>{month} {day}</span><span>{year}</span>
+  </time>
+  <span class="time-node" aria-hidden="true"></span>
+  <a class="time-story" href={external ? entry.data.url : entryHref(entry)}>
+    <div class="time-story-copy">
+      <div class="time-kind">{labels[category] ?? category}{meta && <span class="time-meta">{meta}</span>}</div>
+      <h3><span class="simple-post-title">{title}</span>{external && <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="External link"><path d="M3 13 13 3M4 3h9v9" /></svg>}</h3>
+      {preview && <p class="time-preview">{preview}</p>}
+      <span class="simple-search-snippet" hidden></span>
+    </div>
+    {image && <img class="time-image" src={image} alt={alt || ''} loading={first ? 'eager' : 'lazy'} decoding="async" />}
+  </a>
+</li>

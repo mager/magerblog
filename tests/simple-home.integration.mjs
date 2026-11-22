@@ -17,7 +17,7 @@ function enhance(w) {
   w.eval(['src/lib/search.ts', 'src/scripts/search-data.ts', 'src/scripts/search-dom.ts', 'src/scripts/simple-home.ts'].map(source).join('\n'));
 }
 
-test('simple homepage is complete without JavaScript and ignores the retired layout choice', () => {
+test('the full timeline is visible in publication order without JavaScript', () => {
   const dom = setup(), w = dom.window, doc = w.document;
   w.localStorage.setItem('mager-layout', 'edition');
   w.localStorage.setItem('mager-theme', 'dark');
@@ -26,19 +26,42 @@ test('simple homepage is complete without JavaScript and ignores the retired lay
   assert.equal(doc.documentElement.dataset.layout, undefined);
   assert.equal(doc.querySelector('[data-layout-toggle], #front-page, .edition-content'), null);
   assert.equal(doc.querySelectorAll('h1').length, 1);
-  assert.equal(doc.querySelectorAll('[data-simple-row]').length, data.length);
-  assert.equal(doc.querySelectorAll('[data-simple-row][hidden]').length, 1);
-  assert(!doc.body.textContent.includes('Writing, photos, and things I’m making.'));
-  const lead = doc.querySelector('[data-simple-feature]:not([hidden])');
-  assert.equal(lead.dataset.href, data[0].href);
-  assert(doc.querySelector('.simple-links h3 a[href^="https://"]'));
-  assert(doc.querySelector('[data-simple-row][data-category="notes"]'));
-  assert.deepEqual(
-    [...doc.querySelectorAll('.simple-sidebar a[href^="/notes/"]')].map(link => link.getAttribute('href')),
-    ['/notes/'],
-  );
+  const rows = [...doc.querySelectorAll('ol > [data-simple-row]')];
+  assert.deepEqual(rows.map(row => row.dataset.href), data.map(entry => entry.href));
+  assert(rows.every(row => !row.hidden));
+  assert.equal(doc.querySelector('[data-simple-feature]'), null);
+  assert.deepEqual(new Set(rows.map(row => row.dataset.category)), new Set(['notes', 'food', 'tech', 'life', 'seen', 'links']));
+  for (const row of rows) {
+    const href = row.querySelector('a').getAttribute('href');
+    if (row.dataset.category === 'links') assert.match(href, /^https?:\/\//);
+    else assert.equal(href, row.dataset.href);
+  }
+  for (const section of ['notes', 'links']) {
+    const archive = doc.querySelector(`main nav[aria-label] a[href="/${section}/"]`);
+    assert(archive?.textContent.trim(), section);
+  }
   const ids = [...doc.querySelectorAll('[id]')].map(element => element.id);
   assert.equal(new Set(ids).size, ids.length);
+  dom.window.close();
+});
+
+test('Seen timeline entries display the published photos and screenshots with their descriptions', () => {
+  const dom = setup();
+  const seen = dom.window.document.querySelectorAll('[data-simple-row][data-category="seen"]');
+  const kinds = new Set();
+  for (const row of seen) {
+    const detail = setup(row.dataset.href.slice(1) + 'index.html');
+    const document = detail.window.document;
+    const expected = document.querySelector('.seen-photo');
+    const image = row.querySelector('img');
+    assert.equal(image?.getAttribute('src'), expected.getAttribute('src'), row.dataset.href);
+    assert.equal(image.alt, expected.alt);
+    const kind = document.querySelector('.seen-meta').textContent.includes('Screenshot') ? 'Screenshot' : 'Photo';
+    kinds.add(kind);
+    assert(row.textContent.includes(kind), row.dataset.href);
+    detail.window.close();
+  }
+  assert.deepEqual(kinds, new Set(['Photo', 'Screenshot']));
   dom.window.close();
 });
 
@@ -59,12 +82,10 @@ test('homepage keeps full-text ranking, typos, clear, and progressive loading wi
   }
   for (const section of ['notes', 'links']) {
     assert.equal(doc.querySelector(`.header-sections a[href="/${section}/"]`), null);
-    assert(doc.querySelector(`.simple-sidebar a[href="/${section}/"]`), section);
   }
   const input = doc.querySelector('#simple-query');
   input.value = 'homeprot'; input.dispatchEvent(new w.Event('input')); await tick();
   assert.match(visible()[0].textContent, /Homeport/);
-  assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])'), null);
   assert(visible()[0].querySelector('mark'));
   assert.equal(requests, 1);
   input.value = 'teaspoon'; input.dispatchEvent(new w.Event('input'));
@@ -77,7 +98,26 @@ test('homepage keeps full-text ranking, typos, clear, and progressive loading wi
   assert.equal(visible().length, 24);
   assert.equal(doc.activeElement, input);
   assert.equal(w.location.search, '');
-  assert.equal(doc.querySelector('[data-simple-feature]:not([hidden])').dataset.href, data[0].href);
+  assert.deepEqual(visible().map(row => row.dataset.href), data.slice(0, 24).map(entry => entry.href));
+  dom.window.close();
+});
+
+test('scrolling near the end reveals older entries and keeps keyboard focus in place', () => {
+  const dom = setup(), w = dom.window, doc = w.document;
+  let intersect;
+  w.IntersectionObserver = class {
+    constructor(callback) { this.callback = callback; }
+    observe(target) { intersect = isIntersecting => this.callback([{ target, isIntersecting }]); }
+  };
+  enhance(w);
+  const visible = () => [...doc.querySelectorAll('[data-simple-row]:not([hidden])')];
+  const link = visible()[10].querySelector('a');
+  link.focus();
+  intersect(false);
+  assert.equal(visible().length, 24);
+  intersect(true);
+  assert.deepEqual(visible().map(row => row.dataset.href), data.slice(0, 48).map(entry => entry.href));
+  assert.equal(doc.activeElement, link);
   dom.window.close();
 });
 
