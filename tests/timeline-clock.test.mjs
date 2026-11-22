@@ -9,7 +9,7 @@ function source(path) {
   return stripTypeScriptTypes(text).replace(/^import .*;\n/gm, '').replaceAll('export ', '');
 }
 
-function setup(height) {
+function setup(height, postTops = [600, 760]) {
   const dates = ['2026-11-21T00:00:00.000Z', '2026-10-01T00:17:00.000Z'];
   const dom = new JSDOM(`
     <header class="site-header"></header><time data-earth-clock datetime="2008-01-01"></time>
@@ -27,7 +27,7 @@ function setup(height) {
   w.innerHeight = height;
   Object.defineProperty(doc.documentElement, 'scrollHeight', { value: 2400 });
   Object.defineProperty(doc, 'hidden', { get: () => hidden });
-  rows.forEach((row, i) => { row.getBoundingClientRect = () => ({ top: 600 + i * 160 - w.scrollY }); });
+  rows.forEach((row, i) => { row.getBoundingClientRect = () => ({ top: postTops[i] - w.scrollY }); });
   w.requestAnimationFrame = callback => { frame = callback; return 1; };
   w.setTimeout = (callback, delay) => { timer = { callback, delay }; return 2; };
   w.clearTimeout = () => { timer = undefined; };
@@ -70,6 +70,18 @@ test('the live UTC sky uses browser time and catches up at minute boundaries and
   t.dom.window.close();
 });
 
+test('the first scroll on a tall screen selects the newest post first', () => {
+  const t = setup(1200, [180, 300]);
+  assert.equal(t.events.at(-1).live, true);
+  t.scroll(5);
+  assert.equal(t.events.at(-1).iso, t.dates[0]);
+  assert.equal(t.events.at(-1).live, false);
+  assert.equal(t.rows[0].hasAttribute('data-current'), true);
+  t.scroll(125);
+  assert.equal(t.events.at(-1).iso, t.dates[1]);
+  t.dom.window.close();
+});
+
 for (const [layout, height] of [['portrait', 844], ['landscape', 390]]) {
   test(`the sky crosses into exact publication times and returns to live time in ${layout}`, () => {
     const t = setup(height);
@@ -82,12 +94,11 @@ for (const [layout, height] of [['portrait', 844], ['landscape', 390]]) {
     assert.equal(t.timer(), undefined);
     t.scroll(start + 160);
     assert.equal(t.clock.dateTime, t.dates[1]);
-    assert.equal(t.clock.textContent, '00:17 UTC');
+    // This timestamp is October 1 in UTC, but the post was published on September 30 in Chicago.
+    assert.equal(t.clock.textContent, 'Sep 30, 2026');
+    assert.equal(t.clock.title, new Date(t.dates[1]).toUTCString());
     assert.equal(t.events.at(-1).live, false);
     assert.equal(t.rows[1].hasAttribute('data-current'), true);
-    const label = live => t.w.eval(`skyDateLabel(new Date('${t.dates[1]}'), ${live})`);
-    assert.equal(label(false), 'Sep 30, 2026');
-    assert.equal(label(true), 'Oct 1, 2026');
     t.advance(30 * 60000);
     t.scroll(0);
     assert.equal(t.clock.textContent, '01:29 UTC');

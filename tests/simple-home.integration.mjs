@@ -26,6 +26,11 @@ test('the full timeline is visible in publication order without JavaScript', () 
   assert.equal(doc.documentElement.dataset.layout, undefined);
   assert.equal(doc.querySelector('[data-layout-toggle], #front-page, .edition-content'), null);
   assert.equal(doc.querySelectorAll('h1').length, 1);
+  assert.equal(doc.querySelector('h1').textContent.trim(), 'Latest posts');
+  assert(doc.querySelector('h1').classList.contains('sr-only'));
+  assert(doc.querySelector('[data-earth-globe] img[alt]'));
+  assert(doc.querySelector('time[data-earth-clock][datetime]'));
+  assert.equal(doc.querySelector('dialog:not(#site-search), [data-explore-sky], [data-solar-map]'), null);
   const rows = [...doc.querySelectorAll('ol > [data-simple-row]')];
   assert.deepEqual(rows.map(row => row.dataset.href), data.map(entry => entry.href));
   assert(rows.every(row => !row.hidden));
@@ -84,6 +89,7 @@ test('homepage keeps full-text ranking, typos, clear, and progressive loading wi
     assert.equal(doc.querySelector(`.header-sections a[href="/${section}/"]`), null);
   }
   const input = doc.querySelector('#simple-query');
+  assert.match(input.placeholder, /^Search posts\b/i);
   input.value = 'homeprot'; input.dispatchEvent(new w.Event('input')); await tick();
   assert.match(visible()[0].textContent, /Homeport/);
   assert(visible()[0].querySelector('mark'));

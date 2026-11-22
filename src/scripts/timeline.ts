@@ -1,3 +1,4 @@
+import { entryDate } from '../lib/publication-date';
 import { publishSkyDate } from '../lib/sky-date';
 
 const timeline = document.querySelector<HTMLElement>('[data-timeline]');
@@ -19,7 +20,9 @@ if (timeline) {
     document.documentElement.dataset.spaceMotion = reduceMotion.matches || manuallyPaused ? 'paused' : 'playing';
     if (controls) {
       controls.hidden = reduceMotion.matches;
-      controls.querySelector('span')!.textContent = manuallyPaused ? 'Resume motion' : 'Pause motion';
+      const action = manuallyPaused ? 'Resume motion' : 'Pause motion';
+      controls.setAttribute('aria-label', action);
+      controls.title = action;
     }
     document.dispatchEvent(new Event('timeline:motion'));
   }
@@ -33,7 +36,7 @@ if (timeline) {
     const iso = date.toISOString();
     if (clock) {
       clock.dateTime = iso;
-      clock.textContent = iso.slice(11, 16) + ' UTC';
+      clock.textContent = live ? iso.slice(11, 16) + ' UTC' : entryDate(date);
       clock.title = date.toUTCString();
     }
     publishSkyDate({ iso, live });
@@ -57,8 +60,11 @@ if (timeline) {
 
   function readingRow() {
     if (!rows.length || window.scrollY <= 1) return;
-    const horizon = Math.max(header.offsetHeight + 36, innerHeight * 0.42);
-    if (rows[0].getBoundingClientRect().top > horizon) return;
+    const firstTop = rows[0].getBoundingClientRect().top;
+    // The feed opens near the header. Even on a tall screen, enter history at
+    // the newest post when the reader first scrolls.
+    const horizon = Math.max(header.offsetHeight + 36, Math.min(innerHeight * 0.42, firstTop + window.scrollY));
+    if (firstTop > horizon) return;
     if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 3) return rows.at(-1);
     let low = 0;
     let high = rows.length - 1;

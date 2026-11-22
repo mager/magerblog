@@ -7,24 +7,18 @@ related_targets: ["src/components/SimpleHome.astro","src/styles/timeline.css"]
 
 # Homepage timeline
 
-Mode: Experience. Scope: the homepage and its sky viewer. Readers come here for the writing, recipes, notes, photos, screenshots, and links in publication order.
+The homepage uses Experience mode. Readers can find a post by date or search across writing, recipes, notes, photos, screenshots, and shared links.
 
 ## Direction contract
 
-**Thesis.** Scroll through a personal archive as the solar system travels backward through its recorded dates.
+**Reading order.** Search posts appears above the newest entry. Use Latest posts as the screen-reader heading. Give the first screen to the posts and their images.
 
-**Own world.** A deep midnight star field, pale lavender light, warm planetary highlights, and a single vertical route. Pictures keep their authored colors. Each content type has a named marker.
+**Appearance.** A deep midnight star field surrounds a single vertical path. Preserve photo colors. Use a short name and color for each content type. Dates and space between entries mark the passage of time.
 
-**Story.** Read a post, scroll to an older date, then look around the sky as seen from Earth on that date. The same date produces the same positions.
+**Earth.** The globe and satellite stay in view as the reader scrolls. Place them to the right of the feed on desktop and beside the wordmark on phones. At the top, the clock shows current UTC time. Each post in the reading area sets the date and daylight on Earth. Returning to the top restores the clock.
 
-**First viewport.** The Timeline title and date range share the opening with Earth, its daylight boundary, a small satellite, and a UTC clock. The globe opens at the current UTC minute and follows the current post once the reader reaches the archive. The newest real post leads the path below. An orbital diagram tracks the post in view. Native scrolling, keyboard access, saved themes, and static content survive the effects.
-
-**Form.** seed: none (pinned). “the website canvas is the universe” and “no jumps”. Horizontal drag and arrow keys pan the Earth-based sky.
-
-**Finish.** unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+**Interaction.** Native scrolling sets the direction and speed of travel through the stars. Fast movement sends nearby stars past the reader. Reverse movement reverses their travel. Earth stays fixed, and reduced motion keeps the star field still. Preserve the older-posts button, keyboard access, and saved themes. Post links open the published content.
 
 ## Verification
 
-The production build generated 198 pages. All 39 unit tests and 30 integration tests passed, including checks for the Earth globe and UTC clock. Browser checks covered the 1440px desktop, 390px phone, and 320px narrow layout. The review found small date labels and development controls in the initial captures. The phone now uses 12px dates, and the final captures use the production server.
-
-Scrolling to the Mars Cheese Castle photo and to the last post on December 29, 2008 set the orbital map and sky viewer to the matching dates. The viewer restores keyboard focus on close. Both themes passed the automated accessibility check at desktop and phone widths. All 169 entries were available with JavaScript disabled.
+Check the globe and satellite at a desktop width and on a narrow phone. Scroll to a photo, then return to the top and check the clock. Search for a word from a recipe body. Clear the search and confirm the newest post returns to the top. With JavaScript disabled, every published entry must be available as a link.

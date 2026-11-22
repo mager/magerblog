@@ -30,7 +30,7 @@ const preview = entryDescription(entry);
   <a class="time-story" href={external ? entry.data.url : entryHref(entry)}>
     <div class="time-story-copy">
       <div class="time-kind">{labels[category] ?? category}{meta && <span class="time-meta">{meta}</span>}</div>
-      <h3><span class="simple-post-title">{title}</span>{external && <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="External link"><path d="M3 13 13 3M4 3h9v9" /></svg>}</h3>
+      <h2><span class="simple-post-title">{title}</span>{external && <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="External link"><path d="M3 13 13 3M4 3h9v9" /></svg>}</h2>
       {preview && <p class="time-preview">{preview}</p>}
       <span class="simple-search-snippet" hidden></span>
     </div>

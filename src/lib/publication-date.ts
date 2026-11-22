@@ -4,6 +4,8 @@ export function publicationTimeZone(date: Date): string {
   return date.toISOString().endsWith('T00:00:00.000Z') ? 'UTC' : 'America/Chicago';
 }
 
+export const entryDate = (date: Date) => date.toLocaleDateString('en-US', { timeZone: publicationTimeZone(date), month: 'short', day: 'numeric', year: 'numeric' });
+
 function calendarDate(date: Date): string {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: publicationTimeZone(date),

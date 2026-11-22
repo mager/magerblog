@@ -1,46 +1,25 @@
 ---
 import type { FeedEntry } from '../lib/feed';
 import TimelineEntry from './home/TimelineEntry.astro';
-import Universe from './home/Universe.astro';
-import SolarMap from './home/SolarMap.astro';
-import SkyExplorer from './home/SkyExplorer.astro';
-import { publicationTimeZone } from '../lib/publication-date';
 
 interface Props { entries: FeedEntry[]; }
 const { entries } = Astro.props;
-const skyDate = new Date();
-const latest = entries[0]?.data.pubDate;
-const oldest = entries.at(-1)?.data.pubDate;
-const year = (date: Date) => date.toLocaleString('en-US', { year: 'numeric', timeZone: publicationTimeZone(date) });
-const span = latest && oldest ? [...new Set([year(oldest), year(latest)])].join(' — ') : '';
 ---
-<section class="time-opening" aria-labelledby="timeline-title">
-  <Universe date={skyDate} />
-  <div class="time-intro">
-    <h1 id="timeline-title">Timeline<span class="time-title-star" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 32 32"><path fill="currentColor" d="m16 0 3.2 11.4 9.3-5.3-5.7 9.2L32 17l-10.3 3 5.2 8.4-8.3-5.5L16 32l-2.6-10.8L3 26.8l6.8-9.2L0 15.5l11-3.1-5.1-8.7 8.2 6.6Z"/></svg></span></h1>
-    <p>Scroll back through my writing, recipes, and photos.<br class="time-wide-break" /> The sky moves with each post’s date.</p>
-    <div class="time-range">
-      <svg width="17" height="17" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><ellipse cx="12" cy="12" rx="11" ry="3.1" transform="rotate(-30 12 12)"/></svg>
-      {span && <span>{span}</span>}<span class="range-dot" aria-hidden="true"></span><span>{entries.length} posts</span>
-    </div>
-  </div>
-  <button type="button" class="time-hero-explore" data-explore-sky aria-label="Explore the sky from Earth" title="Explore the sky from Earth" aria-haspopup="dialog" aria-controls="sky-explorer" hidden>
-    <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7V3h4m6 0h4v4M3 13v4h4m6 0h4v-4"/><circle cx="10" cy="10" r="2"/></svg>
-  </button>
-</section>
-
 <div class="time-layout" data-simple-list data-timeline>
   <section class="time-feed" aria-labelledby="simple-posts-heading">
     <div class="time-feed-head">
-      <h2 id="simple-posts-heading" data-default-heading="Flight log">Flight log</h2>
+      <h1 id="simple-posts-heading" class="sr-only" data-default-heading="Latest posts">Latest posts</h1>
       <span data-simple-count class="sr-only">{entries.length} posts</span>
       <div class="simple-controls" hidden>
         <div role="search" class="time-search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
-          <input id="simple-query" type="search" aria-label="Search all posts" placeholder="Search the timeline" autocomplete="off" maxlength="200" />
+          <input id="simple-query" type="search" aria-label="Search all posts" placeholder="Search posts" autocomplete="off" maxlength="200" />
           <button type="button" data-simple-clear hidden>Clear</button>
         </div>
       </div>
+      <button type="button" class="time-motion" data-space-motion-toggle aria-label="Pause motion" title="Pause motion" hidden>
+        <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path class="pause-icon" d="M5 3v10m6-10v10"/><path class="play-icon" d="m4.5 3 7 5-7 5Z"/></svg>
+      </button>
     </div>
     <div class="time-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
     <ol class="time-path" id="simple-list">{entries.map((entry, i) => <TimelineEntry entry={entry} first={i === 0} />)}</ol>
@@ -49,16 +28,7 @@ const span = latest && oldest ? [...new Set([year(oldest), year(latest)])].join(
     {entries.length === 0 && <p>No posts yet.</p>}
     <nav class="time-archives" aria-label="More from mager.co"><a href="/notes/">Notes archive</a><a href="/links/">Shared links</a><a href="https://bio.link/mager">Find me elsewhere ↗</a></nav>
   </section>
-  {latest && <aside class="time-observatory" aria-label="Sky at the selected date">
-    <div class="time-instrument"><SolarMap date={skyDate} /></div>
-    <button type="button" class="time-motion" data-space-motion-toggle hidden>
-      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path class="pause-icon" d="M5 3v10m6-10v10"/><path class="play-icon" d="m4.5 3 7 5-7 5Z"/></svg>
-      <span>Pause motion</span>
-    </button>
-  </aside>}
 </div>
-
-{latest && <SkyExplorer date={skyDate} />}
 <script>
   import '../scripts/simple-home';
   import '../scripts/timeline';

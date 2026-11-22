@@ -1,5 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import Earth from '../components/home/Earth.astro';
+import FlightSky from '../components/home/FlightSky.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SimpleHome from '../components/SimpleHome.astro';
@@ -7,6 +9,7 @@ import { getFeed } from '../lib/feed';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/timeline.css';
 const entries = await getFeed();
+const skyDate = new Date();
 const ogImage = entries.find(entry => entry.collection === 'blog' && entry.data.heroImage);
 ---
 <!doctype html>
@@ -14,7 +17,10 @@ const ogImage = entries.find(entry => entry.collection === 'blog' && entry.data.
   <head><BaseHead defaultTheme="dark" title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage?.collection === 'blog' ? ogImage.data.heroImage : undefined} /></head>
   <body class="publication time-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header homepage themeToggle />
+    <FlightSky date={skyDate} />
+    <Header homepage themeToggle>
+      <div slot="after-wordmark" class="home-earth"><Earth date={skyDate} /></div>
+    </Header>
     <main id="main-content" class="time-shell"><SimpleHome entries={entries} /></main>
     <Footer homepage />
   </body>

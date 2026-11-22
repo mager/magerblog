@@ -1,0 +1,79 @@
+---
+import EarthGlobe from './EarthGlobe.astro';
+
+interface Props { date: Date; }
+const { date } = Astro.props;
+---
+<figure class="universe-earth">
+  <div class="earth-scene">
+    <div class="earth-disc"><EarthGlobe date={date} /></div>
+    <svg class="survey-track" viewBox="0 0 440 210" fill="none" aria-hidden="true" preserveAspectRatio="none">
+      <path d="M105 140C52 164 19 191 33 200C52 212 125 190 181 163" stroke="currentColor" stroke-dasharray="2 5" />
+    </svg>
+    <svg class="survey-satellite" aria-hidden="true" viewBox="0 0 84 50" fill="none" shape-rendering="crispEdges">
+      <defs>
+        <g id="probe-panel">
+          <rect x="-1" y="-1" width="24" height="13" fill="#26243b" />
+          <rect width="22" height="11" fill="#718bb2" />
+          {[0, 1, 2].map(column => [0, 1].map(row => <rect x={column * 7 + 1} y={row * 5 + 1} width="6" height="4" fill={row ? '#293c65' : '#3a5381'} />))}
+          <path d="M0 0h22M0 0v11" stroke="#c4cbd6" stroke-width=".7" />
+        </g>
+      </defs>
+      <path d="m22 33 40-12" stroke="#1c1c31" stroke-width="3" />
+      <path d="m22 32 40-12" stroke="#dfb26c" stroke-width="1.5" />
+      <use href="#probe-panel" transform="matrix(.95 -.27 .55 1 1 34)" />
+      <use href="#probe-panel" transform="matrix(.95 -.27 .55 1 56 18)" />
+      <path d="m32 22 15-5 7 10v11l-16 6-7-8Z" fill="#151b2e" stroke="#1c2033" stroke-width="2" />
+      <path d="m32 22 15-5 7 10-16 5Z" fill="#f5c77e" />
+      <path d="m32 22 6 10v12l-7-8Z" fill="#9e7349" />
+      <path d="m38 32 16-5v11l-16 6Z" fill="#373848" />
+      <path d="m40 33 11-4v2l-11 4Z" fill="#c9914d" />
+      <path d="m39 29-6-10 3-1 6 10Z" fill="#fff0ce" />
+      <path d="m38 24-7-11" stroke="#242338" stroke-width="3.5" />
+      <path d="m37 23-7-11" stroke="#e5cb91" stroke-width="1.7" />
+      <path d="m23 13 18-7-3 7-8 5Z" fill="#cba06c" stroke="#26243b" stroke-width="1.6" />
+      <path d="m22 12 18-7-3 6-8 5Z" fill="#f8e3b4" />
+      <path d="m27 7 3 5" stroke="#fff4d7" stroke-width="1.5" />
+    </svg>
+  </div>
+  <figcaption>Earth <span aria-hidden="true">/</span> <time data-earth-clock datetime={date.toISOString()} title={date.toUTCString()}>{date.toISOString().slice(11, 16)} UTC</time></figcaption>
+</figure>
+
+<style>
+  .universe-earth {
+    display: grid; width: min(100%, 300px); justify-items: center; flex: none;
+    gap: 4px; margin: 0; pointer-events: none;
+  }
+  .earth-scene { position: relative; width: 100%; aspect-ratio: 1; }
+  .earth-disc { position: absolute; inset: 0 0 auto auto; width: 95%; }
+  .survey-track {
+    position: absolute; width: 90%; height: 76%; left: -4%; top: 9%;
+    color: var(--space-accent); opacity: .5;
+  }
+  .survey-satellite {
+    position: absolute; left: 2%; top: 70%; width: 22%;
+    height: auto; filter: drop-shadow(1px 2px 1px rgb(8 9 20 / .5));
+  }
+  figcaption {
+    color: var(--space-soft); font: 500 12px/1.5 var(--space-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  figcaption span { color: var(--space-faint); margin-inline: 4px; }
+  @media (max-width: 760px) {
+    .universe-earth { position: relative; width: 48px; height: 44px; gap: 0; }
+    .earth-scene { width: 48px; height: 44px; }
+    .earth-disc { width: 44px; }
+    .survey-track { display: none; }
+    .survey-satellite { width: 14px; left: 0; top: 67%; }
+    figcaption {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .survey-satellite { animation: survey-drift 12s ease-in-out infinite alternate; }
+    :global(html[data-space-motion='paused']) .survey-satellite { animation-play-state: paused; }
+  }
+  @keyframes survey-drift { from { transform: translate(0, 0) rotate(-2deg); } to { transform: translate(3%, -6%) rotate(2deg); } }
+  @media print { .universe-earth { display: none; } }
+</style>

@@ -20,6 +20,7 @@ const active = (href: string) => activeSection ? activeSection === href : curren
 <header class:list={['site-header', { 'on-paper': homepage }]}>
   <div class="header-shell">
     <a class="wordmark" href="/" aria-label="mager.co home">mager<span>.</span>co</a>
+    <slot name="after-wordmark" />
     <nav class="header-sections" aria-label="Main navigation">
       {sections.map(section => <a class:list={{ active: active(section.href) }} href={section.href} aria-current={current(section.href) ? 'page' : undefined}>{section.name}</a>)}
     </nav>

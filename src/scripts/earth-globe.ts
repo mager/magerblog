@@ -15,10 +15,17 @@ export function initEarthGlobe(globe: HTMLElement) {
 
   function render() {
     frame = 0;
+    if (!texture || !visible || document.hidden) return;
+    const width = globe.clientWidth;
+    if (!width) return;
+    const size = Math.min(320, Math.ceil(width * Math.min(window.devicePixelRatio || 1, 2)));
     const minute = Math.floor(date.valueOf() / 60000);
-    if (!texture || !visible || document.hidden || lastMinute === minute) return;
+    if (canvas.width === size && lastMinute === minute) return;
     lastMinute = minute;
-    const size = canvas.width;
+    if (canvas.width !== size) {
+      canvas.width = size;
+      canvas.height = size;
+    }
     const pixels = drawEarth(date, size, { width: texture.width, height: texture.height, pixels: texture.data });
     context!.putImageData(new ImageData(pixels, size, size), 0, 0);
     still.alt = `Earth's sunlit hemisphere at ${date.toISOString().slice(0, 16).replace('T', ' ')} UTC`;
@@ -35,6 +42,7 @@ export function initEarthGlobe(globe: HTMLElement) {
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); }).observe(globe);
   }
+  new ResizeObserver(schedule).observe(globe);
   document.addEventListener('visibilitychange', schedule);
 
   const map = new Image();

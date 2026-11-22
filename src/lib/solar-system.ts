@@ -11,34 +11,31 @@ interface Orbit {
   rates: Elements;
   axis: number; // Semi-major axis in AU and its rate in AU per Julian century.
   axisRate: number;
-  radius: number; // Compressed display distance in SVG units.
-  size: number;
-  color: string;
 }
 
 const orbits: Orbit[] = [
-  { name: 'Mercury', axis: 0.38709927, axisRate: 0.00000037, radius: 21, size: 2.4, color: '#c8bdbd',
+  { name: 'Mercury', axis: 0.38709927, axisRate: 0.00000037,
     elements: [0.20563593, 7.00497902, 252.25032350, 77.45779628, 48.33076593],
     rates: [0.00001906, -0.00594749, 149472.67411175, 0.16047689, -0.12534081] },
-  { name: 'Venus', axis: 0.72333566, axisRate: 0.00000390, radius: 35, size: 3.2, color: '#eed6a1',
+  { name: 'Venus', axis: 0.72333566, axisRate: 0.00000390,
     elements: [0.00677672, 3.39467605, 181.97909950, 131.60246718, 76.67984255],
     rates: [-0.00004107, -0.00078890, 58517.81538729, 0.00268329, -0.27769418] },
-  { name: 'Earth', axis: 1.00000261, axisRate: 0.00000562, radius: 49, size: 3.9, color: '#83dfc3',
+  { name: 'Earth', axis: 1.00000261, axisRate: 0.00000562,
     elements: [0.01671123, -0.00001531, 100.46457166, 102.93768193, 0],
     rates: [-0.00004392, -0.01294668, 35999.37244981, 0.32327364, 0] },
-  { name: 'Mars', axis: 1.52371034, axisRate: 0.00001847, radius: 64, size: 3, color: '#ed9c80',
+  { name: 'Mars', axis: 1.52371034, axisRate: 0.00001847,
     elements: [0.09339410, 1.84969142, -4.55343205, -23.94362959, 49.55953891],
     rates: [0.00007882, -0.00813131, 19140.30268499, 0.44441088, -0.29257343] },
-  { name: 'Jupiter', axis: 5.20288700, axisRate: -0.00011607, radius: 88, size: 6.4, color: '#d7b49c',
+  { name: 'Jupiter', axis: 5.20288700, axisRate: -0.00011607,
     elements: [0.04838624, 1.30439695, 34.39644051, 14.72847983, 100.47390909],
     rates: [-0.00013253, -0.00183714, 3034.74612775, 0.21252668, 0.20469106] },
-  { name: 'Saturn', axis: 9.53667594, axisRate: -0.00125060, radius: 116, size: 5.1, color: '#f1d597',
+  { name: 'Saturn', axis: 9.53667594, axisRate: -0.00125060,
     elements: [0.05386179, 2.48599187, 49.95424423, 92.59887831, 113.66242448],
     rates: [-0.00050991, 0.00193609, 1222.49362201, -0.41897216, -0.28867794] },
-  { name: 'Uranus', axis: 19.18916464, axisRate: -0.00196176, radius: 140, size: 4.3, color: '#9ad7e1',
+  { name: 'Uranus', axis: 19.18916464, axisRate: -0.00196176,
     elements: [0.04725744, 0.77263783, 313.23810451, 170.95427630, 74.01692503],
     rates: [-0.00004397, -0.00242939, 428.48202785, 0.40805281, 0.04240589] },
-  { name: 'Neptune', axis: 30.06992276, axisRate: 0.00026291, radius: 162, size: 4.1, color: '#8caef6',
+  { name: 'Neptune', axis: 30.06992276, axisRate: 0.00026291,
     elements: [0.00859048, 1.77004347, -55.12002969, 44.96476227, 131.78422574],
     rates: [0.00005105, 0.00035372, 218.45945325, -0.32241464, -0.00508664] },
 ];
@@ -46,8 +43,6 @@ const orbits: Orbit[] = [
 const rad = Math.PI / 180;
 const j2000 = Date.UTC(2000, 0, 1, 12);
 const century = 36525 * 86400000;
-export const orbitFlattening = 0.39;
-export const diagramTilt = -13;
 
 function coordinatesAt(orbit: Orbit, centuries: number) {
   const [e, inclination, longitude, perihelion, node] = orbit.elements.map(
@@ -78,7 +73,7 @@ function longitude(x: number, y: number) {
   return (Math.atan2(y, x) + 2 * Math.PI) % (2 * Math.PI);
 }
 
-// Earth-relative J2000 ecliptic coordinates in degrees and AU for the panorama.
+// Earth-relative J2000 ecliptic coordinates in degrees and AU for the timeline sky.
 export function skyBodiesAt(date: Date) {
   const centuries = (date.valueOf() - j2000) / century;
   const planets = orbits.map(orbit => ({ name: orbit.name, ...coordinatesAt(orbit, centuries) }));
@@ -92,21 +87,4 @@ export function skyBodiesAt(date: Date) {
       latitude: Math.atan2(z, Math.hypot(x, y)) / rad, distance: Math.hypot(x, y, z),
     };
   });
-}
-
-export function solarSystemAt(date: Date) {
-  const centuries = (date.valueOf() - j2000) / century;
-  const planets = orbits.map(orbit => {
-    const coordinates = coordinatesAt(orbit, centuries);
-    const angle = longitude(coordinates.x, coordinates.y);
-    return {
-      name: orbit.name, color: orbit.color, radius: orbit.radius, size: orbit.size,
-      longitude: angle / rad, x: orbit.radius * Math.cos(angle),
-      y: -orbit.radius * Math.sin(angle) * orbitFlattening,
-    };
-  });
-  // The camera follows a fraction of Earth's displacement. The Sun stays at
-  // the common origin of the orbits while the whole system moves in the frame.
-  const earth = planets[2];
-  return { planets, sun: { x: 190 - earth.x * 0.16, y: 91 - earth.y * 0.18 } };
 }

@@ -130,9 +130,11 @@ The shared archives use a 1080px shell with 24px gutters, reduced to 18px at 540
 
 ### Homepage timeline
 
-Only `/` uses the deep midnight sky, a shaded Earth globe, and a single vertical path. The surface defaults to dark and supports a saved light theme. Space Grotesk carries titles and descriptions, and JetBrains Mono carries publication dates. Type names accompany the colored markers. Each published entry appears once in the feed. Seen photos and screenshots have room to display the whole image. Shared link titles open the original source.
+On `/`, Search posts and the newest entry open the page. A screen-reader heading names Latest posts. Spacing and colored markers separate entries along a single vertical path. Each marker names the content type. Each published entry appears once. Seen photos and screenshots show the full image. Shared link titles open the original source. The star field defaults to dark and supports a saved light theme. Titles and descriptions use Space Grotesk. Publication dates use JetBrains Mono.
 
-At the top of the page, Earth’s rotation, daylight, and orbital position follow the current UTC minute. Further down, the post in the reading area sets the date for the globe, the solar map, and the Earth-based sky viewer. Scrolling loads older entries in batches of 24 without moving keyboard focus. Search and the manual load button stay available. Without JavaScript the page renders all entries and the initial solar map. The viewer supports touch, drag, arrow keys, and a planet finder. The reader can pause ambient motion. Reduced motion disables parallax, twinkling, and animated position changes. See `.impeccable/surfaces/src-pages-index-astro.md`.
+Earth and its satellite stay at the top as the reader scrolls. On desktop they sit to the right of the feed. On phones they sit beside the wordmark. The globe shows current daylight and UTC time at the top. Each post’s publication time sets Earth’s daylight as the post reaches the reading area. The caption then shows the same date as the post. Returning to the top restores current UTC time.
+
+Native scrolling drives travel through the star field. Fast scrolling makes nearby stars rush past the fixed globe. Reversing direction reverses their travel. Reduced motion keeps the stars still. Scrolling reveals older entries in batches of 24 and preserves keyboard focus. A button also loads older entries. Without JavaScript the initial Earth image and the full feed are available. See `.impeccable/surfaces/src-pages-index-astro.md`.
 
 ### Shared archives
 

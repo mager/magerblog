@@ -1,0 +1,54 @@
+---
+import { backdropBodiesAt, staticFlightPaths } from '../../scripts/universe';
+interface Props { date: Date; }
+const { date } = Astro.props;
+const bodies = backdropBodiesAt(date);
+const tints: Record<string, [number, string]> = {
+  Sun: [14, '#efc582'], Mercury: [6, '#c6bbba'], Venus: [9, '#e6c99b'], Mars: [7, '#db9677'],
+  Jupiter: [18, '#c9aa9b'], Saturn: [15, '#d9c7b0'], Uranus: [10, '#9ed8db'], Neptune: [9, '#8fa9d9'],
+};
+---
+<div class="flight-sky" aria-hidden="true" data-space-sky>
+  <div class="flight-field">
+    <svg class="flight-still" viewBox="0 0 1440 900" preserveAspectRatio="none" fill="none" stroke-linecap="round">
+      {staticFlightPaths().map((d, index) => <path d={d} stroke={`var(--flight-${index})`} stroke-width="1.3" vector-effect="non-scaling-stroke" />)}
+    </svg>
+    <canvas data-flight-canvas></canvas>
+  </div>
+  <div class="flight-planets">
+    {bodies.map(({name, x, y}) => <i data-sky-body={name} style={`--body-x:${x};--body-y:${y};--ink:${tints[name][1]};--diameter:${tints[name][0]}px`}></i>)}
+  </div>
+</div>
+<style>
+  .flight-sky {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+    --flight-0: #adb9ff; --flight-1: #9989e5; --flight-2: #dbe5fe; --flight-3: #8cc9e6; --flight-4: #e3ae93;
+    background: radial-gradient(ellipse at 74% 25%, rgb(75 62 136 / .15), transparent 50%);
+  }
+  .flight-field, .flight-planets, .flight-still, .flight-field canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .flight-field { mask-image: linear-gradient(90deg, #000, #000c 13%, #0007 22%, #0008 54%, #000c 68%, #000 88%); }
+  .flight-still { opacity: .72; }
+  .flight-sky[data-flight-ready] .flight-still { display: none; }
+  .flight-planets { opacity: .65; mask-image: radial-gradient(ellipse at 43% 54%, rgb(0 0 0 / .23) 20%, #000 80%); }
+  [data-sky-body] { position: absolute; inset: 0 auto auto 0; width: var(--diameter); height: var(--diameter); border-radius: 50%; transform: translate(var(--body-x),var(--body-y)); background: radial-gradient(circle at 27% 26%,var(--ink),#34334b 75%,#232337); }
+  [data-sky-body='Sun'] { background: radial-gradient(circle at 35% 35%, #fff2cc, #e2ab64); box-shadow: 0 0 15px #e9ad6c6e; }
+  [data-sky-body='Jupiter'] { background: radial-gradient(circle at 18% 23%, transparent 12%, #242237d9 84%), repeating-linear-gradient(170deg,#d9baa4 0 2px,#ab7c71 2px 4px,#d7b5a7 4px 6px); }
+  [data-sky-body='Saturn']::after { content:''; position:absolute; inset:32% -48%; border:1px solid #c5b8b1; border-bottom-width:2px; border-radius:50%; transform:rotate(-22deg); }
+  :global(html[data-theme='light']) .flight-sky {
+    --flight-0: #535d9c; --flight-1: #796597; --flight-2: #434d71; --flight-3: #477d90; --flight-4: #9a735e;
+    background: radial-gradient(ellipse at 74% 25%, rgb(122 113 169 / .08), transparent 50%);
+  }
+  @media (max-width: 600px) {
+    .flight-field { mask-image: linear-gradient(90deg, #000, #000a 10%, #0007 23%, #0007 67%, #000 99%); }
+    .flight-planets { opacity: .47; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-sky-body] { transition: transform 620ms cubic-bezier(.2,.7,.3,1); }
+    :global(html[data-space-motion='paused']) [data-sky-body] { transition: none; }
+  }
+  @media print { .flight-sky { display: none; } }
+</style>
+<script>
+  import { initUniverse } from '../../scripts/universe';
+  initUniverse();
+</script>

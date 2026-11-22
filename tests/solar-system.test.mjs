@@ -1,27 +1,23 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { skyBodiesAt, solarSystemAt } from '../src/lib/solar-system.ts';
+import { skyBodiesAt } from '../src/lib/solar-system.ts';
 
-test('the March 2000 equinox places Earth opposite the Sun on the two maps', () => {
+test('the Sun crosses the ecliptic origin at the March 2000 equinox', () => {
   const date = new Date('2000-03-20T07:35:00Z');
-  const earth = solarSystemAt(date).planets.find(planet => planet.name === 'Earth');
   const sun = skyBodiesAt(date).find(planet => planet.name === 'Sun');
-  assert(Math.abs(earth.longitude - 180) < 0.1);
   assert(Math.min(sun.longitude, 360 - sun.longitude) < 0.1);
   assert(Math.abs(sun.latitude) < 0.01);
   assert(sun.distance > 0.98 && sun.distance < 1.02);
 });
 
-test('rewinding the publication date moves all planets and the Sun in the frame', () => {
-  const newest = solarSystemAt(new Date('2026-11-21'));
-  const earlier = solarSystemAt(new Date('2017-08-21'));
-  assert.equal(newest.planets.length, 8);
-  assert.notDeepEqual(newest.sun, earlier.sun);
-  for (const [index, planet] of newest.planets.entries()) {
-    assert.equal(planet.name, earlier.planets[index].name);
-    assert.notEqual(planet.longitude, earlier.planets[index].longitude);
+test('rewinding the publication date moves the planets and the Sun against the stars', () => {
+  const newest = skyBodiesAt(new Date('2026-11-21'));
+  const earlier = skyBodiesAt(new Date('2017-08-21'));
+  for (const [index, body] of newest.entries()) {
+    assert.equal(body.name, earlier[index].name);
+    assert.notEqual(body.longitude, earlier[index].longitude);
   }
-  assert.deepEqual(newest, solarSystemAt(new Date('2026-11-21')));
+  assert.deepEqual(newest, skyBodiesAt(new Date('2026-11-21')));
 });
 
 test('the sky has eight Earth-relative bodies including the Sun and excludes the observer', () => {

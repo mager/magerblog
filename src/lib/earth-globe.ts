@@ -25,11 +25,38 @@ interface Texture {
 // This ordered pattern gives the globe a fine print texture at any device scale.
 const dither = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 
+// Latitude, longitude offset, depth and limb scattering stay fixed as Earth
+// turns beneath the camera. Retain just the current display size.
+let previousProjection: { size: number; samples: Float32Array } | undefined;
+function sphereProjection(size: number) {
+  if (previousProjection?.size === size) return previousProjection.samples;
+  const samples = new Float32Array(size * size * 4);
+  const radius = size * .474;
+  const north = Math.sin(19 * rad), forward = Math.cos(19 * rad);
+  for (let row = 0; row < size; row++) {
+    const y = (size / 2 - row - .5) / radius;
+    for (let col = 0; col < size; col++) {
+      const x = (col + .5 - size / 2) / radius;
+      const r2 = x * x + y * y;
+      if (r2 > 1) continue;
+      const z = Math.sqrt(1 - r2);
+      const offset = (row * size + col) * 4;
+      samples[offset] = z;
+      samples[offset + 1] = Math.atan2(x, z * forward - y * north) / turn;
+      samples[offset + 2] = .5 - Math.asin(y * forward + z * north) / Math.PI;
+      samples[offset + 3] = Math.pow(1 - z, 3.6);
+    }
+  }
+  previousProjection = { size, samples };
+  return samples;
+}
+
 export function drawEarth(date: Date, size: number, texture: Texture) {
   const result = new Uint8ClampedArray(size * size * 4);
+  const projection = sphereProjection(size);
   const sun = subsolarPoint(date);
   // Observe from 54° east of solar noon to keep both the lit face and dusk in view.
-  const viewLongitude = (sun.longitude + 54) * rad;
+  const textureOrigin = (sun.longitude + 54) / 360 + 1.5;
   const viewLatitude = 19 * rad;
   const north = Math.sin(viewLatitude), forward = Math.cos(viewLatitude);
   const sunLatitude = sun.latitude * rad, sunRelativeLongitude = -54 * rad;
@@ -51,16 +78,14 @@ export function drawEarth(date: Date, size: number, texture: Texture) {
         result.set([107, 199, 253, Math.round(165 * alpha)], index);
         continue;
       }
-      const z = Math.sqrt(1 - r2);
-      const latitude = Math.asin(y * forward + z * north);
-      const longitude = viewLongitude + Math.atan2(x, z * forward - y * north);
-      const u = Math.floor(((longitude / turn + 1.5) % 1) * texture.width);
-      const v = Math.min(texture.height - 1, Math.floor((.5 - latitude / Math.PI) * texture.height));
+      const z = projection[index];
+      const u = Math.floor(((textureOrigin + projection[index + 1]) % 1) * texture.width);
+      const v = Math.min(texture.height - 1, Math.floor(projection[index + 2] * texture.height));
       const sample = (v * texture.width + u) * 4;
       const incidence = x * sunX + y * sunY + z * sunZ;
       const day = Math.max(0, incidence);
       const shade = .095 + Math.pow(day, .48) * .98;
-      const air = Math.pow(1 - z, 3.6) * (.15 + .85 * Math.max(0, .38 + incidence));
+      const air = projection[index + 3] * (.15 + .85 * Math.max(0, .38 + incidence));
       const dusk = Math.max(0, 1 - Math.abs(incidence + .005) / .09) * .55;
       const grain = dither[(row % 4) * 4 + col % 4] / 15 - .5;
       const stipple = day * .45 + .55;

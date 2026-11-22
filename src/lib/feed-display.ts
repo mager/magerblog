@@ -1,5 +1,5 @@
 import { type FeedEntry, entryTitle } from './feed';
-import { publicationTimeZone } from './publication-date';
+export { entryDate } from './publication-date';
 
 export const entryImage = (entry: FeedEntry) => entry.collection === 'blog'
   ? entry.data.heroImage || entry.body?.match(/!\[[^\]]*\]\((https?:\/\/[^\s)]+)(?:\s+"[^"]*")?\)/)?.[1]
@@ -14,4 +14,3 @@ export function entryDescription(entry: FeedEntry): string {
 }
 
 export const entryCategory = (entry: FeedEntry) => entry.collection === 'blog' ? entry.data.category || 'tech' : entry.collection;
-export const entryDate = (date: Date) => date.toLocaleDateString('en-US', { timeZone: publicationTimeZone(date), month: 'short', day: 'numeric', year: 'numeric' });
