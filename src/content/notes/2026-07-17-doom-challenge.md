@@ -2,8 +2,6 @@
 title: "mager-bench: the doom challenge"
 description: "Adding a playable raycasting challenge to mager-bench, where the output can speak for itself."
 pubDate: "2026-07-17"
-link: "https://bench.mager.co"
-linkText: "bench.mager.co"
 tags: ["AI", "benchmarks", "evals", "LLM", "WebGL", "JavaScript", "Doom"]
 category: tech
 ---
@@ -18,4 +16,4 @@ I grew up playing Doom. The technical core — casting rays through a 2D grid to
 
 The gap is instant and obvious. That's the benchmark.
 
-All challenges are on [GitHub](https://github.com/mager/mager-bench).
+All challenges are on GitHub.

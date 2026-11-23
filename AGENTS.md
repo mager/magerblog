@@ -103,7 +103,7 @@ The site organizes content into three categories, each with distinct visual them
 
 - `BaseHead.astro`: SEO meta tags and Open Graph data
 - `Header.astro`: The sticky header always shows the home wordmark and direct links in this order: Writing, Software, Tech, Cooking, Life, Seen. Notes and Links remain secondary destinations in the shared sidebar, not main navigation items. Search is an icon button with an accessible name; theme selection is separate. There is no Browse panel, layout toggle, or wordmark reveal script. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling navigation below. Links have a minimum height of 44px and remain reachable through native keyboard navigation.
-- `Footer.astro`: The single global fixed footer, with the Chicago credit and utility links: About, Bench, and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. The shared sidebar has a Find me elsewhere link to bio.link/mager.
+- `Footer.astro`: The single global fixed footer, with the Chicago credit and links to About and RSS. The header’s Writing link opens the archive. Do not add page-specific site footers or duplicate header destinations here. The shared sidebar has a Find me elsewhere link to bio.link/mager.
 - `PostRow.astro`: Shared dated list row with an optional thumbnail. Link-share titles open the source directly. `SimpleList.astro` adds filtering, search, the optional latest-post feature, and progressive loading; behavior lives in `src/scripts/simple-home.ts`, with styling in `src/styles/simple.css`.
 - `SimpleSidebar.astro`: Shows up to four newest shared links. On Writing and Tech, the sidebar shows the two newest note previews. Empty sections are omitted. The sidebar follows the list at 700px and below.
 - `Card.astro`: Blog post card for remaining grid layouts
@@ -219,6 +219,6 @@ as `heroImage` or in inline markdown images. Requires `.env.local` with
 
 - The site uses Astro's content loader API with `glob()` loader
 - All pages are statically generated at build time
-- The homepage has no benchmark widget or live benchmark request. Bench remains a footer link.
+- The homepage has no benchmark widget or live benchmark request.
 - Hero images are external URLs (Vercel Blob for new posts; Google Photos links in older posts)
 - Tech articles and notes use a compact shared header and footer; an optional hero image follows the title without a full-screen placeholder.

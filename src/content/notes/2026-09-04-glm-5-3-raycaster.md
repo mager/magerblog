@@ -2,13 +2,11 @@
 title: "GLM 5.3 vs. my raycaster, or: the benchmark fought back"
 description: "A GLM 5.3 benchmark run became an investigation into the harness, the judge, and missing results."
 pubDate: "2026-09-04"
-link: "https://bench.mager.co"
-linkText: "bench.mager.co"
 category: tech
 tags: ["AI", "benchmarks", "evals", "LLM", "agents", "Zhipu", "Vercel"]
 ---
 
-I put GLM 5.3 on [mager-bench](https://github.com/mager/mager-bench) today — Zhipu's flagship coder, run two ways (direct Z.ai key, plus Vercel AI Gateway routing). First pass: 11 of 13 challenges scored, averaging **7.8**. The current board leader is GPT-OSS 120B at 6.4. Fizzbuzz 9.7, refactor 9.3, readme-writer 9.0.
+I put GLM 5.3 on mager-bench today — Zhipu's flagship coder, run two ways (direct Z.ai key, plus Vercel AI Gateway routing). First pass: 11 of 13 challenges scored, averaging **7.8**. The current board leader is GPT-OSS 120B at 6.4. Fizzbuzz 9.7, refactor 9.3, readme-writer 9.0.
 
 Those numbers are preliminary — they're not on the board yet, and the story of why is more interesting than the numbers.
 
@@ -31,7 +29,7 @@ The run never finished cleanly. The sandbox held the only copy of the 11 scored 
 - Direct Z.ai provider plus gateway fallback routing: one `AI_GATEWAY_API_KEY` now stands in for any missing family key, with unified billing visible under AI Gateway Logs/Usage.
 - Spend guards, learned from a $0.90 window where 55% was the judge: `--dry-run` (mandatory before paid runs), `--thinking-budget`, `--reasoning-effort`, `--thinking-headroom`, `--judge-max-tokens`, `--gateway-timeout`.
 - The harness moved to opencode: `/bench` is canonical, with the Claude skill mirroring it.
-- [bench.mager.co](https://bench.mager.co) redeployed with all of the above.
+- I redeployed the benchmark site with these changes.
 
 ## Final status: 12/13, calling it done
 

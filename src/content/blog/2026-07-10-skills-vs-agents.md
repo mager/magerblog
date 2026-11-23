@@ -104,7 +104,7 @@ The minimal setup for subagents is a markdown file with frontmatter. In Claude C
 
 You don't need a framework for this. You need clear interfaces between the agents — what goes in, what comes out, and what counts as done.
 
-[Claude's Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, [mager-bench](https://github.com/mager/mager-bench) and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
+[Claude's Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) handles the plumbing for multi-agent sessions: managed handoffs, shared context where needed, tool permissions scoped per agent. For reference architectures, mager-bench and [claude-voice](https://github.com/mager/claude-voice) are minimal examples of single agents with clear task definitions and bounded tool access.
 
 The complexity scales from one file to a directory of Agents without breaking the mental model. The concepts stay the same; only the number of moving parts grows.
 

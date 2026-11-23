@@ -28,7 +28,9 @@ test('notes have a compact dedicated layout while keeping the complete body and 
   assert.equal(page.querySelector('.reading-dek, .reading-progress, .reading-contents'), null);
   assert(page.querySelectorAll('.note-prose p').length > 1);
   assert(page.querySelector('.note-prose pre code'));
-  assert.equal(page.querySelector('.note-source').href, 'https://bench.mager.co/');
+  assert.equal(page.querySelector('.note-source'), null);
+  const linkedNote = html('notes/2026-06-26-skill-evals/index.html');
+  assert.equal(linkedNote.querySelector('.note-source').href, 'https://github.com/mager/skill-evals');
   assert(page.querySelector('.note-meta time'));
 
 });

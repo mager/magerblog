@@ -2,13 +2,11 @@
 title: "mager-bench: free models, thinking-token bugs, and traces"
 description: "Free models join the board, with a closer look at token accounting and run traces."
 pubDate: "2026-07-18"
-link: "https://bench.mager.co"
-linkText: "bench.mager.co"
 category: tech
 tags: ["AI", "benchmarks", "evals", "observability", "Llama", "Gemini"]
 ---
 
-Quick update on [mager-bench](https://github.com/mager/mager-bench). Three things happened today: the leaderboard got its first free models, two real eval-engineering bugs surfaced and got fixed, and every run is now traced end to end.
+Quick update on mager-bench. Three things happened today: the leaderboard got its first free models, two real eval-engineering bugs surfaced and got fixed, and every run is now traced end to end.
 
 ## Free models on the board
 
@@ -41,6 +39,6 @@ The free models hang surprisingly close to the paid ones on bread-and-butter tas
 
 ## Traces
 
-Every bench run is now instrumented with Arize AX via OpenTelemetry/OpenInference: one CHAIN span per model×challenge with the scores attached as metadata, auto-instrumented Anthropic and OpenAI calls nested underneath, and each result row stores its trace_id. Run detail pages on [the dashboard](https://mager-bench-web.vercel.app) deep-link straight to the trace in Arize, so when a score looks wrong I can open the exact conversation that produced it.
+Every bench run is now instrumented with Arize AX via OpenTelemetry/OpenInference: one CHAIN span per model×challenge with the scores attached as metadata, auto-instrumented Anthropic and OpenAI calls nested underneath, and each result row stores its trace_id. Run detail pages on the dashboard deep-link straight to the trace in Arize, so when a score looks wrong I can open the exact conversation that produced it.
 
 That's the loop I wanted: benchmarks are effectively free now if you're willing to debug thinking-token budgets, and observability is what closes the loop when the numbers look off.

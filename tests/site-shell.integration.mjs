@@ -8,6 +8,13 @@ test('every public page uses one shared header and footer with unique navigation
   let checked = 0;
   for (const file of readdirSync(root, {recursive:true}).filter(file => file.endsWith('.html'))) {
     const doc = new JSDOM(readFileSync(new URL(file,root),'utf8')).window.document;
+    for (const link of doc.querySelectorAll('a[href*="bench" i]')) {
+      const url = new URL(link.getAttribute('href'), 'https://mager.co/');
+      const host = url.hostname.replace(/^www\./, '');
+      const projectLink = ['bench.mager.co', 'mager-bench-web.vercel.app'].includes(host)
+        || (host === 'github.com' && /^\/mager\/mager-bench(?:\.git)?(?:\/|$)/i.test(url.pathname));
+      assert(!projectLink, `Retired Bench project link in ${file}: ${url.href}`);
+    }
     if (!doc.querySelector('.site-header')) continue; // Astro redirects have no site chrome.
     checked++;
     assert.equal(doc.querySelectorAll('.site-header').length,1,file);

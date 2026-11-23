@@ -13,7 +13,7 @@ The homepage uses Experience mode. Readers can find a post by date or search acr
 
 **Reading order.** Search posts appears above the newest entry. Use Latest posts as the screen-reader heading. Give the first screen to the posts and their images.
 
-**Appearance.** A deep midnight star field surrounds a single vertical path. Preserve photo colors. Use a short name and color for each content type. Dates and space between entries mark the passage of time.
+**Appearance.** A deep midnight star field surrounds a single vertical path. Place a small category symbol on the path beside each post and keep the text label. Keep search close to the navigation and the first post. Article and recipe thumbnails sit beside their titles. Seen entries show the full photo or screenshot.
 
 **Earth.** The globe and satellite stay in view as the reader scrolls. Place them to the right of the feed on desktop and beside the wordmark on phones. At the top, the clock shows current UTC time. Coastlines stay fixed as daylight moves across North America. Use recorded publication times wherever available. For a date-only post, label the view as noon in Chicago on its written date. Returning to the top restores the clock.
 

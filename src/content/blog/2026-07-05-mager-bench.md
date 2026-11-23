@@ -9,7 +9,7 @@ tags: ["tech", "ai", "benchmarks", "python", "claude"]
 
 Simon Willison has a benchmark he runs on every new model: ask it to draw a pelican riding a bicycle as an SVG. He compares the actual drawings side by side. It sounds absurd. The point isn't the pelican — it's that he runs the same prompt himself every time, and over enough models and months, the variation tells him something real about what changed and what got better. You don't need a giant eval suite to have opinions about models. You just need something consistent.
 
-[mager-bench](https://github.com/mager/mager-bench) is the coding equivalent. Five tasks I actually care about, run against any combination of models, scored on three dimensions. When a new model drops, I run `python bench.py` and immediately see where it stands.
+mager-bench is the coding equivalent. Five tasks I actually care about, run against any combination of models, scored on three dimensions. When a new model drops, I run `python bench.py` and immediately see where it stands.
 
 ---
 
@@ -107,10 +107,10 @@ This isn't a published leaderboard. It's a personal tool. The goal is to have a 
 
 The pelican test works because Simon runs it himself. That's the whole thing. mager-bench is the same idea: a small set of opinions made executable.
 
-The repo is at [github.com/mager/mager-bench](https://github.com/mager/mager-bench) — v0.1, Python, MIT license.
+I released v0.1 as a Python project under the MIT license.
 
 ---
 
 ## Live results
 
-I also put the results somewhere you don't need to clone anything to see: [bench.mager.co](https://bench.mager.co/). It reads the same JSON `bench.py` writes out, ranks models by average score, and breaks each one down by challenge and by correctness/quality/documentation. There's a JSON endpoint behind it too, if you'd rather pull the numbers than look at the table.
+I also put the results on a dashboard so you don't need to clone anything to see them. It reads the same JSON `bench.py` writes out, ranks models by average score, and breaks each one down by challenge and by correctness/quality/documentation. There's a JSON endpoint behind it too, if you'd rather pull the numbers than look at the table.

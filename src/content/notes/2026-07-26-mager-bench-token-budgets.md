@@ -2,13 +2,11 @@
 title: "mager-bench: the benchmark was measuring my token budget"
 description: "Adding another model exposed a problem with what my benchmark was actually measuring."
 pubDate: "2026-07-26"
-link: "https://bench.mager.co"
-linkText: "bench.mager.co"
 category: tech
 tags: ["AI", "benchmarks", "evals", "LLM", "Groq", "open weights"]
 ---
 
-I added a fifth model to [mager-bench](https://github.com/mager/mager-bench) today and found a bug in the benchmark itself. The bug is more interesting than the model.
+I added a fifth model to mager-bench today and found a bug in the benchmark itself. The bug is more interesting than the model.
 
 ## The new model
 

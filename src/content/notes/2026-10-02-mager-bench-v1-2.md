@@ -2,13 +2,11 @@
 title: "mager-bench 1.2: useful code, fast runs"
 description: "Three everyday coding tasks with difficult edge cases, 36 exact checks, and the lowest supported reasoning effort."
 pubDate: "2026-10-02T18:33:51-05:00"
-link: "https://bench.mager.co/"
-linkText: "Explore mager-bench 1.2"
 category: tech
 tags: ["AI", "benchmarks", "evals", "JavaScript"]
 ---
 
-I rebuilt [mager-bench](https://bench.mager.co/) because I was having trouble explaining my own benchmark. Counterexample Lab asked models to write tests that exposed deliberately broken ledger implementations. I wanted something I could understand by looking at an input and the answer it should produce. The site also had too much language getting in the way of the results.
+I rebuilt mager-bench because I was having trouble explaining my own benchmark. Counterexample Lab asked models to write tests that exposed deliberately broken ledger implementations. I wanted something I could understand by looking at an input and the answer it should produce. The site also had too much language getting in the way of the results.
 
 Version 1.2 asks each model to write three JavaScript programs:
 
@@ -22,6 +20,6 @@ Each program gets twelve fixed checks, for **36 checks total**. The returned val
 
 Speed is a requirement. Every eval uses the **lowest reasoning effort the model supports**, selected automatically from the local Codex catalog. There are at most three generation calls, a 90-second deadline per call, and no automatic retries. Each local code check has a 100-millisecond CPU limit. Those are limits, not a claim that every model will finish in the same time.
 
-I tried GPT-6 Sol first, through my ChatGPT subscription. The CLI rejected it as unsupported for this account before it returned any code. The [attempt is saved and unscored](https://bench.mager.co/attempts/2026-10-02-gpt-6-sol-r1); I haven't substituted another model.
+I tried GPT-6 Sol first, through my ChatGPT subscription. The CLI rejected it as unsupported for this account before it returned any code. The attempt is saved and unscored; I haven't substituted another model.
 
-These are public tests of a small slice of JavaScript correctness, not a general model ranking. The [old results are archived](https://bench.mager.co/archive), and the [v1.2 protocol and source](https://github.com/mager/mager-bench/blob/main/docs/mager-bench-1.2.md) explain the scoring and limits.
+These are public tests of a small slice of JavaScript correctness, not a general model ranking. The old results are archived, and the v1.2 protocol and source explain the scoring and limits.

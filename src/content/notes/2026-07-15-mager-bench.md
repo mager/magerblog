@@ -2,13 +2,11 @@
 title: "mager-bench"
 description: "New mager-bench challenges cover testing, debugging, async Python, and SQL."
 pubDate: "2026-07-15"
-link: "https://bench.mager.co"
-linkText: "bench.mager.co"
 tags: ["AI", "Python", "Go", "Elixir", "benchmarks", "evals", "LLM"]
 category: tech
 ---
 
-[mager-bench](https://bench.mager.co) expanded from 5 to 11 challenges. The four new ones cover territory the original set glossed over — testing discipline, debugging skill, async Python, and SQL fluency.
+mager-bench expanded from 5 to 11 challenges. The four new ones cover territory the original set glossed over — testing discipline, debugging skill, async Python, and SQL fluency.
 
 **test-writing** gives you a `parse_duration()` function and asks for a proper pytest suite using `@pytest.mark.parametrize` and `pytest.raises`. The interesting signal isn't whether models know pytest syntax — they all do — it's whether they parameterize across edge cases or just write three happy-path tests and call it done.
 
@@ -20,4 +18,4 @@ category: tech
 
 Two more just landed: **go-test** asks for a table-driven `WordCount` test file using `t.Run` subtests and a benchmark — the idiomatic Go testing pattern that most models know in theory but often write awkwardly. **elixir-test** asks for an ExUnit suite with `describe` blocks and `assert_raise`, including a unicode string case that trips up anything relying on byte counts instead of `String.length/1`.
 
-All eleven challenges are on [GitHub](https://github.com/mager/mager-bench).
+All eleven challenges are on GitHub.

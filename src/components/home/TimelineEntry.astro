@@ -18,7 +18,15 @@ const month = displayDate.toLocaleString('en-US', { month: 'short', timeZone });
 const day = displayDate.toLocaleString('en-US', { day: '2-digit', timeZone });
 const year = displayDate.toLocaleString('en-US', { year: 'numeric', timeZone });
 const category = entryCategory(entry);
-const labels: Record<string, string> = { food: 'Recipe', life: 'Life', tech: 'Tech', notes: 'Note', links: 'Link', seen: 'Seen' };
+const kinds: Record<string, { label: string; path: string }> = {
+  tech: { label: 'Tech', path: 'm5.4 4.2-3.7 3.8 3.7 3.8m5.2-7.6 3.7 3.8-3.7 3.8' },
+  food: { label: 'Recipe', path: 'M1.8 7.5h12.4a6.3 6.3 0 0 1-12.4 0ZM6 14h4M7.8 5.3c-2-1.7 1.7-2.1 0-3.7' },
+  life: { label: 'Life', path: 'M3.3 11.9C1.2 6.5 6.4 3 13.7 2.3c-.3 7.8-4.5 12.4-10.4 9.6Zm-.8 1.7 6.7-6.8' },
+  notes: { label: 'Note', path: 'M3.5 1.8h5.8l3.2 3.4v9h-9Zm5.7.4v3.4h3M6 9h4' },
+  links: { label: 'Link', path: 'm6.1 9.9 3.8-3.8m-3.3-.8 2.1-2.1a3 3 0 0 1 4.2 4.2l-2.1 2.1m-1.4 1.2-2.1 2.1a3 3 0 0 1-4.2-4.2l2.1-2.1' },
+  seen: { label: 'Seen', path: 'M1.7 5.1h3.1l1.2-2h4l1.2 2h3.1v7.8H1.7Zm8.6 3.6a2.3 2.3 0 1 1-4.6 0 2.3 2.3 0 1 1 4.6 0Z' },
+};
+const kind = kinds[category] ?? { label: category, path: 'M8 2.5 13.5 8 8 13.5 2.5 8Z' };
 const title = entryTitle(entry);
 const image = entryImage(entry);
 const alt = entry.collection === 'seen' ? entry.data.alt : entry.collection === 'blog' ? entry.data.heroImageAlt : '';
@@ -32,10 +40,12 @@ const preview = entryDescription(entry);
     <span>{month} {day}</span><span>{year}</span>
     <small class="time-earth-note">{calendarDay ? 'Earth at noon CT' : earthTimeInChicago(date)}</small>
   </time>
-  <span class="time-node" aria-hidden="true"></span>
+  <span class="time-node" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round" focusable="false"><path d={kind.path} /></svg>
+  </span>
   <a class="time-story" href={external ? entry.data.url : entryHref(entry)}>
     <div class="time-story-copy">
-      <div class="time-kind">{labels[category] ?? category}{meta && <span class="time-meta">{meta}</span>}</div>
+      <div class="time-kind">{kind.label}{meta && <span class="time-meta">{meta}</span>}</div>
       <h2><span class="simple-post-title">{title}</span>{external && <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="External link"><path d="M3 13 13 3M4 3h9v9" /></svg>}</h2>
       {preview && <p class="time-preview">{preview}</p>}
       <span class="simple-search-snippet" hidden></span>
