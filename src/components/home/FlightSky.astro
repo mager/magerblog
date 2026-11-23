@@ -44,7 +44,6 @@ const tints: Record<string, [number, string]> = {
   }
   @media (prefers-reduced-motion: no-preference) {
     [data-sky-body] { transition: transform 620ms cubic-bezier(.2,.7,.3,1); }
-    :global(html[data-space-motion='paused']) [data-sky-body] { transition: none; }
   }
   @media print { .flight-sky { display: none; } }
 </style>

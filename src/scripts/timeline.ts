@@ -7,25 +7,11 @@ if (timeline) {
   const list = timeline.querySelector<HTMLOListElement>('#simple-list')!;
   const header = document.querySelector<HTMLElement>('.site-header')!;
   const clock = document.querySelector<HTMLTimeElement>('[data-earth-clock]');
-  const controls = timeline.querySelector<HTMLButtonElement>('[data-space-motion-toggle]');
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let manuallyPaused = false;
   let rows: HTMLElement[] = [];
   let current: HTMLElement | undefined;
   let frame = 0;
   let liveMinute = -1;
   let clockTimer: number | undefined;
-
-  function syncMotion() {
-    document.documentElement.dataset.spaceMotion = reduceMotion.matches || manuallyPaused ? 'paused' : 'playing';
-    if (controls) {
-      controls.hidden = reduceMotion.matches;
-      const action = manuallyPaused ? 'Resume motion' : 'Pause motion';
-      controls.setAttribute('aria-label', action);
-      controls.title = action;
-    }
-    document.dispatchEvent(new Event('timeline:motion'));
-  }
 
   function stopClockTimer() {
     window.clearTimeout(clockTimer);
@@ -110,9 +96,6 @@ if (timeline) {
     if (!document.hidden) selectDate();
   });
   new ResizeObserver(schedule).observe(list);
-  controls?.addEventListener('click', () => { manuallyPaused = !manuallyPaused; syncMotion(); });
-  reduceMotion.addEventListener('change', syncMotion);
-  syncMotion();
   refresh();
   selectDate();
 

@@ -97,7 +97,6 @@ export function initUniverse() {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const paused = () => motion.matches || document.documentElement.dataset.spaceMotion === 'paused';
   const position = () => Math.max(0, window.scrollY) * .00135;
   const clouds = volume.slice(14, 30);
   const debris = volume.slice(40, 58);
@@ -168,7 +167,7 @@ export function initUniverse() {
   }
   function step(now: number) {
     frame = 0;
-    if (paused() || document.hidden) return;
+    if (motion.matches || document.hidden) return;
     const dt = Math.min(64, Math.max(1, now - previous)); previous = now;
     const gap = position() - travel;
     // History restoration and deep links select their position in one frame.
@@ -178,7 +177,7 @@ export function initUniverse() {
     frame = requestAnimationFrame(step);
   }
   function schedule() {
-    if (frame || paused() || document.hidden) return;
+    if (frame || motion.matches || document.hidden) return;
     previous = performance.now() - 16;
     frame = requestAnimationFrame(step);
   }
@@ -190,7 +189,7 @@ export function initUniverse() {
     paint(0);
   }
   function syncMotion() {
-    if (paused() || document.hidden) { cancelAnimationFrame(frame); frame = 0; }
+    if (motion.matches || document.hidden) { cancelAnimationFrame(frame); frame = 0; }
     else schedule();
   }
   new ResizeObserver(resize).observe(canvas);
@@ -199,7 +198,6 @@ export function initUniverse() {
     if (next !== light) { light = next; dust = dustTexture(light); paint(0); }
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   window.addEventListener('scroll', schedule, { passive: true });
-  document.addEventListener('timeline:motion', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
   motion.addEventListener('change', syncMotion);
   resize();

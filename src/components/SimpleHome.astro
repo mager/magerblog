@@ -7,19 +7,12 @@ const { entries } = Astro.props;
 ---
 <div class="time-layout" data-simple-list data-timeline>
   <section class="time-feed" aria-labelledby="simple-posts-heading">
-    <div class="time-feed-head">
-      <h1 id="simple-posts-heading" class="sr-only" data-default-heading="Latest posts">Latest posts</h1>
-      <span data-simple-count class="sr-only">{entries.length} posts</span>
-      <div class="simple-controls" hidden>
-        <div role="search" class="time-search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
-          <input id="simple-query" type="search" aria-label="Search all posts" placeholder="Search posts" autocomplete="off" maxlength="200" />
-          <button type="button" data-simple-clear hidden>Clear</button>
-        </div>
-      </div>
-      <button type="button" class="time-motion" data-space-motion-toggle aria-label="Pause motion" title="Pause motion" hidden>
-        <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path class="pause-icon" d="M5 3v10m6-10v10"/><path class="play-icon" d="m4.5 3 7 5-7 5Z"/></svg>
-      </button>
+    <h1 id="simple-posts-heading" class="sr-only" data-default-heading="Latest posts">Latest posts</h1>
+    <span data-simple-count class="sr-only">{entries.length} posts</span>
+    <div role="search" class="simple-controls time-search" hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <input id="simple-query" type="search" aria-label="Search all posts" placeholder="Search posts" autocomplete="off" maxlength="200" />
+      <button type="button" data-simple-clear hidden>Clear</button>
     </div>
     <div class="time-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
     <ol class="time-path" id="simple-list">{entries.map((entry, i) => <TimelineEntry entry={entry} first={i === 0} />)}</ol>
