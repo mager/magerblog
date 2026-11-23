@@ -70,6 +70,24 @@ test('Seen timeline entries display the published photos and screenshots with th
   dom.window.close();
 });
 
+test('timeline dates distinguish the authored instant from a date-only Earth view', () => {
+  const dom = setup(), doc = dom.window.document;
+  const note = doc.querySelector('[data-href="/notes/2026-11-21-sidework-plugin-v0-1/"]');
+  assert.equal(note.dataset.dateOnly, '2026-11-21');
+  assert.equal(note.dataset.iso, '2026-11-21T00:00:00.000Z');
+  assert.equal(note.querySelector('time').dateTime, '2026-11-21');
+  assert.equal(note.querySelector('time small').textContent, 'Earth at noon CT');
+
+  const screenshot = doc.querySelector('[data-href="/seen/2026-09-30-setting-up-my-dot/"]');
+  assert.equal(screenshot.hasAttribute('data-date-only'), false);
+  assert.equal(screenshot.dataset.iso, '2026-10-01T00:17:00.000Z');
+  const time = screenshot.querySelector('time');
+  assert.equal(time.dateTime, screenshot.dataset.iso);
+  assert.equal(time.getAttribute('aria-label'), 'Sep 30, 2026');
+  assert.equal(time.querySelector('small').textContent, '19:17 CDT');
+  dom.window.close();
+});
+
 test('homepage keeps full-text ranking, typos, clear, and progressive loading without category filters', async () => {
   let requests = 0;
   const dom = setup('index.html', async () => { requests++; return { ok: true, json: async () => data }; });

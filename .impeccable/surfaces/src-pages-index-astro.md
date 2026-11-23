@@ -15,7 +15,7 @@ The homepage uses Experience mode. Readers can find a post by date or search acr
 
 **Appearance.** A deep midnight star field surrounds a single vertical path. Preserve photo colors. Use a short name and color for each content type. Dates and space between entries mark the passage of time.
 
-**Earth.** The globe and satellite stay in view as the reader scrolls. Place them to the right of the feed on desktop and beside the wordmark on phones. At the top, the clock shows current UTC time. Each post in the reading area sets the date and daylight on Earth. Returning to the top restores the clock.
+**Earth.** The globe and satellite stay in view as the reader scrolls. Place them to the right of the feed on desktop and beside the wordmark on phones. At the top, the clock shows current UTC time. Coastlines stay fixed as daylight moves across North America. Use recorded publication times wherever available. For a date-only post, label the view as noon in Chicago on its written date. Returning to the top restores the clock.
 
 **Interaction.** Native scrolling sets the direction and speed of travel through the stars. Fast movement sends nearby stars past the reader. Reverse movement reverses their travel. Earth stays fixed, and reduced motion keeps the star field still. Preserve the older-posts button, keyboard access, and saved themes. Post links open the published content.
 

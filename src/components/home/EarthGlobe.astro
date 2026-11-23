@@ -2,17 +2,24 @@
 import { resolve } from 'node:path';
 import sharp from 'sharp';
 import { drawEarth } from '../../lib/earth-globe';
+import { earthDescription } from '../../lib/sky-date';
 
 interface Props { date: Date; }
 const { date } = Astro.props;
 const texturePath = '/images/timeline/earth-surface.webp';
-const { data, info } = await sharp(resolve('public', texturePath.slice(1))).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const lightPath = '/images/timeline/earth-lights.webp';
+const [surface, lights] = await Promise.all([
+  sharp(resolve('public', texturePath.slice(1))).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+  sharp(resolve('public', lightPath.slice(1))).greyscale().raw().toBuffer(),
+]);
 const size = 240;
-const pixels = drawEarth(date, size, { width: info.width, height: info.height, pixels: data });
+const pixels = drawEarth(date, size, {
+  width: surface.info.width, height: surface.info.height, pixels: surface.data, lights,
+});
 const still = await sharp(pixels, { raw: { width: size, height: size, channels: 4 } }).webp({ quality: 84 }).toBuffer();
 ---
-<div class="earth-globe" data-earth-globe data-texture={texturePath} data-date={date.toISOString()}>
-  <img width={size} height={size} alt={`Earth's sunlit hemisphere at ${date.toISOString().slice(0, 16).replace('T', ' ')} UTC`} src={`data:image/webp;base64,${still.toString('base64')}`} />
+<div class="earth-globe" data-earth-globe data-texture={texturePath} data-lights={lightPath} data-date={date.toISOString()}>
+  <img width={size} height={size} alt={earthDescription(date, 'live')} src={`data:image/webp;base64,${still.toString('base64')}`} />
   <canvas width="384" height="384" hidden aria-hidden="true"></canvas>
 </div>
 <style>

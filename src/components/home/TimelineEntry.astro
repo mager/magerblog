@@ -1,17 +1,22 @@
 ---
+import { readFile } from 'node:fs/promises';
 import { entryHref, entryTitle, type FeedEntry } from '../../lib/feed';
-import { entryCategory, entryDate, entryDescription, entryImage } from '../../lib/feed-display';
-import { publicationTimeZone } from '../../lib/publication-date';
+import { entryCategory, entryDescription, entryImage } from '../../lib/feed-display';
+import { authoredPublicationDay } from '../../lib/authored-publication-day.mjs';
+import { earthTimeInChicago } from '../../lib/sky-date';
 import { contentMeta } from '../../lib/content-meta';
 import { linkHost } from '../../lib/link-share';
 
 interface Props { entry: FeedEntry; first?: boolean; }
 const { entry, first } = Astro.props;
 const date = entry.data.pubDate;
-const tz = publicationTimeZone(date);
-const month = date.toLocaleString('en-US', { month: 'short', timeZone: tz });
-const day = date.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
-const year = date.toLocaleString('en-US', { year: 'numeric', timeZone: tz });
+if (!entry.filePath) throw new Error(`Missing source for ${entryHref(entry)}`);
+const calendarDay = authoredPublicationDay(await readFile(entry.filePath, 'utf8'));
+const timeZone = calendarDay ? 'UTC' : 'America/Chicago';
+const displayDate = calendarDay ? new Date(calendarDay) : date;
+const month = displayDate.toLocaleString('en-US', { month: 'short', timeZone });
+const day = displayDate.toLocaleString('en-US', { day: '2-digit', timeZone });
+const year = displayDate.toLocaleString('en-US', { year: 'numeric', timeZone });
 const category = entryCategory(entry);
 const labels: Record<string, string> = { food: 'Recipe', life: 'Life', tech: 'Tech', notes: 'Note', links: 'Link', seen: 'Seen' };
 const title = entryTitle(entry);
@@ -22,9 +27,10 @@ const meta = external ? linkHost(entry.data.url) : entry.collection === 'seen'
   ? (entry.data.mediaType === 'screenshot' ? 'Screenshot' : 'Photo') : contentMeta(entry);
 const preview = entryDescription(entry);
 ---
-<li class:list={['time-entry', { 'time-lead': first, 'time-visual': entry.collection === 'seen' }]} data-simple-row data-category={category} data-href={entryHref(entry)} data-iso={date.toISOString()}>
-  <time class="time-stamp" datetime={date.toISOString()} aria-label={entryDate(date)}>
+<li class:list={['time-entry', { 'time-lead': first, 'time-visual': entry.collection === 'seen' }]} data-simple-row data-category={category} data-href={entryHref(entry)} data-iso={date.toISOString()} data-date-only={calendarDay || undefined}>
+  <time class="time-stamp" datetime={calendarDay || date.toISOString()} aria-label={`${month} ${Number(day)}, ${year}`}>
     <span>{month} {day}</span><span>{year}</span>
+    <small class="time-earth-note">{calendarDay ? 'Earth at noon CT' : earthTimeInChicago(date)}</small>
   </time>
   <span class="time-node" aria-hidden="true"></span>
   <a class="time-story" href={external ? entry.data.url : entryHref(entry)}>

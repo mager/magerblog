@@ -1,5 +1,4 @@
-import { entryDate } from '../lib/publication-date';
-import { publishSkyDate } from '../lib/sky-date';
+import { chicagoNoon, earthCaption, earthDescription, publishSkyDate, type SkyTimeSource } from '../lib/sky-date';
 
 const timeline = document.querySelector<HTMLElement>('[data-timeline]');
 
@@ -18,14 +17,14 @@ if (timeline) {
     clockTimer = undefined;
   }
 
-  function updateSky(date: Date, live: boolean) {
+  function updateSky(date: Date, source: SkyTimeSource) {
     const iso = date.toISOString();
     if (clock) {
       clock.dateTime = iso;
-      clock.textContent = live ? iso.slice(11, 16) + ' UTC' : entryDate(date);
-      clock.title = date.toUTCString();
+      clock.textContent = earthCaption(date, source);
+      clock.title = source === 'noon' ? earthDescription(date, source) : date.toUTCString();
     }
-    publishSkyDate({ iso, live });
+    publishSkyDate({ iso, source });
   }
 
   function updateLiveClock() {
@@ -34,7 +33,7 @@ if (timeline) {
     const minute = Math.floor(now / 60000);
     if (minute !== liveMinute) {
       liveMinute = minute;
-      updateSky(new Date(now), true);
+      updateSky(new Date(now), 'live');
     }
     if (clockTimer === undefined) {
       clockTimer = window.setTimeout(() => {
@@ -45,7 +44,8 @@ if (timeline) {
   }
 
   function readingRow() {
-    if (!rows.length || window.scrollY <= 1) return;
+    if (!rows.length) return;
+    if (window.scrollY <= 1) return timeline!.hasAttribute('data-searching') ? rows[0] : undefined;
     const firstTop = rows[0].getBoundingClientRect().top;
     // The feed opens near the header. Even on a tall screen, enter history at
     // the newest post when the reader first scrolls.
@@ -72,7 +72,8 @@ if (timeline) {
         next.setAttribute('data-current', '');
         liveMinute = -1;
         stopClockTimer();
-        updateSky(new Date(next.dataset.iso!), false);
+        if (next.dataset.dateOnly) updateSky(chicagoNoon(next.dataset.dateOnly), 'noon');
+        else updateSky(new Date(next.dataset.iso!), 'published');
       }
     }
     if (!next) updateLiveClock();

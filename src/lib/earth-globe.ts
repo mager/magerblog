@@ -20,19 +20,36 @@ interface Texture {
   width: number;
   height: number;
   pixels: Uint8ClampedArray | Uint8Array;
+  // One observed night-light intensity byte per surface texel.
+  lights?: Uint8ClampedArray | Uint8Array;
 }
 
-// This ordered pattern gives the globe a fine print texture at any device scale.
-const dither = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+// North-up orthographic view of North America, close to Chicago. The map and
+// surface normals stay fixed; only the direction of the sunlight changes.
+const viewLatitude = 35 * rad;
+const viewLongitude = -90 * rad;
+const north = Math.sin(viewLatitude);
+const forward = Math.cos(viewLatitude);
 
-// Latitude, longitude offset, depth and limb scattering stay fixed as Earth
-// turns beneath the camera. Retain just the current display size.
-let previousProjection: { size: number; samples: Float32Array } | undefined;
-function sphereProjection(size: number) {
-  if (previousProjection?.size === size) return previousProjection.samples;
-  const samples = new Float32Array(size * size * 4);
+interface Projection {
+  size: number;
+  width: number;
+  height: number;
+  offsets: Uint32Array;
+  depth: Float32Array;
+  limb: Float32Array;
+}
+
+let previousProjection: Projection | undefined;
+function sphereProjection(size: number, width: number, height: number) {
+  if (previousProjection?.size === size && previousProjection.width === width && previousProjection.height === height) {
+    return previousProjection;
+  }
+  const count = size * size;
+  const offsets = new Uint32Array(count);
+  const depth = new Float32Array(count);
+  const limb = new Float32Array(count);
   const radius = size * .474;
-  const north = Math.sin(19 * rad), forward = Math.cos(19 * rad);
   for (let row = 0; row < size; row++) {
     const y = (size / 2 - row - .5) / radius;
     for (let col = 0; col < size; col++) {
@@ -40,58 +57,65 @@ function sphereProjection(size: number) {
       const r2 = x * x + y * y;
       if (r2 > 1) continue;
       const z = Math.sqrt(1 - r2);
-      const offset = (row * size + col) * 4;
-      samples[offset] = z;
-      samples[offset + 1] = Math.atan2(x, z * forward - y * north) / turn;
-      samples[offset + 2] = .5 - Math.asin(y * forward + z * north) / Math.PI;
-      samples[offset + 3] = Math.pow(1 - z, 3.6);
+      const longitude = viewLongitude + Math.atan2(x, z * forward - y * north);
+      const latitude = Math.asin(y * forward + z * north);
+      const u = Math.floor(((longitude / turn + 1.5) % 1) * width);
+      const v = Math.min(height - 1, Math.floor((.5 - latitude / Math.PI) * height));
+      const pixel = row * size + col;
+      offsets[pixel] = (v * width + u) * 4;
+      depth[pixel] = z;
+      limb[pixel] = Math.pow(1 - z, 3.6);
     }
   }
-  previousProjection = { size, samples };
-  return samples;
+  previousProjection = { size, width, height, offsets, depth, limb };
+  return previousProjection;
+}
+
+function smoothstep(low: number, high: number, value: number) {
+  const weight = Math.min(1, Math.max(0, (value - low) / (high - low)));
+  return weight * weight * (3 - 2 * weight);
 }
 
 export function drawEarth(date: Date, size: number, texture: Texture) {
   const result = new Uint8ClampedArray(size * size * 4);
-  const projection = sphereProjection(size);
+  const { offsets, depth, limb } = sphereProjection(size, texture.width, texture.height);
   const sun = subsolarPoint(date);
-  // Observe from 54° east of solar noon to keep both the lit face and dusk in view.
-  const textureOrigin = (sun.longitude + 54) / 360 + 1.5;
-  const viewLatitude = 19 * rad;
-  const north = Math.sin(viewLatitude), forward = Math.cos(viewLatitude);
-  const sunLatitude = sun.latitude * rad, sunRelativeLongitude = -54 * rad;
-  const sunX = Math.cos(sunLatitude) * Math.sin(sunRelativeLongitude);
-  const sunY = Math.sin(sunLatitude) * forward - Math.cos(sunLatitude) * Math.cos(sunRelativeLongitude) * north;
-  const sunZ = Math.sin(sunLatitude) * north + Math.cos(sunLatitude) * Math.cos(sunRelativeLongitude) * forward;
+  const latitude = sun.latitude * rad;
+  const delta = sun.longitude * rad - viewLongitude;
+  const sunX = Math.cos(latitude) * Math.sin(delta);
+  const sunY = Math.sin(latitude) * forward - Math.cos(latitude) * Math.cos(delta) * north;
+  const sunZ = Math.sin(latitude) * north + Math.cos(latitude) * Math.cos(delta) * forward;
   const radius = size * .474;
+  const nauticalTwilight = Math.sin(-12 * rad);
+  const civilTwilight = Math.sin(-6 * rad);
 
   for (let row = 0; row < size; row++) {
     const y = (size / 2 - row - .5) / radius;
     for (let col = 0; col < size; col++) {
       const x = (col + .5 - size / 2) / radius;
       const r2 = x * x + y * y;
-      const index = (row * size + col) * 4;
+      const pixel = row * size + col;
+      const index = pixel * 4;
+      const radialSun = x * sunX + y * sunY;
       if (r2 > 1) {
-        if (r2 >= 1.09) continue;
-        const rimLight = Math.max(0, .5 + .5 * (x * sunX + y * sunY));
-        const alpha = Math.exp(-(Math.sqrt(r2) - 1) * 115) * rimLight;
-        result.set([107, 199, 253, Math.round(165 * alpha)], index);
+        if (r2 >= 1.065) continue;
+        const rimLight = .055 + .945 * smoothstep(nauticalTwilight, .6, radialSun);
+        const alpha = Math.exp(-(Math.sqrt(r2) - 1) * 145) * rimLight;
+        result.set([119, 192, 238, Math.round(120 * alpha)], index);
         continue;
       }
-      const z = projection[index];
-      const u = Math.floor(((textureOrigin + projection[index + 1]) % 1) * texture.width);
-      const v = Math.min(texture.height - 1, Math.floor(projection[index + 2] * texture.height));
-      const sample = (v * texture.width + u) * 4;
-      const incidence = x * sunX + y * sunY + z * sunZ;
-      const day = Math.max(0, incidence);
-      const shade = .095 + Math.pow(day, .48) * .98;
-      const air = projection[index + 3] * (.15 + .85 * Math.max(0, .38 + incidence));
-      const dusk = Math.max(0, 1 - Math.abs(incidence + .005) / .09) * .55;
-      const grain = dither[(row % 4) * 4 + col % 4] / 15 - .5;
-      const stipple = day * .45 + .55;
-      result[index] = texture.pixels[sample] * shade + 5 + air * 79 + dusk * 8 + grain * 6 * stipple;
-      result[index + 1] = texture.pixels[sample + 1] * shade + 6 + air * 117 + dusk * 3 + grain * 8 * stipple;
-      result[index + 2] = texture.pixels[sample + 2] * shade + 16 + air * 155 + grain * 11 * stipple;
+      // The dot product is the sine of solar elevation at this surface point.
+      const elevation = radialSun + depth[pixel] * sunZ;
+      const sunlit = Math.sqrt(Math.max(0, elevation));
+      const twilight = smoothstep(nauticalTwilight, 0, elevation);
+      const shade = .07 + .14 * twilight + .83 * sunlit;
+      const air = limb[pixel] * (.055 + .33 * twilight + .56 * sunlit);
+      const sample = offsets[pixel];
+      const afterDark = 1 - smoothstep(civilTwilight, 0, elevation);
+      const lights = (texture.lights?.[sample / 4] ?? 0) * afterDark;
+      result[index] = texture.pixels[sample] * shade + 2 + air * 82 + lights;
+      result[index + 1] = texture.pixels[sample + 1] * shade + 4 + air * 123 + lights * .82;
+      result[index + 2] = texture.pixels[sample + 2] * shade + 9 + air * 159 + lights * .58;
       result[index + 3] = 255;
     }
   }

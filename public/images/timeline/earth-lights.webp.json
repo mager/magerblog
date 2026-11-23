@@ -1,0 +1,9 @@
+{
+  "title": "Earth at Night, 2016",
+  "source": "NASA Earth Observatory, Black Marble 2016 global grayscale map from the VIIRS day-night band on Suomi NPP",
+  "sourcePage": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+  "sourceImage": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/144000/144897/BlackMarble_2016_01deg_gray.jpg",
+  "sourceSha256": "4d2158f59123dadf0696a1cf8909c45018a1de8d0daab40da04122a5aa7f27c6",
+  "credit": "NASA Earth Observatory",
+  "treatment": "Resampled the 3600 by 1800 global grayscale map to 1280 by 640 and encoded it as WebP. The renderer tints the observed light intensity warm white and fades it out at dawn. The lights are a fixed 2016 reference for all timeline dates."
+}

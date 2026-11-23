@@ -97,6 +97,7 @@ html[data-theme='light'] .time-entry[data-category='seen'] { --type-color: #2469
 html[data-theme='light'] .time-entry[data-category='links'] { --type-color: #93466c; }
 .time-stamp { display: flex; flex-direction: column; gap: 2px; padding-top: 3px; color: var(--space-soft); text-transform: uppercase; font: 500 11px/1.5 var(--space-mono); font-variant-numeric: tabular-nums; }
 .time-stamp span + span { color: var(--space-faint); font-size: 10px; }
+.time-earth-note { display: none; }
 .time-node {
   position: absolute; left: var(--track); top: 11px; transform: translate(-50%, -50%);
   width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--space); background: var(--type-color);
@@ -138,6 +139,8 @@ html[data-theme='light'] .time-entry[data-category='links'] { --type-color: #934
   .time-page .header-sections { gap: 22px; }
 }
 @media (max-width: 760px) {
+  .time-earth-note { display: block; visibility: hidden; color: var(--space-faint); font: 400 11px/1.35 var(--space-sans); text-transform: none; }
+  .time-entry[data-current] .time-earth-note { visibility: visible; }
   .time-page .time-shell { max-width: calc(100% - 36px); }
   .time-page .header-shell { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; }
   .time-page .wordmark { grid-area: 1 / 1; }
