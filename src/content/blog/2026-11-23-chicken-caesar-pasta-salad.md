@@ -1,6 +1,8 @@
 ---
 title: "Chicken Caesar Pasta Salad"
 description: "Rotisserie chicken, romaine, fusilli, and shaved Parmesan tossed with Cindy's Kitchen Roasted Garlic Caesar dressing."
+heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-23-chicken-caesar-pasta-salad/hero.jpg"
+heroImageAlt: "A bowl of chicken Caesar pasta salad with fusilli, chopped romaine, pulled chicken, and wide shavings of Parmesan."
 pubDate: "2026-11-23"
 category: "food"
 subcategory: "pasta"
