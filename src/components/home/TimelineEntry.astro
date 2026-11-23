@@ -38,7 +38,7 @@ const preview = entryDescription(entry);
 <li class:list={['time-entry', { 'time-lead': first, 'time-visual': entry.collection === 'seen' }]} data-simple-row data-category={category} data-href={entryHref(entry)} data-iso={date.toISOString()} data-date-only={calendarDay || undefined}>
   <time class="time-stamp" datetime={calendarDay || date.toISOString()} aria-label={`${month} ${Number(day)}, ${year}`}>
     <span>{month} {day}</span><span>{year}</span>
-    <small class="time-earth-note">{calendarDay ? 'Earth at noon CT' : earthTimeInChicago(date)}</small>
+    <small class="time-earth-note">{calendarDay ? '' : earthTimeInChicago(date)}</small>
   </time>
   <span class="time-node" aria-hidden="true">
     <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round" focusable="false"><path d={kind.path} /></svg>

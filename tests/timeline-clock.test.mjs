@@ -14,7 +14,7 @@ function setup(height, postTops = [600, 760]) {
   const dom = new JSDOM(`
     <header class="site-header"></header><time data-earth-clock datetime="2008-01-01"></time>
     <main data-timeline><ol id="simple-list">
-    ${dates.map((iso, i) => `<li data-simple-row data-iso="${iso}" ${i === 0 ? 'data-date-only="2026-11-21"' : ''}></li>`).join('')}
+    ${dates.map((iso, i) => `<li data-simple-row data-iso="${iso}" ${i === 0 ? 'data-date-only="2026-11-21"' : ''}><small class="time-earth-note"></small></li>`).join('')}
     </ol></main>`, { pretendToBeVisual: true, runScripts: 'outside-only' });
   const w = dom.window;
   const doc = w.document;
@@ -74,8 +74,8 @@ test('the first scroll on a tall screen selects the newest post first', () => {
   const t = setup(1200, [180, 300]);
   assert.equal(t.events.at(-1).source, 'live');
   t.scroll(5);
-  assert.equal(t.events.at(-1).iso, '2026-11-21T18:00:00.000Z');
-  assert.equal(t.events.at(-1).source, 'noon');
+  assert.equal(t.events.at(-1).iso, '2026-11-22T00:59:48.456Z');
+  assert.equal(t.events.at(-1).source, 'day');
   assert.equal(t.rows[0].hasAttribute('data-current'), true);
   t.scroll(125);
   assert.equal(t.events.at(-1).iso, t.dates[1]);
@@ -89,13 +89,14 @@ for (const [layout, height] of [['portrait', 844], ['landscape', 390]]) {
     t.scroll(start - 1);
     assert.equal(t.events.at(-1).source, 'live');
     t.scroll(start);
-    assert.equal(t.clock.dateTime, '2026-11-21T18:00:00.000Z');
-    assert.equal(t.clock.textContent, 'Nov 21, 2026 · Noon view (Chicago)');
-    assert.match(t.clock.title, /only a date/);
+    assert.equal(t.clock.dateTime, '2026-11-22T00:59:48.456Z');
+    assert.equal(t.clock.textContent, 'Nov 21, 2026 · 18:59 CST');
+    assert.equal(t.rows[0].querySelector('small').textContent, '18:59 CST');
     assert.equal(t.rows[0].hasAttribute('data-current'), true);
-    assert.equal(t.timer(), undefined);
+    assert.equal(t.timer().delay, 11544);
     t.scroll(start + 160);
     assert.equal(t.clock.dateTime, t.dates[1]);
+    assert.equal(t.timer(), undefined);
     // This timestamp is October 1 in UTC, but the post was published on September 30 in Chicago.
     assert.equal(t.clock.textContent, 'Sep 30, 2026 · 19:17 CDT');
     assert.equal(t.clock.title, new Date(t.dates[1]).toUTCString());
@@ -114,10 +115,20 @@ for (const [layout, height] of [['portrait', 844], ['landscape', 390]]) {
   });
 }
 
-test('noon uses the archived Chicago offset on both DST transition dates', () => {
-  const t = setup(900);
-  assert.equal(t.w.eval("chicagoNoon('2026-03-08').toISOString()"), '2026-03-08T17:00:00.000Z');
-  assert.equal(t.w.eval("chicagoNoon('2026-11-01').toISOString()"), '2026-11-01T18:00:00.000Z');
+test('a date-only post follows the Chicago clock while selected and catches up on tab return', () => {
+  const t = setup(1200, [180, 300]);
+  t.scroll(5);
+  t.advance(11544);
+  t.timer().callback();
+  assert.equal(t.clock.textContent, 'Nov 21, 2026 · 19:00 CST');
+  assert.equal(t.rows[0].querySelector('small').textContent, '19:00 CST');
+  t.visibility(true);
+  assert.equal(t.timer(), undefined);
+  t.advance(6 * 3600000);
+  t.visibility(false);
+  assert.equal(t.clock.textContent, 'Nov 21, 2026 · 01:00 CST');
+  assert.equal(t.events.at(-1).source, 'day');
+  assert.equal(t.events.at(-1).iso, '2026-11-21T07:00:00.000Z');
   t.dom.window.close();
 });
 

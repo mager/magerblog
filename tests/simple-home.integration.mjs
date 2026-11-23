@@ -72,11 +72,15 @@ test('Seen timeline entries display the published photos and screenshots with th
 
 test('timeline dates distinguish the authored instant from a date-only Earth view', () => {
   const dom = setup(), doc = dom.window.document;
+  for (const row of doc.querySelectorAll('[data-simple-row]')) {
+    const labels = row.querySelectorAll('time > small.time-earth-note');
+    assert.equal(labels.length, 1, row.dataset.href);
+    if (row.hasAttribute('data-date-only')) assert.equal(labels[0].textContent, '', row.dataset.href);
+  }
   const note = doc.querySelector('[data-href="/notes/2026-11-21-sidework-plugin-v0-1/"]');
   assert.equal(note.dataset.dateOnly, '2026-11-21');
   assert.equal(note.dataset.iso, '2026-11-21T00:00:00.000Z');
   assert.equal(note.querySelector('time').dateTime, '2026-11-21');
-  assert.equal(note.querySelector('time small').textContent, 'Earth at noon CT');
 
   const screenshot = doc.querySelector('[data-href="/seen/2026-09-30-setting-up-my-dot/"]');
   assert.equal(screenshot.hasAttribute('data-date-only'), false);

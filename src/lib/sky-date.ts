@@ -1,8 +1,8 @@
-export type SkyTimeSource = 'live' | 'published' | 'noon';
+export type SkyTimeSource = 'live' | 'published' | 'day';
 export interface SkyDate { iso: string; source: SkyTimeSource }
 
 const chicago = 'America/Chicago';
-const chicagoHour = new Intl.DateTimeFormat('en-US', { timeZone: chicago, hour: '2-digit', hourCycle: 'h23' });
+const chicagoOffset = new Intl.DateTimeFormat('en-US', { timeZone: chicago, timeZoneName: 'longOffset' });
 const chicagoClock = new Intl.DateTimeFormat('en-US', {
   timeZone: chicago, hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZoneName: 'short',
 });
@@ -14,22 +14,42 @@ export function earthTimeInChicago(date: Date) {
   return chicagoClock.format(date);
 }
 
-// Chicago's DST change occurs before both UTC noon and local noon. Use the
-// offset on the archived day, independent of the reader's clock and time zone.
-export function chicagoNoon(day: string) {
-  const utcNoon = new Date(day + 'T12:00:00Z');
-  return new Date(utcNoon.valueOf() + (12 - Number(chicagoHour.format(utcNoon))) * 3_600_000);
+function offsetAt(instant: number) {
+  // Chicago is west of GMT. The IANA offset can include seconds for historical dates.
+  const zone = chicagoOffset.formatToParts(instant).find(part => part.type === 'timeZoneName')!.value;
+  const [hours, minutes, seconds = 0] = zone.slice(4).split(':').map(Number);
+  return -(hours * 3600 + minutes * 60 + seconds) * 1000;
+}
+
+export function chicagoTimeOnDay(day: string, now: Date): Date {
+  const currentOffset = offsetAt(now.getTime());
+  const localClock = new Date(now.getTime() + currentOffset).toISOString().slice(11);
+  // First express the desired wall-clock fields on a UTC scale, then apply
+  // the offsets in effect on either side of the archived Chicago day.
+  const wall = Date.parse(day + 'T' + localClock);
+  const oneDay = 86400000;
+  const before = offsetAt(wall - oneDay);
+  const after = offsetAt(wall + oneDay);
+  const first = wall - before;
+  if (before === after) return new Date(first);
+  const second = wall - after;
+  // In a repeated hour, use today's offset if possible, otherwise the first
+  // occurrence. In a skipped hour neither matches: the old offset advances
+  // the clock by the size of the gap.
+  if (offsetAt(second) === after && (offsetAt(first) !== before || currentOffset === after)) {
+    return new Date(second);
+  }
+  return new Date(first);
 }
 
 export function earthCaption(date: Date, source: SkyTimeSource) {
   if (source === 'live') return date.toISOString().slice(11, 16) + ' UTC';
-  const time = source === 'noon' ? 'Noon view (Chicago)' : earthTimeInChicago(date);
-  return chicagoDay.format(date) + ' · ' + time;
+  return chicagoDay.format(date) + ' · ' + earthTimeInChicago(date);
 }
 
 export function earthDescription(date: Date, source: SkyTimeSource) {
-  if (source === 'noon') return 'Daylight over North America at noon in Chicago on ' + chicagoDay.format(date) + '. This post records only a date.';
-  return 'Daylight over North America at ' + date.toISOString().slice(0, 16).replace('T', ' ') + ' UTC.';
+  if (source === 'day') return 'Earth viewed from above North America on ' + chicagoDay.format(date) + ', using the current Chicago time of day. This post records only a date.';
+  return 'Earth viewed from above North America at ' + date.toISOString().slice(0, 16).replace('T', ' ') + ' UTC.';
 }
 
 // Components can start in any order. Replay the last date to a late subscriber.

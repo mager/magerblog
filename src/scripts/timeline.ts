@@ -1,4 +1,4 @@
-import { chicagoNoon, earthCaption, earthDescription, publishSkyDate, type SkyTimeSource } from '../lib/sky-date';
+import { chicagoTimeOnDay, earthCaption, earthDescription, earthTimeInChicago, publishSkyDate, type SkyTimeSource } from '../lib/sky-date';
 
 const timeline = document.querySelector<HTMLElement>('[data-timeline]');
 
@@ -9,7 +9,7 @@ if (timeline) {
   let rows: HTMLElement[] = [];
   let current: HTMLElement | undefined;
   let frame = 0;
-  let liveMinute = -1;
+  let clockMinute = -1;
   let clockTimer: number | undefined;
 
   function stopClockTimer() {
@@ -22,18 +22,25 @@ if (timeline) {
     if (clock) {
       clock.dateTime = iso;
       clock.textContent = earthCaption(date, source);
-      clock.title = source === 'noon' ? earthDescription(date, source) : date.toUTCString();
+      clock.title = source === 'day' ? earthDescription(date, source) : date.toUTCString();
     }
     publishSkyDate({ iso, source });
   }
 
-  function updateLiveClock() {
-    if (document.hidden) return;
+  function updateClock() {
     const now = Date.now();
     const minute = Math.floor(now / 60000);
-    if (minute !== liveMinute) {
-      liveMinute = minute;
-      updateSky(new Date(now), 'live');
+    if (minute !== clockMinute) {
+      clockMinute = minute;
+      const day = current?.dataset.dateOnly;
+      if (day) {
+        const date = chicagoTimeOnDay(day, new Date(now));
+        const note = current?.querySelector<HTMLElement>('.time-earth-note');
+        if (note) note.textContent = earthTimeInChicago(date);
+        updateSky(date, 'day');
+      } else {
+        updateSky(new Date(now), 'live');
+      }
     }
     if (clockTimer === undefined) {
       clockTimer = window.setTimeout(() => {
@@ -68,15 +75,14 @@ if (timeline) {
     if (next !== current) {
       current?.removeAttribute('data-current');
       current = next;
-      if (next) {
-        next.setAttribute('data-current', '');
-        liveMinute = -1;
+      clockMinute = -1;
+      next?.setAttribute('data-current', '');
+      if (next && !next.dataset.dateOnly) {
         stopClockTimer();
-        if (next.dataset.dateOnly) updateSky(chicagoNoon(next.dataset.dateOnly), 'noon');
-        else updateSky(new Date(next.dataset.iso!), 'published');
+        updateSky(new Date(next.dataset.iso!), 'published');
       }
     }
-    if (!next) updateLiveClock();
+    if (!next || next.dataset.dateOnly) updateClock();
   }
 
   function schedule() {
