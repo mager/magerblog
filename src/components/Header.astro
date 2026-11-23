@@ -38,7 +38,7 @@ const active = (href: string) => activeSection ? activeSection === href : curren
   :global(.skip-link:focus) { transform: translateY(0); }
   .site-header { --header-accent: oklch(78% 0.09 230); --header-bg: #0d1117; --header-ink: #edece8; --header-muted: #a4a5aa; --header-rule: #292929; background: var(--header-bg); color: var(--header-ink); padding: 0 24px; position: sticky; top: 0; z-index: 30; border-bottom: 1px solid var(--header-rule); }
   .on-paper { --header-accent: var(--news-blue); --header-bg: var(--news-paper); --header-ink: var(--news-ink); --header-muted: var(--news-muted); --header-rule: var(--news-rule); }
-  .header-shell { display: flex; align-items: center; gap: 32px; max-width: 1320px; margin: auto; min-height: 64px; }
+  .header-shell { display: flex; align-items: center; gap: 32px; max-width: var(--site-chrome-max-width, 1320px); margin: auto; min-height: 64px; }
   .wordmark { flex-shrink: 0; color: var(--header-ink); font: 800 27px/1 var(--news-display); letter-spacing: -.04em; white-space: nowrap; }
   .wordmark:hover { color: var(--header-ink); opacity: .8; }
   .header-sections { display: flex; align-items: center; gap: 22px; min-width: 0; }

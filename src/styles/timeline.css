@@ -9,7 +9,6 @@ body.publication.time-page {
   --space-accent: #c3b4ff;
   --space-sans: var(--news-ui);
   --space-mono: var(--news-mono);
-  --space-width: 1184px;
   --text-primary: var(--space-ink);
   color-scheme: dark;
   background-color: var(--space);
@@ -41,13 +40,12 @@ html[data-theme='light']:has(.time-page) { scrollbar-color: #9289a7 #e5e4ef; }
   background: color-mix(in srgb, var(--space) 94%, transparent);
   border: 0;
 }
-.time-page .header-shell, .time-page .footer-shell { max-width: var(--space-width); }
 .time-page .header-shell { position: relative; min-height: 68px; gap: 46px; }
 .time-page .header-sections { gap: 25px; }
 .time-page .wordmark { color: var(--space-ink); }
 .time-page .footer-shell { min-height: 42px; }
 .time-page .footer-credit, .time-page .footer-links a { color: var(--space-faint); }
-.time-page .time-shell { width: var(--space-width); max-width: calc(100% - 64px); padding: 0; margin: 0 auto; }
+.time-page .time-shell { padding: 0; }
 .home-earth {
   position: absolute; top: calc(100% + clamp(28px, 6vh, 76px)); right: 0;
   width: min(27%, 300px, 45svh); pointer-events: none;
@@ -141,7 +139,6 @@ html[data-theme='light'] .time-entry[data-category='links'] { --type-color: #934
 @media (max-width: 760px) {
   .time-earth-note { display: block; visibility: hidden; color: var(--space-faint); font: 400 11px/1.35 var(--space-sans); text-transform: none; }
   .time-entry[data-current] .time-earth-note { visibility: visible; }
-  .time-page .time-shell { max-width: calc(100% - 36px); }
   .time-page .header-shell { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; }
   .time-page .wordmark { grid-area: 1 / 1; }
   .time-page .header-tools { grid-column: 3; }
@@ -174,12 +171,10 @@ html[data-theme='light'] .time-entry[data-category='links'] { --type-color: #934
   .time-more { margin-left: 24px; }
 }
 @media (max-width: 360px) {
-  .time-page .time-shell { max-width: calc(100% - 26px); }
   .time-story:has(.time-image:not([hidden])) { grid-template-columns: minmax(0, 1fr) 66px; }
   .time-image { width: 66px; height: 66px; }
 }
 @media print {
-  .time-page .time-shell { width: 100%; max-width: none; }
   .time-layout { width: 100%; max-width: none; }
   .time-search { display: none; }
   .time-page [data-simple-row][hidden] { display: grid !important; }

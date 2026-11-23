@@ -15,10 +15,10 @@ const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
 <!doctype html>
 <html lang="en">
   <head><BaseHead title={`${title} — mager.co`} description={description} /><script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} /></head>
-  <body class="publication simple-page">
+  <body class="publication simple-page site-list-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage themeToggle />
-    <main id="main-content" class="simple-shell simple-home">
+    <main id="main-content" class="site-content-shell simple-home">
       {!notes && <header class="simple-page-heading"><h1>{title}</h1><p>{description}</p></header>}
       <div class:list={['simple-columns', { 'without-sidebar': !sidebarEntries, 'notes-archive': notes }]}>
         <SimpleList entries={entries} presentation={presentation} featured={featured} filters={filters} filterBy={filterBy} videos={videos} searchLabel={`Search ${title.toLowerCase()}`} heading={featured ? 'More posts' : 'All posts'}>

@@ -1,7 +1,3 @@
-.simple-columns.without-sidebar.notes-archive {
-  max-width: none;
-}
-
 .notes-posts {
   --notes-date-column: clamp(7rem, 13vw, 9rem);
   --notes-inset: clamp(1.25rem, 4vw, 3rem);

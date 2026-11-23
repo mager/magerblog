@@ -24,8 +24,6 @@ const categoryColor: Record<string, string> = {
 		<BaseHead title={`Drafts - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			main {
-				width: min(780px, calc(100% - 2rem));
-				margin: 0 auto;
 				padding: 5rem 0 4rem;
 			}
 
@@ -163,9 +161,9 @@ const categoryColor: Record<string, string> = {
 			}
 		</style>
 	</head>
-	<body>
+	<body class="site-list-page">
 		<Header homepage={true} />
-		<main>
+		<main class="site-content-shell">
 			<div class="head">
 				<h1 class="title">drafts</h1>
 				<span class="count"><b>{posts.length}</b> in progress</span>

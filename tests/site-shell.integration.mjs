@@ -30,3 +30,25 @@ test('every public page uses one shared header and footer with unique navigation
   }
   assert(checked>100,'Expected to check all generated publication pages');
 });
+
+test('home and list routes opt into one shared content shell', () => {
+  const routes = {
+    'index.html': '.time-shell',
+    'blog/index.html': 'main',
+    'tech/index.html': 'main',
+    'life/index.html': '.life-heading, .cefalu-coast, .life-scene-caption, .life-content',
+    'cooking/index.html': 'main',
+    'seen/index.html': 'main',
+    'notes/index.html': 'main',
+    'links/index.html': 'main',
+    'software/index.html': 'main',
+    'drafts/index.html': 'main',
+  };
+  for (const [file, selector] of Object.entries(routes)) {
+    const doc = new JSDOM(readFileSync(new URL(file, root), 'utf8')).window.document;
+    for (const part of selector.split(', ')) {
+      assert(doc.querySelector(part)?.classList.contains('site-content-shell'), file + ': ' + part);
+    }
+    assert(doc.body.classList.contains('site-list-page'), file);
+  }
+});

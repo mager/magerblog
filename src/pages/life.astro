@@ -17,19 +17,19 @@ const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
     <BaseHead title="Life — mager.co" description={description} />
     <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
   </head>
-  <body class="publication simple-page life-page">
+  <body class="publication simple-page life-page site-list-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header homepage themeToggle />
     <main id="main-content">
       <header class="life-opening">
-        <div class="life-heading simple-shell">
+        <div class="life-heading site-content-shell">
           <h1>Life<span aria-hidden="true">.</span></h1>
           <p>{description}</p>
         </div>
         <CefaluCoast />
-        <div class="life-scene-caption simple-shell"><span>Cefalù, Sicily</span><span>A little closer to the sea.</span></div>
+        <div class="life-scene-caption site-content-shell"><span>Cefalù, Sicily</span><span>A little closer to the sea.</span></div>
       </header>
-      <div class="simple-shell simple-home life-content">
+      <div class="site-content-shell simple-home life-content">
         <SimpleList entries={entries} featured presentation="life" searchLabel="Search life" heading="More posts" />
       </div>
     </main>

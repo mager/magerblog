@@ -15,13 +15,13 @@ const ogImage = entries.find(entry => entry.collection === 'blog' && entry.data.
 <!doctype html>
 <html lang="en">
   <head><BaseHead defaultTheme="dark" title={SITE_TITLE} description={SITE_DESCRIPTION} image={ogImage?.collection === 'blog' ? ogImage.data.heroImage : undefined} /></head>
-  <body class="publication time-page">
+  <body class="publication time-page site-list-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <FlightSky date={skyDate} />
     <Header homepage themeToggle>
       <div slot="after-wordmark" class="home-earth"><Earth date={skyDate} /></div>
     </Header>
-    <main id="main-content" class="time-shell"><SimpleHome entries={entries} /></main>
+    <main id="main-content" class="time-shell site-content-shell"><SimpleHome entries={entries} /></main>
     <Footer homepage />
   </body>
 </html>

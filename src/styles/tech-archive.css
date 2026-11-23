@@ -8,8 +8,7 @@
   --news-blue: #2548d8;
 }
 html[data-theme="dark"] .tech-page { --news-blue: #97b8ff; }
-.tech-page .header-shell, .tech-page .footer-shell { width: 1240px; }
-.tech-main { width: 1240px; padding-top: 28px; }
+.tech-main { padding-top: 28px; }
 .tech-opening { display: grid; grid-template-columns: .8fr 1.2fr; min-width: 0; }
 .tech-intro { display: flex; flex-direction: column; align-items: start; padding: 32px 36px 24px; background: var(--tech-blue); color: white; }
 .tech-intro h1 { margin: 0 0 32px; color: inherit; font: 700 clamp(64px, 7vw, 96px)/.95 var(--news-ui); letter-spacing: -.04em; }

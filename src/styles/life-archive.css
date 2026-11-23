@@ -45,7 +45,7 @@ html[data-theme="dark"] .life-page {
 .life-heading h1 { margin: 0; color: var(--life-blue); font: 600 clamp(64px, 8vw, 96px)/.95 var(--news-display); letter-spacing: -.04em; }
 .life-heading h1 span { color: var(--news-red); }
 .life-heading p { max-width: 29ch; margin: 0 0 3px; color: var(--news-muted); font: 500 17px/1.6 var(--news-ui); }
-.cefalu-coast { width: 1080px; max-width: calc(100% - 48px); margin: 0 auto; position: relative; overflow: hidden; background: var(--coast-sky); }
+.cefalu-coast { position: relative; overflow: hidden; background: var(--coast-sky); }
 .cefalu-scene { display: block; width: 100%; height: auto; }
 .life-scene-caption { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; color: var(--news-muted); font: 500 12px/1.5 var(--news-ui); border-bottom: 1px solid var(--news-rule); }
 .life-content { padding-top: 12px; padding-bottom: 80px; }
@@ -98,7 +98,6 @@ html[data-theme="dark"] .life-page {
 @media (max-width: 540px) {
   .life-heading { align-items: center; gap: 18px; }
   .life-heading p { max-width: 20ch; }
-  .cefalu-coast { max-width: calc(100% - 36px); }
   .cefalu-scene { height: 180px; }
   .life-scene-caption { font-size: 11px; gap: 12px; }
   .life-posts .simple-controls { max-width: none; }

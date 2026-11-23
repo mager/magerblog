@@ -131,6 +131,31 @@ main {
 	flex: 1;
 }
 
+/* Home and list pages share a frame; detail pages keep their own reading widths. */
+.site-list-page {
+	--site-list-max-width: 1184px;
+	--site-list-gutter: 32px;
+	--site-chrome-max-width: var(--site-list-max-width);
+}
+
+.site-content-shell {
+	width: var(--site-list-max-width);
+	max-width: calc(100% - 2 * var(--site-list-gutter));
+	margin: 0 auto;
+}
+
+@media (max-width: 760px) {
+	.site-list-page { --site-list-gutter: 18px; }
+}
+
+@media (max-width: 360px) {
+	.site-list-page { --site-list-gutter: 13px; }
+}
+
+@media print {
+	.site-content-shell { width: 100%; max-width: none; }
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5rem 0;

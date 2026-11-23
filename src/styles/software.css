@@ -1,7 +1,7 @@
 /* The software directory uses a terminal palette within the shared site shell. */
 .software-terminal { --software-accent: var(--news-green); --software-panel: color-mix(in oklch, var(--news-green) 4%, var(--news-paper)); --software-chrome: color-mix(in oklch, var(--news-green) 8%, var(--news-paper)); --news-blue: var(--news-green); }
 html[data-theme="dark"] .software-terminal { --software-panel: color-mix(in oklch, var(--news-green) 10%, var(--news-paper)); --software-chrome: color-mix(in oklch, var(--news-green) 16%, var(--news-paper)); --news-blue: var(--news-green); }
-.software-page { width: 1200px; max-width: calc(100% - 48px); margin: 0 auto; padding: 40px 0 32px; font-family: var(--news-mono); }
+.software-page { padding: 40px 0 32px; font-family: var(--news-mono); }
 .software-kicker { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 26px; color: var(--news-muted); font: 500 12px/1.5 var(--news-mono); }
 .software-kicker span:first-child { color: var(--software-accent); }
 .software-intro h1 { margin: 0 0 24px; font: 500 clamp(40px, 6.5vw, 78px)/1.15 var(--news-mono); letter-spacing: -.065em; }
@@ -96,7 +96,7 @@ html[data-theme="dark"] .project-prxps { --project-accent: #d2ec82; }
 }
 @media (max-width: 900px) { .software-deck { align-items: start; flex-direction: column; gap: 12px; } .software-grid { gap: 20px; } .project-copy { padding-inline: 18px; } .project-visual { aspect-ratio: 2; } }
 @media (max-width: 680px) {
-  .software-page { max-width: calc(100% - 36px); padding-top: 28px; }
+  .software-page { padding-top: 28px; }
   .software-intro h1 { font-size: clamp(32px, 8.8vw, 58px); }
   .software-deck p { font-size: 13px; }
   .software-grid { grid-template-columns: minmax(0, 1fr); }
