@@ -25,6 +25,7 @@ I put this in the oven at 1:30 p.m. on Sunday for a 6 p.m. dinner. The prep is q
 ## Ingredients
 
 - 1 chuck roast, about 3 pounds
+- Avocado oil, for searing
 - Chopped thyme and rosemary, to taste
 - Salt and black pepper, to taste
 - Mini potatoes, left whole
@@ -40,7 +41,7 @@ I put this in the oven at 1:30 p.m. on Sunday for a 6 p.m. dinner. The prep is q
 
 ## Method
 
-1. **Sear the roast.** Preheat the oven to **300°F convection**. Heat a Dutch oven over medium-high heat. Sear the **3-pound chuck roast** until browned on both sides, then set it aside.
+1. **Sear the roast.** Preheat the oven to **300°F convection**. Heat a little **avocado oil** in a Dutch oven over medium-high heat. Sear the **3-pound chuck roast** until browned on both sides, then set it aside.
 2. **Sauté the vegetables.** In the same pot, sauté the **2 chopped yellow onions and 4 chunked carrots** until the onions start to soften. Stir in the **4 chopped garlic cloves and 2 tablespoons tomato paste** and cook briefly, stirring.
 3. **Deglaze and load the pot.** Pour in **14 fl oz (1¾ cups) beef bone broth** and scrape up the browned bits. Add the **whole mini potatoes**, then set the roast on top. Season with the **chopped thyme and rosemary, salt, and black pepper**.
 4. **Braise covered.** Put the lid on and cook at **300°F convection for about 4 hours**, until the roast is fork-tender.
