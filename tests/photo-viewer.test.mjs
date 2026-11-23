@@ -5,8 +5,8 @@ import { stripTypeScriptTypes } from 'node:module';
 import { JSDOM } from 'jsdom';
 
 const source = stripTypeScriptTypes(readFileSync(new URL('../src/scripts/photo-viewer.ts', import.meta.url), 'utf8'));
-function setup() {
-  const dom = new JSDOM(`<body style="position:relative"><article class="cooking-content"><img src="/preview.jpg" data-full-src="/original.jpg" alt="Tomatoes in four stages"><a href="/other"><img src="/linked.jpg" alt="Existing link"></a></article><recipe-photo-viewer><dialog id="photo-dialog"><button class="photo-viewer-close">Close photo</button><img class="photo-viewer-image" hidden><figcaption class="photo-viewer-caption"></figcaption><p class="photo-viewer-status" hidden></p><a class="photo-viewer-original" hidden>Original</a></dialog></recipe-photo-viewer></body>`, { url: 'https://mager.co/recipe/', runScripts: 'outside-only' });
+function setup(caption = "") {
+  const dom = new JSDOM(`<body style="position:relative"><article class="cooking-content"><figure><img src="/preview.jpg" data-full-src="/original.jpg" alt="Tomatoes in four stages">${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure><a href="/other"><img src="/linked.jpg" alt="Existing link"></a></article><recipe-photo-viewer><dialog id="photo-dialog"><button class="photo-viewer-close">Close photo</button><img class="photo-viewer-image" hidden><figcaption class="photo-viewer-caption"></figcaption><p class="photo-viewer-status" hidden></p><a class="photo-viewer-original" hidden>Original</a></dialog></recipe-photo-viewer></body>`, { url: 'https://mager.co/recipe/', runScripts: 'outside-only' });
   const w = dom.window;
   let opens = 0;
   let restored;
@@ -26,6 +26,7 @@ test('photo viewer opens the original asset, locks scrolling and restores focus 
   assert(dialog.open);
   assert.equal(image.src, 'https://mager.co/original.jpg');
   assert.equal(image.alt, 'Tomatoes in four stages');
+  assert.equal(d.querySelector('.photo-viewer-caption').textContent, 'Tomatoes in four stages');
   assert.equal(d.body.style.position, 'fixed');
   assert.equal(d.body.style.top, '-780px');
   assert.equal(d.documentElement.style.overflow, 'hidden');
@@ -90,5 +91,13 @@ test('Astro swaps and reconnects release the lock without duplicate triggers or 
   viewer.remove();
   assert.equal(d.body.style.position, 'relative');
   assert.equal(d.documentElement.style.overflow, '');
+  dom.window.close();
+});
+
+test('a recipe photo uses its authored caption without replacing its alt text', () => {
+  const { dom, d, image, trigger } = setup('Dinner in the works.');
+  trigger().click();
+  assert.equal(d.querySelector('.photo-viewer-caption').textContent, 'Dinner in the works.');
+  assert.equal(image.alt, 'Tomatoes in four stages');
   dom.window.close();
 });

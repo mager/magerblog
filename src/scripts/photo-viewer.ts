@@ -55,7 +55,7 @@ class RecipePhotoViewer extends HTMLElement {
         if (dialog.open) return;
         image.hidden = true;
         image.alt = photo.alt || 'Recipe photo';
-        caption.textContent = photo.alt;
+        caption.textContent = photo.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || photo.alt;
         status.textContent = 'Loading photo…';
         status.hidden = false;
         original.href = trigger.href;
