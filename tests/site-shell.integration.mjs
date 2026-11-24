@@ -25,13 +25,13 @@ test('every public page uses one shared header and footer with unique navigation
     const hrefs=[...doc.querySelectorAll('.site-header a, .site-footer a')].map(a=>a.getAttribute('href').replace(/\/$/,''));
     assert.equal(new Set(hrefs).size,hrefs.length,`Repeated site navigation on ${file}`);
     assert(doc.querySelector('.site-header .wordmark[href="/"]'),file);
-    assert.equal(doc.querySelectorAll('.header-sections > a').length,6,file);
-    assert(doc.querySelector('.header-sections > a[href="/blog/"]'),file);
-    assert(doc.querySelector('.header-sections > a[href="/software/"]'),file);
+    assert.equal(doc.querySelectorAll('.header-sections > a').length,5,file);
+    assert.equal(doc.querySelector('.header-sections > a[href="/blog/"]'),null,file);
+    assert.equal(doc.querySelector('.header-sections > a[href="/software/"]'),null,file);
     assert.equal(doc.querySelector('.header-browse'),null,file);
     assert.equal(doc.querySelector('[data-open-search]').getAttribute('aria-label'),'Search',file);
-    for(const section of ['tech','cooking','life','seen']) assert(doc.querySelector(`.header-sections > a[href="/${section}/"]`),file);
-    for(const section of ['notes','links']) assert.equal(doc.querySelector(`.header-sections > a[href="/${section}/"]`),null,file);
+    for(const section of ['tech','kitchen','life','seen','notes']) assert(doc.querySelector(`.header-sections > a[href="/${section}/"]`),file);
+    assert.equal(doc.querySelector('.header-sections > a[href="/links/"]'),null,file);
     assert(doc.querySelector('.site-footer a[href="/rss.xml"]'),file);
     assert.match(doc.querySelector('.site-footer').textContent,/Built with agents in Chicago/,file);
   }
@@ -44,7 +44,7 @@ test('home and list routes opt into one shared content shell', () => {
     'blog/index.html': 'main',
     'tech/index.html': 'main',
     'life/index.html': '.life-heading, .cefalu-coast, .life-scene-caption, .life-content',
-    'cooking/index.html': 'main',
+    'kitchen/index.html': 'main',
     'seen/index.html': 'main',
     'notes/index.html': 'main',
     'links/index.html': 'main',

@@ -12,14 +12,14 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 test('search ranks titles, finds body words in any order, and folds accents and punctuation', () => {
   const index = createSearchIndex([
-    entry('A trip', 'I ate café rice'), entry('Café rice', '', 'Cooking'), entry('Rice notes', 'cafe', 'Note'),
+    entry('A trip', 'I ate café rice'), entry('Café rice', '', 'Kitchen'), entry('Rice notes', 'cafe', 'Note'),
     entry('安全 🍚 مرحبا', '日本語'), entry('Mac-mini', 'keyboard'),
   ]);
   assert.equal(searchEntries(index, 'CAFE rice')[0].title, 'Café rice');
   assert.equal(searchEntries(index, 'rice cafe').length, 3);
   assert.equal(searchEntries(index, 'mac mini')[0].title, 'Mac-mini');
   assert.equal(searchEntries(index, '日本語')[0].title, '安全 🍚 مرحبا');
-  assert.equal(searchEntries(index, 'cooking')[0].title, 'Café rice');
+  assert.equal(searchEntries(index, 'kitchen')[0].title, 'Café rice');
   assert.equal(searchEntries(index, 'missing').length, 0);
   assert.equal(searchEntries(index, '  !!! ').length, 0);
 });

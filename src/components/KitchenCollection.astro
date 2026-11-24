@@ -1,0 +1,86 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { entryHref } from '../lib/feed';
+import { entryImage, entryDate } from '../lib/feed-display';
+import { contentMeta } from '../lib/content-meta';
+import { recipeCategoryIds, recipeCategoryLabels, recipeCategoryDescriptions } from '../lib/cooking';
+interface Props { entries: CollectionEntry<'blog'>[]; }
+const { entries } = Astro.props;
+const filters = recipeCategoryIds.map(id => ({ id, label: recipeCategoryLabels[id], count: entries.filter(entry => entry.data.recipeCategories?.includes(id)).length })).filter(filter => filter.count);
+const tagsFor = (entry: CollectionEntry<'blog'>) => [...new Set((entry.data.tags || []).map(tag => tag.trim().toLowerCase().replace(/\s+/g, '-')).filter(Boolean))];
+const tagCounts = new Map<string, number>();
+for (const entry of entries) for (const tag of tagsFor(entry)) tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+const tagLabel = (tag: string) => tag.replaceAll('-', ' ');
+const tags = [...tagCounts].sort(([left], [right]) => left.localeCompare(right));
+const shortcuts = ['weeknight', 'one-pot', 'comfort-food', 'italian', 'dutch-oven'].filter(tag => tagCounts.has(tag));
+const lead = entries[0];
+const leads = [...new Set([lead, ...filters.map(filter => entries.find(entry => entry.data.recipeCategories?.includes(filter.id)))].filter((entry): entry is CollectionEntry<'blog'> => !!entry))];
+---
+<section class="kitchen-collection" data-simple-list data-filter-by="recipe" data-item-name="recipe" data-kitchen-world="all" aria-label="Recipe collection">
+  <div class="simple-controls kitchen-controls" hidden>
+    <div class="kitchen-search-row">
+      <label class="kitchen-control-label" for="simple-query">What sounds good?</label>
+      <div class="simple-search" role="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+        <input id="simple-query" type="search" aria-label="What sounds good? Search recipes or ingredients" placeholder="Find a recipe, ingredient, or craving…" autocomplete="off" maxlength="200" />
+        <button type="button" data-simple-clear hidden>Clear</button>
+      </div>
+    </div>
+    <div class="kitchen-filters" role="group" aria-label="Recipe categories">
+      <button type="button" data-simple-filter="all" data-filter-label="All recipes" aria-pressed="true" aria-controls="kitchen-results">All recipes <span data-filter-count>{entries.length}</span></button>
+      {filters.map(filter => <button type="button" data-simple-filter={filter.id} data-filter-label={filter.label} data-filter-description={recipeCategoryDescriptions[filter.id]} aria-pressed="false" aria-controls="kitchen-results">{filter.label} <span data-filter-count>{filter.count}</span></button>)}
+    </div>
+    <div class="kitchen-tags">
+      <div class="kitchen-tag-select">
+        <label for="recipe-tag">Explore tags</label>
+        <select id="recipe-tag" data-simple-tag aria-controls="kitchen-results">
+          <option value="all">Any tag</option>
+          {tags.map(([tag, count]) => <option value={tag} data-tag-label={tagLabel(tag)}>{tagLabel(tag)} ({count})</option>)}
+        </select>
+        <button type="button" data-simple-clear-tag hidden>Clear tag</button>
+      </div>
+      <div class="kitchen-tag-shortcuts" role="group" aria-label="Popular recipe tags">
+        {shortcuts.map(tag => <button type="button" data-recipe-tag={tag} aria-pressed="false" aria-controls="kitchen-results"><span aria-hidden="true">#</span>{tagLabel(tag)}</button>)}
+      </div>
+    </div>
+    <div class="simple-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
+  </div>
+  <div id="kitchen-results">
+    <div class="kitchen-results-heading">
+      <div><h2 id="simple-posts-heading" data-default-heading="The recipe box">The recipe box</h2><p class="kitchen-world-description" data-kitchen-description hidden></p></div>
+      <div class="kitchen-results-tools"><p data-simple-count aria-live="polite" aria-atomic="true">{entries.length} recipes</p><button type="button" data-simple-reset hidden>Reset filters <span aria-hidden="true">↗</span></button></div>
+    </div>
+    <ul id="simple-list" class="kitchen-grid">
+      {leads.map(item => { const image = entryImage(item); return <li class="kitchen-feature-slot" data-simple-feature data-href={entryHref(item)} hidden={item !== lead}>
+        <article class:list={['kitchen-feature', { 'kitchen-feature-text': !image }]}>
+          {image && <a class="kitchen-feature-image" href={entryHref(item)} aria-label={`Read ${item.data.title}`}><img src={image} alt={item.data.heroImageAlt || ''} width="800" height="600" loading={item === lead ? 'eager' : 'lazy'} decoding="async" fetchpriority={item === lead ? 'high' : 'auto'} /></a>}
+          <div class="kitchen-feature-copy">
+            <span class="kitchen-eyebrow">Latest from the kitchen</span>
+            <h3><a href={entryHref(item)}>{item.data.title}</a></h3>
+            <p>{item.data.description}</p>
+            <div class="kitchen-recipe-meta">{contentMeta(item) && <span>{contentMeta(item)}</span>}{item.data.recipeYield && <span>{item.data.recipeYield}</span>}</div>
+            <div class="kitchen-feature-bottom"><a class="kitchen-read" href={entryHref(item)}>Cook this <span aria-hidden="true">↗</span></a><time datetime={(item.data.updatedDate || item.data.pubDate).toISOString()}>{item.data.updatedDate && 'Updated '}{entryDate(item.data.updatedDate || item.data.pubDate)}</time></div>
+          </div>
+        </article>
+      </li>; })}
+      {entries.map((entry, index) => { const image = entryImage(entry); const categories = entry.data.recipeCategories || []; return <li data-simple-row data-href={entryHref(entry)} data-category="food" data-recipe-categories={categories.join(' ')} data-recipe-tags={tagsFor(entry).join(' ')} hidden={entry === lead}>
+        <article class:list={['kitchen-card', { 'kitchen-card-text': !image }]}>
+          {image && <a class="kitchen-card-image" href={entryHref(entry)} tabindex="-1" aria-hidden="true"><img src={image} alt="" width="480" height="360" loading={index > 0 && index < 3 ? 'eager' : 'lazy'} decoding="async" /></a>}
+          <div class="kitchen-card-body">
+            <div class="kitchen-card-meta"><span>{categories[0] && recipeCategoryLabels[categories[0]]}</span>{contentMeta(entry) && <span>{contentMeta(entry)}</span>}</div>
+            <h3><a class="simple-post-title" href={entryHref(entry)}>{entry.data.title}</a></h3>
+            <p class="kitchen-card-description">{entry.data.description}</p>
+            <p class="simple-search-snippet" hidden></p>
+            <div class="kitchen-card-bottom"><time datetime={(entry.data.updatedDate || entry.data.pubDate).toISOString()}>{entry.data.updatedDate && 'Updated '}{entryDate(entry.data.updatedDate || entry.data.pubDate)}</time><span aria-hidden="true">↗</span></div>
+          </div>
+        </article>
+      </li>; })}
+    </ul>
+    <p class="simple-empty" data-simple-empty hidden>No recipes match these filters. Clear the tag or reset the filters to see more.</p>
+    <button class="simple-more" type="button" data-simple-more hidden>More from the kitchen <span aria-hidden="true">↓</span></button>
+    {entries.length === 0 && <p>No recipes yet.</p>}
+  </div>
+</section>
+<script>
+  import '../scripts/simple-home';
+</script>

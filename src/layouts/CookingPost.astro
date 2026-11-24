@@ -55,8 +55,8 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Cooking',
-      item: `${siteUrl}/cooking`
+      name: 'Kitchen',
+      item: `${siteUrl}/kitchen`
     },
     {
       '@type': 'ListItem',
@@ -85,11 +85,11 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
   </head>
   <body class="publication recipe-page" data-category="food">
     <a class="skip-link" href={recipe.hasIngredients ? '#ingredients' : '#recipe-content'}>Skip to recipe</a>
-    <Header homepage themeToggle activeSection="/cooking/" />
+    <Header homepage themeToggle activeSection="/kitchen/" />
     <main id="recipe-content" class="recipe-main">
       <header class:list={['recipe-opening', { 'has-photo': !!heroImage }]}>
         <div class="recipe-heading">
-          <a class="recipe-back" href="/cooking/">← All recipes</a>
+          <a class="recipe-back" href="/kitchen/">← All recipes</a>
           {draft && <p class="recipe-draft">Draft recipe</p>}
           <h1>{title}</h1>
           <p class="recipe-description">{description}</p>
@@ -109,7 +109,7 @@ const nextPost = currentIndex > 0 ? foodPosts[currentIndex - 1] : null;
           <button type="button" data-recipe-print hidden>Print</button>
         </div>
         {recipeCategories.length > 0 && <ul class="recipe-category-tags" aria-label="Recipe categories">
-          {recipeCategories.map(category => <li><a href={`/cooking/?type=${category}`}>{recipeCategoryLabels[category]}</a></li>)}
+          {recipeCategories.map(category => <li><a href={`/kitchen/?type=${category}`}>{recipeCategoryLabels[category]}</a></li>)}
         </ul>}
       </nav>
       <article class="cooking-content" set:html={recipe.html} />

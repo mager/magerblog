@@ -28,7 +28,7 @@ test('draft blog links open noindex previews and stay out of discovery', () => {
       const preview = new JSDOM(read(`dist/blog/${slug}/index.html`)).window.document;
       assert(preview.querySelector('h1'), file);
       assert.match(preview.querySelector('meta[name="robots"]').content, /noindex/, file);
-      for (const path of ['index.html', 'cooking/index.html', 'rss.xml', 'llms.txt', 'sitemap-0.xml']) {
+      for (const path of ['index.html', 'kitchen/index.html', 'rss.xml', 'llms.txt', 'sitemap-0.xml']) {
         assert(!read(`dist/${path}`).includes(`/blog/${slug}`), `${file} leaked into ${path}`);
       }
     }

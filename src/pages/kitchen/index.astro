@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import KitchenCollection from '../../components/KitchenCollection.astro';
+import { getFeed, entryHref } from '../../lib/feed';
+import { comparePublicationDates } from '../../lib/publication-date';
+import '../../styles/simple.css';
+import '../../styles/kitchen-index.css';
+const entries = (await getFeed())
+  .filter((entry): entry is CollectionEntry<'blog'> => entry.collection === 'blog' && entry.data.category === 'food')
+  .sort((a, b) => comparePublicationDates(a.data.updatedDate || a.data.pubDate, b.data.updatedDate || b.data.pubDate)
+    || comparePublicationDates(a.data.pubDate, b.data.pubDate) || a.id.localeCompare(b.id));
+const description = 'Recipes from my home kitchen in Chicago, with ingredients, methods, and notes.';
+const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Kitchen — mager.co', description, url: new URL('/kitchen/', Astro.site).href, mainEntity: { '@type': 'ItemList', itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entry.data.title, url: new URL(entryHref(entry), Astro.site).href })) } };
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Kitchen — mager.co" description={description} /><script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} /></head>
+  <body class="publication simple-page kitchen-page site-list-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header homepage themeToggle />
+    <main id="main-content" class="site-content-shell kitchen-shell">
+      <header class="kitchen-heading">
+        <div><p class="kitchen-eyebrow">From my kitchen in Chicago</p><h1>Kitchen</h1></div>
+        <div class="kitchen-intro"><p>What I’m <em>cooking.</em></p><span>{entries.length} recipes from my home kitchen.</span></div>
+      </header>
+      <KitchenCollection entries={entries} />
+    </main>
+    <Footer homepage />
+  </body>
+</html>

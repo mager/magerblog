@@ -3,7 +3,7 @@ import type { SearchEntry } from '../lib/search';
 
 export async function GET() {
   const entries = await getFeed();
-  const blogKinds: Record<string, string> = { food: 'Cooking', life: 'Life', tech: 'Tech' };
+  const blogKinds: Record<string, string> = { food: 'Kitchen', life: 'Life', tech: 'Tech' };
   const plainText = (text: string) => text
     .replace(/<[^>]*>/g, ' ')
     .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')

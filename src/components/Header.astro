@@ -6,12 +6,11 @@ interface Props { homepage?: boolean; activeSection?: string; themeToggle?: bool
 const { homepage = false, activeSection, themeToggle = homepage } = Astro.props;
 const path = Astro.url.pathname;
 const sections = [
-  { name: 'Writing', href: '/blog/' },
-  { name: 'Software', href: '/software/' },
   { name: 'Tech', href: '/tech/' },
-  { name: 'Cooking', href: '/cooking/' },
+  { name: 'Kitchen', href: '/kitchen/' },
   { name: 'Life', href: '/life/' },
   { name: 'Seen', href: '/seen/' },
+  { name: 'Notes', href: '/notes/' },
 ];
 const current = (href: string) => path.replace(/\/$/, '') === href.replace(/\/$/, '');
 const active = (href: string) => activeSection ? activeSection === href : current(href) || path.startsWith(href);
@@ -28,7 +27,7 @@ const active = (href: string) => activeSection ? activeSection === href : curren
       <button class="search-trigger" type="button" data-open-search aria-label="Search" title="Search (/)" aria-haspopup="dialog" aria-controls="site-search" hidden>
         <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" /></svg>
       </button>
-      {themeToggle && <ThemeToggle kitchen={active('/cooking/')} />}
+      {themeToggle && <ThemeToggle kitchen={active('/kitchen/')} />}
     </div>
   </div>
 </header>

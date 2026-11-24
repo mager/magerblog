@@ -31,7 +31,7 @@ const blog = defineCollection({
 		locale: z.string().optional(), // 'en' or 'ja' — omit for English default
 		translationKey: z.string().optional(), // Shared key linking EN and JA versions of the same post
 	}).refine(data => data.category !== 'food' || !!data.recipeCategories?.length, {
-		message: 'Cooking posts need at least one recipeCategories value.', path: ['recipeCategories'],
+		message: 'Kitchen recipes need at least one recipeCategories value.', path: ['recipeCategories'],
 	}),
 });
 

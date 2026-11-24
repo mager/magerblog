@@ -22,13 +22,13 @@ const latestRecipe = recipePosts[0] ?? null;
 const latestPosts = [
 	{ post: latestTech,   label: 'Tech',    href: '/tech/',    color: 'indigo' as const },
 	{ post: latestLife,   label: 'Life',    href: '/life/',    color: 'teal'   as const },
-	{ post: latestRecipe, label: 'Recipes', href: '/recipes/', color: 'amber'  as const },
+	{ post: latestRecipe, label: 'Kitchen', href: '/kitchen/', color: 'amber'  as const },
 ].filter(item => item.post !== null);
 
 const categories = [
 	{ key: 'tech',  label: 'Tech',    href: '/tech/',    color: 'indigo', posts: top3Tech   },
 	{ key: 'life',  label: 'Life',    href: '/life/',    color: 'teal',   posts: top3Life   },
-	{ key: 'food',  label: 'Recipes', href: '/recipes/', color: 'amber',  posts: top3Recipe },
+	{ key: 'food',  label: 'Kitchen', href: '/kitchen/', color: 'amber',  posts: top3Recipe },
 ] as const;
 
 
@@ -83,7 +83,7 @@ const categories = [
 			<nav class="hero-nav" aria-label="Categories">
 				<a href="/tech/"    class="hero-pill pill-indigo">Tech</a>
 				<a href="/life/"    class="hero-pill pill-teal">Life</a>
-				<a href="/recipes/" class="hero-pill pill-amber">Recipes</a>
+				<a href="/kitchen/" class="hero-pill pill-amber">Kitchen</a>
 				<a href="/about"    class="hero-pill pill-neutral">About</a>
 			</nav>
 		</div>

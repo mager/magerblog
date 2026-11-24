@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/cooking", "destination": "/kitchen/", "permanent": true },
+    { "source": "/cooking/", "destination": "/kitchen/", "permanent": true },
+    { "source": "/recipes", "destination": "/kitchen/", "permanent": true },
+    { "source": "/recipes/", "destination": "/kitchen/", "permanent": true }
+  ]
+}

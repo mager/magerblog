@@ -47,6 +47,14 @@ html[data-theme="dark"] .publication {
   --code-fg: var(--news-blue);
   --code-bg: oklch(22% 0.018 230);
 }
+html[data-theme="dark"] .publication:is(.kitchen-page, .recipe-page) {
+  --news-paper: #091b14;
+  --news-surface: #13291f;
+  --news-rule: #344c3f;
+  --news-muted: #aebdb2;
+  --news-insert-bg: #202d1c;
+  --code-bg: #13291f;
+}
 .publication ::selection { background: var(--news-yellow); color: oklch(23% 0.016 230); }
 .publication :focus-visible { outline: 2px solid var(--news-blue); outline-offset: 5px; }
 @media (prefers-reduced-motion: no-preference) {

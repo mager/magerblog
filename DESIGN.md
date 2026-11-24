@@ -118,7 +118,7 @@ Keep the established publication palette and fonts. This change affects discover
 
 The shared normative values above come from `src/styles/publication.css`, renamed from `newspaper.css` without token changes. Paper and ink provide the base; lake blue identifies links, focus, and active navigation. Copper supports cooking; moss supports life and Seen. Saffron marks text selection. Existing artwork and per-story palettes retain their colors.
 
-The wordmark uses one ink color, including its dot. Light mode uses paper; dark mode uses true black with softer text and accent colors. Use rules and spacing to separate rows. No decorative gradients, glass, blinking cursors, or cursor-following effects.
+The wordmark uses one ink color, including its dot. Light mode uses paper; dark mode uses true black with softer text and accent colors. Kitchen and recipe pages use deep forest-green surfaces instead of black. Use rules and spacing to separate rows. No decorative gradients, glass, blinking cursors, or cursor-following effects.
 
 ## Typography
 
@@ -126,7 +126,7 @@ Space Grotesk carries listing headings, titles, dates, navigation, search, and s
 
 ## Layout
 
-The shared archives use a 1080px shell with 24px gutters, reduced to 18px at 540px. See the homepage exception below. The main header links open each section. Cooking retains its recipe filters.
+The shared archives use a 1080px shell with 24px gutters, reduced to 18px at 540px. See the homepage exception below. The main header links open each section. Kitchen retains its recipe filters.
 
 ### Homepage timeline
 
@@ -138,11 +138,11 @@ Native scrolling drives travel through the star field. Fast scrolling makes near
 
 ### Shared archives
 
-Writing, Tech, and Cooking use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category and cooking subcategory filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature.
+Writing and Tech use the newest entry as a compact feature, followed by the remaining dated rows. Notes and Seen also feature their newest entry in a single column. Links uses dated rows and native video disclosures. Features show a short description, publication date, relevant metadata, and an optional image. Category filters feature the newest matching entry and omit it from the rows. Search hides the feature and includes that entry in ranked results; clearing search restores the matching feature. Kitchen uses the dense recipe grid described below.
 
 The Writing and Tech archives have a 252px sidebar with up to four newest links. Links show short commentary and source domains. The Writing and Tech sidebars show the two newest note previews and dates. The sidebar also links to the author’s profiles. At 900px it narrows to 220px and dates move below row titles. At 700px it follows the main list. Shared Archive pages without a sidebar use a column up to 780px wide. Life and Notes use the full 1080px shell without a sidebar.
 
-Every public page uses one shared sticky header and one fixed footer. The wordmark is always visible. Direct header links appear in this order: Writing, Software, Tech, Cooking, Life, Seen. Notes and Links remain secondary destinations in the shared sidebar, not main navigation items. Search uses an icon button with an accessible name; the theme control is separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling direct links below. Links remain reachable by keyboard. About and RSS appear in the footer beside the Chicago credit. Measured header and footer heights reserve content and anchor space.
+Every public page uses one shared sticky header and one fixed footer. The mager.co wordmark is always visible and links home. Direct header links appear in this order: Tech, Kitchen, Life, Seen, Notes. Writing stays available at `/blog/` without a main navigation link. Links remains a secondary destination in the shared sidebar. Search uses an icon button with an accessible name; the theme control is separate. At 1000px and below, the wordmark and tools occupy the top row, with horizontally scrolling direct links below. Links remain reachable by keyboard. About and RSS appear in the footer beside the Chicago credit. Measured header and footer heights reserve content and anchor space.
 
 The Notes archive uses Fraunces for the page heading and the newest note. Search sits beside the heading on wide screens and below it on phones. The newest note sits on a lake-blue tinted surface. Earlier notes show monospaced dates and short previews without thumbnail space. Search excerpts take the place of previews while a query is active.
 
@@ -212,10 +212,12 @@ The nine-album post uses `lifeLayout: albums` and a dedicated `AlbumPost.astro` 
 
 Tech articles can opt into `heroImageLayout: wide` for a workspace screenshot. The title and deck share the desktop opening, followed by the complete 16:10 screenshot across the article grid; phones stack title, deck, and image. Keep the screenshot uncropped, supply `heroImageAlt` and `heroImageCaption`, and link to the full-size hosted image. Other articles retain the existing split hero layout. Homeport uses this treatment for its October 11 terminal workspace refresh.
 
-## Cooking collection
+## Kitchen collection
 
-Cooking uses a modern food magazine layout as an explicit exception to compact archive rows. Use publication tokens, bold Space Grotesk headings, large recipe photography, plain counted filters, and a varied two/three-column desktop index. Phones use one column and horizontally scrolling filters. Omit the notes/links sidebar. Sort cooking recipes by `updatedDate`, falling back to `pubDate`. Recipe detail navigation uses comma-separated category links. Separate copy buttons sit below the Ingredients and Method headings.
+Kitchen uses a dense recipe index at `/kitchen/` as an explicit exception to compact archive rows. Use publication tokens, Space Grotesk headings, recipe photography, and counted filters. The newest matching recipe spans two columns inside a four-column grid. Tablets and phones use two columns; screens below 360px use one. Categories and popular tags scroll horizontally on phones. Omit the notes/links sidebar. Sort recipes by `updatedDate`, falling back to `pubDate`. Recipe detail navigation uses comma-separated category links. Separate copy buttons sit below the Ingredients and Method headings.
 
-Each category has its own introduction, color treatment, and composition. Soups use green and a wide photograph; pasta and rice use saffron paper and a reversed opening spread; baking and breakfast use copper-tinted paper and serif headings. Other families use green or copper. Selected worlds persist through search and saved filter URLs. All recipes restores the magazine view.
+Each category has its own introduction and color treatment while retaining the compact grid. Soups, sides, and seasonings use green; pasta and rice use saffron paper; baking and breakfast use copper-tinted paper and serif feature headings. Search, category, and exact authored tags intersect, with `q`, `type`, and `tag` saved in the URL. Search and tags include the newest recipe in the regular grid; clearing both restores the feature. Reset clears every filter. The old `/cooking/` and `/recipes/` URLs redirect directly to Kitchen.
 
-Cooking and recipe headers use an accessible pendant-light theme button without visible Light/Dark text. `docs/design/cooking.md` records the category rules, typography, and visual behavior.
+The masthead uses a short Fraunces introduction with an italic second line and a separate factual recipe count. Category counts respect search and tag; tag counts respect search and category. Zero-result choices are disabled. Empty combinations omit category prose and offer Clear tag or Reset filters.
+
+Kitchen and recipe headers use an accessible pendant-light theme button without visible Light/Dark text. Their dark palette overrides shared tokens with forest-green paper (`#091b14`), lifted green surfaces (`#13291f`), green rules (`#344c3f`), and sage muted text (`#aebdb2`). Other publication themes stay unchanged. `docs/design/kitchen.md` records the category rules, typography, and visual behavior.
