@@ -1,25 +1,25 @@
 ---
 title: "Detroit-Style Pepperoni Pizza with Store-Bought Dough"
-description: "A same-day Detroit-style pepperoni pizza with store-bought ancient grain dough, 12 ounces of mozzarella, and crisp white cheddar edges."
+description: "A same-day Detroit-style pepperoni pizza with store-bought dough, 12 ounces of mozzarella, and crisp white cheddar edges."
 pubDate: "2026-11-15"
 category: "food"
 subcategory: "baking"
 recipeCategories: ["baking"]
 tags: [recipes, pizza, Detroit, pepperoni]
 prepTime: 175
-cookTime: 21
+cookTime: 23
 recipeYield: "1 pizza in a 10 × 14-inch pan, cut into 8 squares"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/hero.jpg"
 heroImageAlt: "Rectangular pepperoni pizza on a wooden board with browned cheese, red sauce, and dark cheddar edges"
 ---
 
-I picked up Ancient Grain Pizza Dough at Whole Foods, a can of pizza sauce, a mozzarella ball, and pepperoni. This is my same-day version for a 10 × 14-inch pan, with 12 ounces of mozzarella and white cheddar around the edges. I used the whole bag, about 22 ounces. The dough rose less than I expected, but the white cheddar browned into a crisp rim. Next time I’ll [make the dough from scratch](/blog/2026-11-07-detroit-style-pizza/).
+I picked up pizza dough at Whole Foods, a can of pizza sauce, a mozzarella ball, and pepperoni. This is my same-day version for a 10 × 14-inch pan, with 12 ounces of mozzarella and white cheddar around the edges. I used the whole bag, about 22 ounces. The dough rose less than I expected, but the white cheddar browned into a crisp rim. Next time I’ll [make the dough from scratch](/blog/2026-11-07-detroit-style-pizza/).
 
-Allow about 3½ hours from fridge to table. The prep time includes the dough rests and oven preheat. Allow about 21 minutes of baking at 450°F convection. The schedule below is for a 5:30 p.m. dinner.
+Allow about 3½ hours from fridge to table. The prep time includes the dough rests and oven preheat. Allow about **21–23 minutes of baking at 450°F convection**: **8 minutes** for the bare crust, then **13–15 minutes after the mozzarella goes on**. The schedule below is for a 5:30 p.m. dinner.
 
 ## Ingredients
 
-- **About 22 ounces (624 g) refrigerated Whole Foods Ancient Grain Pizza Dough** for a thicker crust, or **16 ounces (454 g)** for a thinner crust
+- **About 22 ounces (624 g) refrigerated store-bought pizza dough** for a thicker crust, or **16 ounces (454 g)** for a thinner crust
 - **2 tablespoons refined avocado oil or refined canola oil**, for the pan
 - **12 ounces (340 g) mozzarella from a ball**
 - **4 ounces (113 g) white cheddar**, shredded
@@ -69,7 +69,9 @@ Allow about 3½ hours from fridge to table. The prep time includes the dough res
 
    Scatter **2 ounces (55 g, about ½ cup) sliced pepperoni** over the prebaked crust.
 
-   Spread **12 ounces (340 g) grated mozzarella** in an even layer over the pepperoni. Add **4 ounces (113 g) shredded white cheddar** along all four pan walls. Bake for about **7 minutes**, until the mozzarella melts and starts to brown.
+   Spread **12 ounces (340 g) grated mozzarella** in an even layer over the pepperoni. Add **4 ounces (113 g) shredded white cheddar** along all four pan walls.
+
+   Bake for **7–9 minutes**, checking at **7 minutes**. The mozzarella should be fully melted and starting to brown before you add the sauce.
 
    While it bakes, warm **¾ cup canned pizza sauce**. If using the garlic and thyme, add **1 lightly crushed garlic clove and 2 small sprigs of fresh thyme**, simmer gently for **5–10 minutes**, then remove the garlic and sprigs. If the sauce runs easily off a spoon, simmer it until it holds in a stripe.
 
@@ -77,7 +79,7 @@ Allow about 3½ hours from fridge to table. The prep time includes the dough res
 
    Spoon the warm **¾ cup pizza sauce** over the cheese in three stripes of about **¼ cup each**. Leave the cheddar edges exposed.
 
-   Bake for about **6 more minutes**, until the underside is firm and golden. Lift a corner with a heat-safe spatula to check it.
+   Bake for about **6 more minutes**, until the underside is firm and golden. Lift a corner with a heat-safe spatula to check it. That makes **13–15 minutes total after the mozzarella goes on**.
 
 8. **Rest and serve.**
 
@@ -89,7 +91,7 @@ Allow about 3½ hours from fridge to table. The prep time includes the dough res
 
 These photos show my first bake, when I added the pepperoni before prebaking. The method above adds it after the crust prebakes.
 
-![Pieces of pepperoni scattered over the stretched ancient grain dough in the rectangular pan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/pepperoni-before-prebake.jpg)
+![Pieces of pepperoni scattered over the stretched pizza dough in the rectangular pan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/pepperoni-before-prebake.jpg)
 
 *Pepperoni on the dough before the first bake.*
 
