@@ -3,7 +3,7 @@ layout: "../../layouts/BlogPost.astro"
 title: "7-Piece Thanksgiving Turkey"
 pubDate: "2020-11-25"
 updatedDate: "2026-11-25"
-description: "Ask the butcher for eight pieces, freeze one breast, and roast seven. An overnight dry brine and a soy, brown sugar, and sherry vinegar glaze, with convection oven guidance."
+description: "Ask the butcher for eight pieces, freeze one breast, and roast seven. Overnight dry brine, two glaze options, optional chicken broth and herb basting, and convection guidance."
 category: "food"
 subcategory: "turkey"
 recipeCategories: ["turkey"]
@@ -17,6 +17,8 @@ heroImage: "https://lh3.googleusercontent.com/pw/AP1GczO0l02_bMsnafofz8mSK5mRmTm
 The butcher cuts the turkey into eight pieces. I freeze one breast for another meal and roast the other seven for Thanksgiving: **one breast half, two thighs, two drumsticks, and two wings**. The skin and bones stay on.
 
 I've been making a version of [Bon Appétit's November 2019 spiced and glazed turkey](https://www.bonappetit.com/recipe/expertly-spiced-and-glazed-roast-turkey) for years. The overnight dry brine and the soy, brown sugar, and sherry vinegar glaze are still the parts I come back for. This year's changes are the seven-piece batch and a convection oven.
+
+The original glaze is below, along with a tart cranberry-orange alternative that cuts the added sugar and sodium in the glaze. You can also baste lightly with unsalted chicken broth and herbs early in the roast, either on its own or before glazing. The dry rub still contains salt and brown sugar.
 
 All seven pieces can go into the oven together. The useful part of breaking down the bird is being able to take each piece out when it's ready. A breast half doesn't need to stay in the oven while the dark meat finishes.
 
@@ -45,7 +47,7 @@ The weight is for the whole bird, before setting aside the breast. Check the lab
 
 This is the original full-bird batch of rub. With one breast going into the freezer, use only enough for an even coating on the seven roasting pieces; you don't need to use it all.
 
-#### Glaze
+#### Original soy glaze — choose one glaze
 
 - Small handful of hardy herbs (such as sage, rosemary, bay leaves, and/or thyme)
 - 2 garlic cloves, crushed
@@ -53,6 +55,20 @@ This is the original full-bird batch of rub. With one breast going into the free
 - ⅓ cup soy sauce
 - ⅓ cup brown sugar
 - ⅓ cup sherry vinegar
+
+#### Cranberry-orange glaze — alternative
+
+- 1 cup fresh cranberries, finely chopped
+- ⅔ cup unsweetened 100% orange juice
+- 1 tablespoon cornstarch
+
+Adapted from [Mayo Clinic's cranberry-orange glaze](https://www.mayoclinic.org/healthy-lifestyle/recipes/cranberry-orange-glaze/rcp-20049654?p=1), with the optional sweetener omitted. This replaces the soy glaze. It has no added sugar or salt; the fruit and juice still contain naturally occurring sugar. Expect a tart fruit coating rather than the original sticky brown-sugar finish.
+
+#### Chicken broth and herb baste — optional
+
+- 1 cup unsalted chicken broth
+- 2 sprigs fresh thyme
+- 1 small sprig fresh rosemary
 
 #### For roasting
 
@@ -76,15 +92,19 @@ This is the original full-bird batch of rub. With one breast going into the free
 
 **Preheat the oven.** For convection, preheat to **325°F** and use that temperature throughout. For a conventional oven, start at **425°F**. Keep the turkey refrigerated while the oven heats and you make the glaze. Check your oven's automatic conversion setting: the convection cooking temperature should be 325°F after any adjustment.
 
-**Make the glaze.** Combine **a small handful of hardy herbs, 2 crushed garlic cloves, 2 strips of orange zest (about 1 inch each), ⅓ cup soy sauce, ⅓ cup brown sugar, and ⅓ cup sherry vinegar** in a small saucepan. Cook over medium heat, stirring occasionally, for about **10–12 minutes**, until the sugar dissolves and the glaze lightly coats a spoon. Take it off the heat.
+**Make your chosen glaze, if using.** For the **original soy glaze**, combine **a small handful of hardy herbs, 2 crushed garlic cloves, 2 strips of orange zest (about 1 inch each), ⅓ cup soy sauce, ⅓ cup brown sugar, and ⅓ cup sherry vinegar** in a small saucepan. Cook over medium heat, stirring occasionally, for about **10–12 minutes**, until the sugar dissolves and the glaze lightly coats a spoon. Take it off the heat.
 
-![Glaze](https://lh3.googleusercontent.com/pw/AP1GczMOdurNhhqkwn4oA5CEWUMJC8ONQbw9SWLaCzsn1SS_1xlQeLLzc5WKRLkr8oy7Hw_JdTsWUKu3mk-tIfAB5sTRJjdLiQ9VJPAfqDY0xnuTDmfgI1Yi1mxvWouQxOl-oPgEcIHeyz4wyrSHbn2_xm6s=w1702-h1714-s-no-gm)
+For the **cranberry-orange alternative**, stir **1 cup finely chopped fresh cranberries, ⅔ cup unsweetened 100% orange juice, and 1 tablespoon cornstarch** together in a large microwave-safe bowl. Microwave on high for about **3–4 minutes**, stirring several times, until bubbling and thickened. Mash the softened berries with a fork to make it easier to brush on. This option is tart; it doesn't include the soy sauce, brown sugar, or vinegar from the original glaze.
+
+![Original soy and brown sugar glaze](https://lh3.googleusercontent.com/pw/AP1GczMOdurNhhqkwn4oA5CEWUMJC8ONQbw9SWLaCzsn1SS_1xlQeLLzc5WKRLkr8oy7Hw_JdTsWUKu3mk-tIfAB5sTRJjdLiQ9VJPAfqDY0xnuTDmfgI1Yi1mxvWouQxOl-oPgEcIHeyz4wyrSHbn2_xm6s=w1702-h1714-s-no-gm)
+
+**Prepare the optional broth baste.** Bring **1 cup unsalted chicken broth, 2 sprigs fresh thyme, and 1 small sprig fresh rosemary** to a gentle simmer in a small saucepan. Cover and simmer for about **5 minutes**, then remove the herb stems. Keep covered and warm over low heat while using it.
 
 **Arrange the seven pieces.** Rub them with **4 tablespoons olive oil total** and arrange them skin-side up on oven-safe racks in rimmed roasting pans. Leave room between the pieces for air to circulate; use two pans if needed. Put all seven pieces in together.
 
-**Start roasting.** With **convection at 325°F**, check the skin and internal temperatures after **30 minutes**. Begin applying thin coats of glaze once the skin starts to color. With a **conventional oven at 425°F**, roast for about **30 minutes**, rotating the pans after **15 minutes** and checking the browning. Then reduce the heat to **325°F** and brush on a thin layer of glaze.
+**Start roasting.** With **convection at 325°F**, check the skin and internal temperatures after **30 minutes**. With a **conventional oven at 425°F**, roast for about **30 minutes**, rotating the pans after **15 minutes** and checking the browning, then reduce the heat to **325°F**. If using the broth baste, spoon a little over the pieces at the first one or two scheduled temperature checks. Pour from the saucepan into a separate basting cup so utensils touching the turkey don't go back into the clean broth. Broth can soften the skin, so keep the basting light and stop before applying any glaze.
 
-**Keep glazing and checking.** With either oven setting, brush on thin coats of glaze and check each piece every **20–25 minutes** while it cooks. Check more often as a piece approaches its target temperature. Loosely shield any skin that's getting too dark with foil. Discard glaze left over from brushing the roasting turkey.
+**Keep checking and glaze if you like.** With either oven setting, check each piece every **20–25 minutes** while it cooks. Once the skin starts to color and you've finished any broth basting, brush on thin coats of your chosen glaze at those checks. You can also skip the glaze and finish roasting after the early broth baste. Check more often as a piece approaches its target temperature, and loosely shield skin that's getting too dark with foil. Keep any sauce for serving separate before you start basting; discard the used basting portions and wash the brush before it touches cooked turkey.
 
 ![Wings done](https://lh3.googleusercontent.com/pw/AP1GczNpiP8SyylLLvhwIrDCEmC9dW1nYwG2YoDLc43MpTKXvmomDQlLyUFBKPnyLexnwdtsjTGcTqnL6SZqmmL_UbGxy_rkTnQDjdae4vjvBfSS1CAf3BF5QelxkpQOJ2AStvg6BEgnoMxYKJZs0Tb3z1gI=w1286-h1714-s-no-gm)
 
@@ -106,7 +126,7 @@ The previous version used a 250°F oven after browning. This version stays at or
 
 Starting the pieces together follows the approach in [Katie Lee Biegel's eight-piece turkey](https://katieleekitchen.com/turkey-in-8-pieces/), which uses a hotter oven. The CDC's minimum internal temperature is **165°F**; [ThermoWorks explains why dark meat benefits from reaching 175°F](https://www.thermoworks.com/blogs/thermoblog/turkey-temps). Use a thermometer for every piece instead of judging by the skin color or the number of glazing rounds.
 
-I serve this with [Bon Appétit's gravy](https://www.bonappetit.com/recipe/why-is-it-so-good-gravy). The photos here are from earlier batches; the seven-piece version keeps the same rub and glaze.
+I serve this with [Bon Appétit's gravy](https://www.bonappetit.com/recipe/why-is-it-so-good-gravy). The photos here are from earlier batches with the original soy glaze. The cranberry-orange glaze is a sourced alternative that I haven't tested on this seven-piece batch yet.
 
 </div>
 </div>
