@@ -6,6 +6,8 @@ export function publicationTimeZone(date: Date): string {
 
 export const entryDate = (date: Date) => date.toLocaleDateString('en-US', { timeZone: publicationTimeZone(date), month: 'short', day: 'numeric', year: 'numeric' });
 
+export const feedDate = (data: { pubDate: Date; updatedDate?: Date }): Date => data.updatedDate ?? data.pubDate;
+
 function calendarDate(date: Date): string {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: publicationTimeZone(date),

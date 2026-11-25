@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { comparePublicationDates } from './publication-date';
+import { comparePublicationDates, feedDate } from './publication-date';
 
 export type FeedEntry = CollectionEntry<'blog' | 'notes' | 'seen' | 'links'>;
 
@@ -9,8 +9,8 @@ export async function getFeed(): Promise<FeedEntry[]> {
   ]);
   return collections.flat()
     .filter(entry => !entry.data.draft && !(entry.collection === 'blog' && entry.data.locale === 'ja'))
-    // Match displayed publication dates; edits don't bump old posts.
-    .sort((a, b) => comparePublicationDates(a.data.pubDate, b.data.pubDate)
+    // Authored updates bring older posts back into the latest feed.
+    .sort((a, b) => comparePublicationDates(feedDate(a.data), feedDate(b.data))
       || `${a.collection}/${a.id}`.localeCompare(`${b.collection}/${b.id}`));
 }
 

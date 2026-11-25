@@ -1,7 +1,7 @@
 ---
 import type { FeedEntry } from '../lib/feed';
 import { entryHref, entryTitle } from '../lib/feed';
-import { entryCategory, entryDate, entryDescription, entryImage } from '../lib/feed-display';
+import { entryCategory, entryDate, entryDescription, entryImage, feedDate } from '../lib/feed-display';
 import { contentMeta } from '../lib/content-meta';
 import PostRow from './PostRow.astro';
 interface Props {
@@ -37,11 +37,11 @@ const leads = featured ? [...new Set([lead, ...filters.map(([value]) => entries.
     </div>
     <div class="simple-search-status"><p data-simple-status role="status" aria-live="polite" aria-atomic="true"></p><button type="button" data-simple-retry hidden>Try again</button></div>
   </div>
-  {leads.map(item => { const leadImage = entryImage(item); return <article class="simple-feature" data-simple-feature data-href={entryHref(item)} hidden={item !== lead}>
+  {leads.map(item => { const leadImage = entryImage(item); const date = feedDate(item.data); const updated = 'updatedDate' in item.data && !!item.data.updatedDate; return <article class="simple-feature" data-simple-feature data-href={entryHref(item)} hidden={item !== lead}>
     <div class="simple-feature-copy">
       <h2><a href={item.collection === 'links' ? item.data.url : entryHref(item)}>{entryTitle(item)}</a></h2>
       <p>{entryDescription(item)}</p>
-      <div class="simple-feature-meta"><time datetime={item.data.pubDate.toISOString()}>{entryDate(item.data.pubDate)}</time><span>{contentMeta(item)}</span></div>
+      <div class="simple-feature-meta"><time datetime={date.toISOString()}>{updated && 'Updated '}{entryDate(date)}</time><span>{contentMeta(item)}</span></div>
     </div>
     {leadImage && <a class="simple-feature-image" href={entryHref(item)} aria-label={`Read ${entryTitle(item)}`}><img src={leadImage} alt="" width="240" height="160" loading={item === lead ? 'eager' : 'lazy'} decoding="async" /></a>}
   </article>; })}

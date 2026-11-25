@@ -15,3 +15,10 @@ test('explicit times are preserved even when the normalized instant is midnight 
     assert.equal(authoredPublicationDay(source(value)), undefined);
   }
 });
+
+test('updated dates retain their own precision independently of the original publication', () => {
+  const updated = value => `---\npubDate: 2020-11-25\nupdatedDate: ${value}\n---\n`;
+  assert.equal(authoredPublicationDay(updated('"2026-11-25"'), 'updatedDate'), '2026-11-25');
+  assert.equal(authoredPublicationDay(updated('2026-11-25T00:00:00Z'), 'updatedDate'), undefined);
+  assert.equal(authoredPublicationDay(updated('2026-11-25')), '2020-11-25');
+});

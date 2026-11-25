@@ -1,5 +1,5 @@
 import { type FeedEntry, entryTitle } from './feed';
-export { entryDate } from './publication-date';
+export { entryDate, feedDate } from './publication-date';
 
 export const entryImage = (entry: FeedEntry) => entry.collection === 'blog'
   ? entry.data.heroImage || entry.body?.match(/!\[[^\]]*\]\((https?:\/\/[^\s)]+)(?:\s+"[^"]*")?\)/)?.[1]

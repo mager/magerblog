@@ -1,7 +1,7 @@
 ---
 import { readFile } from 'node:fs/promises';
 import { entryHref, entryTitle, type FeedEntry } from '../../lib/feed';
-import { entryCategory, entryDescription, entryImage } from '../../lib/feed-display';
+import { entryCategory, entryDescription, entryImage, feedDate } from '../../lib/feed-display';
 import { authoredPublicationDay } from '../../lib/authored-publication-day.mjs';
 import { earthTimeInChicago } from '../../lib/sky-date';
 import { contentMeta } from '../../lib/content-meta';
@@ -9,9 +9,10 @@ import { linkHost } from '../../lib/link-share';
 
 interface Props { entry: FeedEntry; first?: boolean; }
 const { entry, first } = Astro.props;
-const date = entry.data.pubDate;
+const date = feedDate(entry.data);
+const updated = 'updatedDate' in entry.data && !!entry.data.updatedDate;
 if (!entry.filePath) throw new Error(`Missing source for ${entryHref(entry)}`);
-const calendarDay = authoredPublicationDay(await readFile(entry.filePath, 'utf8'));
+const calendarDay = authoredPublicationDay(await readFile(entry.filePath, 'utf8'), updated ? 'updatedDate' : 'pubDate');
 const timeZone = calendarDay ? 'UTC' : 'America/Chicago';
 const displayDate = calendarDay ? new Date(calendarDay) : date;
 const month = displayDate.toLocaleString('en-US', { month: 'short', timeZone });
@@ -36,7 +37,7 @@ const meta = external ? linkHost(entry.data.url) : entry.collection === 'seen'
 const preview = entryDescription(entry);
 ---
 <li class:list={['time-entry', { 'time-lead': first, 'time-visual': entry.collection === 'seen' }]} data-simple-row data-category={category} data-href={entryHref(entry)} data-iso={date.toISOString()} data-date-only={calendarDay || undefined}>
-  <time class="time-stamp" datetime={calendarDay || date.toISOString()} aria-label={`${month} ${Number(day)}, ${year}`}>
+  <time class="time-stamp" datetime={calendarDay || date.toISOString()} aria-label={`${updated ? 'Updated ' : ''}${month} ${Number(day)}, ${year}`}>
     <span>{month} {day}</span><span>{year}</span>
     <small class="time-earth-note">{calendarDay ? '' : earthTimeInChicago(date)}</small>
   </time>
@@ -45,7 +46,7 @@ const preview = entryDescription(entry);
   </span>
   <a class="time-story" href={external ? entry.data.url : entryHref(entry)}>
     <div class="time-story-copy">
-      <div class="time-kind">{kind.label}{meta && <span class="time-meta">{meta}</span>}</div>
+      <div class="time-kind">{kind.label}{updated && <span class="time-meta">Updated</span>}{meta && <span class="time-meta">{meta}</span>}</div>
       <h2><span class="simple-post-title">{title}</span>{external && <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="External link"><path d="M3 13 13 3M4 3h9v9" /></svg>}</h2>
       {preview && <p class="time-preview">{preview}</p>}
       <span class="simple-search-snippet" hidden></span>
