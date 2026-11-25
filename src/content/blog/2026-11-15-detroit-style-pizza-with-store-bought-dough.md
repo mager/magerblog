@@ -7,7 +7,7 @@ subcategory: "baking"
 recipeCategories: ["baking"]
 tags: [recipes, pizza, Detroit, pepperoni]
 prepTime: 175
-cookTime: 23
+cookTime: 22
 recipeYield: "1 pizza in a 10 × 14-inch pan, cut into 8 squares"
 heroImage: "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/hero.jpg"
 heroImageAlt: "Rectangular pepperoni pizza on a wooden board with browned cheese, red sauce, and dark cheddar edges"
@@ -15,7 +15,7 @@ heroImageAlt: "Rectangular pepperoni pizza on a wooden board with browned cheese
 
 I picked up Ancient Grain Pizza Dough at Whole Foods, a can of pizza sauce, a mozzarella ball, and pepperoni. This is my same-day version for a 10 × 14-inch pan, with 12 ounces of mozzarella and white cheddar around the edges. I used the whole bag, about 22 ounces. The dough rose less than I expected, but the white cheddar browned into a crisp rim. Next time I’ll [make the dough from scratch](/blog/2026-11-07-detroit-style-pizza/).
 
-Allow about 3½ hours from fridge to table. The prep time includes the dough rests and oven preheat. Allow about 23 minutes of baking at 450°F convection. The schedule below is for a 5:30 p.m. dinner.
+Allow about 3½ hours from fridge to table. The prep time includes the dough rests and oven preheat. Allow about 22 minutes of baking at 450°F convection. The schedule below is for a 5:30 p.m. dinner.
 
 ## Ingredients
 
@@ -61,11 +61,13 @@ Allow about 3½ hours from fridge to table. The prep time includes the dough res
 
 5. **4:55 p.m. — Prebake the crust.**
 
-   Scatter **2 ounces (55 g, about ½ cup) sliced pepperoni** over the dough. Bake for **10 minutes**.
+   Bake the dough on its own for **9 minutes**, without pepperoni, cheese, or sauce.
 
-   The exposed dough should look set before you add the cheese. If it still looks wet or doughy, give it **2 more minutes** and check again.
+   The surface should look set before you add the toppings. If it still looks wet or doughy, give it **2 more minutes** and check again.
 
-6. **Add the cheese and bake.**
+6. **Add the pepperoni and cheese, then bake.**
+
+   Scatter **2 ounces (55 g, about ½ cup) sliced pepperoni** over the prebaked crust.
 
    Spread **12 ounces (340 g) grated mozzarella** in an even layer over the pepperoni. Add **4 ounces (113 g) shredded white cheddar** along all four pan walls. Bake for about **7 minutes**, until the mozzarella melts and starts to brown.
 
@@ -84,6 +86,8 @@ Allow about 3½ hours from fridge to table. The prep time includes the dough res
    Transfer it to a cutting board and cut it into **8 squares**.
 
 ## First bake photos
+
+These photos show my first bake, when I added the pepperoni before prebaking. The method above adds it after the crust prebakes.
 
 ![Pieces of pepperoni scattered over the stretched ancient grain dough in the rectangular pan](https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/pepperoni-before-prebake.jpg)
 
