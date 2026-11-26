@@ -22,6 +22,7 @@ export default defineConfig({
 	compressHTML: true,
 	integrations: [mdx(), ...noindexSitemap()],
 	redirects: {
+		'/blog/2026-11-07-detroit-style-pizza': '/blog/2026-11-15-detroit-style-pizza-with-store-bought-dough/#homemade-dough-option',
 		'/blog/2026-10-25-dutch-oven-pork-carnitas': '/blog/2026-11-01-dutch-oven-pork-carnitas',
 		'/blog/2026-10-22-gymkhana-chicken-tikka-masala': '/blog/2026-10-22-chicken-tikka-masala',
 		'/notes/2026-10-01-diving-into-impeccable': '/blog/2026-10-04-diving-into-impeccable',
