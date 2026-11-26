@@ -3,7 +3,7 @@ layout: "../../layouts/BlogPost.astro"
 title: "Potatoes au Gratin"
 pubDate: "2024-12-24"
 updatedDate: "2026-11-26T10:47:15-06:00"
-description: A creamy and indulgent potato casserole, perfect for holiday gatherings, that will leave you and your guests wanting more every year.
+description: Thinly sliced russet potatoes baked in garlic-thyme cream, then topped with Gruyère and Parmesan and broiled until golden. Assemble ahead and refrigerate until ready to bake.
 category: "food"
 subcategory: "side"
 recipeCategories: ["side","casserole"]
@@ -16,7 +16,11 @@ cookTime: 90
 
 <div class="recipe-intro">
 
-Amazing casserole that you save for special occasions. Special thanks to Claire Saffitz for the inspiration from a [2023 Bon Appetit article](https://www.bonappetit.com/recipe/classic-potato-gratin).
+I bake thinly sliced russet potatoes in garlic-thyme cream until tender, then add Gruyère and Parmesan and broil until the top is golden. The assembled gratin can wait in the fridge until I'm ready to bake it.
+
+**Au gratin or scalloped?** This recipe is potatoes au gratin: the cheese forms a browned crust on top. Traditional scalloped potatoes bake in milk or cream without cheese, though modern recipes often overlap. Here, the cheese goes on only after the potatoes are tender, just before broiling.
+
+Adapted from [Claire Saffitz's potato gratin](https://www.bonappetit.com/recipe/classic-potato-gratin).
 
 </div>
 
@@ -40,7 +44,7 @@ Amazing casserole that you save for special occasions. Special thanks to Claire 
 
 <div class="recipe-instructions">
 
-Preheat oven to 325°. Rub butter all over inside of a casserole dish.
+Rub butter all over inside of a casserole dish. If baking right away, preheat oven to 325°F; if prepping ahead, wait to preheat until ready to bake.
 
 Dice the shallots and sauté with 1 tbsp of butter and olive oil. Add the diced garlic after 5 minutes, then season with salt and pepper. Now add thyme leaves and toss around for 1 minute.
 
@@ -54,7 +58,11 @@ Arrange the potato slices in the baking dish at an angle, a handful at a time, t
 
 ![Shingle the taters](https://lh3.googleusercontent.com/pw/AP1GczPJNo3z3yn1qDuCNlD-nRMyPtvdbGJLuWwiVcWJuz0tyB7CMzaowfuInuNWnEzH8WQt2ZQ7aXHTkmpc_AM1R2FTawZbFuqyfNjBFCf1IBlKAUiE7BTtKjRc5f2WIUBLo0Y7TTiyXBo6o2IPib6q4XkB=w2400-h1519-s-no-gm)
 
-Shingle all the sliced potatoes until the bottom of dish is covered. Tuck smaller slices into any gaps to fill. Pour cream mixture over potatoes and cover dish tightly with aluminum foil. Bake potatoes until tender and creamy, 65–70 minutes. Let cool.
+Shingle all the sliced potatoes until the bottom of dish is covered. Tuck smaller slices into any gaps to fill. Pour cream mixture over potatoes, coating the slices well, and cover dish tightly with aluminum foil.
+
+**Make ahead:** You can refrigerate the assembled, unbaked gratin at this point for up to 24 hours, including prepping it in the morning to bake that afternoon. Keep it tightly covered and refrigerate promptly at 40°F or below. Keep the 3 oz. Gruyère and 1 oz. Parmesan refrigerated separately; the cheese goes on after the first bake.
+
+When ready to bake, preheat oven to 325°F. Bake covered until the potatoes are tender and creamy, starting to check at 65–70 minutes. A chilled gratin will need extra time; a knife should slide easily through the potatoes in the center before you add the cheese. Let cool slightly.
 
 Place rack in highest position; heat broiler. Remove foil and top potatoes with 3 oz. Gruyère, finely grated, and 1 oz. Parmesan, finely grated. Broil until cheese is bubbling and top of gratin is golden brown, 5–10 minutes. Serve topped with more thyme leaves.
 
