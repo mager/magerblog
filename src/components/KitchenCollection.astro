@@ -4,6 +4,7 @@ import { entryHref } from '../lib/feed';
 import { entryImage, entryDate } from '../lib/feed-display';
 import { contentMeta } from '../lib/content-meta';
 import { recipeCategoryIds, recipeCategoryLabels, recipeCategoryDescriptions } from '../lib/cooking';
+import KitchenIcon from './kitchen/KitchenIcon.astro';
 interface Props { entries: CollectionEntry<'blog'>[]; }
 const { entries } = Astro.props;
 const filters = recipeCategoryIds.map(id => ({ id, label: recipeCategoryLabels[id], count: entries.filter(entry => entry.data.recipeCategories?.includes(id)).length })).filter(filter => filter.count);
@@ -27,12 +28,12 @@ const leads = [...new Set([lead, ...filters.map(filter => entries.find(entry => 
       </div>
     </div>
     <div class="kitchen-filters" role="group" aria-label="Recipe categories">
-      <button type="button" data-simple-filter="all" data-filter-label="All recipes" aria-pressed="true" aria-controls="kitchen-results">All recipes <span data-filter-count>{entries.length}</span></button>
-      {filters.map(filter => <button type="button" data-simple-filter={filter.id} data-filter-label={filter.label} data-filter-description={recipeCategoryDescriptions[filter.id]} aria-pressed="false" aria-controls="kitchen-results">{filter.label} <span data-filter-count>{filter.count}</span></button>)}
+      <button type="button" data-simple-filter="all" data-filter-label="All recipes" aria-pressed="true" aria-controls="kitchen-results"><KitchenIcon category="all" />All recipes <span data-filter-count>{entries.length}</span></button>
+      {filters.map(filter => <button type="button" data-simple-filter={filter.id} data-filter-label={filter.label} data-filter-description={recipeCategoryDescriptions[filter.id]} aria-pressed="false" aria-controls="kitchen-results"><KitchenIcon category={filter.id} />{filter.label} <span data-filter-count>{filter.count}</span></button>)}
     </div>
     <div class="kitchen-tags">
       <div class="kitchen-tag-select">
-        <label for="recipe-tag">Explore tags</label>
+        <label for="recipe-tag">Narrow it down</label>
         <select id="recipe-tag" data-simple-tag aria-controls="kitchen-results">
           <option value="all">Any tag</option>
           {tags.map(([tag, count]) => <option value={tag} data-tag-label={tagLabel(tag)}>{tagLabel(tag)} ({count})</option>)}

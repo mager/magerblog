@@ -1,0 +1,22 @@
+---
+import type { RecipeCategory } from '../../lib/cooking';
+interface Props { category: RecipeCategory | 'all'; }
+const { category } = Astro.props;
+const paths: Record<RecipeCategory | 'all', string> = {
+  all: 'M4 5h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V5Zm0 12h15M8 5v8m3-5h5m-5 3h3',
+  soup: 'M5 10h14v7a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-7Zm-3 2h3m14 0h3M4 10h16M9 7c-3-3 3-3 0-6m6 6c-3-3 3-3 0-6',
+  pasta: 'M3 15h18c-1 4-4 6-9 6s-8-2-9-6ZM7 12V4m4 8V3m4 9V4m4 8V3M4 5h18',
+  rice: 'M3 12h18c0 5-4 8-9 8s-9-3-9-8Zm3-3 1-2m3 2 1-3m3 3 1-2m3 2-1-3M9 20v2h6v-2',
+  casserole: 'M4 9h16v10H4V9Zm-3 3h3m16 0h3M7 6h10M9 3h6m-8 9v4m5-4v4m5-4v4',
+  curry: 'M3 12h18c0 5-4 8-9 8s-9-3-9-8Zm4-4 1-3m4 3V4m4 4 1-3m1 7 3-7M8 22h8',
+  side: 'M12 21C2 17 2 6 5 3c8 0 16 7 14 13-1 4-4 5-7 5Zm0 0L7 7m3 8-4-1m6 0 3-4',
+  baking: 'M5 10c-5-2-2-8 2-6 2-4 8-4 10 0 4-2 7 4 2 6v10H5V10Zm0 6h14',
+  breakfast: 'M8 5c-7 0-8 12-1 15 6 3 15-1 14-7-1-5-6-4-7-7-1-2-3-2-6-1Zm8 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z',
+  seasoning: 'M8 3h8v4H8V3Zm1 4-3 5v9h12v-9l-3-5m-9 6h12m-8 3v2m4-2v2',
+  chicken: 'm14 13-7 7a2 2 0 0 1-3-3 2 2 0 0 1 3-3l6-6m0 0c-1-4 3-7 6-4s1 8-5 9',
+  beef: 'M5 5c4-4 13-3 16 3 3 8-6 14-12 12C2 18 0 10 5 5Zm2 4c3-4 10-3 11 1s-5 7-8 5-5-3-3-6Z',
+  pork: 'M4 5c5-5 15-2 17 3s-3 7-7 6l-6 7H4v-4l6-7c-4 2-8-1-6-5Zm11 0 3 3',
+  turkey: 'M5 16c-3-5 0-11 5-11 6-2 12 4 10 10-1 4-12 5-15 1Zm0 0-2 4m17-5 2 5M9 8c-2 1-3 3-2 5',
+};
+---
+<svg class="kitchen-category-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={paths[category]} /></svg>

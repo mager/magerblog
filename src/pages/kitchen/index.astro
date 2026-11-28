@@ -4,6 +4,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import KitchenCollection from '../../components/KitchenCollection.astro';
+import KitchenCounter from '../../components/kitchen/KitchenCounter.astro';
 import { getFeed, entryHref } from '../../lib/feed';
 import { comparePublicationDates } from '../../lib/publication-date';
 import '../../styles/simple.css';
@@ -23,8 +24,12 @@ const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
     <Header homepage themeToggle />
     <main id="main-content" class="site-content-shell kitchen-shell">
       <header class="kitchen-heading">
-        <div><p class="kitchen-eyebrow">From my kitchen in Chicago</p><h1>Kitchen</h1></div>
-        <div class="kitchen-intro"><p>What I’m <em>cooking.</em></p><span>{entries.length} recipes from my home kitchen.</span></div>
+        <div class="kitchen-heading-copy">
+          <p class="kitchen-eyebrow">From my kitchen in Chicago</p>
+          <h1>Kitchen</h1>
+          <div class="kitchen-intro"><p>What I’m <em>cooking.</em></p><span>{entries.length} recipes from my home kitchen.</span></div>
+        </div>
+        <KitchenCounter />
       </header>
       <KitchenCollection entries={entries} />
     </main>
